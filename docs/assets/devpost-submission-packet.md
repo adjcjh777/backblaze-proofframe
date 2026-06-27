@@ -23,6 +23,10 @@ https://github.com/adjcjh777/backblaze-proofframe
 
 https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 
+## Demo Video URL
+
+TBD after final B2 and Genblaze proof.
+
 ## Short Description
 
 ProofFrame is a review desk for generated media. The local demo creates a campaign, generates mock variants, approves or rejects assets, exports a manifest, and downloads an evidence ZIP with prompts, provider/model fields, storage references, hashes, and approval status. The final hackathon submission gate is to verify the same flow with Genblaze-backed generation and Backblaze B2-backed storage.

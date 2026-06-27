@@ -2,7 +2,7 @@
 
 Mode: `pre_live_control`
 Safe to submit: `false`
-Created: `2026-06-27T17:13:17Z`
+Created: `2026-06-27T17:20:08Z`
 Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 Repository: https://github.com/adjcjh777/backblaze-proofframe
 
@@ -60,6 +60,7 @@ python scripts/final_env_wizard.py --output .env.final.local
 python scripts/live_env_handoff.py --env-file .env.final.local
 python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out docs/assets/b2-live-proof-evidence.json
 python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json
+python scripts/devpost_packet.py --post-live --video-url <public video URL>
 python scripts/secret_scan.py
 python scripts/devpost_form_kit.py --strict-final
 python scripts/demo_storyboard.py --strict-final

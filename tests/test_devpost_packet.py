@@ -27,12 +27,22 @@ def test_default_packet_uses_pre_live_safe_claims():
 
 
 def test_live_packet_uses_verified_claim_copy():
-    packet = devpost_packet.build_packet(live=True)
+    packet = devpost_packet.build_packet(live=True, video_url="https://youtu.be/example-proof")
 
     assert packet["mode"] == "post_live_verified"
     assert "Backblaze B2-backed evidence packets" in packet["short_description"]
     assert "stores generated media" in packet["b2_usage"]
     assert "generates media through Genblaze" in packet["genblaze_usage"]
+    assert packet["video_url"] == "https://youtu.be/example-proof"
+
+
+def test_packet_rejects_placeholder_video_url():
+    try:
+        devpost_packet.build_packet(live=True, video_url="TBD after upload")
+    except ValueError as exc:
+        assert "video_url" in str(exc)
+    else:
+        raise AssertionError("Expected invalid video_url to raise ValueError")
 
 
 def test_write_packet_creates_json_and_markdown(tmp_path):
@@ -48,6 +58,7 @@ def test_write_packet_creates_json_and_markdown(tmp_path):
     assert "# Devpost Submission Packet" in markdown
     assert "Mode: `pre_live_safe`" in markdown
     assert "## Backblaze B2 Usage" in markdown
+    assert "## Demo Video URL" in markdown
     assert "## Submission Checklist" in markdown
     assert "T040 [done] Devpost registration complete" in markdown
 

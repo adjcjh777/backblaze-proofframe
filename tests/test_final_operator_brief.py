@@ -127,6 +127,9 @@ def test_final_operator_brief_is_ready_for_secret_entry(tmp_path):
     ]
     assert report["safety_policy"]["env_final_local_ignored"] is True
     assert any("least-privilege Backblaze B2" in action for action in report["user_actions"])
+    assert "python scripts/devpost_packet.py --post-live --video-url <public video URL>" in report[
+        "codex_actions_after_credentials"
+    ]
 
 
 def test_final_operator_brief_blocks_unexpected_missing_values(tmp_path):

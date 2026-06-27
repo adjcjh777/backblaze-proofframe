@@ -218,6 +218,7 @@ python scripts/live_env_handoff.py --env-file .env.final.local
 python scripts/devpost_event_snapshot.py --fetch-live
 python scripts/run_final_live_proof.py \
   --evidence-out docs/assets/final-live-proof-evidence.json
+python scripts/devpost_packet.py --post-live --video-url <public video URL>
 python scripts/devpost_form_kit.py --strict-final
 python scripts/demo_storyboard.py --strict-final
 python scripts/demo_readiness.py --strict-final

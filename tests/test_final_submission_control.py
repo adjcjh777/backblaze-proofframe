@@ -219,3 +219,4 @@ def test_control_report_writes_json_and_markdown(tmp_path):
     assert saved["schema"] == "proofframe.final_submission_control.v1"
     assert "# ProofFrame Final Submission Control" in markdown
     assert "Safe to submit: `false`" in markdown
+    assert "python scripts/devpost_packet.py --post-live --video-url <public video URL>" in markdown

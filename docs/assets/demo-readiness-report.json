@@ -36,7 +36,7 @@
     {
       "path": "README.md",
       "present": true,
-      "bytes": 8002
+      "bytes": 8746
     },
     {
       "path": "docs/demo_script.md",
@@ -56,7 +56,7 @@
     {
       "path": "docs/assets/devpost-submission-packet.md",
       "present": true,
-      "bytes": 5108
+      "bytes": 5167
     },
     {
       "path": "docs/assets/devpost-form-kit.json",
@@ -71,22 +71,22 @@
     {
       "path": "docs/assets/submission-bundle-manifest.json",
       "present": true,
-      "bytes": 14316
+      "bytes": 16904
     },
     {
       "path": "docs/assets/submission-bundle-manifest.md",
       "present": true,
-      "bytes": 5910
+      "bytes": 7001
     },
     {
       "path": "docs/assets/live-credential-handoff.json",
       "present": true,
-      "bytes": 4270
+      "bytes": 4171
     },
     {
       "path": "docs/assets/live-credential-handoff.md",
       "present": true,
-      "bytes": 2273
+      "bytes": 2055
     },
     {
       "path": "docs/assets/demo-storyboard.json",

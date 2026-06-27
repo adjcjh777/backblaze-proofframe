@@ -35,6 +35,7 @@ OPERATOR_COMMANDS = [
     "python scripts/live_env_handoff.py --env-file .env.final.local",
     "python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out docs/assets/b2-live-proof-evidence.json",
     "python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json",
+    "python scripts/devpost_packet.py --post-live --video-url <public video URL>",
     "python scripts/secret_scan.py",
     "python scripts/devpost_form_kit.py --strict-final",
     "python scripts/demo_storyboard.py --strict-final",

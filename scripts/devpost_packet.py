@@ -160,9 +160,23 @@ def checklist_item(
     }
 
 
-def build_packet(*, live: bool = False, tasks_path: Path = DEFAULT_TASKS) -> dict[str, Any]:
+def usable_video_url(value: str) -> bool:
+    text = value.strip()
+    return text.startswith(("https://", "http://")) and not text.lower().startswith("tbd")
+
+
+def build_packet(
+    *,
+    live: bool = False,
+    tasks_path: Path = DEFAULT_TASKS,
+    video_url: str | None = None,
+) -> dict[str, Any]:
     packet = dict(BASE_PACKET)
     packet.update(SAFE_AFTER_LIVE if live else SAFE_BEFORE_LIVE)
+    if video_url is not None:
+        if not usable_video_url(video_url):
+            raise ValueError("video_url must be an http(s) URL, not a placeholder.")
+        packet["video_url"] = video_url.strip()
     task_statuses = load_task_statuses(tasks_path)
     packet["submission_checklist"] = [
         checklist_item(task_statuses, "T020", "B2 live proof complete"),
@@ -195,6 +209,7 @@ def render_markdown(packet: dict[str, Any]) -> str:
         markdown_section("One-Liner", packet["one_liner"]),
         markdown_section("Repository", packet["repository_url"]),
         markdown_section("Demo URL", packet["demo_url"]),
+        markdown_section("Demo Video URL", packet["video_url"]),
         markdown_section("Short Description", packet["short_description"]),
         markdown_section("Inspiration", packet["inspiration"]),
         markdown_section("What It Does", packet["what_it_does"]),
@@ -226,6 +241,15 @@ def write_packet(packet: dict[str, Any], json_path: Path, markdown_path: Path) -
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Build copy-ready Devpost submission packets.")
     parser.add_argument("--live", action="store_true", help="Use post-live verified sponsor copy.")
+    parser.add_argument(
+        "--post-live",
+        action="store_true",
+        help="Alias for --live; useful in final operator runbooks.",
+    )
+    parser.add_argument(
+        "--video-url",
+        help="Final public demo video URL. Must be an http(s) URL when provided.",
+    )
     parser.add_argument("--tasks", type=Path, default=DEFAULT_TASKS)
     parser.add_argument("--json-out", type=Path, default=DEFAULT_JSON)
     parser.add_argument("--markdown-out", type=Path, default=DEFAULT_MD)
@@ -234,9 +258,28 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main() -> None:
     args = build_parser().parse_args()
-    packet = build_packet(live=args.live, tasks_path=args.tasks)
+    try:
+        packet = build_packet(
+            live=args.live or args.post_live,
+            tasks_path=args.tasks,
+            video_url=args.video_url,
+        )
+    except ValueError as exc:
+        print(json.dumps({"ok": False, "error": str(exc)}, indent=2))
+        raise SystemExit(2) from exc
     write_packet(packet, args.json_out, args.markdown_out)
-    print(json.dumps({"ok": True, "mode": packet["mode"], "json": str(args.json_out), "markdown": str(args.markdown_out)}, indent=2))
+    print(
+        json.dumps(
+            {
+                "ok": True,
+                "mode": packet["mode"],
+                "video_url": packet["video_url"],
+                "json": str(args.json_out),
+                "markdown": str(args.markdown_out),
+            },
+            indent=2,
+        )
+    )
 
 
 if __name__ == "__main__":
