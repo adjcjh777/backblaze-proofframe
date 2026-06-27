@@ -25,6 +25,7 @@ ARTIFACTS = [
     ("devpost_draft", "docs/devpost_draft.md", "Copy-ready Devpost fields"),
     ("devpost_packet_json", "docs/assets/devpost-submission-packet.json", "Machine-readable Devpost copy"),
     ("devpost_packet_md", "docs/assets/devpost-submission-packet.md", "Human-readable Devpost copy"),
+    ("frontend_ui", "apps/web/index.html", "Browser proof ledger UI"),
     ("demo_script", "docs/demo_script.md", "Video shot list and narration"),
     ("evidence_package", "docs/evidence_package.md", "Evidence package plan"),
     ("public_claim_freeze", "docs/public_claim_freeze.md", "Verified-claim boundary"),

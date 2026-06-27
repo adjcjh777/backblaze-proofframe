@@ -24,6 +24,8 @@ def test_health_and_campaign_flow(tmp_path):
     assert index_response.status_code == 200
     assert "Generated Media Ledger" in index_response.text
     assert "Search Evidence" in index_response.text
+    assert "Judge recording slate" in index_response.text
+    assert "Claim Boundary" in index_response.text
     assert "Submission readiness gate" in index_response.text
     assert "shouldAutoLoadJudgeDemo" in index_response.text
 

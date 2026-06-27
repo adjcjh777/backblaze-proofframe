@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.submission_bundle.v1",
-  "created_at": "2026-06-27T08:53:40Z",
+  "created_at": "2026-06-27T09:09:15Z",
   "project": "ProofFrame",
   "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
@@ -57,8 +57,8 @@
       "path": "README.md",
       "label": "Core public project overview",
       "present": true,
-      "bytes": 6314,
-      "sha256": "1f000e83aad41455f3fcf07bb62817130e1c4a81e4942ad6b82357ba14cdbba7"
+      "bytes": 6343,
+      "sha256": "4742b39bf36cb1d453df602601525b1969d3388236b6fff23d1ea4a09708f657"
     },
     {
       "id": "prd",
@@ -101,20 +101,28 @@
       "sha256": "8467e9a35e2a9de8fb62900c5a5d4ee4fe9100c8342fb7f0734a8eebabd133f0"
     },
     {
+      "id": "frontend_ui",
+      "path": "apps/web/index.html",
+      "label": "Browser proof ledger UI",
+      "present": true,
+      "bytes": 36252,
+      "sha256": "29c0a95a1757b5a4689c45adedeee99b8906b8265c6cfe7c7382369b4692a471"
+    },
+    {
       "id": "demo_script",
       "path": "docs/demo_script.md",
       "label": "Video shot list and narration",
       "present": true,
-      "bytes": 4937,
-      "sha256": "cb991f75ef12fdcb56f078594eb7c953686d0adb8fc6bbf4ad47033a4b8dad80"
+      "bytes": 5002,
+      "sha256": "d7be4ed84f2e7722a7963f0aa77c914b652eb0935387e1a4ddd68434e07852c0"
     },
     {
       "id": "evidence_package",
       "path": "docs/evidence_package.md",
       "label": "Evidence package plan",
       "present": true,
-      "bytes": 8119,
-      "sha256": "713e76cd66a700cf4376c506749f9c8cb7afad3b6b29e546ffd79b437c09b0d9"
+      "bytes": 8282,
+      "sha256": "3f344aa328fb9ca2991c9bf201cc312cb44969c4f5dd0ba27a4fbfe1cdd685c8"
     },
     {
       "id": "public_claim_freeze",
@@ -154,7 +162,7 @@
       "label": "Machine-readable demo readiness report",
       "present": true,
       "bytes": 2405,
-      "sha256": "8da27110598cb3834151a9a0c687f2d04fdf73c64919da4f2d22ec6014abf03a"
+      "sha256": "4517a1cf8a8ebecfd36d719ed3af9a3e47b89897947b228ebffe2a632bc771c8"
     },
     {
       "id": "demo_readiness_md",
@@ -185,16 +193,16 @@
       "path": "tasks.json",
       "label": "Machine-readable task board",
       "present": true,
-      "bytes": 16978,
-      "sha256": "1c71331fb22e0be18ff91829a56f067ddfe138ee3bb4c22c751637d7e23a857d"
+      "bytes": 17371,
+      "sha256": "be526456f88b5d162ba1bf6434e79d50b4072289e5a418213c01e3083e907f33"
     },
     {
       "id": "local_ui_smoke",
       "path": "docs/assets/proofframe-local-ui-smoke.png",
       "label": "Local UI screenshot",
       "present": true,
-      "bytes": 221853,
-      "sha256": "2685c1c53b3589bea70f23a0ef1a1ba19540b4ea932b55ca1e1832d647d733a0"
+      "bytes": 364927,
+      "sha256": "cca671ad38bda4dcb82ef9266cf34438d6a30f2293b06d01bc7f6ad1c0a160bf"
     },
     {
       "id": "review_console_smoke",

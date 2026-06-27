@@ -11,6 +11,7 @@ Show that ProofFrame is not just a media generator. It is an approval and proven
 ## Current Recording Assets
 
 - Browser UI screenshot: `docs/assets/proofframe-local-ui-smoke.png`
+- Judge recording slate: first viewport of `apps/web/index.html`
 - Local app route: `http://127.0.0.1:8088/`
 - Public repo: `https://github.com/adjcjh777/backblaze-proofframe`
 - Demo readiness report: `docs/assets/demo-readiness-report.md`

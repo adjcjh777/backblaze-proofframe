@@ -62,7 +62,7 @@ Stage 1 is complete enough for local demo iteration: FastAPI MVP skeleton, mock 
 
 Stage 2 is in progress: B2-compatible storage code and a Genblaze/GMICloud image provider path exist, but live B2 and Genblaze runs still need credentials/provider verification before final submission claims.
 
-Stage 3 preparation is active: the public mock demo is deployed, Review Console polish is captured, Devpost/evidence/claim-freeze docs are ready for the final sponsor-integration pass, API evidence exports fail closed if secret-like values appear, and the app now displays a fail-closed submission gate dashboard for final task/live-proof status.
+Stage 3 preparation is active: the public mock demo is deployed, Review Console polish is captured, Devpost/evidence/claim-freeze docs are ready for the final sponsor-integration pass, API evidence exports fail closed if secret-like values appear, and the app now displays a fail-closed submission gate dashboard plus a judge recording slate for final task/live-proof status.
 
 ![ProofFrame local UI smoke](docs/assets/proofframe-local-ui-smoke.png)
 

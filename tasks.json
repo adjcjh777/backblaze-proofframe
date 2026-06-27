@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T08:51:54Z",
+  "updated_at": "2026-06-27T08:59:49Z",
   "tasks": [
     {
       "id": "T001",
@@ -361,6 +361,15 @@
       "status": "done",
       "done_criteria": "A script and committed report prove mock recording assets are ready and final video remains gated on live B2/Genblaze evidence.",
       "notes": "Added scripts/demo_readiness.py, tests, CI wiring, and docs/assets/demo-readiness-report.{json,md}."
+    },
+    {
+      "id": "T039Q",
+      "title": "Add judge recording slate",
+      "phase": "P3 Demo",
+      "owner": "codex",
+      "status": "done",
+      "done_criteria": "The first viewport shows demo mode, evidence packet state, and public claim boundary for judge recordings.",
+      "notes": "Added a recording slate to apps/web/index.html, tests, docs, and bundle manifest coverage."
     },
     {
       "id": "T040",

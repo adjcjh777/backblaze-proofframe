@@ -222,6 +222,51 @@
         padding-bottom: 20px;
       }
 
+      .judge-slate {
+        background: rgba(255, 255, 255, 0.42);
+        border-bottom: 1px solid var(--rule);
+        border-top: 1px solid var(--ink);
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        margin: 18px 0 24px;
+      }
+
+      .slate-item {
+        min-height: 86px;
+        padding: 14px 16px;
+        border-right: 1px solid var(--rule);
+      }
+
+      .slate-item:last-child {
+        border-right: 0;
+      }
+
+      .slate-item label {
+        color: var(--muted);
+        display: block;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        margin-bottom: 9px;
+        text-transform: uppercase;
+      }
+
+      .slate-item strong {
+        display: block;
+        font-size: 18px;
+        line-height: 1.15;
+        margin-bottom: 8px;
+      }
+
+      .slate-item span {
+        color: var(--muted);
+        display: block;
+        font-family: var(--mono);
+        font-size: 11px;
+        line-height: 1.45;
+        overflow-wrap: anywhere;
+      }
+
       h1 {
         font-family: var(--display);
         font-size: 44px;
@@ -494,8 +539,18 @@
         }
 
         .review-console,
-        .scorecard {
+        .scorecard,
+        .judge-slate {
           grid-template-columns: 1fr;
+        }
+
+        .slate-item {
+          border-right: 0;
+          border-bottom: 1px solid var(--rule);
+        }
+
+        .slate-item:last-child {
+          border-bottom: 0;
         }
 
         .packet-bar {
@@ -574,6 +629,24 @@
           </div>
         </div>
 
+        <section class="judge-slate" aria-label="Judge recording slate">
+          <div class="slate-item">
+            <label>Demo Mode</label>
+            <strong id="slateMode">Checking...</strong>
+            <span id="slateRuntime">Waiting for runtime.</span>
+          </div>
+          <div class="slate-item">
+            <label>Evidence Packet</label>
+            <strong id="slatePacket">No packet yet</strong>
+            <span id="slatePacketDetail">Awaiting manifest evidence.</span>
+          </div>
+          <div class="slate-item">
+            <label>Claim Boundary</label>
+            <strong id="slateClaim">Pre-live safe</strong>
+            <span id="slateClaimDetail">Live B2 and Genblaze proof remain gated.</span>
+          </div>
+        </section>
+
         <section class="brief-panel" aria-label="Campaign brief">
           <div class="field">
             <label for="title">Campaign</label>
@@ -649,7 +722,7 @@
         <section class="packet-bar" aria-label="Packet actions">
           <div>
             <strong id="packetStatus">No packet exported</strong>
-            <div class="mono" id="packetKey">Create and export a campaign manifest.</div>
+            <div class="mono" id="packetKey">Awaiting campaign manifest.</div>
           </div>
           <div class="action-row">
             <button id="exportPacket" disabled>Export Manifest</button>
@@ -714,6 +787,9 @@
         selectedAssetId: null,
         manifest: {},
         submissionGate: null,
+        health: null,
+        packetStatus: "No packet exported",
+        packetDetail: "Awaiting campaign manifest.",
         filters: {
           query: "",
           status: "all",
@@ -775,12 +851,14 @@
 
       async function loadHealth() {
         const health = await api("/api/health");
+        state.health = health;
         el("storageStatus").textContent = `${health.storage_backend}${
           health.b2_configured ? " / B2 configured" : " / B2 pending"
         }`;
         el("generationStatus").textContent = `${health.generation_backend}${
           health.genblaze_configured ? " / Genblaze configured" : " / Genblaze pending"
         }`;
+        renderJudgeSlate();
       }
 
       async function loadSubmissionGate() {
@@ -819,6 +897,39 @@
         const evidence = gate.evidence_gate?.ok ? "Live B2 + Genblaze proof verified." : "Live proof missing.";
         const firstAction = gate.next_actions?.[0] || evidence;
         el("gateNextAction").textContent = `${evidence} Next: ${firstAction}`;
+        renderJudgeSlate();
+      }
+
+      function setPacketCopy(status, detail) {
+        state.packetStatus = status;
+        state.packetDetail = detail;
+        el("packetStatus").textContent = status;
+        el("packetKey").textContent = detail;
+        renderJudgeSlate();
+      }
+
+      function renderJudgeSlate() {
+        const health = state.health || {};
+        const gate = state.submissionGate || {};
+        const total = state.assets.length;
+        const approved = state.assets.filter((asset) => asset.status === "approved").length;
+        const runtime = `${health.storage_backend || "checking"} storage / ${
+          health.generation_backend || "checking"
+        } generation`;
+        const finalReady = Boolean(gate.ok);
+        const claimMode = gate.mode === "final_ready" ? "Post-live verified" : "Pre-live safe";
+        const nextAction =
+          gate.next_actions?.[0] ||
+          (finalReady ? "Ready for final Devpost submission." : "Live B2 and Genblaze proof remain gated.");
+
+        el("slateMode").textContent = finalReady ? "Final-ready proof" : "Public mock demo";
+        el("slateRuntime").textContent = runtime;
+        el("slatePacket").textContent = total
+          ? `${total} assets / ${approved} approved`
+          : state.packetStatus;
+        el("slatePacketDetail").textContent = state.packetDetail;
+        el("slateClaim").textContent = claimMode;
+        el("slateClaimDetail").textContent = nextAction;
       }
 
       function renderCampaigns() {
@@ -889,6 +1000,7 @@
           ? `${firstAsset.storage_backend} / ${firstAsset.provider}`
           : "No backend yet";
         el("copySummary").disabled = !state.campaign || total === 0;
+        renderJudgeSlate();
       }
 
       function renderInspector() {
@@ -925,6 +1037,7 @@
         });
         state.assets = [];
         state.selectedAssetId = null;
+        setPacketCopy("No packet exported", "Campaign manifest pending export.");
         el("generateAssets").disabled = false;
         await loadCampaigns();
         await refreshManifest();
@@ -962,8 +1075,7 @@
       async function exportPacket() {
         const packet = await api(`/api/campaigns/${state.campaign.id}/export`, { method: "POST" });
         state.manifest = packet.manifest;
-        el("packetStatus").textContent = "Manifest exported";
-        el("packetKey").textContent = packet.stored_manifest.storage_key;
+        setPacketCopy("Manifest exported", packet.stored_manifest.storage_key);
         renderInspector();
       }
 
@@ -977,9 +1089,10 @@
         await loadCampaigns();
         renderAssets();
         renderInspector();
-        el("packetStatus").textContent =
-          source === "auto" ? "Judge demo auto-loaded" : "Judge demo packet ready";
-        el("packetKey").textContent = "Approve, export, or download the evidence ZIP.";
+        setPacketCopy(
+          source === "auto" ? "Judge demo auto-loaded" : "Judge demo packet ready",
+          "Public-safe evidence ZIP staged.",
+        );
       }
 
       async function copySummary() {
@@ -999,8 +1112,7 @@
           "No secrets, credentials, cookies, or signed URLs are included in this summary.",
         ];
         await navigator.clipboard.writeText(lines.join("\n"));
-        el("packetStatus").textContent = "Evidence summary copied";
-        el("packetKey").textContent = `${state.campaign.id} summary copied without secrets.`;
+        setPacketCopy("Evidence summary copied", `${state.campaign.id} summary copied without secrets.`);
       }
 
       function downloadPacket() {
@@ -1011,8 +1123,7 @@
         document.body.appendChild(link);
         link.click();
         link.remove();
-        el("packetStatus").textContent = "Evidence packet download started";
-        el("packetKey").textContent = `${state.campaign.id}-proofframe-packet.zip`;
+        setPacketCopy("Evidence packet download started", `${state.campaign.id}-proofframe-packet.zip`);
       }
 
       el("createCampaign").addEventListener("click", createCampaign);
@@ -1052,8 +1163,7 @@
       }
 
       boot().catch((error) => {
-        el("packetStatus").textContent = "Runtime error";
-        el("packetKey").textContent = error.message;
+        setPacketCopy("Runtime error", error.message);
       });
     </script>
   </body>

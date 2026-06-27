@@ -36,12 +36,12 @@
     {
       "path": "README.md",
       "present": true,
-      "bytes": 6314
+      "bytes": 6343
     },
     {
       "path": "docs/demo_script.md",
       "present": true,
-      "bytes": 4937
+      "bytes": 5002
     },
     {
       "path": "docs/public_claim_freeze.md",
@@ -61,17 +61,17 @@
     {
       "path": "docs/assets/submission-bundle-manifest.json",
       "present": true,
-      "bytes": 7350
+      "bytes": 7597
     },
     {
       "path": "docs/assets/submission-bundle-manifest.md",
       "present": true,
-      "bytes": 2996
+      "bytes": 3090
     },
     {
       "path": "docs/assets/proofframe-local-ui-smoke.png",
       "present": true,
-      "bytes": 221853
+      "bytes": 364927
     },
     {
       "path": "docs/assets/proofframe-review-console-smoke.png",
