@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T05:58:35Z",
+  "updated_at": "2026-06-27T06:05:15Z",
   "tasks": [
     {
       "id": "T001",
@@ -190,6 +190,15 @@
       "status": "done",
       "done_criteria": "Local demo can download a ZIP containing manifest, README, and available media files.",
       "notes": "Added /api/campaigns/{id}/packet.zip and Download ZIP UI action."
+    },
+    {
+      "id": "T037",
+      "title": "Add one-click judge demo packet",
+      "phase": "P3 Polish",
+      "owner": "executor",
+      "status": "done",
+      "done_criteria": "UI and API can create a complete judge-ready local packet without manual form entry.",
+      "notes": "Added /api/demo/judge-packet, Judge Demo UI action, tests, and smoke coverage."
     },
     {
       "id": "T040",

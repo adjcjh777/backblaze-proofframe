@@ -405,8 +405,9 @@
             </p>
           </div>
           <div class="action-row">
+            <button id="judgeDemo">Judge Demo</button>
             <button class="secondary" id="loadCampaigns">Refresh</button>
-            <button id="sampleBrief">Load Sample</button>
+            <button class="secondary" id="sampleBrief">Load Sample</button>
           </div>
         </div>
 
@@ -663,6 +664,20 @@
         renderInspector();
       }
 
+      async function loadJudgeDemo() {
+        const demo = await api("/api/demo/judge-packet", { method: "POST" });
+        state.campaign = demo.campaign;
+        state.assets = demo.assets;
+        state.manifest = demo.manifest;
+        state.selectedAssetId = state.assets[0]?.id || null;
+        el("generateAssets").disabled = false;
+        await loadCampaigns();
+        renderAssets();
+        renderInspector();
+        el("packetStatus").textContent = "Judge demo packet ready";
+        el("packetKey").textContent = "Approve, export, or download the evidence ZIP.";
+      }
+
       function downloadPacket() {
         if (!state.campaign) return;
         const link = document.createElement("a");
@@ -681,6 +696,7 @@
       el("rejectAsset").addEventListener("click", () => updateStatus("rejected"));
       el("exportPacket").addEventListener("click", exportPacket);
       el("downloadPacket").addEventListener("click", downloadPacket);
+      el("judgeDemo").addEventListener("click", loadJudgeDemo);
       el("loadCampaigns").addEventListener("click", loadCampaigns);
       el("sampleBrief").addEventListener("click", () => {
         el("title").value = "Indie Film Festival Packet";

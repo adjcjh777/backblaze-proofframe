@@ -52,7 +52,7 @@ python3 scripts/task.py block T010 --note "Requires account setup"
 
 Stage 0 is complete: selected competition, repo, PRD/spec/todo, Agent Bus team, official-rule scout report, and GitHub setup.
 
-Stage 1 is complete enough for local demo iteration: FastAPI MVP skeleton, mock generation, local storage, manifest export, downloadable evidence packets, and the Proof Ledger browser UI.
+Stage 1 is complete enough for local demo iteration: FastAPI MVP skeleton, mock generation, local storage, manifest export, downloadable evidence packets, one-click Judge Demo packets, and the Proof Ledger browser UI.
 
 Stage 2 is in progress: B2-compatible storage code and a Genblaze/GMICloud image provider path exist, but live B2 and Genblaze runs still need credentials/provider verification before final submission claims.
 

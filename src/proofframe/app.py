@@ -14,7 +14,7 @@ from fastapi.staticfiles import StaticFiles
 
 from . import __version__
 from .config import ConfigurationError, Settings
-from .models import Asset, AssetStatusUpdate, Campaign, CampaignCreate, CampaignManifest
+from .models import Asset, AssetStatus, AssetStatusUpdate, Campaign, CampaignCreate, CampaignManifest
 from .providers import create_media_provider
 from .repository import MemoryRepository
 from .storage import create_storage_backend, manifest_to_plain_json
@@ -56,6 +56,26 @@ def create_app(storage_root: Path | str | None = None, settings: Settings | None
     app.state.storage = storage
     app.state.settings = settings
 
+    def persist_generated_assets(campaign: Campaign, count: int) -> list[Asset]:
+        generated = generator.generate(campaign, count=max(1, min(count, 6)))
+        assets: list[Asset] = []
+        for media in generated:
+            stored = storage.put_media(campaign.id, media)
+            asset = Asset(
+                campaign_id=campaign.id,
+                prompt=media.prompt,
+                provider=media.provider,
+                model=media.model,
+                storage_backend=stored.storage_backend,
+                storage_key=stored.storage_key,
+                public_url=stored.public_url,
+                sha256=stored.sha256,
+                bytes_size=stored.bytes_size,
+                generation_metadata=media.generation_metadata,
+            )
+            assets.append(repo.add_asset(asset))
+        return assets
+
     @app.get("/")
     def index() -> FileResponse:
         index_path = frontend_index_path()
@@ -90,24 +110,32 @@ def create_app(storage_root: Path | str | None = None, settings: Settings | None
         campaign = repo.get_campaign(campaign_id)
         if campaign is None:
             raise HTTPException(status_code=404, detail="Campaign not found")
-        generated = generator.generate(campaign, count=max(1, min(count, 6)))
-        assets: list[Asset] = []
-        for media in generated:
-            stored = storage.put_media(campaign.id, media)
-            asset = Asset(
-                campaign_id=campaign.id,
-                prompt=media.prompt,
-                provider=media.provider,
-                model=media.model,
-                storage_backend=stored.storage_backend,
-                storage_key=stored.storage_key,
-                public_url=stored.public_url,
-                sha256=stored.sha256,
-                bytes_size=stored.bytes_size,
-                generation_metadata=media.generation_metadata,
+        return persist_generated_assets(campaign, count)
+
+    @app.post("/api/demo/judge-packet")
+    def create_judge_packet() -> dict[str, object]:
+        campaign = repo.add_campaign(
+            Campaign(
+                title="Judge Ready Provenance Packet",
+                audience="hackathon judges, creative leads, and storage reviewers",
+                tone="credible, warm, production-minded",
+                brief=(
+                    "Create a public-safe launch visual packet for an arts nonprofit. "
+                    "The packet should prove prompt, provider, model, storage key, checksum, "
+                    "and approval state without exposing secrets."
+                ),
             )
-            assets.append(repo.add_asset(asset))
-        return assets
+        )
+        assets = persist_generated_assets(campaign, count=3)
+        if assets:
+            assets[0].status = AssetStatus.approved
+            assets[0].risk_note = "Approved demo asset: provenance, checksum, and storage route verified."
+        manifest = CampaignManifest(campaign=campaign, assets=repo.list_assets(campaign.id))
+        return {
+            "campaign": campaign.model_dump(mode="json"),
+            "assets": [asset.model_dump(mode="json") for asset in repo.list_assets(campaign.id)],
+            "manifest": manifest_to_plain_json(manifest),
+        }
 
     @app.post("/api/assets/{asset_id}/status", response_model=Asset)
     def update_asset_status(asset_id: str, payload: AssetStatusUpdate) -> Asset:

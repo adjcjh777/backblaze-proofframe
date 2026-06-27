@@ -32,6 +32,10 @@ Narration:
 
 > I start with a creative brief. The goal is to keep the creative workflow fast while preserving the operational details that teams usually lose: who generated what, with which model, under which brief.
 
+Fast path:
+
+> For a judge walkthrough, click Judge Demo to create a complete local packet immediately.
+
 ### 0:35-0:58 - Generate Variants
 
 On screen: click generate and show three assets in the ledger.
@@ -86,6 +90,7 @@ Narration:
 | --- | --- | --- |
 | Browser first screen | Yes | Ready: `docs/assets/proofframe-local-ui-smoke.png` |
 | Campaign creation | Yes | Ready in local app |
+| One-click Judge Demo | Yes | Ready in local app |
 | Generated asset ledger | Yes | Ready in local app |
 | Approval state change | Yes | Ready in local app |
 | Manifest export | Yes | Ready in local app |

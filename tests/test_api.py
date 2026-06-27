@@ -74,3 +74,24 @@ def test_health_and_campaign_flow(tmp_path):
         assert "README.txt" in names
         assert any(name.startswith("media/") and name.endswith(".svg") for name in names)
         assert campaign["id"] in packet.read("manifest.json").decode("utf-8")
+
+
+def test_judge_demo_packet_flow(tmp_path):
+    client = TestClient(create_app(storage_root=tmp_path))
+
+    demo_response = client.post("/api/demo/judge-packet")
+    assert demo_response.status_code == 200
+    demo = demo_response.json()
+    campaign = demo["campaign"]
+    assets = demo["assets"]
+
+    assert campaign["title"] == "Judge Ready Provenance Packet"
+    assert len(assets) == 3
+    assert assets[0]["status"] == "approved"
+    assert demo["manifest"]["campaign"]["id"] == campaign["id"]
+
+    packet_response = client.get(f"/api/campaigns/{campaign['id']}/packet.zip")
+    assert packet_response.status_code == 200
+    with ZipFile(BytesIO(packet_response.content)) as packet:
+        assert "manifest.json" in packet.namelist()
+        assert "README.txt" in packet.namelist()

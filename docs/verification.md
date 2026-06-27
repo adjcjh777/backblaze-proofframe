@@ -43,7 +43,7 @@ In another terminal:
 python scripts/api_smoke.py --base-url http://127.0.0.1:8088
 ```
 
-The JSON output should include `ok: true`, one generated asset checksum, one exported manifest checksum, and nonzero `packet_bytes`.
+The JSON output should include `ok: true`, one generated asset checksum, one exported manifest checksum, nonzero `packet_bytes`, and a `judge_demo_campaign_id`.
 
 ## Docker Smoke
 

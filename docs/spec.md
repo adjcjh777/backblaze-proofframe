@@ -62,6 +62,7 @@ FastAPI app
 | `POST` | `/api/campaigns` | Create campaign. |
 | `GET` | `/api/campaigns` | List campaigns. |
 | `POST` | `/api/campaigns/{id}/generate` | Generate variants. |
+| `POST` | `/api/demo/judge-packet` | Create a one-click judge-ready local demo packet. |
 | `POST` | `/api/assets/{id}/status` | Approve/reject asset. |
 | `GET` | `/api/campaigns/{id}/manifest` | Return manifest JSON. |
 | `POST` | `/api/campaigns/{id}/export` | Export packet. |

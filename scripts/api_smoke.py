@@ -79,6 +79,11 @@ def run_smoke(base_url: str) -> dict[str, Any]:
         if "manifest.json" not in packet_names or "README.txt" not in packet_names:
             raise SystemExit(f"Packet is missing required files: {packet_names}")
 
+    demo = request_json("POST", f"{base}/api/demo/judge-packet")
+    demo_assets = demo["assets"]
+    if len(demo_assets) != 3 or demo_assets[0]["status"] != "approved":
+        raise SystemExit("Judge demo packet did not return three assets with one approved asset.")
+
     return {
         "ok": True,
         "base_url": base,
@@ -91,6 +96,7 @@ def run_smoke(base_url: str) -> dict[str, Any]:
         "manifest_key": exported["stored_manifest"]["storage_key"],
         "manifest_sha256": exported["stored_manifest"]["sha256"],
         "packet_bytes": len(packet_bytes),
+        "judge_demo_campaign_id": demo["campaign"]["id"],
     }
 
 
