@@ -1,0 +1,122 @@
+# ProofFrame Technical Spec
+
+## Architecture
+
+```text
+Browser UI
+  |
+FastAPI app
+  |-- Campaign service
+  |-- Generation service
+  |     |-- MockMediaProvider
+  |     |-- GenblazeMediaProvider
+  |-- Storage service
+  |     |-- LocalStorageBackend
+  |     |-- B2StorageBackend
+  |-- Manifest service
+  |-- SQLite repository
+```
+
+## Data Model
+
+### Campaign
+
+- `id`
+- `title`
+- `brief`
+- `audience`
+- `tone`
+- `created_at`
+
+### Asset
+
+- `id`
+- `campaign_id`
+- `kind`: image, video, audio, text
+- `status`: draft, approved, rejected
+- `prompt`
+- `provider`
+- `model`
+- `storage_backend`
+- `storage_key`
+- `public_url`
+- `sha256`
+- `risk_note`
+- `created_at`
+
+### Manifest
+
+- `manifest_version`
+- `campaign`
+- `assets[]`
+- `exported_at`
+- `app_version`
+
+## API Draft
+
+| Method | Path | Purpose |
+| --- | --- | --- |
+| `GET` | `/api/health` | Runtime health and adapter availability. |
+| `POST` | `/api/campaigns` | Create campaign. |
+| `GET` | `/api/campaigns` | List campaigns. |
+| `POST` | `/api/campaigns/{id}/generate` | Generate variants. |
+| `POST` | `/api/assets/{id}/status` | Approve/reject asset. |
+| `GET` | `/api/campaigns/{id}/manifest` | Return manifest JSON. |
+| `POST` | `/api/campaigns/{id}/export` | Export packet. |
+
+## Storage
+
+Local mode:
+
+- Writes media and manifests under `var/storage`.
+- Used by tests, demo fallback, and contributors without credentials.
+
+B2 mode:
+
+- Uses S3-compatible settings:
+  - `B2_ENDPOINT_URL`
+  - `B2_BUCKET`
+  - `B2_KEY_ID`
+  - `B2_APPLICATION_KEY`
+- Credentials are environment-only.
+- If required variables are missing, B2 mode must be unavailable rather than silently falling back during final verification.
+
+## Generation
+
+Mock mode:
+
+- Creates deterministic SVG/PNG-like artifacts and metadata from the prompt.
+- Guarantees repeatable tests.
+
+Genblaze mode:
+
+- Uses Genblaze/OpenAI-compatible API shape where possible.
+- Records provider/model/request metadata in the manifest.
+- Must never persist raw secrets.
+
+## Frontend Direction
+
+The interface should feel like a quiet production desk for media approvals:
+
+- Dense but calm asset table/gallery.
+- Visible storage and manifest details.
+- Strong first-viewport product signal: ProofFrame, campaign status, asset packet.
+- No generic purple AI hero.
+- Use an `index.html` entry file.
+- Include subtle "Created By Deerflow" signature as required by the frontend-design skill when generated frontend code is added.
+
+## Security
+
+- `.env` is ignored.
+- Provide `.env.example`.
+- Add a secret scan before final submission.
+- Do not print full storage keys or signed URLs in test logs unless sanitized.
+
+## Verification Gates
+
+- Unit tests for task ledger, manifest, storage adapters.
+- API smoke for `/api/health`.
+- Browser smoke for create/review/export happy path.
+- Docker build and local run.
+- Submission audit against Devpost requirements.
+

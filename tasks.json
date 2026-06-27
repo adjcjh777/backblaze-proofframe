@@ -1,0 +1,168 @@
+{
+  "project": "ProofFrame",
+  "updated_at": "2026-06-27T04:43:14Z",
+  "tasks": [
+    {
+      "id": "T001",
+      "title": "Select target hackathon and record decision evidence",
+      "phase": "P0 Foundation",
+      "owner": "controller",
+      "status": "done",
+      "done_criteria": "docs/research.md names the selected event, alternatives, evidence, and deadlines.",
+      "notes": "Selected Backblaze Generative Media Hackathon."
+    },
+    {
+      "id": "T002",
+      "title": "Create independent project repo and branch",
+      "phase": "P0 Foundation",
+      "owner": "controller",
+      "status": "done",
+      "done_criteria": "Git repo exists inside current directory on feature/backblaze-proofframe.",
+      "notes": "Avoids parent /Users/junhaocheng dirty tree."
+    },
+    {
+      "id": "T003",
+      "title": "Write PRD, technical spec, submission plan, and task board",
+      "phase": "P0 Foundation",
+      "owner": "controller",
+      "status": "done",
+      "done_criteria": "docs/prd.md, docs/spec.md, docs/submission.md, docs/todo.md, and tasks.json exist.",
+      "notes": "Foundation docs created"
+    },
+    {
+      "id": "T004",
+      "title": "Create Agent Bus team and attach at least one active role",
+      "phase": "P0 Foundation",
+      "owner": "controller",
+      "status": "done",
+      "done_criteria": "Team id and attached role are recorded in AGENTS.md.",
+      "notes": "Team proofframe-hackathon-58c62c50; scout attached."
+    },
+    {
+      "id": "T005",
+      "title": "Create GitHub repository and push foundation commit",
+      "phase": "P0 Foundation",
+      "owner": "controller",
+      "status": "todo",
+      "done_criteria": "Remote origin exists and feature/backblaze-proofframe is pushed.",
+      "notes": ""
+    },
+    {
+      "id": "T006",
+      "title": "Implement task ledger CLI",
+      "phase": "P0 Foundation",
+      "owner": "controller",
+      "status": "done",
+      "done_criteria": "scripts/task.py can list, show, mark done, and block tasks.",
+      "notes": "Task CLI supports list/show/status updates"
+    },
+    {
+      "id": "T010",
+      "title": "Build local FastAPI skeleton",
+      "phase": "P1 MVP",
+      "owner": "executor",
+      "status": "todo",
+      "done_criteria": "GET /api/health returns app, storage, and generation readiness.",
+      "notes": ""
+    },
+    {
+      "id": "T011",
+      "title": "Implement manifest model and checksum utility",
+      "phase": "P1 MVP",
+      "owner": "executor",
+      "status": "todo",
+      "done_criteria": "Unit tests cover manifest output and deterministic checksums.",
+      "notes": ""
+    },
+    {
+      "id": "T012",
+      "title": "Implement mock media provider",
+      "phase": "P1 MVP",
+      "owner": "executor",
+      "status": "todo",
+      "done_criteria": "Mock provider creates deterministic sample assets without network calls.",
+      "notes": ""
+    },
+    {
+      "id": "T013",
+      "title": "Implement local storage backend",
+      "phase": "P1 MVP",
+      "owner": "executor",
+      "status": "todo",
+      "done_criteria": "Assets and manifests write under var/storage and are retrievable.",
+      "notes": ""
+    },
+    {
+      "id": "T014",
+      "title": "Create first browser UI",
+      "phase": "P1 MVP",
+      "owner": "executor",
+      "status": "todo",
+      "done_criteria": "apps/web/index.html presents brief intake, asset review, manifest panel, and Deerflow signature.",
+      "notes": ""
+    },
+    {
+      "id": "T020",
+      "title": "Integrate Backblaze B2-compatible storage",
+      "phase": "P2 Integrations",
+      "owner": "executor",
+      "status": "todo",
+      "done_criteria": "B2 backend stores an asset and manifest using env-only credentials.",
+      "notes": "Requires user-created Backblaze credentials."
+    },
+    {
+      "id": "T021",
+      "title": "Integrate Genblaze-compatible generation",
+      "phase": "P2 Integrations",
+      "owner": "executor",
+      "status": "todo",
+      "done_criteria": "Generation adapter records provider/model metadata and fails closed without config.",
+      "notes": ""
+    },
+    {
+      "id": "T030",
+      "title": "Run browser smoke test",
+      "phase": "P3 Polish",
+      "owner": "tester",
+      "status": "todo",
+      "done_criteria": "Smoke creates a campaign, generates assets, approves one, and exports manifest.",
+      "notes": ""
+    },
+    {
+      "id": "T031",
+      "title": "Prepare demo video script and screenshots",
+      "phase": "P3 Polish",
+      "owner": "planner",
+      "status": "todo",
+      "done_criteria": "docs/demo_script.md and screenshots are ready for Devpost.",
+      "notes": ""
+    },
+    {
+      "id": "T040",
+      "title": "Register on Devpost",
+      "phase": "P4 Submit",
+      "owner": "controller",
+      "status": "blocked",
+      "done_criteria": "User account is registered for the Backblaze event.",
+      "notes": "Manual login/terms acceptance likely required."
+    },
+    {
+      "id": "T041",
+      "title": "Final submission audit",
+      "phase": "P4 Submit",
+      "owner": "reviewer",
+      "status": "todo",
+      "done_criteria": "Reviewer signs off on rules, secrets, claims, and public artifacts.",
+      "notes": ""
+    },
+    {
+      "id": "T042",
+      "title": "Submit Devpost project",
+      "phase": "P4 Submit",
+      "owner": "controller",
+      "status": "todo",
+      "done_criteria": "Devpost submission is accepted before 2026-08-04 08:00 Asia/Shanghai.",
+      "notes": ""
+    }
+  ]
+}
