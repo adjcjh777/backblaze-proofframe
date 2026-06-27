@@ -27,6 +27,7 @@ EVENT_SNAPSHOT = {
     "participant_count_checked_at": "2026-06-28 Asia/Shanghai",
     "participant_count_note": "Dynamic Devpost count; recheck before final public claims.",
 }
+EVENT_SNAPSHOT_SCHEMA = "proofframe.devpost_event_snapshot.v1"
 
 OPERATOR_COMMANDS = [
     "python scripts/final_env_wizard.py --prefill-non-secret --output .env.final.local",
@@ -130,6 +131,33 @@ def credential_summary(root: Path) -> dict[str, Any]:
     }
 
 
+def event_snapshot_summary(root: Path) -> dict[str, Any]:
+    path = root / "docs" / "assets" / "devpost-event-snapshot.json"
+    report = load_json(path)
+    if report is None:
+        return {
+            "present": False,
+            "path": display_path(path, root),
+            "schema_ok": False,
+            "schema": None,
+            "validation_ok": False,
+            "event": EVENT_SNAPSHOT,
+        }
+    validation = report.get("validation", {})
+    return {
+        "present": True,
+        "path": display_path(path, root),
+        "schema_ok": report.get("schema") == EVENT_SNAPSHOT_SCHEMA,
+        "schema": report.get("schema"),
+        "mode": report.get("mode"),
+        "validation_ok": bool(validation.get("ok")),
+        "submission_open": bool(validation.get("submission_open")),
+        "checked_at": report.get("checked_at"),
+        "age_days": validation.get("age_days"),
+        "event": {**EVENT_SNAPSHOT, **(report.get("event") or {})},
+    }
+
+
 def requirement(
     requirement_id: str,
     label: str,
@@ -152,6 +180,7 @@ def build_requirements(
     b2_evidence: dict[str, Any],
     statuses: dict[str, str],
     form: dict[str, Any],
+    event_snapshot: dict[str, Any],
     storyboard: dict[str, Any],
     demo: dict[str, Any],
     recording: dict[str, Any],
@@ -160,6 +189,7 @@ def build_requirements(
 ) -> list[dict[str, Any]]:
     summaries = {
         "Devpost form": form,
+        "Devpost event snapshot": event_snapshot,
         "Demo storyboard": storyboard,
         "Demo readiness": demo,
         "Recording assets": recording,
@@ -188,6 +218,20 @@ def build_requirements(
             and form.get("mode") in {"pre_live_form_ready", "final_form_ready"},
             f"Devpost form kit mode is {form.get('mode')}.",
             "docs/assets/devpost-form-kit.json",
+        ),
+        requirement(
+            "official_event_snapshot",
+            "Official Devpost event snapshot is fresh",
+            bool(event_snapshot.get("present"))
+            and bool(event_snapshot.get("schema_ok"))
+            and bool(event_snapshot.get("validation_ok"))
+            and bool(event_snapshot.get("submission_open")),
+            (
+                f"Snapshot checked at {event_snapshot.get('checked_at')}; "
+                f"submission open is {event_snapshot.get('submission_open')}; "
+                f"age days is {event_snapshot.get('age_days')}."
+            ),
+            "docs/assets/devpost-event-snapshot.json",
         ),
         requirement(
             "recording_assets",
@@ -291,6 +335,8 @@ def next_actions(requirements: list[dict[str, Any]]) -> list[str]:
         actions.append("Regenerate readiness reports so every control input has the expected schema.")
     if "credential_handoff" in missing:
         actions.append("Complete .env.final.local with B2_KEY_ID, B2_APPLICATION_KEY, and Genblaze/GMI API key values.")
+    if "official_event_snapshot" in missing:
+        actions.append("Refresh the official Devpost event snapshot before recording or submitting.")
     if "b2_live_proof" in missing:
         actions.append("Run the B2 live proof runner and save sanitized B2 evidence.")
     if "genblaze_live_proof" in missing:
@@ -313,6 +359,7 @@ def build_control_report(root: Path = ROOT) -> dict[str, Any]:
     gate = build_submission_gate(root)
     statuses = task_statuses(root)
     form = report_summary(root / "docs" / "assets" / "devpost-form-kit.json", "proofframe.devpost_form_kit.v1", root)
+    event_snapshot = event_snapshot_summary(root)
     storyboard = report_summary(root / "docs" / "assets" / "demo-storyboard.json", "proofframe.demo_storyboard.v1", root)
     demo = report_summary(root / "docs" / "assets" / "demo-readiness-report.json", "proofframe.demo_readiness.v1", root)
     recording = report_summary(root / "docs" / "assets" / "recording-assets.json", "proofframe.recording_assets.v1", root)
@@ -328,6 +375,7 @@ def build_control_report(root: Path = ROOT) -> dict[str, Any]:
         b2_evidence=b2_evidence,
         statuses=statuses,
         form=form,
+        event_snapshot=event_snapshot,
         storyboard=storyboard,
         demo=demo,
         recording=recording,
@@ -340,7 +388,7 @@ def build_control_report(root: Path = ROOT) -> dict[str, Any]:
         "created_at": utc_now(),
         "mode": "final_submit_ready" if ready else "pre_live_control",
         "safe_to_submit": ready,
-        "event": EVENT_SNAPSHOT,
+        "event": event_snapshot["event"],
         "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
         "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
         "submission_gate": {
@@ -354,6 +402,7 @@ def build_control_report(root: Path = ROOT) -> dict[str, Any]:
         "task_statuses": {task: statuses.get(task, "missing") for task in ["T020", "T021", "T040", "T041", "T041A", "T042"]},
         "report_inputs": {
             "devpost_form": form,
+            "devpost_event_snapshot": event_snapshot,
             "demo_storyboard": storyboard,
             "demo_readiness": demo,
             "recording_assets": recording,

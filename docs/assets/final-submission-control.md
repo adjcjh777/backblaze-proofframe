@@ -2,14 +2,14 @@
 
 Mode: `pre_live_control`
 Safe to submit: `false`
-Created: `2026-06-27T16:49:38Z`
+Created: `2026-06-27T17:02:25Z`
 Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 Repository: https://github.com/adjcjh777/backblaze-proofframe
 
 ## Event Snapshot
 
 - Event: Backblaze Generative Media Hackathon
-- Deadline: 2026-08-03 17:00 EDT / 2026-08-04 05:00 Asia/Shanghai
+- Deadline: Aug 3, 2026 @ 5:00pm EDT / 2026-08-04 05:00 Asia/Shanghai
 - Prize total: `$10000`
 - Observed participants: `343` checked `2026-06-28 Asia/Shanghai`
 - Source: https://backblaze-generative-media.devpost.com/
@@ -29,6 +29,7 @@ Repository: https://github.com/adjcjh777/backblaze-proofframe
 | --- | --- | --- | --- |
 | OK | Devpost registration complete | T040 is done. | `tasks.json` |
 | OK | Credential-free public demo is ready | Devpost form kit mode is pre_live_form_ready. | `docs/assets/devpost-form-kit.json` |
+| OK | Official Devpost event snapshot is fresh | Snapshot checked at 2026-06-27T17:00:51Z; submission open is True; age days is 0. | `docs/assets/devpost-event-snapshot.json` |
 | OK | Recording assets are ready | Recording assets mode is public_mock_verified; public mock verified is True. | `docs/assets/recording-assets.json` |
 | OK | Control input reports match expected schemas | All input report schemas are current. | `docs/assets/*.json readiness reports` |
 | PENDING | Backblaze B2 live proof captured | T020 is doing; B2 evidence status is missing; final evidence status is missing. | `tasks.json, docs/assets/b2-live-proof-evidence.json, and docs/assets/final-live-proof-evidence.json` |

@@ -60,6 +60,9 @@ jobs:
       - name: Devpost form kit
         run: python scripts/devpost_form_kit.py
 
+      - name: Devpost event snapshot
+        run: python scripts/devpost_event_snapshot.py --validate-committed
+
       - name: Demo storyboard
         run: python scripts/demo_storyboard.py
 

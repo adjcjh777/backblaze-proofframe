@@ -90,6 +90,7 @@ python scripts/run_final_live_proof.py --preflight-only
 python scripts/live_env_handoff.py
 python scripts/final_env_wizard.py --check-only
 python scripts/devpost_form_kit.py
+python scripts/devpost_event_snapshot.py --validate-committed
 python scripts/claim_lint.py
 python scripts/demo_storyboard.py
 python scripts/sponsor_fit_audit.py
@@ -108,6 +109,7 @@ The browser UI and `GET /api/submission/gate` expose the same fail-closed final 
 `scripts/final_env_wizard.py` creates a local git-ignored `.env.final.local` with 0600 permissions, can prefill non-secret B2/default values, and uses hidden prompts for credential values.
 `scripts/run_b2_live_proof.py` verifies the Backblaze B2 storage path independently with mock generation, so T020 can close before Genblaze credentials are ready.
 `scripts/devpost_form_kit.py` turns the safe packet into field-by-field Devpost copy with length checks and a strict final gate.
+`scripts/devpost_event_snapshot.py` keeps official Devpost deadline, participants, submission requirements, and judging criteria as a refreshable evidence report.
 `scripts/run_final_live_proof.py` is the final one-command live runner: once B2 and Genblaze env vars are present, it starts the app, verifies `/api/health` reports `b2` plus `genblaze`, writes sanitized final evidence, and stops the server.
 `scripts/claim_lint.py` keeps pre-live public copy from claiming completed Backblaze B2 or Genblaze proof before evidence exists.
 `scripts/demo_storyboard.py` keeps the demo video timeline under 3 minutes and tracks the public video URL as a final gate.
@@ -134,6 +136,7 @@ python scripts/claim_lint.py
 python scripts/live_env_handoff.py
 python scripts/final_env_wizard.py --check-only
 python scripts/devpost_form_kit.py
+python scripts/devpost_event_snapshot.py --validate-committed
 python scripts/demo_storyboard.py
 python scripts/demo_readiness.py
 python scripts/recording_assets.py

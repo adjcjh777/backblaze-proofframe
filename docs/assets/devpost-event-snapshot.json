@@ -1,0 +1,83 @@
+{
+  "schema": "proofframe.devpost_event_snapshot.v1",
+  "checked_at": "2026-06-27T17:00:51Z",
+  "mode": "live_official_snapshot",
+  "event": {
+    "name": "Backblaze Generative Media Hackathon",
+    "deadline_display": "Aug 3, 2026 @ 5:00pm EDT",
+    "deadline_utc": "2026-08-03T21:00:00Z",
+    "deadline_et": "Aug 3, 2026 @ 5:00pm EDT",
+    "deadline_beijing": "2026-08-04 05:00 Asia/Shanghai",
+    "participant_count_observed": 343,
+    "prize_total_usd": 10000,
+    "sponsor_tech": [
+      "Backblaze B2",
+      "Genblaze"
+    ],
+    "devpost_url": "https://backblaze-generative-media.devpost.com/",
+    "rules_url": "https://backblaze-generative-media.devpost.com/rules",
+    "participant_count_checked_at": "2026-06-28 Asia/Shanghai",
+    "participant_count_note": "Dynamic Devpost count; recheck before final public claims.",
+    "registration_period": "June 22, 2026 (10:00 am Eastern Time) \u2013 August 3, 2026 (5:00 pm Eastern Time) (\u201cRegistration and Submission Period\u201d).",
+    "judging_period": "August 5, 2026 (10:00 am Eastern Time) \u2013 August 11, 2026 (5:00 pm Eastern Time) (\u201cJudging Period\u201d).",
+    "winner_announced": "On or around August 12, 2026 (2:00 pm Eastern Time)."
+  },
+  "rules": {
+    "requirements": {
+      "working_app_url": true,
+      "github_repo_url": true,
+      "demo_video": true,
+      "video_under_three_minutes": true,
+      "public_video_host": true,
+      "b2_usage": true,
+      "genblaze_usage": true
+    },
+    "judging_criteria": [
+      {
+        "name": "Real-world Utility",
+        "present": true
+      },
+      {
+        "name": "Production Readiness",
+        "present": true
+      },
+      {
+        "name": "B2 Storage + Data Orchestration",
+        "present": true
+      },
+      {
+        "name": "Use of Genblaze",
+        "present": true
+      }
+    ],
+    "feedback_prize_present": true,
+    "rules_participant_count_observed": 343
+  },
+  "sources": [
+    {
+      "id": "overview",
+      "url": "https://backblaze-generative-media.devpost.com/",
+      "ok": true,
+      "status": 200,
+      "bytes": 89421,
+      "error": null,
+      "transport": "curl"
+    },
+    {
+      "id": "rules",
+      "url": "https://backblaze-generative-media.devpost.com/rules",
+      "ok": true,
+      "status": 200,
+      "bytes": 101003,
+      "error": null,
+      "transport": "curl"
+    }
+  ],
+  "validation": {
+    "ok": true,
+    "findings": [],
+    "age_days": 0,
+    "max_age_days": 14,
+    "submission_open": true
+  }
+}

@@ -98,6 +98,30 @@ def write_common_fixtures(root: Path, *, live_done: bool = False, final_done: bo
     write_file(root, "docs/assets/devpost-submission-packet.md", "Final B2 proof target.\n")
     write_file(root, "docs/assets/devpost-form-kit.json", "{}\n")
     write_file(root, "docs/assets/devpost-form-kit.md", "# Form Kit\n")
+    write_file(
+        root,
+        "docs/assets/devpost-event-snapshot.json",
+        json.dumps(
+            {
+                "schema": "proofframe.devpost_event_snapshot.v1",
+                "validation": {"ok": True, "submission_open": True},
+                "rules": {
+                    "requirements": {
+                        "working_app_url": True,
+                        "github_repo_url": True,
+                        "demo_video": True,
+                    },
+                    "judging_criteria": [
+                        {"name": "Real-world Utility", "present": True},
+                        {"name": "Production Readiness", "present": True},
+                        {"name": "B2 Storage + Data Orchestration", "present": True},
+                        {"name": "Use of Genblaze", "present": True},
+                    ],
+                },
+            }
+        ),
+    )
+    write_file(root, "docs/assets/devpost-event-snapshot.md", "# Event Snapshot\n")
     write_file(root, "docs/assets/submission-bundle-manifest.json", "{}\n")
     write_file(root, "docs/assets/submission-bundle-manifest.md", "# Bundle\n")
     write_file(root, "docs/assets/live-credential-handoff.json", "{}\n")

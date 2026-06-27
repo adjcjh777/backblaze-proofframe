@@ -1,7 +1,7 @@
 # ProofFrame Award Readiness
 
 Mode: `pre_live_competitive`
-Score: `86/111` (77.5%)
+Score: `90/115` (78.3%)
 Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 
 ## Gate Snapshot
@@ -34,9 +34,10 @@ Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 - OK `sponsor_model_ui` (3/3): Judge mode foregrounds Genblaze, B2 object route, manifest proof, and claim mode.
 - OK `prd_spec` (4/4): The product and implementation story are documented for judges and maintainers.
 
-### Demo and Devpost readiness - 25/25 (100.0%)
+### Demo and Devpost readiness - 29/29 (100.0%)
 - OK `public_judge_demo` (5/5): The Devpost packet points judges to a credential-free public demo.
 - OK `devpost_form_kit` (4/4): Field-by-field copy is ready and length checked.
+- OK `official_event_snapshot` (4/4): Deadline, participants, requirements, and judging criteria are refreshed from Devpost.
 - OK `storyboard` (4/4): The video can be recorded around a clear judge story.
 - OK `mock_recording_ready` (4/4): The current public demo can be recorded safely before live proof.
 - OK `screenshots` (4/4): Local, review-console, and public demo screenshots are available.

@@ -1,18 +1,27 @@
 {
   "schema": "proofframe.final_submission_control.v1",
-  "created_at": "2026-06-27T16:49:38Z",
+  "created_at": "2026-06-27T17:02:25Z",
   "mode": "pre_live_control",
   "safe_to_submit": false,
   "event": {
     "name": "Backblaze Generative Media Hackathon",
     "devpost_url": "https://backblaze-generative-media.devpost.com/",
     "rules_url": "https://backblaze-generative-media.devpost.com/rules",
-    "deadline_et": "2026-08-03 17:00 EDT",
+    "deadline_et": "Aug 3, 2026 @ 5:00pm EDT",
     "deadline_beijing": "2026-08-04 05:00 Asia/Shanghai",
     "prize_total_usd": 10000,
     "participant_count_observed": 343,
     "participant_count_checked_at": "2026-06-28 Asia/Shanghai",
-    "participant_count_note": "Dynamic Devpost count; recheck before final public claims."
+    "participant_count_note": "Dynamic Devpost count; recheck before final public claims.",
+    "deadline_display": "Aug 3, 2026 @ 5:00pm EDT",
+    "deadline_utc": "2026-08-03T21:00:00Z",
+    "sponsor_tech": [
+      "Backblaze B2",
+      "Genblaze"
+    ],
+    "registration_period": "June 22, 2026 (10:00 am Eastern Time) \u2013 August 3, 2026 (5:00 pm Eastern Time) (\u201cRegistration and Submission Period\u201d).",
+    "judging_period": "August 5, 2026 (10:00 am Eastern Time) \u2013 August 11, 2026 (5:00 pm Eastern Time) (\u201cJudging Period\u201d).",
+    "winner_announced": "On or around August 12, 2026 (2:00 pm Eastern Time)."
   },
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
   "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
@@ -55,6 +64,37 @@
       "mock_recording_ready": null,
       "public_mock_verified": null,
       "public_video_ready": false
+    },
+    "devpost_event_snapshot": {
+      "present": true,
+      "path": "docs/assets/devpost-event-snapshot.json",
+      "schema_ok": true,
+      "schema": "proofframe.devpost_event_snapshot.v1",
+      "mode": "live_official_snapshot",
+      "validation_ok": true,
+      "submission_open": true,
+      "checked_at": "2026-06-27T17:00:51Z",
+      "age_days": 0,
+      "event": {
+        "name": "Backblaze Generative Media Hackathon",
+        "devpost_url": "https://backblaze-generative-media.devpost.com/",
+        "rules_url": "https://backblaze-generative-media.devpost.com/rules",
+        "deadline_et": "Aug 3, 2026 @ 5:00pm EDT",
+        "deadline_beijing": "2026-08-04 05:00 Asia/Shanghai",
+        "prize_total_usd": 10000,
+        "participant_count_observed": 343,
+        "participant_count_checked_at": "2026-06-28 Asia/Shanghai",
+        "participant_count_note": "Dynamic Devpost count; recheck before final public claims.",
+        "deadline_display": "Aug 3, 2026 @ 5:00pm EDT",
+        "deadline_utc": "2026-08-03T21:00:00Z",
+        "sponsor_tech": [
+          "Backblaze B2",
+          "Genblaze"
+        ],
+        "registration_period": "June 22, 2026 (10:00 am Eastern Time) \u2013 August 3, 2026 (5:00 pm Eastern Time) (\u201cRegistration and Submission Period\u201d).",
+        "judging_period": "August 5, 2026 (10:00 am Eastern Time) \u2013 August 11, 2026 (5:00 pm Eastern Time) (\u201cJudging Period\u201d).",
+        "winner_announced": "On or around August 12, 2026 (2:00 pm Eastern Time)."
+      }
     },
     "demo_storyboard": {
       "present": true,
@@ -157,6 +197,13 @@
       "ok": true,
       "detail": "Devpost form kit mode is pre_live_form_ready.",
       "evidence": "docs/assets/devpost-form-kit.json"
+    },
+    {
+      "id": "official_event_snapshot",
+      "label": "Official Devpost event snapshot is fresh",
+      "ok": true,
+      "detail": "Snapshot checked at 2026-06-27T17:00:51Z; submission open is True; age days is 0.",
+      "evidence": "docs/assets/devpost-event-snapshot.json"
     },
     {
       "id": "recording_assets",

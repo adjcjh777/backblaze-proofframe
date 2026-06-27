@@ -16,6 +16,7 @@ python scripts/claim_lint.py
 python scripts/live_env_handoff.py
 python scripts/final_env_wizard.py --check-only
 python scripts/devpost_form_kit.py
+python scripts/devpost_event_snapshot.py --validate-committed
 python scripts/demo_storyboard.py
 python scripts/sponsor_fit_audit.py
 python scripts/demo_readiness.py
@@ -39,6 +40,7 @@ The `.github/workflows/ci.yml` workflow runs on `main`, `feature/**`, and pull r
 - `python scripts/live_env_handoff.py`
 - `python scripts/final_env_wizard.py --check-only`
 - `python scripts/devpost_form_kit.py`
+- `python scripts/devpost_event_snapshot.py --validate-committed`
 - `python scripts/demo_storyboard.py`
 - `python scripts/sponsor_fit_audit.py`
 - `python scripts/demo_readiness.py`
@@ -211,6 +213,7 @@ python scripts/final_env_wizard.py --prefill-non-secret --output .env.final.loca
 python scripts/final_env_wizard.py --output .env.final.local
 set -a; source .env.final.local; set +a
 python scripts/live_env_handoff.py --env-file .env.final.local
+python scripts/devpost_event_snapshot.py --fetch-live
 python scripts/run_final_live_proof.py \
   --evidence-out docs/assets/final-live-proof-evidence.json
 python scripts/devpost_form_kit.py --strict-final

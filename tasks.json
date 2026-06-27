@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T16:45:43Z",
+  "updated_at": "2026-06-27T16:54:24Z",
   "tasks": [
     {
       "id": "T001",
@@ -469,6 +469,15 @@
       "status": "done",
       "done_criteria": "A script and committed report prove all no-secret recording assets exist, the public mock demo can be verified with GET-only checks, and final video remains gated on live proof.",
       "notes": "Added scripts/recording_assets.py, tests, CI wiring, docs/assets/recording-assets.{json,md}, submission bundle coverage, and final control integration."
+    },
+    {
+      "id": "T039AC",
+      "title": "Add official Devpost event snapshot gate",
+      "phase": "P4 Submit",
+      "owner": "codex",
+      "status": "done",
+      "done_criteria": "A script and committed report refresh official Devpost deadline, participants, requirements, judging criteria, and final-control event facts.",
+      "notes": "Added scripts/devpost_event_snapshot.py, tests, docs/assets/devpost-event-snapshot.{json,md}, CI validation, submission bundle coverage, and final control integration."
     },
     {
       "id": "T040",

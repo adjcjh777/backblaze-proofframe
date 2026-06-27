@@ -64,6 +64,31 @@ def write_common_reports(root: Path, *, final_done: bool = False) -> None:
     )
     write_json(
         root,
+        "docs/assets/devpost-event-snapshot.json",
+        {
+            "schema": "proofframe.devpost_event_snapshot.v1",
+            "mode": "live_official_snapshot",
+            "checked_at": "2026-06-27T16:00:00Z",
+            "validation": {
+                "ok": True,
+                "age_days": 0,
+                "submission_open": True,
+            },
+            "event": {
+                "name": "Backblaze Generative Media Hackathon",
+                "devpost_url": "https://backblaze-generative-media.devpost.com/",
+                "rules_url": "https://backblaze-generative-media.devpost.com/rules",
+                "deadline_et": "Aug 3, 2026 @ 5:00pm EDT",
+                "deadline_beijing": "2026-08-04 05:00 Asia/Shanghai",
+                "prize_total_usd": 10000,
+                "participant_count_observed": 343,
+                "participant_count_checked_at": "2026-06-28 Asia/Shanghai",
+                "participant_count_note": "Dynamic Devpost count; recheck before final public claims.",
+            },
+        },
+    )
+    write_json(
+        root,
         "docs/assets/demo-storyboard.json",
         {
             "schema": "proofframe.demo_storyboard.v1",

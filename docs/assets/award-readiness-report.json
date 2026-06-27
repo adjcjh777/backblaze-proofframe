@@ -1,9 +1,9 @@
 {
   "schema": "proofframe.award_readiness.v1",
   "project": "ProofFrame",
-  "score": 86,
-  "max_score": 111,
-  "percent": 77.5,
+  "score": 90,
+  "max_score": 115,
+  "percent": 78.3,
   "mode": "pre_live_competitive",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
   "task_statuses": {
@@ -183,8 +183,8 @@
     {
       "id": "demo_and_submission",
       "label": "Demo and Devpost readiness",
-      "score": 25,
-      "max_score": 25,
+      "score": 29,
+      "max_score": 29,
       "percent": 100.0,
       "signals": [
         {
@@ -202,6 +202,14 @@
           "points": 4,
           "max_points": 4,
           "detail": "Field-by-field copy is ready and length checked."
+        },
+        {
+          "id": "official_event_snapshot",
+          "label": "Official Devpost snapshot is fresh",
+          "ok": true,
+          "points": 4,
+          "max_points": 4,
+          "detail": "Deadline, participants, requirements, and judging criteria are refreshed from Devpost."
         },
         {
           "id": "storyboard",

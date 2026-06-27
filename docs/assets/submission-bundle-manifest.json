@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.submission_bundle.v1",
-  "created_at": "2026-06-27T16:49:38Z",
+  "created_at": "2026-06-27T17:02:25Z",
   "project": "ProofFrame",
   "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
@@ -57,8 +57,8 @@
       "path": "README.md",
       "label": "Core public project overview",
       "present": true,
-      "bytes": 8222,
-      "sha256": "9a91baffcf929460ccbf965ba406f9bc40e438e4f5de1c740ba70b837131cb16"
+      "bytes": 8509,
+      "sha256": "aba1021a9adc8274ddbfa27783f653565d141f0e1b7a7498c659b00791cc3ffa"
     },
     {
       "id": "prd",
@@ -99,6 +99,30 @@
       "present": true,
       "bytes": 5108,
       "sha256": "e2a4431abd9b9565418f54e2368be591bd15e69d08b843211a69e73e74f83201"
+    },
+    {
+      "id": "devpost_event_snapshot_script",
+      "path": "scripts/devpost_event_snapshot.py",
+      "label": "Official Devpost event snapshot checker",
+      "present": true,
+      "bytes": 19728,
+      "sha256": "1389e03af0d481eabf6e0f6d15de6f64bd974f920bd27b16e80eb0faa34c0aa1"
+    },
+    {
+      "id": "devpost_event_snapshot_json",
+      "path": "docs/assets/devpost-event-snapshot.json",
+      "label": "Machine-readable Devpost event snapshot",
+      "present": true,
+      "bytes": 2492,
+      "sha256": "29fa3f02ce7720ae34e88dc76e4587cfae0d349771dba65e8ba32d42b81d893e"
+    },
+    {
+      "id": "devpost_event_snapshot_md",
+      "path": "docs/assets/devpost-event-snapshot.md",
+      "label": "Human-readable Devpost event snapshot",
+      "present": true,
+      "bytes": 1443,
+      "sha256": "74c8c2e8e85c2695ef5523f444b3b18326bb6e2f8aaa87efda9ae6d28447e6be"
     },
     {
       "id": "devpost_form_kit_script",
@@ -169,8 +193,8 @@
       "path": "docs/sponsor_fit_matrix.md",
       "label": "Sponsor judging matrix and claim boundary",
       "present": true,
-      "bytes": 3288,
-      "sha256": "227cb15be9de8095a9878eb1d7c94d5886c84d3f3efe7f7b1b1d9a2936a22d97"
+      "bytes": 3054,
+      "sha256": "cfa25f30bc5d2051081fefcde1ce38789e5972bcd2d1f57ab7de16b777749920"
     },
     {
       "id": "sponsor_fit_audit_script",
@@ -201,8 +225,8 @@
       "path": "scripts/award_readiness.py",
       "label": "Judge-facing award readiness scorecard",
       "present": true,
-      "bytes": 21440,
-      "sha256": "665b21fd96402e5b3287c5d7e5f1cbac79083ca5091d80913db4f47483812e67"
+      "bytes": 22408,
+      "sha256": "be06cdb894fd3965d2439b206ba459e3f856ead265c6d4b7dfe32984ab2dbc43"
     },
     {
       "id": "award_readiness_json",
@@ -225,32 +249,32 @@
       "path": "scripts/final_submission_control.py",
       "label": "Final submission control tower",
       "present": true,
-      "bytes": 19132,
-      "sha256": "5bb2839aa1e5420b59b232dfe3b61586ae1aa5774238ebfbc38be85be0ea0993"
+      "bytes": 21210,
+      "sha256": "d90a6fbf98dbd8fbe1de9f2c54a87fb1da7f53304d29e2192f9b3037fdc5dc6a"
     },
     {
       "id": "final_submission_control_json",
       "path": "docs/assets/final-submission-control.json",
       "label": "Machine-readable final control report",
       "present": true,
-      "bytes": 11209,
-      "sha256": "fc80f30f4bceee108ac9b7d3aee2517e93bc011cdb28c838d6eb6423652770a4"
+      "bytes": 13583,
+      "sha256": "4cd7d4bea97a09081285d7e7102912d1221638253e441c973e5ac8bd1ea08209"
     },
     {
       "id": "final_submission_control_md",
       "path": "docs/assets/final-submission-control.md",
       "label": "Human-readable final control report",
       "present": true,
-      "bytes": 4087,
-      "sha256": "2b5587fc0027a66cd181933e7ed2fb22ae58a208c0ce09dfb22f92a2f7977449"
+      "bytes": 4269,
+      "sha256": "b22672b3ac046620e7d225c05d20f7cf284d10d3fd8796ebdfd1e1bdb4cacf6f"
     },
     {
       "id": "evidence_package",
       "path": "docs/evidence_package.md",
       "label": "Evidence package plan",
       "present": true,
-      "bytes": 11081,
-      "sha256": "56d458bee1e866400e19a48d0beb59abb13d72dbda0a2fd3bd57eaabec96f582"
+      "bytes": 11357,
+      "sha256": "a9113586902da655adabca3818ad1e8aba813ca3efcc24cfac24ebf6215215a3"
     },
     {
       "id": "public_claim_freeze",
@@ -265,8 +289,8 @@
       "path": "docs/verification.md",
       "label": "Local, CI, Docker, and live proof runbook",
       "present": true,
-      "bytes": 7015,
-      "sha256": "9a13d1f2d02e6a0479e7e95f062c8a6fdc2d6a9a0d5f204096eabbd56077be48"
+      "bytes": 7197,
+      "sha256": "b30decf832a10f2d6a08fe102b855bafa8033864c4be3d13b6fd52c28a25c9c9"
     },
     {
       "id": "final_env_template",
@@ -409,8 +433,8 @@
       "path": "tasks.json",
       "label": "Machine-readable task board",
       "present": true,
-      "bytes": 23503,
-      "sha256": "a4c90bb0348890f4454b98e58b906659a6b2812d8db4a04a069190a0e3b483d8"
+      "bytes": 24026,
+      "sha256": "c9e7176188a8c83551601a1713fdad28b7cf649252a9df1f0e33fccf89485920"
     },
     {
       "id": "local_ui_smoke",

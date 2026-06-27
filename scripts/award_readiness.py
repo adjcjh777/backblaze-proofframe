@@ -120,6 +120,19 @@ def sponsor_fit_audit_ready(root: Path) -> bool:
     return bool(report.get("ok") and report.get("mode") == "sponsor_fit_ready")
 
 
+def event_snapshot_ready(root: Path) -> bool:
+    report = load_json(root / "docs" / "assets" / "devpost-event-snapshot.json") or {}
+    criteria = report.get("rules", {}).get("judging_criteria", [])
+    requirements = report.get("rules", {}).get("requirements", {})
+    return bool(
+        report.get("schema") == "proofframe.devpost_event_snapshot.v1"
+        and report.get("validation", {}).get("ok")
+        and report.get("validation", {}).get("submission_open")
+        and all(item.get("present") for item in criteria)
+        and all(requirements.get(key) for key in ["working_app_url", "github_repo_url", "demo_video"])
+    )
+
+
 def build_criteria(root: Path, context: dict[str, Any]) -> list[dict[str, Any]]:
     statuses = context["task_statuses"]
     demo = context["demo_readiness"]
@@ -262,6 +275,13 @@ def build_criteria(root: Path, context: dict[str, Any]) -> list[dict[str, Any]]:
                     and path_present(root, "docs/assets/devpost-form-kit.md"),
                     4,
                     "Field-by-field copy is ready and length checked.",
+                ),
+                signal(
+                    "official_event_snapshot",
+                    "Official Devpost snapshot is fresh",
+                    event_snapshot_ready(root),
+                    4,
+                    "Deadline, participants, requirements, and judging criteria are refreshed from Devpost.",
                 ),
                 signal(
                     "storyboard",
