@@ -24,7 +24,8 @@ python3 scripts/task.py block T010 --note "Needs manual Devpost login"
 
 ## Current Priority
 
-1. Pick a UI direction: Archive Desk, Signal Lab, Proof Ledger, or a remix.
-2. Implement `apps/web/index.html` after the direction is chosen.
-3. Confirm Devpost registration and Backblaze B2 / Genblaze access.
-4. Keep public claims frozen until real B2 and Genblaze evidence exists.
+1. Complete live Backblaze B2 upload proof for one asset and one manifest.
+2. Complete live Genblaze-backed generation proof and capture provider/model metadata.
+3. Confirm Devpost registration after action-time account authorization.
+4. Record the demo video using `docs/demo_script.md`.
+5. Keep public claims frozen with `docs/public_claim_freeze.md` until real B2 and Genblaze evidence exists.

@@ -22,9 +22,11 @@ def load_data() -> dict[str, Any]:
 
 def save_data(data: dict[str, Any]) -> None:
     data["updated_at"] = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
-    with TASKS_PATH.open("w", encoding="utf-8") as f:
+    tmp_path = TASKS_PATH.with_suffix(".json.tmp")
+    with tmp_path.open("w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
         f.write("\n")
+    tmp_path.replace(TASKS_PATH)
 
 
 def find_task(data: dict[str, Any], task_id: str) -> dict[str, Any]:
@@ -97,4 +99,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

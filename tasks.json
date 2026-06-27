@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T05:16:05Z",
+  "updated_at": "2026-06-27T05:21:37Z",
   "tasks": [
     {
       "id": "T001",
@@ -142,27 +142,27 @@
       "title": "Prepare demo video script and screenshots",
       "phase": "P3 Polish",
       "owner": "planner",
-      "status": "todo",
+      "status": "done",
       "done_criteria": "docs/demo_script.md and screenshots are ready for Devpost.",
-      "notes": ""
+      "notes": "Demo script and local UI smoke screenshot prepared."
     },
     {
       "id": "T032",
       "title": "Prepare submission evidence package",
       "phase": "P3 Polish",
       "owner": "planner",
-      "status": "todo",
+      "status": "done",
       "done_criteria": "Evidence package includes app URL or Docker path, screenshots, video link, repo URL, B2 proof, Genblaze proof, and AI provider/model list.",
-      "notes": "Added from review gate audit."
+      "notes": "Submission evidence package and Devpost copy bank prepared; final B2/Genblaze proofs still gated by T020/T021."
     },
     {
       "id": "T033",
       "title": "Run public-claim freeze",
       "phase": "P3 Polish",
       "owner": "reviewer",
-      "status": "todo",
+      "status": "done",
       "done_criteria": "Public README, Devpost text, demo script, and screenshots make only verified B2/Genblaze claims.",
-      "notes": "Avoid using target copy as factual copy before T020/T021 are verified."
+      "notes": "Public claim freeze doc added and README/PRD/research copy aligned to verified-vs-final-gate language."
     },
     {
       "id": "T040",

@@ -2,7 +2,7 @@
 
 ProofFrame is a provenance-first generative media vault for the Backblaze Generative Media Hackathon.
 
-It turns a creative brief into a reviewable asset packet: generated media, prompt history, model/provider metadata, hashes, approval state, and a shareable manifest stored through a Backblaze B2-compatible layer. The product goal is not "yet another image generator"; it is the missing operations desk for teams that need to know where an AI asset came from, whether it is approved, and how to reproduce or retire it.
+It turns a creative brief into a reviewable asset packet: generated media, prompt history, model/provider metadata, hashes, approval state, and a shareable manifest. The local demo uses deterministic generation and local storage; the final hackathon gate is to verify the same packet flow through Genblaze-backed generation and Backblaze B2-compatible storage. The product goal is not "yet another image generator"; it is the missing operations desk for teams that need to know where an AI asset came from, whether it is approved, and how to reproduce or retire it.
 
 ## Hackathon Choice
 
@@ -22,6 +22,9 @@ Why this one:
 - `docs/prd.md`: product PRD.
 - `docs/spec.md`: technical specification.
 - `docs/integrations.md`: B2 and Genblaze readiness gates.
+- `docs/demo_script.md`: demo video script and shot list.
+- `docs/evidence_package.md`: Devpost evidence package and copy bank.
+- `docs/public_claim_freeze.md`: public claim boundaries before final submission.
 - `docs/submission.md`: registration and submission plan.
 - `docs/todo.md`: human task board.
 - `tasks.json`: queryable task ledger.
@@ -51,6 +54,10 @@ Stage 0 is complete: selected competition, repo, PRD/spec/todo, Agent Bus team, 
 Stage 1 is complete enough for local demo iteration: FastAPI MVP skeleton, mock generation, local storage, manifest export, and the Proof Ledger browser UI.
 
 Stage 2 is in progress: B2-compatible storage code and Genblaze fail-closed boundary exist, but live B2 and Genblaze runs still need credentials/provider verification before final submission claims.
+
+Stage 3 preparation has started: Proof Ledger UI smoke is captured, and demo/evidence/claim-freeze docs are ready for the final sponsor-integration pass.
+
+![ProofFrame local UI smoke](docs/assets/proofframe-local-ui-smoke.png)
 
 ## Run Locally
 

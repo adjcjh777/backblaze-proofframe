@@ -6,7 +6,7 @@ Date: 2026-06-27 Asia/Shanghai
 
 Choose the Backblaze Generative Media Hackathon and build ProofFrame.
 
-ProofFrame is a provenance-first generative media vault: generate or ingest AI media, store it through a B2-compatible layer, preserve a tamper-evident manifest, and give creators a fast review surface for approval, reuse, and submission.
+ProofFrame is a provenance-first generative media vault: generate or ingest AI media, preserve a tamper-evident manifest, and give creators a fast review surface for approval, reuse, and submission. The final sponsor-integration target is to run that packet flow through Genblaze and Backblaze B2.
 
 ## Selection Heuristic
 
@@ -47,9 +47,9 @@ Observed details from official pages on 2026-06-27, updated after scout verifica
 
 Most hackathon entries in generative media tend to cluster around "prompt to image/video" demos. ProofFrame instead makes storage and provenance the product center:
 
-- Every media object is stored with manifest, checksum, generation metadata, approval status, and usage notes.
-- Backblaze B2 is not a file dump; it becomes the durable creative evidence layer.
-- Genblaze is not a checkbox; it powers provider routing and reproducible media generation.
+- Every media object should ship with manifest, checksum, generation metadata, approval status, and usage notes.
+- Backblaze B2 should be more than a file dump; it should become the durable creative evidence layer.
+- Genblaze should be more than a checkbox; it should power provider routing and reproducible media generation.
 - The UI can show a judge a real before/after workflow: brief, generate, review, approve, export packet.
 - The fallback mock provider lets us test and demo locally even before credentials are available.
 
