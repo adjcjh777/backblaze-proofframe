@@ -106,6 +106,76 @@
         gap: 12px;
       }
 
+      .gate-panel {
+        border-bottom: 1px solid var(--line);
+        display: grid;
+        gap: 10px;
+        padding: 14px 0;
+      }
+
+      .gate-meter {
+        display: grid;
+        gap: 6px;
+      }
+
+      .gate-track {
+        background: rgba(23, 23, 20, 0.12);
+        height: 8px;
+        overflow: hidden;
+      }
+
+      .gate-fill {
+        background: var(--green);
+        height: 100%;
+        width: 0%;
+      }
+
+      .gate-list {
+        display: grid;
+        gap: 6px;
+        margin: 0;
+        padding: 0;
+      }
+
+      .gate-item {
+        align-items: start;
+        display: grid;
+        gap: 7px;
+        grid-template-columns: 56px 1fr;
+      }
+
+      .gate-pill {
+        border: 1px solid var(--line);
+        font-family: var(--mono);
+        font-size: 10px;
+        font-weight: 800;
+        min-height: 22px;
+        padding: 4px 6px;
+        text-align: center;
+        text-transform: uppercase;
+      }
+
+      .gate-pill.done {
+        border-color: var(--green);
+        color: var(--green);
+      }
+
+      .gate-pill.blocked {
+        border-color: var(--coral);
+        color: var(--coral);
+      }
+
+      .gate-pill.doing {
+        border-color: var(--gold);
+        color: var(--gold);
+      }
+
+      .gate-action {
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.35;
+      }
+
       .stat label,
       .field label {
         display: block;
@@ -399,6 +469,20 @@
         text-decoration: none;
       }
 
+      .deerflow-signature {
+        border-top: 1px solid var(--rule);
+        color: var(--muted);
+        display: inline-block;
+        font-size: 11px;
+        margin-top: 20px;
+        padding-top: 12px;
+        text-decoration: none;
+      }
+
+      .deerflow-signature:hover {
+        color: var(--ink);
+      }
+
       @media (max-width: 1100px) {
         .shell {
           grid-template-columns: 1fr;
@@ -443,9 +527,23 @@
           </div>
           <div class="stat">
             <label>Submission Gate</label>
-            <strong>B2 + Genblaze proof required</strong>
+            <strong id="submissionGateStatus">Checking...</strong>
           </div>
         </div>
+
+        <section class="gate-panel" aria-label="Submission readiness gate">
+          <div class="gate-meter">
+            <div class="stat">
+              <label>Final Gate Progress</label>
+              <strong id="gateProgress">0 / 6 complete</strong>
+            </div>
+            <div class="gate-track" aria-hidden="true">
+              <div class="gate-fill" id="gateFill"></div>
+            </div>
+          </div>
+          <div id="gateList" class="gate-list"></div>
+          <div class="gate-action" id="gateNextAction">Loading final submission blockers...</div>
+        </section>
 
         <section class="campaign-list">
           <div class="stat">
@@ -453,6 +551,10 @@
           </div>
           <div id="campaignList"></div>
         </section>
+
+        <a class="deerflow-signature" href="https://deerflow.tech" target="_blank" rel="noreferrer">
+          Created By Deerflow
+        </a>
       </aside>
 
       <main>
@@ -611,6 +713,7 @@
         assets: [],
         selectedAssetId: null,
         manifest: {},
+        submissionGate: null,
         filters: {
           query: "",
           status: "all",
@@ -674,9 +777,42 @@
         }`;
       }
 
+      async function loadSubmissionGate() {
+        state.submissionGate = await api("/api/submission/gate");
+        renderSubmissionGate();
+      }
+
       async function loadCampaigns() {
         state.campaigns = await api("/api/campaigns");
         renderCampaigns();
+      }
+
+      function renderSubmissionGate() {
+        const gate = state.submissionGate;
+        if (!gate) return;
+        const summary = gate.summary || { required: 6, done: 0 };
+        const percent = summary.required ? Math.round((summary.done / summary.required) * 100) : 0;
+        el("submissionGateStatus").textContent = gate.ok
+          ? "Ready for Devpost submission"
+          : `${summary.done} / ${summary.required} final gates ready`;
+        el("gateProgress").textContent = `${summary.done} / ${summary.required} complete`;
+        el("gateFill").style.width = `${percent}%`;
+        el("gateList").innerHTML = (gate.task_gates || [])
+          .map(
+            (item) => `
+              <div class="gate-item">
+                <span class="gate-pill ${escapeHtml(item.status)}">${escapeHtml(item.status)}</span>
+                <div>
+                  <strong>${escapeHtml(item.id)}</strong>
+                  <div class="gate-action">${escapeHtml(short(item.title, 72))}</div>
+                </div>
+              </div>
+            `,
+          )
+          .join("");
+        const evidence = gate.evidence_gate?.ok ? "Live B2 + Genblaze proof verified." : "Live proof missing.";
+        const firstAction = gate.next_actions?.[0] || evidence;
+        el("gateNextAction").textContent = `${evidence} Next: ${firstAction}`;
       }
 
       function renderCampaigns() {
@@ -880,7 +1016,10 @@
       el("downloadPacket").addEventListener("click", downloadPacket);
       el("copySummary").addEventListener("click", copySummary);
       el("judgeDemo").addEventListener("click", loadJudgeDemo);
-      el("loadCampaigns").addEventListener("click", loadCampaigns);
+      el("loadCampaigns").addEventListener("click", () => {
+        loadCampaigns();
+        loadSubmissionGate();
+      });
       el("assetSearch").addEventListener("input", (event) => {
         state.filters.query = event.target.value;
         renderAssets();
@@ -897,10 +1036,12 @@
           "Generate a public-safe visual packet for a neighborhood film festival, with manifest evidence ready for client approval.";
       });
 
-      Promise.all([loadHealth(), loadCampaigns()]).then(renderInspector).catch((error) => {
+      Promise.all([loadHealth(), loadCampaigns(), loadSubmissionGate()])
+        .then(renderInspector)
+        .catch((error) => {
         el("packetStatus").textContent = "Runtime error";
         el("packetKey").textContent = error.message;
-      });
+        });
     </script>
   </body>
 </html>

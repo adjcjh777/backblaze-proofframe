@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T07:32:18Z",
+  "updated_at": "2026-06-27T07:44:07Z",
   "tasks": [
     {
       "id": "T001",
@@ -291,13 +291,22 @@
       "notes": "Added scripts/devpost_packet.py, tests, generated docs/assets packets, and evidence docs."
     },
     {
+      "id": "T039I",
+      "title": "Add submission gate dashboard",
+      "phase": "P3 Polish",
+      "owner": "executor",
+      "status": "done",
+      "done_criteria": "The app exposes and displays a fail-closed final submission gate with task, packet, and live-evidence status.",
+      "notes": "Added /api/submission/gate, sidebar gate panel, Deerflow signature, and unit/API tests."
+    },
+    {
       "id": "T040",
       "title": "Register on Devpost",
       "phase": "P4 Submit",
       "owner": "controller",
       "status": "blocked",
       "done_criteria": "User account is registered for the Backblaze event.",
-      "notes": "At Devpost registration page. Awaiting user confirmation for GitHub OAuth account creation/authorization, or manual email signup with reCAPTCHA."
+      "notes": "Devpost form has Working solo/Backblaze/Website, Genblaze star Yes, eligibility and rules checked; awaiting exact Backblaze Account Email before final Register."
     },
     {
       "id": "T041",

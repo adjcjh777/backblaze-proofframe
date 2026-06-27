@@ -18,6 +18,7 @@ from .models import Asset, AssetStatus, AssetStatusUpdate, Campaign, CampaignCre
 from .providers import create_media_provider
 from .repository import MemoryRepository
 from .storage import create_storage_backend, manifest_to_plain_json
+from .submission_gate import build_submission_gate
 
 
 def frontend_index_path() -> Path | None:
@@ -96,6 +97,10 @@ def create_app(storage_root: Path | str | None = None, settings: Settings | None
             ),
             "ready": True,
         }
+
+    @app.get("/api/submission/gate")
+    def submission_gate() -> dict[str, object]:
+        return build_submission_gate()
 
     @app.post("/api/campaigns", response_model=Campaign)
     def create_campaign(payload: CampaignCreate) -> Campaign:

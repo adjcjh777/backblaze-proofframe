@@ -18,8 +18,7 @@ Likely required:
 
 Manual/user-touch blockers:
 
-- Logging into Devpost as the user.
-- Accepting hackathon rules.
+- Providing the exact Backblaze Account Email for the event registration form.
 - Creating or authorizing Backblaze B2 credentials.
 - Any payment-card or identity step.
 

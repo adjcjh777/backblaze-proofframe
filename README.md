@@ -43,7 +43,7 @@ python3 scripts/task.py search Genblaze --status doing
 python3 scripts/task.py show T001
 python3 scripts/task.py add T099 "Record final demo" --phase "P4 Submit" --owner controller --after T041
 python3 scripts/task.py done T001
-python3 scripts/task.py block T010 --note "Requires account setup"
+python3 scripts/task.py blocked T010 --note "Requires account setup"
 ```
 
 ## Planned Stack
@@ -62,7 +62,7 @@ Stage 1 is complete enough for local demo iteration: FastAPI MVP skeleton, mock 
 
 Stage 2 is in progress: B2-compatible storage code and a Genblaze/GMICloud image provider path exist, but live B2 and Genblaze runs still need credentials/provider verification before final submission claims.
 
-Stage 3 preparation is active: the public mock demo is deployed, Review Console polish is captured, Devpost/evidence/claim-freeze docs are ready for the final sponsor-integration pass, and API evidence exports fail closed if secret-like values appear.
+Stage 3 preparation is active: the public mock demo is deployed, Review Console polish is captured, Devpost/evidence/claim-freeze docs are ready for the final sponsor-integration pass, API evidence exports fail closed if secret-like values appear, and the app now displays a fail-closed submission gate dashboard for final task/live-proof status.
 
 ![ProofFrame local UI smoke](docs/assets/proofframe-local-ui-smoke.png)
 
@@ -89,6 +89,8 @@ python scripts/live_proof.py --preflight-only
 python scripts/submission_audit.py
 python scripts/devpost_packet.py
 ```
+
+The browser UI and `GET /api/submission/gate` expose the same fail-closed final gate: required task status, Devpost packet presence, and final B2/Genblaze evidence readiness.
 
 B2 mode intentionally fails closed unless `B2_ENDPOINT_URL`, `B2_BUCKET`, `B2_KEY_ID`, and `B2_APPLICATION_KEY` are set. Genblaze mode intentionally fails closed unless a Genblaze/GMI key and `GENBLAZE_IMAGE_MODEL` are set, and the official `genblaze-core` and `genblaze-gmicloud` packages are installed.
 

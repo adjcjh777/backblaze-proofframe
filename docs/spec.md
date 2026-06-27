@@ -14,6 +14,7 @@ FastAPI app
   |     |-- LocalStorageBackend
   |     |-- B2StorageBackend
   |-- Manifest service
+  |-- Submission gate service
   |-- SQLite repository
 ```
 
@@ -59,6 +60,7 @@ FastAPI app
 | --- | --- | --- |
 | `GET` | `/` | Serve the Proof Ledger browser UI. |
 | `GET` | `/api/health` | Runtime health and adapter availability. |
+| `GET` | `/api/submission/gate` | Return fail-closed final submission readiness for task gates, Devpost packet, and live proof evidence. |
 | `POST` | `/api/campaigns` | Create campaign. |
 | `GET` | `/api/campaigns` | List campaigns. |
 | `POST` | `/api/campaigns/{id}/generate` | Generate variants. |
@@ -76,6 +78,17 @@ The browser UI includes local-only review operations over the in-memory asset se
 - status filter for all/draft/approved/rejected
 - search across prompt, provider, model, storage backend, storage key, checksum, and risk note
 - copy-safe evidence summary that includes campaign id, counts, backend names, first checksum, and storage key, but no credentials or signed URLs
+
+## Submission Gate Dashboard
+
+The browser sidebar includes a final gate panel backed by `GET /api/submission/gate`:
+
+- required final tasks: T020, T021, T040, T041, T041A, and T042
+- Devpost packet presence and claim mode
+- final live proof evidence status for B2 storage plus Genblaze generation
+- next-action copy for whichever final blocker remains first
+
+The gate intentionally stays in `pre_live_safe` mode until all required tasks are done and `docs/assets/final-live-proof-evidence.json` proves B2 plus Genblaze with nonempty sanitized object/checksum fields.
 
 ## Storage
 
@@ -136,3 +149,4 @@ The selected interface is Proof Ledger, a restrained audit-and-approval board fo
 - Browser smoke for create/review/export happy path.
 - Docker build and local run.
 - Submission audit against Devpost requirements.
+- Submission gate API and UI checks.

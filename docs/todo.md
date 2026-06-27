@@ -12,7 +12,7 @@ python3 scripts/task.py search Devpost --status blocked
 python3 scripts/task.py show T001
 python3 scripts/task.py add T099 "Record final demo" --phase "P4 Submit" --owner controller --after T041
 python3 scripts/task.py done T001
-python3 scripts/task.py block T010 --note "Needs manual Devpost login"
+python3 scripts/task.py blocked T010 --note "Needs manual Devpost login"
 ```
 
 ## Phases
@@ -29,6 +29,6 @@ python3 scripts/task.py block T010 --note "Needs manual Devpost login"
 
 1. Complete live Backblaze B2 upload proof for one asset and one manifest.
 2. Complete live Genblaze-backed generation proof and capture provider/model metadata.
-3. Confirm Devpost registration after action-time account authorization.
+3. Finish Devpost registration after the exact Backblaze Account Email is provided.
 4. Record the demo video using `docs/demo_script.md`.
 5. Keep public claims frozen with `docs/public_claim_freeze.md` until real B2 and Genblaze evidence exists.

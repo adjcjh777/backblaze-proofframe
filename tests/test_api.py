@@ -24,10 +24,18 @@ def test_health_and_campaign_flow(tmp_path):
     assert index_response.status_code == 200
     assert "Generated Media Ledger" in index_response.text
     assert "Search Evidence" in index_response.text
+    assert "Submission readiness gate" in index_response.text
 
     health = client.get("/api/health")
     assert health.status_code == 200
     assert health.json()["ready"] is True
+
+    gate_response = client.get("/api/submission/gate")
+    assert gate_response.status_code == 200
+    gate = gate_response.json()
+    assert gate["mode"] in {"pre_live_safe", "final_ready"}
+    assert "task_gates" in gate
+    assert "evidence_gate" in gate
 
     campaign_response = client.post(
         "/api/campaigns",
