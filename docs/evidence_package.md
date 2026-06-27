@@ -32,6 +32,7 @@ This file is the internal source of truth for Devpost submission assets. Anythin
 | Submission plan | `docs/submission.md` | Public-ready after final claim check |
 | Local Proof Ledger UI | `apps/web/index.html` | Public-ready |
 | UI smoke screenshot | `docs/assets/proofframe-local-ui-smoke.png` | Public-ready |
+| Downloadable evidence ZIP | `/api/campaigns/{id}/packet.zip` | Public-ready in local mode |
 | Task ledger | `tasks.json`, `scripts/task.py` | Public-ready |
 | Local API tests | `.venv` verification: `pytest` | Public-ready |
 | Integration readiness check | `scripts/check_integrations.py` | Public-ready |

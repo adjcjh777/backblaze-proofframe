@@ -62,11 +62,11 @@ Narration:
 
 ### 1:48-2:08 - Export Packet
 
-On screen: click export, show exported manifest confirmation.
+On screen: click export, show exported manifest confirmation, then download the ZIP packet.
 
 Narration for current local demo:
 
-> In local mode, the packet exports to local storage for repeatable testing. The Backblaze B2 adapter is already implemented behind the same storage interface, and final submission requires one live B2 upload proof before this claim is made publicly.
+> In local mode, the packet exports to local storage and can be downloaded as a ZIP with manifest, README, and available local media. The Backblaze B2 adapter is already implemented behind the same storage interface, and final submission requires one live B2 upload proof before this claim is made publicly.
 
 Narration after T020 is live-verified:
 
@@ -89,6 +89,7 @@ Narration:
 | Generated asset ledger | Yes | Ready in local app |
 | Approval state change | Yes | Ready in local app |
 | Manifest export | Yes | Ready in local app |
+| Evidence ZIP download | Yes | Ready in local app |
 | B2 object proof with secrets redacted | Yes | Pending T020 |
 | Genblaze run proof with model/provider metadata | Yes | Pending T021 |
 | Public repo view | Yes | Ready |

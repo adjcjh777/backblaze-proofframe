@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T05:52:41Z",
+  "updated_at": "2026-06-27T05:58:35Z",
   "tasks": [
     {
       "id": "T001",
@@ -181,6 +181,15 @@
       "status": "done",
       "done_criteria": "GitHub Actions runs readiness, lint, tests, and secret scan on feature branches and pull requests.",
       "notes": "Added .github/workflows/ci.yml for non-secret public verification."
+    },
+    {
+      "id": "T036",
+      "title": "Add downloadable evidence packet",
+      "phase": "P3 Polish",
+      "owner": "executor",
+      "status": "done",
+      "done_criteria": "Local demo can download a ZIP containing manifest, README, and available media files.",
+      "notes": "Added /api/campaigns/{id}/packet.zip and Download ZIP UI action."
     },
     {
       "id": "T040",

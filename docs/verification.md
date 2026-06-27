@@ -22,6 +22,7 @@ The `.github/workflows/ci.yml` workflow runs on `main`, `feature/**`, and pull r
 - `python scripts/check_integrations.py`
 - `ruff check .`
 - `pytest`
+- `python scripts/api_smoke.py --base-url http://127.0.0.1:8088`
 - `python scripts/secret_scan.py`
 
 Use the CI result as public repo evidence for the non-secret local gate. It does not replace T020/T021 live sponsor proof because those require private credentials.
@@ -42,7 +43,7 @@ In another terminal:
 python scripts/api_smoke.py --base-url http://127.0.0.1:8088
 ```
 
-The JSON output should include `ok: true`, one generated asset checksum, and one exported manifest checksum.
+The JSON output should include `ok: true`, one generated asset checksum, one exported manifest checksum, and nonzero `packet_bytes`.
 
 ## Docker Smoke
 

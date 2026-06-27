@@ -400,7 +400,8 @@
             <h1>Generated Media Ledger</h1>
             <p class="subtle">
               Create a campaign packet, generate variants, approve usable assets, then export a
-              manifest with hashes, storage keys, provider metadata, and review notes.
+              downloadable evidence packet with hashes, storage keys, provider metadata, and review
+              notes.
             </p>
           </div>
           <div class="action-row">
@@ -491,6 +492,7 @@
       </div>
       <div class="action-row">
         <button id="exportPacket" disabled>Export Manifest</button>
+        <button id="downloadPacket" class="secondary" disabled>Download ZIP</button>
         <a class="deerflow" href="https://deerflow.tech" target="_blank" rel="noreferrer"
           >Created By Deerflow</a
         >
@@ -597,6 +599,7 @@
         el("approveAsset").disabled = !asset;
         el("rejectAsset").disabled = !asset;
         el("exportPacket").disabled = !state.campaign || state.assets.length === 0;
+        el("downloadPacket").disabled = !state.campaign || state.assets.length === 0;
         el("manifestPreview").textContent = JSON.stringify(state.manifest, null, 2);
       }
 
@@ -660,11 +663,24 @@
         renderInspector();
       }
 
+      function downloadPacket() {
+        if (!state.campaign) return;
+        const link = document.createElement("a");
+        link.href = `/api/campaigns/${state.campaign.id}/packet.zip`;
+        link.download = `${state.campaign.id}-proofframe-packet.zip`;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        el("packetStatus").textContent = "Evidence packet download started";
+        el("packetKey").textContent = `${state.campaign.id}-proofframe-packet.zip`;
+      }
+
       el("createCampaign").addEventListener("click", createCampaign);
       el("generateAssets").addEventListener("click", generateAssets);
       el("approveAsset").addEventListener("click", () => updateStatus("approved"));
       el("rejectAsset").addEventListener("click", () => updateStatus("rejected"));
       el("exportPacket").addEventListener("click", exportPacket);
+      el("downloadPacket").addEventListener("click", downloadPacket);
       el("loadCampaigns").addEventListener("click", loadCampaigns);
       el("sampleBrief").addEventListener("click", () => {
         el("title").value = "Indie Film Festival Packet";

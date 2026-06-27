@@ -65,6 +65,7 @@ FastAPI app
 | `POST` | `/api/assets/{id}/status` | Approve/reject asset. |
 | `GET` | `/api/campaigns/{id}/manifest` | Return manifest JSON. |
 | `POST` | `/api/campaigns/{id}/export` | Export packet. |
+| `GET` | `/api/campaigns/{id}/packet.zip` | Download manifest, README, and available local media as an evidence packet. |
 
 ## Storage
 

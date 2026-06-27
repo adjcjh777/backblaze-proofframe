@@ -3,11 +3,13 @@
 from __future__ import annotations
 
 import os
+from io import BytesIO
 from pathlib import Path
+from zipfile import ZIP_DEFLATED, ZipFile
 
 import uvicorn
 from fastapi import FastAPI, HTTPException
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, Response
 from fastapi.staticfiles import StaticFiles
 
 from . import __version__
@@ -135,6 +137,50 @@ def create_app(storage_root: Path | str | None = None, settings: Settings | None
             "manifest": manifest_to_plain_json(manifest),
             "stored_manifest": stored.model_dump(mode="json"),
         }
+
+    @app.get("/api/campaigns/{campaign_id}/packet.zip")
+    def download_packet(campaign_id: str) -> Response:
+        campaign = repo.get_campaign(campaign_id)
+        if campaign is None:
+            raise HTTPException(status_code=404, detail="Campaign not found")
+        assets = repo.list_assets(campaign_id)
+        manifest = CampaignManifest(campaign=campaign, assets=assets)
+        manifest_json = manifest.model_dump_json(indent=2)
+        read_bytes = getattr(storage, "read_bytes", None)
+
+        buffer = BytesIO()
+        with ZipFile(buffer, "w", ZIP_DEFLATED) as packet:
+            packet.writestr("manifest.json", manifest_json)
+            packet.writestr(
+                "README.txt",
+                "\n".join(
+                    [
+                        "ProofFrame Evidence Packet",
+                        f"Campaign: {campaign.title}",
+                        f"Campaign ID: {campaign.id}",
+                        f"Storage backend: {storage.name}",
+                        "",
+                        "manifest.json contains prompts, providers, models, storage keys, checksums, and approval states.",
+                        "Local media files are included when available. Remote B2 objects are referenced in the manifest only.",
+                    ]
+                ),
+            )
+            if callable(read_bytes):
+                for asset in assets:
+                    try:
+                        data = read_bytes(asset.storage_key)
+                    except OSError:
+                        continue
+                    filename = Path(asset.storage_key).name
+                    packet.writestr(f"media/{filename}", data)
+
+        return Response(
+            content=buffer.getvalue(),
+            media_type="application/zip",
+            headers={
+                "Content-Disposition": f'attachment; filename="{campaign_id}-proofframe-packet.zip"'
+            },
+        )
 
     if storage.name == "local":
         storage_path = Path(settings.storage_root)

@@ -65,6 +65,13 @@ class LocalStorageBackend:
             bytes_size=len(data),
         )
 
+    def read_bytes(self, storage_key: str) -> bytes:
+        path = (self.root / storage_key).resolve()
+        root = self.root.resolve()
+        if root not in path.parents:
+            raise ConfigurationError(f"Refusing to read outside storage root: {storage_key}")
+        return path.read_bytes()
+
 
 @dataclass
 class B2StorageBackend:

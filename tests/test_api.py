@@ -1,3 +1,6 @@
+from io import BytesIO
+from zipfile import ZipFile
+
 from fastapi.testclient import TestClient
 
 from proofframe.app import create_app, frontend_index_path
@@ -61,3 +64,13 @@ def test_health_and_campaign_flow(tmp_path):
     export_payload = export_response.json()
     assert export_payload["stored_manifest"]["storage_key"].endswith("-manifest.json")
     assert (tmp_path / export_payload["stored_manifest"]["storage_key"]).exists()
+
+    packet_response = client.get(f"/api/campaigns/{campaign['id']}/packet.zip")
+    assert packet_response.status_code == 200
+    assert packet_response.headers["content-type"] == "application/zip"
+    with ZipFile(BytesIO(packet_response.content)) as packet:
+        names = set(packet.namelist())
+        assert "manifest.json" in names
+        assert "README.txt" in names
+        assert any(name.startswith("media/") and name.endswith(".svg") for name in names)
+        assert campaign["id"] in packet.read("manifest.json").decode("utf-8")
