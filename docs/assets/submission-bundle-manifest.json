@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.submission_bundle.v1",
-  "created_at": "2026-06-27T08:41:32Z",
+  "created_at": "2026-06-27T08:53:40Z",
   "project": "ProofFrame",
   "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
@@ -57,8 +57,8 @@
       "path": "README.md",
       "label": "Core public project overview",
       "present": true,
-      "bytes": 6046,
-      "sha256": "434be53f2d85d776d94314e7fdb7c11311359441a236ad4c91d538af8884c9a0"
+      "bytes": 6314,
+      "sha256": "1f000e83aad41455f3fcf07bb62817130e1c4a81e4942ad6b82357ba14cdbba7"
     },
     {
       "id": "prd",
@@ -105,16 +105,16 @@
       "path": "docs/demo_script.md",
       "label": "Video shot list and narration",
       "present": true,
-      "bytes": 4716,
-      "sha256": "c8ec135b417a21fb99ce82fbe690063e68ceea5a58c98b1fa833339041c40739"
+      "bytes": 4937,
+      "sha256": "cb991f75ef12fdcb56f078594eb7c953686d0adb8fc6bbf4ad47033a4b8dad80"
     },
     {
       "id": "evidence_package",
       "path": "docs/evidence_package.md",
       "label": "Evidence package plan",
       "present": true,
-      "bytes": 7888,
-      "sha256": "38876fd63ebdaabba5b77fbf700ef3bdc9f41c0bb2609d2bc941169f0a860635"
+      "bytes": 8119,
+      "sha256": "713e76cd66a700cf4376c506749f9c8cb7afad3b6b29e546ffd79b437c09b0d9"
     },
     {
       "id": "public_claim_freeze",
@@ -129,16 +129,40 @@
       "path": "docs/verification.md",
       "label": "Local, CI, Docker, and live proof runbook",
       "present": true,
-      "bytes": 5221,
-      "sha256": "e8372e3d7531c857eaea36d8045df44e09a3fa115d7562ffafee0f6dd06b8aeb"
+      "bytes": 5339,
+      "sha256": "24cced2d3deb13debfd1c42ccb0da6d9accf1bdd9def818f7a02f5066e66ef3a"
     },
     {
       "id": "public_claim_lint",
       "path": "scripts/claim_lint.py",
       "label": "Fail-closed public claim lint",
       "present": true,
-      "bytes": 4804,
-      "sha256": "c00670f301f0e88a8ee2f6d5511a3871786444e4199b7f087d02bf15085fb42e"
+      "bytes": 5110,
+      "sha256": "822950960a0f00454d46f2c65b3a1ebc442692c4635f28081edbf34dd50e43b1"
+    },
+    {
+      "id": "demo_readiness_script",
+      "path": "scripts/demo_readiness.py",
+      "label": "Demo recording readiness gate",
+      "present": true,
+      "bytes": 8122,
+      "sha256": "9685373bf18b4772ec5b0b5e35ef1aae7fc4da1b5a1a610054f9e73d89c858bf"
+    },
+    {
+      "id": "demo_readiness_json",
+      "path": "docs/assets/demo-readiness-report.json",
+      "label": "Machine-readable demo readiness report",
+      "present": true,
+      "bytes": 2405,
+      "sha256": "8da27110598cb3834151a9a0c687f2d04fdf73c64919da4f2d22ec6014abf03a"
+    },
+    {
+      "id": "demo_readiness_md",
+      "path": "docs/assets/demo-readiness-report.md",
+      "label": "Human-readable demo readiness report",
+      "present": true,
+      "bytes": 1229,
+      "sha256": "0a3ad61f5bc48bdf59108296ab30c24884270e7bfb94823ee1b88b86ce199eb0"
     },
     {
       "id": "final_live_runner",
@@ -161,8 +185,8 @@
       "path": "tasks.json",
       "label": "Machine-readable task board",
       "present": true,
-      "bytes": 16557,
-      "sha256": "1938eb970ef8daac7fd6d61001b4303e12ba4f819335c240d08b35be3eb8af43"
+      "bytes": 16978,
+      "sha256": "1c71331fb22e0be18ff91829a56f067ddfe138ee3bb4c22c751637d7e23a857d"
     },
     {
       "id": "local_ui_smoke",

@@ -90,7 +90,12 @@ def scan_public_copy(root: Path) -> list[dict[str, Any]]:
     return findings
 
 
-def check_packet_mode(root: Path, final_ready: bool) -> list[dict[str, Any]]:
+def proof_ready_from_gate(gate: dict[str, Any]) -> bool:
+    task_statuses = {item["id"]: item["ok"] for item in gate.get("task_gates", [])}
+    return bool(gate["evidence_gate"]["ok"] and task_statuses.get("T020") and task_statuses.get("T021"))
+
+
+def check_packet_mode(root: Path, proof_ready: bool) -> list[dict[str, Any]]:
     packet_path = root / "docs" / "assets" / "devpost-submission-packet.json"
     packet = load_json(packet_path)
     if packet is None:
@@ -103,7 +108,7 @@ def check_packet_mode(root: Path, final_ready: bool) -> list[dict[str, Any]]:
             }
         ]
     mode = packet.get("mode")
-    if not final_ready and mode != "pre_live_safe":
+    if not proof_ready and mode != "pre_live_safe":
         return [
             {
                 "path": str(packet_path.relative_to(root)),
@@ -118,16 +123,17 @@ def check_packet_mode(root: Path, final_ready: bool) -> list[dict[str, Any]]:
 def build_claim_report(root: Path = ROOT) -> dict[str, Any]:
     root = root.resolve()
     gate = build_submission_gate(root)
-    final_ready = bool(gate["ok"])
+    proof_ready = proof_ready_from_gate(gate)
     findings: list[dict[str, Any]] = []
-    findings.extend(check_packet_mode(root, final_ready))
-    if not final_ready:
+    findings.extend(check_packet_mode(root, proof_ready))
+    if not proof_ready:
         findings.extend(scan_public_copy(root))
     return {
         "ok": not findings,
-        "mode": "final_ready" if final_ready else "pre_live_safe",
+        "mode": "post_live_verified" if proof_ready else "pre_live_safe",
         "final_gate": {
             "ok": gate["ok"],
+            "proof_ready": proof_ready,
             "summary": gate["summary"],
             "evidence_status": gate["evidence_gate"]["status"],
             "packet_status": gate["packet_gate"]["status"],

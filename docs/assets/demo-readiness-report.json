@@ -1,0 +1,104 @@
+{
+  "schema": "proofframe.demo_readiness.v1",
+  "mode": "pre_live_mock_ready",
+  "mock_recording_ready": true,
+  "final_recording_ready": false,
+  "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
+  "devpost_packet_mode": "pre_live_safe",
+  "task_statuses": {
+    "T020": "doing",
+    "T021": "doing",
+    "T040": "done",
+    "T041": "todo",
+    "T041A": "todo",
+    "T042": "todo"
+  },
+  "submission_gate": {
+    "ok": false,
+    "mode": "pre_live_safe",
+    "summary": {
+      "required": 6,
+      "done": 1,
+      "blocked": 0,
+      "doing": 2,
+      "todo": 3,
+      "missing": 0
+    },
+    "evidence_status": "missing",
+    "packet_status": "ready"
+  },
+  "claim_lint": {
+    "ok": true,
+    "mode": "pre_live_safe",
+    "findings": []
+  },
+  "files": [
+    {
+      "path": "README.md",
+      "present": true,
+      "bytes": 6314
+    },
+    {
+      "path": "docs/demo_script.md",
+      "present": true,
+      "bytes": 4937
+    },
+    {
+      "path": "docs/public_claim_freeze.md",
+      "present": true,
+      "bytes": 4089
+    },
+    {
+      "path": "docs/assets/devpost-submission-packet.json",
+      "present": true,
+      "bytes": 5286
+    },
+    {
+      "path": "docs/assets/devpost-submission-packet.md",
+      "present": true,
+      "bytes": 4160
+    },
+    {
+      "path": "docs/assets/submission-bundle-manifest.json",
+      "present": true,
+      "bytes": 7350
+    },
+    {
+      "path": "docs/assets/submission-bundle-manifest.md",
+      "present": true,
+      "bytes": 2996
+    },
+    {
+      "path": "docs/assets/proofframe-local-ui-smoke.png",
+      "present": true,
+      "bytes": 221853
+    },
+    {
+      "path": "docs/assets/proofframe-review-console-smoke.png",
+      "present": true,
+      "bytes": 343618
+    },
+    {
+      "path": "docs/assets/proofframe-hf-public-smoke.png",
+      "present": true,
+      "bytes": 270826
+    },
+    {
+      "path": "scripts/claim_lint.py",
+      "present": true,
+      "bytes": 5110
+    },
+    {
+      "path": "scripts/secret_scan.py",
+      "present": true,
+      "bytes": 2397
+    }
+  ],
+  "missing_files": [],
+  "next_actions": [
+    "Capture the live Backblaze B2 asset and manifest proof.",
+    "Capture the live Genblaze generation proof.",
+    "Write docs/assets/final-live-proof-evidence.json with sanitized live proof.",
+    "Run the final secret scan before recording the final sponsor-backed video."
+  ]
+}

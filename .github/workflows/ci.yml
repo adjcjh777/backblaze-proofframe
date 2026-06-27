@@ -50,3 +50,6 @@ jobs:
 
       - name: Public claim lint
         run: python scripts/claim_lint.py
+
+      - name: Demo readiness
+        run: python scripts/demo_readiness.py

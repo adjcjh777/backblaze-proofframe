@@ -16,7 +16,7 @@ def write_file(root: Path, relative_path: str, text: str) -> None:
     path.write_text(text, encoding="utf-8")
 
 
-def write_minimal_pre_live_tree(root: Path) -> None:
+def write_minimal_pre_live_tree(root: Path, *, live_done: bool = False) -> None:
     write_file(root, "README.md", "ProofFrame includes a B2-compatible storage adapter.\n")
     write_file(
         root,
@@ -39,8 +39,8 @@ def write_minimal_pre_live_tree(root: Path) -> None:
         json.dumps(
             {
                 "tasks": [
-                    {"id": "T020", "status": "doing", "title": "B2"},
-                    {"id": "T021", "status": "doing", "title": "Genblaze"},
+                    {"id": "T020", "status": "done" if live_done else "doing", "title": "B2"},
+                    {"id": "T021", "status": "done" if live_done else "doing", "title": "Genblaze"},
                     {"id": "T040", "status": "done", "title": "Devpost"},
                     {"id": "T041", "status": "todo", "title": "Audit"},
                     {"id": "T041A", "status": "todo", "title": "Secret scan"},
@@ -49,6 +49,24 @@ def write_minimal_pre_live_tree(root: Path) -> None:
             }
         ),
     )
+    if live_done:
+        write_file(
+            root,
+            "docs/assets/final-live-proof-evidence.json",
+            json.dumps(
+                {
+                    "ok": True,
+                    "storage_backend": "b2",
+                    "generation_backend": "genblaze",
+                    "asset_storage_backend": "b2",
+                    "asset_provider": "genblaze/gmicloud-image",
+                    "asset_sha256": "a" * 64,
+                    "manifest_sha256": "b" * 64,
+                    "asset_storage_key": "campaigns/cmp/media/asset.png",
+                    "manifest_key": "campaigns/cmp/manifests/manifest.json",
+                }
+            ),
+        )
 
 
 def test_claim_lint_passes_safe_pre_live_copy(tmp_path):
@@ -84,3 +102,18 @@ def test_claim_lint_fails_post_live_packet_without_final_evidence(tmp_path):
 
     assert report["ok"] is False
     assert report["findings"][0]["status"] == "unsafe-packet-mode"
+
+
+def test_claim_lint_allows_post_live_packet_after_live_proof(tmp_path):
+    write_minimal_pre_live_tree(tmp_path, live_done=True)
+    write_file(
+        tmp_path,
+        "docs/assets/devpost-submission-packet.json",
+        json.dumps({"mode": "post_live_verified", "claim_warning": "safe"}),
+    )
+
+    report = claim_lint.build_claim_report(tmp_path)
+
+    assert report["ok"] is True
+    assert report["mode"] == "post_live_verified"
+    assert report["final_gate"]["proof_ready"] is True

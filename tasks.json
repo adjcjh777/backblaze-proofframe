@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T08:41:22Z",
+  "updated_at": "2026-06-27T08:51:54Z",
   "tasks": [
     {
       "id": "T001",
@@ -352,6 +352,15 @@
       "status": "done",
       "done_criteria": "CI fails if active public copy claims completed B2 or Genblaze proof before final live evidence exists.",
       "notes": "Added scripts/claim_lint.py, tests, CI step, and runbook/evidence docs."
+    },
+    {
+      "id": "T039P",
+      "title": "Add demo readiness gate",
+      "phase": "P3 Demo",
+      "owner": "codex",
+      "status": "done",
+      "done_criteria": "A script and committed report prove mock recording assets are ready and final video remains gated on live B2/Genblaze evidence.",
+      "notes": "Added scripts/demo_readiness.py, tests, CI wiring, and docs/assets/demo-readiness-report.{json,md}."
     },
     {
       "id": "T040",
