@@ -89,6 +89,7 @@ def write_demo_fixtures(root: Path, *, live_done: bool = False) -> None:
     write_file(root, "scripts/devpost_form_kit.py", "# devpost form kit\n")
     write_file(root, "scripts/demo_storyboard.py", "# demo storyboard\n")
     write_file(root, "scripts/live_env_handoff.py", "# live env handoff\n")
+    write_file(root, "scripts/run_b2_live_proof.py", "# b2 live proof\n")
     write_file(root, "scripts/secret_scan.py", "# secret scan\n")
     if live_done:
         write_file(

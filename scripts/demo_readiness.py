@@ -43,6 +43,7 @@ REQUIRED_MOCK_RECORDING_FILES = [
     "scripts/devpost_form_kit.py",
     "scripts/demo_storyboard.py",
     "scripts/live_env_handoff.py",
+    "scripts/run_b2_live_proof.py",
     "scripts/secret_scan.py",
 ]
 

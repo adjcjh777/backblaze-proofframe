@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T10:25:49Z",
+  "updated_at": "2026-06-27T10:38:47Z",
   "tasks": [
     {
       "id": "T001",
@@ -415,6 +415,15 @@
       "status": "done",
       "done_criteria": "A field-by-field Devpost form kit turns the safe packet into copy-ready fields, checks lengths and URLs, and keeps final submission gated on live proof plus video URL.",
       "notes": "Added scripts/devpost_form_kit.py, tests, CI wiring, claim lint coverage, docs/assets/devpost-form-kit.{json,md}, demo readiness, submission bundle, and final audit coverage."
+    },
+    {
+      "id": "T039W",
+      "title": "Add B2-only live proof runner",
+      "phase": "P2 Integrations",
+      "owner": "codex",
+      "status": "done",
+      "done_criteria": "A one-command runner can load the local final env file, force B2 storage plus mock generation, preflight required B2 values, and write sanitized b2-live-proof evidence once the scoped key is present.",
+      "notes": "Added scripts/run_b2_live_proof.py, tests, docs, bundle/readiness wiring, and B2 setup next-command coverage."
     },
     {
       "id": "T040",

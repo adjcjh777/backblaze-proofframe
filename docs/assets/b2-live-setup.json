@@ -6,6 +6,7 @@
   "endpoint": "s3.us-west-004.backblazeb2.com",
   "application_key_name": "proofframe-demo-live-proof",
   "application_key_status": "form_prepared_not_created",
+  "next_command": "python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out docs/assets/b2-live-proof-evidence.json",
   "created_from": "Backblaze B2 Cloud Storage Buckets page",
   "safe_to_commit": true,
   "secret_policy": "This file intentionally excludes key IDs, application keys, cookies, hidden form tokens, signed URLs, account billing details, and provider secrets."

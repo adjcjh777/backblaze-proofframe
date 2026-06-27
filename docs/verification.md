@@ -120,6 +120,7 @@ Run:
 ```bash
 . .venv/bin/activate
 python scripts/check_integrations.py
+python scripts/run_b2_live_proof.py --env-file .env.final.local --preflight-only
 uvicorn proofframe.app:app --host 127.0.0.1 --port 8088
 python scripts/live_proof.py \
   --base-url http://127.0.0.1:8088 \
@@ -129,6 +130,13 @@ python scripts/live_proof.py \
 ```
 
 Fallback command:
+
+```bash
+python scripts/run_b2_live_proof.py --env-file .env.final.local \
+  --evidence-out docs/assets/b2-live-proof-evidence.json
+```
+
+Fallback against an already running app:
 
 ```bash
 python scripts/api_smoke.py \

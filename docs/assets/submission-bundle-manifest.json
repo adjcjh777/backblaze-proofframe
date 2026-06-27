@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.submission_bundle.v1",
-  "created_at": "2026-06-27T10:25:58Z",
+  "created_at": "2026-06-27T10:38:59Z",
   "project": "ProofFrame",
   "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
@@ -57,8 +57,8 @@
       "path": "README.md",
       "label": "Core public project overview",
       "present": true,
-      "bytes": 7190,
-      "sha256": "1be124acc086939463b69d2c8cea340ecc547ede83350ab0ecc477047a6dc1c0"
+      "bytes": 7398,
+      "sha256": "dd9a4560a1c48f9b74c3094ae80bf97afcdc7168de451c07e3cfa899ea95560a"
     },
     {
       "id": "prd",
@@ -169,8 +169,8 @@
       "path": "docs/evidence_package.md",
       "label": "Evidence package plan",
       "present": true,
-      "bytes": 9427,
-      "sha256": "b690c721050594da2ff36cbec189b9fb3fd15f470f6a9b9f6bae8f974bb093f8"
+      "bytes": 9629,
+      "sha256": "ee84fcb99de00ba08421c6553c857d9f76edd892c343580fe7f518166a5dc535"
     },
     {
       "id": "public_claim_freeze",
@@ -185,8 +185,8 @@
       "path": "docs/verification.md",
       "label": "Local, CI, Docker, and live proof runbook",
       "present": true,
-      "bytes": 6086,
-      "sha256": "0a0def5ef8c20363617f3b057aff13dfda036feb8e648a7063d0ea3dac5e3d35"
+      "bytes": 6509,
+      "sha256": "3fc1610d0bc48c350b76b24978f5b046f04cd3f8c7a1e812e16676f3dacd9731"
     },
     {
       "id": "final_env_template",
@@ -201,48 +201,56 @@
       "path": "docs/assets/b2-live-setup.json",
       "label": "Non-secret B2 bucket setup record",
       "present": true,
-      "bytes": 579,
-      "sha256": "0cb6ca7f02c4518a2e2e6d8b2f519fc5777a9bc9a4ed28840fbf0462453e98b4"
+      "bytes": 719,
+      "sha256": "a377923f48e112b1d566f99bd9010b32852522c1d13ca7144571c29fb7a5d1ab"
     },
     {
       "id": "b2_live_setup_md",
       "path": "docs/assets/b2-live-setup.md",
       "label": "Human-readable B2 bucket setup record",
       "present": true,
-      "bytes": 746,
-      "sha256": "d1363392d8253d33e24f0efd223a67e1015c6f1c88ecad6561a187f04974cb0f"
+      "bytes": 864,
+      "sha256": "863b2a02e3d2824fef28fa0da71bda1a3b498321ae8d861bf28915c97e908114"
+    },
+    {
+      "id": "b2_live_runner",
+      "path": "scripts/run_b2_live_proof.py",
+      "label": "One-command B2 storage proof runner",
+      "present": true,
+      "bytes": 5781,
+      "sha256": "9678c0292a70cc0b0c6fdaf275cf72e4942564bfa3fecdb8b5c36f8b7bcf5fb5"
     },
     {
       "id": "live_env_handoff_script",
       "path": "scripts/live_env_handoff.py",
       "label": "Redacted live credential handoff gate",
       "present": true,
-      "bytes": 9091,
-      "sha256": "b3aa1a99eabb39fc471f604d1e781febb113524ddeb6ef6473d03ef474550c21"
+      "bytes": 9180,
+      "sha256": "1192c443de7ab889c3f9d4db7882a33db542b3cb5584725a936b4956c335955e"
     },
     {
       "id": "live_env_handoff_json",
       "path": "docs/assets/live-credential-handoff.json",
       "label": "Machine-readable live credential handoff",
       "present": true,
-      "bytes": 4181,
-      "sha256": "8d80d985c8337003be0e1b52e39a15f512e146efe26f58a2e7440af243774691"
+      "bytes": 4171,
+      "sha256": "6d7622c1b99bd1aa9901182d7b61dcc587c6ed184b159430df048d3494caa984"
     },
     {
       "id": "live_env_handoff_md",
       "path": "docs/assets/live-credential-handoff.md",
       "label": "Human-readable live credential handoff",
       "present": true,
-      "bytes": 2179,
-      "sha256": "8b172d4fc8e485946178b7be82ac958524adaec227cf7f4c3fe76181ddf3437d"
+      "bytes": 2055,
+      "sha256": "3c5c4b1ed2de426bf0e7cb93f0878767c7e3d1c68e742ce037fbb850f9d0f473"
     },
     {
       "id": "final_env_wizard",
       "path": "scripts/final_env_wizard.py",
       "label": "Local final credential env wizard",
       "present": true,
-      "bytes": 8933,
-      "sha256": "5f7f1e16f48145e86b5929a6938ab4494e366cf4a3530e94733b173e6c6adc3d"
+      "bytes": 11654,
+      "sha256": "9cd606a2cbca1a93901115484982011e73603a514db3d154c582e6e5850e7ba7"
     },
     {
       "id": "public_claim_lint",
@@ -257,24 +265,24 @@
       "path": "scripts/demo_readiness.py",
       "label": "Demo recording readiness gate",
       "present": true,
-      "bytes": 8504,
-      "sha256": "06bb51f8eaeb42d7d76381ba631c0b3aa61be88cf21b48d013756269d31e3e1b"
+      "bytes": 8540,
+      "sha256": "283410fe3daef37407a608a16672f96345d2de55bd66f86c05ae78109e2161d6"
     },
     {
       "id": "demo_readiness_json",
       "path": "docs/assets/demo-readiness-report.json",
       "label": "Machine-readable demo readiness report",
       "present": true,
-      "bytes": 3450,
-      "sha256": "82864b3155d55de6cd9f4d427940426beed0a3899d36a58b7e943c57bc5f3b4b"
+      "bytes": 3552,
+      "sha256": "e9fb43ac5db8a9e2c72aaca548ae39831e6dc85441ad229de3649c02ec0f0890"
     },
     {
       "id": "demo_readiness_md",
       "path": "docs/assets/demo-readiness-report.md",
       "label": "Human-readable demo readiness report",
       "present": true,
-      "bytes": 1611,
-      "sha256": "dcd909767579ee2c18b0e053a2a02c99e25f7d945b86aa25170a00e699ac5183"
+      "bytes": 1647,
+      "sha256": "742c02b42b2dd717fb906a838177531428c770befe22e042918ed56dd04b6eae"
     },
     {
       "id": "final_live_runner",
@@ -297,8 +305,8 @@
       "path": "tasks.json",
       "label": "Machine-readable task board",
       "present": true,
-      "bytes": 20026,
-      "sha256": "1389a5db6522f6876c1da63c85370003ccc3bad4425234841b3311937e135648"
+      "bytes": 20543,
+      "sha256": "2357842097bdaf6cc45938b974e1b2c7f4e6960ad4a0c9283f9250d2cfdf1a54"
     },
     {
       "id": "local_ui_smoke",

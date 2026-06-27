@@ -18,4 +18,9 @@ This file intentionally excludes key IDs, application keys, cookies, hidden form
 
 ## Next Step
 
-Create the scoped application key only after user confirmation, then write it to the local git-ignored `.env.final.local` file and run the live B2 proof.
+Create the scoped application key only after user confirmation, then write it to the local git-ignored `.env.final.local` file and run:
+
+```bash
+python scripts/run_b2_live_proof.py --env-file .env.final.local \
+  --evidence-out docs/assets/b2-live-proof-evidence.json
+```

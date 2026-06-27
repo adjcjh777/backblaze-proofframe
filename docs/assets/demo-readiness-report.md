@@ -44,6 +44,7 @@ Devpost packet mode: `pre_live_safe`
 - OK `scripts/devpost_form_kit.py`
 - OK `scripts/demo_storyboard.py`
 - OK `scripts/live_env_handoff.py`
+- OK `scripts/run_b2_live_proof.py`
 - OK `scripts/secret_scan.py`
 
 ## Next Actions
