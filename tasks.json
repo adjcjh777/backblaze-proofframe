@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T04:46:42Z",
+  "updated_at": "2026-06-27T04:59:00Z",
   "tasks": [
     {
       "id": "T001",
@@ -99,7 +99,16 @@
       "owner": "executor",
       "status": "todo",
       "done_criteria": "apps/web/index.html presents brief intake, asset review, manifest panel, and Deerflow signature.",
-      "notes": ""
+      "notes": "Blocked until user chooses one of the three generated visual directions."
+    },
+    {
+      "id": "T015",
+      "title": "Choose UI visual direction",
+      "phase": "P1 MVP",
+      "owner": "controller",
+      "status": "blocked",
+      "done_criteria": "User chooses option 1 Archive Desk, option 2 Signal Lab, option 3 Proof Ledger, or requests a remix.",
+      "notes": "Generated options copied to outputs/proofframe-ui-option-*.png."
     },
     {
       "id": "T020",
@@ -138,6 +147,24 @@
       "notes": ""
     },
     {
+      "id": "T032",
+      "title": "Prepare submission evidence package",
+      "phase": "P3 Polish",
+      "owner": "planner",
+      "status": "todo",
+      "done_criteria": "Evidence package includes app URL or Docker path, screenshots, video link, repo URL, B2 proof, Genblaze proof, and AI provider/model list.",
+      "notes": "Added from review gate audit."
+    },
+    {
+      "id": "T033",
+      "title": "Run public-claim freeze",
+      "phase": "P3 Polish",
+      "owner": "reviewer",
+      "status": "todo",
+      "done_criteria": "Public README, Devpost text, demo script, and screenshots make only verified B2/Genblaze claims.",
+      "notes": "Avoid using target copy as factual copy before T020/T021 are verified."
+    },
+    {
       "id": "T040",
       "title": "Register on Devpost",
       "phase": "P4 Submit",
@@ -154,6 +181,15 @@
       "status": "todo",
       "done_criteria": "Reviewer signs off on rules, secrets, claims, and public artifacts.",
       "notes": ""
+    },
+    {
+      "id": "T041A",
+      "title": "Run final secret scan",
+      "phase": "P4 Submit",
+      "owner": "reviewer",
+      "status": "todo",
+      "done_criteria": "Secret scan covers repo, docs, screenshots, exported manifests, logs, and demo evidence before submission.",
+      "notes": "No B2, Genblaze, provider, Devpost, cookie, signed URL, or test account secret may be committed or shown."
     },
     {
       "id": "T042",

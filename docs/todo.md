@@ -19,12 +19,12 @@ python3 scripts/task.py block T010 --note "Needs manual Devpost login"
 | P0 Foundation | Pick contest, create repo, write PRD/spec/todo, create team. |
 | P1 MVP | Local app, manifest, mock generation, review UI. |
 | P2 Integrations | B2 and Genblaze real paths, Docker, evidence. |
-| P3 Polish | UI, samples, tests, demo video. |
+| P3 Polish | UI, samples, tests, demo video, public-claim freeze, evidence package. |
 | P4 Submit | Devpost registration, final audit, submission. |
 
 ## Current Priority
 
-1. Finish Stage 0 docs and GitHub repo.
-2. Implement local ProofFrame MVP with mock generation and manifests.
-3. Confirm Devpost registration and B2/Genblaze access.
-
+1. Pick a UI direction: Archive Desk, Signal Lab, Proof Ledger, or a remix.
+2. Implement `apps/web/index.html` after the direction is chosen.
+3. Confirm Devpost registration and Backblaze B2 / Genblaze access.
+4. Keep public claims frozen until real B2 and Genblaze evidence exists.
