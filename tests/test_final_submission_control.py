@@ -99,6 +99,15 @@ def write_common_reports(root: Path, *, final_done: bool = False) -> None:
     )
     write_json(
         root,
+        "docs/assets/agent-handoff-report.json",
+        {
+            "schema": "proofframe.agent_handoff.v1",
+            "mode": "handoff_ready",
+            "ok": True,
+        },
+    )
+    write_json(
+        root,
         "docs/assets/demo-readiness-report.json",
         {
             "schema": "proofframe.demo_readiness.v1",
@@ -200,6 +209,7 @@ def test_control_report_blocks_pre_live_submission(tmp_path):
     assert report["event"]["participant_count_observed"] == 343
     assert "B2_KEY_ID" in report["next_actions"][0]
     assert report["report_inputs"]["devpost_form"]["path"] == "docs/assets/devpost-form-kit.json"
+    assert report["report_inputs"]["agent_handoff"]["mode"] == "handoff_ready"
     assert str(tmp_path) not in json.dumps(report)
 
 

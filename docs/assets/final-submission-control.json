@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.final_submission_control.v1",
-  "created_at": "2026-06-27T18:49:08Z",
+  "created_at": "2026-06-27T18:58:36Z",
   "mode": "pre_live_control",
   "safe_to_submit": false,
   "event": {
@@ -95,6 +95,22 @@
         "judging_period": "August 5, 2026 (10:00 am Eastern Time) \u2013 August 11, 2026 (5:00 pm Eastern Time) (\u201cJudging Period\u201d).",
         "winner_announced": "On or around August 12, 2026 (2:00 pm Eastern Time)."
       }
+    },
+    "agent_handoff": {
+      "present": true,
+      "path": "docs/assets/agent-handoff-report.json",
+      "schema_ok": true,
+      "schema": "proofframe.agent_handoff.v1",
+      "mode": "handoff_ready",
+      "ok": true,
+      "score": null,
+      "max_score": null,
+      "final_form_ready": null,
+      "final_video_ready": null,
+      "final_recording_ready": null,
+      "mock_recording_ready": null,
+      "public_mock_verified": null,
+      "public_video_ready": null
     },
     "demo_storyboard": {
       "present": true,
@@ -252,6 +268,13 @@
       "ok": true,
       "detail": "Snapshot checked at 2026-06-27T18:45:48Z; submission open is True; age days is 0.",
       "evidence": "docs/assets/devpost-event-snapshot.json"
+    },
+    {
+      "id": "agent_handoff",
+      "label": "Agent handoff metadata points at the current repo",
+      "ok": true,
+      "detail": "Agent handoff mode is handoff_ready; ok is True.",
+      "evidence": "docs/assets/agent-handoff-report.json"
     },
     {
       "id": "recording_assets",

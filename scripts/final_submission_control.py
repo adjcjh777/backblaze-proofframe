@@ -183,6 +183,7 @@ def build_requirements(
     statuses: dict[str, str],
     form: dict[str, Any],
     event_snapshot: dict[str, Any],
+    agent_handoff: dict[str, Any],
     storyboard: dict[str, Any],
     demo: dict[str, Any],
     recording: dict[str, Any],
@@ -195,6 +196,7 @@ def build_requirements(
     summaries = {
         "Devpost form": form,
         "Devpost event snapshot": event_snapshot,
+        "Agent handoff": agent_handoff,
         "Demo storyboard": storyboard,
         "Demo readiness": demo,
         "Recording assets": recording,
@@ -240,6 +242,15 @@ def build_requirements(
                 f"age days is {event_snapshot.get('age_days')}."
             ),
             "docs/assets/devpost-event-snapshot.json",
+        ),
+        requirement(
+            "agent_handoff",
+            "Agent handoff metadata points at the current repo",
+            bool(agent_handoff.get("present"))
+            and bool(agent_handoff.get("schema_ok"))
+            and bool(agent_handoff.get("ok")),
+            f"Agent handoff mode is {agent_handoff.get('mode')}; ok is {agent_handoff.get('ok')}.",
+            "docs/assets/agent-handoff-report.json",
         ),
         requirement(
             "recording_assets",
@@ -366,6 +377,8 @@ def next_actions(requirements: list[dict[str, Any]]) -> list[str]:
         actions.append("Complete .env.final.local with B2_KEY_ID, B2_APPLICATION_KEY, and Genblaze/GMI API key values.")
     if "official_event_snapshot" in missing:
         actions.append("Refresh the official Devpost event snapshot before recording or submitting.")
+    if "agent_handoff" in missing:
+        actions.append("Run the Agent handoff check so future Codex and Agent Bus sessions use the current repo path.")
     if "b2_live_proof" in missing:
         actions.append("Run the B2 live proof runner and save sanitized B2 evidence.")
     if "genblaze_live_proof" in missing:
@@ -389,6 +402,11 @@ def build_control_report(root: Path = ROOT) -> dict[str, Any]:
     statuses = task_statuses(root)
     form = report_summary(root / "docs" / "assets" / "devpost-form-kit.json", "proofframe.devpost_form_kit.v1", root)
     event_snapshot = event_snapshot_summary(root)
+    agent_handoff = report_summary(
+        root / "docs" / "assets" / "agent-handoff-report.json",
+        "proofframe.agent_handoff.v1",
+        root,
+    )
     storyboard = report_summary(root / "docs" / "assets" / "demo-storyboard.json", "proofframe.demo_storyboard.v1", root)
     demo = report_summary(root / "docs" / "assets" / "demo-readiness-report.json", "proofframe.demo_readiness.v1", root)
     recording = report_summary(root / "docs" / "assets" / "recording-assets.json", "proofframe.recording_assets.v1", root)
@@ -420,6 +438,7 @@ def build_control_report(root: Path = ROOT) -> dict[str, Any]:
         statuses=statuses,
         form=form,
         event_snapshot=event_snapshot,
+        agent_handoff=agent_handoff,
         storyboard=storyboard,
         demo=demo,
         recording=recording,
@@ -450,6 +469,7 @@ def build_control_report(root: Path = ROOT) -> dict[str, Any]:
         "report_inputs": {
             "devpost_form": form,
             "devpost_event_snapshot": event_snapshot,
+            "agent_handoff": agent_handoff,
             "demo_storyboard": storyboard,
             "demo_readiness": demo,
             "recording_assets": recording,

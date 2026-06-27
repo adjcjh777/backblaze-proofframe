@@ -5,7 +5,7 @@
 - Public product copy, README sections, demo video script, and submission text may be English.
 
 ## Git
-- Work only inside `/Users/junhaocheng/Documents/Codex/2026-06-27/quan/backblaze-proofframe`.
+- Work only inside `/Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe`.
 - Keep this as an independent Git repo. Do not commit changes from the parent `/Users/junhaocheng` tree.
 - Current branch: `feature/backblaze-proofframe`.
 - Before editing, confirm `pwd` and `git status --short --branch`.
@@ -20,6 +20,7 @@
 ## Agent Bus
 - Team id: `proofframe-hackathon-58c62c50`.
 - Controller session: `019f075b-d44b-7f12-9460-1782719ecbaa`.
+- If durable Agent Bus metadata disagrees with this file, treat the path above as the current repo authority and run `python scripts/agent_handoff_check.py`.
 - Roles:
   - `planner`: roadmap, scope, task ledger, submission evidence.
   - `scout`: rules, competitors, deadlines, judging risks.
@@ -45,4 +46,3 @@ python3 scripts/task.py list --status todo
 python3 scripts/task.py done T001
 python3 scripts/task.py block T010 --note "Needs Backblaze account"
 ```
-

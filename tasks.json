@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T18:47:06Z",
+  "updated_at": "2026-06-27T18:57:57Z",
   "tasks": [
     {
       "id": "T001",
@@ -586,6 +586,15 @@
       "status": "done",
       "done_criteria": "Official Devpost overview and rules pages are re-fetched, validation remains ok, dynamic participant count is updated, and downstream control/bundle reports use the refreshed snapshot.",
       "notes": "Refetched overview and rules pages on 2026-06-28 Asia/Shanghai; participant count moved from 343 to 345, submission remains open, and public copy keeps the count dynamic."
+    },
+    {
+      "id": "T042E",
+      "title": "Add Agent handoff consistency gate",
+      "phase": "P4 Submit",
+      "owner": "codex",
+      "status": "done",
+      "done_criteria": "AGENTS.md points at the current repo, a machine-readable handoff report is generated, CI runs the check, and final control/bundle include the report.",
+      "notes": "Updated AGENTS.md from the stale Documents/Codex path to the current working-dir repo path; added a public default handoff report and a local --check-bus diagnostic that detected durable Agent Bus project metadata as stale while keeping AGENTS.md as repo authority."
     }
   ]
 }

@@ -44,6 +44,7 @@ This file is the internal source of truth for Devpost submission assets. Anythin
 | Public HF Space API smoke | `python scripts/api_smoke.py --base-url https://adjcjh-backblaze-proofframe.hf.space` | Passed in local/mock mode |
 | Public HF Space judge-mode sync | HF Space commit `635162b`; public HTML contains `Judge recording slate`, `Sponsor Evidence Model`, `shouldAutoLoadJudgeDemo`, and `Final reports pending`; `/api/submission/gate` returns `pre_live_safe` with `report_gate` and repo-relative artifact paths; API smoke passes | Public-ready in local/mock mode |
 | Official Devpost event snapshot | `scripts/devpost_event_snapshot.py`, `docs/assets/devpost-event-snapshot.json`, `docs/assets/devpost-event-snapshot.md` | Public-ready; refreshes deadline, participant count, requirements, and judging criteria from official Devpost pages |
+| Agent handoff consistency | `scripts/agent_handoff_check.py`, `docs/assets/agent-handoff-report.json`, `docs/assets/agent-handoff-report.md` | Public-ready; verifies AGENTS.md points future Codex and Agent Bus sessions at the current repo path |
 | Devpost registration | `tasks.json` T040 | Done; registered for the event |
 | Downloadable evidence ZIP | `/api/campaigns/{id}/packet.zip` | Public-ready in local mode |
 | One-click judge packet | `/api/demo/judge-packet` | Public-ready in local mode |

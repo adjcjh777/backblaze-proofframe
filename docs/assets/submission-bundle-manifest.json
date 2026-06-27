@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.submission_bundle.v1",
-  "created_at": "2026-06-27T18:49:15Z",
+  "created_at": "2026-06-27T18:58:36Z",
   "project": "ProofFrame",
   "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
@@ -123,8 +123,8 @@
       "path": "README.md",
       "label": "Core public project overview",
       "present": true,
-      "bytes": 9418,
-      "sha256": "a724d2eced70c79ca9412d6575d7c02b6585ad35e1777159dd97c2cc42b75f35"
+      "bytes": 9671,
+      "sha256": "5a427c701ead235f85bd683bec52f33888a69d8c9874d0b9d8f4119ab4a707d4"
     },
     {
       "id": "dockerfile",
@@ -205,6 +205,30 @@
       "present": true,
       "bytes": 1443,
       "sha256": "8f4246393072aeef9b0b16d57ddb93345bc114c677d8d45ac014b503d1a10de0"
+    },
+    {
+      "id": "agent_handoff_script",
+      "path": "scripts/agent_handoff_check.py",
+      "label": "Agent Bus and Codex handoff path checker",
+      "present": true,
+      "bytes": 10222,
+      "sha256": "6431f93572f39e4d6cd4da0c3e41ebc58743b62e95fe3b9af518bf80b1d8a533"
+    },
+    {
+      "id": "agent_handoff_json",
+      "path": "docs/assets/agent-handoff-report.json",
+      "label": "Machine-readable Agent handoff report",
+      "present": true,
+      "bytes": 2128,
+      "sha256": "f7b3f43366aaa57d2a3b271b60046f7359e53f3c026a28fefcdbcae68e3e9a36"
+    },
+    {
+      "id": "agent_handoff_md",
+      "path": "docs/assets/agent-handoff-report.md",
+      "label": "Human-readable Agent handoff report",
+      "present": true,
+      "bytes": 1397,
+      "sha256": "1f982e8bd4cb40c6d89f6e1712598b63a5d12c90c08314a07d1a3fa278c45999"
     },
     {
       "id": "devpost_form_kit_script",
@@ -331,24 +355,24 @@
       "path": "scripts/final_submission_control.py",
       "label": "Final submission control tower",
       "present": true,
-      "bytes": 23593,
-      "sha256": "87e92a7edad2c210087ae012b8e141d958f57992a70c0a6921da37636730cfca"
+      "bytes": 24489,
+      "sha256": "4fa1023398db5035d9611a056af9c46d78f8ccb1ccf27ef1c0f11ace9cedc634"
     },
     {
       "id": "final_submission_control_json",
       "path": "docs/assets/final-submission-control.json",
       "label": "Machine-readable final control report",
       "present": true,
-      "bytes": 15895,
-      "sha256": "f20c7ddc1b846d9677691ed26fd46e1b72d333f074f7ca068fb142768969ef7d"
+      "bytes": 16631,
+      "sha256": "5b09b930057b31443101ae1f224213c48acb662809872f969dc4d12872712a47"
     },
     {
       "id": "final_submission_control_md",
       "path": "docs/assets/final-submission-control.md",
       "label": "Human-readable final control report",
       "present": true,
-      "bytes": 4833,
-      "sha256": "0e1630fbde88e2373f7af8dee34e7aa9ecfb790d8b7662ef3e3d3e639f10f440"
+      "bytes": 4985,
+      "sha256": "dad5e2a0ce36972316fa9b01e1ec9c004e463756345524acbc13592a0a9f8b58"
     },
     {
       "id": "final_operator_brief_script",
@@ -388,7 +412,7 @@
       "label": "Machine-readable submission audit report",
       "present": true,
       "bytes": 5201,
-      "sha256": "bc4d0882228881703f1aec6189ccde8561df8bf85f71a09f7ae376cb9b93d5c6"
+      "sha256": "4fe55504618fe9c71e594b1752d29c3f68c85ce5642607b3682cdf9e78c6f8c2"
     },
     {
       "id": "submission_audit_md",
@@ -396,7 +420,7 @@
       "label": "Human-readable submission audit report",
       "present": true,
       "bytes": 3887,
-      "sha256": "a38a53fc632d982e1ec3bd681bf42a7cb786e69b639d360707c614a6a15a48bd"
+      "sha256": "1be0e1732da7ee069843c7458b0e4ccbc43c67192a1aeaa1954ef71cc4d81c23"
     },
     {
       "id": "devpost_receipt_script",
@@ -427,8 +451,8 @@
       "path": "docs/evidence_package.md",
       "label": "Evidence package plan",
       "present": true,
-      "bytes": 12397,
-      "sha256": "efbcd4059832bff48e5fee90bd9eab341cf64a27a40d1b6989c4263a01612abc"
+      "bytes": 12645,
+      "sha256": "71aa5a738fe0d89f5d0e5f8988d192d2c0eb71c23fe689b1a83ee712a75247be"
     },
     {
       "id": "public_claim_freeze",
@@ -443,8 +467,8 @@
       "path": "docs/verification.md",
       "label": "Local, CI, Docker, and live proof runbook",
       "present": true,
-      "bytes": 7933,
-      "sha256": "5fae592330a79cd2814c5d808cc64f1c90f77c7e4c4b9f17f9e5905aee4d57f8"
+      "bytes": 8063,
+      "sha256": "581a8e05754a4f79b99139d184d692b4ce855051d11ebc61a4c3a4c46581144f"
     },
     {
       "id": "final_env_template",
@@ -467,8 +491,8 @@
       "path": "docs/assets/secret-scan-report.json",
       "label": "Machine-readable secret scan report",
       "present": true,
-      "bytes": 7904,
-      "sha256": "5536c39b5495ab256a9734d04477234ed73f3094c7515a364354c738fe8bf19d"
+      "bytes": 8071,
+      "sha256": "bb2c21f5a5c31dae34c3a485946056414281b8570d344ba6e03399ecc8d67aa1"
     },
     {
       "id": "secret_scan_md",
@@ -476,7 +500,7 @@
       "label": "Human-readable secret scan report",
       "present": true,
       "bytes": 846,
-      "sha256": "6fe5fbdd56ae49f5661adf00f3ddf4a4acfb4e72d11350b047c315bb140ab27e"
+      "sha256": "9c1d8e89a6b33239252edb0d7907198a4219c62f0bdef91d6f491999156d7bc9"
     },
     {
       "id": "b2_live_setup_json",
@@ -611,8 +635,8 @@
       "path": "tasks.json",
       "label": "Machine-readable task board",
       "present": true,
-      "bytes": 28085,
-      "sha256": "207c6b24106e75395c1b4c3386780bf06e7e2f687e99b967dd76e6f4ac43ae80"
+      "bytes": 28707,
+      "sha256": "bf4692c78fb23606dec790e95e9ff191f748385758101fb126657dab16aa94f0"
     },
     {
       "id": "local_ui_smoke",

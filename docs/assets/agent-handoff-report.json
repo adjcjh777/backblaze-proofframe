@@ -1,0 +1,61 @@
+{
+  "schema": "proofframe.agent_handoff.v1",
+  "created_at": "2026-06-27T18:58:10Z",
+  "ok": true,
+  "mode": "handoff_ready",
+  "repo_root": "/Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe",
+  "agents": {
+    "path": "AGENTS.md",
+    "work_path": "/Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe",
+    "normalized_work_path": "/Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe",
+    "branch": "feature/backblaze-proofframe",
+    "team_id": "proofframe-hackathon-58c62c50"
+  },
+  "bus": {
+    "checked": false,
+    "ok": null,
+    "status": "skipped",
+    "team_id": "proofframe-hackathon-58c62c50",
+    "detail": "Pass --check-bus for local durable Agent Bus metadata inspection."
+  },
+  "checks": [
+    {
+      "id": "agents_present",
+      "label": "AGENTS.md is present",
+      "ok": true,
+      "detail": "AGENTS.md found.",
+      "evidence": "AGENTS.md"
+    },
+    {
+      "id": "work_path_matches_repo",
+      "label": "AGENTS work path matches this repo",
+      "ok": true,
+      "detail": "AGENTS path is '/Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe'; expected '/Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe'.",
+      "evidence": "AGENTS.md"
+    },
+    {
+      "id": "work_path_exists",
+      "label": "AGENTS work path exists",
+      "ok": true,
+      "detail": "AGENTS path is '/Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe'.",
+      "evidence": "AGENTS.md"
+    },
+    {
+      "id": "branch_matches",
+      "label": "AGENTS branch matches current project branch",
+      "ok": true,
+      "detail": "AGENTS branch is 'feature/backblaze-proofframe'; expected 'feature/backblaze-proofframe'.",
+      "evidence": "AGENTS.md"
+    },
+    {
+      "id": "team_id_matches",
+      "label": "AGENTS team id matches ProofFrame team",
+      "ok": true,
+      "detail": "AGENTS team id is 'proofframe-hackathon-58c62c50'; expected 'proofframe-hackathon-58c62c50'.",
+      "evidence": "AGENTS.md"
+    }
+  ],
+  "next_actions": [
+    "Handoff metadata is ready for future Codex or Agent Bus sessions."
+  ]
+}

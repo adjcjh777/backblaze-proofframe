@@ -63,6 +63,9 @@ jobs:
       - name: Devpost event snapshot
         run: python scripts/devpost_event_snapshot.py --validate-committed
 
+      - name: Agent handoff consistency
+        run: python scripts/agent_handoff_check.py
+
       - name: Demo storyboard
         run: python scripts/demo_storyboard.py
 
