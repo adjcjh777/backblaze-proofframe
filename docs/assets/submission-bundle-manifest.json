@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.submission_bundle.v1",
-  "created_at": "2026-06-27T10:17:34Z",
+  "created_at": "2026-06-27T10:25:58Z",
   "project": "ProofFrame",
   "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
@@ -169,8 +169,8 @@
       "path": "docs/evidence_package.md",
       "label": "Evidence package plan",
       "present": true,
-      "bytes": 9228,
-      "sha256": "1d7c5aaa11cb12a55e0a92fb0c17ead75dcf4301bf9ede290c87f272dd07b699"
+      "bytes": 9427,
+      "sha256": "b690c721050594da2ff36cbec189b9fb3fd15f470f6a9b9f6bae8f974bb093f8"
     },
     {
       "id": "public_claim_freeze",
@@ -195,6 +195,22 @@
       "present": true,
       "bytes": 352,
       "sha256": "d250e97bb0a653fa8d46a86e141f310485206f5035ab2562001dce17a5719420"
+    },
+    {
+      "id": "b2_live_setup_json",
+      "path": "docs/assets/b2-live-setup.json",
+      "label": "Non-secret B2 bucket setup record",
+      "present": true,
+      "bytes": 579,
+      "sha256": "0cb6ca7f02c4518a2e2e6d8b2f519fc5777a9bc9a4ed28840fbf0462453e98b4"
+    },
+    {
+      "id": "b2_live_setup_md",
+      "path": "docs/assets/b2-live-setup.md",
+      "label": "Human-readable B2 bucket setup record",
+      "present": true,
+      "bytes": 746,
+      "sha256": "d1363392d8253d33e24f0efd223a67e1015c6f1c88ecad6561a187f04974cb0f"
     },
     {
       "id": "live_env_handoff_script",
@@ -281,8 +297,8 @@
       "path": "tasks.json",
       "label": "Machine-readable task board",
       "present": true,
-      "bytes": 19846,
-      "sha256": "2e90a241dbf32aaf43fd2602344a1e384fffec34a5918b96fd10886fd0c67112"
+      "bytes": 20026,
+      "sha256": "1389a5db6522f6876c1da63c85370003ccc3bad4425234841b3311937e135648"
     },
     {
       "id": "local_ui_smoke",

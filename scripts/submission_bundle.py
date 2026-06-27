@@ -37,6 +37,8 @@ ARTIFACTS = [
     ("public_claim_freeze", "docs/public_claim_freeze.md", "Verified-claim boundary"),
     ("verification_runbook", "docs/verification.md", "Local, CI, Docker, and live proof runbook"),
     ("final_env_template", ".env.final.example", "Redacted final B2 plus Genblaze env template"),
+    ("b2_live_setup_json", "docs/assets/b2-live-setup.json", "Non-secret B2 bucket setup record"),
+    ("b2_live_setup_md", "docs/assets/b2-live-setup.md", "Human-readable B2 bucket setup record"),
     ("live_env_handoff_script", "scripts/live_env_handoff.py", "Redacted live credential handoff gate"),
     ("live_env_handoff_json", "docs/assets/live-credential-handoff.json", "Machine-readable live credential handoff"),
     ("live_env_handoff_md", "docs/assets/live-credential-handoff.md", "Human-readable live credential handoff"),

@@ -1,0 +1,12 @@
+{
+  "schema": "proofframe.b2_live_setup.v1",
+  "status": "bucket_created_key_pending",
+  "bucket_name": "proofframe-demo-a6b4e49",
+  "bucket_type": "private",
+  "endpoint": "s3.us-west-004.backblazeb2.com",
+  "application_key_name": "proofframe-demo-live-proof",
+  "application_key_status": "form_prepared_not_created",
+  "created_from": "Backblaze B2 Cloud Storage Buckets page",
+  "safe_to_commit": true,
+  "secret_policy": "This file intentionally excludes key IDs, application keys, cookies, hidden form tokens, signed URLs, account billing details, and provider secrets."
+}
