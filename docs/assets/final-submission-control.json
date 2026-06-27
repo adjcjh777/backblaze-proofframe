@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.final_submission_control.v1",
-  "created_at": "2026-06-27T17:49:06Z",
+  "created_at": "2026-06-27T17:58:14Z",
   "mode": "pre_live_control",
   "safe_to_submit": false,
   "event": {
@@ -213,6 +213,22 @@
       "mock_recording_ready": null,
       "public_mock_verified": null,
       "public_video_ready": null
+    },
+    "devpost_submission_receipt": {
+      "present": true,
+      "path": "docs/assets/devpost-submission-receipt.json",
+      "schema_ok": true,
+      "schema": "proofframe.devpost_submission_receipt.v1",
+      "mode": "pending_submission",
+      "ok": false,
+      "score": null,
+      "max_score": null,
+      "final_form_ready": null,
+      "final_video_ready": null,
+      "final_recording_ready": null,
+      "mock_recording_ready": null,
+      "public_mock_verified": null,
+      "public_video_ready": null
     }
   },
   "requirements": [
@@ -311,8 +327,8 @@
       "id": "devpost_submitted",
       "label": "Devpost project submitted",
       "ok": false,
-      "detail": "T042 is todo.",
-      "evidence": "tasks.json"
+      "detail": "T042 is todo; receipt mode is pending_submission; receipt ok is False.",
+      "evidence": "tasks.json and docs/assets/devpost-submission-receipt.json"
     }
   ],
   "blocking_items": [
@@ -369,8 +385,8 @@
       "id": "devpost_submitted",
       "label": "Devpost project submitted",
       "ok": false,
-      "detail": "T042 is todo.",
-      "evidence": "tasks.json"
+      "detail": "T042 is todo; receipt mode is pending_submission; receipt ok is False.",
+      "evidence": "tasks.json and docs/assets/devpost-submission-receipt.json"
     }
   ],
   "next_actions": [
@@ -380,7 +396,7 @@
     "Record and upload the public demo video after live proof is captured.",
     "Run and mark the final secret scan after live evidence/video assets are ready.",
     "Run final submission audit after proof, video, and secret scan pass.",
-    "Submit Devpost only after every preceding control item is green."
+    "Submit Devpost after every preceding control item is green, then generate the public submission receipt."
   ],
   "operator_commands": [
     "python scripts/final_env_wizard.py --prefill-non-secret --output .env.final.local",
@@ -394,7 +410,8 @@
     "python scripts/demo_storyboard.py --strict-final",
     "python scripts/demo_readiness.py --strict-final",
     "python scripts/recording_assets.py --verify-public --strict-final",
-    "python scripts/submission_audit.py --strict-final"
+    "python scripts/submission_audit.py --strict-final",
+    "python scripts/devpost_submission_receipt.py --project-url <public Devpost project URL> --submitted-at <ISO timestamp> --confirmation-note \"Devpost accepted/submitted the ProofFrame project.\""
   ],
   "claim_boundary": "Public demo remains local/mock and pre_live_safe until final live B2 plus Genblaze proof is captured."
 }

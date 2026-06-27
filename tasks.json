@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T17:47:32Z",
+  "updated_at": "2026-06-27T17:56:50Z",
   "tasks": [
     {
       "id": "T001",
@@ -550,6 +550,15 @@
       "status": "todo",
       "done_criteria": "Devpost submission is accepted before 2026-08-04 05:00 Asia/Shanghai.",
       "notes": ""
+    },
+    {
+      "id": "T042A",
+      "title": "Add Devpost submission receipt gate",
+      "phase": "P4 Submit",
+      "owner": "controller",
+      "status": "done",
+      "done_criteria": "Final control requires a schema-ok Devpost receipt with a public project URL before T042 can satisfy the submitted gate.",
+      "notes": "Added devpost_submission_receipt.py, docs/assets/devpost-submission-receipt.*, final-control/operator/bundle wiring, CI step, and regression tests."
     }
   ]
 }

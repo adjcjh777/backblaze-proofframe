@@ -155,6 +155,15 @@ def write_complete_audit_fixture(root: Path) -> tuple[Path, Path]:
         "docs/assets/final-operator-brief.json",
         {"schema": "proofframe.final_operator_brief.v1"},
     )
+    write_json(
+        root,
+        "docs/assets/devpost-submission-receipt.json",
+        {
+            "schema": "proofframe.devpost_submission_receipt.v1",
+            "mode": "pending_submission",
+            "ok": False,
+        },
+    )
     return tasks_path, evidence_path
 
 
@@ -266,4 +275,4 @@ def test_write_outputs_creates_json_and_markdown(tmp_path):
     markdown = markdown_path.read_text(encoding="utf-8")
     assert saved["schema"] == "proofframe.submission_audit.v1"
     assert "# ProofFrame Submission Audit" in markdown
-    assert "When this report is ok, mark T041 done" in markdown
+    assert "generate the public submission receipt" in markdown

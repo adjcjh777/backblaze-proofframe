@@ -42,6 +42,7 @@ OPERATOR_COMMANDS = [
     "python scripts/demo_readiness.py --strict-final",
     "python scripts/recording_assets.py --verify-public --strict-final",
     "python scripts/submission_audit.py --strict-final",
+    "python scripts/devpost_submission_receipt.py --project-url <public Devpost project URL> --submitted-at <ISO timestamp> --confirmation-note \"Devpost accepted/submitted the ProofFrame project.\"",
 ]
 
 
@@ -189,6 +190,7 @@ def build_requirements(
     credentials: dict[str, Any],
     secret_scan: dict[str, Any],
     submission_audit: dict[str, Any],
+    devpost_receipt: dict[str, Any],
 ) -> list[dict[str, Any]]:
     summaries = {
         "Devpost form": form,
@@ -199,6 +201,7 @@ def build_requirements(
         "Award readiness": award,
         "Secret scan": secret_scan,
         "Submission audit": submission_audit,
+        "Devpost submission receipt": devpost_receipt,
     }
     bad_schemas = [
         f"{name}: {summary.get('schema') or 'missing'}"
@@ -340,9 +343,16 @@ def build_requirements(
         requirement(
             "devpost_submitted",
             "Devpost project submitted",
-            statuses.get("T042") == "done",
-            f"T042 is {statuses.get('T042', 'missing')}.",
-            "tasks.json",
+            statuses.get("T042") == "done"
+            and bool(devpost_receipt.get("present"))
+            and bool(devpost_receipt.get("schema_ok"))
+            and bool(devpost_receipt.get("ok")),
+            (
+                f"T042 is {statuses.get('T042', 'missing')}; "
+                f"receipt mode is {devpost_receipt.get('mode')}; "
+                f"receipt ok is {devpost_receipt.get('ok')}."
+            ),
+            "tasks.json and docs/assets/devpost-submission-receipt.json",
         ),
     ]
 
@@ -369,7 +379,7 @@ def next_actions(requirements: list[dict[str, Any]]) -> list[str]:
     if "final_submission_audit" in missing:
         actions.append("Run final submission audit after proof, video, and secret scan pass.")
     if "devpost_submitted" in missing:
-        actions.append("Submit Devpost only after every preceding control item is green.")
+        actions.append("Submit Devpost after every preceding control item is green, then generate the public submission receipt.")
     return actions[:8]
 
 
@@ -393,6 +403,11 @@ def build_control_report(root: Path = ROOT) -> dict[str, Any]:
         "proofframe.submission_audit.v1",
         root,
     )
+    devpost_receipt = report_summary(
+        root / "docs" / "assets" / "devpost-submission-receipt.json",
+        "proofframe.devpost_submission_receipt.v1",
+        root,
+    )
     b2_evidence = evidence_summary(
         root,
         "docs/assets/b2-live-proof-evidence.json",
@@ -412,6 +427,7 @@ def build_control_report(root: Path = ROOT) -> dict[str, Any]:
         credentials=credentials,
         secret_scan=secret_scan,
         submission_audit=submission_audit,
+        devpost_receipt=devpost_receipt,
     )
     ready = all(item["ok"] for item in requirements)
     return {
@@ -442,6 +458,7 @@ def build_control_report(root: Path = ROOT) -> dict[str, Any]:
             "b2_live_evidence": b2_evidence,
             "credential_handoff": credentials,
             "submission_audit": submission_audit,
+            "devpost_submission_receipt": devpost_receipt,
         },
         "requirements": requirements,
         "blocking_items": [item for item in requirements if not item["ok"]],

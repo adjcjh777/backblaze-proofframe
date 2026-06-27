@@ -59,6 +59,7 @@ REQUIRED_REPORT_SCHEMAS = {
     "docs/assets/secret-scan-report.json": "proofframe.secret_scan.v1",
     "docs/assets/final-submission-control.json": "proofframe.final_submission_control.v1",
     "docs/assets/final-operator-brief.json": "proofframe.final_operator_brief.v1",
+    "docs/assets/devpost-submission-receipt.json": "proofframe.devpost_submission_receipt.v1",
 }
 
 
@@ -393,9 +394,10 @@ def build_audit_report(
             "python scripts/secret_scan.py",
             "python scripts/final_submission_control.py --strict-final",
             "python scripts/submission_audit.py --strict-final",
+            "python scripts/devpost_submission_receipt.py --project-url <public Devpost project URL> --submitted-at <ISO timestamp> --confirmation-note \"Devpost accepted/submitted the ProofFrame project.\"",
         ],
         "signoff_instruction": (
-            "When this report is ok, mark T041 done, submit Devpost, then mark T042 done and rerun final_submission_control.py --strict-final."
+            "When this report is ok, mark T041 done, submit Devpost, generate the public submission receipt, then mark T042 done and rerun final_submission_control.py --strict-final."
         ),
     }
 

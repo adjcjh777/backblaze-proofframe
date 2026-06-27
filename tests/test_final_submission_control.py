@@ -145,6 +145,16 @@ def write_common_reports(root: Path, *, final_done: bool = False) -> None:
             "ok": final_done,
         },
     )
+    write_json(
+        root,
+        "docs/assets/devpost-submission-receipt.json",
+        {
+            "schema": "proofframe.devpost_submission_receipt.v1",
+            "mode": "submitted" if final_done else "pending_submission",
+            "ok": final_done,
+            "project_url": "https://devpost.com/software/proofframe" if final_done else None,
+        },
+    )
     required = [
         {"id": "b2_key_id", "ok": final_done},
         {"id": "b2_application_key", "ok": final_done},
@@ -204,6 +214,25 @@ def test_control_report_turns_final_ready_when_all_gates_are_done(tmp_path):
     assert report["submission_gate"]["b2_evidence_status"] == "missing"
 
 
+def test_control_report_requires_devpost_receipt_when_t042_is_done(tmp_path):
+    write_common_reports(tmp_path, final_done=True)
+    write_json(
+        tmp_path,
+        "docs/assets/devpost-submission-receipt.json",
+        {
+            "schema": "proofframe.devpost_submission_receipt.v1",
+            "mode": "pending_submission",
+            "ok": False,
+        },
+    )
+
+    report = final_submission_control.build_control_report(tmp_path)
+
+    blocking = {item["id"] for item in report["blocking_items"]}
+    assert "devpost_submitted" in blocking
+    assert report["safe_to_submit"] is False
+
+
 def test_control_report_blocks_bad_input_schema(tmp_path):
     write_common_reports(tmp_path, final_done=True)
     write_json(
@@ -239,3 +268,4 @@ def test_control_report_writes_json_and_markdown(tmp_path):
     assert "Safe to submit: `false`" in markdown
     assert "python scripts/devpost_packet.py --post-live --video-url <public video URL>" in markdown
     assert "python scripts/submission_audit.py --strict-final" in markdown
+    assert "python scripts/devpost_submission_receipt.py --project-url <public Devpost project URL>" in markdown

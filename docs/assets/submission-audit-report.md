@@ -2,7 +2,7 @@
 
 Mode: `pre_submit_audit_blocked`
 OK: `false`
-Created: `2026-06-27T17:49:06Z`
+Created: `2026-06-27T17:57:22Z`
 Final evidence: `docs/assets/final-live-proof-evidence.json`
 
 ## Task Statuses
@@ -55,7 +55,8 @@ Final evidence: `docs/assets/final-live-proof-evidence.json`
 - `python scripts/secret_scan.py`
 - `python scripts/final_submission_control.py --strict-final`
 - `python scripts/submission_audit.py --strict-final`
+- `python scripts/devpost_submission_receipt.py --project-url <public Devpost project URL> --submitted-at <ISO timestamp> --confirmation-note "Devpost accepted/submitted the ProofFrame project."`
 
 ## Signoff
 
-When this report is ok, mark T041 done, submit Devpost, then mark T042 done and rerun final_submission_control.py --strict-final.
+When this report is ok, mark T041 done, submit Devpost, generate the public submission receipt, then mark T042 done and rerun final_submission_control.py --strict-final.

@@ -100,6 +100,7 @@ python scripts/award_readiness.py --min-score 75
 python scripts/final_submission_control.py
 python scripts/final_operator_brief.py
 python scripts/submission_audit.py
+python scripts/devpost_submission_receipt.py
 python scripts/devpost_packet.py
 python scripts/submission_bundle.py
 ```
@@ -122,6 +123,7 @@ The browser UI and `GET /api/submission/gate` expose the same fail-closed final 
 `scripts/final_submission_control.py` aggregates the gate, form kit, storyboard, credential handoff, and award reports into one final Devpost control tower.
 `scripts/final_operator_brief.py` turns the remaining live-proof blockers into a no-secret handoff: user actions, Codex follow-up commands, and safety policy.
 `scripts/submission_audit.py` writes a schema-stamped pre-submit audit report and only passes strict mode after live proof, final scan, public video, and submit-ready copy are synchronized.
+`scripts/devpost_submission_receipt.py` records the final public Devpost `/software/<slug>` URL and confirmation note after submission, without cookies or private form data.
 
 B2 mode intentionally fails closed unless `B2_ENDPOINT_URL`, `B2_BUCKET`, `B2_KEY_ID`, and `B2_APPLICATION_KEY` are set. Genblaze mode intentionally fails closed unless a Genblaze/GMI key and `GENBLAZE_IMAGE_MODEL` are set, and the official `genblaze-core` and `genblaze-gmicloud` packages are installed.
 

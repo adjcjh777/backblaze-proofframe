@@ -79,4 +79,5 @@ The result is a shareable asset packet that explains where each generated file c
 - [ ] `python scripts/submission_audit.py --strict-final` passes.
 - [ ] Devpost draft reviewed.
 - [x] Safe submission bundle manifest generated.
+- [ ] Public Devpost submission receipt generated after submit.
 - [ ] Submitted before 2026-08-04 05:00 Beijing.

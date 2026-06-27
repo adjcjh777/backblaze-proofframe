@@ -1,0 +1,33 @@
+{
+  "schema": "proofframe.devpost_submission_receipt.v1",
+  "created_at": "2026-06-27T17:58:14Z",
+  "mode": "pending_submission",
+  "ok": false,
+  "project": "ProofFrame",
+  "event": "Backblaze Generative Media Hackathon",
+  "project_url": null,
+  "submitted_at": null,
+  "confirmation_note": null,
+  "screenshot": null,
+  "findings": [
+    {
+      "field": "project_url",
+      "detail": "Public Devpost project URL is missing."
+    },
+    {
+      "field": "submitted_at",
+      "detail": "Submitted timestamp is missing."
+    },
+    {
+      "field": "confirmation_note",
+      "detail": "Confirmation note should briefly state that Devpost accepted/submitted the project."
+    }
+  ],
+  "secret_policy": "Receipt stores only public Devpost URL, timestamp, and confirmation text; no cookies, browser sessions, tokens, or private form data.",
+  "next_actions": [
+    "Submit the project in Devpost after strict final gates are green.",
+    "Run python scripts/devpost_submission_receipt.py --project-url <public Devpost project URL> --submitted-at <ISO timestamp> --confirmation-note \"Devpost accepted/submitted the ProofFrame project.\"",
+    "Mark T042 done only after this receipt is ok.",
+    "Rerun python scripts/final_submission_control.py --strict-final."
+  ]
+}

@@ -116,7 +116,7 @@ def build_user_actions(b2_setup: dict[str, Any], handoff: dict[str, Any]) -> lis
             "Run `python scripts/live_env_handoff.py --env-file .env.final.local --strict` and confirm it reports no missing ids.",
             "Run the B2-only proof first, then the final B2 plus Genblaze proof, and commit only sanitized evidence JSON.",
             "Record and upload the public demo video only after live proof evidence exists.",
-            "Run final secret scan, final submission audit, and Devpost submit after the video URL is in the packet.",
+            "Run final secret scan and final submission audit, submit Devpost, then generate the public Devpost submission receipt.",
         ]
     )
     return actions
@@ -133,6 +133,7 @@ def build_codex_actions() -> list[str]:
         "python scripts/recording_assets.py --verify-public --strict-final",
         "python scripts/secret_scan.py",
         "python scripts/submission_audit.py --strict-final",
+        "python scripts/devpost_submission_receipt.py --project-url <public Devpost project URL> --submitted-at <ISO timestamp> --confirmation-note \"Devpost accepted/submitted the ProofFrame project.\"",
         "python scripts/final_submission_control.py --strict-final",
     ]
 
@@ -192,6 +193,11 @@ def build_report(root: Path = ROOT) -> dict[str, Any]:
             root,
             "docs/assets/submission-audit-report.json",
             "proofframe.submission_audit.v1",
+        ),
+        "devpost_submission_receipt": report_status(
+            root,
+            "docs/assets/devpost-submission-receipt.json",
+            "proofframe.devpost_submission_receipt.v1",
         ),
     }
     ready_for_secret_entry = bool(

@@ -87,5 +87,8 @@ jobs:
       - name: Submission audit
         run: python scripts/submission_audit.py
 
+      - name: Devpost submission receipt
+        run: python scripts/devpost_submission_receipt.py
+
       - name: Submission bundle
         run: python scripts/submission_bundle.py

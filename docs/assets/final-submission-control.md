@@ -2,7 +2,7 @@
 
 Mode: `pre_live_control`
 Safe to submit: `false`
-Created: `2026-06-27T17:49:06Z`
+Created: `2026-06-27T17:58:14Z`
 Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 Repository: https://github.com/adjcjh777/backblaze-proofframe
 
@@ -40,7 +40,7 @@ Repository: https://github.com/adjcjh777/backblaze-proofframe
 | OK | Award readiness score remains competitive | Award readiness score is 97/115. | `docs/assets/award-readiness-report.json` |
 | PENDING | Final secret scan is complete | T041A is todo; secret scan mode is clear; secret scan ok is True. | `tasks.json and docs/assets/secret-scan-report.json` |
 | PENDING | Final submission audit is complete | T041 is todo; audit mode is pre_submit_audit_blocked; audit ok is False. | `tasks.json and docs/assets/submission-audit-report.json` |
-| PENDING | Devpost project submitted | T042 is todo. | `tasks.json` |
+| PENDING | Devpost project submitted | T042 is todo; receipt mode is pending_submission; receipt ok is False. | `tasks.json and docs/assets/devpost-submission-receipt.json` |
 
 ## Next Actions
 
@@ -50,7 +50,7 @@ Repository: https://github.com/adjcjh777/backblaze-proofframe
 - Record and upload the public demo video after live proof is captured.
 - Run and mark the final secret scan after live evidence/video assets are ready.
 - Run final submission audit after proof, video, and secret scan pass.
-- Submit Devpost only after every preceding control item is green.
+- Submit Devpost after every preceding control item is green, then generate the public submission receipt.
 
 ## Operator Commands
 
@@ -67,6 +67,7 @@ python scripts/demo_storyboard.py --strict-final
 python scripts/demo_readiness.py --strict-final
 python scripts/recording_assets.py --verify-public --strict-final
 python scripts/submission_audit.py --strict-final
+python scripts/devpost_submission_receipt.py --project-url <public Devpost project URL> --submitted-at <ISO timestamp> --confirmation-note "Devpost accepted/submitted the ProofFrame project."
 ```
 
 ## Claim Boundary
