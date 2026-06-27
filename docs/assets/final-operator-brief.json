@@ -82,6 +82,19 @@
       "mock_recording_ready": null,
       "public_mock_verified": null
     },
+    "secret_scan": {
+      "present": true,
+      "path": "docs/assets/secret-scan-report.json",
+      "schema_ok": true,
+      "mode": "clear",
+      "ok": true,
+      "score": null,
+      "max_score": null,
+      "safe_to_submit": null,
+      "validation_ok": null,
+      "mock_recording_ready": null,
+      "public_mock_verified": null
+    },
     "final_control": {
       "present": true,
       "path": "docs/assets/final-submission-control.json",

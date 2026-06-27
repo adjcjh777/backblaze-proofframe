@@ -187,6 +187,7 @@ def build_requirements(
     recording: dict[str, Any],
     award: dict[str, Any],
     credentials: dict[str, Any],
+    secret_scan: dict[str, Any],
     submission_audit: dict[str, Any],
 ) -> list[dict[str, Any]]:
     summaries = {
@@ -196,6 +197,7 @@ def build_requirements(
         "Demo readiness": demo,
         "Recording assets": recording,
         "Award readiness": award,
+        "Secret scan": secret_scan,
         "Submission audit": submission_audit,
     }
     bad_schemas = [
@@ -310,9 +312,16 @@ def build_requirements(
         requirement(
             "final_secret_scan",
             "Final secret scan is complete",
-            statuses.get("T041A") == "done",
-            f"T041A is {statuses.get('T041A', 'missing')}.",
-            "tasks.json and scripts/secret_scan.py",
+            statuses.get("T041A") == "done"
+            and bool(secret_scan.get("present"))
+            and bool(secret_scan.get("schema_ok"))
+            and bool(secret_scan.get("ok")),
+            (
+                f"T041A is {statuses.get('T041A', 'missing')}; "
+                f"secret scan mode is {secret_scan.get('mode')}; "
+                f"secret scan ok is {secret_scan.get('ok')}."
+            ),
+            "tasks.json and docs/assets/secret-scan-report.json",
         ),
         requirement(
             "final_submission_audit",
@@ -374,6 +383,11 @@ def build_control_report(root: Path = ROOT) -> dict[str, Any]:
     demo = report_summary(root / "docs" / "assets" / "demo-readiness-report.json", "proofframe.demo_readiness.v1", root)
     recording = report_summary(root / "docs" / "assets" / "recording-assets.json", "proofframe.recording_assets.v1", root)
     award = report_summary(root / "docs" / "assets" / "award-readiness-report.json", "proofframe.award_readiness.v1", root)
+    secret_scan = report_summary(
+        root / "docs" / "assets" / "secret-scan-report.json",
+        "proofframe.secret_scan.v1",
+        root,
+    )
     submission_audit = report_summary(
         root / "docs" / "assets" / "submission-audit-report.json",
         "proofframe.submission_audit.v1",
@@ -396,6 +410,7 @@ def build_control_report(root: Path = ROOT) -> dict[str, Any]:
         recording=recording,
         award=award,
         credentials=credentials,
+        secret_scan=secret_scan,
         submission_audit=submission_audit,
     )
     ready = all(item["ok"] for item in requirements)
@@ -423,6 +438,7 @@ def build_control_report(root: Path = ROOT) -> dict[str, Any]:
             "demo_readiness": demo,
             "recording_assets": recording,
             "award_readiness": award,
+            "secret_scan": secret_scan,
             "b2_live_evidence": b2_evidence,
             "credential_handoff": credentials,
             "submission_audit": submission_audit,

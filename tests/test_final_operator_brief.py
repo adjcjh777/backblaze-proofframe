@@ -103,6 +103,15 @@ def write_ready_fixtures(root: Path) -> None:
     )
     write_json(
         root,
+        "docs/assets/secret-scan-report.json",
+        {
+            "schema": "proofframe.secret_scan.v1",
+            "mode": "clear",
+            "ok": True,
+        },
+    )
+    write_json(
+        root,
         "docs/assets/final-submission-control.json",
         {
             "schema": "proofframe.final_submission_control.v1",
@@ -140,6 +149,7 @@ def test_final_operator_brief_is_ready_for_secret_entry(tmp_path):
         "codex_actions_after_credentials"
     ]
     assert "python scripts/submission_audit.py --strict-final" in report["codex_actions_after_credentials"]
+    assert report["reports"]["secret_scan"]["schema_ok"] is True
     assert report["reports"]["submission_audit"]["schema_ok"] is True
 
 

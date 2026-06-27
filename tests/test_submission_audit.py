@@ -136,6 +136,11 @@ def write_complete_audit_fixture(root: Path) -> tuple[Path, Path]:
     )
     write_json(
         root,
+        "docs/assets/secret-scan-report.json",
+        {"schema": "proofframe.secret_scan.v1", "mode": "clear", "ok": True},
+    )
+    write_json(
+        root,
         "docs/assets/final-submission-control.json",
         {
             "schema": "proofframe.final_submission_control.v1",
@@ -243,6 +248,7 @@ def test_build_audit_report_passes_before_t041_and_t042_are_done(tmp_path):
     assert report["schema"] == "proofframe.submission_audit.v1"
     assert report["ok"] is True
     assert report["mode"] == "pre_submit_audit_ready"
+    assert report["root"] == "."
     assert report["task_statuses"]["T041"] == "todo"
     assert report["task_statuses"]["T042"] == "todo"
     assert report["findings"] == []

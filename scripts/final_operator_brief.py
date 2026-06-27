@@ -178,6 +178,11 @@ def build_report(root: Path = ROOT) -> dict[str, Any]:
             "docs/assets/award-readiness-report.json",
             "proofframe.award_readiness.v1",
         ),
+        "secret_scan": report_status(
+            root,
+            "docs/assets/secret-scan-report.json",
+            "proofframe.secret_scan.v1",
+        ),
         "final_control": report_status(
             root,
             "docs/assets/final-submission-control.json",

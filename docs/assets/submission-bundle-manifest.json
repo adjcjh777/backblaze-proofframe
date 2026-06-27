@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.submission_bundle.v1",
-  "created_at": "2026-06-27T17:36:49Z",
+  "created_at": "2026-06-27T17:49:06Z",
   "project": "ProofFrame",
   "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
@@ -57,8 +57,8 @@
       "path": "README.md",
       "label": "Core public project overview",
       "present": true,
-      "bytes": 8936,
-      "sha256": "b92b115be188c7e43bc032a2f12f96e18f820177a2e38a50111dceec47d5cbe0"
+      "bytes": 9129,
+      "sha256": "ee77ef246a365bc2d8dc347e2bf567ed4cb9e8e45adddb47cddfe061bf37bd70"
     },
     {
       "id": "prd",
@@ -249,40 +249,40 @@
       "path": "scripts/final_submission_control.py",
       "label": "Final submission control tower",
       "present": true,
-      "bytes": 21985,
-      "sha256": "5f967df12b93486288a861cb6b02d5f92373f8a4ad8c4b597d17cd1018956a30"
+      "bytes": 22599,
+      "sha256": "aacce75156e06c771f96c019eb632481a1e2bc8ab7fa7b6f88cdf13aa5ac998a"
     },
     {
       "id": "final_submission_control_json",
       "path": "docs/assets/final-submission-control.json",
       "label": "Machine-readable final control report",
       "present": true,
-      "bytes": 14328,
-      "sha256": "76d2d3e495bd2f4904d544df89136c63e870be87d608aea771af3a14bed93417"
+      "bytes": 14924,
+      "sha256": "c090b7179883f781c18a0c65ba138d5e45e0c193b228c235aa4161df9d9fe670"
     },
     {
       "id": "final_submission_control_md",
       "path": "docs/assets/final-submission-control.md",
       "label": "Human-readable final control report",
       "present": true,
-      "bytes": 4432,
-      "sha256": "033cc14cd85949980bc4fb62a29541411ecf58503e8a2ee41ac61189751f15b3"
+      "bytes": 4496,
+      "sha256": "e4c877adf38192b47ac2cc704511b4343b7c81e510b3a6e44a70ad6651d11dbd"
     },
     {
       "id": "final_operator_brief_script",
       "path": "scripts/final_operator_brief.py",
       "label": "No-secret final operator brief",
       "present": true,
-      "bytes": 12236,
-      "sha256": "f299d23223244d4a3f021f9b96e91b45dd957af30336fedf8147d30d85e282a9"
+      "bytes": 12395,
+      "sha256": "7c0f74b82fb8a162e1ddbbe04c1610b694311c7ec3208facb9669713854f9cfa"
     },
     {
       "id": "final_operator_brief_json",
       "path": "docs/assets/final-operator-brief.json",
       "label": "Machine-readable final operator brief",
       "present": true,
-      "bytes": 5452,
-      "sha256": "68d1ebf45f73fc9e4f0e79d8030a39e06977a663dd1bea76c0b0a94ce5cf1694"
+      "bytes": 5798,
+      "sha256": "cda13b8ab34e7d33bcc7e2b5d00bf2c05c9c0d878d259aa0182bb64db8b42165"
     },
     {
       "id": "final_operator_brief_md",
@@ -297,16 +297,16 @@
       "path": "scripts/submission_audit.py",
       "label": "Pre-submit audit gate",
       "present": true,
-      "bytes": 18206,
-      "sha256": "08d6552f61fcf2285e78cba736f1541a1f0c6a1867692c828f8f3d068c504b50"
+      "bytes": 18458,
+      "sha256": "a07f81dba7d8913973e0c6ff21024ec60ce9166e4d330eb7a539c1d5d6292072"
     },
     {
       "id": "submission_audit_json",
       "path": "docs/assets/submission-audit-report.json",
       "label": "Machine-readable submission audit report",
       "present": true,
-      "bytes": 5026,
-      "sha256": "8e4fc0177a5a98ba0defd87e78dc4e4d562153de0b569ba2377226cdecce6932"
+      "bytes": 4960,
+      "sha256": "079ce7afa90da730b6aaa2d03a0b5cae57113ab59687b4daeda29d9b67aed607"
     },
     {
       "id": "submission_audit_md",
@@ -314,15 +314,15 @@
       "label": "Human-readable submission audit report",
       "present": true,
       "bytes": 3651,
-      "sha256": "be05b951f38c7ca9cd2cadba77807bbf7580b4a035f73f034bd7382967b35322"
+      "sha256": "f5762e50434c881d83bd74c0236bb12082d754b259872b8dc9ef4ad91f274e75"
     },
     {
       "id": "evidence_package",
       "path": "docs/evidence_package.md",
       "label": "Evidence package plan",
       "present": true,
-      "bytes": 11745,
-      "sha256": "d19051971939fd290f68306f1b5f4c00b7782866024e419cda63e4e113e79bbc"
+      "bytes": 12044,
+      "sha256": "357afb039f0e4cf751d781957b0423fcb592abdde7452d574859cfaa8984c037"
     },
     {
       "id": "public_claim_freeze",
@@ -347,6 +347,30 @@
       "present": true,
       "bytes": 352,
       "sha256": "d250e97bb0a653fa8d46a86e141f310485206f5035ab2562001dce17a5719420"
+    },
+    {
+      "id": "secret_scan_script",
+      "path": "scripts/secret_scan.py",
+      "label": "Final secret scanner",
+      "present": true,
+      "bytes": 11105,
+      "sha256": "02aec3a4a6e9fd47fc33d7e52ef130e91f8412e98cebd949ef1b005240d3e5c6"
+    },
+    {
+      "id": "secret_scan_json",
+      "path": "docs/assets/secret-scan-report.json",
+      "label": "Machine-readable secret scan report",
+      "present": true,
+      "bytes": 7670,
+      "sha256": "7780ecdcfe22247945beae3751db7380255dc79575d049264a2cf7e5c4f2d2ab"
+    },
+    {
+      "id": "secret_scan_md",
+      "path": "docs/assets/secret-scan-report.md",
+      "label": "Human-readable secret scan report",
+      "present": true,
+      "bytes": 846,
+      "sha256": "047dfb610c8b155955bed84f1d135aba88feb7794791672587790dd62d63f06a"
     },
     {
       "id": "b2_live_setup_json",
@@ -481,8 +505,8 @@
       "path": "tasks.json",
       "label": "Machine-readable task board",
       "present": true,
-      "bytes": 25438,
-      "sha256": "0c35b9b7bf87665993459162b9aedca35d7da6959e67234e4795c9b436ba4cb5"
+      "bytes": 26009,
+      "sha256": "058988678b5ecc8bae8b3efdaf80f9c3c0b6c1da9e6bcb2e74aa202fafd95667"
     },
     {
       "id": "local_ui_smoke",

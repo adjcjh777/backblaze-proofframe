@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T17:34:45Z",
+  "updated_at": "2026-06-27T17:47:32Z",
   "tasks": [
     {
       "id": "T001",
@@ -532,6 +532,15 @@
       "status": "done",
       "done_criteria": "submission_audit writes schema JSON/Markdown, checks live proof/video/final reports, and strict-final fails closed before signoff.",
       "notes": "Added submission-audit-report artifacts, Devpost packet schema validation, final-control audit coupling, CI wiring, and regression tests."
+    },
+    {
+      "id": "T041C",
+      "title": "Add final secret scan report",
+      "phase": "P4 Submit",
+      "owner": "reviewer",
+      "status": "done",
+      "done_criteria": "secret_scan writes a schema JSON/Markdown report, scans public evidence/log text, inventories screenshots/media, excludes local credential files without reading values, and final control requires the report before T041A can satisfy the gate.",
+      "notes": "Added docs/assets/secret-scan-report.*, final-control/submission-audit coupling, bundle coverage, docs, and regression tests."
     },
     {
       "id": "T042",

@@ -129,6 +129,15 @@ def write_common_reports(root: Path, *, final_done: bool = False) -> None:
     )
     write_json(
         root,
+        "docs/assets/secret-scan-report.json",
+        {
+            "schema": "proofframe.secret_scan.v1",
+            "mode": "clear",
+            "ok": True,
+        },
+    )
+    write_json(
+        root,
         "docs/assets/submission-audit-report.json",
         {
             "schema": "proofframe.submission_audit.v1",

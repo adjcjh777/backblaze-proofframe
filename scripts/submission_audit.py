@@ -56,6 +56,7 @@ REQUIRED_REPORT_SCHEMAS = {
     "docs/assets/recording-assets.json": "proofframe.recording_assets.v1",
     "docs/assets/sponsor-fit-audit.json": "proofframe.sponsor_fit_audit.v1",
     "docs/assets/award-readiness-report.json": "proofframe.award_readiness.v1",
+    "docs/assets/secret-scan-report.json": "proofframe.secret_scan.v1",
     "docs/assets/final-submission-control.json": "proofframe.final_submission_control.v1",
     "docs/assets/final-operator-brief.json": "proofframe.final_operator_brief.v1",
 }
@@ -297,6 +298,13 @@ def check_final_reports(root: Path) -> list[dict[str, str]]:
             True,
             "Live credential handoff is not ready.",
         ),
+        (
+            "docs/assets/secret-scan-report.json",
+            "secret_scan.ok",
+            "ok",
+            True,
+            "Secret scan report is not clean.",
+        ),
     ]
     findings: list[dict[str, str]] = []
     for relative, gate, key, expected, detail in checks:
@@ -367,7 +375,7 @@ def build_audit_report(
         "created_at": utc_now(),
         "mode": "pre_submit_audit_ready" if ok else "pre_submit_audit_blocked",
         "ok": ok,
-        "root": str(root),
+        "root": ".",
         "required_pre_submit_tasks": REQUIRED_PRE_SUBMIT_TASKS,
         "observer_tasks": OBSERVER_TASKS,
         "task_statuses": task_statuses(tasks_data, REQUIRED_PRE_SUBMIT_TASKS + OBSERVER_TASKS),
