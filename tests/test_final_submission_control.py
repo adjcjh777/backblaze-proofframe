@@ -127,6 +127,15 @@ def write_common_reports(root: Path, *, final_done: bool = False) -> None:
             "max_score": 111,
         },
     )
+    write_json(
+        root,
+        "docs/assets/submission-audit-report.json",
+        {
+            "schema": "proofframe.submission_audit.v1",
+            "mode": "pre_submit_audit_ready" if final_done else "pre_submit_audit_blocked",
+            "ok": final_done,
+        },
+    )
     required = [
         {"id": "b2_key_id", "ok": final_done},
         {"id": "b2_application_key", "ok": final_done},
@@ -220,3 +229,4 @@ def test_control_report_writes_json_and_markdown(tmp_path):
     assert "# ProofFrame Final Submission Control" in markdown
     assert "Safe to submit: `false`" in markdown
     assert "python scripts/devpost_packet.py --post-live --video-url <public video URL>" in markdown
+    assert "python scripts/submission_audit.py --strict-final" in markdown

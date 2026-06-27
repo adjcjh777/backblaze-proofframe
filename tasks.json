@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T17:11:13Z",
+  "updated_at": "2026-06-27T17:34:45Z",
   "tasks": [
     {
       "id": "T001",
@@ -523,6 +523,15 @@
       "status": "todo",
       "done_criteria": "Secret scan covers repo, docs, screenshots, exported manifests, logs, and demo evidence before submission.",
       "notes": "No B2, Genblaze, provider, Devpost, cookie, signed URL, or test account secret may be committed or shown."
+    },
+    {
+      "id": "T041B",
+      "title": "Add pre-submit audit report gate",
+      "phase": "P4 Submit",
+      "owner": "reviewer",
+      "status": "done",
+      "done_criteria": "submission_audit writes schema JSON/Markdown, checks live proof/video/final reports, and strict-final fails closed before signoff.",
+      "notes": "Added submission-audit-report artifacts, Devpost packet schema validation, final-control audit coupling, CI wiring, and regression tests."
     },
     {
       "id": "T042",

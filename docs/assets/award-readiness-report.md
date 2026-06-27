@@ -61,5 +61,5 @@ Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 - After explicit key-creation confirmation, create the scoped B2 key and run python scripts/run_b2_live_proof.py --env-file .env.final.local.
 - Configure Genblaze/GMI credentials and run python scripts/run_final_live_proof.py --env-file .env.final.local.
 - Run python scripts/secret_scan.py after live evidence is generated.
-- Run python scripts/submission_audit.py after T020/T021/T041A are done.
+- Run python scripts/submission_audit.py --strict-final after live proof, public video URL, and T041A are done.
 - Submit the Devpost project only after the final gate turns green.

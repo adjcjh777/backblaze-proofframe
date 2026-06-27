@@ -2,7 +2,7 @@
 
 Mode: `pre_live_control`
 Safe to submit: `false`
-Created: `2026-06-27T17:20:08Z`
+Created: `2026-06-27T17:36:49Z`
 Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 Repository: https://github.com/adjcjh777/backblaze-proofframe
 
@@ -39,7 +39,7 @@ Repository: https://github.com/adjcjh777/backblaze-proofframe
 | PENDING | Final recording gate is ready | Demo readiness mode is pre_live_mock_ready; final recording ready is False. | `docs/assets/demo-readiness-report.json` |
 | OK | Award readiness score remains competitive | Award readiness score is 97/115. | `docs/assets/award-readiness-report.json` |
 | PENDING | Final secret scan is complete | T041A is todo. | `tasks.json and scripts/secret_scan.py` |
-| PENDING | Final submission audit is complete | T041 is todo. | `tasks.json and scripts/submission_audit.py` |
+| PENDING | Final submission audit is complete | T041 is todo; audit mode is pre_submit_audit_blocked; audit ok is False. | `tasks.json and docs/assets/submission-audit-report.json` |
 | PENDING | Devpost project submitted | T042 is todo. | `tasks.json` |
 
 ## Next Actions
@@ -66,7 +66,7 @@ python scripts/devpost_form_kit.py --strict-final
 python scripts/demo_storyboard.py --strict-final
 python scripts/demo_readiness.py --strict-final
 python scripts/recording_assets.py --verify-public --strict-final
-python scripts/submission_audit.py
+python scripts/submission_audit.py --strict-final
 ```
 
 ## Claim Boundary

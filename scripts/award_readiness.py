@@ -424,7 +424,9 @@ def build_next_actions(report: dict[str, Any]) -> list[str]:
     if statuses.get("T041A") != "done":
         actions.append("Run python scripts/secret_scan.py after live evidence is generated.")
     if statuses.get("T041") != "done":
-        actions.append("Run python scripts/submission_audit.py after T020/T021/T041A are done.")
+        actions.append(
+            "Run python scripts/submission_audit.py --strict-final after live proof, public video URL, and T041A are done."
+        )
     if statuses.get("T042") != "done":
         actions.append("Submit the Devpost project only after the final gate turns green.")
     return actions[:5]

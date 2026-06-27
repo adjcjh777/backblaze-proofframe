@@ -74,8 +74,9 @@ The result is a shareable asset packet that explains where each generated file c
 - [ ] Docker run verified.
 - [ ] Browser smoke verified.
 - [ ] No secrets in repo.
-- [ ] `python scripts/submission_audit.py` passes.
 - [ ] Demo video recorded.
+- [ ] Devpost packet regenerated with the public video URL.
+- [ ] `python scripts/submission_audit.py --strict-final` passes.
 - [ ] Devpost draft reviewed.
 - [x] Safe submission bundle manifest generated.
 - [ ] Submitted before 2026-08-04 05:00 Beijing.

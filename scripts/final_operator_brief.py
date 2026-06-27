@@ -132,7 +132,7 @@ def build_codex_actions() -> list[str]:
         "python scripts/demo_readiness.py --strict-final",
         "python scripts/recording_assets.py --verify-public --strict-final",
         "python scripts/secret_scan.py",
-        "python scripts/submission_audit.py",
+        "python scripts/submission_audit.py --strict-final",
         "python scripts/final_submission_control.py --strict-final",
     ]
 
@@ -182,6 +182,11 @@ def build_report(root: Path = ROOT) -> dict[str, Any]:
             root,
             "docs/assets/final-submission-control.json",
             "proofframe.final_submission_control.v1",
+        ),
+        "submission_audit": report_status(
+            root,
+            "docs/assets/submission-audit-report.json",
+            "proofframe.submission_audit.v1",
         ),
     }
     ready_for_secret_entry = bool(

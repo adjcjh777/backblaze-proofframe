@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.final_submission_control.v1",
-  "created_at": "2026-06-27T17:20:08Z",
+  "created_at": "2026-06-27T17:36:49Z",
   "mode": "pre_live_control",
   "safe_to_submit": false,
   "event": {
@@ -181,6 +181,22 @@
         "genblaze_api_key"
       ],
       "secret_policy": "Report records only variable names and presence; credential values are never printed."
+    },
+    "submission_audit": {
+      "present": true,
+      "path": "docs/assets/submission-audit-report.json",
+      "schema_ok": true,
+      "schema": "proofframe.submission_audit.v1",
+      "mode": "pre_submit_audit_blocked",
+      "ok": false,
+      "score": null,
+      "max_score": null,
+      "final_form_ready": null,
+      "final_video_ready": null,
+      "final_recording_ready": null,
+      "mock_recording_ready": null,
+      "public_mock_verified": null,
+      "public_video_ready": null
     }
   },
   "requirements": [
@@ -272,8 +288,8 @@
       "id": "final_submission_audit",
       "label": "Final submission audit is complete",
       "ok": false,
-      "detail": "T041 is todo.",
-      "evidence": "tasks.json and scripts/submission_audit.py"
+      "detail": "T041 is todo; audit mode is pre_submit_audit_blocked; audit ok is False.",
+      "evidence": "tasks.json and docs/assets/submission-audit-report.json"
     },
     {
       "id": "devpost_submitted",
@@ -330,8 +346,8 @@
       "id": "final_submission_audit",
       "label": "Final submission audit is complete",
       "ok": false,
-      "detail": "T041 is todo.",
-      "evidence": "tasks.json and scripts/submission_audit.py"
+      "detail": "T041 is todo; audit mode is pre_submit_audit_blocked; audit ok is False.",
+      "evidence": "tasks.json and docs/assets/submission-audit-report.json"
     },
     {
       "id": "devpost_submitted",
@@ -362,7 +378,7 @@
     "python scripts/demo_storyboard.py --strict-final",
     "python scripts/demo_readiness.py --strict-final",
     "python scripts/recording_assets.py --verify-public --strict-final",
-    "python scripts/submission_audit.py"
+    "python scripts/submission_audit.py --strict-final"
   ],
   "claim_boundary": "Public demo remains local/mock and pre_live_safe until final live B2 plus Genblaze proof is captured."
 }

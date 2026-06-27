@@ -84,5 +84,8 @@ jobs:
       - name: Final operator brief
         run: python scripts/final_operator_brief.py
 
+      - name: Submission audit
+        run: python scripts/submission_audit.py
+
       - name: Submission bundle
         run: python scripts/submission_bundle.py

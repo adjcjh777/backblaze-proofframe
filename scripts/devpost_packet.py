@@ -16,6 +16,7 @@ DEFAULT_TASKS = ROOT / "tasks.json"
 
 
 BASE_PACKET = {
+    "schema": "proofframe.devpost_packet.v1",
     "project_name": "ProofFrame",
     "tagline": "A provenance-first vault for generated media.",
     "one_liner": (

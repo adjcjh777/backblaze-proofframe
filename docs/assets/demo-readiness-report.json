@@ -36,7 +36,7 @@
     {
       "path": "README.md",
       "present": true,
-      "bytes": 8746
+      "bytes": 8936
     },
     {
       "path": "docs/demo_script.md",
@@ -51,7 +51,7 @@
     {
       "path": "docs/assets/devpost-submission-packet.json",
       "present": true,
-      "bytes": 6234
+      "bytes": 6278
     },
     {
       "path": "docs/assets/devpost-submission-packet.md",

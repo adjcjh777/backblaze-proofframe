@@ -13,6 +13,7 @@ SPEC.loader.exec_module(devpost_packet)
 def test_default_packet_uses_pre_live_safe_claims():
     packet = devpost_packet.build_packet()
 
+    assert packet["schema"] == "proofframe.devpost_packet.v1"
     assert packet["mode"] == "pre_live_safe"
     assert "local demo" in packet["short_description"]
     assert "B2-ready object model" in packet["b2_usage"]
@@ -54,6 +55,7 @@ def test_write_packet_creates_json_and_markdown(tmp_path):
 
     saved = json.loads(json_path.read_text(encoding="utf-8"))
     markdown = markdown_path.read_text(encoding="utf-8")
+    assert saved["schema"] == "proofframe.devpost_packet.v1"
     assert saved["project_name"] == "ProofFrame"
     assert "# Devpost Submission Packet" in markdown
     assert "Mode: `pre_live_safe`" in markdown

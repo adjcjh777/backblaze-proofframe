@@ -49,7 +49,7 @@ python scripts/demo_storyboard.py --strict-final
 python scripts/demo_readiness.py --strict-final
 python scripts/recording_assets.py --verify-public --strict-final
 python scripts/secret_scan.py
-python scripts/submission_audit.py
+python scripts/submission_audit.py --strict-final
 python scripts/final_submission_control.py --strict-final
 ```
 

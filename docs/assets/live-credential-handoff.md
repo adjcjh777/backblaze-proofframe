@@ -47,11 +47,14 @@ python scripts/run_final_live_proof.py --preflight-only
 python scripts/run_final_live_proof.py --evidence-out docs/assets/final-live-proof-evidence.json
 ```
 ```bash
+python scripts/devpost_packet.py --post-live --video-url <public video URL>
+```
+```bash
 python scripts/secret_scan.py
 ```
 ```bash
 python scripts/claim_lint.py
 ```
 ```bash
-python scripts/submission_audit.py
+python scripts/submission_audit.py --strict-final
 ```

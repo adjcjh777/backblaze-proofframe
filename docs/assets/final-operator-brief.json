@@ -94,6 +94,19 @@
       "validation_ok": null,
       "mock_recording_ready": null,
       "public_mock_verified": null
+    },
+    "submission_audit": {
+      "present": true,
+      "path": "docs/assets/submission-audit-report.json",
+      "schema_ok": true,
+      "mode": "pre_submit_audit_blocked",
+      "ok": false,
+      "score": null,
+      "max_score": null,
+      "safe_to_submit": null,
+      "validation_ok": null,
+      "mock_recording_ready": null,
+      "public_mock_verified": null
     }
   },
   "user_actions": [
@@ -113,7 +126,7 @@
     "python scripts/demo_readiness.py --strict-final",
     "python scripts/recording_assets.py --verify-public --strict-final",
     "python scripts/secret_scan.py",
-    "python scripts/submission_audit.py",
+    "python scripts/submission_audit.py --strict-final",
     "python scripts/final_submission_control.py --strict-final"
   ],
   "safety_policy": {

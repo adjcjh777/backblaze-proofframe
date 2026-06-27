@@ -1,4 +1,5 @@
 {
+  "schema": "proofframe.devpost_packet.v1",
   "project_name": "ProofFrame",
   "tagline": "A provenance-first vault for generated media.",
   "one_liner": "ProofFrame turns generated media into reviewable evidence packets with prompts, provider/model metadata, storage references, hashes, approval state, and a downloadable manifest bundle.",
