@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.submission_bundle.v1",
-  "created_at": "2026-06-27T16:36:54Z",
+  "created_at": "2026-06-27T16:49:38Z",
   "project": "ProofFrame",
   "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
@@ -57,8 +57,8 @@
       "path": "README.md",
       "label": "Core public project overview",
       "present": true,
-      "bytes": 8002,
-      "sha256": "ad66401284b795f1eecb5991fc1dde0a854942bfe4609da555063c59043cb07d"
+      "bytes": 8222,
+      "sha256": "9a91baffcf929460ccbf965ba406f9bc40e438e4f5de1c740ba70b837131cb16"
     },
     {
       "id": "prd",
@@ -225,32 +225,32 @@
       "path": "scripts/final_submission_control.py",
       "label": "Final submission control tower",
       "present": true,
-      "bytes": 18037,
-      "sha256": "979fe1c9ba7def963c2abc9eb0ef80f2c0437fdadad10c52f2d2454cb744bc78"
+      "bytes": 19132,
+      "sha256": "5bb2839aa1e5420b59b232dfe3b61586ae1aa5774238ebfbc38be85be0ea0993"
     },
     {
       "id": "final_submission_control_json",
       "path": "docs/assets/final-submission-control.json",
       "label": "Machine-readable final control report",
       "present": true,
-      "bytes": 10098,
-      "sha256": "824ad315f2d1c5462a3a6939cbf271e939550cf49d832faf12002d56b38fc189"
+      "bytes": 11209,
+      "sha256": "fc80f30f4bceee108ac9b7d3aee2517e93bc011cdb28c838d6eb6423652770a4"
     },
     {
       "id": "final_submission_control_md",
       "path": "docs/assets/final-submission-control.md",
       "label": "Human-readable final control report",
       "present": true,
-      "bytes": 3868,
-      "sha256": "3739b54973aae20a9ed8d41191020cdcea1cc71443f4329a12ee066d644a78ec"
+      "bytes": 4087,
+      "sha256": "2b5587fc0027a66cd181933e7ed2fb22ae58a208c0ce09dfb22f92a2f7977449"
     },
     {
       "id": "evidence_package",
       "path": "docs/evidence_package.md",
       "label": "Evidence package plan",
       "present": true,
-      "bytes": 10845,
-      "sha256": "e4188e56a8d485d8e6933e556619ce6ec4e87491bbb7976154d7fbeacb610658"
+      "bytes": 11081,
+      "sha256": "56d458bee1e866400e19a48d0beb59abb13d72dbda0a2fd3bd57eaabec96f582"
     },
     {
       "id": "public_claim_freeze",
@@ -265,8 +265,8 @@
       "path": "docs/verification.md",
       "label": "Local, CI, Docker, and live proof runbook",
       "present": true,
-      "bytes": 6875,
-      "sha256": "83dffa0f4fb1a3c9a4a4febc37096e94eec8696e3cd8db149028599097e3e4d3"
+      "bytes": 7015,
+      "sha256": "9a13d1f2d02e6a0479e7e95f062c8a6fdc2d6a9a0d5f204096eabbd56077be48"
     },
     {
       "id": "final_env_template",
@@ -365,6 +365,30 @@
       "sha256": "742c02b42b2dd717fb906a838177531428c770befe22e042918ed56dd04b6eae"
     },
     {
+      "id": "recording_assets_script",
+      "path": "scripts/recording_assets.py",
+      "label": "Public-safe recording asset gate",
+      "present": true,
+      "bytes": 15950,
+      "sha256": "d07f957b639398dd30d2ed10362b21186fad0f1492b3cf87adda411694a163f7"
+    },
+    {
+      "id": "recording_assets_json",
+      "path": "docs/assets/recording-assets.json",
+      "label": "Machine-readable recording asset report",
+      "present": true,
+      "bytes": 5935,
+      "sha256": "fea95c1219912f6565e30d15fa2fc893cff2b74597af5f889e9702d6ff016cf2"
+    },
+    {
+      "id": "recording_assets_md",
+      "path": "docs/assets/recording-assets.md",
+      "label": "Human-readable recording asset report",
+      "present": true,
+      "bytes": 2872,
+      "sha256": "0ebc1e1108e9a0ed0b74fae531f882abfc1f36e3f12f1aa40704c55a5c1f8ac5"
+    },
+    {
       "id": "final_live_runner",
       "path": "scripts/run_final_live_proof.py",
       "label": "One-command final B2 plus Genblaze proof runner",
@@ -385,8 +409,8 @@
       "path": "tasks.json",
       "label": "Machine-readable task board",
       "present": true,
-      "bytes": 22975,
-      "sha256": "df6d9dcc9e4f019b193f7e3df0c5244eca4de4f53ca6203be47962893066010f"
+      "bytes": 23503,
+      "sha256": "a4c90bb0348890f4454b98e58b906659a6b2812d8db4a04a069190a0e3b483d8"
     },
     {
       "id": "local_ui_smoke",

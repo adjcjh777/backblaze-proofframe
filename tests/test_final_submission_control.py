@@ -83,6 +83,17 @@ def write_common_reports(root: Path, *, final_done: bool = False) -> None:
     )
     write_json(
         root,
+        "docs/assets/recording-assets.json",
+        {
+            "schema": "proofframe.recording_assets.v1",
+            "mode": "final_video_ready" if final_done else "public_mock_verified",
+            "mock_recording_ready": True,
+            "public_mock_verified": True,
+            "final_video_ready": final_done,
+        },
+    )
+    write_json(
+        root,
         "docs/assets/award-readiness-report.json",
         {
             "schema": "proofframe.award_readiness.v1",

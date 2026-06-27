@@ -1,0 +1,204 @@
+{
+  "schema": "proofframe.recording_assets.v1",
+  "mode": "public_mock_verified",
+  "mock_recording_ready": true,
+  "public_mock_verified": true,
+  "final_video_ready": false,
+  "public_base_url": "https://adjcjh-backblaze-proofframe.hf.space",
+  "required_assets": [
+    {
+      "path": "README.md",
+      "present": true,
+      "bytes": 8222
+    },
+    {
+      "path": "docs/demo_script.md",
+      "present": true,
+      "bytes": 5690
+    },
+    {
+      "path": "docs/assets/demo-storyboard.json",
+      "present": true,
+      "bytes": 4496
+    },
+    {
+      "path": "docs/assets/demo-storyboard.md",
+      "present": true,
+      "bytes": 2686
+    },
+    {
+      "path": "docs/assets/demo-readiness-report.json",
+      "present": true,
+      "bytes": 3552
+    },
+    {
+      "path": "docs/assets/demo-readiness-report.md",
+      "present": true,
+      "bytes": 1647
+    },
+    {
+      "path": "docs/assets/devpost-form-kit.json",
+      "present": true,
+      "bytes": 12491
+    },
+    {
+      "path": "docs/assets/devpost-form-kit.md",
+      "present": true,
+      "bytes": 7504
+    },
+    {
+      "path": "docs/assets/final-submission-control.json",
+      "present": true,
+      "bytes": 11209
+    },
+    {
+      "path": "docs/assets/final-submission-control.md",
+      "present": true,
+      "bytes": 4087
+    },
+    {
+      "path": "docs/assets/proofframe-local-ui-smoke.png",
+      "present": true,
+      "bytes": 364927
+    },
+    {
+      "path": "docs/assets/proofframe-review-console-smoke.png",
+      "present": true,
+      "bytes": 343618
+    },
+    {
+      "path": "docs/assets/proofframe-hf-public-smoke.png",
+      "present": true,
+      "bytes": 369328
+    },
+    {
+      "path": "docs/assets/proofframe-sponsor-model-smoke.png",
+      "present": true,
+      "bytes": 328627
+    },
+    {
+      "path": "docs/assets/proofframe-sponsor-model-mobile-smoke.png",
+      "present": true,
+      "bytes": 382613
+    }
+  ],
+  "missing_assets": [],
+  "source_reports": {
+    "storyboard": {
+      "present": true,
+      "path": "docs/assets/demo-storyboard.json",
+      "schema_ok": true,
+      "schema": "proofframe.demo_storyboard.v1",
+      "mode": "mock_storyboard_ready",
+      "mock_storyboard_ready": true,
+      "final_video_ready": false,
+      "public_video_ready": false
+    },
+    "readiness": {
+      "present": true,
+      "path": "docs/assets/demo-readiness-report.json",
+      "schema_ok": true,
+      "schema": "proofframe.demo_readiness.v1",
+      "mode": "pre_live_mock_ready",
+      "mock_recording_ready": true,
+      "final_recording_ready": false
+    },
+    "devpost_form": {
+      "present": true,
+      "path": "docs/assets/devpost-form-kit.json",
+      "schema_ok": true,
+      "schema": "proofframe.devpost_form_kit.v1",
+      "mode": "pre_live_form_ready",
+      "final_form_ready": false,
+      "public_video_ready": false
+    },
+    "final_control": {
+      "present": true,
+      "path": "docs/assets/final-submission-control.json",
+      "schema_ok": true,
+      "schema": "proofframe.final_submission_control.v1",
+      "mode": "pre_live_control",
+      "safe_to_submit": false
+    }
+  },
+  "public_verification": {
+    "checked": true,
+    "ok": true,
+    "judge_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
+    "health_url": "https://adjcjh-backblaze-proofframe.hf.space/api/health",
+    "gate_url": "https://adjcjh-backblaze-proofframe.hf.space/api/submission/gate",
+    "html_status": 200,
+    "health_status": 200,
+    "gate_status": 200,
+    "html_markers": {
+      "judge_recording_slate": true,
+      "sponsor_evidence_model": true,
+      "auto_load_judge_demo": true
+    },
+    "health": {
+      "ok": true,
+      "storage_backend": "local",
+      "generation_backend": "mock",
+      "ready": true
+    },
+    "submission_gate": {
+      "ok": true,
+      "mode": "pre_live_safe",
+      "summary": {
+        "required": 6,
+        "done": 1,
+        "blocked": 0,
+        "doing": 2,
+        "todo": 3,
+        "missing": 0
+      }
+    },
+    "errors": []
+  },
+  "shot_plan": [
+    {
+      "id": "judge_slate",
+      "source": "Public judge URL",
+      "screen": "First viewport with judge recording slate and claim boundary."
+    },
+    {
+      "id": "sponsor_model",
+      "source": "Public judge URL",
+      "screen": "Sponsor Evidence Model showing Genblaze step, B2 route, manifest, and claim mode."
+    },
+    {
+      "id": "creative_brief",
+      "source": "Local or public mock demo",
+      "screen": "Campaign brief with audience, tone, and prompt context."
+    },
+    {
+      "id": "asset_ledger",
+      "source": "Local or public mock demo",
+      "screen": "Generated asset ledger with provider/model/checksum/storage fields."
+    },
+    {
+      "id": "review_console",
+      "source": "Committed screenshot or live UI",
+      "screen": "Review console filters, approval state, and copy-safe summary."
+    },
+    {
+      "id": "final_gate",
+      "source": "Final submission control report",
+      "screen": "Fail-closed final gate with remaining B2/Genblaze/video blockers."
+    }
+  ],
+  "recording_commands": [
+    "uvicorn proofframe.app:app --host 127.0.0.1 --port 8088",
+    "python scripts/recording_assets.py --verify-public",
+    "python scripts/api_smoke.py --base-url https://adjcjh-backblaze-proofframe.hf.space",
+    "python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out docs/assets/b2-live-proof-evidence.json",
+    "python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json",
+    "python scripts/demo_storyboard.py --strict-final",
+    "python scripts/demo_readiness.py --strict-final",
+    "python scripts/final_submission_control.py --strict-final"
+  ],
+  "next_actions": [
+    "After live B2/Genblaze proof, record and upload the final public video.",
+    "Run python scripts/final_submission_control.py --strict-final before Devpost submit."
+  ]
+}

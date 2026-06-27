@@ -1,6 +1,6 @@
 # ProofFrame Submission Bundle
 
-Created: `2026-06-27T16:36:54Z`
+Created: `2026-06-27T16:49:38Z`
 Repository: https://github.com/adjcjh777/backblaze-proofframe
 Public mock demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 Devpost packet mode: `pre_live_safe`
@@ -23,7 +23,7 @@ Final gate ready: `false`
 
 ## Artifacts
 
-- `README.md` (8002 bytes, sha256 `ad66401284b795f1...`) - Core public project overview
+- `README.md` (8222 bytes, sha256 `9a91baffcf929460...`) - Core public project overview
 - `docs/prd.md` (3918 bytes, sha256 `ada7e9161b86483c...`) - Product requirements
 - `docs/spec.md` (4874 bytes, sha256 `8320ef186af34075...`) - Implementation specification
 - `docs/devpost_draft.md` (5621 bytes, sha256 `85588ba9e7178774...`) - Copy-ready Devpost fields
@@ -44,12 +44,12 @@ Final gate ready: `false`
 - `scripts/award_readiness.py` (21440 bytes, sha256 `665b21fd96402e5b...`) - Judge-facing award readiness scorecard
 - `docs/assets/award-readiness-report.json` (10503 bytes, sha256 `961f95076c27cee4...`) - Machine-readable award readiness report
 - `docs/assets/award-readiness-report.md` (3991 bytes, sha256 `10196d777a07dc2d...`) - Human-readable award readiness report
-- `scripts/final_submission_control.py` (18037 bytes, sha256 `979fe1c9ba7def96...`) - Final submission control tower
-- `docs/assets/final-submission-control.json` (10098 bytes, sha256 `824ad315f2d1c546...`) - Machine-readable final control report
-- `docs/assets/final-submission-control.md` (3868 bytes, sha256 `3739b54973aae20a...`) - Human-readable final control report
-- `docs/evidence_package.md` (10845 bytes, sha256 `e4188e56a8d485d8...`) - Evidence package plan
+- `scripts/final_submission_control.py` (19132 bytes, sha256 `5bb2839aa1e5420b...`) - Final submission control tower
+- `docs/assets/final-submission-control.json` (11209 bytes, sha256 `fc80f30f4bceee10...`) - Machine-readable final control report
+- `docs/assets/final-submission-control.md` (4087 bytes, sha256 `2b5587fc0027a66c...`) - Human-readable final control report
+- `docs/evidence_package.md` (11081 bytes, sha256 `56d458bee1e86640...`) - Evidence package plan
 - `docs/public_claim_freeze.md` (4089 bytes, sha256 `735b9188feae74ea...`) - Verified-claim boundary
-- `docs/verification.md` (6875 bytes, sha256 `83dffa0f4fb1a3c9...`) - Local, CI, Docker, and live proof runbook
+- `docs/verification.md` (7015 bytes, sha256 `9a13d1f2d02e6a04...`) - Local, CI, Docker, and live proof runbook
 - `.env.final.example` (352 bytes, sha256 `d250e97bb0a653fa...`) - Redacted final B2 plus Genblaze env template
 - `docs/assets/b2-live-setup.json` (719 bytes, sha256 `a377923f48e112b1...`) - Non-secret B2 bucket setup record
 - `docs/assets/b2-live-setup.md` (864 bytes, sha256 `863b2a02e3d2824f...`) - Human-readable B2 bucket setup record
@@ -62,9 +62,12 @@ Final gate ready: `false`
 - `scripts/demo_readiness.py` (8540 bytes, sha256 `283410fe3daef374...`) - Demo recording readiness gate
 - `docs/assets/demo-readiness-report.json` (3552 bytes, sha256 `82a3b423240a9453...`) - Machine-readable demo readiness report
 - `docs/assets/demo-readiness-report.md` (1647 bytes, sha256 `742c02b42b2dd717...`) - Human-readable demo readiness report
+- `scripts/recording_assets.py` (15950 bytes, sha256 `d07f957b639398dd...`) - Public-safe recording asset gate
+- `docs/assets/recording-assets.json` (5935 bytes, sha256 `fea95c1219912f65...`) - Machine-readable recording asset report
+- `docs/assets/recording-assets.md` (2872 bytes, sha256 `0ebc1e1108e9a0ed...`) - Human-readable recording asset report
 - `scripts/run_final_live_proof.py` (4938 bytes, sha256 `21e83a6213cd5f13...`) - One-command final B2 plus Genblaze proof runner
 - `docs/submission.md` (3353 bytes, sha256 `2e819bd8d2a6cd4d...`) - Registration and submission plan
-- `tasks.json` (22975 bytes, sha256 `df6d9dcc9e4f019b...`) - Machine-readable task board
+- `tasks.json` (23503 bytes, sha256 `a4c90bb0348890f4...`) - Machine-readable task board
 - `docs/assets/proofframe-local-ui-smoke.png` (364927 bytes, sha256 `cca671ad38bda4dc...`) - Local UI screenshot
 - `docs/assets/proofframe-review-console-smoke.png` (343618 bytes, sha256 `30620a33e3c7ab28...`) - Review console screenshot
 - `docs/assets/proofframe-hf-public-smoke.png` (369328 bytes, sha256 `8f7dc32d520f8391...`) - Public mock demo screenshot

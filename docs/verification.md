@@ -19,6 +19,7 @@ python scripts/devpost_form_kit.py
 python scripts/demo_storyboard.py
 python scripts/sponsor_fit_audit.py
 python scripts/demo_readiness.py
+python scripts/recording_assets.py
 python scripts/award_readiness.py --min-score 75
 python scripts/final_submission_control.py
 python scripts/submission_bundle.py
@@ -41,6 +42,7 @@ The `.github/workflows/ci.yml` workflow runs on `main`, `feature/**`, and pull r
 - `python scripts/demo_storyboard.py`
 - `python scripts/sponsor_fit_audit.py`
 - `python scripts/demo_readiness.py`
+- `python scripts/recording_assets.py`
 - `python scripts/award_readiness.py --min-score 75`
 - `python scripts/final_submission_control.py`
 - `python scripts/submission_bundle.py`
@@ -209,12 +211,13 @@ python scripts/final_env_wizard.py --prefill-non-secret --output .env.final.loca
 python scripts/final_env_wizard.py --output .env.final.local
 set -a; source .env.final.local; set +a
 python scripts/live_env_handoff.py --env-file .env.final.local
-python scripts/devpost_form_kit.py --strict-final
-python scripts/demo_storyboard.py --strict-final
-python scripts/submission_bundle.py
 python scripts/run_final_live_proof.py \
   --evidence-out docs/assets/final-live-proof-evidence.json
+python scripts/devpost_form_kit.py --strict-final
+python scripts/demo_storyboard.py --strict-final
 python scripts/demo_readiness.py --strict-final
+python scripts/recording_assets.py --verify-public --strict-final
+python scripts/submission_bundle.py
 python scripts/final_submission_control.py --strict-final
 python scripts/submission_audit.py
 python scripts/task.py list --status doing

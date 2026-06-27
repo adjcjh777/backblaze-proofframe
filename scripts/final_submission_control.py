@@ -38,6 +38,7 @@ OPERATOR_COMMANDS = [
     "python scripts/devpost_form_kit.py --strict-final",
     "python scripts/demo_storyboard.py --strict-final",
     "python scripts/demo_readiness.py --strict-final",
+    "python scripts/recording_assets.py --verify-public --strict-final",
     "python scripts/submission_audit.py",
 ]
 
@@ -85,6 +86,8 @@ def report_summary(path: Path, expected_schema: str | None = None, root: Path = 
         "final_form_ready": report.get("final_form_ready"),
         "final_video_ready": report.get("final_video_ready"),
         "final_recording_ready": report.get("final_recording_ready"),
+        "mock_recording_ready": report.get("mock_recording_ready"),
+        "public_mock_verified": report.get("public_mock_verified"),
         "public_video_ready": report.get("public_video_ready"),
     }
 
@@ -151,6 +154,7 @@ def build_requirements(
     form: dict[str, Any],
     storyboard: dict[str, Any],
     demo: dict[str, Any],
+    recording: dict[str, Any],
     award: dict[str, Any],
     credentials: dict[str, Any],
 ) -> list[dict[str, Any]]:
@@ -158,6 +162,7 @@ def build_requirements(
         "Devpost form": form,
         "Demo storyboard": storyboard,
         "Demo readiness": demo,
+        "Recording assets": recording,
         "Award readiness": award,
     }
     bad_schemas = [
@@ -183,6 +188,18 @@ def build_requirements(
             and form.get("mode") in {"pre_live_form_ready", "final_form_ready"},
             f"Devpost form kit mode is {form.get('mode')}.",
             "docs/assets/devpost-form-kit.json",
+        ),
+        requirement(
+            "recording_assets",
+            "Recording assets are ready",
+            bool(recording.get("present"))
+            and bool(recording.get("schema_ok"))
+            and bool(recording.get("mock_recording_ready")),
+            (
+                f"Recording assets mode is {recording.get('mode')}; "
+                f"public mock verified is {recording.get('public_mock_verified')}."
+            ),
+            "docs/assets/recording-assets.json",
         ),
         requirement(
             "source_report_schemas",
@@ -280,6 +297,8 @@ def next_actions(requirements: list[dict[str, Any]]) -> list[str]:
         actions.append("Run the final B2 plus Genblaze proof runner and save sanitized final evidence.")
     if "public_video" in missing or "final_recording" in missing:
         actions.append("Record and upload the public demo video after live proof is captured.")
+    if "recording_assets" in missing:
+        actions.append("Regenerate recording assets and run the public GET-only verifier.")
     if "final_secret_scan" in missing:
         actions.append("Run and mark the final secret scan after live evidence/video assets are ready.")
     if "final_submission_audit" in missing:
@@ -296,6 +315,7 @@ def build_control_report(root: Path = ROOT) -> dict[str, Any]:
     form = report_summary(root / "docs" / "assets" / "devpost-form-kit.json", "proofframe.devpost_form_kit.v1", root)
     storyboard = report_summary(root / "docs" / "assets" / "demo-storyboard.json", "proofframe.demo_storyboard.v1", root)
     demo = report_summary(root / "docs" / "assets" / "demo-readiness-report.json", "proofframe.demo_readiness.v1", root)
+    recording = report_summary(root / "docs" / "assets" / "recording-assets.json", "proofframe.recording_assets.v1", root)
     award = report_summary(root / "docs" / "assets" / "award-readiness-report.json", "proofframe.award_readiness.v1", root)
     b2_evidence = evidence_summary(
         root,
@@ -310,6 +330,7 @@ def build_control_report(root: Path = ROOT) -> dict[str, Any]:
         form=form,
         storyboard=storyboard,
         demo=demo,
+        recording=recording,
         award=award,
         credentials=credentials,
     )
@@ -335,6 +356,7 @@ def build_control_report(root: Path = ROOT) -> dict[str, Any]:
             "devpost_form": form,
             "demo_storyboard": storyboard,
             "demo_readiness": demo,
+            "recording_assets": recording,
             "award_readiness": award,
             "b2_live_evidence": b2_evidence,
             "credential_handoff": credentials,

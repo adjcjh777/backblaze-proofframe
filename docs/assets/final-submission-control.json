@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.final_submission_control.v1",
-  "created_at": "2026-06-27T16:36:33Z",
+  "created_at": "2026-06-27T16:49:38Z",
   "mode": "pre_live_control",
   "safe_to_submit": false,
   "event": {
@@ -52,6 +52,8 @@
       "final_form_ready": false,
       "final_video_ready": null,
       "final_recording_ready": null,
+      "mock_recording_ready": null,
+      "public_mock_verified": null,
       "public_video_ready": false
     },
     "demo_storyboard": {
@@ -66,6 +68,8 @@
       "final_form_ready": null,
       "final_video_ready": false,
       "final_recording_ready": null,
+      "mock_recording_ready": null,
+      "public_mock_verified": null,
       "public_video_ready": false
     },
     "demo_readiness": {
@@ -80,6 +84,24 @@
       "final_form_ready": null,
       "final_video_ready": null,
       "final_recording_ready": false,
+      "mock_recording_ready": true,
+      "public_mock_verified": null,
+      "public_video_ready": null
+    },
+    "recording_assets": {
+      "present": true,
+      "path": "docs/assets/recording-assets.json",
+      "schema_ok": true,
+      "schema": "proofframe.recording_assets.v1",
+      "mode": "public_mock_verified",
+      "ok": null,
+      "score": null,
+      "max_score": null,
+      "final_form_ready": null,
+      "final_video_ready": false,
+      "final_recording_ready": null,
+      "mock_recording_ready": true,
+      "public_mock_verified": true,
       "public_video_ready": null
     },
     "award_readiness": {
@@ -94,6 +116,8 @@
       "final_form_ready": null,
       "final_video_ready": null,
       "final_recording_ready": null,
+      "mock_recording_ready": null,
+      "public_mock_verified": null,
       "public_video_ready": null
     },
     "b2_live_evidence": {
@@ -133,6 +157,13 @@
       "ok": true,
       "detail": "Devpost form kit mode is pre_live_form_ready.",
       "evidence": "docs/assets/devpost-form-kit.json"
+    },
+    {
+      "id": "recording_assets",
+      "label": "Recording assets are ready",
+      "ok": true,
+      "detail": "Recording assets mode is public_mock_verified; public mock verified is True.",
+      "evidence": "docs/assets/recording-assets.json"
     },
     {
       "id": "source_report_schemas",
@@ -282,6 +313,7 @@
     "python scripts/devpost_form_kit.py --strict-final",
     "python scripts/demo_storyboard.py --strict-final",
     "python scripts/demo_readiness.py --strict-final",
+    "python scripts/recording_assets.py --verify-public --strict-final",
     "python scripts/submission_audit.py"
   ],
   "claim_boundary": "Public demo remains local/mock and pre_live_safe until final live B2 plus Genblaze proof is captured."
