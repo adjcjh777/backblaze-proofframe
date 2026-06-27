@@ -23,7 +23,7 @@ The user asked for one AI hackathon project that can be finished within roughly 
 
 | Candidate | Evidence | Upside | Concern | Decision |
 | --- | --- | --- | --- | --- |
-| Backblaze Generative Media Hackathon | Devpost showed `343 participants` on 2026-06-28, deadline `Aug 3, 2026`, and `$10,000` prizes. Event page says it requires generative media apps powered by Genblaze and Backblaze B2. | Product-led, online, moderate competition, sponsor integration is concrete. | Requires Backblaze account/B2 bucket and Genblaze setup for final demo. | Chosen. |
+| Backblaze Generative Media Hackathon | Devpost showed `345 participants` on the 2026-06-28 official snapshot refresh, deadline `Aug 3, 2026`, and `$10,000` prizes. Event page says it requires generative media apps powered by Genblaze and Backblaze B2. | Product-led, online, moderate competition, sponsor integration is concrete. | Requires Backblaze account/B2 bucket and Genblaze setup for final demo. | Chosen. |
 | AMD Developer Hackathon ACT II | Lablab active AI hackathon with prize and technical tracks. | Strong technical fit if track is token-efficient routing. | Tracks/rules may require AMD-specific environment and hidden task timing; less product-showcase leverage. | Backup. |
 | Global AI Hackathon Series with Qwen Cloud | Devpost AI list showed high prize pool and AI theme. | Large prize pool and agentic app fit. | Very high visible participant count and cloud/account friction. | Not primary. |
 | UiPath Agentic Automation Hackathon | Devpost AI list showed large prizes and agent automation theme. | Strong enterprise automation category. | Deadline too close on 2026-06-29 from today's date. | Too compressed. |

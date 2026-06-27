@@ -23,9 +23,9 @@ EVENT_SNAPSHOT = {
     "deadline_et": "2026-08-03 17:00 EDT",
     "deadline_beijing": "2026-08-04 05:00 Asia/Shanghai",
     "prize_total_usd": 10000,
-    "participant_count_observed": 343,
-    "participant_count_checked_at": "2026-06-28 Asia/Shanghai",
-    "participant_count_note": "Dynamic Devpost count; recheck before final public claims.",
+    "participant_count_observed": None,
+    "participant_count_checked_at": None,
+    "participant_count_note": "Dynamic Devpost count; use docs/assets/devpost-event-snapshot.json before final public claims.",
 }
 EVENT_SNAPSHOT_SCHEMA = "proofframe.devpost_event_snapshot.v1"
 

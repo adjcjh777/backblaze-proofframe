@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T18:39:34Z",
+  "updated_at": "2026-06-27T18:47:06Z",
   "tasks": [
     {
       "id": "T001",
@@ -577,6 +577,15 @@
       "status": "done",
       "done_criteria": "Public HF Space serves the latest submission gate with report_gate, repo-relative paths, judge-mode UI markers, and passing public API smoke.",
       "notes": "Pushed HF Space commit 635162b after restoring sdk: docker/app_port: 8088 metadata; verified /api/health, /api/submission/gate report_gate, ?judge=1 HTML markers, and scripts/api_smoke.py against the public Space."
+    },
+    {
+      "id": "T042D",
+      "title": "Refresh official Devpost event snapshot",
+      "phase": "P4 Submit",
+      "owner": "scout",
+      "status": "done",
+      "done_criteria": "Official Devpost overview and rules pages are re-fetched, validation remains ok, dynamic participant count is updated, and downstream control/bundle reports use the refreshed snapshot.",
+      "notes": "Refetched overview and rules pages on 2026-06-28 Asia/Shanghai; participant count moved from 343 to 345, submission remains open, and public copy keeps the count dynamic."
     }
   ]
 }
