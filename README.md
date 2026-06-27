@@ -10,8 +10,8 @@ Selected competition: [Backblaze Generative Media Hackathon](https://backblaze-g
 
 Why this one:
 
-- Online Devpost format with a clear August 3, 2026 5:00 PM PDT deadline.
-- Cash prizes, including a $5,000 grand prize.
+- Online Devpost format with a clear August 3, 2026 5:00 PM EDT deadline, which is August 4, 2026 05:00 in Beijing.
+- Cash prizes, including a $7,000 grand prize.
 - Moderate visible participant count compared with larger AI agent events.
 - Sponsor requirements are specific enough to reward meaningful integration: Genblaze plus Backblaze B2.
 - A polished, useful product can beat a raw model demo here.
@@ -45,7 +45,7 @@ python3 scripts/task.py block T010 --note "Requires account setup"
 
 ## Current Status
 
-Stage 0 is complete: selected competition, repo, PRD/spec/todo, Agent Bus team, and GitHub setup.
+Stage 0 is complete: selected competition, repo, PRD/spec/todo, Agent Bus team, official-rule scout report, and GitHub setup.
 
 Stage 1 has started with a local FastAPI MVP skeleton.
 

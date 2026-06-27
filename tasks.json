@@ -161,7 +161,7 @@
       "phase": "P4 Submit",
       "owner": "controller",
       "status": "todo",
-      "done_criteria": "Devpost submission is accepted before 2026-08-04 08:00 Asia/Shanghai.",
+      "done_criteria": "Devpost submission is accepted before 2026-08-04 05:00 Asia/Shanghai.",
       "notes": ""
     }
   ]

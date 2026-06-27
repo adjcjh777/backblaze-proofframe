@@ -4,8 +4,8 @@
 
 - Backblaze Generative Media Hackathon
 - Official page: https://backblaze-generative-media.devpost.com/
-- Submission deadline: 2026-08-03 17:00 PDT
-- Beijing time: 2026-08-04 08:00 Asia/Shanghai
+- Submission deadline: 2026-08-03 17:00 EDT
+- Beijing time: 2026-08-04 05:00 Asia/Shanghai
 
 ## Account Requirements
 
@@ -61,5 +61,4 @@ The result is a shareable asset packet that explains where each generated file c
 - [ ] No secrets in repo.
 - [ ] Demo video recorded.
 - [ ] Devpost draft reviewed.
-- [ ] Submitted before 2026-08-04 08:00 Beijing.
-
+- [ ] Submitted before 2026-08-04 05:00 Beijing.

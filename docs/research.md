@@ -23,7 +23,7 @@ The user asked for one AI hackathon project that can be finished within roughly 
 
 | Candidate | Evidence | Upside | Concern | Decision |
 | --- | --- | --- | --- | --- |
-| Backblaze Generative Media Hackathon | Devpost AI list showed `323 participants`, deadline `Aug 3, 2026`, and `$10,000` prizes. Event page says it requires generative media apps powered by Genblaze and Backblaze B2. | Product-led, online, moderate competition, sponsor integration is concrete. | Requires Backblaze account/B2 bucket and likely Genblaze setup for final demo. | Chosen. |
+| Backblaze Generative Media Hackathon | Devpost AI list showed roughly `323-324 participants`, deadline `Aug 3, 2026`, and `$10,000` prizes. Event page says it requires generative media apps powered by Genblaze and Backblaze B2. | Product-led, online, moderate competition, sponsor integration is concrete. | Requires Backblaze account/B2 bucket and Genblaze setup for final demo. | Chosen. |
 | AMD Developer Hackathon ACT II | Lablab active AI hackathon with prize and technical tracks. | Strong technical fit if track is token-efficient routing. | Tracks/rules may require AMD-specific environment and hidden task timing; less product-showcase leverage. | Backup. |
 | Global AI Hackathon Series with Qwen Cloud | Devpost AI list showed high prize pool and AI theme. | Large prize pool and agentic app fit. | Very high visible participant count and cloud/account friction. | Not primary. |
 | UiPath Agentic Automation Hackathon | Devpost AI list showed large prizes and agent automation theme. | Strong enterprise automation category. | Deadline too close on 2026-06-29 from today's date. | Too compressed. |
@@ -35,13 +35,13 @@ The user asked for one AI hackathon project that can be finished within roughly 
 - Devpost artificial-intelligence listing: https://devpost.com/c/artificial-intelligence
 - Genblaze repo: https://github.com/backblaze-labs/genblaze
 
-Observed details from official pages on 2026-06-27:
+Observed details from official pages on 2026-06-27, updated after scout verification:
 
-- Backblaze event schedule: submissions start June 2, 2026 and hackathon ends August 3, 2026 at 5:00 PM PDT.
-- Beijing deadline conversion: 2026-08-04 08:00 Asia/Shanghai.
-- Prizes: $5,000 Grand Prize, $3,000 Runner Up, $2,000 Third Place, plus feedback rewards.
+- Backblaze event schedule: registration/submissions run June 22, 2026 through August 3, 2026 at 5:00 PM EDT.
+- Beijing deadline conversion: 2026-08-04 05:00 Asia/Shanghai.
+- Prizes: $7,000 Grand Prize, $2,000 Second Place, $1,000 Third Place, plus feedback rewards.
 - Devpost page describes the challenge as building apps that use Genblaze and Backblaze B2 Cloud Storage.
-- Judging criteria on the event page: quality of idea, implementation, potential impact, and use of Backblaze.
+- Judging criteria on the event page: real-world utility, production readiness, B2 storage/data orchestration, and use of Genblaze.
 
 ## Why ProofFrame Can Win
 
@@ -66,5 +66,4 @@ Cycle 3: submission page, demo video, public repo polish, final Devpost submissi
 - Gate A: Can create or access Backblaze B2 account and bucket.
 - Gate B: Can run Genblaze or Genblaze-compatible API locally or via documented remote provider.
 - Gate C: Can deploy or present a working public demo without leaking credentials.
-- Gate D: Devpost submission accepted before 2026-08-04 08:00 Beijing.
-
+- Gate D: Devpost submission accepted before 2026-08-04 05:00 Beijing.
