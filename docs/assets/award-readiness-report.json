@@ -1,9 +1,9 @@
 {
   "schema": "proofframe.award_readiness.v1",
   "project": "ProofFrame",
-  "score": 90,
+  "score": 97,
   "max_score": 115,
-  "percent": 78.3,
+  "percent": 84.3,
   "mode": "pre_live_competitive",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
   "task_statuses": {
@@ -126,9 +126,9 @@
     {
       "id": "product_depth",
       "label": "Provenance product depth",
-      "score": 19,
+      "score": 23,
       "max_score": 23,
-      "percent": 82.6,
+      "percent": 100.0,
       "signals": [
         {
           "id": "manifest_model",
@@ -157,8 +157,8 @@
         {
           "id": "review_console",
           "label": "Review console UI is present",
-          "ok": false,
-          "points": 0,
+          "ok": true,
+          "points": 4,
           "max_points": 4,
           "detail": "The app is positioned as an operations desk, not a generic generator."
         },
@@ -248,9 +248,9 @@
     {
       "id": "trust_and_compliance",
       "label": "Trust, safety, and claim discipline",
-      "score": 12,
+      "score": 15,
       "max_score": 15,
-      "percent": 80.0,
+      "percent": 100.0,
       "signals": [
         {
           "id": "secret_scan",
@@ -271,8 +271,8 @@
         {
           "id": "env_ignored",
           "label": "Local final env file is ignored",
-          "ok": false,
-          "points": 0,
+          "ok": true,
+          "points": 3,
           "max_points": 3,
           "detail": "Credential-bearing local env files stay out of Git."
         },

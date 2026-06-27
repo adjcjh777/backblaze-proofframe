@@ -2,7 +2,7 @@
 
 Mode: `pre_live_control`
 Safe to submit: `false`
-Created: `2026-06-27T17:02:25Z`
+Created: `2026-06-27T17:07:05Z`
 Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 Repository: https://github.com/adjcjh777/backblaze-proofframe
 
@@ -37,7 +37,7 @@ Repository: https://github.com/adjcjh777/backblaze-proofframe
 | PENDING | Live credential handoff is ready | Credential handoff mode is missing_live_env; missing ids: b2_key_id, b2_application_key, genblaze_api_key. | `docs/assets/live-credential-handoff.json` |
 | PENDING | Final public demo video URL is ready | Storyboard mode is mock_storyboard_ready; public video ready is False. | `docs/assets/demo-storyboard.json` |
 | PENDING | Final recording gate is ready | Demo readiness mode is pre_live_mock_ready; final recording ready is False. | `docs/assets/demo-readiness-report.json` |
-| OK | Award readiness score remains competitive | Award readiness score is 86/111. | `docs/assets/award-readiness-report.json` |
+| OK | Award readiness score remains competitive | Award readiness score is 90/115. | `docs/assets/award-readiness-report.json` |
 | PENDING | Final secret scan is complete | T041A is todo. | `tasks.json and scripts/secret_scan.py` |
 | PENDING | Final submission audit is complete | T041 is todo. | `tasks.json and scripts/submission_audit.py` |
 | PENDING | Devpost project submitted | T042 is todo. | `tasks.json` |

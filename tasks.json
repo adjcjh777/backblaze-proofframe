@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T16:54:24Z",
+  "updated_at": "2026-06-27T17:06:33Z",
   "tasks": [
     {
       "id": "T001",
@@ -478,6 +478,15 @@
       "status": "done",
       "done_criteria": "A script and committed report refresh official Devpost deadline, participants, requirements, judging criteria, and final-control event facts.",
       "notes": "Added scripts/devpost_event_snapshot.py, tests, docs/assets/devpost-event-snapshot.{json,md}, CI validation, submission bundle coverage, and final control integration."
+    },
+    {
+      "id": "T039AD",
+      "title": "Align award readiness evidence detection",
+      "phase": "P3 Demo",
+      "owner": "codex",
+      "status": "done",
+      "done_criteria": "Award readiness correctly recognizes the implemented review console and explicit final-env ignore policy.",
+      "notes": "Updated award_readiness review-console detection, added an explicit .env.final.local ignore rule, refreshed reports, and added regression coverage."
     },
     {
       "id": "T040",

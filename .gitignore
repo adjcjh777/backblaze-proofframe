@@ -3,6 +3,7 @@
 .env.*
 !.env.example
 !.env.final.example
+.env.final.local
 __pycache__/
 *.egg-info/
 .pytest_cache/

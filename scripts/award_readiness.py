@@ -56,6 +56,11 @@ def has_text(root: Path, relative_path: str, needle: str) -> bool:
     return needle in read_text(root / relative_path)
 
 
+def has_any_text(root: Path, relative_path: str, needles: list[str]) -> bool:
+    text = read_text(root / relative_path).lower()
+    return any(needle.lower() in text for needle in needles)
+
+
 def path_present(root: Path, relative_path: str) -> bool:
     return (root / relative_path).exists()
 
@@ -237,7 +242,11 @@ def build_criteria(root: Path, context: dict[str, Any]) -> list[dict[str, Any]]:
                 signal(
                     "review_console",
                     "Review console UI is present",
-                    has_text(root, "apps/web/index.html", "review console"),
+                    has_any_text(
+                        root,
+                        "apps/web/index.html",
+                        ["review console", "review-console", 'aria-label="Review console"'],
+                    ),
                     4,
                     "The app is positioned as an operations desk, not a generic generator.",
                 ),

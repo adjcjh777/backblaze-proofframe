@@ -1,6 +1,6 @@
 # ProofFrame Submission Bundle
 
-Created: `2026-06-27T17:02:25Z`
+Created: `2026-06-27T17:07:05Z`
 Repository: https://github.com/adjcjh777/backblaze-proofframe
 Public mock demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 Devpost packet mode: `pre_live_safe`
@@ -44,12 +44,12 @@ Final gate ready: `false`
 - `scripts/sponsor_fit_audit.py` (7965 bytes, sha256 `ef53a82d7e1b1426...`) - Sponsor-fit clarity audit
 - `docs/assets/sponsor-fit-audit.json` (1599 bytes, sha256 `234a2eb7b09ae02e...`) - Machine-readable sponsor-fit audit
 - `docs/assets/sponsor-fit-audit.md` (1088 bytes, sha256 `867d356985612279...`) - Human-readable sponsor-fit audit
-- `scripts/award_readiness.py` (22408 bytes, sha256 `be06cdb894fd3965...`) - Judge-facing award readiness scorecard
-- `docs/assets/award-readiness-report.json` (10503 bytes, sha256 `961f95076c27cee4...`) - Machine-readable award readiness report
-- `docs/assets/award-readiness-report.md` (3991 bytes, sha256 `10196d777a07dc2d...`) - Human-readable award readiness report
+- `scripts/award_readiness.py` (22750 bytes, sha256 `6dbc17e3a19b3cbc...`) - Judge-facing award readiness scorecard
+- `docs/assets/award-readiness-report.json` (10805 bytes, sha256 `3a0fccb11111c8d2...`) - Machine-readable award readiness report
+- `docs/assets/award-readiness-report.md` (4116 bytes, sha256 `4cc073a099772ffb...`) - Human-readable award readiness report
 - `scripts/final_submission_control.py` (21210 bytes, sha256 `d90a6fbf98dbd8fb...`) - Final submission control tower
-- `docs/assets/final-submission-control.json` (13583 bytes, sha256 `4cd7d4bea97a0908...`) - Machine-readable final control report
-- `docs/assets/final-submission-control.md` (4269 bytes, sha256 `b22672b3ac046620...`) - Human-readable final control report
+- `docs/assets/final-submission-control.json` (13583 bytes, sha256 `c16c0c78a836e54e...`) - Machine-readable final control report
+- `docs/assets/final-submission-control.md` (4269 bytes, sha256 `85eb4b0fae2af6f6...`) - Human-readable final control report
 - `docs/evidence_package.md` (11357 bytes, sha256 `a9113586902da655...`) - Evidence package plan
 - `docs/public_claim_freeze.md` (4089 bytes, sha256 `735b9188feae74ea...`) - Verified-claim boundary
 - `docs/verification.md` (7197 bytes, sha256 `b30decf832a10f2d...`) - Local, CI, Docker, and live proof runbook
@@ -70,7 +70,7 @@ Final gate ready: `false`
 - `docs/assets/recording-assets.md` (2872 bytes, sha256 `0ebc1e1108e9a0ed...`) - Human-readable recording asset report
 - `scripts/run_final_live_proof.py` (4938 bytes, sha256 `21e83a6213cd5f13...`) - One-command final B2 plus Genblaze proof runner
 - `docs/submission.md` (3353 bytes, sha256 `2e819bd8d2a6cd4d...`) - Registration and submission plan
-- `tasks.json` (24026 bytes, sha256 `c9e7176188a8c835...`) - Machine-readable task board
+- `tasks.json` (24491 bytes, sha256 `6779afa3ad8b7dd3...`) - Machine-readable task board
 - `docs/assets/proofframe-local-ui-smoke.png` (364927 bytes, sha256 `cca671ad38bda4dc...`) - Local UI screenshot
 - `docs/assets/proofframe-review-console-smoke.png` (343618 bytes, sha256 `30620a33e3c7ab28...`) - Review console screenshot
 - `docs/assets/proofframe-hf-public-smoke.png` (369328 bytes, sha256 `8f7dc32d520f8391...`) - Public mock demo screenshot

@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.submission_bundle.v1",
-  "created_at": "2026-06-27T17:02:25Z",
+  "created_at": "2026-06-27T17:07:05Z",
   "project": "ProofFrame",
   "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
@@ -225,24 +225,24 @@
       "path": "scripts/award_readiness.py",
       "label": "Judge-facing award readiness scorecard",
       "present": true,
-      "bytes": 22408,
-      "sha256": "be06cdb894fd3965d2439b206ba459e3f856ead265c6d4b7dfe32984ab2dbc43"
+      "bytes": 22750,
+      "sha256": "6dbc17e3a19b3cbc941004d5df44a6162d726bcfd01a0a4875dc36783a8984e2"
     },
     {
       "id": "award_readiness_json",
       "path": "docs/assets/award-readiness-report.json",
       "label": "Machine-readable award readiness report",
       "present": true,
-      "bytes": 10503,
-      "sha256": "961f95076c27cee4b6063576ea2024b1f5ca7b731454ae82b8e4ecb6095eb29b"
+      "bytes": 10805,
+      "sha256": "3a0fccb11111c8d2e6f43c5fafe8a3e734b2af96d16aadcf0cb9289c6e4ff172"
     },
     {
       "id": "award_readiness_md",
       "path": "docs/assets/award-readiness-report.md",
       "label": "Human-readable award readiness report",
       "present": true,
-      "bytes": 3991,
-      "sha256": "10196d777a07dc2d620a24365b7bf0874f097c8e9b89bf79c55cef9750fd6103"
+      "bytes": 4116,
+      "sha256": "4cc073a099772ffb9baaa80df9af967a3e4b8272ba0e86f4236cc410b48fc7b7"
     },
     {
       "id": "final_submission_control_script",
@@ -258,7 +258,7 @@
       "label": "Machine-readable final control report",
       "present": true,
       "bytes": 13583,
-      "sha256": "4cd7d4bea97a09081285d7e7102912d1221638253e441c973e5ac8bd1ea08209"
+      "sha256": "c16c0c78a836e54e83f1ae3484b18e525c100be49e76679249a8f8395847c84b"
     },
     {
       "id": "final_submission_control_md",
@@ -266,7 +266,7 @@
       "label": "Human-readable final control report",
       "present": true,
       "bytes": 4269,
-      "sha256": "b22672b3ac046620e7d225c05d20f7cf284d10d3fd8796ebdfd1e1bdb4cacf6f"
+      "sha256": "85eb4b0fae2af6f6009c040e181f664ee807a167e8ba6bd94f071eaa63ff90da"
     },
     {
       "id": "evidence_package",
@@ -433,8 +433,8 @@
       "path": "tasks.json",
       "label": "Machine-readable task board",
       "present": true,
-      "bytes": 24026,
-      "sha256": "c9e7176188a8c83551601a1713fdad28b7cf649252a9df1f0e33fccf89485920"
+      "bytes": 24491,
+      "sha256": "6779afa3ad8b7dd33f03db5741f9a932dd18213e834240aa2ab1c5ca24a53bda"
     },
     {
       "id": "local_ui_smoke",

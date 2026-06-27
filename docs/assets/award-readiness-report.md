@@ -1,7 +1,7 @@
 # ProofFrame Award Readiness
 
 Mode: `pre_live_competitive`
-Score: `90/115` (78.3%)
+Score: `97/115` (84.3%)
 Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 
 ## Gate Snapshot
@@ -26,11 +26,11 @@ Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 - TODO `b2_live_evidence` (0/4): T020 requires a real B2 media and manifest proof.
 - TODO `genblaze_live_evidence` (0/4): T021 requires provider/model metadata from a live Genblaze run.
 
-### Provenance product depth - 19/23 (82.6%)
+### Provenance product depth - 23/23 (100.0%)
 - OK `manifest_model` (4/4): Assets, prompts, provider/model metadata, hashes, and review state are modeled.
 - OK `packet_zip` (4/4): Judges can inspect a packaged manifest and local media evidence.
 - OK `judge_packet` (4/4): The demo can be loaded quickly into a believable reviewer workflow.
-- TODO `review_console` (0/4): The app is positioned as an operations desk, not a generic generator.
+- OK `review_console` (4/4): The app is positioned as an operations desk, not a generic generator.
 - OK `sponsor_model_ui` (3/3): Judge mode foregrounds Genblaze, B2 object route, manifest proof, and claim mode.
 - OK `prd_spec` (4/4): The product and implementation story are documented for judges and maintainers.
 
@@ -43,10 +43,10 @@ Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 - OK `screenshots` (4/4): Local, review-console, and public demo screenshots are available.
 - OK `devpost_registered` (4/4): The project is through the registration gate.
 
-### Trust, safety, and claim discipline - 12/15 (80.0%)
+### Trust, safety, and claim discipline - 15/15 (100.0%)
 - OK `secret_scan` (4/4): No obvious API keys, cookies, signed URLs, or tokens were found in public files.
 - OK `claim_lint` (4/4): Pre-live copy avoids claiming unverified B2 or Genblaze runs.
-- TODO `env_ignored` (0/3): Credential-bearing local env files stay out of Git.
+- OK `env_ignored` (3/3): Credential-bearing local env files stay out of Git.
 - OK `safe_evidence_writer` (2/2): Live evidence cannot silently include key-like fields or signed URLs.
 - OK `claim_freeze_doc` (2/2): The team has a written boundary for what can be said before final proof.
 

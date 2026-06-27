@@ -45,7 +45,7 @@ def write_tasks(root: Path, *, live_done: bool = False, final_done: bool = False
 
 def write_common_fixtures(root: Path, *, live_done: bool = False, final_done: bool = False) -> None:
     write_tasks(root, live_done=live_done, final_done=final_done)
-    write_file(root, ".gitignore", ".env.final.local\nvar/\n")
+    write_file(root, ".gitignore", ".env.*\n!.env.final.example\n.env.final.local\nvar/\n")
     write_file(root, "README.md", "ProofFrame local demo; final gate verifies B2.\n")
     write_file(root, "docs/submission.md", "Final submission target uses B2 after proof.\n")
     write_file(root, "docs/prd.md", "# PRD\n")
@@ -62,7 +62,7 @@ def write_common_fixtures(root: Path, *, live_done: bool = False, final_done: bo
     write_file(root, "src/proofframe/providers.py", "class GenblazeMediaProvider:\n    pass\n")
     write_file(root, "src/proofframe/models.py", "class CampaignManifest:\n    pass\n")
     write_file(root, "src/proofframe/app.py", '"/api/demo/judge-packet"\n"packet.zip"\n')
-    write_file(root, "apps/web/index.html", "<main>review console Sponsor Evidence Model</main>\n")
+    write_file(root, "apps/web/index.html", '<main class="review-console">Sponsor Evidence Model</main>\n')
     write_file(root, "scripts/run_b2_live_proof.py", "# b2 runner\n")
     write_file(root, "scripts/run_final_live_proof.py", "# final runner\n")
     write_file(root, "scripts/api_smoke.py", "def assert_safe_evidence():\n    pass\n")
@@ -160,6 +160,10 @@ def test_award_readiness_scores_pre_live_competitive_state(tmp_path):
     assert report["submission_gate"]["mode"] == "pre_live_safe"
     assert report["task_statuses"]["T020"] == "doing"
     assert report["secret_scan"]["ok"] is True
+    product_depth = next(item for item in report["criteria"] if item["id"] == "product_depth")
+    trust = next(item for item in report["criteria"] if item["id"] == "trust_and_compliance")
+    assert next(signal for signal in product_depth["signals"] if signal["id"] == "review_console")["ok"] is True
+    assert next(signal for signal in trust["signals"] if signal["id"] == "env_ignored")["ok"] is True
 
 
 def test_b2_setup_ready_accepts_legacy_bucket_field(tmp_path):
