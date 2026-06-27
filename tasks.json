@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T05:43:34Z",
+  "updated_at": "2026-06-27T05:52:41Z",
   "tasks": [
     {
       "id": "T001",
@@ -172,6 +172,15 @@
       "status": "done",
       "done_criteria": "API smoke, secret scan, Dockerfile, and verification runbook support repeatable local/Docker/live proof checks.",
       "notes": "Added scripts/api_smoke.py, scripts/secret_scan.py, docs/verification.md, and fixed Docker frontend copy."
+    },
+    {
+      "id": "T035",
+      "title": "Add GitHub CI verification gate",
+      "phase": "P3 Polish",
+      "owner": "tester",
+      "status": "done",
+      "done_criteria": "GitHub Actions runs readiness, lint, tests, and secret scan on feature branches and pull requests.",
+      "notes": "Added .github/workflows/ci.yml for non-secret public verification."
     },
     {
       "id": "T040",

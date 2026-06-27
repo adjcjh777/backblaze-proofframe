@@ -83,6 +83,8 @@ B2 mode intentionally fails closed unless `B2_ENDPOINT_URL`, `B2_BUCKET`, `B2_KE
 
 ## Submission Verification
 
+The repository also runs the same core checks in GitHub Actions on `main`, `feature/**`, and pull requests.
+
 ```bash
 . .venv/bin/activate
 python scripts/check_integrations.py

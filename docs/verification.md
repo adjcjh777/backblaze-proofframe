@@ -14,6 +14,18 @@ pytest
 python scripts/secret_scan.py
 ```
 
+## GitHub CI
+
+The `.github/workflows/ci.yml` workflow runs on `main`, `feature/**`, and pull requests:
+
+- install `.[dev,integrations]`
+- `python scripts/check_integrations.py`
+- `ruff check .`
+- `pytest`
+- `python scripts/secret_scan.py`
+
+Use the CI result as public repo evidence for the non-secret local gate. It does not replace T020/T021 live sponsor proof because those require private credentials.
+
 ## Local App Smoke
 
 In one terminal:
