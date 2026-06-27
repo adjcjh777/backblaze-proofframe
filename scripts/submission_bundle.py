@@ -29,6 +29,7 @@ ARTIFACTS = [
     ("evidence_package", "docs/evidence_package.md", "Evidence package plan"),
     ("public_claim_freeze", "docs/public_claim_freeze.md", "Verified-claim boundary"),
     ("verification_runbook", "docs/verification.md", "Local, CI, Docker, and live proof runbook"),
+    ("final_live_runner", "scripts/run_final_live_proof.py", "One-command final B2 plus Genblaze proof runner"),
     ("submission_plan", "docs/submission.md", "Registration and submission plan"),
     ("task_ledger", "tasks.json", "Machine-readable task board"),
     ("local_ui_smoke", "docs/assets/proofframe-local-ui-smoke.png", "Local UI screenshot"),

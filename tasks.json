@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T08:22:27Z",
+  "updated_at": "2026-06-27T08:32:30Z",
   "tasks": [
     {
       "id": "T001",
@@ -334,6 +334,15 @@
       "status": "done",
       "done_criteria": "Devpost packet and submission docs reflect registered status and current remaining final gates.",
       "notes": "Packet generator now reads tasks.json status, Markdown includes submission checklist, and docs no longer list Devpost registration as a blocker."
+    },
+    {
+      "id": "T039N",
+      "title": "Add one-command final live proof runner",
+      "phase": "P3 Demo",
+      "owner": "codex",
+      "status": "done",
+      "done_criteria": "A single command can start the app with live B2/Genblaze env, verify health, run safe API smoke, write final evidence, and stop the server.",
+      "notes": "Added scripts/run_final_live_proof.py, tests, and runbook docs; current preflight fails closed because live env vars are not configured."
     },
     {
       "id": "T040",

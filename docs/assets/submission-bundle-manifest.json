@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.submission_bundle.v1",
-  "created_at": "2026-06-27T08:22:35Z",
+  "created_at": "2026-06-27T08:33:19Z",
   "project": "ProofFrame",
   "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
@@ -57,8 +57,8 @@
       "path": "README.md",
       "label": "Core public project overview",
       "present": true,
-      "bytes": 5589,
-      "sha256": "86508acb15a7e9351f961696fced652b31b91bf1ccc2c8569f1fb95f58016c5f"
+      "bytes": 5887,
+      "sha256": "24abaa77161620f75dabbc59a6e483bb45869ca627a595075e79969952c3b5f1"
     },
     {
       "id": "prd",
@@ -113,8 +113,8 @@
       "path": "docs/evidence_package.md",
       "label": "Evidence package plan",
       "present": true,
-      "bytes": 7473,
-      "sha256": "e5804067d385c589dff82fb3812c84f65445a34740299adee60a89300aa5dce2"
+      "bytes": 7730,
+      "sha256": "562ad550c83ca57e046bda2088974fc5f85165010a9b27da0499aa94aa6bc11f"
     },
     {
       "id": "public_claim_freeze",
@@ -129,8 +129,16 @@
       "path": "docs/verification.md",
       "label": "Local, CI, Docker, and live proof runbook",
       "present": true,
-      "bytes": 4593,
-      "sha256": "806be9ebfaf386c023dfdcba1410d479123af71a053045d999df36e583da7b6b"
+      "bytes": 5130,
+      "sha256": "9551e35a8418becc8b9d5f253e7e444b091b2c5d349fc31da7a38fc39fd0ab7d"
+    },
+    {
+      "id": "final_live_runner",
+      "path": "scripts/run_final_live_proof.py",
+      "label": "One-command final B2 plus Genblaze proof runner",
+      "present": true,
+      "bytes": 4938,
+      "sha256": "21e83a6213cd5f139fe37075cfaa31eb607bf40f0cdc3182d12e88330c0c55e0"
     },
     {
       "id": "submission_plan",
@@ -145,8 +153,8 @@
       "path": "tasks.json",
       "label": "Machine-readable task board",
       "present": true,
-      "bytes": 15699,
-      "sha256": "7c3d2528034d6d80f74fb822a5ef4a33886b6a2af20ebcfce1b7c199783a13e8"
+      "bytes": 16185,
+      "sha256": "87566036cf5760017f50d4c76f7ef69b00e62fd28e5cfffc26b84f2146b28768"
     },
     {
       "id": "local_ui_smoke",

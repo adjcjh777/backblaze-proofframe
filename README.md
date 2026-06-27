@@ -86,6 +86,7 @@ Then open `http://127.0.0.1:8088/`.
 . .venv/bin/activate
 python scripts/check_integrations.py
 python scripts/live_proof.py --preflight-only
+python scripts/run_final_live_proof.py --preflight-only
 python scripts/submission_audit.py
 python scripts/devpost_packet.py
 python scripts/submission_bundle.py
@@ -93,6 +94,7 @@ python scripts/submission_bundle.py
 
 The browser UI and `GET /api/submission/gate` expose the same fail-closed final gate: required task status, Devpost packet presence, and final B2/Genblaze evidence readiness.
 `scripts/submission_bundle.py` creates a safe manifest of public submission artifacts, screenshots, checksums, Devpost copy mode, and remaining gate blockers.
+`scripts/run_final_live_proof.py` is the final one-command live runner: once B2 and Genblaze env vars are present, it starts the app, verifies `/api/health` reports `b2` plus `genblaze`, writes sanitized final evidence, and stops the server.
 
 B2 mode intentionally fails closed unless `B2_ENDPOINT_URL`, `B2_BUCKET`, `B2_KEY_ID`, and `B2_APPLICATION_KEY` are set. Genblaze mode intentionally fails closed unless a Genblaze/GMI key and `GENBLAZE_IMAGE_MODEL` are set, and the official `genblaze-core` and `genblaze-gmicloud` packages are installed.
 

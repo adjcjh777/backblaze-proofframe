@@ -23,9 +23,19 @@ When B2 and Genblaze credentials are available, first run the preflight without 
 
 ```bash
 python scripts/live_proof.py --preflight-only
+python scripts/run_final_live_proof.py --preflight-only
 ```
 
-Then run the app with those environment variables and require the expected backends:
+Then use the one-command runner:
+
+```bash
+python scripts/run_final_live_proof.py \
+  --evidence-out docs/assets/final-live-proof-evidence.json
+```
+
+The runner starts the app with inherited environment variables, waits until health reports `storage_backend=b2` and `generation_backend=genblaze`, delegates to the safe API smoke test, writes `docs/assets/final-live-proof-evidence.json`, and stops the server. Server logs go to `var/live-proof/uvicorn.log`, which is ignored by git.
+
+If the app is already running with those environment variables, require the expected backends directly:
 
 ```bash
 python scripts/live_proof.py \

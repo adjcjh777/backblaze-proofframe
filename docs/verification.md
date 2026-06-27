@@ -35,9 +35,20 @@ The final sponsor proof has a preflight wrapper:
 ```bash
 . .venv/bin/activate
 python scripts/live_proof.py --preflight-only
+python scripts/run_final_live_proof.py --preflight-only
 ```
 
-When B2 and Genblaze env/packages are complete and the app is running with those env vars, use:
+When B2 and Genblaze env/packages are complete, use the one-command runner:
+
+```bash
+. .venv/bin/activate
+python scripts/run_final_live_proof.py \
+  --evidence-out docs/assets/final-live-proof-evidence.json
+```
+
+The runner starts a local ProofFrame server with inherited environment variables, waits until `/api/health` reports `storage_backend=b2` and `generation_backend=genblaze`, runs the safe API smoke proof, writes sanitized evidence, and then stops the server. Server logs go to `var/live-proof/uvicorn.log`, which is ignored by git.
+
+If the app is already running with those env vars, use:
 
 ```bash
 python scripts/live_proof.py \
@@ -163,8 +174,7 @@ Before Devpost submit:
 ```bash
 python scripts/secret_scan.py
 python scripts/submission_bundle.py
-python scripts/live_proof.py \
-  --base-url <final-demo-url> \
+python scripts/run_final_live_proof.py \
   --evidence-out docs/assets/final-live-proof-evidence.json
 python scripts/submission_audit.py
 python scripts/task.py list --status doing
