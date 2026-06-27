@@ -68,6 +68,15 @@ FastAPI app
 | `POST` | `/api/campaigns/{id}/export` | Export packet. |
 | `GET` | `/api/campaigns/{id}/packet.zip` | Download manifest, README, and available local media as an evidence packet. |
 
+## Review Console
+
+The browser UI includes local-only review operations over the in-memory asset set:
+
+- scorecard counts for total, approved, draft, rejected, and decision coverage
+- status filter for all/draft/approved/rejected
+- search across prompt, provider, model, storage backend, storage key, checksum, and risk note
+- copy-safe evidence summary that includes campaign id, counts, backend names, first checksum, and storage key, but no credentials or signed URLs
+
 ## Storage
 
 Local mode:

@@ -207,6 +207,65 @@
         flex-wrap: wrap;
       }
 
+      .review-console {
+        display: grid;
+        grid-template-columns: minmax(220px, 1fr) 180px 180px;
+        gap: 12px;
+        align-items: end;
+        margin: 0 0 18px;
+      }
+
+      .review-console select {
+        width: 100%;
+        min-height: 42px;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.58);
+        color: var(--ink);
+        padding: 0 10px;
+      }
+
+      .scorecard {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        border-top: 1px solid var(--ink);
+        border-bottom: 1px solid var(--rule);
+        margin: 0 0 18px;
+      }
+
+      .scorecard-item {
+        min-height: 74px;
+        padding: 11px 13px;
+        border-right: 1px solid var(--rule);
+      }
+
+      .scorecard-item:last-child {
+        border-right: 0;
+      }
+
+      .scorecard-item label {
+        color: var(--muted);
+        display: block;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+      }
+
+      .scorecard-item strong {
+        display: block;
+        font-family: var(--display);
+        font-size: 26px;
+        line-height: 1;
+      }
+
+      .scorecard-item span {
+        color: var(--muted);
+        display: block;
+        font-size: 12px;
+        margin-top: 6px;
+      }
+
       .ledger-head,
       .asset-row {
         display: grid;
@@ -324,18 +383,14 @@
       }
 
       .packet-bar {
-        position: fixed;
-        left: 260px;
-        right: 360px;
-        bottom: 0;
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 18px;
         border-top: 1px solid var(--ink);
-        background: rgba(251, 250, 246, 0.96);
-        padding: 14px 30px;
-        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--rule);
+        margin: 0 0 16px;
+        padding: 13px 0 14px;
       }
 
       .footer-note {
@@ -354,9 +409,19 @@
           border: 0;
         }
 
+        .review-console,
+        .scorecard {
+          grid-template-columns: 1fr;
+        }
+
         .packet-bar {
-          position: static;
-          margin-top: 20px;
+          align-items: stretch;
+          flex-direction: column;
+        }
+
+        .scorecard-item {
+          border-right: 0;
+          border-bottom: 1px solid var(--rule);
         }
       }
     </style>
@@ -434,6 +499,63 @@
           </div>
         </section>
 
+        <section class="scorecard" aria-label="Evidence scorecard">
+          <div class="scorecard-item">
+            <label>Total Assets</label>
+            <strong id="scoreTotal">0</strong>
+            <span id="scoreBackend">No backend yet</span>
+          </div>
+          <div class="scorecard-item">
+            <label>Approved</label>
+            <strong id="scoreApproved">0</strong>
+            <span>ready for packet</span>
+          </div>
+          <div class="scorecard-item">
+            <label>Draft</label>
+            <strong id="scoreDraft">0</strong>
+            <span>needs decision</span>
+          </div>
+          <div class="scorecard-item">
+            <label>Rejected</label>
+            <strong id="scoreRejected">0</strong>
+            <span>kept for audit trail</span>
+          </div>
+          <div class="scorecard-item">
+            <label>Coverage</label>
+            <strong id="scoreCoverage">0%</strong>
+            <span>reviewed assets</span>
+          </div>
+        </section>
+
+        <section class="review-console" aria-label="Review console">
+          <div class="field">
+            <label for="assetSearch">Search Evidence</label>
+            <input id="assetSearch" placeholder="prompt, model, storage key, checksum" />
+          </div>
+          <div class="field">
+            <label for="statusFilter">Status</label>
+            <select id="statusFilter">
+              <option value="all">All assets</option>
+              <option value="draft">Draft</option>
+              <option value="approved">Approved</option>
+              <option value="rejected">Rejected</option>
+            </select>
+          </div>
+          <button class="secondary" id="copySummary" disabled>Copy Summary</button>
+        </section>
+
+        <section class="packet-bar" aria-label="Packet actions">
+          <div>
+            <strong id="packetStatus">No packet exported</strong>
+            <div class="mono" id="packetKey">Create and export a campaign manifest.</div>
+          </div>
+          <div class="action-row">
+            <button id="exportPacket" disabled>Export Manifest</button>
+            <button id="downloadPacket" class="secondary" disabled>Download ZIP</button>
+            <span class="footer-note">ProofFrame public mock demo</span>
+          </div>
+        </section>
+
         <section aria-label="Asset ledger">
           <div class="ledger-head">
             <div>Preview</div>
@@ -482,18 +604,6 @@
       </aside>
     </div>
 
-    <div class="packet-bar">
-      <div>
-        <strong id="packetStatus">No packet exported</strong>
-        <div class="mono" id="packetKey">Create and export a campaign manifest.</div>
-      </div>
-      <div class="action-row">
-        <button id="exportPacket" disabled>Export Manifest</button>
-        <button id="downloadPacket" class="secondary" disabled>Download ZIP</button>
-        <span class="footer-note">ProofFrame public mock demo</span>
-      </div>
-    </div>
-
     <script>
       const state = {
         campaign: null,
@@ -501,13 +611,45 @@
         assets: [],
         selectedAssetId: null,
         manifest: {},
+        filters: {
+          query: "",
+          status: "all",
+        },
       };
 
       const el = (id) => document.getElementById(id);
 
+      function escapeHtml(value) {
+        return String(value || "")
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+
       function short(value, length = 16) {
         if (!value) return "";
         return value.length > length ? `${value.slice(0, length)}...` : value;
+      }
+
+      function filteredAssets() {
+        const query = state.filters.query.trim().toLowerCase();
+        return state.assets.filter((asset) => {
+          const statusMatch = state.filters.status === "all" || asset.status === state.filters.status;
+          const searchable = [
+            asset.prompt,
+            asset.provider,
+            asset.model,
+            asset.storage_backend,
+            asset.storage_key,
+            asset.sha256,
+            asset.risk_note,
+          ]
+            .join(" ")
+            .toLowerCase();
+          return statusMatch && (!query || searchable.includes(query));
+        });
       }
 
       async function api(path, options = {}) {
@@ -543,8 +685,8 @@
             .map(
               (campaign) => `
               <div class="campaign-item">
-                <strong>${campaign.title}</strong>
-                <span>${new Date(campaign.created_at).toLocaleString()}</span>
+                <strong>${escapeHtml(campaign.title)}</strong>
+                <span>${escapeHtml(new Date(campaign.created_at).toLocaleString())}</span>
               </div>
             `,
             )
@@ -556,23 +698,27 @@
       }
 
       function renderAssets() {
-        const rows = state.assets
+        const visibleAssets = filteredAssets();
+        const rows = visibleAssets
           .map(
             (asset, index) => `
             <div class="asset-row ${asset.id === state.selectedAssetId ? "selected" : ""}" data-id="${asset.id}">
-              <img class="thumb" src="${asset.public_url || ""}" alt="Generated variant ${index + 1}" />
+              <img class="thumb" src="${escapeHtml(asset.public_url || "")}" alt="Generated variant ${index + 1}" />
               <div>
                 <span class="asset-title">Variant ${index + 1}</span>
-                <div class="mono">${short(asset.prompt, 84)}</div>
+                <div class="mono">${escapeHtml(short(asset.prompt, 84))}</div>
               </div>
-              <div class="mono">${asset.storage_key}</div>
-              <div class="mono">${short(asset.sha256, 24)}</div>
-              <div><span class="status ${asset.status}">${asset.status}</span></div>
+              <div class="mono">${escapeHtml(asset.storage_key)}</div>
+              <div class="mono">${escapeHtml(short(asset.sha256, 24))}</div>
+              <div><span class="status ${escapeHtml(asset.status)}">${escapeHtml(asset.status)}</span></div>
             </div>
           `,
           )
           .join("");
-        el("assetRows").innerHTML = rows || '<p class="subtle">No generated assets yet.</p>';
+        const emptyCopy = state.assets.length
+          ? "No assets match the current review filter."
+          : "No generated assets yet.";
+        el("assetRows").innerHTML = rows || `<p class="subtle">${emptyCopy}</p>`;
         document.querySelectorAll(".asset-row").forEach((row) => {
           row.addEventListener("click", () => {
             state.selectedAssetId = row.dataset.id;
@@ -580,6 +726,27 @@
             renderInspector();
           });
         });
+        renderScorecard();
+      }
+
+      function renderScorecard() {
+        const total = state.assets.length;
+        const approved = state.assets.filter((asset) => asset.status === "approved").length;
+        const rejected = state.assets.filter((asset) => asset.status === "rejected").length;
+        const draft = state.assets.filter((asset) => asset.status === "draft").length;
+        const reviewed = approved + rejected;
+        const coverage = total ? Math.round((reviewed / total) * 100) : 0;
+        const firstAsset = state.assets[0];
+
+        el("scoreTotal").textContent = total;
+        el("scoreApproved").textContent = approved;
+        el("scoreDraft").textContent = draft;
+        el("scoreRejected").textContent = rejected;
+        el("scoreCoverage").textContent = `${coverage}%`;
+        el("scoreBackend").textContent = firstAsset
+          ? `${firstAsset.storage_backend} / ${firstAsset.provider}`
+          : "No backend yet";
+        el("copySummary").disabled = !state.campaign || total === 0;
       }
 
       function renderInspector() {
@@ -672,6 +839,27 @@
         el("packetKey").textContent = "Approve, export, or download the evidence ZIP.";
       }
 
+      async function copySummary() {
+        if (!state.campaign || state.assets.length === 0) return;
+        const total = state.assets.length;
+        const approved = state.assets.filter((asset) => asset.status === "approved").length;
+        const rejected = state.assets.filter((asset) => asset.status === "rejected").length;
+        const draft = state.assets.filter((asset) => asset.status === "draft").length;
+        const firstAsset = state.assets[0];
+        const lines = [
+          `ProofFrame packet: ${state.campaign.title}`,
+          `Campaign ID: ${state.campaign.id}`,
+          `Assets: ${total} total, ${approved} approved, ${rejected} rejected, ${draft} draft`,
+          `Runtime: ${firstAsset.storage_backend} storage / ${firstAsset.provider} generation`,
+          `First asset checksum: ${firstAsset.sha256}`,
+          `First storage key: ${firstAsset.storage_key}`,
+          "No secrets, credentials, cookies, or signed URLs are included in this summary.",
+        ];
+        await navigator.clipboard.writeText(lines.join("\n"));
+        el("packetStatus").textContent = "Evidence summary copied";
+        el("packetKey").textContent = `${state.campaign.id} summary copied without secrets.`;
+      }
+
       function downloadPacket() {
         if (!state.campaign) return;
         const link = document.createElement("a");
@@ -690,8 +878,17 @@
       el("rejectAsset").addEventListener("click", () => updateStatus("rejected"));
       el("exportPacket").addEventListener("click", exportPacket);
       el("downloadPacket").addEventListener("click", downloadPacket);
+      el("copySummary").addEventListener("click", copySummary);
       el("judgeDemo").addEventListener("click", loadJudgeDemo);
       el("loadCampaigns").addEventListener("click", loadCampaigns);
+      el("assetSearch").addEventListener("input", (event) => {
+        state.filters.query = event.target.value;
+        renderAssets();
+      });
+      el("statusFilter").addEventListener("change", (event) => {
+        state.filters.status = event.target.value;
+        renderAssets();
+      });
       el("sampleBrief").addEventListener("click", () => {
         el("title").value = "Indie Film Festival Packet";
         el("audience").value = "festival programmers and local press";

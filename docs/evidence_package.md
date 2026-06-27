@@ -35,6 +35,8 @@ This file is the internal source of truth for Devpost submission assets. Anythin
 | Technical spec | `docs/spec.md` | Public-ready |
 | Submission plan | `docs/submission.md` | Public-ready after final claim check |
 | Local Proof Ledger UI | `apps/web/index.html` | Public-ready |
+| Review console | scorecard, status filter, search, safe summary copy in `apps/web/index.html` | Public-ready in local/mock mode |
+| Review console smoke screenshot | `docs/assets/proofframe-review-console-smoke.png` | Public-ready in local/mock mode |
 | UI smoke screenshot | `docs/assets/proofframe-local-ui-smoke.png` | Public-ready |
 | Public HF Space smoke screenshot | `docs/assets/proofframe-hf-public-smoke.png` | Public-ready in local/mock mode |
 | Public HF Space API smoke | `python scripts/api_smoke.py --base-url https://adjcjh-backblaze-proofframe.hf.space` | Passed in local/mock mode |

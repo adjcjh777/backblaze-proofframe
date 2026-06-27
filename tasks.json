@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T06:39:46Z",
+  "updated_at": "2026-06-27T06:47:03Z",
   "tasks": [
     {
       "id": "T001",
@@ -235,6 +235,15 @@
       "status": "done",
       "done_criteria": "API smoke can fail closed unless B2 and Genblaze backends are active and can write safe evidence JSON.",
       "notes": "Enhanced scripts/api_smoke.py with required backend gates and evidence output for T020/T021/T042."
+    },
+    {
+      "id": "T039C",
+      "title": "Add review console polish",
+      "phase": "P3 Polish",
+      "owner": "executor",
+      "status": "done",
+      "done_criteria": "UI supports status filtering, evidence search, decision coverage, and a copy-safe summary for judges.",
+      "notes": "Added review console scorecard, filters, safe HTML escaping, and evidence-summary copy affordance."
     },
     {
       "id": "T040",

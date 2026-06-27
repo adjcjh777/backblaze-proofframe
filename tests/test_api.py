@@ -23,6 +23,7 @@ def test_health_and_campaign_flow(tmp_path):
     index_response = client.get("/")
     assert index_response.status_code == 200
     assert "Generated Media Ledger" in index_response.text
+    assert "Search Evidence" in index_response.text
 
     health = client.get("/api/health")
     assert health.status_code == 200

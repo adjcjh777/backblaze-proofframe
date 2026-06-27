@@ -52,6 +52,7 @@ If ProofFrame makes provenance visible by default, judges will perceive deeper s
 | Storage adapter | P0 | Local and B2-compatible backends. |
 | Manifest writer | P0 | Prompt, model, provider, checksum, storage URL/key, approval state. |
 | Review gallery | P0 | Approve/reject, notes, copy/export. |
+| Review console | P1 | Search/filter by prompt, model, storage key, checksum, and status; copy a safe evidence summary. |
 | Packet export | P0 | Zip or folder with manifest and media. |
 | Browser UI | P0 | `apps/web/index.html` entry. |
 | Docker packaging | P1 | One-command demo. |
@@ -71,6 +72,7 @@ If ProofFrame makes provenance visible by default, judges will perceive deeper s
 - Local MVP runs without secrets.
 - B2-backed run stores a real asset and manifest after live verification.
 - Exported packet is inspectable and reproducible.
+- Review console can show decision coverage and locate evidence without opening raw manifests.
 - No secrets in repo, logs, screenshots, or demo video.
 
 ## Award Strategy
