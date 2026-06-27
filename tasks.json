@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T08:01:17Z",
+  "updated_at": "2026-06-27T08:14:24Z",
   "tasks": [
     {
       "id": "T001",
@@ -316,6 +316,15 @@
       "status": "done",
       "done_criteria": "Public demo supports a judge-mode URL that auto-loads the sample evidence packet without manual button hunting.",
       "notes": "Added ?judge=1/?demo=1 auto-load, updated Devpost demo URL, regenerated submission packets, and added tests."
+    },
+    {
+      "id": "T039L",
+      "title": "Sync judge-mode public Space",
+      "phase": "P3 Demo",
+      "owner": "codex",
+      "status": "done",
+      "done_criteria": "HF Space serves ?judge=1 auto-load code and /api/submission/gate returns pre_live_safe task gate.",
+      "notes": "Pushed HF Space commit 7dedc8d; verified public HTML contains shouldAutoLoadJudgeDemo and gate API reports pre_live_safe."
     },
     {
       "id": "T040",

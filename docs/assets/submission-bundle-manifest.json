@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.submission_bundle.v1",
-  "created_at": "2026-06-27T08:03:45Z",
+  "created_at": "2026-06-27T08:14:48Z",
   "project": "ProofFrame",
   "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
@@ -145,8 +145,8 @@
       "path": "tasks.json",
       "label": "Machine-readable task board",
       "present": true,
-      "bytes": 14827,
-      "sha256": "8c07478a9ca78346cf986f158f4e608c22eb23f06778afe23844919514e59ffe"
+      "bytes": 15245,
+      "sha256": "f7d356645d15d2c362142624362c85615626b73ddf8385faf927d8ebbbf769f0"
     },
     {
       "id": "local_ui_smoke",

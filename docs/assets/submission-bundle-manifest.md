@@ -1,6 +1,6 @@
 # ProofFrame Submission Bundle
 
-Created: `2026-06-27T08:03:45Z`
+Created: `2026-06-27T08:14:48Z`
 Repository: https://github.com/adjcjh777/backblaze-proofframe
 Public mock demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 Devpost packet mode: `pre_live_safe`
@@ -34,7 +34,7 @@ Final gate ready: `false`
 - `docs/public_claim_freeze.md` (3961 bytes, sha256 `ba873890c8faadc2...`) - Verified-claim boundary
 - `docs/verification.md` (4593 bytes, sha256 `806be9ebfaf386c0...`) - Local, CI, Docker, and live proof runbook
 - `docs/submission.md` (2992 bytes, sha256 `c8e8450dd7f6d4a7...`) - Registration and submission plan
-- `tasks.json` (14827 bytes, sha256 `8c07478a9ca78346...`) - Machine-readable task board
+- `tasks.json` (15245 bytes, sha256 `f7d356645d15d2c3...`) - Machine-readable task board
 - `docs/assets/proofframe-local-ui-smoke.png` (221853 bytes, sha256 `2685c1c53b3589be...`) - Local UI screenshot
 - `docs/assets/proofframe-review-console-smoke.png` (343618 bytes, sha256 `30620a33e3c7ab28...`) - Review console screenshot
 - `docs/assets/proofframe-hf-public-smoke.png` (270826 bytes, sha256 `5a7e0d64ad8cb2c7...`) - Public mock demo screenshot
