@@ -46,6 +46,7 @@ This file is the internal source of truth for Devpost submission assets. Anythin
 | Downloadable evidence ZIP | `/api/campaigns/{id}/packet.zip` | Public-ready in local mode |
 | One-click judge packet | `/api/demo/judge-packet` | Public-ready in local mode |
 | Final live proof preflight | `scripts/live_proof.py --preflight-only` | Public-ready; reports missing env/packages without printing secrets |
+| Live credential handoff | `.env.final.example`, `scripts/live_env_handoff.py`, `docs/assets/live-credential-handoff.json`, `docs/assets/live-credential-handoff.md` | Public-ready; reports required variable presence and next commands without credential values |
 | Final live proof runner | `scripts/run_final_live_proof.py --preflight-only`, then `scripts/run_final_live_proof.py --evidence-out docs/assets/final-live-proof-evidence.json` | Public-ready; starts and stops local app without committing logs or secrets |
 | Evidence safety gate | `scripts/api_smoke.py --evidence-out` refuses secret-like keys and signed-token values before writing JSON | Public-ready |
 | Public claim lint | `scripts/claim_lint.py` fails CI if active public copy claims completed B2/Genblaze proof before final evidence exists | Public-ready |

@@ -36,7 +36,7 @@
     {
       "path": "README.md",
       "present": true,
-      "bytes": 6343
+      "bytes": 6559
     },
     {
       "path": "docs/demo_script.md",
@@ -61,12 +61,22 @@
     {
       "path": "docs/assets/submission-bundle-manifest.json",
       "present": true,
-      "bytes": 7597
+      "bytes": 8731
     },
     {
       "path": "docs/assets/submission-bundle-manifest.md",
       "present": true,
-      "bytes": 3090
+      "bytes": 3575
+    },
+    {
+      "path": "docs/assets/live-credential-handoff.json",
+      "present": true,
+      "bytes": 4113
+    },
+    {
+      "path": "docs/assets/live-credential-handoff.md",
+      "present": true,
+      "bytes": 2106
     },
     {
       "path": "docs/assets/proofframe-local-ui-smoke.png",
@@ -84,9 +94,19 @@
       "bytes": 369328
     },
     {
+      "path": ".env.final.example",
+      "present": true,
+      "bytes": 352
+    },
+    {
       "path": "scripts/claim_lint.py",
       "present": true,
       "bytes": 5110
+    },
+    {
+      "path": "scripts/live_env_handoff.py",
+      "present": true,
+      "bytes": 9023
     },
     {
       "path": "scripts/secret_scan.py",

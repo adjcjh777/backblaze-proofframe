@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.submission_bundle.v1",
-  "created_at": "2026-06-27T09:23:22Z",
+  "created_at": "2026-06-27T09:38:32Z",
   "project": "ProofFrame",
   "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
@@ -57,8 +57,8 @@
       "path": "README.md",
       "label": "Core public project overview",
       "present": true,
-      "bytes": 6343,
-      "sha256": "4742b39bf36cb1d453df602601525b1969d3388236b6fff23d1ea4a09708f657"
+      "bytes": 6559,
+      "sha256": "bb51be9da440ff31340f8acbdbabd60992274ec476b61f97510d02a233122efb"
     },
     {
       "id": "prd",
@@ -121,8 +121,8 @@
       "path": "docs/evidence_package.md",
       "label": "Evidence package plan",
       "present": true,
-      "bytes": 8355,
-      "sha256": "6875db370dc5fb5e6406d360e960b0b48b4dde1e87f4a45a7cac61d28ec3d233"
+      "bytes": 8618,
+      "sha256": "5f3b6f296887db8c506dc16907745a7cc5b9d8f9ffdd9724af28b532526706e9"
     },
     {
       "id": "public_claim_freeze",
@@ -137,8 +137,40 @@
       "path": "docs/verification.md",
       "label": "Local, CI, Docker, and live proof runbook",
       "present": true,
-      "bytes": 5339,
-      "sha256": "24cced2d3deb13debfd1c42ccb0da6d9accf1bdd9def818f7a02f5066e66ef3a"
+      "bytes": 5539,
+      "sha256": "aebae6d25fc6f6f1e3eca8cb6ed0850644b72703e46f9faa3c05e384ced42157"
+    },
+    {
+      "id": "final_env_template",
+      "path": ".env.final.example",
+      "label": "Redacted final B2 plus Genblaze env template",
+      "present": true,
+      "bytes": 352,
+      "sha256": "d250e97bb0a653fa8d46a86e141f310485206f5035ab2562001dce17a5719420"
+    },
+    {
+      "id": "live_env_handoff_script",
+      "path": "scripts/live_env_handoff.py",
+      "label": "Redacted live credential handoff gate",
+      "present": true,
+      "bytes": 9023,
+      "sha256": "f2cad4fd96ce4bca8e33feb32cc9dea5c4daac0954d6510959ca0fa9a7e9d6c7"
+    },
+    {
+      "id": "live_env_handoff_json",
+      "path": "docs/assets/live-credential-handoff.json",
+      "label": "Machine-readable live credential handoff",
+      "present": true,
+      "bytes": 4113,
+      "sha256": "ae808f6c4d1bc03a942cecff06906d248ad2de57bc256218592b95e43ce32aaf"
+    },
+    {
+      "id": "live_env_handoff_md",
+      "path": "docs/assets/live-credential-handoff.md",
+      "label": "Human-readable live credential handoff",
+      "present": true,
+      "bytes": 2106,
+      "sha256": "dd3f991b13704e634e6034cab5eec9f1fe33e07f5ee1655971bcc94fd9cd095f"
     },
     {
       "id": "public_claim_lint",
@@ -153,24 +185,24 @@
       "path": "scripts/demo_readiness.py",
       "label": "Demo recording readiness gate",
       "present": true,
-      "bytes": 8122,
-      "sha256": "9685373bf18b4772ec5b0b5e35ef1aae7fc4da1b5a1a610054f9e73d89c858bf"
+      "bytes": 8277,
+      "sha256": "2696006a4fb9502bf0733f59655b961d63601bee4757dd8ab46bc25728f29b5c"
     },
     {
       "id": "demo_readiness_json",
       "path": "docs/assets/demo-readiness-report.json",
       "label": "Machine-readable demo readiness report",
       "present": true,
-      "bytes": 2405,
-      "sha256": "e7399428b047d69f5f87dacd5f2259e8f90dd3a991ef496639f2fb6782c17efe"
+      "bytes": 2823,
+      "sha256": "ed36ef6a78db94398eed4b9004b925af0c840915741704815cfdcf2b89fa750c"
     },
     {
       "id": "demo_readiness_md",
       "path": "docs/assets/demo-readiness-report.md",
       "label": "Human-readable demo readiness report",
       "present": true,
-      "bytes": 1229,
-      "sha256": "0a3ad61f5bc48bdf59108296ab30c24884270e7bfb94823ee1b88b86ce199eb0"
+      "bytes": 1384,
+      "sha256": "f0f1226ed31f5494257d5f20c04f95d8a872c60ede251bb9755a6ea07c54310c"
     },
     {
       "id": "final_live_runner",
@@ -193,8 +225,8 @@
       "path": "tasks.json",
       "label": "Machine-readable task board",
       "present": true,
-      "bytes": 17832,
-      "sha256": "d1b27c41749c4fed742bc6baff0a2f66696695d2be82789968a9d35684bf63a2"
+      "bytes": 18307,
+      "sha256": "ca38147a6f0928286467272d3c550ce72f8134306557a14178176f3118ef2db3"
     },
     {
       "id": "local_ui_smoke",

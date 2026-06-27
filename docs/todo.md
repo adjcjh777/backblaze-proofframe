@@ -27,8 +27,9 @@ python3 scripts/task.py doing T020 --note "Live B2 proof in progress"
 
 ## Current Priority
 
-1. Complete live Backblaze B2 upload proof for one asset and one manifest.
-2. Complete live Genblaze-backed generation proof and capture provider/model metadata.
-3. Run the final secret scan and final audit after live proof evidence exists.
-4. Record the demo video using `docs/demo_script.md`.
-5. Keep public claims frozen with `docs/public_claim_freeze.md` until real B2 and Genblaze evidence exists.
+1. Copy `.env.final.example` to `.env.final.local`, fill B2/Genblaze values outside git, then run `python scripts/live_env_handoff.py --env-file .env.final.local`.
+2. Complete live Backblaze B2 upload proof for one asset and one manifest.
+3. Complete live Genblaze-backed generation proof and capture provider/model metadata.
+4. Run the final secret scan and final audit after live proof evidence exists.
+5. Record the demo video using `docs/demo_script.md`.
+6. Keep public claims frozen with `docs/public_claim_freeze.md` until real B2 and Genblaze evidence exists.

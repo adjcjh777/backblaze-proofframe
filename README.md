@@ -87,6 +87,7 @@ Then open `http://127.0.0.1:8088/`.
 python scripts/check_integrations.py
 python scripts/live_proof.py --preflight-only
 python scripts/run_final_live_proof.py --preflight-only
+python scripts/live_env_handoff.py
 python scripts/claim_lint.py
 python scripts/demo_readiness.py
 python scripts/submission_audit.py
@@ -96,6 +97,7 @@ python scripts/submission_bundle.py
 
 The browser UI and `GET /api/submission/gate` expose the same fail-closed final gate: required task status, Devpost packet presence, and final B2/Genblaze evidence readiness.
 `scripts/submission_bundle.py` creates a safe manifest of public submission artifacts, screenshots, checksums, Devpost copy mode, and remaining gate blockers.
+`scripts/live_env_handoff.py` creates a redacted B2/Genblaze credential handoff report so final proof setup can be checked without printing keys.
 `scripts/run_final_live_proof.py` is the final one-command live runner: once B2 and Genblaze env vars are present, it starts the app, verifies `/api/health` reports `b2` plus `genblaze`, writes sanitized final evidence, and stops the server.
 `scripts/claim_lint.py` keeps pre-live public copy from claiming completed Backblaze B2 or Genblaze proof before evidence exists.
 `scripts/demo_readiness.py` keeps the mock demo recording package ready while failing strict final mode until live B2/Genblaze proof and the final secret scan are complete.
@@ -114,6 +116,7 @@ pytest
 python scripts/api_smoke.py --base-url http://127.0.0.1:8088
 python scripts/secret_scan.py
 python scripts/claim_lint.py
+python scripts/live_env_handoff.py
 python scripts/demo_readiness.py
 ```
 

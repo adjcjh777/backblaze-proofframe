@@ -51,5 +51,8 @@ jobs:
       - name: Public claim lint
         run: python scripts/claim_lint.py
 
+      - name: Live credential handoff
+        run: python scripts/live_env_handoff.py
+
       - name: Demo readiness
         run: python scripts/demo_readiness.py

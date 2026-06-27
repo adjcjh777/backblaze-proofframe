@@ -29,10 +29,14 @@ REQUIRED_MOCK_RECORDING_FILES = [
     "docs/assets/devpost-submission-packet.md",
     "docs/assets/submission-bundle-manifest.json",
     "docs/assets/submission-bundle-manifest.md",
+    "docs/assets/live-credential-handoff.json",
+    "docs/assets/live-credential-handoff.md",
     "docs/assets/proofframe-local-ui-smoke.png",
     "docs/assets/proofframe-review-console-smoke.png",
     "docs/assets/proofframe-hf-public-smoke.png",
+    ".env.final.example",
     "scripts/claim_lint.py",
+    "scripts/live_env_handoff.py",
     "scripts/secret_scan.py",
 ]
 
