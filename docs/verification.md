@@ -12,6 +12,7 @@ python scripts/check_integrations.py
 ruff check .
 pytest
 python scripts/secret_scan.py
+python scripts/claim_lint.py
 python scripts/submission_bundle.py
 ```
 
@@ -25,6 +26,7 @@ The `.github/workflows/ci.yml` workflow runs on `main`, `feature/**`, and pull r
 - `pytest`
 - `python scripts/api_smoke.py --base-url http://127.0.0.1:8088`
 - `python scripts/secret_scan.py`
+- `python scripts/claim_lint.py`
 
 Use the CI result as public repo evidence for the non-secret local gate. It does not replace T020/T021 live sponsor proof because those require private credentials.
 
@@ -173,6 +175,7 @@ Before Devpost submit:
 
 ```bash
 python scripts/secret_scan.py
+python scripts/claim_lint.py
 python scripts/submission_bundle.py
 python scripts/run_final_live_proof.py \
   --evidence-out docs/assets/final-live-proof-evidence.json

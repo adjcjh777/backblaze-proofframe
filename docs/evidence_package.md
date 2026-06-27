@@ -47,6 +47,7 @@ This file is the internal source of truth for Devpost submission assets. Anythin
 | Final live proof preflight | `scripts/live_proof.py --preflight-only` | Public-ready; reports missing env/packages without printing secrets |
 | Final live proof runner | `scripts/run_final_live_proof.py --preflight-only`, then `scripts/run_final_live_proof.py --evidence-out docs/assets/final-live-proof-evidence.json` | Public-ready; starts and stops local app without committing logs or secrets |
 | Evidence safety gate | `scripts/api_smoke.py --evidence-out` refuses secret-like keys and signed-token values before writing JSON | Public-ready |
+| Public claim lint | `scripts/claim_lint.py` fails CI if active public copy claims completed B2/Genblaze proof before final evidence exists | Public-ready |
 | Final submission audit | `scripts/submission_audit.py` checks final task gates, required artifacts, screenshots, and live proof evidence | Public-ready; intentionally fails until T020/T021/T040/T041/T041A/T042 are complete |
 | Copy-ready Devpost packet | `docs/assets/devpost-submission-packet.json`, `docs/assets/devpost-submission-packet.md` | Public-ready in pre-live-safe mode |
 | Safe submission bundle manifest | `docs/assets/submission-bundle-manifest.json`, `docs/assets/submission-bundle-manifest.md` | Public-ready in pre-live-safe mode |

@@ -47,3 +47,6 @@ jobs:
 
       - name: Secret scan
         run: python scripts/secret_scan.py
+
+      - name: Public claim lint
+        run: python scripts/claim_lint.py

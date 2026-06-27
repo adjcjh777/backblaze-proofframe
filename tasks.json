@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T08:32:30Z",
+  "updated_at": "2026-06-27T08:41:22Z",
   "tasks": [
     {
       "id": "T001",
@@ -343,6 +343,15 @@
       "status": "done",
       "done_criteria": "A single command can start the app with live B2/Genblaze env, verify health, run safe API smoke, write final evidence, and stop the server.",
       "notes": "Added scripts/run_final_live_proof.py, tests, and runbook docs; current preflight fails closed because live env vars are not configured."
+    },
+    {
+      "id": "T039O",
+      "title": "Add public claim lint gate",
+      "phase": "P3 Demo",
+      "owner": "codex",
+      "status": "done",
+      "done_criteria": "CI fails if active public copy claims completed B2 or Genblaze proof before final live evidence exists.",
+      "notes": "Added scripts/claim_lint.py, tests, CI step, and runbook/evidence docs."
     },
     {
       "id": "T040",

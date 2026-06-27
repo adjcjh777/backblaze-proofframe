@@ -67,10 +67,11 @@ Release criteria:
 Before recording the final video or submitting Devpost, run:
 
 ```bash
+python scripts/claim_lint.py
 rg -n "stores|stored|Backblaze B2|B2|Genblaze|generates|generated through|end to end|every asset" README.md docs apps src
 ```
 
-Then classify each result as:
+Use `scripts/claim_lint.py` as the fail-closed gate for active public copy. Then manually classify any remaining grep result as:
 
 - verified present-tense claim
 - future/target claim

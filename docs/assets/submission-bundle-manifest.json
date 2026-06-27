@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.submission_bundle.v1",
-  "created_at": "2026-06-27T08:33:19Z",
+  "created_at": "2026-06-27T08:41:32Z",
   "project": "ProofFrame",
   "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
@@ -57,8 +57,8 @@
       "path": "README.md",
       "label": "Core public project overview",
       "present": true,
-      "bytes": 5887,
-      "sha256": "24abaa77161620f75dabbc59a6e483bb45869ca627a595075e79969952c3b5f1"
+      "bytes": 6046,
+      "sha256": "434be53f2d85d776d94314e7fdb7c11311359441a236ad4c91d538af8884c9a0"
     },
     {
       "id": "prd",
@@ -113,24 +113,32 @@
       "path": "docs/evidence_package.md",
       "label": "Evidence package plan",
       "present": true,
-      "bytes": 7730,
-      "sha256": "562ad550c83ca57e046bda2088974fc5f85165010a9b27da0499aa94aa6bc11f"
+      "bytes": 7888,
+      "sha256": "38876fd63ebdaabba5b77fbf700ef3bdc9f41c0bb2609d2bc941169f0a860635"
     },
     {
       "id": "public_claim_freeze",
       "path": "docs/public_claim_freeze.md",
       "label": "Verified-claim boundary",
       "present": true,
-      "bytes": 3961,
-      "sha256": "ba873890c8faadc2af362d8f4eacf2a231e317cdbc0053b2ecfa9bb34087d515"
+      "bytes": 4089,
+      "sha256": "735b9188feae74ea334d5d76503b4a48ea37130f850d85b18a2cd4e07bcce1dc"
     },
     {
       "id": "verification_runbook",
       "path": "docs/verification.md",
       "label": "Local, CI, Docker, and live proof runbook",
       "present": true,
-      "bytes": 5130,
-      "sha256": "9551e35a8418becc8b9d5f253e7e444b091b2c5d349fc31da7a38fc39fd0ab7d"
+      "bytes": 5221,
+      "sha256": "e8372e3d7531c857eaea36d8045df44e09a3fa115d7562ffafee0f6dd06b8aeb"
+    },
+    {
+      "id": "public_claim_lint",
+      "path": "scripts/claim_lint.py",
+      "label": "Fail-closed public claim lint",
+      "present": true,
+      "bytes": 4804,
+      "sha256": "c00670f301f0e88a8ee2f6d5511a3871786444e4199b7f087d02bf15085fb42e"
     },
     {
       "id": "final_live_runner",
@@ -153,8 +161,8 @@
       "path": "tasks.json",
       "label": "Machine-readable task board",
       "present": true,
-      "bytes": 16185,
-      "sha256": "87566036cf5760017f50d4c76f7ef69b00e62fd28e5cfffc26b84f2146b28768"
+      "bytes": 16557,
+      "sha256": "1938eb970ef8daac7fd6d61001b4303e12ba4f819335c240d08b35be3eb8af43"
     },
     {
       "id": "local_ui_smoke",
