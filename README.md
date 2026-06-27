@@ -95,6 +95,7 @@ python scripts/demo_storyboard.py
 python scripts/sponsor_fit_audit.py
 python scripts/demo_readiness.py
 python scripts/award_readiness.py --min-score 75
+python scripts/final_submission_control.py
 python scripts/submission_audit.py
 python scripts/devpost_packet.py
 python scripts/submission_bundle.py
@@ -112,6 +113,7 @@ The browser UI and `GET /api/submission/gate` expose the same fail-closed final 
 `scripts/sponsor_fit_audit.py` checks that Backblaze B2 and Genblaze are explained as product-critical sponsor paths without overclaiming live proof.
 `scripts/demo_readiness.py` keeps the mock demo recording package ready while failing strict final mode until live B2/Genblaze proof and the final secret scan are complete.
 `scripts/award_readiness.py` scores sponsor fit, provenance depth, demo readiness, claim safety, and final closure so polish work stays aligned with judge expectations.
+`scripts/final_submission_control.py` aggregates the gate, form kit, storyboard, credential handoff, and award reports into one final Devpost control tower.
 
 B2 mode intentionally fails closed unless `B2_ENDPOINT_URL`, `B2_BUCKET`, `B2_KEY_ID`, and `B2_APPLICATION_KEY` are set. Genblaze mode intentionally fails closed unless a Genblaze/GMI key and `GENBLAZE_IMAGE_MODEL` are set, and the official `genblaze-core` and `genblaze-gmicloud` packages are installed.
 

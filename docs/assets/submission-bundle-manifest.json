@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.submission_bundle.v1",
-  "created_at": "2026-06-27T16:14:33Z",
+  "created_at": "2026-06-27T16:36:54Z",
   "project": "ProofFrame",
   "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
@@ -57,8 +57,8 @@
       "path": "README.md",
       "label": "Core public project overview",
       "present": true,
-      "bytes": 7802,
-      "sha256": "8637dc227e4eb181228ae77161f8d869b598fe0fa14b0743954d5221138ea471"
+      "bytes": 8002,
+      "sha256": "ad66401284b795f1eecb5991fc1dde0a854942bfe4609da555063c59043cb07d"
     },
     {
       "id": "prd",
@@ -154,7 +154,7 @@
       "label": "Machine-readable demo storyboard",
       "present": true,
       "bytes": 4496,
-      "sha256": "68cddae91116f11dba111e9282004c5a3b284c69cbb06a3a3c9dd12873f50eeb"
+      "sha256": "a31335e3494567268407146ce8194a6d1b2b89556f0965a61ec2cb2f8b905077"
     },
     {
       "id": "demo_storyboard_md",
@@ -201,32 +201,56 @@
       "path": "scripts/award_readiness.py",
       "label": "Judge-facing award readiness scorecard",
       "present": true,
-      "bytes": 21382,
-      "sha256": "f5a3a59f7c33f75c56595268e7bcd1fc8a8166793c517bd7f9c0c16acfb43757"
+      "bytes": 21440,
+      "sha256": "665b21fd96402e5b3287c5d7e5f1cbac79083ca5091d80913db4f47483812e67"
     },
     {
       "id": "award_readiness_json",
       "path": "docs/assets/award-readiness-report.json",
       "label": "Machine-readable award readiness report",
       "present": true,
-      "bytes": 10504,
-      "sha256": "d7508620d451050ef563e91897229ed9ec14485f8e54c8a60f78acc881eee510"
+      "bytes": 10503,
+      "sha256": "961f95076c27cee4b6063576ea2024b1f5ca7b731454ae82b8e4ecb6095eb29b"
     },
     {
       "id": "award_readiness_md",
       "path": "docs/assets/award-readiness-report.md",
       "label": "Human-readable award readiness report",
       "present": true,
-      "bytes": 3993,
-      "sha256": "841b753556e68b1531a63b0ba01cf55a16df65374ff340a6376f6c37d187addb"
+      "bytes": 3991,
+      "sha256": "10196d777a07dc2d620a24365b7bf0874f097c8e9b89bf79c55cef9750fd6103"
+    },
+    {
+      "id": "final_submission_control_script",
+      "path": "scripts/final_submission_control.py",
+      "label": "Final submission control tower",
+      "present": true,
+      "bytes": 18037,
+      "sha256": "979fe1c9ba7def963c2abc9eb0ef80f2c0437fdadad10c52f2d2454cb744bc78"
+    },
+    {
+      "id": "final_submission_control_json",
+      "path": "docs/assets/final-submission-control.json",
+      "label": "Machine-readable final control report",
+      "present": true,
+      "bytes": 10098,
+      "sha256": "824ad315f2d1c5462a3a6939cbf271e939550cf49d832faf12002d56b38fc189"
+    },
+    {
+      "id": "final_submission_control_md",
+      "path": "docs/assets/final-submission-control.md",
+      "label": "Human-readable final control report",
+      "present": true,
+      "bytes": 3868,
+      "sha256": "3739b54973aae20a9ed8d41191020cdcea1cc71443f4329a12ee066d644a78ec"
     },
     {
       "id": "evidence_package",
       "path": "docs/evidence_package.md",
       "label": "Evidence package plan",
       "present": true,
-      "bytes": 10492,
-      "sha256": "506100d984198890c889b769f26e391a68e114aa3d77b2a5dee999a3defb3311"
+      "bytes": 10845,
+      "sha256": "e4188e56a8d485d8e6933e556619ce6ec4e87491bbb7976154d7fbeacb610658"
     },
     {
       "id": "public_claim_freeze",
@@ -241,8 +265,8 @@
       "path": "docs/verification.md",
       "label": "Local, CI, Docker, and live proof runbook",
       "present": true,
-      "bytes": 6727,
-      "sha256": "a83398744b25370d3c8cd74817994e82335ea16c5a3b3bf8a4953bea64469d31"
+      "bytes": 6875,
+      "sha256": "83dffa0f4fb1a3c9a4a4febc37096e94eec8696e3cd8db149028599097e3e4d3"
     },
     {
       "id": "final_env_template",
@@ -330,7 +354,7 @@
       "label": "Machine-readable demo readiness report",
       "present": true,
       "bytes": 3552,
-      "sha256": "4265ea00b06d815c5b4df504bde0139517f54ecc5ca9dd0fd70c6603ea8fb938"
+      "sha256": "82a3b423240a9453d2366562ab8fda961a9635eadfb22af798fb7a7475a69b5f"
     },
     {
       "id": "demo_readiness_md",
@@ -353,16 +377,16 @@
       "path": "docs/submission.md",
       "label": "Registration and submission plan",
       "present": true,
-      "bytes": 3209,
-      "sha256": "1441300c209a5c40c95d588743e0984a7df564883af0be9673caa34fd9bb2acd"
+      "bytes": 3353,
+      "sha256": "2e819bd8d2a6cd4d2e4517e524d4981421c222610878b3dd9ba15b60f2d5c091"
     },
     {
       "id": "task_ledger",
       "path": "tasks.json",
       "label": "Machine-readable task board",
       "present": true,
-      "bytes": 22381,
-      "sha256": "c015acf60fe4cebf959a60a1c113f7894c0e3f258198b07fcbef8af4e7a06e1c"
+      "bytes": 22975,
+      "sha256": "df6d9dcc9e4f019b193f7e3df0c5244eca4de4f53ca6203be47962893066010f"
     },
     {
       "id": "local_ui_smoke",

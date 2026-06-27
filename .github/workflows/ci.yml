@@ -72,5 +72,8 @@ jobs:
       - name: Award readiness
         run: python scripts/award_readiness.py --min-score 75
 
+      - name: Final submission control
+        run: python scripts/final_submission_control.py
+
       - name: Submission bundle
         run: python scripts/submission_bundle.py

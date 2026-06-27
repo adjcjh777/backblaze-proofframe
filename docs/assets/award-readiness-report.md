@@ -1,7 +1,7 @@
 # ProofFrame Award Readiness
 
 Mode: `pre_live_competitive`
-Score: `82/111` (73.9%)
+Score: `86/111` (77.5%)
 Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 
 ## Gate Snapshot
@@ -15,9 +15,9 @@ Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 
 ## Criteria
 
-### Sponsor integration fit - 26/38 (68.4%)
+### Sponsor integration fit - 30/38 (78.9%)
 - OK `b2_backend_code` (5/5): Backblaze B2 has a dedicated S3-compatible storage adapter.
-- TODO `b2_bucket_setup` (0/4): The non-secret B2 bucket setup record exists for final proof.
+- OK `b2_bucket_setup` (4/4): The non-secret B2 bucket setup record exists for final proof.
 - OK `b2_live_runner` (4/4): B2 storage can be verified independently before Genblaze is ready.
 - OK `genblaze_provider_code` (5/5): The app has a real Genblaze/GMICloud provider adapter.
 - OK `final_live_runner` (4/4): A one-command runner can produce sanitized final evidence once keys are present.

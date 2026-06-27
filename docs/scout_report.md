@@ -1,6 +1,7 @@
 # Scout Report: Backblaze Generative Media Hackathon
 
 Date checked: 2026-06-27  
+Latest lightweight refresh: 2026-06-28 Asia/Shanghai
 Scout: proofframe-hackathon-scout  
 Scope: official rules and competition-risk review only
 
@@ -53,6 +54,7 @@ Other official timing:
 - Publicity/IP: entrants keep IP, but sponsor/Devpost may promote/display submission materials and use participant name/likeness/comments for hackathon publicity. Some submission components may be public. Avoid third-party copyrighted media, trademarks, or assets without rights.
 - Language: all submission materials must be English or include English translations.
 - Prizes: $10,000 USD total cash across overall prizes: Grand Prize $7,000, Second Place $2,000, Third Place $1,000. Bonus Feedback Prize: 10 winners receive one hour of mentorship / architecture guidance from Backblaze. Entrants may win one overall prize and one feedback prize.
+- Dynamic participant count: Devpost showed `343` participants during the 2026-06-28 lightweight refresh. Recheck before final submission and avoid using a stale exact count in public copy.
 
 ## Risks
 

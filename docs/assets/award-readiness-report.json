@@ -1,9 +1,9 @@
 {
   "schema": "proofframe.award_readiness.v1",
   "project": "ProofFrame",
-  "score": 82,
+  "score": 86,
   "max_score": 111,
-  "percent": 73.9,
+  "percent": 77.5,
   "mode": "pre_live_competitive",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
   "task_statuses": {
@@ -45,9 +45,9 @@
     {
       "id": "sponsor_fit",
       "label": "Sponsor integration fit",
-      "score": 26,
+      "score": 30,
       "max_score": 38,
-      "percent": 68.4,
+      "percent": 78.9,
       "signals": [
         {
           "id": "b2_backend_code",
@@ -60,8 +60,8 @@
         {
           "id": "b2_bucket_setup",
           "label": "Dedicated private B2 bucket is recorded",
-          "ok": false,
-          "points": 0,
+          "ok": true,
+          "points": 4,
           "max_points": 4,
           "detail": "The non-secret B2 bucket setup record exists for final proof."
         },

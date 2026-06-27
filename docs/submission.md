@@ -44,6 +44,7 @@ Codex can handle:
 - Devpost text from `docs/devpost_draft.md`.
 - Field-by-field Devpost form kit from `docs/assets/devpost-form-kit.md` and `.json`.
 - Safe submission bundle manifest from `docs/assets/submission-bundle-manifest.md` and `.json`.
+- Final submission control report from `docs/assets/final-submission-control.md` and `.json`.
 - Structured demo storyboard from `docs/assets/demo-storyboard.md` and `.json`.
 - Local final credential setup via `scripts/final_env_wizard.py`.
 - 2 minute demo video.
@@ -62,7 +63,8 @@ The result is a shareable asset packet that explains where each generated file c
 ## Final Submission Checklist
 
 - [x] Registered on Devpost.
-- [ ] Backblaze B2 bucket created.
+- [x] Backblaze B2 bucket created.
+- [ ] Least-privilege B2 application key created.
 - [ ] B2 media and manifest upload verified.
 - [ ] Genblaze run captured.
 - [ ] Public GitHub repo complete.

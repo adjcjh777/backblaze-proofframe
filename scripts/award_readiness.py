@@ -95,7 +95,8 @@ def criterion(criterion_id: str, label: str, signals: list[dict[str, Any]]) -> d
 
 def b2_setup_ready(root: Path) -> bool:
     setup = load_json(root / "docs" / "assets" / "b2-live-setup.json") or {}
-    return bool(setup.get("bucket") and setup.get("endpoint") and setup.get("bucket_type") == "private")
+    bucket_name = setup.get("bucket_name") or setup.get("bucket")
+    return bool(bucket_name and setup.get("endpoint") and setup.get("bucket_type") == "private")
 
 
 def packet_has_public_demo(root: Path) -> bool:

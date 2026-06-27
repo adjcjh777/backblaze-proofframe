@@ -77,7 +77,7 @@ def write_common_fixtures(root: Path, *, live_done: bool = False, final_done: bo
         "docs/assets/b2-live-setup.json",
         json.dumps(
             {
-                "bucket": "proofframe-demo",
+                "bucket_name": "proofframe-demo",
                 "endpoint": "s3.us-west-004.backblazeb2.com",
                 "bucket_type": "private",
             }
@@ -136,6 +136,22 @@ def test_award_readiness_scores_pre_live_competitive_state(tmp_path):
     assert report["submission_gate"]["mode"] == "pre_live_safe"
     assert report["task_statuses"]["T020"] == "doing"
     assert report["secret_scan"]["ok"] is True
+
+
+def test_b2_setup_ready_accepts_legacy_bucket_field(tmp_path):
+    write_file(
+        tmp_path,
+        "docs/assets/b2-live-setup.json",
+        json.dumps(
+            {
+                "bucket": "proofframe-demo",
+                "endpoint": "s3.us-west-004.backblazeb2.com",
+                "bucket_type": "private",
+            }
+        ),
+    )
+
+    assert award_readiness.b2_setup_ready(tmp_path) is True
 
 
 def test_award_readiness_reaches_final_mode_when_live_and_submit_tasks_done(tmp_path):

@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T16:13:51Z",
+  "updated_at": "2026-06-27T16:25:39Z",
   "tasks": [
     {
       "id": "T001",
@@ -451,6 +451,15 @@
       "status": "done",
       "done_criteria": "The public HF Space judge-mode URL serves the Sponsor Evidence Model UI and still passes public mock API smoke with pre_live_safe submission gate.",
       "notes": "Pushed HF Space commits c530a1d and 3308508; verified public ?judge=1 HTML contains Sponsor Evidence Model, /api/submission/gate reports pre_live_safe with current tasks, and scripts/api_smoke.py passes against the public Space."
+    },
+    {
+      "id": "T039AA",
+      "title": "Add final submission control report",
+      "phase": "P4 Submit",
+      "owner": "codex",
+      "status": "done",
+      "done_criteria": "A single command aggregates task gates, Devpost form readiness, demo storyboard, credential handoff, award readiness, public event snapshot, blocking items, and final operator commands.",
+      "notes": "Added scripts/final_submission_control.py, tests, CI wiring, generated docs/assets/final-submission-control.{json,md}, and submission/evidence docs; also fixed B2 setup scoring to accept bucket_name."
     },
     {
       "id": "T040",

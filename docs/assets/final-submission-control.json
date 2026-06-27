@@ -1,0 +1,288 @@
+{
+  "schema": "proofframe.final_submission_control.v1",
+  "created_at": "2026-06-27T16:36:33Z",
+  "mode": "pre_live_control",
+  "safe_to_submit": false,
+  "event": {
+    "name": "Backblaze Generative Media Hackathon",
+    "devpost_url": "https://backblaze-generative-media.devpost.com/",
+    "rules_url": "https://backblaze-generative-media.devpost.com/rules",
+    "deadline_et": "2026-08-03 17:00 EDT",
+    "deadline_beijing": "2026-08-04 05:00 Asia/Shanghai",
+    "prize_total_usd": 10000,
+    "participant_count_observed": 343,
+    "participant_count_checked_at": "2026-06-28 Asia/Shanghai",
+    "participant_count_note": "Dynamic Devpost count; recheck before final public claims."
+  },
+  "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
+  "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
+  "submission_gate": {
+    "ok": false,
+    "mode": "pre_live_safe",
+    "summary": {
+      "required": 6,
+      "done": 1,
+      "blocked": 0,
+      "doing": 2,
+      "todo": 3,
+      "missing": 0
+    },
+    "evidence_status": "missing",
+    "b2_evidence_status": "missing",
+    "packet_status": "ready"
+  },
+  "task_statuses": {
+    "T020": "doing",
+    "T021": "doing",
+    "T040": "done",
+    "T041": "todo",
+    "T041A": "todo",
+    "T042": "todo"
+  },
+  "report_inputs": {
+    "devpost_form": {
+      "present": true,
+      "path": "docs/assets/devpost-form-kit.json",
+      "schema_ok": true,
+      "schema": "proofframe.devpost_form_kit.v1",
+      "mode": "pre_live_form_ready",
+      "ok": null,
+      "score": null,
+      "max_score": null,
+      "final_form_ready": false,
+      "final_video_ready": null,
+      "final_recording_ready": null,
+      "public_video_ready": false
+    },
+    "demo_storyboard": {
+      "present": true,
+      "path": "docs/assets/demo-storyboard.json",
+      "schema_ok": true,
+      "schema": "proofframe.demo_storyboard.v1",
+      "mode": "mock_storyboard_ready",
+      "ok": null,
+      "score": null,
+      "max_score": null,
+      "final_form_ready": null,
+      "final_video_ready": false,
+      "final_recording_ready": null,
+      "public_video_ready": false
+    },
+    "demo_readiness": {
+      "present": true,
+      "path": "docs/assets/demo-readiness-report.json",
+      "schema_ok": true,
+      "schema": "proofframe.demo_readiness.v1",
+      "mode": "pre_live_mock_ready",
+      "ok": null,
+      "score": null,
+      "max_score": null,
+      "final_form_ready": null,
+      "final_video_ready": null,
+      "final_recording_ready": false,
+      "public_video_ready": null
+    },
+    "award_readiness": {
+      "present": true,
+      "path": "docs/assets/award-readiness-report.json",
+      "schema_ok": true,
+      "schema": "proofframe.award_readiness.v1",
+      "mode": "pre_live_competitive",
+      "ok": null,
+      "score": 86,
+      "max_score": 111,
+      "final_form_ready": null,
+      "final_video_ready": null,
+      "final_recording_ready": null,
+      "public_video_ready": null
+    },
+    "b2_live_evidence": {
+      "ok": false,
+      "status": "missing",
+      "path": "docs/assets/b2-live-proof-evidence.json",
+      "findings": [
+        {
+          "field": "docs/assets/b2-live-proof-evidence.json",
+          "detail": "Evidence file is missing or invalid JSON."
+        }
+      ]
+    },
+    "credential_handoff": {
+      "present": true,
+      "mode": "missing_live_env",
+      "ready": false,
+      "missing_ids": [
+        "b2_key_id",
+        "b2_application_key",
+        "genblaze_api_key"
+      ],
+      "secret_policy": "Report records only variable names and presence; credential values are never printed."
+    }
+  },
+  "requirements": [
+    {
+      "id": "devpost_registration",
+      "label": "Devpost registration complete",
+      "ok": true,
+      "detail": "T040 is done.",
+      "evidence": "tasks.json"
+    },
+    {
+      "id": "public_mock_demo",
+      "label": "Credential-free public demo is ready",
+      "ok": true,
+      "detail": "Devpost form kit mode is pre_live_form_ready.",
+      "evidence": "docs/assets/devpost-form-kit.json"
+    },
+    {
+      "id": "source_report_schemas",
+      "label": "Control input reports match expected schemas",
+      "ok": true,
+      "detail": "All input report schemas are current.",
+      "evidence": "docs/assets/*.json readiness reports"
+    },
+    {
+      "id": "b2_live_proof",
+      "label": "Backblaze B2 live proof captured",
+      "ok": false,
+      "detail": "T020 is doing; B2 evidence status is missing; final evidence status is missing.",
+      "evidence": "tasks.json, docs/assets/b2-live-proof-evidence.json, and docs/assets/final-live-proof-evidence.json"
+    },
+    {
+      "id": "genblaze_live_proof",
+      "label": "Genblaze live proof captured",
+      "ok": false,
+      "detail": "T021 is doing; final evidence status is missing.",
+      "evidence": "tasks.json and docs/assets/final-live-proof-evidence.json"
+    },
+    {
+      "id": "credential_handoff",
+      "label": "Live credential handoff is ready",
+      "ok": false,
+      "detail": "Credential handoff mode is missing_live_env; missing ids: b2_key_id, b2_application_key, genblaze_api_key.",
+      "evidence": "docs/assets/live-credential-handoff.json"
+    },
+    {
+      "id": "public_video",
+      "label": "Final public demo video URL is ready",
+      "ok": false,
+      "detail": "Storyboard mode is mock_storyboard_ready; public video ready is False.",
+      "evidence": "docs/assets/demo-storyboard.json"
+    },
+    {
+      "id": "final_recording",
+      "label": "Final recording gate is ready",
+      "ok": false,
+      "detail": "Demo readiness mode is pre_live_mock_ready; final recording ready is False.",
+      "evidence": "docs/assets/demo-readiness-report.json"
+    },
+    {
+      "id": "award_readiness",
+      "label": "Award readiness score remains competitive",
+      "ok": true,
+      "detail": "Award readiness score is 86/111.",
+      "evidence": "docs/assets/award-readiness-report.json"
+    },
+    {
+      "id": "final_secret_scan",
+      "label": "Final secret scan is complete",
+      "ok": false,
+      "detail": "T041A is todo.",
+      "evidence": "tasks.json and scripts/secret_scan.py"
+    },
+    {
+      "id": "final_submission_audit",
+      "label": "Final submission audit is complete",
+      "ok": false,
+      "detail": "T041 is todo.",
+      "evidence": "tasks.json and scripts/submission_audit.py"
+    },
+    {
+      "id": "devpost_submitted",
+      "label": "Devpost project submitted",
+      "ok": false,
+      "detail": "T042 is todo.",
+      "evidence": "tasks.json"
+    }
+  ],
+  "blocking_items": [
+    {
+      "id": "b2_live_proof",
+      "label": "Backblaze B2 live proof captured",
+      "ok": false,
+      "detail": "T020 is doing; B2 evidence status is missing; final evidence status is missing.",
+      "evidence": "tasks.json, docs/assets/b2-live-proof-evidence.json, and docs/assets/final-live-proof-evidence.json"
+    },
+    {
+      "id": "genblaze_live_proof",
+      "label": "Genblaze live proof captured",
+      "ok": false,
+      "detail": "T021 is doing; final evidence status is missing.",
+      "evidence": "tasks.json and docs/assets/final-live-proof-evidence.json"
+    },
+    {
+      "id": "credential_handoff",
+      "label": "Live credential handoff is ready",
+      "ok": false,
+      "detail": "Credential handoff mode is missing_live_env; missing ids: b2_key_id, b2_application_key, genblaze_api_key.",
+      "evidence": "docs/assets/live-credential-handoff.json"
+    },
+    {
+      "id": "public_video",
+      "label": "Final public demo video URL is ready",
+      "ok": false,
+      "detail": "Storyboard mode is mock_storyboard_ready; public video ready is False.",
+      "evidence": "docs/assets/demo-storyboard.json"
+    },
+    {
+      "id": "final_recording",
+      "label": "Final recording gate is ready",
+      "ok": false,
+      "detail": "Demo readiness mode is pre_live_mock_ready; final recording ready is False.",
+      "evidence": "docs/assets/demo-readiness-report.json"
+    },
+    {
+      "id": "final_secret_scan",
+      "label": "Final secret scan is complete",
+      "ok": false,
+      "detail": "T041A is todo.",
+      "evidence": "tasks.json and scripts/secret_scan.py"
+    },
+    {
+      "id": "final_submission_audit",
+      "label": "Final submission audit is complete",
+      "ok": false,
+      "detail": "T041 is todo.",
+      "evidence": "tasks.json and scripts/submission_audit.py"
+    },
+    {
+      "id": "devpost_submitted",
+      "label": "Devpost project submitted",
+      "ok": false,
+      "detail": "T042 is todo.",
+      "evidence": "tasks.json"
+    }
+  ],
+  "next_actions": [
+    "Complete .env.final.local with B2_KEY_ID, B2_APPLICATION_KEY, and Genblaze/GMI API key values.",
+    "Run the B2 live proof runner and save sanitized B2 evidence.",
+    "Run the final B2 plus Genblaze proof runner and save sanitized final evidence.",
+    "Record and upload the public demo video after live proof is captured.",
+    "Run and mark the final secret scan after live evidence/video assets are ready.",
+    "Run final submission audit after proof, video, and secret scan pass.",
+    "Submit Devpost only after every preceding control item is green."
+  ],
+  "operator_commands": [
+    "python scripts/final_env_wizard.py --prefill-non-secret --output .env.final.local",
+    "python scripts/final_env_wizard.py --output .env.final.local",
+    "python scripts/live_env_handoff.py --env-file .env.final.local",
+    "python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out docs/assets/b2-live-proof-evidence.json",
+    "python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json",
+    "python scripts/secret_scan.py",
+    "python scripts/devpost_form_kit.py --strict-final",
+    "python scripts/demo_storyboard.py --strict-final",
+    "python scripts/demo_readiness.py --strict-final",
+    "python scripts/submission_audit.py"
+  ],
+  "claim_boundary": "Public demo remains local/mock and pre_live_safe until final live B2 plus Genblaze proof is captured."
+}
