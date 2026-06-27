@@ -40,6 +40,7 @@ class GeneratedMedia(BaseModel):
     filename: str
     content_type: str
     data: bytes
+    generation_metadata: dict[str, str] = Field(default_factory=dict)
 
 
 class StoredObject(BaseModel):
@@ -63,6 +64,7 @@ class Asset(BaseModel):
     public_url: str | None = None
     sha256: str
     bytes_size: int
+    generation_metadata: dict[str, str] = Field(default_factory=dict)
     risk_note: str = "Draft asset. Review provenance, rights, and brand fit before publishing."
     created_at: datetime = Field(default_factory=utc_now)
 
@@ -78,4 +80,3 @@ class CampaignManifest(BaseModel):
     assets: list[Asset]
     exported_at: datetime = Field(default_factory=utc_now)
     app_version: str = "0.1.0"
-

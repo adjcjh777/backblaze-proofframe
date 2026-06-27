@@ -41,6 +41,7 @@ FastAPI app
 - `storage_key`
 - `public_url`
 - `sha256`
+- `generation_metadata`
 - `risk_note`
 - `created_at`
 
@@ -56,6 +57,7 @@ FastAPI app
 
 | Method | Path | Purpose |
 | --- | --- | --- |
+| `GET` | `/` | Serve the Proof Ledger browser UI. |
 | `GET` | `/api/health` | Runtime health and adapter availability. |
 | `POST` | `/api/campaigns` | Create campaign. |
 | `GET` | `/api/campaigns` | List campaigns. |
@@ -75,11 +77,14 @@ B2 mode:
 
 - Uses S3-compatible settings:
   - `B2_ENDPOINT_URL`
+  - `B2_S3_ENDPOINT_URL` as an accepted alias
   - `B2_BUCKET`
   - `B2_KEY_ID`
   - `B2_APPLICATION_KEY`
+  - `B2_APP_KEY` as an accepted alias
 - Credentials are environment-only.
 - If required variables are missing, B2 mode must be unavailable rather than silently falling back during final verification.
+- Current status: code-level backend and fake-client tests exist. Live B2 bucket verification is still required before public submission claims.
 
 ## Generation
 
@@ -90,15 +95,16 @@ Mock mode:
 
 Genblaze mode:
 
-- Uses Genblaze/OpenAI-compatible API shape where possible.
+- Uses a Genblaze integration boundary and records provider/model metadata in the manifest.
 - Records provider/model/request metadata in the manifest.
 - Must never persist raw secrets.
+- Current status: fail-closed provider boundary exists. Live official Genblaze package/provider route is still required before public submission claims.
 
 ## Frontend Direction
 
-The interface should feel like a quiet production desk for media approvals:
+The selected interface is Proof Ledger, a restrained audit-and-approval board for media approvals:
 
-- Dense but calm asset table/gallery.
+- Dense but calm asset ledger.
 - Visible storage and manifest details.
 - Strong first-viewport product signal: ProofFrame, campaign status, asset packet.
 - No generic purple AI hero.
@@ -119,4 +125,3 @@ The interface should feel like a quiet production desk for media approvals:
 - Browser smoke for create/review/export happy path.
 - Docker build and local run.
 - Submission audit against Devpost requirements.
-

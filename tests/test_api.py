@@ -6,6 +6,10 @@ from proofframe.app import create_app
 def test_health_and_campaign_flow(tmp_path):
     client = TestClient(create_app(storage_root=tmp_path))
 
+    index_response = client.get("/")
+    assert index_response.status_code == 200
+    assert "Generated Media Ledger" in index_response.text
+
     health = client.get("/api/health")
     assert health.status_code == 200
     assert health.json()["ready"] is True
@@ -41,3 +45,8 @@ def test_health_and_campaign_flow(tmp_path):
     assert manifest["campaign"]["id"] == campaign["id"]
     assert len(manifest["assets"]) == 2
 
+    export_response = client.post(f"/api/campaigns/{campaign['id']}/export")
+    assert export_response.status_code == 200
+    export_payload = export_response.json()
+    assert export_payload["stored_manifest"]["storage_key"].endswith("-manifest.json")
+    assert (tmp_path / export_payload["stored_manifest"]["storage_key"]).exists()

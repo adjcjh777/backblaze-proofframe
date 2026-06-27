@@ -4,9 +4,18 @@ from __future__ import annotations
 
 import html
 from dataclasses import dataclass
+from typing import Protocol
 
 from .checksum import sha256_hex
+from .config import ConfigurationError, Settings
 from .models import Campaign, GeneratedMedia
+
+
+class MediaProvider(Protocol):
+    provider: str
+    model: str
+
+    def generate(self, campaign: Campaign, count: int = 3) -> list[GeneratedMedia]: ...
 
 
 @dataclass(frozen=True)
@@ -47,5 +56,55 @@ class MockMediaProvider:
             filename=f"{campaign.id}-variant-{index}.svg",
             content_type="image/svg+xml",
             data=svg.encode("utf-8"),
+            generation_metadata={"mock_seed": seed, "variant": str(index)},
         )
 
+
+@dataclass(frozen=True)
+class GenblazeMediaProvider:
+    """Fail-closed Genblaze integration boundary.
+
+    This class gives the app a real integration contract without pretending the local
+    mock path is Genblaze. A live Genblaze-backed implementation must use the official
+    Genblaze packages and a configured provider before this backend can generate assets.
+    """
+
+    api_key: str
+    image_model: str
+    base_url: str = "http://localhost:8800/v1"
+    provider: str = "genblaze"
+
+    @property
+    def model(self) -> str:
+        return self.image_model
+
+    @classmethod
+    def from_settings(cls, settings: Settings) -> "GenblazeMediaProvider":
+        settings.require_genblaze()
+        return cls(
+            api_key=settings.genblaze_api_key or settings.gmi_api_key,
+            image_model=settings.genblaze_image_model,
+            base_url=settings.genblaze_base_url,
+        )
+
+    def generate(self, campaign: Campaign, count: int = 3) -> list[GeneratedMedia]:
+        del campaign, count
+        try:
+            import genblaze_core  # type: ignore[import-not-found]  # noqa: F401
+        except ModuleNotFoundError as exc:
+            raise ConfigurationError(
+                "Genblaze generation requires the official Genblaze packages. "
+                "Install with `pip install -e '.[integrations]'` and configure a live provider."
+            ) from exc
+        raise ConfigurationError(
+            "Genblaze package is installed, but the live media-generation route is not wired yet. "
+            "Use `PROOFFRAME_GENERATION_BACKEND=mock` for local demos until T021 is completed."
+        )
+
+
+def create_media_provider(settings: Settings) -> MediaProvider:
+    if settings.generation_backend == "mock":
+        return MockMediaProvider()
+    if settings.generation_backend == "genblaze":
+        return GenblazeMediaProvider.from_settings(settings)
+    raise ConfigurationError(f"Unknown generation backend: {settings.generation_backend}")

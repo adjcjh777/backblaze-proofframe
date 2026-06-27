@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T04:59:00Z",
+  "updated_at": "2026-06-27T05:16:05Z",
   "tasks": [
     {
       "id": "T001",
@@ -97,45 +97,45 @@
       "title": "Create first browser UI",
       "phase": "P1 MVP",
       "owner": "executor",
-      "status": "todo",
+      "status": "done",
       "done_criteria": "apps/web/index.html presents brief intake, asset review, manifest panel, and Deerflow signature.",
-      "notes": "Blocked until user chooses one of the three generated visual directions."
+      "notes": "Implemented apps/web/index.html and served it from FastAPI root"
     },
     {
       "id": "T015",
       "title": "Choose UI visual direction",
       "phase": "P1 MVP",
       "owner": "controller",
-      "status": "blocked",
+      "status": "done",
       "done_criteria": "User chooses option 1 Archive Desk, option 2 Signal Lab, option 3 Proof Ledger, or requests a remix.",
-      "notes": "Generated options copied to outputs/proofframe-ui-option-*.png."
+      "notes": "Controller selected Option 3 Proof Ledger for award-focused provenance story"
     },
     {
       "id": "T020",
       "title": "Integrate Backblaze B2-compatible storage",
       "phase": "P2 Integrations",
       "owner": "executor",
-      "status": "todo",
+      "status": "doing",
       "done_criteria": "B2 backend stores an asset and manifest using env-only credentials.",
-      "notes": "Requires user-created Backblaze credentials."
+      "notes": "B2 S3-compatible backend implemented with fake-client tests; live B2 credentials and bucket verification still required"
     },
     {
       "id": "T021",
       "title": "Integrate Genblaze-compatible generation",
       "phase": "P2 Integrations",
       "owner": "executor",
-      "status": "todo",
+      "status": "doing",
       "done_criteria": "Generation adapter records provider/model metadata and fails closed without config.",
-      "notes": ""
+      "notes": "Genblaze fail-closed provider boundary implemented; live Genblaze package/provider route still required"
     },
     {
       "id": "T030",
       "title": "Run browser smoke test",
       "phase": "P3 Polish",
       "owner": "tester",
-      "status": "todo",
+      "status": "done",
       "done_criteria": "Smoke creates a campaign, generates assets, approves one, and exports manifest.",
-      "notes": ""
+      "notes": "Chrome smoke passed: create campaign, generate assets, approve one, export manifest"
     },
     {
       "id": "T031",

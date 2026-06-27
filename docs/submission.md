@@ -45,7 +45,7 @@ Codex can handle:
 
 ## Draft Devpost Pitch
 
-ProofFrame helps creators and agencies trust the AI media they generate. It creates media through a Genblaze-compatible pipeline, stores every asset and manifest through Backblaze B2, and gives teams an approval desk where prompts, providers, hashes, storage keys, and risk notes are visible by default.
+ProofFrame helps creators and agencies trust the AI media they generate. The current local demo creates a reviewable asset packet with generated media, prompts, provider metadata, hashes, approval states, and exportable manifests. The final submission target is to run the same flow through a Genblaze-backed generation path and Backblaze B2-backed media/manifest storage.
 
 The result is a shareable asset packet that explains where each generated file came from, whether it is approved, and how it can be reproduced or retired.
 
@@ -53,6 +53,7 @@ The result is a shareable asset packet that explains where each generated file c
 
 - [ ] Registered on Devpost.
 - [ ] Backblaze B2 bucket created.
+- [ ] B2 media and manifest upload verified.
 - [ ] Genblaze run captured.
 - [ ] Public GitHub repo complete.
 - [ ] README has setup, demo, architecture, and sponsor usage.

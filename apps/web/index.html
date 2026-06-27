@@ -1,0 +1,683 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ProofFrame</title>
+    <style>
+      :root {
+        --paper: #fbfaf6;
+        --ink: #171714;
+        --muted: #6b6a61;
+        --rule: #d9d4c8;
+        --panel: #f1eee5;
+        --line: #c9c1b1;
+        --blue: #346c9c;
+        --coral: #c85c42;
+        --green: #2f815f;
+        --gold: #b88d37;
+        --mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+        --body: "Aptos", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        --display: "Fraunces", Georgia, serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        color: var(--ink);
+        background:
+          linear-gradient(90deg, rgba(23, 23, 20, 0.035) 1px, transparent 1px) 0 0 / 48px 48px,
+          linear-gradient(0deg, rgba(23, 23, 20, 0.03) 1px, transparent 1px) 0 0 / 48px 48px,
+          var(--paper);
+        font-family: var(--body);
+        letter-spacing: 0;
+      }
+
+      button,
+      input,
+      textarea {
+        font: inherit;
+      }
+
+      button {
+        border: 1px solid var(--ink);
+        background: var(--ink);
+        color: var(--paper);
+        min-height: 38px;
+        padding: 0 14px;
+        cursor: pointer;
+      }
+
+      button.secondary {
+        background: transparent;
+        color: var(--ink);
+      }
+
+      button.approve {
+        border-color: var(--green);
+        background: var(--green);
+      }
+
+      button.reject {
+        border-color: var(--coral);
+        background: var(--coral);
+      }
+
+      button:disabled {
+        cursor: not-allowed;
+        opacity: 0.48;
+      }
+
+      .shell {
+        display: grid;
+        grid-template-columns: 260px 1fr 360px;
+        min-height: 100vh;
+      }
+
+      .sidebar {
+        border-right: 1px solid var(--rule);
+        padding: 26px 22px;
+        background: rgba(241, 238, 229, 0.68);
+      }
+
+      .brand {
+        font-family: var(--display);
+        font-size: 31px;
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+
+      .tagline {
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.4;
+        margin-bottom: 26px;
+      }
+
+      .status-stack {
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        padding: 14px 0;
+        display: grid;
+        gap: 12px;
+      }
+
+      .stat label,
+      .field label {
+        display: block;
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 5px;
+      }
+
+      .stat strong {
+        display: block;
+        font-size: 14px;
+        line-height: 1.25;
+      }
+
+      .campaign-list {
+        margin-top: 24px;
+      }
+
+      .campaign-item {
+        border-top: 1px solid var(--rule);
+        padding: 11px 0;
+        display: grid;
+        gap: 3px;
+      }
+
+      .campaign-item span {
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      main {
+        padding: 26px 30px 86px;
+      }
+
+      .topbar {
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+        gap: 24px;
+        border-bottom: 2px solid var(--ink);
+        padding-bottom: 20px;
+      }
+
+      h1 {
+        font-family: var(--display);
+        font-size: 44px;
+        line-height: 1;
+        margin: 0 0 8px;
+      }
+
+      .subtle {
+        color: var(--muted);
+        line-height: 1.45;
+        margin: 0;
+        max-width: 680px;
+      }
+
+      .brief-panel {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin: 24px 0;
+        padding-bottom: 22px;
+        border-bottom: 1px solid var(--rule);
+      }
+
+      .field.wide {
+        grid-column: 1 / -1;
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.58);
+        color: var(--ink);
+        padding: 11px 12px;
+        outline: none;
+      }
+
+      textarea {
+        min-height: 92px;
+        resize: vertical;
+      }
+
+      input:focus,
+      textarea:focus {
+        border-color: var(--blue);
+        box-shadow: inset 0 0 0 1px var(--blue);
+      }
+
+      .action-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .ledger-head,
+      .asset-row {
+        display: grid;
+        grid-template-columns: 92px 1.25fr 0.8fr 0.9fr 112px;
+        gap: 14px;
+        align-items: center;
+      }
+
+      .ledger-head {
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        border-bottom: 1px solid var(--ink);
+        padding: 0 0 9px;
+      }
+
+      .asset-row {
+        min-height: 116px;
+        border-bottom: 1px solid var(--rule);
+        padding: 13px 0;
+        cursor: pointer;
+      }
+
+      .asset-row.selected {
+        background: linear-gradient(90deg, rgba(52, 108, 156, 0.09), transparent 75%);
+      }
+
+      .thumb {
+        width: 92px;
+        height: 62px;
+        object-fit: cover;
+        border: 1px solid var(--line);
+        background: var(--panel);
+      }
+
+      .asset-title {
+        display: block;
+        font-weight: 800;
+        margin-bottom: 5px;
+      }
+
+      .mono {
+        font-family: var(--mono);
+        font-size: 12px;
+        color: #34342f;
+        overflow-wrap: anywhere;
+      }
+
+      .status {
+        display: inline-flex;
+        width: fit-content;
+        align-items: center;
+        min-height: 24px;
+        padding: 0 9px;
+        border: 1px solid var(--line);
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .status.approved {
+        border-color: var(--green);
+        color: var(--green);
+      }
+
+      .status.rejected {
+        border-color: var(--coral);
+        color: var(--coral);
+      }
+
+      .inspector {
+        border-left: 1px solid var(--rule);
+        padding: 26px 22px 82px;
+        background: rgba(255, 255, 255, 0.44);
+      }
+
+      .inspector h2 {
+        font-family: var(--display);
+        font-size: 28px;
+        margin: 0 0 14px;
+      }
+
+      .chain {
+        display: grid;
+        gap: 14px;
+        margin: 20px 0;
+      }
+
+      .chain-step {
+        border-top: 1px solid var(--rule);
+        padding-top: 12px;
+      }
+
+      .chain-step label {
+        color: var(--muted);
+        display: block;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        margin-bottom: 5px;
+        text-transform: uppercase;
+      }
+
+      .manifest-box {
+        background: #181815;
+        color: #f6f2e8;
+        font-family: var(--mono);
+        font-size: 11px;
+        line-height: 1.55;
+        padding: 14px;
+        max-height: 240px;
+        overflow: auto;
+        white-space: pre-wrap;
+      }
+
+      .packet-bar {
+        position: fixed;
+        left: 260px;
+        right: 360px;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        border-top: 1px solid var(--ink);
+        background: rgba(251, 250, 246, 0.96);
+        padding: 14px 30px;
+        backdrop-filter: blur(10px);
+      }
+
+      .deerflow {
+        color: var(--muted);
+        font-size: 12px;
+        text-decoration: none;
+      }
+
+      .deerflow:hover {
+        color: var(--blue);
+      }
+
+      @media (max-width: 1100px) {
+        .shell {
+          grid-template-columns: 1fr;
+        }
+
+        .sidebar,
+        .inspector {
+          border: 0;
+        }
+
+        .packet-bar {
+          position: static;
+          margin-top: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="sidebar">
+        <div class="brand">ProofFrame</div>
+        <p class="tagline">A storage-backed ledger for generated media approvals.</p>
+
+        <div class="status-stack">
+          <div class="stat">
+            <label>Storage</label>
+            <strong id="storageStatus">Checking...</strong>
+          </div>
+          <div class="stat">
+            <label>Generation</label>
+            <strong id="generationStatus">Checking...</strong>
+          </div>
+          <div class="stat">
+            <label>Submission Gate</label>
+            <strong>B2 + Genblaze proof required</strong>
+          </div>
+        </div>
+
+        <section class="campaign-list">
+          <div class="stat">
+            <label>Campaign Queue</label>
+          </div>
+          <div id="campaignList"></div>
+        </section>
+      </aside>
+
+      <main>
+        <div class="topbar">
+          <div>
+            <h1>Generated Media Ledger</h1>
+            <p class="subtle">
+              Create a campaign packet, generate variants, approve usable assets, then export a
+              manifest with hashes, storage keys, provider metadata, and review notes.
+            </p>
+          </div>
+          <div class="action-row">
+            <button class="secondary" id="loadCampaigns">Refresh</button>
+            <button id="sampleBrief">Load Sample</button>
+          </div>
+        </div>
+
+        <section class="brief-panel" aria-label="Campaign brief">
+          <div class="field">
+            <label for="title">Campaign</label>
+            <input id="title" value="Neighborhood Museum Launch" />
+          </div>
+          <div class="field">
+            <label for="audience">Audience</label>
+            <input id="audience" value="local families and arts donors" />
+          </div>
+          <div class="field">
+            <label for="tone">Tone</label>
+            <input id="tone" value="warm editorial, precise, public-service" />
+          </div>
+          <div class="field">
+            <label for="variantCount">Variants</label>
+            <input id="variantCount" type="number" min="1" max="6" value="3" />
+          </div>
+          <div class="field wide">
+            <label for="brief">Brief</label>
+            <textarea id="brief">Announce a new neighborhood museum opening with generated visuals that feel archival, welcoming, and trustworthy.</textarea>
+          </div>
+          <div class="field wide action-row">
+            <button id="createCampaign">Create Campaign</button>
+            <button id="generateAssets" class="secondary" disabled>Generate Variants</button>
+          </div>
+        </section>
+
+        <section aria-label="Asset ledger">
+          <div class="ledger-head">
+            <div>Preview</div>
+            <div>Asset</div>
+            <div>Storage Key</div>
+            <div>Checksum</div>
+            <div>Status</div>
+          </div>
+          <div id="assetRows"></div>
+        </section>
+      </main>
+
+      <aside class="inspector">
+        <h2>Provenance Chain</h2>
+        <p class="subtle" id="inspectorIntro">
+          Select an asset to inspect its brief, provider, B2-ready storage route, hash, and review
+          state.
+        </p>
+
+        <div class="chain">
+          <div class="chain-step">
+            <label>Brief</label>
+            <div id="chainBrief">No campaign yet.</div>
+          </div>
+          <div class="chain-step">
+            <label>Genblaze Step</label>
+            <div id="chainProvider" class="mono">mock provider until Genblaze credentials are set</div>
+          </div>
+          <div class="chain-step">
+            <label>B2 Object Route</label>
+            <div id="chainStorage" class="mono">Waiting for generated asset</div>
+          </div>
+          <div class="chain-step">
+            <label>Decision</label>
+            <div class="action-row">
+              <button id="approveAsset" class="approve" disabled>Approve</button>
+              <button id="rejectAsset" class="reject" disabled>Reject</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="chain-step">
+          <label>Manifest Preview</label>
+          <pre class="manifest-box" id="manifestPreview">{}</pre>
+        </div>
+      </aside>
+    </div>
+
+    <div class="packet-bar">
+      <div>
+        <strong id="packetStatus">No packet exported</strong>
+        <div class="mono" id="packetKey">Create and export a campaign manifest.</div>
+      </div>
+      <div class="action-row">
+        <button id="exportPacket" disabled>Export Manifest</button>
+        <a class="deerflow" href="https://deerflow.tech" target="_blank" rel="noreferrer"
+          >Created By Deerflow</a
+        >
+      </div>
+    </div>
+
+    <script>
+      const state = {
+        campaign: null,
+        campaigns: [],
+        assets: [],
+        selectedAssetId: null,
+        manifest: {},
+      };
+
+      const el = (id) => document.getElementById(id);
+
+      function short(value, length = 16) {
+        if (!value) return "";
+        return value.length > length ? `${value.slice(0, length)}...` : value;
+      }
+
+      async function api(path, options = {}) {
+        const response = await fetch(path, {
+          headers: { "Content-Type": "application/json" },
+          ...options,
+        });
+        if (!response.ok) {
+          const body = await response.text();
+          throw new Error(`${response.status} ${body}`);
+        }
+        return response.json();
+      }
+
+      async function loadHealth() {
+        const health = await api("/api/health");
+        el("storageStatus").textContent = `${health.storage_backend}${
+          health.b2_configured ? " / B2 configured" : " / B2 pending"
+        }`;
+        el("generationStatus").textContent = `${health.generation_backend}${
+          health.genblaze_configured ? " / Genblaze configured" : " / Genblaze pending"
+        }`;
+      }
+
+      async function loadCampaigns() {
+        state.campaigns = await api("/api/campaigns");
+        renderCampaigns();
+      }
+
+      function renderCampaigns() {
+        el("campaignList").innerHTML =
+          state.campaigns
+            .map(
+              (campaign) => `
+              <div class="campaign-item">
+                <strong>${campaign.title}</strong>
+                <span>${new Date(campaign.created_at).toLocaleString()}</span>
+              </div>
+            `,
+            )
+            .join("") || '<p class="subtle">No campaigns yet.</p>';
+      }
+
+      function selectedAsset() {
+        return state.assets.find((asset) => asset.id === state.selectedAssetId) || state.assets[0];
+      }
+
+      function renderAssets() {
+        const rows = state.assets
+          .map(
+            (asset, index) => `
+            <div class="asset-row ${asset.id === state.selectedAssetId ? "selected" : ""}" data-id="${asset.id}">
+              <img class="thumb" src="${asset.public_url || ""}" alt="Generated variant ${index + 1}" />
+              <div>
+                <span class="asset-title">Variant ${index + 1}</span>
+                <div class="mono">${short(asset.prompt, 84)}</div>
+              </div>
+              <div class="mono">${asset.storage_key}</div>
+              <div class="mono">${short(asset.sha256, 24)}</div>
+              <div><span class="status ${asset.status}">${asset.status}</span></div>
+            </div>
+          `,
+          )
+          .join("");
+        el("assetRows").innerHTML = rows || '<p class="subtle">No generated assets yet.</p>';
+        document.querySelectorAll(".asset-row").forEach((row) => {
+          row.addEventListener("click", () => {
+            state.selectedAssetId = row.dataset.id;
+            renderAssets();
+            renderInspector();
+          });
+        });
+      }
+
+      function renderInspector() {
+        const asset = selectedAsset();
+        el("chainBrief").textContent = state.campaign
+          ? `${state.campaign.title}: ${state.campaign.brief}`
+          : "No campaign yet.";
+        el("chainProvider").textContent = asset
+          ? `${asset.provider} / ${asset.model}`
+          : "mock provider until Genblaze credentials are set";
+        el("chainStorage").textContent = asset ? asset.storage_key : "Waiting for generated asset";
+        el("approveAsset").disabled = !asset;
+        el("rejectAsset").disabled = !asset;
+        el("exportPacket").disabled = !state.campaign || state.assets.length === 0;
+        el("manifestPreview").textContent = JSON.stringify(state.manifest, null, 2);
+      }
+
+      async function refreshManifest() {
+        if (!state.campaign) return;
+        state.manifest = await api(`/api/campaigns/${state.campaign.id}/manifest`);
+        renderInspector();
+      }
+
+      async function createCampaign() {
+        state.campaign = await api("/api/campaigns", {
+          method: "POST",
+          body: JSON.stringify({
+            title: el("title").value,
+            brief: el("brief").value,
+            audience: el("audience").value,
+            tone: el("tone").value,
+          }),
+        });
+        state.assets = [];
+        state.selectedAssetId = null;
+        el("generateAssets").disabled = false;
+        await loadCampaigns();
+        await refreshManifest();
+        renderAssets();
+      }
+
+      async function generateAssets() {
+        const count = Number(el("variantCount").value || 3);
+        state.assets = await api(`/api/campaigns/${state.campaign.id}/generate?count=${count}`, {
+          method: "POST",
+        });
+        state.selectedAssetId = state.assets[0]?.id || null;
+        await refreshManifest();
+        renderAssets();
+      }
+
+      async function updateStatus(status) {
+        const asset = selectedAsset();
+        if (!asset) return;
+        const updated = await api(`/api/assets/${asset.id}/status`, {
+          method: "POST",
+          body: JSON.stringify({
+            status,
+            risk_note:
+              status === "approved"
+                ? "Approved for demo use after provenance review."
+                : "Rejected pending provenance or brand review.",
+          }),
+        });
+        state.assets = state.assets.map((item) => (item.id === updated.id ? updated : item));
+        await refreshManifest();
+        renderAssets();
+      }
+
+      async function exportPacket() {
+        const packet = await api(`/api/campaigns/${state.campaign.id}/export`, { method: "POST" });
+        state.manifest = packet.manifest;
+        el("packetStatus").textContent = "Manifest exported";
+        el("packetKey").textContent = packet.stored_manifest.storage_key;
+        renderInspector();
+      }
+
+      el("createCampaign").addEventListener("click", createCampaign);
+      el("generateAssets").addEventListener("click", generateAssets);
+      el("approveAsset").addEventListener("click", () => updateStatus("approved"));
+      el("rejectAsset").addEventListener("click", () => updateStatus("rejected"));
+      el("exportPacket").addEventListener("click", exportPacket);
+      el("loadCampaigns").addEventListener("click", loadCampaigns);
+      el("sampleBrief").addEventListener("click", () => {
+        el("title").value = "Indie Film Festival Packet";
+        el("audience").value = "festival programmers and local press";
+        el("tone").value = "cinematic, credible, storage-first";
+        el("brief").value =
+          "Generate a public-safe visual packet for a neighborhood film festival, with manifest evidence ready for client approval.";
+      });
+
+      Promise.all([loadHealth(), loadCampaigns()]).then(renderInspector).catch((error) => {
+        el("packetStatus").textContent = "Runtime error";
+        el("packetKey").textContent = error.message;
+      });
+    </script>
+  </body>
+</html>

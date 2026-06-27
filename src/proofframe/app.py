@@ -6,24 +6,42 @@ from pathlib import Path
 
 import uvicorn
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
 from . import __version__
+from .config import ConfigurationError, Settings
 from .models import Asset, AssetStatusUpdate, Campaign, CampaignCreate, CampaignManifest
-from .providers import MockMediaProvider
+from .providers import create_media_provider
 from .repository import MemoryRepository
-from .storage import LocalStorageBackend
+from .storage import create_storage_backend, manifest_to_plain_json
 
 
-def create_app(storage_root: Path | str = "var/storage") -> FastAPI:
+def create_app(storage_root: Path | str | None = None, settings: Settings | None = None) -> FastAPI:
+    settings = settings or Settings.from_env()
+    if storage_root is not None:
+        settings = Settings(
+            **{
+                **settings.__dict__,
+                "storage_root": str(storage_root),
+            }
+        )
     app = FastAPI(title="ProofFrame", version=__version__)
     repo = MemoryRepository()
-    generator = MockMediaProvider()
-    storage = LocalStorageBackend(storage_root)
+    generator = create_media_provider(settings)
+    storage = create_storage_backend(settings)
 
     app.state.repo = repo
     app.state.generator = generator
     app.state.storage = storage
+    app.state.settings = settings
+
+    @app.get("/")
+    def index() -> FileResponse:
+        index_path = Path(__file__).resolve().parents[2] / "apps" / "web" / "index.html"
+        if not index_path.exists():
+            raise HTTPException(status_code=404, detail="Frontend not built")
+        return FileResponse(index_path)
 
     @app.get("/api/health")
     def health() -> dict[str, object]:
@@ -32,6 +50,10 @@ def create_app(storage_root: Path | str = "var/storage") -> FastAPI:
             "version": __version__,
             "generation_backend": generator.provider,
             "storage_backend": storage.name,
+            "b2_configured": bool(settings.b2_bucket and settings.b2_endpoint_url),
+            "genblaze_configured": bool(
+                settings.genblaze_image_model and (settings.genblaze_api_key or settings.gmi_api_key)
+            ),
             "ready": True,
         }
 
@@ -62,6 +84,7 @@ def create_app(storage_root: Path | str = "var/storage") -> FastAPI:
                 public_url=stored.public_url,
                 sha256=stored.sha256,
                 bytes_size=stored.bytes_size,
+                generation_metadata=media.generation_metadata,
             )
             assets.append(repo.add_asset(asset))
         return assets
@@ -83,14 +106,31 @@ def create_app(storage_root: Path | str = "var/storage") -> FastAPI:
             raise HTTPException(status_code=404, detail="Campaign not found")
         return CampaignManifest(campaign=campaign, assets=repo.list_assets(campaign_id))
 
-    storage_path = Path(storage_root)
-    storage_path.mkdir(parents=True, exist_ok=True)
-    app.mount("/storage", StaticFiles(directory=storage_path), name="storage")
+    @app.post("/api/campaigns/{campaign_id}/export")
+    def export_campaign(campaign_id: str) -> dict[str, object]:
+        campaign = repo.get_campaign(campaign_id)
+        if campaign is None:
+            raise HTTPException(status_code=404, detail="Campaign not found")
+        manifest = CampaignManifest(campaign=campaign, assets=repo.list_assets(campaign_id))
+        stored = storage.put_manifest(campaign_id, manifest)
+        return {
+            "manifest": manifest_to_plain_json(manifest),
+            "stored_manifest": stored.model_dump(mode="json"),
+        }
+
+    if storage.name == "local":
+        storage_path = Path(settings.storage_root)
+        storage_path.mkdir(parents=True, exist_ok=True)
+        app.mount("/storage", StaticFiles(directory=storage_path), name="storage")
 
     return app
 
 
-app = create_app()
+try:
+    app = create_app()
+except ConfigurationError as exc:
+    # Uvicorn should fail clearly when an explicitly requested integration is misconfigured.
+    raise RuntimeError(str(exc)) from exc
 
 
 def main() -> None:
@@ -99,4 +139,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

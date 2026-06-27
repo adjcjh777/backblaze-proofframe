@@ -21,6 +21,7 @@ Why this one:
 - `docs/research.md`: competition search, candidate comparison, selected-event evidence.
 - `docs/prd.md`: product PRD.
 - `docs/spec.md`: technical specification.
+- `docs/integrations.md`: B2 and Genblaze readiness gates.
 - `docs/submission.md`: registration and submission plan.
 - `docs/todo.md`: human task board.
 - `tasks.json`: queryable task ledger.
@@ -47,7 +48,9 @@ python3 scripts/task.py block T010 --note "Requires account setup"
 
 Stage 0 is complete: selected competition, repo, PRD/spec/todo, Agent Bus team, official-rule scout report, and GitHub setup.
 
-Stage 1 has started with a local FastAPI MVP skeleton.
+Stage 1 is complete enough for local demo iteration: FastAPI MVP skeleton, mock generation, local storage, manifest export, and the Proof Ledger browser UI.
+
+Stage 2 is in progress: B2-compatible storage code and Genblaze fail-closed boundary exist, but live B2 and Genblaze runs still need credentials/provider verification before final submission claims.
 
 ## Run Locally
 
@@ -59,4 +62,13 @@ pytest
 uvicorn proofframe.app:app --reload --port 8088
 ```
 
-Then open `http://127.0.0.1:8088/api/health`.
+Then open `http://127.0.0.1:8088/`.
+
+## Integration Readiness
+
+```bash
+. .venv/bin/activate
+python scripts/check_integrations.py
+```
+
+B2 mode intentionally fails closed unless `B2_ENDPOINT_URL`, `B2_BUCKET`, `B2_KEY_ID`, and `B2_APPLICATION_KEY` are set. Genblaze mode intentionally fails closed unless a Genblaze/GMI key and `GENBLAZE_IMAGE_MODEL` are set, and the official Genblaze packages are installed.
