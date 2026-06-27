@@ -1,9 +1,9 @@
 {
   "schema": "proofframe.submission_bundle.v1",
-  "created_at": "2026-06-27T07:55:02Z",
+  "created_at": "2026-06-27T08:03:45Z",
   "project": "ProofFrame",
   "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
-  "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/",
+  "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
   "safe_to_share": true,
   "devpost_packet": {
     "present": true,
@@ -11,7 +11,7 @@
     "project_name": "ProofFrame",
     "tagline": "A provenance-first vault for generated media.",
     "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
-    "demo_url": "https://adjcjh-backblaze-proofframe.hf.space/",
+    "demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
     "claim_warning": "Safe for public mock demo only. Do not submit as final sponsor proof."
   },
   "submission_gate": {
@@ -57,8 +57,8 @@
       "path": "README.md",
       "label": "Core public project overview",
       "present": true,
-      "bytes": 5570,
-      "sha256": "ad10d66927006cfcf09544760578a2e2067b8144dbda4843247d7867cae770fe"
+      "bytes": 5589,
+      "sha256": "86508acb15a7e9351f961696fced652b31b91bf1ccc2c8569f1fb95f58016c5f"
     },
     {
       "id": "prd",
@@ -81,48 +81,48 @@
       "path": "docs/devpost_draft.md",
       "label": "Copy-ready Devpost fields",
       "present": true,
-      "bytes": 5582,
-      "sha256": "16cb4a81e97afacbfd9841492362ddfc518e38c4b4536ab5f002e88a6d66f2c5"
+      "bytes": 5633,
+      "sha256": "992d9151e62dc267582815f9b7cf2113cdd8bda47ec9d9bb4bf40f07c0355165"
     },
     {
       "id": "devpost_packet_json",
       "path": "docs/assets/devpost-submission-packet.json",
       "label": "Machine-readable Devpost copy",
       "present": true,
-      "bytes": 5014,
-      "sha256": "4e876712ba4cee5427399ee29a201f24fd20339f2aaede47ef9af70febb1809e"
+      "bytes": 5022,
+      "sha256": "e1616f95da8d8dd1dcbf6028a4cc500e60887cfb615011a764053c78e1ec3725"
     },
     {
       "id": "devpost_packet_md",
       "path": "docs/assets/devpost-submission-packet.md",
       "label": "Human-readable Devpost copy",
       "present": true,
-      "bytes": 3872,
-      "sha256": "a42ceffb260a1bca252ee3d369ac348e2cf7b5395d3704331ee4c1a3e76b5e1c"
+      "bytes": 3880,
+      "sha256": "73577faaea931cd00da68c097ba0c2dd794d3e834b8818656373e96971db0791"
     },
     {
       "id": "demo_script",
       "path": "docs/demo_script.md",
       "label": "Video shot list and narration",
       "present": true,
-      "bytes": 4696,
-      "sha256": "3ae04bd70345224ece5c1b4a5aa6eed33957bb89c8d719c264432f67f11e7f59"
+      "bytes": 4716,
+      "sha256": "c8ec135b417a21fb99ce82fbe690063e68ceea5a58c98b1fa833339041c40739"
     },
     {
       "id": "evidence_package",
       "path": "docs/evidence_package.md",
       "label": "Evidence package plan",
       "present": true,
-      "bytes": 7305,
-      "sha256": "c2f1e4313f766470238760b35c3e2344a71e9f28092b599cda1b87a96cb10fed"
+      "bytes": 7338,
+      "sha256": "c403e451309ffd8948bac77aa2614ee3885fbb762d99e64ada8ac515695d9843"
     },
     {
       "id": "public_claim_freeze",
       "path": "docs/public_claim_freeze.md",
       "label": "Verified-claim boundary",
       "present": true,
-      "bytes": 3869,
-      "sha256": "88eb5c59f83ccc6f5d4e4afaabe42f1d952dfaac6f619272ada3e9134cab6fae"
+      "bytes": 3961,
+      "sha256": "ba873890c8faadc2af362d8f4eacf2a231e317cdbc0053b2ecfa9bb34087d515"
     },
     {
       "id": "verification_runbook",
@@ -137,16 +137,16 @@
       "path": "docs/submission.md",
       "label": "Registration and submission plan",
       "present": true,
-      "bytes": 2984,
-      "sha256": "9dbc819b471821efa75e86830137289b0595d9d15b089ec87aead37a7e86c2c2"
+      "bytes": 2992,
+      "sha256": "c8e8450dd7f6d4a701df2f31ece9c951659e82fde68e878e309ca38111e1cc41"
     },
     {
       "id": "task_ledger",
       "path": "tasks.json",
       "label": "Machine-readable task board",
       "present": true,
-      "bytes": 14402,
-      "sha256": "c1844e5485835bdeaab9d2239c5d647235c802cac83b73e47583bd2d3a1bf057"
+      "bytes": 14827,
+      "sha256": "8c07478a9ca78346cf986f158f4e608c22eb23f06778afe23844919514e59ffe"
     },
     {
       "id": "local_ui_smoke",

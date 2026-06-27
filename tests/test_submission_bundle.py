@@ -57,7 +57,7 @@ def write_bundle_fixtures(root: Path) -> None:
                         "project_name": "ProofFrame",
                         "tagline": "A provenance-first vault for generated media.",
                         "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
-                        "demo_url": "https://adjcjh-backblaze-proofframe.hf.space/",
+                        "demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
                         "claim_warning": "safe",
                     }
                 ),

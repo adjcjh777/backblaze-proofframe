@@ -18,7 +18,7 @@ This file is the internal source of truth for Devpost submission assets. Anythin
 | Asset | Link | Status |
 | --- | --- | --- |
 | GitHub repo | https://github.com/adjcjh777/backblaze-proofframe | Public-ready |
-| Public mock demo | https://adjcjh-backblaze-proofframe.hf.space/ | Public-ready in local/mock mode |
+| Public mock demo | https://adjcjh-backblaze-proofframe.hf.space/?judge=1 | Public-ready in local/mock mode; auto-loads judge packet |
 | Hugging Face Space repo | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe | Public-ready in local/mock mode |
 | Local app | `http://127.0.0.1:8088/` | Internal demo only |
 | B2/Genblaze-backed deployed app URL | TBD | Final gate after T020/T021 |

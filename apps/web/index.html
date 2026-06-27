@@ -736,6 +736,12 @@
         return value.length > length ? `${value.slice(0, length)}...` : value;
       }
 
+      function shouldAutoLoadJudgeDemo() {
+        const params = new URLSearchParams(window.location.search);
+        const value = String(params.get("judge") || params.get("demo") || "").toLowerCase();
+        return ["1", "true", "yes"].includes(value);
+      }
+
       function filteredAssets() {
         const query = state.filters.query.trim().toLowerCase();
         return state.assets.filter((asset) => {
@@ -961,7 +967,7 @@
         renderInspector();
       }
 
-      async function loadJudgeDemo() {
+      async function loadJudgeDemo(source = "manual") {
         const demo = await api("/api/demo/judge-packet", { method: "POST" });
         state.campaign = demo.campaign;
         state.assets = demo.assets;
@@ -971,7 +977,8 @@
         await loadCampaigns();
         renderAssets();
         renderInspector();
-        el("packetStatus").textContent = "Judge demo packet ready";
+        el("packetStatus").textContent =
+          source === "auto" ? "Judge demo auto-loaded" : "Judge demo packet ready";
         el("packetKey").textContent = "Approve, export, or download the evidence ZIP.";
       }
 
@@ -1015,7 +1022,7 @@
       el("exportPacket").addEventListener("click", exportPacket);
       el("downloadPacket").addEventListener("click", downloadPacket);
       el("copySummary").addEventListener("click", copySummary);
-      el("judgeDemo").addEventListener("click", loadJudgeDemo);
+      el("judgeDemo").addEventListener("click", () => loadJudgeDemo());
       el("loadCampaigns").addEventListener("click", () => {
         loadCampaigns();
         loadSubmissionGate();
@@ -1036,12 +1043,18 @@
           "Generate a public-safe visual packet for a neighborhood film festival, with manifest evidence ready for client approval.";
       });
 
-      Promise.all([loadHealth(), loadCampaigns(), loadSubmissionGate()])
-        .then(renderInspector)
-        .catch((error) => {
+      async function boot() {
+        await Promise.all([loadHealth(), loadCampaigns(), loadSubmissionGate()]);
+        renderInspector();
+        if (shouldAutoLoadJudgeDemo()) {
+          await loadJudgeDemo("auto");
+        }
+      }
+
+      boot().catch((error) => {
         el("packetStatus").textContent = "Runtime error";
         el("packetKey").textContent = error.message;
-        });
+      });
     </script>
   </body>
 </html>

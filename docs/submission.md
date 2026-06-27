@@ -36,7 +36,7 @@ Codex can handle:
 ## Submission Assets
 
 - Public GitHub repository.
-- Credential-free public mock demo URL: https://adjcjh-backblaze-proofframe.hf.space/
+- Credential-free public mock demo URL: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 - B2/Genblaze-backed demo URL or Docker instructions after T020/T021.
 - Devpost text from `docs/devpost_draft.md`.
 - Safe submission bundle manifest from `docs/assets/submission-bundle-manifest.md` and `.json`.

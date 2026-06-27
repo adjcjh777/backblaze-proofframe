@@ -25,6 +25,7 @@ def test_health_and_campaign_flow(tmp_path):
     assert "Generated Media Ledger" in index_response.text
     assert "Search Evidence" in index_response.text
     assert "Submission readiness gate" in index_response.text
+    assert "shouldAutoLoadJudgeDemo" in index_response.text
 
     health = client.get("/api/health")
     assert health.status_code == 200

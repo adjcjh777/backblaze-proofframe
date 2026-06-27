@@ -15,7 +15,7 @@ Use present tense only for behavior that has been verified in the current repo o
 - The local demo can run without secrets using a deterministic mock media provider and local storage.
 - The app records prompt, provider, model, storage backend, storage key, checksum, risk note, created time, and approval state in exported manifests.
 - The Review Console supports evidence search, status filtering, decision coverage, and safe evidence-summary copy in local/mock mode.
-- A credential-free public mock demo is deployed at `https://adjcjh-backblaze-proofframe.hf.space/`.
+- A credential-free public mock demo is deployed at `https://adjcjh-backblaze-proofframe.hf.space/`; the Devpost-friendly judge link is `https://adjcjh-backblaze-proofframe.hf.space/?judge=1`.
 - The repo includes a Backblaze B2-compatible storage adapter boundary and tests that exercise the storage contract without real secrets.
 - The repo includes a Genblaze/GMICloud image provider path that fails closed until required configuration and packages exist.
 - `scripts/api_smoke.py --evidence-out` refuses to write evidence JSON when secret-like keys, bearer tokens, signed URL parameters, or GMI-style key values are detected.

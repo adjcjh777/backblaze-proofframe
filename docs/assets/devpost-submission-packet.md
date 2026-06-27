@@ -21,7 +21,7 @@ https://github.com/adjcjh777/backblaze-proofframe
 
 ## Demo URL
 
-https://adjcjh-backblaze-proofframe.hf.space/
+https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 
 ## Short Description
 

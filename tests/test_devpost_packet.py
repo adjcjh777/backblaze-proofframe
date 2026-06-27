@@ -18,6 +18,7 @@ def test_default_packet_uses_pre_live_safe_claims():
     assert "live B2 proof is a final submission gate" in packet["b2_usage"]
     assert "live Genblaze proof is a final submission gate" in packet["genblaze_usage"]
     assert packet["repository_url"] == "https://github.com/adjcjh777/backblaze-proofframe"
+    assert packet["demo_url"].endswith("/?judge=1")
 
 
 def test_live_packet_uses_verified_claim_copy():

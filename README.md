@@ -8,7 +8,7 @@ It turns a creative brief into a reviewable asset packet: generated media, promp
 
 Selected competition: [Backblaze Generative Media Hackathon](https://backblaze-generative-media.devpost.com/)
 
-Public mock demo: [Hugging Face Space](https://adjcjh-backblaze-proofframe.hf.space/) (credential-free local/mock mode; final B2 and Genblaze live proof remains gated).
+Public mock demo: [Hugging Face Space Judge Mode](https://adjcjh-backblaze-proofframe.hf.space/?judge=1) (credential-free local/mock mode; final B2 and Genblaze live proof remains gated).
 
 Why this one:
 

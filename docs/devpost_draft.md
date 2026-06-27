@@ -22,7 +22,7 @@ Repository:
 
 Demo URL:
 
-> Credential-free public mock demo: https://adjcjh-backblaze-proofframe.hf.space/
+> Credential-free public mock demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 
 Final B2/Genblaze-backed demo URL:
 
@@ -59,7 +59,7 @@ ProofFrame provides a browser-based ledger for generated media approvals:
 - Copy a safe evidence summary without credentials, cookies, signed URLs, or raw secrets.
 - Export a manifest.
 - Download an evidence ZIP containing the manifest, README, and available media.
-- Use Judge Demo to create a complete local packet instantly.
+- Open the judge-mode demo link to create a complete local packet instantly, or use Judge Demo manually.
 
 ## How We Built It
 

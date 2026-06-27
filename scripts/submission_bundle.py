@@ -89,7 +89,7 @@ def build_manifest(root: Path = ROOT) -> dict[str, Any]:
         "created_at": utc_now(),
         "project": "ProofFrame",
         "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
-        "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/",
+        "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
         "safe_to_share": not missing,
         "devpost_packet": load_packet_summary(root),
         "submission_gate": {

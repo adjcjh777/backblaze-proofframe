@@ -34,7 +34,7 @@ Narration:
 
 Fast path:
 
-> For a judge walkthrough, click Judge Demo to create a complete local packet immediately.
+> For a judge walkthrough, open `/?judge=1` or click Judge Demo to create a complete local packet immediately.
 
 ### 0:35-0:58 - Generate Variants
 

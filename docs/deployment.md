@@ -5,6 +5,7 @@ Status: public mock demo deployed. A B2/Genblaze-backed public URL is still a fi
 ## Verified Public Mock Demo
 
 - App URL: https://adjcjh-backblaze-proofframe.hf.space/
+- Judge-mode URL: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 - Space repo: https://huggingface.co/spaces/ADJCJH/backblaze-proofframe
 - Runtime: Docker Space, local storage, mock generation
 - Verified with: `python scripts/api_smoke.py --base-url https://adjcjh-backblaze-proofframe.hf.space`
@@ -17,7 +18,7 @@ This URL is safe to use in Devpost as a credential-free public demo before live 
 Provide judges with a working app URL that can:
 
 - open the Proof Ledger UI
-- run Judge Demo without credentials
+- run Judge Demo without credentials, including auto-loading it through `?judge=1`
 - generate local mock assets
 - export a manifest
 - download an evidence ZIP

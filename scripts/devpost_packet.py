@@ -23,7 +23,7 @@ BASE_PACKET = {
         "downloadable manifest bundle."
     ),
     "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
-    "demo_url": "https://adjcjh-backblaze-proofframe.hf.space/",
+    "demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
     "video_url": "TBD after final B2 and Genblaze proof.",
     "inspiration": (
         "Generated media is easy to make and hard to govern. Teams often lose the prompt, "
