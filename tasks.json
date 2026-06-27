@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T06:15:12Z",
+  "updated_at": "2026-06-27T06:31:06Z",
   "tasks": [
     {
       "id": "T001",
@@ -219,13 +219,22 @@
       "notes": "Added deployment runbook and made Docker listen on PORT for app hosts."
     },
     {
+      "id": "T039A",
+      "title": "Deploy public mock demo",
+      "phase": "P4 Submit",
+      "owner": "executor",
+      "status": "done",
+      "done_criteria": "A credential-free public URL is available, browser-smoked, and API-smoked without B2/Genblaze secrets.",
+      "notes": "Deployed Hugging Face Docker Space at https://adjcjh-backblaze-proofframe.hf.space/ and captured public smoke evidence."
+    },
+    {
       "id": "T040",
       "title": "Register on Devpost",
       "phase": "P4 Submit",
       "owner": "controller",
       "status": "blocked",
       "done_criteria": "User account is registered for the Backblaze event.",
-      "notes": "Manual login/terms acceptance likely required."
+      "notes": "At Devpost registration page. Awaiting user confirmation for GitHub OAuth account creation/authorization, or manual email signup with reCAPTCHA."
     },
     {
       "id": "T041",

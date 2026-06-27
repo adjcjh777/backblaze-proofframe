@@ -18,8 +18,10 @@ This file is the internal source of truth for Devpost submission assets. Anythin
 | Asset | Link | Status |
 | --- | --- | --- |
 | GitHub repo | https://github.com/adjcjh777/backblaze-proofframe | Public-ready |
+| Public mock demo | https://adjcjh-backblaze-proofframe.hf.space/ | Public-ready in local/mock mode |
+| Hugging Face Space repo | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe | Public-ready in local/mock mode |
 | Local app | `http://127.0.0.1:8088/` | Internal demo only |
-| Deployed app URL | TBD | Final gate |
+| B2/Genblaze-backed deployed app URL | TBD | Final gate after T020/T021 |
 | Demo video | TBD | Final gate |
 | Devpost project page | TBD | Final gate |
 | Devpost draft | `docs/devpost_draft.md` | Public-ready after final claim check |
@@ -34,6 +36,8 @@ This file is the internal source of truth for Devpost submission assets. Anythin
 | Submission plan | `docs/submission.md` | Public-ready after final claim check |
 | Local Proof Ledger UI | `apps/web/index.html` | Public-ready |
 | UI smoke screenshot | `docs/assets/proofframe-local-ui-smoke.png` | Public-ready |
+| Public HF Space smoke screenshot | `docs/assets/proofframe-hf-public-smoke.png` | Public-ready in local/mock mode |
+| Public HF Space API smoke | `python scripts/api_smoke.py --base-url https://adjcjh-backblaze-proofframe.hf.space` | Passed in local/mock mode |
 | Downloadable evidence ZIP | `/api/campaigns/{id}/packet.zip` | Public-ready in local mode |
 | One-click judge packet | `/api/demo/judge-packet` | Public-ready in local mode |
 | Devpost draft | `docs/devpost_draft.md` | Public-ready after final claim check |

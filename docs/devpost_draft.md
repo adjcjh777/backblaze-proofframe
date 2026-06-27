@@ -22,7 +22,11 @@ Repository:
 
 Demo URL:
 
-> TBD after deployment.
+> Credential-free public mock demo: https://adjcjh-backblaze-proofframe.hf.space/
+
+Final B2/Genblaze-backed demo URL:
+
+> TBD after T020 and T021 live proof.
 
 Video URL:
 

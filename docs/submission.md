@@ -37,7 +37,8 @@ Codex can handle:
 ## Submission Assets
 
 - Public GitHub repository.
-- Demo URL or Docker instructions.
+- Credential-free public mock demo URL: https://adjcjh-backblaze-proofframe.hf.space/
+- B2/Genblaze-backed demo URL or Docker instructions after T020/T021.
 - Devpost text from `docs/devpost_draft.md`.
 - 2 minute demo video.
 - Project title: ProofFrame.
@@ -59,7 +60,8 @@ The result is a shareable asset packet that explains where each generated file c
 - [ ] B2 media and manifest upload verified.
 - [ ] Genblaze run captured.
 - [ ] Public GitHub repo complete.
-- [ ] Public demo URL deployed or Docker path accepted.
+- [x] Public mock demo URL deployed.
+- [ ] B2/Genblaze-backed public demo URL verified or Docker path accepted.
 - [ ] README has setup, demo, architecture, and sponsor usage.
 - [ ] Docker run verified.
 - [ ] Browser smoke verified.

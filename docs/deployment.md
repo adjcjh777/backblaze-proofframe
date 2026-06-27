@@ -1,6 +1,16 @@
 # Deployment Runbook
 
-Status: ready for account-backed deployment. A public URL is still a final gate because it requires a hosting account and any private B2/Genblaze secrets.
+Status: public mock demo deployed. A B2/Genblaze-backed public URL is still a final gate because it requires private B2/Genblaze secrets and live sponsor proof.
+
+## Verified Public Mock Demo
+
+- App URL: https://adjcjh-backblaze-proofframe.hf.space/
+- Space repo: https://huggingface.co/spaces/ADJCJH/backblaze-proofframe
+- Runtime: Docker Space, local storage, mock generation
+- Verified with: `python scripts/api_smoke.py --base-url https://adjcjh-backblaze-proofframe.hf.space`
+- Screenshot: `docs/assets/proofframe-hf-public-smoke.png`
+
+This URL is safe to use in Devpost as a credential-free public demo before live B2/Genblaze proof, as long as the description says local/mock mode.
 
 ## Deployment Goal
 

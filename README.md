@@ -8,6 +8,8 @@ It turns a creative brief into a reviewable asset packet: generated media, promp
 
 Selected competition: [Backblaze Generative Media Hackathon](https://backblaze-generative-media.devpost.com/)
 
+Public mock demo: [Hugging Face Space](https://adjcjh-backblaze-proofframe.hf.space/) (credential-free local/mock mode; final B2 and Genblaze live proof remains gated).
+
 Why this one:
 
 - Online Devpost format with a clear August 3, 2026 5:00 PM EDT deadline, which is August 4, 2026 05:00 in Beijing.
