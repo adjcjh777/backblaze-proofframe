@@ -29,6 +29,35 @@ def test_genblaze_provider_fails_closed_without_package():
         provider.generate(campaign)
 
 
+def test_genblaze_settings_parse_official_defaults():
+    settings = Settings.from_env(
+        {
+            "PROOFFRAME_GENERATION_BACKEND": "genblaze",
+            "GMI_API_KEY": "test-key",
+            "GENBLAZE_IMAGE_MODEL": "seedream-5.0-lite",
+            "GENBLAZE_TIMEOUT_SECONDS": "240",
+        }
+    )
+    assert settings.genblaze_base_url == ""
+    assert settings.genblaze_aspect_ratio == "16:9"
+    assert settings.genblaze_timeout_seconds == 240
+
+
+def test_genblaze_fetch_asset_from_file_url(tmp_path):
+    image_path = tmp_path / "asset.png"
+    image_path.write_bytes(b"fake-png")
+
+    data, content_type, filename = GenblazeMediaProvider._fetch_asset(
+        image_path.as_uri(),
+        "cmp_test",
+        2,
+    )
+
+    assert data == b"fake-png"
+    assert content_type == "image/png"
+    assert filename == "cmp_test-genblaze-2.png"
+
+
 class FakeS3Client:
     def __init__(self):
         self.puts = []

@@ -15,7 +15,7 @@ Use present tense only for behavior that has been verified in the current repo o
 - The local demo can run without secrets using a deterministic mock media provider and local storage.
 - The app records prompt, provider, model, storage backend, storage key, checksum, risk note, created time, and approval state in exported manifests.
 - The repo includes a Backblaze B2-compatible storage adapter boundary and tests that exercise the storage contract without real secrets.
-- The repo includes a Genblaze provider boundary that fails closed until required configuration and packages exist.
+- The repo includes a Genblaze/GMICloud image provider path that fails closed until required configuration and packages exist.
 - The selected UI direction is Proof Ledger.
 - The public repo is available at `https://github.com/adjcjh777/backblaze-proofframe`.
 
@@ -50,7 +50,7 @@ Do not say:
 
 Allowed replacement before T021:
 
-- "ProofFrame includes a Genblaze provider boundary and final submission requires one live Genblaze-backed generation proof."
+- "ProofFrame includes a Genblaze/GMICloud provider path and final submission requires one live Genblaze-backed generation proof."
 
 Release criteria:
 

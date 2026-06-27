@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T05:21:37Z",
+  "updated_at": "2026-06-27T05:35:35Z",
   "tasks": [
     {
       "id": "T001",
@@ -126,7 +126,7 @@
       "owner": "executor",
       "status": "doing",
       "done_criteria": "Generation adapter records provider/model metadata and fails closed without config.",
-      "notes": "Genblaze fail-closed provider boundary implemented; live Genblaze package/provider route still required"
+      "notes": "Genblaze/GMICloud image provider adapter implemented with official Pipeline API; live credentials/package run still required for final public claim."
     },
     {
       "id": "T030",

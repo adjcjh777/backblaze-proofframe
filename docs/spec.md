@@ -95,10 +95,10 @@ Mock mode:
 
 Genblaze mode:
 
-- Uses a Genblaze integration boundary and records provider/model metadata in the manifest.
-- Records provider/model/request metadata in the manifest.
+- Uses the official Genblaze `Pipeline` API with `GMICloudImageProvider`.
+- Records provider/model/run/manifest metadata in the manifest without storing raw provider URLs.
 - Must never persist raw secrets.
-- Current status: fail-closed provider boundary exists. Live official Genblaze package/provider route is still required before public submission claims.
+- Current status: code-level provider path exists and fails closed without packages/config. Live official Genblaze package/provider route is still required before public submission claims.
 
 ## Frontend Direction
 

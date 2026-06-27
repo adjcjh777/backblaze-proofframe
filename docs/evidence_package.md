@@ -36,7 +36,7 @@ This file is the internal source of truth for Devpost submission assets. Anythin
 | Local API tests | `.venv` verification: `pytest` | Public-ready |
 | Integration readiness check | `scripts/check_integrations.py` | Public-ready |
 | B2 storage adapter code | `src/proofframe/storage.py` | Code-ready, final live proof pending T020 |
-| Genblaze provider boundary | `src/proofframe/providers.py` | Code-ready, final live proof pending T021 |
+| Genblaze provider path | `src/proofframe/providers.py` | Code-ready, final live proof pending T021 |
 
 ## Final Evidence Still Needed
 

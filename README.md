@@ -53,7 +53,7 @@ Stage 0 is complete: selected competition, repo, PRD/spec/todo, Agent Bus team, 
 
 Stage 1 is complete enough for local demo iteration: FastAPI MVP skeleton, mock generation, local storage, manifest export, and the Proof Ledger browser UI.
 
-Stage 2 is in progress: B2-compatible storage code and Genblaze fail-closed boundary exist, but live B2 and Genblaze runs still need credentials/provider verification before final submission claims.
+Stage 2 is in progress: B2-compatible storage code and a Genblaze/GMICloud image provider path exist, but live B2 and Genblaze runs still need credentials/provider verification before final submission claims.
 
 Stage 3 preparation has started: Proof Ledger UI smoke is captured, and demo/evidence/claim-freeze docs are ready for the final sponsor-integration pass.
 
@@ -78,4 +78,4 @@ Then open `http://127.0.0.1:8088/`.
 python scripts/check_integrations.py
 ```
 
-B2 mode intentionally fails closed unless `B2_ENDPOINT_URL`, `B2_BUCKET`, `B2_KEY_ID`, and `B2_APPLICATION_KEY` are set. Genblaze mode intentionally fails closed unless a Genblaze/GMI key and `GENBLAZE_IMAGE_MODEL` are set, and the official Genblaze packages are installed.
+B2 mode intentionally fails closed unless `B2_ENDPOINT_URL`, `B2_BUCKET`, `B2_KEY_ID`, and `B2_APPLICATION_KEY` are set. Genblaze mode intentionally fails closed unless a Genblaze/GMI key and `GENBLAZE_IMAGE_MODEL` are set, and the official `genblaze-core` and `genblaze-gmicloud` packages are installed.

@@ -36,7 +36,7 @@ def main() -> None:
                 settings.genblaze_image_model
                 and (settings.genblaze_api_key or settings.gmi_api_key)
             ),
-            "has_base_url": bool(settings.genblaze_base_url),
+            "has_base_url_override": bool(settings.genblaze_base_url),
             "has_model": bool(settings.genblaze_image_model),
             "has_api_key": bool(settings.genblaze_api_key or settings.gmi_api_key),
             "genblaze_core_available": available("genblaze_core"),

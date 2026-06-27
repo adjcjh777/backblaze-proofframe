@@ -3,8 +3,12 @@
 from __future__ import annotations
 
 import html
+import mimetypes
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Protocol
+from urllib.parse import urlparse
+from urllib.request import urlopen
 
 from .checksum import sha256_hex
 from .config import ConfigurationError, Settings
@@ -18,6 +22,13 @@ class MediaProvider(Protocol):
     def generate(self, campaign: Campaign, count: int = 3) -> list[GeneratedMedia]: ...
 
 
+def build_campaign_prompt(campaign: Campaign, index: int) -> str:
+    return (
+        f"Create a {campaign.tone} campaign image for {campaign.audience}. "
+        f"Brief: {campaign.brief}. Variant {index}."
+    )
+
+
 @dataclass(frozen=True)
 class MockMediaProvider:
     """Deterministic media provider for tests and credential-free demos."""
@@ -29,10 +40,7 @@ class MockMediaProvider:
         return [self._generate_one(campaign, index) for index in range(1, count + 1)]
 
     def _generate_one(self, campaign: Campaign, index: int) -> GeneratedMedia:
-        prompt = (
-            f"Create a {campaign.tone} campaign image for {campaign.audience}. "
-            f"Brief: {campaign.brief}. Variant {index}."
-        )
+        prompt = build_campaign_prompt(campaign, index)
         seed = sha256_hex(f"{campaign.id}:{prompt}".encode("utf-8"))[:8]
         colors = ["#F2C14E", "#4F7CAC", "#6FAE75", "#C45BAA", "#E4572E"]
         primary = colors[int(seed[:2], 16) % len(colors)]
@@ -62,16 +70,13 @@ class MockMediaProvider:
 
 @dataclass(frozen=True)
 class GenblazeMediaProvider:
-    """Fail-closed Genblaze integration boundary.
-
-    This class gives the app a real integration contract without pretending the local
-    mock path is Genblaze. A live Genblaze-backed implementation must use the official
-    Genblaze packages and a configured provider before this backend can generate assets.
-    """
+    """Genblaze image generation adapter using the official Pipeline API."""
 
     api_key: str
     image_model: str
-    base_url: str = "http://localhost:8800/v1"
+    base_url: str = ""
+    aspect_ratio: str = "16:9"
+    timeout_seconds: int = 180
     provider: str = "genblaze"
 
     @property
@@ -85,21 +90,91 @@ class GenblazeMediaProvider:
             api_key=settings.genblaze_api_key or settings.gmi_api_key,
             image_model=settings.genblaze_image_model,
             base_url=settings.genblaze_base_url,
+            aspect_ratio=settings.genblaze_aspect_ratio,
+            timeout_seconds=settings.genblaze_timeout_seconds,
         )
 
     def generate(self, campaign: Campaign, count: int = 3) -> list[GeneratedMedia]:
-        del campaign, count
         try:
-            import genblaze_core  # type: ignore[import-not-found]  # noqa: F401
+            from genblaze_core import Modality, Pipeline  # type: ignore[import-not-found]
+            from genblaze_gmicloud import GMICloudImageProvider  # type: ignore[import-not-found]
         except ModuleNotFoundError as exc:
             raise ConfigurationError(
                 "Genblaze generation requires the official Genblaze packages. "
                 "Install with `pip install -e '.[integrations]'` and configure a live provider."
             ) from exc
-        raise ConfigurationError(
-            "Genblaze package is installed, but the live media-generation route is not wired yet. "
-            "Use `PROOFFRAME_GENERATION_BACKEND=mock` for local demos until T021 is completed."
-        )
+
+        generated: list[GeneratedMedia] = []
+        for index in range(1, count + 1):
+            prompt = build_campaign_prompt(campaign, index)
+            provider = GMICloudImageProvider(
+                api_key=self.api_key,
+                base_url=self.base_url or None,
+                http_timeout=float(self.timeout_seconds),
+            )
+            try:
+                result = (
+                    Pipeline("proofframe-image", project_id=campaign.id)
+                    .step(
+                        provider,
+                        model=self.image_model,
+                        prompt=prompt,
+                        modality=Modality.IMAGE,
+                        aspect_ratio=self.aspect_ratio,
+                    )
+                    .run(timeout=self.timeout_seconds, max_retries=1)
+                )
+            except Exception as exc:
+                raise ConfigurationError(f"Genblaze generation failed: {exc}") from exc
+            finally:
+                close = getattr(provider, "close", None)
+                if callable(close):
+                    close()
+
+            run = getattr(result, "run", None)
+            manifest = getattr(result, "manifest", None)
+            if run is None or manifest is None:
+                run, manifest = result
+            step = run.steps[0]
+            if not step.assets:
+                raise ConfigurationError("Genblaze generation completed without an image asset.")
+
+            asset = step.assets[0]
+            data, content_type, filename = self._fetch_asset(asset.url, campaign.id, index)
+            generated.append(
+                GeneratedMedia(
+                    prompt=prompt,
+                    provider=f"{self.provider}/gmicloud-image",
+                    model=self.image_model,
+                    filename=filename,
+                    content_type=content_type or asset.media_type or "image/png",
+                    data=data,
+                    generation_metadata={
+                        "genblaze_run_id": str(run.run_id),
+                        "genblaze_manifest_hash": str(manifest.canonical_hash),
+                        "genblaze_manifest_verified": str(manifest.verify()),
+                        "genblaze_step_status": str(step.status),
+                        "genblaze_asset_host": urlparse(asset.url).netloc or "local",
+                        "genblaze_asset_sha256": str(asset.sha256 or ""),
+                    },
+                )
+            )
+        return generated
+
+    @staticmethod
+    def _fetch_asset(asset_url: str, campaign_id: str, index: int) -> tuple[bytes, str, str]:
+        parsed = urlparse(asset_url)
+        if parsed.scheme in {"http", "https"}:
+            with urlopen(asset_url, timeout=60) as response:
+                data = response.read()
+                content_type = response.headers.get_content_type()
+        else:
+            path = Path(parsed.path if parsed.scheme == "file" else asset_url)
+            data = path.read_bytes()
+            content_type = mimetypes.guess_type(path.name)[0] or "image/png"
+
+        extension = mimetypes.guess_extension(content_type) or ".png"
+        return data, content_type, f"{campaign_id}-genblaze-{index}{extension}"
 
 
 def create_media_provider(settings: Settings) -> MediaProvider:

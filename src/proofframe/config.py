@@ -15,6 +15,16 @@ def _env(env: Mapping[str, str], key: str, default: str = "") -> str:
     return env.get(key, default).strip()
 
 
+def _env_int(env: Mapping[str, str], key: str, default: int) -> int:
+    value = env.get(key, "").strip()
+    if not value:
+        return default
+    try:
+        return int(value)
+    except ValueError as exc:
+        raise ConfigurationError(f"{key} must be an integer") from exc
+
+
 @dataclass(frozen=True)
 class Settings:
     storage_backend: str = "local"
@@ -28,6 +38,8 @@ class Settings:
     genblaze_base_url: str = ""
     genblaze_api_key: str = ""
     genblaze_image_model: str = ""
+    genblaze_aspect_ratio: str = "16:9"
+    genblaze_timeout_seconds: int = 180
     gmi_api_key: str = ""
 
     @classmethod
@@ -42,9 +54,11 @@ class Settings:
             b2_key_id=_env(source, "B2_KEY_ID"),
             b2_application_key=_env(source, "B2_APPLICATION_KEY") or _env(source, "B2_APP_KEY"),
             b2_public_base_url=_env(source, "B2_PUBLIC_BASE_URL"),
-            genblaze_base_url=_env(source, "GENBLAZE_BASE_URL", "http://localhost:8800/v1"),
+            genblaze_base_url=_env(source, "GENBLAZE_BASE_URL") or _env(source, "GMI_BASE_URL"),
             genblaze_api_key=_env(source, "GENBLAZE_API_KEY"),
             genblaze_image_model=_env(source, "GENBLAZE_IMAGE_MODEL"),
+            genblaze_aspect_ratio=_env(source, "GENBLAZE_ASPECT_RATIO", "16:9"),
+            genblaze_timeout_seconds=_env_int(source, "GENBLAZE_TIMEOUT_SECONDS", 180),
             gmi_api_key=_env(source, "GMI_API_KEY"),
         )
 
@@ -79,4 +93,3 @@ class Settings:
                 "Genblaze generation was requested but required environment variables are missing: "
                 + ", ".join(missing)
             )
-
