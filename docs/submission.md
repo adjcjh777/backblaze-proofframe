@@ -66,6 +66,7 @@ The result is a shareable asset packet that explains where each generated file c
 - [ ] Docker run verified.
 - [ ] Browser smoke verified.
 - [ ] No secrets in repo.
+- [ ] `python scripts/submission_audit.py` passes.
 - [ ] Demo video recorded.
 - [ ] Devpost draft reviewed.
 - [ ] Submitted before 2026-08-04 05:00 Beijing.

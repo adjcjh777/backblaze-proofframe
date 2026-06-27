@@ -164,6 +164,7 @@ python scripts/secret_scan.py
 python scripts/live_proof.py \
   --base-url <final-demo-url> \
   --evidence-out docs/assets/final-live-proof-evidence.json
+python scripts/submission_audit.py
 python scripts/task.py list --status doing
 python scripts/task.py list --status blocked
 python scripts/task.py list --status todo
