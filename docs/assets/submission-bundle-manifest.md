@@ -1,6 +1,6 @@
 # ProofFrame Submission Bundle
 
-Created: `2026-06-27T09:09:15Z`
+Created: `2026-06-27T09:23:22Z`
 Repository: https://github.com/adjcjh777/backblaze-proofframe
 Public mock demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 Devpost packet mode: `pre_live_safe`
@@ -31,18 +31,18 @@ Final gate ready: `false`
 - `docs/assets/devpost-submission-packet.md` (4160 bytes, sha256 `8467e9a35e2a9de8...`) - Human-readable Devpost copy
 - `apps/web/index.html` (36252 bytes, sha256 `29c0a95a1757b5a4...`) - Browser proof ledger UI
 - `docs/demo_script.md` (5002 bytes, sha256 `d7be4ed84f2e7722...`) - Video shot list and narration
-- `docs/evidence_package.md` (8282 bytes, sha256 `3f344aa328fb9ca2...`) - Evidence package plan
+- `docs/evidence_package.md` (8355 bytes, sha256 `6875db370dc5fb5e...`) - Evidence package plan
 - `docs/public_claim_freeze.md` (4089 bytes, sha256 `735b9188feae74ea...`) - Verified-claim boundary
 - `docs/verification.md` (5339 bytes, sha256 `24cced2d3deb13de...`) - Local, CI, Docker, and live proof runbook
 - `scripts/claim_lint.py` (5110 bytes, sha256 `822950960a0f0045...`) - Fail-closed public claim lint
 - `scripts/demo_readiness.py` (8122 bytes, sha256 `9685373bf18b4772...`) - Demo recording readiness gate
-- `docs/assets/demo-readiness-report.json` (2405 bytes, sha256 `4517a1cf8a8ebecf...`) - Machine-readable demo readiness report
+- `docs/assets/demo-readiness-report.json` (2405 bytes, sha256 `e7399428b047d69f...`) - Machine-readable demo readiness report
 - `docs/assets/demo-readiness-report.md` (1229 bytes, sha256 `0a3ad61f5bc48bdf...`) - Human-readable demo readiness report
 - `scripts/run_final_live_proof.py` (4938 bytes, sha256 `21e83a6213cd5f13...`) - One-command final B2 plus Genblaze proof runner
 - `docs/submission.md` (2977 bytes, sha256 `7c245d51e4d7acbd...`) - Registration and submission plan
-- `tasks.json` (17371 bytes, sha256 `be526456f88b5d16...`) - Machine-readable task board
+- `tasks.json` (17832 bytes, sha256 `d1b27c41749c4fed...`) - Machine-readable task board
 - `docs/assets/proofframe-local-ui-smoke.png` (364927 bytes, sha256 `cca671ad38bda4dc...`) - Local UI screenshot
 - `docs/assets/proofframe-review-console-smoke.png` (343618 bytes, sha256 `30620a33e3c7ab28...`) - Review console screenshot
-- `docs/assets/proofframe-hf-public-smoke.png` (270826 bytes, sha256 `5a7e0d64ad8cb2c7...`) - Public mock demo screenshot
+- `docs/assets/proofframe-hf-public-smoke.png` (369328 bytes, sha256 `8f7dc32d520f8391...`) - Public mock demo screenshot
 
 No credentials, browser cookies, signed URLs, or raw provider keys are included.

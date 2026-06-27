@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T08:59:49Z",
+  "updated_at": "2026-06-27T09:21:48Z",
   "tasks": [
     {
       "id": "T001",
@@ -370,6 +370,15 @@
       "status": "done",
       "done_criteria": "The first viewport shows demo mode, evidence packet state, and public claim boundary for judge recordings.",
       "notes": "Added a recording slate to apps/web/index.html, tests, docs, and bundle manifest coverage."
+    },
+    {
+      "id": "T039R",
+      "title": "Sync judge slate public Space",
+      "phase": "P3 Demo",
+      "owner": "codex",
+      "status": "done",
+      "done_criteria": "The public HF Space serves the judge recording slate and still reports pre_live_safe submission gate.",
+      "notes": "Pushed HF Space commit ea6431e; verified public ?judge=1 HTML contains Judge recording slate, API smoke passes, and /api/submission/gate remains pre_live_safe."
     },
     {
       "id": "T040",

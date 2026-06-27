@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.submission_bundle.v1",
-  "created_at": "2026-06-27T09:09:15Z",
+  "created_at": "2026-06-27T09:23:22Z",
   "project": "ProofFrame",
   "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
@@ -121,8 +121,8 @@
       "path": "docs/evidence_package.md",
       "label": "Evidence package plan",
       "present": true,
-      "bytes": 8282,
-      "sha256": "3f344aa328fb9ca2991c9bf201cc312cb44969c4f5dd0ba27a4fbfe1cdd685c8"
+      "bytes": 8355,
+      "sha256": "6875db370dc5fb5e6406d360e960b0b48b4dde1e87f4a45a7cac61d28ec3d233"
     },
     {
       "id": "public_claim_freeze",
@@ -162,7 +162,7 @@
       "label": "Machine-readable demo readiness report",
       "present": true,
       "bytes": 2405,
-      "sha256": "4517a1cf8a8ebecfd36d719ed3af9a3e47b89897947b228ebffe2a632bc771c8"
+      "sha256": "e7399428b047d69f5f87dacd5f2259e8f90dd3a991ef496639f2fb6782c17efe"
     },
     {
       "id": "demo_readiness_md",
@@ -193,8 +193,8 @@
       "path": "tasks.json",
       "label": "Machine-readable task board",
       "present": true,
-      "bytes": 17371,
-      "sha256": "be526456f88b5d162ba1bf6434e79d50b4072289e5a418213c01e3083e907f33"
+      "bytes": 17832,
+      "sha256": "d1b27c41749c4fed742bc6baff0a2f66696695d2be82789968a9d35684bf63a2"
     },
     {
       "id": "local_ui_smoke",
@@ -217,8 +217,8 @@
       "path": "docs/assets/proofframe-hf-public-smoke.png",
       "label": "Public mock demo screenshot",
       "present": true,
-      "bytes": 270826,
-      "sha256": "5a7e0d64ad8cb2c7a5e04cb7c1f3c4ac5c2e219a7b184b2dc10ba5f96ea0dcd4"
+      "bytes": 369328,
+      "sha256": "8f7dc32d520f83912c1cd1d876c230f42fccdf67ed4c1f53226a1aab9abfed35"
     }
   ],
   "missing_artifacts": []

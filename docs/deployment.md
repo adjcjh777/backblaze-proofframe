@@ -9,7 +9,7 @@ Status: public mock demo deployed. A B2/Genblaze-backed public URL is still a fi
 - Space repo: https://huggingface.co/spaces/ADJCJH/backblaze-proofframe
 - Runtime: Docker Space, local storage, mock generation
 - Verified with: `python scripts/api_smoke.py --base-url https://adjcjh-backblaze-proofframe.hf.space`
-- Judge-mode sync verified after HF Space commit `7dedc8d`: public HTML contains `shouldAutoLoadJudgeDemo`, `/api/submission/gate` returns `pre_live_safe`, and the gate reads `tasks.json`.
+- Judge-mode slate sync verified after HF Space commit `ea6431e`: public HTML contains `Judge recording slate` and `shouldAutoLoadJudgeDemo`, `/api/submission/gate` returns `pre_live_safe`, and public API smoke passes in local/mock mode.
 - Screenshot: `docs/assets/proofframe-hf-public-smoke.png`
 
 This URL is safe to use in Devpost as a credential-free public demo before live B2/Genblaze proof, as long as the description says local/mock mode.

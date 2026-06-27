@@ -81,7 +81,7 @@
     {
       "path": "docs/assets/proofframe-hf-public-smoke.png",
       "present": true,
-      "bytes": 270826
+      "bytes": 369328
     },
     {
       "path": "scripts/claim_lint.py",
