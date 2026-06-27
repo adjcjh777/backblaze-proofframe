@@ -9,6 +9,29 @@ from typing import Any
 
 
 REQUIRED_FINAL_TASKS = ["T020", "T021", "T040", "T041", "T041A", "T042"]
+REQUIRED_FINAL_REPORTS = [
+    {
+        "id": "secret_scan",
+        "task_id": "T041A",
+        "path": "docs/assets/secret-scan-report.json",
+        "schema": "proofframe.secret_scan.v1",
+        "action": "Run the final secret scan and capture a clean report.",
+    },
+    {
+        "id": "submission_audit",
+        "task_id": "T041",
+        "path": "docs/assets/submission-audit-report.json",
+        "schema": "proofframe.submission_audit.v1",
+        "action": "Run the final submission audit and capture a passing report.",
+    },
+    {
+        "id": "devpost_submission_receipt",
+        "task_id": "T042",
+        "path": "docs/assets/devpost-submission-receipt.json",
+        "schema": "proofframe.devpost_submission_receipt.v1",
+        "action": "Capture the public-safe Devpost submission receipt after submitting.",
+    },
+]
 FINAL_EVIDENCE_FIELDS: dict[str, Any] = {
     "ok": True,
     "storage_backend": "b2",
@@ -44,6 +67,15 @@ def load_json(path: Path) -> dict[str, Any] | None:
         return None
 
 
+def display_path(path: Path, root: Path | None = None) -> str:
+    if root is not None:
+        try:
+            return str(path.resolve().relative_to(root.resolve()))
+        except ValueError:
+            pass
+    return str(path)
+
+
 def task_lookup(tasks_data: dict[str, Any] | None) -> dict[str, dict[str, Any]]:
     if not tasks_data:
         return {}
@@ -72,14 +104,14 @@ def build_task_gates(tasks_data: dict[str, Any] | None) -> list[dict[str, Any]]:
     return gates
 
 
-def build_evidence_gate(evidence_path: Path) -> dict[str, Any]:
+def build_evidence_gate(evidence_path: Path, root: Path | None = None) -> dict[str, Any]:
     evidence = load_json(evidence_path)
     findings: list[dict[str, str]] = []
     if evidence is None:
         return {
             "ok": False,
             "status": "missing",
-            "path": str(evidence_path),
+            "path": display_path(evidence_path, root),
             "findings": [
                 {
                     "field": "final-live-proof-evidence",
@@ -99,7 +131,7 @@ def build_evidence_gate(evidence_path: Path) -> dict[str, Any]:
     return {
         "ok": not findings,
         "status": "verified" if not findings else "incomplete",
-        "path": str(evidence_path),
+        "path": display_path(evidence_path, root),
         "findings": findings,
     }
 
@@ -111,19 +143,98 @@ def build_packet_gate(root: Path) -> dict[str, Any]:
         return {
             "ok": False,
             "status": "missing",
-            "path": str(packet_path),
+            "path": display_path(packet_path, root),
             "mode": None,
         }
     return {
         "ok": True,
         "status": "ready",
-        "path": str(packet_path),
+        "path": display_path(packet_path, root),
         "mode": packet.get("mode"),
         "claim_warning": packet.get("claim_warning"),
     }
 
 
-def next_actions(task_gates: list[dict[str, Any]], evidence_gate: dict[str, Any]) -> list[str]:
+def build_report_gate(root: Path) -> dict[str, Any]:
+    reports: list[dict[str, Any]] = []
+    findings: list[dict[str, str]] = []
+    for spec in REQUIRED_FINAL_REPORTS:
+        path = root / spec["path"]
+        report = load_json(path)
+        record: dict[str, Any] = {
+            "id": spec["id"],
+            "task_id": spec["task_id"],
+            "path": display_path(path, root),
+            "required_schema": spec["schema"],
+            "schema": None,
+            "schema_ok": False,
+            "ok": False,
+            "status": "missing",
+            "mode": None,
+            "findings": [],
+        }
+        if report is None:
+            detail = "Required final report is missing or invalid JSON."
+            finding = {"report": spec["id"], "field": "file", "detail": detail}
+            record["findings"].append(finding)
+            findings.append(finding)
+            reports.append(record)
+            continue
+
+        schema = report.get("schema")
+        schema_ok = schema == spec["schema"]
+        ok = report.get("ok") is True
+        report_findings: list[dict[str, str]] = []
+        if not schema_ok:
+            report_findings.append(
+                {
+                    "report": spec["id"],
+                    "field": "schema",
+                    "detail": f"Expected {spec['schema']!r}, got {schema!r}.",
+                }
+            )
+        if not ok:
+            report_findings.append(
+                {
+                    "report": spec["id"],
+                    "field": "ok",
+                    "detail": "Final report must explicitly set ok=true.",
+                }
+            )
+
+        record.update(
+            {
+                "schema": schema,
+                "schema_ok": schema_ok,
+                "ok": schema_ok and ok,
+                "status": "verified" if schema_ok and ok else "incomplete",
+                "mode": report.get("mode"),
+                "findings": report_findings,
+            }
+        )
+        reports.append(record)
+        findings.extend(report_findings)
+
+    if all(report["ok"] for report in reports):
+        status = "verified"
+    elif any(report["status"] == "missing" for report in reports):
+        status = "missing"
+    else:
+        status = "incomplete"
+
+    return {
+        "ok": not findings,
+        "status": status,
+        "reports": reports,
+        "findings": findings,
+    }
+
+
+def next_actions(
+    task_gates: list[dict[str, Any]],
+    evidence_gate: dict[str, Any],
+    report_gate: dict[str, Any],
+) -> list[str]:
     actions: list[str] = []
     for gate in task_gates:
         if gate["ok"]:
@@ -142,6 +253,16 @@ def next_actions(task_gates: list[dict[str, Any]], evidence_gate: dict[str, Any]
             actions.append("Submit the Devpost project after every preceding gate is done.")
     if not evidence_gate["ok"] and "Capture final live proof evidence JSON." not in actions:
         actions.append("Capture final live proof evidence JSON.")
+    for report in report_gate["reports"]:
+        if report["ok"]:
+            continue
+        action = next(
+            spec["action"]
+            for spec in REQUIRED_FINAL_REPORTS
+            if spec["id"] == report["id"]
+        )
+        if action not in actions:
+            actions.append(action)
     return actions[:5]
 
 
@@ -152,20 +273,26 @@ def build_submission_gate(root: Path | None = None) -> dict[str, Any]:
 
     tasks_data = load_json(tasks_path)
     task_gates = build_task_gates(tasks_data)
-    evidence_gate = build_evidence_gate(final_evidence_path)
+    evidence_gate = build_evidence_gate(final_evidence_path, root)
     packet_gate = build_packet_gate(root)
+    report_gate = build_report_gate(root)
 
     required_done = sum(1 for gate in task_gates if gate["ok"])
     blocked = sum(1 for gate in task_gates if gate["status"] == "blocked")
     doing = sum(1 for gate in task_gates if gate["status"] == "doing")
     todo = sum(1 for gate in task_gates if gate["status"] == "todo")
     missing = sum(1 for gate in task_gates if gate["status"] == "missing")
-    ready = required_done == len(task_gates) and evidence_gate["ok"] and packet_gate["ok"]
+    ready = (
+        required_done == len(task_gates)
+        and evidence_gate["ok"]
+        and packet_gate["ok"]
+        and report_gate["ok"]
+    )
 
     return {
         "ok": ready,
         "mode": "final_ready" if ready else "pre_live_safe",
-        "tasks_path": str(tasks_path),
+        "tasks_path": display_path(tasks_path, root),
         "summary": {
             "required": len(task_gates),
             "done": required_done,
@@ -177,5 +304,6 @@ def build_submission_gate(root: Path | None = None) -> dict[str, Any]:
         "task_gates": task_gates,
         "evidence_gate": evidence_gate,
         "packet_gate": packet_gate,
-        "next_actions": next_actions(task_gates, evidence_gate),
+        "report_gate": report_gate,
+        "next_actions": next_actions(task_gates, evidence_gate, report_gate),
     }

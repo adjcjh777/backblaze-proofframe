@@ -1,7 +1,11 @@
 import json
 from pathlib import Path
 
-from proofframe.submission_gate import REQUIRED_FINAL_TASKS, build_submission_gate
+from proofframe.submission_gate import (
+    REQUIRED_FINAL_REPORTS,
+    REQUIRED_FINAL_TASKS,
+    build_submission_gate,
+)
 
 
 def write_tasks(root: Path, status: str = "done") -> None:
@@ -55,9 +59,26 @@ def write_live_evidence(root: Path) -> None:
     )
 
 
+def write_final_reports(root: Path) -> None:
+    for report in REQUIRED_FINAL_REPORTS:
+        report_path = root / report["path"]
+        report_path.parent.mkdir(parents=True, exist_ok=True)
+        report_path.write_text(
+            json.dumps(
+                {
+                    "schema": report["schema"],
+                    "mode": "verified",
+                    "ok": True,
+                }
+            ),
+            encoding="utf-8",
+        )
+
+
 def test_submission_gate_fails_closed_without_live_evidence(tmp_path):
     write_tasks(tmp_path, status="done")
     write_packet(tmp_path)
+    write_final_reports(tmp_path)
 
     gate = build_submission_gate(tmp_path)
 
@@ -68,10 +89,25 @@ def test_submission_gate_fails_closed_without_live_evidence(tmp_path):
     assert "Capture final live proof evidence JSON." in gate["next_actions"]
 
 
-def test_submission_gate_passes_with_done_tasks_packet_and_live_evidence(tmp_path):
+def test_submission_gate_fails_closed_without_final_reports(tmp_path):
     write_tasks(tmp_path, status="done")
     write_packet(tmp_path, mode="post_live_verified")
     write_live_evidence(tmp_path)
+
+    gate = build_submission_gate(tmp_path)
+
+    assert gate["ok"] is False
+    assert gate["mode"] == "pre_live_safe"
+    assert gate["evidence_gate"]["ok"] is True
+    assert gate["report_gate"]["status"] == "missing"
+    assert "Run the final secret scan and capture a clean report." in gate["next_actions"]
+
+
+def test_submission_gate_passes_with_done_tasks_packet_live_evidence_and_reports(tmp_path):
+    write_tasks(tmp_path, status="done")
+    write_packet(tmp_path, mode="post_live_verified")
+    write_live_evidence(tmp_path)
+    write_final_reports(tmp_path)
 
     gate = build_submission_gate(tmp_path)
 
@@ -80,4 +116,5 @@ def test_submission_gate_passes_with_done_tasks_packet_and_live_evidence(tmp_pat
     assert gate["summary"]["done"] == len(REQUIRED_FINAL_TASKS)
     assert gate["evidence_gate"]["ok"] is True
     assert gate["packet_gate"]["mode"] == "post_live_verified"
+    assert gate["report_gate"]["ok"] is True
     assert gate["next_actions"] == []

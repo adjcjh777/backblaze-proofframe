@@ -1036,8 +1036,9 @@
           )
           .join("");
         const evidence = gate.evidence_gate?.ok ? "Live B2 + Genblaze proof verified." : "Live proof missing.";
+        const reports = gate.report_gate?.ok ? "Final reports verified." : "Final reports pending.";
         const firstAction = gate.next_actions?.[0] || evidence;
-        el("gateNextAction").textContent = `${evidence} Next: ${firstAction}`;
+        el("gateNextAction").textContent = `${evidence} ${reports} Next: ${firstAction}`;
         renderJudgeSlate();
       }
 

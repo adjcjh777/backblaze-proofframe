@@ -41,6 +41,7 @@ def test_health_and_campaign_flow(tmp_path):
     assert gate["mode"] in {"pre_live_safe", "final_ready"}
     assert "task_gates" in gate
     assert "evidence_gate" in gate
+    assert "report_gate" in gate
 
     campaign_response = client.post(
         "/api/campaigns",

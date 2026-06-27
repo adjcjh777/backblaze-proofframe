@@ -8,6 +8,7 @@ Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 
 - Submission gate: `pre_live_safe`
 - Live evidence: `missing`
+- Final reports: `incomplete`
 - Mock recording ready: `true`
 - Final recording ready: `false`
 - Claim lint: `true`
@@ -51,7 +52,7 @@ Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 - OK `claim_freeze_doc` (2/2): The team has a written boundary for what can be said before final proof.
 
 ### Final submission closure - 0/10 (0.0%)
-- TODO `final_gate` (0/6): Requires T020, T021, T040, T041, T041A, T042, and final live evidence.
+- TODO `final_gate` (0/6): Requires T020, T021, T040, T041, T041A, T042, final live evidence, and final reports.
 - TODO `final_audit_done` (0/2): The reviewer audit must pass after live evidence exists.
 - TODO `final_secret_scan_done` (0/1): The final scan should run after live proof artifacts are generated.
 - TODO `devpost_submitted` (0/1): The submission is not complete until the project page is submitted.

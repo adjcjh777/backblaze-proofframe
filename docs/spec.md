@@ -60,7 +60,7 @@ FastAPI app
 | --- | --- | --- |
 | `GET` | `/` | Serve the Proof Ledger browser UI. |
 | `GET` | `/api/health` | Runtime health and adapter availability. |
-| `GET` | `/api/submission/gate` | Return fail-closed final submission readiness for task gates, Devpost packet, and live proof evidence. |
+| `GET` | `/api/submission/gate` | Return fail-closed final submission readiness for task gates, Devpost packet, live proof evidence, and final report artifacts. |
 | `POST` | `/api/campaigns` | Create campaign. |
 | `GET` | `/api/campaigns` | List campaigns. |
 | `POST` | `/api/campaigns/{id}/generate` | Generate variants. |
@@ -86,9 +86,10 @@ The browser sidebar includes a final gate panel backed by `GET /api/submission/g
 - required final tasks: T020, T021, T040, T041, T041A, and T042
 - Devpost packet presence and claim mode
 - final live proof evidence status for B2 storage plus Genblaze generation
+- final report artifacts for secret scan, submission audit, and Devpost submission receipt
 - next-action copy for whichever final blocker remains first
 
-The gate intentionally stays in `pre_live_safe` mode until all required tasks are done and `docs/assets/final-live-proof-evidence.json` proves B2 plus Genblaze with nonempty sanitized object/checksum fields.
+The gate intentionally stays in `pre_live_safe` mode until all required tasks are done, `docs/assets/final-live-proof-evidence.json` proves B2 plus Genblaze with nonempty sanitized object/checksum fields, and the final secret scan, submission audit, and Devpost receipt reports all declare the expected schema with `ok=true`.
 
 ## Storage
 

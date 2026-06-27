@@ -66,6 +66,42 @@ def write_bundle_fixtures(root: Path) -> None:
             write_fixture_file(root, relative_path, json.dumps({"ok": True}))
         elif relative_path.endswith("award-readiness-report.json"):
             write_fixture_file(root, relative_path, json.dumps({"score": 80}))
+        elif relative_path.endswith("secret-scan-report.json"):
+            write_fixture_file(
+                root,
+                relative_path,
+                json.dumps(
+                    {
+                        "schema": "proofframe.secret_scan.v1",
+                        "mode": "clear",
+                        "ok": True,
+                    }
+                ),
+            )
+        elif relative_path.endswith("submission-audit-report.json"):
+            write_fixture_file(
+                root,
+                relative_path,
+                json.dumps(
+                    {
+                        "schema": "proofframe.submission_audit.v1",
+                        "mode": "pre_submit_audit_ready",
+                        "ok": True,
+                    }
+                ),
+            )
+        elif relative_path.endswith("devpost-submission-receipt.json"):
+            write_fixture_file(
+                root,
+                relative_path,
+                json.dumps(
+                    {
+                        "schema": "proofframe.devpost_submission_receipt.v1",
+                        "mode": "submitted",
+                        "ok": True,
+                    }
+                ),
+            )
         else:
             write_fixture_file(root, relative_path, "# ProofFrame\n")
 
@@ -86,6 +122,7 @@ def test_submission_bundle_manifest_records_artifacts_and_gate(tmp_path):
     assert manifest["safe_to_share"] is True
     assert manifest["devpost_packet"]["project_name"] == "ProofFrame"
     assert manifest["submission_gate"]["summary"]["done"] == 6
+    assert manifest["submission_gate"]["report_gate"]["status"] == "verified"
     assert all("sha256" in artifact for artifact in manifest["artifacts"])
 
 

@@ -148,6 +148,41 @@ def write_common_fixtures(root: Path, *, live_done: bool = False, final_done: bo
         }
         write_file(root, "docs/assets/b2-live-proof-evidence.json", json.dumps(live_evidence))
         write_file(root, "docs/assets/final-live-proof-evidence.json", json.dumps(live_evidence))
+    if final_done:
+        write_file(
+            root,
+            "docs/assets/secret-scan-report.json",
+            json.dumps(
+                {
+                    "schema": "proofframe.secret_scan.v1",
+                    "mode": "clear",
+                    "ok": True,
+                }
+            ),
+        )
+        write_file(
+            root,
+            "docs/assets/submission-audit-report.json",
+            json.dumps(
+                {
+                    "schema": "proofframe.submission_audit.v1",
+                    "mode": "pre_submit_audit_ready",
+                    "ok": True,
+                }
+            ),
+        )
+        write_file(
+            root,
+            "docs/assets/devpost-submission-receipt.json",
+            json.dumps(
+                {
+                    "schema": "proofframe.devpost_submission_receipt.v1",
+                    "mode": "submitted",
+                    "ok": True,
+                    "project_url": "https://devpost.com/software/proofframe",
+                }
+            ),
+        )
 
 
 def test_award_readiness_scores_pre_live_competitive_state(tmp_path):

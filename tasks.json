@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T17:56:50Z",
+  "updated_at": "2026-06-27T18:09:10Z",
   "tasks": [
     {
       "id": "T001",
@@ -559,6 +559,15 @@
       "status": "done",
       "done_criteria": "Final control requires a schema-ok Devpost receipt with a public project URL before T042 can satisfy the submitted gate.",
       "notes": "Added devpost_submission_receipt.py, docs/assets/devpost-submission-receipt.*, final-control/operator/bundle wiring, CI step, and regression tests."
+    },
+    {
+      "id": "T042B",
+      "title": "Align API submission gate with final report artifacts",
+      "phase": "P4 Submit",
+      "owner": "tester",
+      "status": "done",
+      "done_criteria": "GET /api/submission/gate requires final secret scan, submission audit, and Devpost receipt reports before final_ready.",
+      "notes": "Bottom-layer browser/API gate now checks report schemas and ok=true, preventing task-status-only final readiness."
     }
   ]
 }

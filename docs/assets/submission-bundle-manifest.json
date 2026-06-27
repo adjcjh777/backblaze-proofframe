@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.submission_bundle.v1",
-  "created_at": "2026-06-27T17:58:25Z",
+  "created_at": "2026-06-27T18:11:18Z",
   "project": "ProofFrame",
   "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
@@ -28,18 +28,84 @@
     "packet_gate": {
       "ok": true,
       "status": "ready",
-      "path": "/Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe/docs/assets/devpost-submission-packet.json",
+      "path": "docs/assets/devpost-submission-packet.json",
       "mode": "pre_live_safe",
       "claim_warning": "Safe for public mock demo only. Do not submit as final sponsor proof."
     },
     "evidence_gate": {
       "ok": false,
       "status": "missing",
-      "path": "/Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe/docs/assets/final-live-proof-evidence.json",
+      "path": "docs/assets/final-live-proof-evidence.json",
       "findings": [
         {
           "field": "final-live-proof-evidence",
           "detail": "Final B2 and Genblaze evidence file is missing or invalid JSON."
+        }
+      ]
+    },
+    "report_gate": {
+      "ok": false,
+      "status": "incomplete",
+      "reports": [
+        {
+          "id": "secret_scan",
+          "task_id": "T041A",
+          "path": "docs/assets/secret-scan-report.json",
+          "required_schema": "proofframe.secret_scan.v1",
+          "schema": "proofframe.secret_scan.v1",
+          "schema_ok": true,
+          "ok": true,
+          "status": "verified",
+          "mode": "clear",
+          "findings": []
+        },
+        {
+          "id": "submission_audit",
+          "task_id": "T041",
+          "path": "docs/assets/submission-audit-report.json",
+          "required_schema": "proofframe.submission_audit.v1",
+          "schema": "proofframe.submission_audit.v1",
+          "schema_ok": true,
+          "ok": false,
+          "status": "incomplete",
+          "mode": "pre_submit_audit_blocked",
+          "findings": [
+            {
+              "report": "submission_audit",
+              "field": "ok",
+              "detail": "Final report must explicitly set ok=true."
+            }
+          ]
+        },
+        {
+          "id": "devpost_submission_receipt",
+          "task_id": "T042",
+          "path": "docs/assets/devpost-submission-receipt.json",
+          "required_schema": "proofframe.devpost_submission_receipt.v1",
+          "schema": "proofframe.devpost_submission_receipt.v1",
+          "schema_ok": true,
+          "ok": false,
+          "status": "incomplete",
+          "mode": "pending_submission",
+          "findings": [
+            {
+              "report": "devpost_submission_receipt",
+              "field": "ok",
+              "detail": "Final report must explicitly set ok=true."
+            }
+          ]
+        }
+      ],
+      "findings": [
+        {
+          "report": "submission_audit",
+          "field": "ok",
+          "detail": "Final report must explicitly set ok=true."
+        },
+        {
+          "report": "devpost_submission_receipt",
+          "field": "ok",
+          "detail": "Final report must explicitly set ok=true."
         }
       ]
     },
@@ -57,8 +123,8 @@
       "path": "README.md",
       "label": "Core public project overview",
       "present": true,
-      "bytes": 9348,
-      "sha256": "d468155b9381d4976859a7ae12e3f5ac80c0eb86108f60ae67e4578b5a49db1c"
+      "bytes": 9418,
+      "sha256": "a724d2eced70c79ca9412d6575d7c02b6585ad35e1777159dd97c2cc42b75f35"
     },
     {
       "id": "prd",
@@ -73,8 +139,8 @@
       "path": "docs/spec.md",
       "label": "Implementation specification",
       "present": true,
-      "bytes": 4874,
-      "sha256": "8320ef186af3407557419e3ee7270b716ad453571c50757572b9ffb4701cd8a6"
+      "bytes": 5107,
+      "sha256": "d6be8b19cd14624e32f84c0f743a4c4f370b8b2f3a5b42a8d9270237e1ca4230"
     },
     {
       "id": "devpost_draft",
@@ -153,8 +219,8 @@
       "path": "apps/web/index.html",
       "label": "Browser proof ledger UI",
       "present": true,
-      "bytes": 41224,
-      "sha256": "a22eeb7f79fbd3720f147c233c26e511ced1f59e5449479570f05610214bc6cf"
+      "bytes": 41336,
+      "sha256": "52508e553ace7d7de7e98d84855b229248fe22ab7c3dd945a17e7c0261ba8e61"
     },
     {
       "id": "demo_script",
@@ -225,24 +291,24 @@
       "path": "scripts/award_readiness.py",
       "label": "Judge-facing award readiness scorecard",
       "present": true,
-      "bytes": 22811,
-      "sha256": "06ce9eb0b788dfee432998f721ad8429b8cad8bfaa883a9e36dcae08c46644b0"
+      "bytes": 22984,
+      "sha256": "b6d425284f4d56fadce9b63f1d9f619319d7a7b6b3763b3c2331dad6cef34e86"
     },
     {
       "id": "award_readiness_json",
       "path": "docs/assets/award-readiness-report.json",
       "label": "Machine-readable award readiness report",
       "present": true,
-      "bytes": 10844,
-      "sha256": "303549ad89478b171bfda71b3933820022ce0ea281d8bceb539653f4c6d19bbb"
+      "bytes": 10894,
+      "sha256": "1c6fd347710d969da306efa6c14d964ade9f8dbacee71e2e4b854d35b302a75e"
     },
     {
       "id": "award_readiness_md",
       "path": "docs/assets/award-readiness-report.md",
       "label": "Human-readable award readiness report",
       "present": true,
-      "bytes": 4153,
-      "sha256": "fb635cd20fb0b791e4ac6a00441ce81982c22fe557010ea6bd7f66853951333c"
+      "bytes": 4198,
+      "sha256": "15954ff53b6f109ce6c2f7d0b822a444fffbfb2be3447e6383168d27776aa944"
     },
     {
       "id": "final_submission_control_script",
@@ -258,7 +324,7 @@
       "label": "Machine-readable final control report",
       "present": true,
       "bytes": 15895,
-      "sha256": "ccad8c404ef7f2ee031b3b09a06624f92a6b65665e4646c633363c6d27e9e941"
+      "sha256": "b15af997a016918b3ab9cfaa3d5d009eb0ea5e61f1c181987726e344310f2945"
     },
     {
       "id": "final_submission_control_md",
@@ -266,7 +332,7 @@
       "label": "Human-readable final control report",
       "present": true,
       "bytes": 4833,
-      "sha256": "644575c064b159693b78270c191a15e3a774fbbf97a8abf40aa18e985fffd895"
+      "sha256": "7f6497acfaa65b2f626072615975b4ce6645019b72d3406a1859e7d620468d0f"
     },
     {
       "id": "final_operator_brief_script",
@@ -529,8 +595,8 @@
       "path": "tasks.json",
       "label": "Machine-readable task board",
       "present": true,
-      "bytes": 26490,
-      "sha256": "2e58123ff0ef30341eae4c53ed45503f2930f773cdf6eb181c9296674cb77512"
+      "bytes": 26949,
+      "sha256": "f4169345951c6fd1fc5fac011a6c3d81e2753c090fade824714a1f69f8d62327"
     },
     {
       "id": "local_ui_smoke",

@@ -105,7 +105,7 @@ python scripts/devpost_packet.py
 python scripts/submission_bundle.py
 ```
 
-The browser UI and `GET /api/submission/gate` expose the same fail-closed final gate: required task status, Devpost packet presence, and final B2/Genblaze evidence readiness.
+The browser UI and `GET /api/submission/gate` expose the same fail-closed final gate: required task status, Devpost packet presence, final B2/Genblaze evidence readiness, and the final secret scan, submission audit, and Devpost receipt reports.
 `scripts/submission_bundle.py` creates a safe manifest of public submission artifacts, screenshots, checksums, Devpost copy mode, and remaining gate blockers.
 `scripts/live_env_handoff.py` creates a redacted B2/Genblaze credential handoff report so final proof setup can be checked without printing keys.
 `scripts/final_env_wizard.py` creates a local git-ignored `.env.final.local` with 0600 permissions, can prefill non-secret B2/default values, and uses hidden prompts for credential values.

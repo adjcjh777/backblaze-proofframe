@@ -380,7 +380,7 @@ def build_criteria(root: Path, context: dict[str, Any]) -> list[dict[str, Any]]:
                     "Final live proof gate is green",
                     bool(gate["ok"]),
                     6,
-                    "Requires T020, T021, T040, T041, T041A, T042, and final live evidence.",
+                    "Requires T020, T021, T040, T041, T041A, T042, final live evidence, and final reports.",
                 ),
                 signal(
                     "final_audit_done",
@@ -471,6 +471,7 @@ def build_report(root: Path = ROOT) -> dict[str, Any]:
             "mode": context["submission_gate"]["mode"],
             "summary": context["submission_gate"]["summary"],
             "evidence_status": context["submission_gate"]["evidence_gate"]["status"],
+            "report_status": context["submission_gate"]["report_gate"]["status"],
         },
         "demo_readiness": {
             "mode": context["demo_readiness"]["mode"],
@@ -504,6 +505,7 @@ def render_markdown(report: dict[str, Any]) -> str:
         "",
         f"- Submission gate: `{report['submission_gate']['mode']}`",
         f"- Live evidence: `{report['submission_gate']['evidence_status']}`",
+        f"- Final reports: `{report['submission_gate']['report_status']}`",
         f"- Mock recording ready: `{str(report['demo_readiness']['mock_recording_ready']).lower()}`",
         f"- Final recording ready: `{str(report['demo_readiness']['final_recording_ready']).lower()}`",
         f"- Claim lint: `{str(report['claim_lint']['ok']).lower()}`",

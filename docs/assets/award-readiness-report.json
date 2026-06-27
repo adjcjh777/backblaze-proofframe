@@ -25,7 +25,8 @@
       "todo": 3,
       "missing": 0
     },
-    "evidence_status": "missing"
+    "evidence_status": "missing",
+    "report_status": "incomplete"
   },
   "demo_readiness": {
     "mode": "pre_live_mock_ready",
@@ -307,7 +308,7 @@
           "ok": false,
           "points": 0,
           "max_points": 6,
-          "detail": "Requires T020, T021, T040, T041, T041A, T042, and final live evidence."
+          "detail": "Requires T020, T021, T040, T041, T041A, T042, final live evidence, and final reports."
         },
         {
           "id": "final_audit_done",
