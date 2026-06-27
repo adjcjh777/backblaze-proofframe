@@ -25,6 +25,7 @@ Why this one:
 - `docs/demo_script.md`: demo video script and shot list.
 - `docs/evidence_package.md`: Devpost evidence package and copy bank.
 - `docs/public_claim_freeze.md`: public claim boundaries before final submission.
+- `docs/verification.md`: local, Docker, live proof, and secret-scan runbook.
 - `docs/submission.md`: registration and submission plan.
 - `docs/todo.md`: human task board.
 - `tasks.json`: queryable task ledger.
@@ -64,7 +65,7 @@ Stage 3 preparation has started: Proof Ledger UI smoke is captured, and demo/evi
 ```bash
 python3.11 -m venv .venv
 . .venv/bin/activate
-pip install -e ".[dev]"
+pip install -e ".[dev,integrations]"
 pytest
 uvicorn proofframe.app:app --reload --port 8088
 ```
@@ -79,3 +80,16 @@ python scripts/check_integrations.py
 ```
 
 B2 mode intentionally fails closed unless `B2_ENDPOINT_URL`, `B2_BUCKET`, `B2_KEY_ID`, and `B2_APPLICATION_KEY` are set. Genblaze mode intentionally fails closed unless a Genblaze/GMI key and `GENBLAZE_IMAGE_MODEL` are set, and the official `genblaze-core` and `genblaze-gmicloud` packages are installed.
+
+## Submission Verification
+
+```bash
+. .venv/bin/activate
+python scripts/check_integrations.py
+ruff check .
+pytest
+python scripts/api_smoke.py --base-url http://127.0.0.1:8088
+python scripts/secret_scan.py
+```
+
+See `docs/verification.md` for Docker and live B2/Genblaze proof commands.

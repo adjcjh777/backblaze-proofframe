@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T05:35:35Z",
+  "updated_at": "2026-06-27T05:43:34Z",
   "tasks": [
     {
       "id": "T001",
@@ -163,6 +163,15 @@
       "status": "done",
       "done_criteria": "Public README, Devpost text, demo script, and screenshots make only verified B2/Genblaze claims.",
       "notes": "Public claim freeze doc added and README/PRD/research copy aligned to verified-vs-final-gate language."
+    },
+    {
+      "id": "T034",
+      "title": "Prepare verification scripts and Docker smoke path",
+      "phase": "P3 Polish",
+      "owner": "tester",
+      "status": "done",
+      "done_criteria": "API smoke, secret scan, Dockerfile, and verification runbook support repeatable local/Docker/live proof checks.",
+      "notes": "Added scripts/api_smoke.py, scripts/secret_scan.py, docs/verification.md, and fixed Docker frontend copy."
     },
     {
       "id": "T040",

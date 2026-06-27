@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 from pathlib import Path
 
 import uvicorn
@@ -15,6 +16,23 @@ from .models import Asset, AssetStatusUpdate, Campaign, CampaignCreate, Campaign
 from .providers import create_media_provider
 from .repository import MemoryRepository
 from .storage import create_storage_backend, manifest_to_plain_json
+
+
+def frontend_index_path() -> Path | None:
+    explicit_root = os.environ.get("PROOFFRAME_WEB_ROOT", "").strip()
+    candidates: list[Path] = []
+    if explicit_root:
+        candidates.append(Path(explicit_root) / "index.html")
+    candidates.extend(
+        [
+            Path(__file__).resolve().parents[2] / "apps" / "web" / "index.html",
+            Path.cwd() / "apps" / "web" / "index.html",
+        ]
+    )
+    for candidate in candidates:
+        if candidate.exists():
+            return candidate
+    return None
 
 
 def create_app(storage_root: Path | str | None = None, settings: Settings | None = None) -> FastAPI:
@@ -38,8 +56,8 @@ def create_app(storage_root: Path | str | None = None, settings: Settings | None
 
     @app.get("/")
     def index() -> FileResponse:
-        index_path = Path(__file__).resolve().parents[2] / "apps" / "web" / "index.html"
-        if not index_path.exists():
+        index_path = frontend_index_path()
+        if index_path is None:
             raise HTTPException(status_code=404, detail="Frontend not built")
         return FileResponse(index_path)
 

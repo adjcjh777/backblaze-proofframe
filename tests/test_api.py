@@ -1,6 +1,17 @@
 from fastapi.testclient import TestClient
 
-from proofframe.app import create_app
+from proofframe.app import create_app, frontend_index_path
+
+
+def test_frontend_index_path_can_use_explicit_web_root(tmp_path, monkeypatch):
+    web_root = tmp_path / "web"
+    web_root.mkdir()
+    index_path = web_root / "index.html"
+    index_path.write_text("<html>ProofFrame</html>", encoding="utf-8")
+
+    monkeypatch.setenv("PROOFFRAME_WEB_ROOT", str(web_root))
+
+    assert frontend_index_path() == index_path
 
 
 def test_health_and_campaign_flow(tmp_path):
