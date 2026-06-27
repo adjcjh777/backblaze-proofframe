@@ -29,6 +29,23 @@ Use the CI result as public repo evidence for the non-secret local gate. It does
 
 Evidence files written by `scripts/api_smoke.py --evidence-out` are checked before writing and fail closed if they contain secret-like field names, bearer tokens, signed URL parameters, or GMI-style key values.
 
+The final sponsor proof has a preflight wrapper:
+
+```bash
+. .venv/bin/activate
+python scripts/live_proof.py --preflight-only
+```
+
+When B2 and Genblaze env/packages are complete and the app is running with those env vars, use:
+
+```bash
+python scripts/live_proof.py \
+  --base-url http://127.0.0.1:8088 \
+  --evidence-out docs/assets/final-live-proof-evidence.json
+```
+
+This wrapper does not print credential values. It checks required modes, env presence, package availability, and then delegates evidence writing to `scripts/api_smoke.py`.
+
 ## Local App Smoke
 
 In one terminal:
@@ -76,6 +93,16 @@ Run:
 . .venv/bin/activate
 python scripts/check_integrations.py
 uvicorn proofframe.app:app --host 127.0.0.1 --port 8088
+python scripts/live_proof.py \
+  --base-url http://127.0.0.1:8088 \
+  --require-storage-backend b2 \
+  --require-generation-backend mock \
+  --evidence-out docs/assets/b2-live-proof-evidence.json
+```
+
+Fallback command:
+
+```bash
 python scripts/api_smoke.py \
   --base-url http://127.0.0.1:8088 \
   --require-storage-backend b2 \
@@ -105,6 +132,16 @@ GENBLAZE_TIMEOUT_SECONDS=180
 Run the same app smoke command. Evidence to save after T021:
 
 ```bash
+python scripts/live_proof.py \
+  --base-url http://127.0.0.1:8088 \
+  --require-storage-backend local \
+  --require-generation-backend genblaze \
+  --evidence-out docs/assets/genblaze-live-proof-evidence.json
+```
+
+Fallback command:
+
+```bash
 python scripts/api_smoke.py \
   --base-url http://127.0.0.1:8088 \
   --require-generation-backend genblaze \
@@ -124,10 +161,8 @@ Before Devpost submit:
 
 ```bash
 python scripts/secret_scan.py
-python scripts/api_smoke.py \
+python scripts/live_proof.py \
   --base-url <final-demo-url> \
-  --require-storage-backend b2 \
-  --require-generation-backend genblaze \
   --evidence-out docs/assets/final-live-proof-evidence.json
 python scripts/task.py list --status doing
 python scripts/task.py list --status blocked

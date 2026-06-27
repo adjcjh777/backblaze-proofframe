@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T07:09:43Z",
+  "updated_at": "2026-06-27T07:17:07Z",
   "tasks": [
     {
       "id": "T001",
@@ -262,6 +262,15 @@
       "status": "done",
       "done_criteria": "Task helper can add new tasks and search across ids, titles, notes, owners, phases, and done criteria.",
       "notes": "Added add/search commands, README examples, docs/todo examples, and CLI tests."
+    },
+    {
+      "id": "T039F",
+      "title": "Add live proof preflight",
+      "phase": "P3 Polish",
+      "owner": "executor",
+      "status": "done",
+      "done_criteria": "A single command checks final B2/Genblaze backend modes, required env presence, package availability, and delegates safe evidence generation to api_smoke.",
+      "notes": "Added scripts/live_proof.py, unit tests, README, verification, integration, and evidence-package docs."
     },
     {
       "id": "T040",

@@ -19,17 +19,21 @@ This command reports booleans only and does not print secrets.
 
 ## Live Proof Gate
 
-When B2 and Genblaze credentials are available, run the app with those environment variables and require the expected backends:
+When B2 and Genblaze credentials are available, first run the preflight without printing secret values:
 
 ```bash
-python scripts/api_smoke.py \
+python scripts/live_proof.py --preflight-only
+```
+
+Then run the app with those environment variables and require the expected backends:
+
+```bash
+python scripts/live_proof.py \
   --base-url http://127.0.0.1:8088 \
-  --require-storage-backend b2 \
-  --require-generation-backend genblaze \
   --evidence-out docs/assets/final-live-proof-evidence.json
 ```
 
-The evidence JSON is intentionally limited to campaign ids, provider/model names, sanitized storage keys, checksums, byte counts, and backend names. It must not contain raw API keys, cookies, signed URLs, or account dashboards.
+The wrapper checks required backend modes, env presence, integration packages, and then delegates the end-to-end smoke test to `scripts/api_smoke.py`. The evidence JSON is intentionally limited to campaign ids, provider/model names, sanitized storage keys, checksums, byte counts, and backend names. It must not contain raw API keys, cookies, signed URLs, or account dashboards.
 
 ## B2 Environment
 

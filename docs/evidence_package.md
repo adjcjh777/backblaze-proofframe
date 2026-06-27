@@ -42,6 +42,7 @@ This file is the internal source of truth for Devpost submission assets. Anythin
 | Public HF Space API smoke | `python scripts/api_smoke.py --base-url https://adjcjh-backblaze-proofframe.hf.space` | Passed in local/mock mode |
 | Downloadable evidence ZIP | `/api/campaigns/{id}/packet.zip` | Public-ready in local mode |
 | One-click judge packet | `/api/demo/judge-packet` | Public-ready in local mode |
+| Final live proof preflight | `scripts/live_proof.py --preflight-only` | Public-ready; reports missing env/packages without printing secrets |
 | Evidence safety gate | `scripts/api_smoke.py --evidence-out` refuses secret-like keys and signed-token values before writing JSON | Public-ready |
 | Devpost draft | `docs/devpost_draft.md` | Public-ready after final claim check |
 | Deployment runbook | `docs/deployment.md` | Public-ready |
