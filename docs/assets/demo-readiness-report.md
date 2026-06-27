@@ -28,6 +28,8 @@ Devpost packet mode: `pre_live_safe`
 - OK `docs/public_claim_freeze.md`
 - OK `docs/assets/devpost-submission-packet.json`
 - OK `docs/assets/devpost-submission-packet.md`
+- OK `docs/assets/devpost-form-kit.json`
+- OK `docs/assets/devpost-form-kit.md`
 - OK `docs/assets/submission-bundle-manifest.json`
 - OK `docs/assets/submission-bundle-manifest.md`
 - OK `docs/assets/live-credential-handoff.json`
@@ -39,6 +41,7 @@ Devpost packet mode: `pre_live_safe`
 - OK `docs/assets/proofframe-hf-public-smoke.png`
 - OK `.env.final.example`
 - OK `scripts/claim_lint.py`
+- OK `scripts/devpost_form_kit.py`
 - OK `scripts/demo_storyboard.py`
 - OK `scripts/live_env_handoff.py`
 - OK `scripts/secret_scan.py`

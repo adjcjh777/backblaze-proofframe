@@ -36,12 +36,12 @@
     {
       "path": "README.md",
       "present": true,
-      "bytes": 6991
+      "bytes": 7190
     },
     {
       "path": "docs/demo_script.md",
       "present": true,
-      "bytes": 5191
+      "bytes": 5245
     },
     {
       "path": "docs/public_claim_freeze.md",
@@ -59,14 +59,24 @@
       "bytes": 4160
     },
     {
+      "path": "docs/assets/devpost-form-kit.json",
+      "present": true,
+      "bytes": 11543
+    },
+    {
+      "path": "docs/assets/devpost-form-kit.md",
+      "present": true,
+      "bytes": 6556
+    },
+    {
       "path": "docs/assets/submission-bundle-manifest.json",
       "present": true,
-      "bytes": 9827
+      "bytes": 10657
     },
     {
       "path": "docs/assets/submission-bundle-manifest.md",
       "present": true,
-      "bytes": 4027
+      "bytes": 4368
     },
     {
       "path": "docs/assets/live-credential-handoff.json",
@@ -111,7 +121,12 @@
     {
       "path": "scripts/claim_lint.py",
       "present": true,
-      "bytes": 5110
+      "bytes": 5190
+    },
+    {
+      "path": "scripts/devpost_form_kit.py",
+      "present": true,
+      "bytes": 12830
     },
     {
       "path": "scripts/demo_storyboard.py",

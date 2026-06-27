@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.submission_bundle.v1",
-  "created_at": "2026-06-27T10:05:35Z",
+  "created_at": "2026-06-27T10:17:34Z",
   "project": "ProofFrame",
   "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
@@ -57,8 +57,8 @@
       "path": "README.md",
       "label": "Core public project overview",
       "present": true,
-      "bytes": 6991,
-      "sha256": "04e64764feeba583a31077543c6741c01a011765e8da3f121a399b238880c304"
+      "bytes": 7190,
+      "sha256": "1be124acc086939463b69d2c8cea340ecc547ede83350ab0ecc477047a6dc1c0"
     },
     {
       "id": "prd",
@@ -101,6 +101,30 @@
       "sha256": "8467e9a35e2a9de8fb62900c5a5d4ee4fe9100c8342fb7f0734a8eebabd133f0"
     },
     {
+      "id": "devpost_form_kit_script",
+      "path": "scripts/devpost_form_kit.py",
+      "label": "Field-by-field Devpost form kit",
+      "present": true,
+      "bytes": 12830,
+      "sha256": "b0173e698f4c36298757b6404f335596ad3549819eb2f1821b27c45638e21ab7"
+    },
+    {
+      "id": "devpost_form_kit_json",
+      "path": "docs/assets/devpost-form-kit.json",
+      "label": "Machine-readable Devpost form kit",
+      "present": true,
+      "bytes": 11543,
+      "sha256": "1b917545fdb3ec444b0d1241d0f86a18f8ec20d27e11fc48dba1078df111f1de"
+    },
+    {
+      "id": "devpost_form_kit_md",
+      "path": "docs/assets/devpost-form-kit.md",
+      "label": "Human-readable Devpost form kit",
+      "present": true,
+      "bytes": 6556,
+      "sha256": "d4adc19fba7b7d962e7666f214cbc09e355d3918beb8c1ddf37ba60a1691752c"
+    },
+    {
       "id": "frontend_ui",
       "path": "apps/web/index.html",
       "label": "Browser proof ledger UI",
@@ -113,8 +137,8 @@
       "path": "docs/demo_script.md",
       "label": "Video shot list and narration",
       "present": true,
-      "bytes": 5191,
-      "sha256": "eada3cd6d2d9602a3514b9642e65b3f08ca5d86722a4cc8ba26bf8140ee31450"
+      "bytes": 5245,
+      "sha256": "c160051925806534c4d3756d216037aa78d6aad098dfbe8d26ade266944b2245"
     },
     {
       "id": "demo_storyboard_script",
@@ -130,7 +154,7 @@
       "label": "Machine-readable demo storyboard",
       "present": true,
       "bytes": 4024,
-      "sha256": "035de47d6b97d44022a8c455ba3fbf92f4fb918db1c6d00eb411934f26dfbc52"
+      "sha256": "d8d1c69e6b71df471430b29c243a3b6269191e527ab78d29963f85d8fd5e6e11"
     },
     {
       "id": "demo_storyboard_md",
@@ -145,8 +169,8 @@
       "path": "docs/evidence_package.md",
       "label": "Evidence package plan",
       "present": true,
-      "bytes": 9001,
-      "sha256": "45c63438fa4b3a4ffd6d8416eec19396f413a6f82e8df51204e25194de1db663"
+      "bytes": 9228,
+      "sha256": "1d7c5aaa11cb12a55e0a92fb0c17ead75dcf4301bf9ede290c87f272dd07b699"
     },
     {
       "id": "public_claim_freeze",
@@ -161,8 +185,8 @@
       "path": "docs/verification.md",
       "label": "Local, CI, Docker, and live proof runbook",
       "present": true,
-      "bytes": 5962,
-      "sha256": "40921d8651563f8aecfc9e8fbc575f4618588ab5dc0f7df7f7930d398f99985c"
+      "bytes": 6086,
+      "sha256": "0a0def5ef8c20363617f3b057aff13dfda036feb8e648a7063d0ea3dac5e3d35"
     },
     {
       "id": "final_env_template",
@@ -209,32 +233,32 @@
       "path": "scripts/claim_lint.py",
       "label": "Fail-closed public claim lint",
       "present": true,
-      "bytes": 5110,
-      "sha256": "822950960a0f00454d46f2c65b3a1ebc442692c4635f28081edbf34dd50e43b1"
+      "bytes": 5190,
+      "sha256": "d8e9f53dfee772a14ca538558ae40ea5a3f74a66411b8063e4ec1fe8b23972ac"
     },
     {
       "id": "demo_readiness_script",
       "path": "scripts/demo_readiness.py",
       "label": "Demo recording readiness gate",
       "present": true,
-      "bytes": 8389,
-      "sha256": "7c99558d941f652d6c81acf630fc124642715f0b8bdb63f9474eb0d3c67cd341"
+      "bytes": 8504,
+      "sha256": "06bb51f8eaeb42d7d76381ba631c0b3aa61be88cf21b48d013756269d31e3e1b"
     },
     {
       "id": "demo_readiness_json",
       "path": "docs/assets/demo-readiness-report.json",
       "label": "Machine-readable demo readiness report",
       "present": true,
-      "bytes": 3134,
-      "sha256": "884524b0b2cd3e3a9142fed3b7ba1b199347882d3de2caa0ee49b3f6411c4b90"
+      "bytes": 3450,
+      "sha256": "82864b3155d55de6cd9f4d427940426beed0a3899d36a58b7e943c57bc5f3b4b"
     },
     {
       "id": "demo_readiness_md",
       "path": "docs/assets/demo-readiness-report.md",
       "label": "Human-readable demo readiness report",
       "present": true,
-      "bytes": 1496,
-      "sha256": "e9581e90601440bc325245780281325fbc3b9abd44d039c664d3ba1110f1229c"
+      "bytes": 1611,
+      "sha256": "dcd909767579ee2c18b0e053a2a02c99e25f7d945b86aa25170a00e699ac5183"
     },
     {
       "id": "final_live_runner",
@@ -249,16 +273,16 @@
       "path": "docs/submission.md",
       "label": "Registration and submission plan",
       "present": true,
-      "bytes": 3123,
-      "sha256": "bc12f1724f9158a237ed57cdfbf07e61589d42185c859887a4690645a393c04d"
+      "bytes": 3209,
+      "sha256": "1441300c209a5c40c95d588743e0984a7df564883af0be9673caa34fd9bb2acd"
     },
     {
       "id": "task_ledger",
       "path": "tasks.json",
       "label": "Machine-readable task board",
       "present": true,
-      "bytes": 19306,
-      "sha256": "b82fdce95fa696efc4d458149de087407e8bfd326e1485b16adc513976953396"
+      "bytes": 19846,
+      "sha256": "2e90a241dbf32aaf43fd2602344a1e384fffec34a5918b96fd10886fd0c67112"
     },
     {
       "id": "local_ui_smoke",

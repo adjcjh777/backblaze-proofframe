@@ -53,6 +53,7 @@ This file is the internal source of truth for Devpost submission assets. Anythin
 | Public claim lint | `scripts/claim_lint.py` fails CI if active public copy claims completed B2/Genblaze proof before final evidence exists | Public-ready |
 | Final submission audit | `scripts/submission_audit.py` checks final task gates, required artifacts, screenshots, and live proof evidence | Public-ready; intentionally fails until T020/T021/T040/T041/T041A/T042 are complete |
 | Copy-ready Devpost packet | `docs/assets/devpost-submission-packet.json`, `docs/assets/devpost-submission-packet.md` | Public-ready in pre-live-safe mode |
+| Devpost form kit | `scripts/devpost_form_kit.py`, `docs/assets/devpost-form-kit.json`, `docs/assets/devpost-form-kit.md` | Public-ready for field-by-field copy; strict final mode waits for live proof and a public video URL |
 | Safe submission bundle manifest | `docs/assets/submission-bundle-manifest.json`, `docs/assets/submission-bundle-manifest.md` | Public-ready in pre-live-safe mode |
 | Demo readiness report | `scripts/demo_readiness.py`, `docs/assets/demo-readiness-report.json`, `docs/assets/demo-readiness-report.md` | Public-ready for mock recording; strict final mode intentionally waits for T020/T021/T041A |
 | Demo storyboard | `scripts/demo_storyboard.py`, `docs/assets/demo-storyboard.json`, `docs/assets/demo-storyboard.md` | Public-ready for mock recording; strict final mode waits for live proof and a public video URL |

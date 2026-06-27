@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T10:03:13Z",
+  "updated_at": "2026-06-27T10:15:59Z",
   "tasks": [
     {
       "id": "T001",
@@ -406,6 +406,15 @@
       "status": "done",
       "done_criteria": "A local-only wizard can create .env.final.local with hidden credential prompts, 0600 permissions, git-ignore verification, tests, CI check-only coverage, and docs.",
       "notes": "Added scripts/final_env_wizard.py, tests, CI check-only wiring, live handoff next-command wiring, submission bundle coverage, and final runbook docs."
+    },
+    {
+      "id": "T039V",
+      "title": "Add Devpost form kit gate",
+      "phase": "P4 Submit",
+      "owner": "codex",
+      "status": "done",
+      "done_criteria": "A field-by-field Devpost form kit turns the safe packet into copy-ready fields, checks lengths and URLs, and keeps final submission gated on live proof plus video URL.",
+      "notes": "Added scripts/devpost_form_kit.py, tests, CI wiring, claim lint coverage, docs/assets/devpost-form-kit.{json,md}, demo readiness, submission bundle, and final audit coverage."
     },
     {
       "id": "T040",

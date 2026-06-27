@@ -83,7 +83,7 @@
     {
       "path": "docs/demo_script.md",
       "present": true,
-      "bytes": 5191
+      "bytes": 5245
     },
     {
       "path": "docs/assets/proofframe-local-ui-smoke.png",
@@ -103,7 +103,7 @@
     {
       "path": "docs/assets/demo-readiness-report.md",
       "present": true,
-      "bytes": 1496
+      "bytes": 1611
     },
     {
       "path": "docs/assets/live-credential-handoff.md",

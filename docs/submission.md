@@ -42,6 +42,7 @@ Codex can handle:
 - Credential-free public mock demo URL: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 - B2/Genblaze-backed demo URL or Docker instructions after T020/T021.
 - Devpost text from `docs/devpost_draft.md`.
+- Field-by-field Devpost form kit from `docs/assets/devpost-form-kit.md` and `.json`.
 - Safe submission bundle manifest from `docs/assets/submission-bundle-manifest.md` and `.json`.
 - Structured demo storyboard from `docs/assets/demo-storyboard.md` and `.json`.
 - Local final credential setup via `scripts/final_env_wizard.py`.

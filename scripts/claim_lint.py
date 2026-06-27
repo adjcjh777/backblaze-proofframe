@@ -18,6 +18,8 @@ ACTIVE_PUBLIC_COPY_FILES = [
     "docs/submission.md",
     "docs/assets/devpost-submission-packet.md",
     "docs/assets/devpost-submission-packet.json",
+    "docs/assets/devpost-form-kit.md",
+    "docs/assets/devpost-form-kit.json",
 ]
 PRE_LIVE_ALLOWED_MARKERS = (
     "final gate",

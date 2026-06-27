@@ -57,6 +57,9 @@ jobs:
       - name: Final env wizard
         run: python scripts/final_env_wizard.py --check-only
 
+      - name: Devpost form kit
+        run: python scripts/devpost_form_kit.py
+
       - name: Demo storyboard
         run: python scripts/demo_storyboard.py
 

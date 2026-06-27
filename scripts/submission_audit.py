@@ -16,6 +16,8 @@ REQUIRED_PUBLIC_FILES = [
     "docs/prd.md",
     "docs/spec.md",
     "docs/devpost_draft.md",
+    "docs/assets/devpost-form-kit.json",
+    "docs/assets/devpost-form-kit.md",
     "docs/evidence_package.md",
     "docs/demo_script.md",
     "docs/public_claim_freeze.md",

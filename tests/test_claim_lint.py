@@ -35,6 +35,16 @@ def write_minimal_pre_live_tree(root: Path, *, live_done: bool = False) -> None:
     )
     write_file(
         root,
+        "docs/assets/devpost-form-kit.md",
+        "Current packet mode: pre_live_safe. Safe for public mock demo only.\n",
+    )
+    write_file(
+        root,
+        "docs/assets/devpost-form-kit.json",
+        json.dumps({"mode": "pre_live_form_ready", "packet_mode": "pre_live_safe"}),
+    )
+    write_file(
+        root,
         "tasks.json",
         json.dumps(
             {

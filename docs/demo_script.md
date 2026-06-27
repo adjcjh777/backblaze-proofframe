@@ -14,6 +14,7 @@ Show that ProofFrame is not just a media generator. It is an approval and proven
 - Judge recording slate: first viewport of `apps/web/index.html`
 - Local app route: `http://127.0.0.1:8088/`
 - Public repo: `https://github.com/adjcjh777/backblaze-proofframe`
+- Devpost form kit: `docs/assets/devpost-form-kit.md`
 - Structured storyboard: `docs/assets/demo-storyboard.md`
 - Demo readiness report: `docs/assets/demo-readiness-report.md`
 
