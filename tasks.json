@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T07:27:43Z",
+  "updated_at": "2026-06-27T07:32:18Z",
   "tasks": [
     {
       "id": "T001",
@@ -280,6 +280,15 @@
       "status": "done",
       "done_criteria": "A single command fails closed unless final task gates, required submission artifacts, screenshots, and B2/Genblaze live proof evidence are complete.",
       "notes": "Added scripts/submission_audit.py, unit tests, and submission/verification/evidence docs."
+    },
+    {
+      "id": "T039H",
+      "title": "Generate copy-ready Devpost packet",
+      "phase": "P3 Polish",
+      "owner": "executor",
+      "status": "done",
+      "done_criteria": "A script generates JSON and Markdown Devpost copy packets in pre-live-safe mode, with an explicit post-live switch for final verified sponsor claims.",
+      "notes": "Added scripts/devpost_packet.py, tests, generated docs/assets packets, and evidence docs."
     },
     {
       "id": "T040",

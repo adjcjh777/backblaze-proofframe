@@ -87,6 +87,7 @@ Then open `http://127.0.0.1:8088/`.
 python scripts/check_integrations.py
 python scripts/live_proof.py --preflight-only
 python scripts/submission_audit.py
+python scripts/devpost_packet.py
 ```
 
 B2 mode intentionally fails closed unless `B2_ENDPOINT_URL`, `B2_BUCKET`, `B2_KEY_ID`, and `B2_APPLICATION_KEY` are set. Genblaze mode intentionally fails closed unless a Genblaze/GMI key and `GENBLAZE_IMAGE_MODEL` are set, and the official `genblaze-core` and `genblaze-gmicloud` packages are installed.
