@@ -16,6 +16,7 @@ from typing import Callable, Mapping
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT / ".env.final.local"
+DEFAULT_B2_SETUP = ROOT / "docs" / "assets" / "b2-live-setup.json"
 SAFE_ENV_RE = re.compile(r"^[A-Za-z0-9_./:@%+=,-]+$")
 
 NEXT_COMMANDS = [
@@ -116,6 +117,32 @@ def collect_values(
 
     if missing:
         raise ValueError("Missing required final env values: " + ", ".join(missing))
+    return values
+
+
+def load_b2_setup(path: Path = DEFAULT_B2_SETUP) -> dict[str, str]:
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}
+    if not data.get("safe_to_commit"):
+        return {}
+    return {
+        "PROOFFRAME_STORAGE_BACKEND": "b2",
+        "B2_ENDPOINT_URL": normalize(str(data.get("endpoint", ""))),
+        "B2_BUCKET": normalize(str(data.get("bucket_name", ""))),
+    }
+
+
+def non_secret_prefill_values(*, b2_setup_path: Path = DEFAULT_B2_SETUP) -> dict[str, str]:
+    values = {
+        "PROOFFRAME_STORAGE_BACKEND": "b2",
+        "PROOFFRAME_GENERATION_BACKEND": "genblaze",
+        "GENBLAZE_IMAGE_MODEL": "seedream-5.0-lite",
+        "GENBLAZE_ASPECT_RATIO": "16:9",
+        "GENBLAZE_TIMEOUT_SECONDS": "180",
+    }
+    values.update({key: value for key, value in load_b2_setup(b2_setup_path).items() if value})
     return values
 
 
@@ -234,6 +261,33 @@ def build_success(output: Path, values: Mapping[str, str]) -> dict[str, object]:
     }
 
 
+def build_prefill_success(output: Path, values: Mapping[str, str]) -> dict[str, object]:
+    missing_secret_names = [
+        name
+        for field in FIELDS
+        if field.secret
+        for name in (field.name, *field.mirror_to)
+        if name not in values
+    ]
+    missing_required_names = [
+        field.name for field in FIELDS if field.required and field.name not in values
+    ]
+    return {
+        "ok": True,
+        "mode": "final_env_non_secret_prefilled",
+        "output": str(output),
+        "chmod": "0600",
+        "written_names": [name for name in ordered_names() if name in values],
+        "missing_required_names": missing_required_names,
+        "missing_secret_names": missing_secret_names,
+        "next_commands": [
+            "python scripts/final_env_wizard.py --output .env.final.local --force",
+            *NEXT_COMMANDS,
+        ],
+        "secret_policy": "Only non-secret values were written. Credential values were not printed or stored.",
+    }
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description="Safely create .env.final.local for ProofFrame live proof."
@@ -250,6 +304,12 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Validate the output target is git-ignored without prompting or writing secrets.",
     )
+    parser.add_argument(
+        "--prefill-non-secret",
+        action="store_true",
+        help="Write known non-secret B2/default values to the local env file and leave secrets empty.",
+    )
+    parser.add_argument("--b2-setup", type=Path, default=DEFAULT_B2_SETUP)
     return parser
 
 
@@ -262,6 +322,15 @@ def main() -> None:
     if not check["ok"]:
         print(json.dumps(check, indent=2))
         raise SystemExit(2)
+    if args.prefill_non_secret:
+        values = non_secret_prefill_values(b2_setup_path=args.b2_setup)
+        try:
+            write_env_file(args.output, render_env_file(values), force=args.force)
+        except FileExistsError as exc:
+            print(json.dumps({"ok": False, "error": str(exc)}, indent=2))
+            raise SystemExit(2) from exc
+        print(json.dumps(build_prefill_success(args.output, values), indent=2))
+        raise SystemExit(0)
 
     try:
         values = collect_values(from_env=args.from_env)

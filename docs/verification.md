@@ -46,6 +46,7 @@ The final sponsor proof has a preflight wrapper:
 
 ```bash
 . .venv/bin/activate
+python scripts/final_env_wizard.py --prefill-non-secret --output .env.final.local
 python scripts/final_env_wizard.py --output .env.final.local
 set -a; source .env.final.local; set +a
 python scripts/live_env_handoff.py --env-file .env.final.local
@@ -189,6 +190,7 @@ Before Devpost submit:
 ```bash
 python scripts/secret_scan.py
 python scripts/claim_lint.py
+python scripts/final_env_wizard.py --prefill-non-secret --output .env.final.local
 python scripts/final_env_wizard.py --output .env.final.local
 set -a; source .env.final.local; set +a
 python scripts/live_env_handoff.py --env-file .env.final.local

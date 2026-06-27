@@ -59,6 +59,33 @@ def test_final_env_wizard_refuses_missing_required_env():
         final_env_wizard.collect_values(from_env=True, environ={})
 
 
+def test_final_env_wizard_prefills_non_secret_b2_values(tmp_path):
+    setup_path = tmp_path / "b2-live-setup.json"
+    setup_path.write_text(
+        json.dumps(
+            {
+                "safe_to_commit": True,
+                "bucket_name": "proofframe-demo-a6b4e49",
+                "endpoint": "s3.us-west-004.backblazeb2.com",
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    values = final_env_wizard.non_secret_prefill_values(b2_setup_path=setup_path)
+    summary = final_env_wizard.build_prefill_success(tmp_path / ".env.final.local", values)
+    rendered = final_env_wizard.render_env_file(values)
+
+    assert values["B2_BUCKET"] == "proofframe-demo-a6b4e49"
+    assert values["B2_ENDPOINT_URL"] == "s3.us-west-004.backblazeb2.com"
+    assert "B2_APPLICATION_KEY=" in rendered
+    assert "GENBLAZE_API_KEY=" in rendered
+    assert "B2_APPLICATION_KEY" in summary["missing_required_names"]
+    assert "GENBLAZE_API_KEY" in summary["missing_secret_names"]
+    assert "secret-b2-key" not in json.dumps(summary)
+    assert "secret-gmi-key" not in json.dumps(summary)
+
+
 def test_final_env_wizard_writes_0600_and_does_not_print_values(tmp_path):
     path = tmp_path / ".env.final.local"
     values = {
