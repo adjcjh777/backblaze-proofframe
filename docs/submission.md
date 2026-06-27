@@ -43,6 +43,7 @@ Codex can handle:
 - B2/Genblaze-backed demo URL or Docker instructions after T020/T021.
 - Devpost text from `docs/devpost_draft.md`.
 - Safe submission bundle manifest from `docs/assets/submission-bundle-manifest.md` and `.json`.
+- Structured demo storyboard from `docs/assets/demo-storyboard.md` and `.json`.
 - 2 minute demo video.
 - Project title: ProofFrame.
 - Tagline: "A provenance-first vault for generated media."

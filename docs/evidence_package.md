@@ -54,6 +54,7 @@ This file is the internal source of truth for Devpost submission assets. Anythin
 | Copy-ready Devpost packet | `docs/assets/devpost-submission-packet.json`, `docs/assets/devpost-submission-packet.md` | Public-ready in pre-live-safe mode |
 | Safe submission bundle manifest | `docs/assets/submission-bundle-manifest.json`, `docs/assets/submission-bundle-manifest.md` | Public-ready in pre-live-safe mode |
 | Demo readiness report | `scripts/demo_readiness.py`, `docs/assets/demo-readiness-report.json`, `docs/assets/demo-readiness-report.md` | Public-ready for mock recording; strict final mode intentionally waits for T020/T021/T041A |
+| Demo storyboard | `scripts/demo_storyboard.py`, `docs/assets/demo-storyboard.json`, `docs/assets/demo-storyboard.md` | Public-ready for mock recording; strict final mode waits for live proof and a public video URL |
 | Devpost draft | `docs/devpost_draft.md` | Public-ready after final claim check |
 | Deployment runbook | `docs/deployment.md` | Public-ready |
 | Task ledger | `tasks.json`, `scripts/task.py` | Public-ready |

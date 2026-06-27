@@ -32,11 +32,14 @@ Devpost packet mode: `pre_live_safe`
 - OK `docs/assets/submission-bundle-manifest.md`
 - OK `docs/assets/live-credential-handoff.json`
 - OK `docs/assets/live-credential-handoff.md`
+- OK `docs/assets/demo-storyboard.json`
+- OK `docs/assets/demo-storyboard.md`
 - OK `docs/assets/proofframe-local-ui-smoke.png`
 - OK `docs/assets/proofframe-review-console-smoke.png`
 - OK `docs/assets/proofframe-hf-public-smoke.png`
 - OK `.env.final.example`
 - OK `scripts/claim_lint.py`
+- OK `scripts/demo_storyboard.py`
 - OK `scripts/live_env_handoff.py`
 - OK `scripts/secret_scan.py`
 

@@ -14,6 +14,7 @@ Show that ProofFrame is not just a media generator. It is an approval and proven
 - Judge recording slate: first viewport of `apps/web/index.html`
 - Local app route: `http://127.0.0.1:8088/`
 - Public repo: `https://github.com/adjcjh777/backblaze-proofframe`
+- Structured storyboard: `docs/assets/demo-storyboard.md`
 - Demo readiness report: `docs/assets/demo-readiness-report.md`
 
 ## Script
@@ -106,6 +107,7 @@ Narration:
 
 - Use a clean browser profile or hide unrelated tabs.
 - Keep terminal font large enough for path and test output.
+- Run `python scripts/demo_storyboard.py` to confirm the timeline remains under 3 minutes and all required recording assets exist.
 - Run `python scripts/demo_readiness.py` before mock recording, and `python scripts/demo_readiness.py --strict-final` before final sponsor-backed recording.
 - Do not show `.env`, API keys, Backblaze keys, Genblaze keys, cookies, signed URLs, or account dashboards with private billing data.
 - Redact full object keys if they reveal bucket names, account ids, or signed query strings.

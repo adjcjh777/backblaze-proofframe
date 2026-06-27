@@ -54,5 +54,8 @@ jobs:
       - name: Live credential handoff
         run: python scripts/live_env_handoff.py
 
+      - name: Demo storyboard
+        run: python scripts/demo_storyboard.py
+
       - name: Demo readiness
         run: python scripts/demo_readiness.py

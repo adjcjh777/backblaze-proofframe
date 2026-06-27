@@ -1,0 +1,127 @@
+{
+  "schema": "proofframe.demo_storyboard.v1",
+  "mode": "mock_storyboard_ready",
+  "target_seconds": 135,
+  "max_seconds": 180,
+  "total_seconds": 135,
+  "under_time_limit": true,
+  "mock_storyboard_ready": true,
+  "final_video_ready": false,
+  "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
+  "public_video_url": "TBD after final B2 and Genblaze proof.",
+  "public_video_ready": false,
+  "task_statuses": {
+    "T020": "doing",
+    "T021": "doing",
+    "T041A": "todo",
+    "T042": "todo"
+  },
+  "submission_gate": {
+    "mode": "pre_live_safe",
+    "evidence_status": "missing",
+    "evidence_ok": false
+  },
+  "segments": [
+    {
+      "start": "0:00",
+      "end": "0:12",
+      "seconds": 12,
+      "title": "Product hook",
+      "screen": "ProofFrame dashboard and judge recording slate.",
+      "safe_narration": "ProofFrame helps teams trust generated media after the prompt is over by turning each asset into a reviewable packet."
+    },
+    {
+      "start": "0:12",
+      "end": "0:35",
+      "seconds": 23,
+      "title": "Campaign brief",
+      "screen": "Campaign, audience, tone, and brief fields.",
+      "safe_narration": "The workflow starts with a creative brief while preserving the operational details teams usually lose."
+    },
+    {
+      "start": "0:35",
+      "end": "0:58",
+      "seconds": 23,
+      "title": "Generate variants",
+      "screen": "Generated asset ledger with provider/model evidence.",
+      "safe_narration": "The public demo uses deterministic mock generation; the same manifest fields are reserved for the final live Genblaze run."
+    },
+    {
+      "start": "0:58",
+      "end": "1:25",
+      "seconds": 27,
+      "title": "Review and approve",
+      "screen": "Approve, reject, search, and filter evidence.",
+      "safe_narration": "Every approval decision travels with the packet so downstream teams know which generated files are safe to use."
+    },
+    {
+      "start": "1:25",
+      "end": "1:48",
+      "seconds": 23,
+      "title": "Manifest preview",
+      "screen": "Provenance chain and manifest JSON.",
+      "safe_narration": "The manifest ties each asset to its prompt, provider, model, storage key, checksum, approval state, and risk note."
+    },
+    {
+      "start": "1:48",
+      "end": "2:08",
+      "seconds": 20,
+      "title": "Export packet",
+      "screen": "Export manifest and download evidence ZIP.",
+      "safe_narration": "The local packet exports as a downloadable ZIP; final B2 proof must verify the same flow through Backblaze storage before public claims are upgraded."
+    },
+    {
+      "start": "2:08",
+      "end": "2:15",
+      "seconds": 7,
+      "title": "Close",
+      "screen": "Repo link, gate status, and ProofFrame title.",
+      "safe_narration": "ProofFrame makes generated media creative enough to move fast and traceable enough to trust."
+    }
+  ],
+  "assets": [
+    {
+      "path": "docs/demo_script.md",
+      "present": true,
+      "bytes": 5191
+    },
+    {
+      "path": "docs/assets/proofframe-local-ui-smoke.png",
+      "present": true,
+      "bytes": 364927
+    },
+    {
+      "path": "docs/assets/proofframe-review-console-smoke.png",
+      "present": true,
+      "bytes": 343618
+    },
+    {
+      "path": "docs/assets/proofframe-hf-public-smoke.png",
+      "present": true,
+      "bytes": 369328
+    },
+    {
+      "path": "docs/assets/demo-readiness-report.md",
+      "present": true,
+      "bytes": 1496
+    },
+    {
+      "path": "docs/assets/live-credential-handoff.md",
+      "present": true,
+      "bytes": 2106
+    },
+    {
+      "path": "docs/assets/devpost-submission-packet.json",
+      "present": true,
+      "bytes": 5286
+    }
+  ],
+  "missing_assets": [],
+  "next_actions": [
+    "Capture live Backblaze B2 asset and manifest proof.",
+    "Capture live Genblaze generation proof.",
+    "Write sanitized final live proof evidence JSON.",
+    "Record and upload the final public demo video under 3 minutes.",
+    "Run final secret scan before publishing the video."
+  ]
+}

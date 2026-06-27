@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T09:33:54Z",
+  "updated_at": "2026-06-27T09:49:39Z",
   "tasks": [
     {
       "id": "T001",
@@ -388,6 +388,15 @@
       "status": "done",
       "done_criteria": "A redacted env template, handoff report, tests, CI step, and docs make final B2/Genblaze proof setup executable without printing secrets.",
       "notes": "Added .env.final.example, scripts/live_env_handoff.py, generated docs/assets/live-credential-handoff.*, CI/readiness wiring, and tests."
+    },
+    {
+      "id": "T039T",
+      "title": "Add demo storyboard gate",
+      "phase": "P3 Demo",
+      "owner": "codex",
+      "status": "done",
+      "done_criteria": "A structured demo storyboard proves the video timeline is under 3 minutes, required assets exist, and final video remains gated on live proof plus a public video URL.",
+      "notes": "Added scripts/demo_storyboard.py, tests, CI wiring, docs/assets/demo-storyboard.{json,md}, and submission bundle coverage."
     },
     {
       "id": "T040",

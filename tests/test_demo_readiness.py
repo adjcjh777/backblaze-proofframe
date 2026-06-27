@@ -74,6 +74,8 @@ def write_demo_fixtures(root: Path, *, live_done: bool = False) -> None:
     write_file(root, "docs/assets/submission-bundle-manifest.md", "# Bundle\n")
     write_file(root, "docs/assets/live-credential-handoff.json", "{}\n")
     write_file(root, "docs/assets/live-credential-handoff.md", "# Handoff\n")
+    write_file(root, "docs/assets/demo-storyboard.json", "{}\n")
+    write_file(root, "docs/assets/demo-storyboard.md", "# Storyboard\n")
     for screenshot in [
         "docs/assets/proofframe-local-ui-smoke.png",
         "docs/assets/proofframe-review-console-smoke.png",
@@ -82,6 +84,7 @@ def write_demo_fixtures(root: Path, *, live_done: bool = False) -> None:
         write_file(root, screenshot, b"\x89PNG\r\n\x1a\nfixture")
     write_file(root, ".env.final.example", "PROOFFRAME_STORAGE_BACKEND=b2\n")
     write_file(root, "scripts/claim_lint.py", "# claim lint\n")
+    write_file(root, "scripts/demo_storyboard.py", "# demo storyboard\n")
     write_file(root, "scripts/live_env_handoff.py", "# live env handoff\n")
     write_file(root, "scripts/secret_scan.py", "# secret scan\n")
     if live_done:
