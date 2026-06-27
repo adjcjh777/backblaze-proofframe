@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.submission_bundle.v1",
-  "created_at": "2026-06-27T18:11:18Z",
+  "created_at": "2026-06-27T18:42:13Z",
   "project": "ProofFrame",
   "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
@@ -127,6 +127,14 @@
       "sha256": "a724d2eced70c79ca9412d6575d7c02b6585ad35e1777159dd97c2cc42b75f35"
     },
     {
+      "id": "dockerfile",
+      "path": "Dockerfile",
+      "label": "Docker deployment image contract",
+      "present": true,
+      "bytes": 522,
+      "sha256": "6764f101746a802d49732d3ad64c0758297e7226493da51fefe142c4431e8c39"
+    },
+    {
       "id": "prd",
       "path": "docs/prd.md",
       "label": "Product requirements",
@@ -141,6 +149,14 @@
       "present": true,
       "bytes": 5107,
       "sha256": "d6be8b19cd14624e32f84c0f743a4c4f370b8b2f3a5b42a8d9270237e1ca4230"
+    },
+    {
+      "id": "deployment_runbook",
+      "path": "docs/deployment.md",
+      "label": "Public demo deployment runbook",
+      "present": true,
+      "bytes": 3883,
+      "sha256": "1d9e5187ffe8b4a6c6a067364c5391260d347a0bff93422ef6f2b4e13a5fff0d"
     },
     {
       "id": "devpost_draft",
@@ -324,7 +340,7 @@
       "label": "Machine-readable final control report",
       "present": true,
       "bytes": 15895,
-      "sha256": "b15af997a016918b3ab9cfaa3d5d009eb0ea5e61f1c181987726e344310f2945"
+      "sha256": "ee9e1cd29eed76104360a5e98824c3f5c1cefee86b077dfc8fa8655c9230084c"
     },
     {
       "id": "final_submission_control_md",
@@ -332,7 +348,7 @@
       "label": "Human-readable final control report",
       "present": true,
       "bytes": 4833,
-      "sha256": "7f6497acfaa65b2f626072615975b4ce6645019b72d3406a1859e7d620468d0f"
+      "sha256": "8a47f292b4e32daea0cf1e6cbe2cdae0b61b5cdccf0f1ac8fe9ba30b4fb0de43"
     },
     {
       "id": "final_operator_brief_script",
@@ -372,7 +388,7 @@
       "label": "Machine-readable submission audit report",
       "present": true,
       "bytes": 5201,
-      "sha256": "d9715f770cd52417e7d8b16c69ae0b2ee645cff02767619c843027881c66120c"
+      "sha256": "57b50e33c50c073a40800d7d75beeea0a43d44b7d3014c273b88092441780319"
     },
     {
       "id": "submission_audit_md",
@@ -380,7 +396,7 @@
       "label": "Human-readable submission audit report",
       "present": true,
       "bytes": 3887,
-      "sha256": "15e9839f28c22913941c41e8f660898ec3237082396b11f339fff6bc7095966a"
+      "sha256": "e818a17407f5ab19b41f526e2a478f497af7fc4546fc50076f65d9649270022a"
     },
     {
       "id": "devpost_receipt_script",
@@ -411,8 +427,8 @@
       "path": "docs/evidence_package.md",
       "label": "Evidence package plan",
       "present": true,
-      "bytes": 12344,
-      "sha256": "503d6e79add1a5bf3db07dd872b32eca4663822088a0ab5afab11156587ad99c"
+      "bytes": 12397,
+      "sha256": "efbcd4059832bff48e5fee90bd9eab341cf64a27a40d1b6989c4263a01612abc"
     },
     {
       "id": "public_claim_freeze",
@@ -427,8 +443,8 @@
       "path": "docs/verification.md",
       "label": "Local, CI, Docker, and live proof runbook",
       "present": true,
-      "bytes": 7818,
-      "sha256": "6ca7c31688bda48751061cd8a1d40c4ed0e7340eb17856d8537231830f8db87c"
+      "bytes": 7933,
+      "sha256": "5fae592330a79cd2814c5d808cc64f1c90f77c7e4c4b9f17f9e5905aee4d57f8"
     },
     {
       "id": "final_env_template",
@@ -451,8 +467,8 @@
       "path": "docs/assets/secret-scan-report.json",
       "label": "Machine-readable secret scan report",
       "present": true,
-      "bytes": 7670,
-      "sha256": "7780ecdcfe22247945beae3751db7380255dc79575d049264a2cf7e5c4f2d2ab"
+      "bytes": 7904,
+      "sha256": "e24182e65053e8ca8037e6fd6ac37a36132d72a42ad3f1503c645e3479653331"
     },
     {
       "id": "secret_scan_md",
@@ -460,7 +476,7 @@
       "label": "Human-readable secret scan report",
       "present": true,
       "bytes": 846,
-      "sha256": "047dfb610c8b155955bed84f1d135aba88feb7794791672587790dd62d63f06a"
+      "sha256": "ad53c936e464119ea8661a2b2223829883033dd6ae5ee799336c01fef633c35c"
     },
     {
       "id": "b2_live_setup_json",
@@ -555,16 +571,16 @@
       "path": "scripts/recording_assets.py",
       "label": "Public-safe recording asset gate",
       "present": true,
-      "bytes": 15950,
-      "sha256": "d07f957b639398dd30d2ed10362b21186fad0f1492b3cf87adda411694a163f7"
+      "bytes": 16842,
+      "sha256": "b304d1b1724fb9d5295c7f4da5c5319cd155c1dfdd9a5019f14aa4d0638f726a"
     },
     {
       "id": "recording_assets_json",
       "path": "docs/assets/recording-assets.json",
       "label": "Machine-readable recording asset report",
       "present": true,
-      "bytes": 5935,
-      "sha256": "6c3d77c9d19614d089ee75759f11b153e0c850362b9f68efcef3c3c4dbd6ce20"
+      "bytes": 6080,
+      "sha256": "fa4bb045738aa3d1d881524eeadd6f2cadbf6a5f57c0b7a1636e1365142d2a27"
     },
     {
       "id": "recording_assets_md",
@@ -595,8 +611,8 @@
       "path": "tasks.json",
       "label": "Machine-readable task board",
       "present": true,
-      "bytes": 26949,
-      "sha256": "f4169345951c6fd1fc5fac011a6c3d81e2753c090fade824714a1f69f8d62327"
+      "bytes": 27518,
+      "sha256": "2cd3b555d1ca8e257f6fdfdbcc06798afba1ea8c18c3fd2683bfe593a2fd49a0"
     },
     {
       "id": "local_ui_smoke",

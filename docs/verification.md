@@ -117,7 +117,11 @@ docker run --rm -p 8089:8088 proofframe:local
 python3 scripts/api_smoke.py --base-url http://127.0.0.1:8089
 ```
 
-The Docker image installs integration packages so the same image can be run with B2 and Genblaze environment variables for final proof.
+The default Docker image is optimized for the credential-free public mock demo and installs the core app only. For a B2/Genblaze-capable image, build with:
+
+```bash
+docker build --build-arg INSTALL_EXTRAS=integrations -t proofframe:integrations .
+```
 
 ## B2 Live Proof
 

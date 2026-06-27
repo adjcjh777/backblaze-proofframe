@@ -163,6 +163,7 @@ def verify_public_demo(base_url: str, fetcher: Fetcher = fetch_text) -> dict[str
         "judge_recording_slate": "Judge recording slate" in html_body,
         "sponsor_evidence_model": "Sponsor Evidence Model" in html_body,
         "auto_load_judge_demo": "shouldAutoLoadJudgeDemo" in html_body,
+        "final_report_gate_copy": "Final reports pending" in html_body,
     }
     health_ok = bool(
         health_json
@@ -170,7 +171,22 @@ def verify_public_demo(base_url: str, fetcher: Fetcher = fetch_text) -> dict[str
         and health_json.get("storage_backend") == "local"
         and health_json.get("generation_backend") == "mock"
     )
-    gate_ok = bool(gate_json and gate_json.get("mode") in {"pre_live_safe", "final_ready"})
+    gate_paths = [
+        gate_json.get("tasks_path") if gate_json else None,
+        gate_json.get("evidence_gate", {}).get("path") if gate_json else None,
+        gate_json.get("packet_gate", {}).get("path") if gate_json else None,
+    ]
+    gate_paths_relative = bool(
+        gate_json
+        and all(isinstance(path, str) and path and not path.startswith("/") for path in gate_paths)
+    )
+    report_gate_present = bool(gate_json and isinstance(gate_json.get("report_gate"), dict))
+    gate_ok = bool(
+        gate_json
+        and gate_json.get("mode") in {"pre_live_safe", "final_ready"}
+        and report_gate_present
+        and gate_paths_relative
+    )
     ok = bool(
         html.get("ok")
         and health.get("ok")
@@ -199,6 +215,11 @@ def verify_public_demo(base_url: str, fetcher: Fetcher = fetch_text) -> dict[str
             "ok": gate_ok,
             "mode": gate_json.get("mode") if gate_json else None,
             "summary": gate_json.get("summary") if gate_json else None,
+            "report_gate_present": report_gate_present,
+            "report_gate_status": (
+                gate_json.get("report_gate", {}).get("status") if gate_json else None
+            ),
+            "paths_relative": gate_paths_relative,
         },
         "errors": [
             str(item.get("error"))

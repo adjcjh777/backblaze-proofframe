@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T18:09:10Z",
+  "updated_at": "2026-06-27T18:39:34Z",
   "tasks": [
     {
       "id": "T001",
@@ -568,6 +568,15 @@
       "status": "done",
       "done_criteria": "GET /api/submission/gate requires final secret scan, submission audit, and Devpost receipt reports before final_ready.",
       "notes": "Bottom-layer browser/API gate now checks report schemas and ok=true, preventing task-status-only final readiness."
+    },
+    {
+      "id": "T042C",
+      "title": "Sync public Space with final report gate",
+      "phase": "P4 Submit",
+      "owner": "tester",
+      "status": "done",
+      "done_criteria": "Public HF Space serves the latest submission gate with report_gate, repo-relative paths, judge-mode UI markers, and passing public API smoke.",
+      "notes": "Pushed HF Space commit 635162b after restoring sdk: docker/app_port: 8088 metadata; verified /api/health, /api/submission/gate report_gate, ?judge=1 HTML markers, and scripts/api_smoke.py against the public Space."
     }
   ]
 }

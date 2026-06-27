@@ -20,8 +20,10 @@ DEFAULT_MD = ROOT / "docs" / "assets" / "submission-bundle-manifest.md"
 
 ARTIFACTS = [
     ("repo_readme", "README.md", "Core public project overview"),
+    ("dockerfile", "Dockerfile", "Docker deployment image contract"),
     ("prd", "docs/prd.md", "Product requirements"),
     ("technical_spec", "docs/spec.md", "Implementation specification"),
+    ("deployment_runbook", "docs/deployment.md", "Public demo deployment runbook"),
     ("devpost_draft", "docs/devpost_draft.md", "Copy-ready Devpost fields"),
     ("devpost_packet_json", "docs/assets/devpost-submission-packet.json", "Machine-readable Devpost copy"),
     ("devpost_packet_md", "docs/assets/devpost-submission-packet.md", "Human-readable Devpost copy"),

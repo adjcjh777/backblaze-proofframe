@@ -9,7 +9,7 @@
     {
       "path": "README.md",
       "present": true,
-      "bytes": 8936
+      "bytes": 9418
     },
     {
       "path": "docs/demo_script.md",
@@ -49,12 +49,12 @@
     {
       "path": "docs/assets/final-submission-control.json",
       "present": true,
-      "bytes": 13666
+      "bytes": 15895
     },
     {
       "path": "docs/assets/final-submission-control.md",
       "present": true,
-      "bytes": 4345
+      "bytes": 4833
     },
     {
       "path": "docs/assets/proofframe-local-ui-smoke.png",
@@ -133,7 +133,8 @@
     "html_markers": {
       "judge_recording_slate": true,
       "sponsor_evidence_model": true,
-      "auto_load_judge_demo": true
+      "auto_load_judge_demo": true,
+      "final_report_gate_copy": true
     },
     "health": {
       "ok": true,
@@ -151,7 +152,10 @@
         "doing": 2,
         "todo": 3,
         "missing": 0
-      }
+      },
+      "report_gate_present": true,
+      "report_gate_status": "incomplete",
+      "paths_relative": true
     },
     "errors": []
   },

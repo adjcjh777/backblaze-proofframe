@@ -79,7 +79,10 @@ def fake_public_fetcher(url: str, timeout: int) -> dict:
         return {
             "ok": True,
             "status": 200,
-            "body": "Judge recording slate Sponsor Evidence Model shouldAutoLoadJudgeDemo",
+            "body": (
+                "Judge recording slate Sponsor Evidence Model shouldAutoLoadJudgeDemo "
+                "Final reports pending"
+            ),
             "error": None,
         }
     if url.endswith("/api/health"):
@@ -93,7 +96,16 @@ def fake_public_fetcher(url: str, timeout: int) -> dict:
         return {
             "ok": True,
             "status": 200,
-            "body": json.dumps({"mode": "pre_live_safe", "summary": {"done": 1}}),
+            "body": json.dumps(
+                {
+                    "mode": "pre_live_safe",
+                    "tasks_path": "tasks.json",
+                    "summary": {"done": 1},
+                    "evidence_gate": {"path": "docs/assets/final-live-proof-evidence.json"},
+                    "packet_gate": {"path": "docs/assets/devpost-submission-packet.json"},
+                    "report_gate": {"status": "incomplete"},
+                }
+            ),
             "error": None,
         }
     raise AssertionError(f"Unexpected URL: {url}")
@@ -134,6 +146,8 @@ def test_recording_assets_public_verification_is_get_only_and_ready(tmp_path):
     assert report["public_mock_verified"] is True
     assert report["mode"] == "public_mock_verified"
     assert report["public_verification"]["health"]["storage_backend"] == "local"
+    assert report["public_verification"]["submission_gate"]["report_gate_present"] is True
+    assert report["public_verification"]["submission_gate"]["paths_relative"] is True
 
 
 def test_recording_assets_final_video_ready_when_source_reports_are_final(tmp_path):
