@@ -1,6 +1,6 @@
 # ProofFrame Submission Bundle
 
-Created: `2026-06-27T11:02:06Z`
+Created: `2026-06-27T16:05:10Z`
 Repository: https://github.com/adjcjh777/backblaze-proofframe
 Public mock demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 Devpost packet mode: `pre_live_safe`
@@ -32,19 +32,19 @@ Final gate ready: `false`
 - `scripts/devpost_form_kit.py` (12830 bytes, sha256 `b0173e698f4c3629...`) - Field-by-field Devpost form kit
 - `docs/assets/devpost-form-kit.json` (12491 bytes, sha256 `4b9e0a7e8284e7a9...`) - Machine-readable Devpost form kit
 - `docs/assets/devpost-form-kit.md` (7504 bytes, sha256 `f0af423732a0613e...`) - Human-readable Devpost form kit
-- `apps/web/index.html` (36252 bytes, sha256 `29c0a95a1757b5a4...`) - Browser proof ledger UI
+- `apps/web/index.html` (41224 bytes, sha256 `a22eeb7f79fbd372...`) - Browser proof ledger UI
 - `docs/demo_script.md` (5690 bytes, sha256 `1a3128155b57c677...`) - Video shot list and narration
 - `scripts/demo_storyboard.py` (11007 bytes, sha256 `dadfe2907f2c1ca5...`) - Machine-checked demo video storyboard
 - `docs/assets/demo-storyboard.json` (4496 bytes, sha256 `68cddae91116f11d...`) - Machine-readable demo storyboard
 - `docs/assets/demo-storyboard.md` (2686 bytes, sha256 `b5a03a0bd468630b...`) - Human-readable demo storyboard
-- `docs/sponsor_fit_matrix.md` (3221 bytes, sha256 `8838d6647a8ae25c...`) - Sponsor judging matrix and claim boundary
-- `scripts/sponsor_fit_audit.py` (7638 bytes, sha256 `02c63787a86e2a8c...`) - Sponsor-fit clarity audit
-- `docs/assets/sponsor-fit-audit.json` (1426 bytes, sha256 `43d48c0a5f8243b7...`) - Machine-readable sponsor-fit audit
-- `docs/assets/sponsor-fit-audit.md` (971 bytes, sha256 `37660ea6e11236a9...`) - Human-readable sponsor-fit audit
-- `scripts/award_readiness.py` (21019 bytes, sha256 `a2c47bc7f1c0b593...`) - Judge-facing award readiness scorecard
-- `docs/assets/award-readiness-report.json` (10205 bytes, sha256 `b2687d61f05416ed...`) - Machine-readable award readiness report
-- `docs/assets/award-readiness-report.md` (3880 bytes, sha256 `a5badbf23a741d1b...`) - Human-readable award readiness report
-- `docs/evidence_package.md` (10267 bytes, sha256 `00a8c0eda14cffa9...`) - Evidence package plan
+- `docs/sponsor_fit_matrix.md` (3288 bytes, sha256 `227cb15be9de8095...`) - Sponsor judging matrix and claim boundary
+- `scripts/sponsor_fit_audit.py` (7965 bytes, sha256 `ef53a82d7e1b1426...`) - Sponsor-fit clarity audit
+- `docs/assets/sponsor-fit-audit.json` (1599 bytes, sha256 `234a2eb7b09ae02e...`) - Machine-readable sponsor-fit audit
+- `docs/assets/sponsor-fit-audit.md` (1088 bytes, sha256 `867d356985612279...`) - Human-readable sponsor-fit audit
+- `scripts/award_readiness.py` (21382 bytes, sha256 `f5a3a59f7c33f75c...`) - Judge-facing award readiness scorecard
+- `docs/assets/award-readiness-report.json` (10504 bytes, sha256 `d7508620d451050e...`) - Machine-readable award readiness report
+- `docs/assets/award-readiness-report.md` (3993 bytes, sha256 `841b753556e68b15...`) - Human-readable award readiness report
+- `docs/evidence_package.md` (10441 bytes, sha256 `2ce3cd1fccd2f03b...`) - Evidence package plan
 - `docs/public_claim_freeze.md` (4089 bytes, sha256 `735b9188feae74ea...`) - Verified-claim boundary
 - `docs/verification.md` (6727 bytes, sha256 `a83398744b25370d...`) - Local, CI, Docker, and live proof runbook
 - `.env.final.example` (352 bytes, sha256 `d250e97bb0a653fa...`) - Redacted final B2 plus Genblaze env template
@@ -57,11 +57,11 @@ Final gate ready: `false`
 - `scripts/final_env_wizard.py` (11654 bytes, sha256 `9cd606a2cbca1a93...`) - Local final credential env wizard
 - `scripts/claim_lint.py` (5190 bytes, sha256 `d8e9f53dfee772a1...`) - Fail-closed public claim lint
 - `scripts/demo_readiness.py` (8540 bytes, sha256 `283410fe3daef374...`) - Demo recording readiness gate
-- `docs/assets/demo-readiness-report.json` (3552 bytes, sha256 `6dfe055e31e52865...`) - Machine-readable demo readiness report
+- `docs/assets/demo-readiness-report.json` (3552 bytes, sha256 `4265ea00b06d815c...`) - Machine-readable demo readiness report
 - `docs/assets/demo-readiness-report.md` (1647 bytes, sha256 `742c02b42b2dd717...`) - Human-readable demo readiness report
 - `scripts/run_final_live_proof.py` (4938 bytes, sha256 `21e83a6213cd5f13...`) - One-command final B2 plus Genblaze proof runner
 - `docs/submission.md` (3209 bytes, sha256 `1441300c209a5c40...`) - Registration and submission plan
-- `tasks.json` (21187 bytes, sha256 `f1eb677c510b6024...`) - Machine-readable task board
+- `tasks.json` (21801 bytes, sha256 `757087bffbe2fb78...`) - Machine-readable task board
 - `docs/assets/proofframe-local-ui-smoke.png` (364927 bytes, sha256 `cca671ad38bda4dc...`) - Local UI screenshot
 - `docs/assets/proofframe-review-console-smoke.png` (343618 bytes, sha256 `30620a33e3c7ab28...`) - Review console screenshot
 - `docs/assets/proofframe-hf-public-smoke.png` (369328 bytes, sha256 `8f7dc32d520f8391...`) - Public mock demo screenshot

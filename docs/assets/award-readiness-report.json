@@ -1,9 +1,9 @@
 {
   "schema": "proofframe.award_readiness.v1",
   "project": "ProofFrame",
-  "score": 79,
-  "max_score": 108,
-  "percent": 73.1,
+  "score": 82,
+  "max_score": 111,
+  "percent": 73.9,
   "mode": "pre_live_competitive",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
   "task_statuses": {
@@ -126,9 +126,9 @@
     {
       "id": "product_depth",
       "label": "Provenance product depth",
-      "score": 16,
-      "max_score": 20,
-      "percent": 80.0,
+      "score": 19,
+      "max_score": 23,
+      "percent": 82.6,
       "signals": [
         {
           "id": "manifest_model",
@@ -161,6 +161,14 @@
           "points": 0,
           "max_points": 4,
           "detail": "The app is positioned as an operations desk, not a generic generator."
+        },
+        {
+          "id": "sponsor_model_ui",
+          "label": "Sponsor evidence model is visible in the UI",
+          "ok": true,
+          "points": 3,
+          "max_points": 3,
+          "detail": "Judge mode foregrounds Genblaze, B2 object route, manifest proof, and claim mode."
         },
         {
           "id": "prd_spec",

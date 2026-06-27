@@ -45,6 +45,11 @@ def write_fixtures(root: Path) -> None:
     )
     write_file(
         root,
+        "apps/web/index.html",
+        "<section>Sponsor Evidence Model <b>Genblaze Step</b> <b>B2 Object Route</b></section>\n",
+    )
+    write_file(
+        root,
         "docs/assets/devpost-submission-packet.json",
         json.dumps(
             {

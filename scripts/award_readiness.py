@@ -228,6 +228,13 @@ def build_criteria(root: Path, context: dict[str, Any]) -> list[dict[str, Any]]:
                     "The app is positioned as an operations desk, not a generic generator.",
                 ),
                 signal(
+                    "sponsor_model_ui",
+                    "Sponsor evidence model is visible in the UI",
+                    has_text(root, "apps/web/index.html", "Sponsor Evidence Model"),
+                    3,
+                    "Judge mode foregrounds Genblaze, B2 object route, manifest proof, and claim mode.",
+                ),
+                signal(
                     "prd_spec",
                     "PRD and technical spec are present",
                     path_present(root, "docs/prd.md") and path_present(root, "docs/spec.md"),

@@ -36,6 +36,7 @@ This file is the internal source of truth for Devpost submission assets. Anythin
 | Submission plan | `docs/submission.md` | Public-ready after final claim check |
 | Local Proof Ledger UI | `apps/web/index.html` | Public-ready |
 | Judge recording slate | First viewport in `apps/web/index.html` showing demo mode, evidence packet state, and claim boundary | Public-ready in local/mock mode |
+| Sponsor evidence model | First viewport in `apps/web/index.html` showing Genblaze step, B2 object route, manifest proof, and claim mode | Public-ready in local/mock mode |
 | Review console | scorecard, status filter, search, safe summary copy in `apps/web/index.html` | Public-ready in local/mock mode |
 | Review console smoke screenshot | `docs/assets/proofframe-review-console-smoke.png` | Public-ready in local/mock mode |
 | UI smoke screenshot | `docs/assets/proofframe-local-ui-smoke.png` | Public-ready |

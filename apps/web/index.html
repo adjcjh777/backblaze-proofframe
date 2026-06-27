@@ -241,6 +241,80 @@
         border-right: 0;
       }
 
+      .slate-item:nth-child(3) {
+        border-right: 0;
+      }
+
+      .sponsor-map {
+        border-top: 1px solid var(--ink);
+        grid-column: 1 / -1;
+        padding: 14px 16px 16px;
+      }
+
+      .sponsor-map header {
+        align-items: baseline;
+        display: flex;
+        gap: 12px;
+        justify-content: space-between;
+        margin-bottom: 12px;
+      }
+
+      .sponsor-map h2 {
+        font-family: var(--display);
+        font-size: 21px;
+        line-height: 1;
+        margin: 0;
+      }
+
+      .sponsor-map header span {
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 11px;
+      }
+
+      .sponsor-rail {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 0;
+        border-top: 1px solid var(--rule);
+      }
+
+      .sponsor-node {
+        min-height: 82px;
+        border-right: 1px solid var(--rule);
+        padding: 12px 12px 0 0;
+      }
+
+      .sponsor-node:last-child {
+        border-right: 0;
+      }
+
+      .sponsor-node label {
+        color: var(--muted);
+        display: block;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+      }
+
+      .sponsor-node strong {
+        display: block;
+        font-size: 14px;
+        line-height: 1.25;
+        margin-bottom: 6px;
+      }
+
+      .sponsor-node span {
+        color: var(--muted);
+        display: block;
+        font-family: var(--mono);
+        font-size: 11px;
+        line-height: 1.42;
+        overflow-wrap: anywhere;
+      }
+
       .slate-item label {
         color: var(--muted);
         display: block;
@@ -533,9 +607,29 @@
           grid-template-columns: 1fr;
         }
 
+        .shell > * {
+          min-width: 0;
+        }
+
+        main {
+          padding: 22px 16px 72px;
+        }
+
+        h1 {
+          font-size: 36px;
+        }
+
+        .topbar {
+          flex-direction: column;
+        }
+
         .sidebar,
         .inspector {
           border: 0;
+        }
+
+        .brief-panel {
+          grid-template-columns: 1fr;
         }
 
         .review-console,
@@ -544,18 +638,37 @@
           grid-template-columns: 1fr;
         }
 
+        .sponsor-rail {
+          grid-template-columns: 1fr;
+        }
+
         .slate-item {
           border-right: 0;
           border-bottom: 1px solid var(--rule);
         }
 
-        .slate-item:last-child {
+        .sponsor-node {
+          border-right: 0;
+          border-bottom: 1px solid var(--rule);
+          padding-right: 0;
+        }
+
+        .sponsor-node:last-child {
           border-bottom: 0;
         }
 
         .packet-bar {
           align-items: stretch;
           flex-direction: column;
+        }
+
+        section[aria-label="Asset ledger"] {
+          overflow-x: auto;
+        }
+
+        .ledger-head,
+        .asset-row {
+          min-width: 640px;
         }
 
         .scorecard-item {
@@ -644,6 +757,34 @@
             <label>Claim Boundary</label>
             <strong id="slateClaim">Pre-live safe</strong>
             <span id="slateClaimDetail">Live B2 and Genblaze proof remain gated.</span>
+          </div>
+          <div class="sponsor-map" aria-label="Sponsor evidence model">
+            <header>
+              <h2>Sponsor Evidence Model</h2>
+              <span id="sponsorModelStatus">B2/Genblaze final proof gated</span>
+            </header>
+            <div class="sponsor-rail">
+              <div class="sponsor-node">
+                <label>Genblaze Step</label>
+                <strong id="sponsorGenblaze">Provider path ready</strong>
+                <span id="sponsorGenblazeDetail">mock now / Genblaze final gate</span>
+              </div>
+              <div class="sponsor-node">
+                <label>B2 Object Route</label>
+                <strong id="sponsorB2">B2 adapter ready</strong>
+                <span id="sponsorB2Detail">private bucket prepared / live upload gated</span>
+              </div>
+              <div class="sponsor-node">
+                <label>Manifest Proof</label>
+                <strong id="sponsorManifest">Prompt + model + hash</strong>
+                <span id="sponsorManifestDetail">storage key and checksum travel together</span>
+              </div>
+              <div class="sponsor-node">
+                <label>Claim Mode</label>
+                <strong id="sponsorClaim">Pre-live safe</strong>
+                <span id="sponsorClaimDetail">no completed B2/Genblaze claim yet</span>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -913,6 +1054,7 @@
         const gate = state.submissionGate || {};
         const total = state.assets.length;
         const approved = state.assets.filter((asset) => asset.status === "approved").length;
+        const firstAsset = state.assets[0];
         const runtime = `${health.storage_backend || "checking"} storage / ${
           health.generation_backend || "checking"
         } generation`;
@@ -930,6 +1072,30 @@
         el("slatePacketDetail").textContent = state.packetDetail;
         el("slateClaim").textContent = claimMode;
         el("slateClaimDetail").textContent = nextAction;
+
+        el("sponsorModelStatus").textContent = finalReady
+          ? "B2/Genblaze proof verified"
+          : "B2/Genblaze final proof gated";
+        el("sponsorGenblaze").textContent = health.genblaze_configured
+          ? "Genblaze configured"
+          : "Provider path ready";
+        el("sponsorGenblazeDetail").textContent = firstAsset
+          ? `${firstAsset.provider} / ${firstAsset.model}`
+          : "mock now / Genblaze final gate";
+        el("sponsorB2").textContent = health.b2_configured ? "B2 configured" : "B2 adapter ready";
+        el("sponsorB2Detail").textContent = firstAsset
+          ? `${firstAsset.storage_backend} / ${short(firstAsset.storage_key, 42)}`
+          : "private bucket prepared / live upload gated";
+        el("sponsorManifest").textContent = total
+          ? `${total} assets tracked`
+          : "Prompt + model + hash";
+        el("sponsorManifestDetail").textContent = firstAsset
+          ? `sha256 ${short(firstAsset.sha256, 24)}`
+          : "storage key and checksum travel together";
+        el("sponsorClaim").textContent = claimMode;
+        el("sponsorClaimDetail").textContent = finalReady
+          ? "safe to claim live sponsor proof"
+          : "no completed B2/Genblaze claim yet";
       }
 
       function renderCampaigns() {

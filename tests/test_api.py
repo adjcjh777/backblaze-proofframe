@@ -25,6 +25,8 @@ def test_health_and_campaign_flow(tmp_path):
     assert "Generated Media Ledger" in index_response.text
     assert "Search Evidence" in index_response.text
     assert "Judge recording slate" in index_response.text
+    assert "Sponsor Evidence Model" in index_response.text
+    assert "B2/Genblaze final proof gated" in index_response.text
     assert "Claim Boundary" in index_response.text
     assert "Submission readiness gate" in index_response.text
     assert "shouldAutoLoadJudgeDemo" in index_response.text

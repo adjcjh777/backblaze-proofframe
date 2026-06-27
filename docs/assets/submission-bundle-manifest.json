@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.submission_bundle.v1",
-  "created_at": "2026-06-27T11:02:06Z",
+  "created_at": "2026-06-27T16:05:10Z",
   "project": "ProofFrame",
   "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
@@ -28,14 +28,14 @@
     "packet_gate": {
       "ok": true,
       "status": "ready",
-      "path": "/Users/junhaocheng/Documents/Codex/2026-06-27/quan/backblaze-proofframe/docs/assets/devpost-submission-packet.json",
+      "path": "/Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe/docs/assets/devpost-submission-packet.json",
       "mode": "pre_live_safe",
       "claim_warning": "Safe for public mock demo only. Do not submit as final sponsor proof."
     },
     "evidence_gate": {
       "ok": false,
       "status": "missing",
-      "path": "/Users/junhaocheng/Documents/Codex/2026-06-27/quan/backblaze-proofframe/docs/assets/final-live-proof-evidence.json",
+      "path": "/Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe/docs/assets/final-live-proof-evidence.json",
       "findings": [
         {
           "field": "final-live-proof-evidence",
@@ -129,8 +129,8 @@
       "path": "apps/web/index.html",
       "label": "Browser proof ledger UI",
       "present": true,
-      "bytes": 36252,
-      "sha256": "29c0a95a1757b5a4689c45adedeee99b8906b8265c6cfe7c7382369b4692a471"
+      "bytes": 41224,
+      "sha256": "a22eeb7f79fbd3720f147c233c26e511ced1f59e5449479570f05610214bc6cf"
     },
     {
       "id": "demo_script",
@@ -169,64 +169,64 @@
       "path": "docs/sponsor_fit_matrix.md",
       "label": "Sponsor judging matrix and claim boundary",
       "present": true,
-      "bytes": 3221,
-      "sha256": "8838d6647a8ae25c8974dea9b28fa5025408ce4d6c930897ab491e97d61b5a17"
+      "bytes": 3288,
+      "sha256": "227cb15be9de8095a9878eb1d7c94d5886c84d3f3efe7f7b1b1d9a2936a22d97"
     },
     {
       "id": "sponsor_fit_audit_script",
       "path": "scripts/sponsor_fit_audit.py",
       "label": "Sponsor-fit clarity audit",
       "present": true,
-      "bytes": 7638,
-      "sha256": "02c63787a86e2a8c3417a6d6f4697a332d8ddf3d0c5174c73d359e4dd5931282"
+      "bytes": 7965,
+      "sha256": "ef53a82d7e1b1426b1f1227e27207930be2a2976f1f616b7e0cbea4ed5fba63d"
     },
     {
       "id": "sponsor_fit_audit_json",
       "path": "docs/assets/sponsor-fit-audit.json",
       "label": "Machine-readable sponsor-fit audit",
       "present": true,
-      "bytes": 1426,
-      "sha256": "43d48c0a5f8243b75d4b335cb2ce8d370b5e0b7f2abe39d241aa47cbae4a85c7"
+      "bytes": 1599,
+      "sha256": "234a2eb7b09ae02e252dd2e33f069505434206f248d0e3ba5a918b3c9e8ee86e"
     },
     {
       "id": "sponsor_fit_audit_md",
       "path": "docs/assets/sponsor-fit-audit.md",
       "label": "Human-readable sponsor-fit audit",
       "present": true,
-      "bytes": 971,
-      "sha256": "37660ea6e11236a92cafde56e0b287abc807946308dd4f7dbaa882a0a3acb3b6"
+      "bytes": 1088,
+      "sha256": "867d35698561227903141f1b9ea3af8d8d733caa1cf169b32c615edec766c1f0"
     },
     {
       "id": "award_readiness_script",
       "path": "scripts/award_readiness.py",
       "label": "Judge-facing award readiness scorecard",
       "present": true,
-      "bytes": 21019,
-      "sha256": "a2c47bc7f1c0b593c059b18fc310fbb229bfd898722492eee4e2bf486ef5922e"
+      "bytes": 21382,
+      "sha256": "f5a3a59f7c33f75c56595268e7bcd1fc8a8166793c517bd7f9c0c16acfb43757"
     },
     {
       "id": "award_readiness_json",
       "path": "docs/assets/award-readiness-report.json",
       "label": "Machine-readable award readiness report",
       "present": true,
-      "bytes": 10205,
-      "sha256": "b2687d61f05416edb018a0a7470b8148e1d6d511c78ff7e8da8cbafdd2280ed5"
+      "bytes": 10504,
+      "sha256": "d7508620d451050ef563e91897229ed9ec14485f8e54c8a60f78acc881eee510"
     },
     {
       "id": "award_readiness_md",
       "path": "docs/assets/award-readiness-report.md",
       "label": "Human-readable award readiness report",
       "present": true,
-      "bytes": 3880,
-      "sha256": "a5badbf23a741d1b5ae6527d90eed396b9dcee36caafb860a8c229d7243a81e8"
+      "bytes": 3993,
+      "sha256": "841b753556e68b1531a63b0ba01cf55a16df65374ff340a6376f6c37d187addb"
     },
     {
       "id": "evidence_package",
       "path": "docs/evidence_package.md",
       "label": "Evidence package plan",
       "present": true,
-      "bytes": 10267,
-      "sha256": "00a8c0eda14cffa9d60c937f88115cfc1e8d80c7c495b9695f062ba341ec4fb8"
+      "bytes": 10441,
+      "sha256": "2ce3cd1fccd2f03b3ca92821fab95addf65c01b6b2a1e539f73d8c343245d62a"
     },
     {
       "id": "public_claim_freeze",
@@ -330,7 +330,7 @@
       "label": "Machine-readable demo readiness report",
       "present": true,
       "bytes": 3552,
-      "sha256": "6dfe055e31e5286522b7182b1b58e2b861bf5587fa3d2ba85d6ef9be750a3314"
+      "sha256": "4265ea00b06d815c5b4df504bde0139517f54ecc5ca9dd0fd70c6603ea8fb938"
     },
     {
       "id": "demo_readiness_md",
@@ -361,8 +361,8 @@
       "path": "tasks.json",
       "label": "Machine-readable task board",
       "present": true,
-      "bytes": 21187,
-      "sha256": "f1eb677c510b6024031104afca7fe4151ef03b47ca3c8ba0b9e7d858d4ed923f"
+      "bytes": 21801,
+      "sha256": "757087bffbe2fb78536186a2a576b157c696ce14700cb89fcaf665cd252895ae"
     },
     {
       "id": "local_ui_smoke",

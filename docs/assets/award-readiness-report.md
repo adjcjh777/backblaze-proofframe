@@ -1,7 +1,7 @@
 # ProofFrame Award Readiness
 
 Mode: `pre_live_competitive`
-Score: `79/108` (73.1%)
+Score: `82/111` (73.9%)
 Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 
 ## Gate Snapshot
@@ -26,11 +26,12 @@ Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 - TODO `b2_live_evidence` (0/4): T020 requires a real B2 media and manifest proof.
 - TODO `genblaze_live_evidence` (0/4): T021 requires provider/model metadata from a live Genblaze run.
 
-### Provenance product depth - 16/20 (80.0%)
+### Provenance product depth - 19/23 (82.6%)
 - OK `manifest_model` (4/4): Assets, prompts, provider/model metadata, hashes, and review state are modeled.
 - OK `packet_zip` (4/4): Judges can inspect a packaged manifest and local media evidence.
 - OK `judge_packet` (4/4): The demo can be loaded quickly into a believable reviewer workflow.
 - TODO `review_console` (0/4): The app is positioned as an operations desk, not a generic generator.
+- OK `sponsor_model_ui` (3/3): Judge mode foregrounds Genblaze, B2 object route, manifest proof, and claim mode.
 - OK `prd_spec` (4/4): The product and implementation story are documented for judges and maintainers.
 
 ### Demo and Devpost readiness - 25/25 (100.0%)

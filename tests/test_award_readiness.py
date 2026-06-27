@@ -62,7 +62,7 @@ def write_common_fixtures(root: Path, *, live_done: bool = False, final_done: bo
     write_file(root, "src/proofframe/providers.py", "class GenblazeMediaProvider:\n    pass\n")
     write_file(root, "src/proofframe/models.py", "class CampaignManifest:\n    pass\n")
     write_file(root, "src/proofframe/app.py", '"/api/demo/judge-packet"\n"packet.zip"\n')
-    write_file(root, "apps/web/index.html", "<main>review console</main>\n")
+    write_file(root, "apps/web/index.html", "<main>review console Sponsor Evidence Model</main>\n")
     write_file(root, "scripts/run_b2_live_proof.py", "# b2 runner\n")
     write_file(root, "scripts/run_final_live_proof.py", "# final runner\n")
     write_file(root, "scripts/api_smoke.py", "def assert_safe_evidence():\n    pass\n")

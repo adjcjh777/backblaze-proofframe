@@ -86,11 +86,17 @@ def build_report(root: Path = ROOT) -> dict[str, Any]:
     b2_usage = str(packet.get("b2_usage", ""))
     genblaze_usage = str(packet.get("genblaze_usage", ""))
     matrix_text = read_text(root / "docs" / "sponsor_fit_matrix.md")
+    ui_text = read_text(root / "apps" / "web" / "index.html")
     signals = [
         signal(
             "matrix_present",
             text_has_all(matrix_text, ["Official judging angle", "Backblaze B2", "Genblaze"]),
             "docs/sponsor_fit_matrix.md maps judging criteria to safe claims and final gates.",
+        ),
+        signal(
+            "ui_sponsor_model_present",
+            text_has_all(ui_text, ["Sponsor Evidence Model", "Genblaze Step", "B2 Object Route"]),
+            "Judge mode first viewport exposes the sponsor evidence model inside the product UI.",
         ),
         signal(
             "b2_usage_specific",

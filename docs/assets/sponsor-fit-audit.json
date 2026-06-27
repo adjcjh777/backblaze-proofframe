@@ -12,6 +12,11 @@
       "detail": "docs/sponsor_fit_matrix.md maps judging criteria to safe claims and final gates."
     },
     {
+      "id": "ui_sponsor_model_present",
+      "ok": true,
+      "detail": "Judge mode first viewport exposes the sponsor evidence model inside the product UI."
+    },
+    {
       "id": "b2_usage_specific",
       "ok": true,
       "detail": "Devpost B2 copy explains the object model, prepared bucket, and final live gate."

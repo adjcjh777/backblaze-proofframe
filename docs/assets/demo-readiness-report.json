@@ -71,12 +71,12 @@
     {
       "path": "docs/assets/submission-bundle-manifest.json",
       "present": true,
-      "bytes": 13439
+      "bytes": 13432
     },
     {
       "path": "docs/assets/submission-bundle-manifest.md",
       "present": true,
-      "bytes": 5538
+      "bytes": 5539
     },
     {
       "path": "docs/assets/live-credential-handoff.json",
