@@ -1,6 +1,6 @@
 # ProofFrame Submission Bundle
 
-Created: `2026-06-27T09:51:00Z`
+Created: `2026-06-27T10:05:35Z`
 Repository: https://github.com/adjcjh777/backblaze-proofframe
 Public mock demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 Devpost packet mode: `pre_live_safe`
@@ -23,7 +23,7 @@ Final gate ready: `false`
 
 ## Artifacts
 
-- `README.md` (6751 bytes, sha256 `272f6c6100ea3e40...`) - Core public project overview
+- `README.md` (6991 bytes, sha256 `04e64764feeba583...`) - Core public project overview
 - `docs/prd.md` (3918 bytes, sha256 `ada7e9161b86483c...`) - Product requirements
 - `docs/spec.md` (4874 bytes, sha256 `8320ef186af34075...`) - Implementation specification
 - `docs/devpost_draft.md` (5621 bytes, sha256 `85588ba9e7178774...`) - Copy-ready Devpost fields
@@ -32,22 +32,23 @@ Final gate ready: `false`
 - `apps/web/index.html` (36252 bytes, sha256 `29c0a95a1757b5a4...`) - Browser proof ledger UI
 - `docs/demo_script.md` (5191 bytes, sha256 `eada3cd6d2d9602a...`) - Video shot list and narration
 - `scripts/demo_storyboard.py` (10468 bytes, sha256 `91cb5c18caf82193...`) - Machine-checked demo video storyboard
-- `docs/assets/demo-storyboard.json` (4024 bytes, sha256 `01d46086ba401dfb...`) - Machine-readable demo storyboard
+- `docs/assets/demo-storyboard.json` (4024 bytes, sha256 `035de47d6b97d440...`) - Machine-readable demo storyboard
 - `docs/assets/demo-storyboard.md` (2335 bytes, sha256 `df2fa670669380a0...`) - Human-readable demo storyboard
-- `docs/evidence_package.md` (8836 bytes, sha256 `d396c19a24e315d7...`) - Evidence package plan
+- `docs/evidence_package.md` (9001 bytes, sha256 `45c63438fa4b3a4f...`) - Evidence package plan
 - `docs/public_claim_freeze.md` (4089 bytes, sha256 `735b9188feae74ea...`) - Verified-claim boundary
-- `docs/verification.md` (5660 bytes, sha256 `7cfd6072268e71e6...`) - Local, CI, Docker, and live proof runbook
+- `docs/verification.md` (5962 bytes, sha256 `40921d8651563f8a...`) - Local, CI, Docker, and live proof runbook
 - `.env.final.example` (352 bytes, sha256 `d250e97bb0a653fa...`) - Redacted final B2 plus Genblaze env template
-- `scripts/live_env_handoff.py` (9023 bytes, sha256 `f2cad4fd96ce4bca...`) - Redacted live credential handoff gate
-- `docs/assets/live-credential-handoff.json` (4113 bytes, sha256 `ae808f6c4d1bc03a...`) - Machine-readable live credential handoff
-- `docs/assets/live-credential-handoff.md` (2106 bytes, sha256 `dd3f991b13704e63...`) - Human-readable live credential handoff
+- `scripts/live_env_handoff.py` (9091 bytes, sha256 `b3aa1a99eabb39fc...`) - Redacted live credential handoff gate
+- `docs/assets/live-credential-handoff.json` (4181 bytes, sha256 `8d80d985c8337003...`) - Machine-readable live credential handoff
+- `docs/assets/live-credential-handoff.md` (2179 bytes, sha256 `8b172d4fc8e48594...`) - Human-readable live credential handoff
+- `scripts/final_env_wizard.py` (8933 bytes, sha256 `5f7f1e16f48145e8...`) - Local final credential env wizard
 - `scripts/claim_lint.py` (5110 bytes, sha256 `822950960a0f0045...`) - Fail-closed public claim lint
 - `scripts/demo_readiness.py` (8389 bytes, sha256 `7c99558d941f652d...`) - Demo recording readiness gate
-- `docs/assets/demo-readiness-report.json` (3134 bytes, sha256 `a5dca78da56baade...`) - Machine-readable demo readiness report
+- `docs/assets/demo-readiness-report.json` (3134 bytes, sha256 `884524b0b2cd3e3a...`) - Machine-readable demo readiness report
 - `docs/assets/demo-readiness-report.md` (1496 bytes, sha256 `e9581e90601440bc...`) - Human-readable demo readiness report
 - `scripts/run_final_live_proof.py` (4938 bytes, sha256 `21e83a6213cd5f13...`) - One-command final B2 plus Genblaze proof runner
-- `docs/submission.md` (3057 bytes, sha256 `363610340989c72c...`) - Registration and submission plan
-- `tasks.json` (18791 bytes, sha256 `0ab93fc03a50bc64...`) - Machine-readable task board
+- `docs/submission.md` (3123 bytes, sha256 `bc12f1724f9158a2...`) - Registration and submission plan
+- `tasks.json` (19306 bytes, sha256 `b82fdce95fa696ef...`) - Machine-readable task board
 - `docs/assets/proofframe-local-ui-smoke.png` (364927 bytes, sha256 `cca671ad38bda4dc...`) - Local UI screenshot
 - `docs/assets/proofframe-review-console-smoke.png` (343618 bytes, sha256 `30620a33e3c7ab28...`) - Review console screenshot
 - `docs/assets/proofframe-hf-public-smoke.png` (369328 bytes, sha256 `8f7dc32d520f8391...`) - Public mock demo screenshot

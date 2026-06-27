@@ -34,6 +34,9 @@ This report records only variable names and presence checks. It never prints, ha
 ## Next Commands
 
 ```bash
+python scripts/final_env_wizard.py --output .env.final.local
+```
+```bash
 set -a; source .env.final.local; set +a
 ```
 ```bash

@@ -37,6 +37,7 @@ ARTIFACTS = [
     ("live_env_handoff_script", "scripts/live_env_handoff.py", "Redacted live credential handoff gate"),
     ("live_env_handoff_json", "docs/assets/live-credential-handoff.json", "Machine-readable live credential handoff"),
     ("live_env_handoff_md", "docs/assets/live-credential-handoff.md", "Human-readable live credential handoff"),
+    ("final_env_wizard", "scripts/final_env_wizard.py", "Local final credential env wizard"),
     ("public_claim_lint", "scripts/claim_lint.py", "Fail-closed public claim lint"),
     ("demo_readiness_script", "scripts/demo_readiness.py", "Demo recording readiness gate"),
     ("demo_readiness_json", "docs/assets/demo-readiness-report.json", "Machine-readable demo readiness report"),

@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.submission_bundle.v1",
-  "created_at": "2026-06-27T09:51:00Z",
+  "created_at": "2026-06-27T10:05:35Z",
   "project": "ProofFrame",
   "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
@@ -57,8 +57,8 @@
       "path": "README.md",
       "label": "Core public project overview",
       "present": true,
-      "bytes": 6751,
-      "sha256": "272f6c6100ea3e4021391606e960b93465574f88c05f6f651322d16f4174d918"
+      "bytes": 6991,
+      "sha256": "04e64764feeba583a31077543c6741c01a011765e8da3f121a399b238880c304"
     },
     {
       "id": "prd",
@@ -130,7 +130,7 @@
       "label": "Machine-readable demo storyboard",
       "present": true,
       "bytes": 4024,
-      "sha256": "01d46086ba401dfba6f64ad3a032d4a021ef50dd366d13b13e7bf92abc178a9a"
+      "sha256": "035de47d6b97d44022a8c455ba3fbf92f4fb918db1c6d00eb411934f26dfbc52"
     },
     {
       "id": "demo_storyboard_md",
@@ -145,8 +145,8 @@
       "path": "docs/evidence_package.md",
       "label": "Evidence package plan",
       "present": true,
-      "bytes": 8836,
-      "sha256": "d396c19a24e315d7a4d68308644dc0b2ea69639b72a87e12f4eda94d2bc78e6d"
+      "bytes": 9001,
+      "sha256": "45c63438fa4b3a4ffd6d8416eec19396f413a6f82e8df51204e25194de1db663"
     },
     {
       "id": "public_claim_freeze",
@@ -161,8 +161,8 @@
       "path": "docs/verification.md",
       "label": "Local, CI, Docker, and live proof runbook",
       "present": true,
-      "bytes": 5660,
-      "sha256": "7cfd6072268e71e61fede352beb2f40c92618d8145168dd087798cc98739475c"
+      "bytes": 5962,
+      "sha256": "40921d8651563f8aecfc9e8fbc575f4618588ab5dc0f7df7f7930d398f99985c"
     },
     {
       "id": "final_env_template",
@@ -177,24 +177,32 @@
       "path": "scripts/live_env_handoff.py",
       "label": "Redacted live credential handoff gate",
       "present": true,
-      "bytes": 9023,
-      "sha256": "f2cad4fd96ce4bca8e33feb32cc9dea5c4daac0954d6510959ca0fa9a7e9d6c7"
+      "bytes": 9091,
+      "sha256": "b3aa1a99eabb39fc471f604d1e781febb113524ddeb6ef6473d03ef474550c21"
     },
     {
       "id": "live_env_handoff_json",
       "path": "docs/assets/live-credential-handoff.json",
       "label": "Machine-readable live credential handoff",
       "present": true,
-      "bytes": 4113,
-      "sha256": "ae808f6c4d1bc03a942cecff06906d248ad2de57bc256218592b95e43ce32aaf"
+      "bytes": 4181,
+      "sha256": "8d80d985c8337003be0e1b52e39a15f512e146efe26f58a2e7440af243774691"
     },
     {
       "id": "live_env_handoff_md",
       "path": "docs/assets/live-credential-handoff.md",
       "label": "Human-readable live credential handoff",
       "present": true,
-      "bytes": 2106,
-      "sha256": "dd3f991b13704e634e6034cab5eec9f1fe33e07f5ee1655971bcc94fd9cd095f"
+      "bytes": 2179,
+      "sha256": "8b172d4fc8e485946178b7be82ac958524adaec227cf7f4c3fe76181ddf3437d"
+    },
+    {
+      "id": "final_env_wizard",
+      "path": "scripts/final_env_wizard.py",
+      "label": "Local final credential env wizard",
+      "present": true,
+      "bytes": 8933,
+      "sha256": "5f7f1e16f48145e86b5929a6938ab4494e366cf4a3530e94733b173e6c6adc3d"
     },
     {
       "id": "public_claim_lint",
@@ -218,7 +226,7 @@
       "label": "Machine-readable demo readiness report",
       "present": true,
       "bytes": 3134,
-      "sha256": "a5dca78da56baadedb03e4314c9ce2183b8a381512157b56ca2dea6d4ca78eff"
+      "sha256": "884524b0b2cd3e3a9142fed3b7ba1b199347882d3de2caa0ee49b3f6411c4b90"
     },
     {
       "id": "demo_readiness_md",
@@ -241,16 +249,16 @@
       "path": "docs/submission.md",
       "label": "Registration and submission plan",
       "present": true,
-      "bytes": 3057,
-      "sha256": "363610340989c72c5f5a0dfd230edf0a6f2b32587de33e1771cd3e4c54ad9656"
+      "bytes": 3123,
+      "sha256": "bc12f1724f9158a237ed57cdfbf07e61589d42185c859887a4690645a393c04d"
     },
     {
       "id": "task_ledger",
       "path": "tasks.json",
       "label": "Machine-readable task board",
       "present": true,
-      "bytes": 18791,
-      "sha256": "0ab93fc03a50bc64bec9bb8f45025c4a077e635209b9dabdc3f25814c88cecca"
+      "bytes": 19306,
+      "sha256": "b82fdce95fa696efc4d458149de087407e8bfd326e1485b16adc513976953396"
     },
     {
       "id": "local_ui_smoke",

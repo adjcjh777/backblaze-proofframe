@@ -88,6 +88,7 @@ OPTIONAL_GROUPS = [
 ]
 
 NEXT_COMMANDS = [
+    "python scripts/final_env_wizard.py --output .env.final.local",
     "set -a; source .env.final.local; set +a",
     "python scripts/live_env_handoff.py --env-file .env.final.local",
     "python scripts/run_final_live_proof.py --preflight-only",

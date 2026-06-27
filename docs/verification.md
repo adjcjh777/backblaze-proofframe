@@ -14,6 +14,7 @@ pytest
 python scripts/secret_scan.py
 python scripts/claim_lint.py
 python scripts/live_env_handoff.py
+python scripts/final_env_wizard.py --check-only
 python scripts/demo_storyboard.py
 python scripts/demo_readiness.py
 python scripts/submission_bundle.py
@@ -31,6 +32,7 @@ The `.github/workflows/ci.yml` workflow runs on `main`, `feature/**`, and pull r
 - `python scripts/secret_scan.py`
 - `python scripts/claim_lint.py`
 - `python scripts/live_env_handoff.py`
+- `python scripts/final_env_wizard.py --check-only`
 - `python scripts/demo_storyboard.py`
 - `python scripts/demo_readiness.py`
 
@@ -42,6 +44,8 @@ The final sponsor proof has a preflight wrapper:
 
 ```bash
 . .venv/bin/activate
+python scripts/final_env_wizard.py --output .env.final.local
+set -a; source .env.final.local; set +a
 python scripts/live_env_handoff.py --env-file .env.final.local
 python scripts/live_proof.py --preflight-only
 python scripts/run_final_live_proof.py --preflight-only
@@ -183,6 +187,8 @@ Before Devpost submit:
 ```bash
 python scripts/secret_scan.py
 python scripts/claim_lint.py
+python scripts/final_env_wizard.py --output .env.final.local
+set -a; source .env.final.local; set +a
 python scripts/live_env_handoff.py --env-file .env.final.local
 python scripts/demo_storyboard.py --strict-final
 python scripts/submission_bundle.py

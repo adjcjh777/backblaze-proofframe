@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T09:49:39Z",
+  "updated_at": "2026-06-27T10:03:13Z",
   "tasks": [
     {
       "id": "T001",
@@ -397,6 +397,15 @@
       "status": "done",
       "done_criteria": "A structured demo storyboard proves the video timeline is under 3 minutes, required assets exist, and final video remains gated on live proof plus a public video URL.",
       "notes": "Added scripts/demo_storyboard.py, tests, CI wiring, docs/assets/demo-storyboard.{json,md}, and submission bundle coverage."
+    },
+    {
+      "id": "T039U",
+      "title": "Add final env credential wizard",
+      "phase": "P3 Demo",
+      "owner": "codex",
+      "status": "done",
+      "done_criteria": "A local-only wizard can create .env.final.local with hidden credential prompts, 0600 permissions, git-ignore verification, tests, CI check-only coverage, and docs.",
+      "notes": "Added scripts/final_env_wizard.py, tests, CI check-only wiring, live handoff next-command wiring, submission bundle coverage, and final runbook docs."
     },
     {
       "id": "T040",

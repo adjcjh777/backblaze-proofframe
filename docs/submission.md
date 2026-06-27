@@ -44,6 +44,7 @@ Codex can handle:
 - Devpost text from `docs/devpost_draft.md`.
 - Safe submission bundle manifest from `docs/assets/submission-bundle-manifest.md` and `.json`.
 - Structured demo storyboard from `docs/assets/demo-storyboard.md` and `.json`.
+- Local final credential setup via `scripts/final_env_wizard.py`.
 - 2 minute demo video.
 - Project title: ProofFrame.
 - Tagline: "A provenance-first vault for generated media."

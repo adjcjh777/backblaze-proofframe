@@ -54,6 +54,9 @@ jobs:
       - name: Live credential handoff
         run: python scripts/live_env_handoff.py
 
+      - name: Final env wizard
+        run: python scripts/final_env_wizard.py --check-only
+
       - name: Demo storyboard
         run: python scripts/demo_storyboard.py
 
