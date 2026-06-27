@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T06:05:15Z",
+  "updated_at": "2026-06-27T06:15:12Z",
   "tasks": [
     {
       "id": "T001",
@@ -199,6 +199,24 @@
       "status": "done",
       "done_criteria": "UI and API can create a complete judge-ready local packet without manual form entry.",
       "notes": "Added /api/demo/judge-packet, Judge Demo UI action, tests, and smoke coverage."
+    },
+    {
+      "id": "T038",
+      "title": "Prepare copy-ready Devpost draft",
+      "phase": "P4 Submit",
+      "owner": "planner",
+      "status": "done",
+      "done_criteria": "docs/devpost_draft.md contains copy-ready fields with safe pre-proof and post-proof wording.",
+      "notes": "Added Devpost draft with claim gates, sponsor sections, model list, and submission checklist."
+    },
+    {
+      "id": "T039",
+      "title": "Prepare public demo deployment runbook",
+      "phase": "P4 Submit",
+      "owner": "planner",
+      "status": "done",
+      "done_criteria": "docs/deployment.md explains Docker deployment, env vars, smoke checks, and public URL claim rules.",
+      "notes": "Added deployment runbook and made Docker listen on PORT for app hosts."
     },
     {
       "id": "T040",

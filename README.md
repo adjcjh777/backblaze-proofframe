@@ -22,6 +22,8 @@ Why this one:
 - `docs/prd.md`: product PRD.
 - `docs/spec.md`: technical specification.
 - `docs/integrations.md`: B2 and Genblaze readiness gates.
+- `docs/deployment.md`: public demo deployment runbook.
+- `docs/devpost_draft.md`: copy-ready Devpost draft with claim gates.
 - `docs/demo_script.md`: demo video script and shot list.
 - `docs/evidence_package.md`: Devpost evidence package and copy bank.
 - `docs/public_claim_freeze.md`: public claim boundaries before final submission.

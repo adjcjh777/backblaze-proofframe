@@ -26,16 +26,19 @@ Manual/user-touch blockers:
 Codex can handle:
 
 - Preparing all submission text.
+- Maintaining copy-ready text in `docs/devpost_draft.md`.
 - Creating GitHub repo and release commits.
 - Running local/demo verification.
 - Drafting Devpost answers.
 - Creating demo video script/storyboard.
 - Producing screenshots and evidence package.
+- Preparing public demo deployment instructions in `docs/deployment.md`.
 
 ## Submission Assets
 
 - Public GitHub repository.
 - Demo URL or Docker instructions.
+- Devpost text from `docs/devpost_draft.md`.
 - 2 minute demo video.
 - Project title: ProofFrame.
 - Tagline: "A provenance-first vault for generated media."
@@ -56,6 +59,7 @@ The result is a shareable asset packet that explains where each generated file c
 - [ ] B2 media and manifest upload verified.
 - [ ] Genblaze run captured.
 - [ ] Public GitHub repo complete.
+- [ ] Public demo URL deployed or Docker path accepted.
 - [ ] README has setup, demo, architecture, and sponsor usage.
 - [ ] Docker run verified.
 - [ ] Browser smoke verified.

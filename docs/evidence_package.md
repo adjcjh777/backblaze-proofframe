@@ -22,6 +22,8 @@ This file is the internal source of truth for Devpost submission assets. Anythin
 | Deployed app URL | TBD | Final gate |
 | Demo video | TBD | Final gate |
 | Devpost project page | TBD | Final gate |
+| Devpost draft | `docs/devpost_draft.md` | Public-ready after final claim check |
+| Deployment runbook | `docs/deployment.md` | Public-ready |
 
 ## Current Verified Evidence
 
@@ -34,6 +36,8 @@ This file is the internal source of truth for Devpost submission assets. Anythin
 | UI smoke screenshot | `docs/assets/proofframe-local-ui-smoke.png` | Public-ready |
 | Downloadable evidence ZIP | `/api/campaigns/{id}/packet.zip` | Public-ready in local mode |
 | One-click judge packet | `/api/demo/judge-packet` | Public-ready in local mode |
+| Devpost draft | `docs/devpost_draft.md` | Public-ready after final claim check |
+| Deployment runbook | `docs/deployment.md` | Public-ready |
 | Task ledger | `tasks.json`, `scripts/task.py` | Public-ready |
 | Local API tests | `.venv` verification: `pytest` | Public-ready |
 | Integration readiness check | `scripts/check_integrations.py` | Public-ready |

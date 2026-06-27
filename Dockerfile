@@ -10,4 +10,4 @@ RUN pip install --no-cache-dir ".[integrations]"
 
 EXPOSE 8088
 
-CMD ["uvicorn", "proofframe.app:app", "--host", "0.0.0.0", "--port", "8088"]
+CMD ["sh", "-c", "uvicorn proofframe.app:app --host 0.0.0.0 --port ${PORT:-8088}"]
