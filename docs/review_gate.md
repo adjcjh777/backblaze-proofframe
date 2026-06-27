@@ -10,7 +10,7 @@ Scope: security, compliance, submission risk, Devpost/B2/Genblaze blockers, and 
 
 The repo is directionally safe for continued MVP work: no obvious committed secrets were found, `.env.example` is blank, `.gitignore` excludes local secrets and generated runtime folders, and the current implementation is honest about local/mock infrastructure versus final live sponsor proof.
 
-It is **not ready for final submission** because the mandatory Backblaze B2 and Genblaze paths are implemented but not verified with live credentials yet, Devpost registration/submission remains incomplete, and the final demo video/evidence package is not ready.
+It is **not ready for final submission** because the mandatory Backblaze B2 and Genblaze paths are implemented but not verified with live credentials yet, the Devpost project submission remains incomplete, and the final demo video/evidence package is not ready.
 
 ## Blocking Risks
 
@@ -18,7 +18,7 @@ It is **not ready for final submission** because the mandatory Backblaze B2 and 
 
 2. **Genblaze requirement is not satisfied yet.** The repo now includes a Genblaze/GMICloud provider path built around the official Pipeline API, but `tasks.json` still lists `T021` as doing because no live provider run has been captured. The final submission must demonstrate real Genblaze or Genblaze-compatible orchestration, not only the local mock demo.
 
-3. **Devpost access and submission are not complete.** `T040` is blocked at GitHub OAuth/account authorization, and `T042` is todo. A representative must join the event and confirm the submission form requirements before freeze.
+3. **Devpost registration is complete, but submission is not.** `T040` is done and `T042` is todo. The final project page should not be submitted until live B2/Genblaze proof, final audit, and final secret scan pass.
 
 4. **Final submission assets are incomplete.** The public mock app URL, screenshots, repo URL, setup README, Devpost draft, and evidence package exist. The final package still needs live B2/Genblaze evidence, the final provider/model list, a demo video under the event limit, and clear B2/Genblaze usage explanation based only on verified live runs.
 

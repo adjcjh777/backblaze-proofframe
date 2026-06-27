@@ -12,6 +12,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_JSON = ROOT / "docs" / "assets" / "devpost-submission-packet.json"
 DEFAULT_MD = ROOT / "docs" / "assets" / "devpost-submission-packet.md"
+DEFAULT_TASKS = ROOT / "tasks.json"
 
 
 BASE_PACKET = {
@@ -129,15 +130,37 @@ SAFE_AFTER_LIVE = {
 }
 
 
-def build_packet(*, live: bool = False) -> dict[str, Any]:
+def load_task_statuses(tasks_path: Path = DEFAULT_TASKS) -> dict[str, str]:
+    try:
+        tasks = json.loads(tasks_path.read_text(encoding="utf-8"))["tasks"]
+    except (FileNotFoundError, KeyError, json.JSONDecodeError):
+        return {}
+    return {str(task.get("id", "")).upper(): str(task.get("status", "missing")) for task in tasks}
+
+
+def checklist_item(
+    task_statuses: dict[str, str], task: str, label: str, *, required_for_final: bool = True
+) -> dict[str, Any]:
+    task = task.upper()
+    return {
+        "task": task,
+        "label": label,
+        "status": task_statuses.get(task, "missing"),
+        "required_for_final": required_for_final,
+    }
+
+
+def build_packet(*, live: bool = False, tasks_path: Path = DEFAULT_TASKS) -> dict[str, Any]:
     packet = dict(BASE_PACKET)
     packet.update(SAFE_AFTER_LIVE if live else SAFE_BEFORE_LIVE)
+    task_statuses = load_task_statuses(tasks_path)
     packet["submission_checklist"] = [
-        {"task": "T020", "label": "B2 live proof complete", "required_for_final": True},
-        {"task": "T021", "label": "Genblaze live proof complete", "required_for_final": True},
-        {"task": "T040", "label": "Devpost registration complete", "required_for_final": True},
-        {"task": "T041A", "label": "Final secret scan complete", "required_for_final": True},
-        {"task": "T042", "label": "Devpost project submitted", "required_for_final": True},
+        checklist_item(task_statuses, "T020", "B2 live proof complete"),
+        checklist_item(task_statuses, "T021", "Genblaze live proof complete"),
+        checklist_item(task_statuses, "T040", "Devpost registration complete"),
+        checklist_item(task_statuses, "T041", "Final submission audit complete"),
+        checklist_item(task_statuses, "T041A", "Final secret scan complete"),
+        checklist_item(task_statuses, "T042", "Devpost project submitted"),
     ]
     return packet
 
@@ -172,6 +195,13 @@ def render_markdown(packet: dict[str, Any]) -> str:
         markdown_section("Accomplishments", packet["accomplishments"]),
         markdown_section("What We Learned", packet["what_we_learned"]),
         markdown_section("What's Next", packet["whats_next"]),
+        markdown_section(
+            "Submission Checklist",
+            [
+                f"{item['task']} [{item['status']}] {item['label']}"
+                for item in packet["submission_checklist"]
+            ],
+        ),
     ]
     return "\n".join(lines).strip() + "\n"
 
@@ -186,6 +216,7 @@ def write_packet(packet: dict[str, Any], json_path: Path, markdown_path: Path) -
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Build copy-ready Devpost submission packets.")
     parser.add_argument("--live", action="store_true", help="Use post-live verified sponsor copy.")
+    parser.add_argument("--tasks", type=Path, default=DEFAULT_TASKS)
     parser.add_argument("--json-out", type=Path, default=DEFAULT_JSON)
     parser.add_argument("--markdown-out", type=Path, default=DEFAULT_MD)
     return parser
@@ -193,7 +224,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main() -> None:
     args = build_parser().parse_args()
-    packet = build_packet(live=args.live)
+    packet = build_packet(live=args.live, tasks_path=args.tasks)
     write_packet(packet, args.json_out, args.markdown_out)
     print(json.dumps({"ok": True, "mode": packet["mode"], "json": str(args.json_out), "markdown": str(args.markdown_out)}, indent=2))
 

@@ -82,3 +82,12 @@ The useful unit for generated media teams is not a single image. It is a packet:
 - Live Genblaze proof with provider/model/run metadata.
 - Demo video under the event limit.
 - Final Devpost submission.
+
+## Submission Checklist
+
+- T020 [doing] B2 live proof complete
+- T021 [doing] Genblaze live proof complete
+- T040 [done] Devpost registration complete
+- T041 [todo] Final submission audit complete
+- T041A [todo] Final secret scan complete
+- T042 [todo] Devpost project submitted

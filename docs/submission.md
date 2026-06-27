@@ -16,9 +16,12 @@ Likely required:
 - Genblaze setup from https://github.com/backblaze-labs/genblaze.
 - Optional deployment account if we choose public demo hosting.
 
-Manual/user-touch blockers:
+Resolved setup:
 
-- Providing the exact Backblaze Account Email for the event registration form.
+- Devpost registration is complete.
+
+Manual/user-touch blockers remaining:
+
 - Creating or authorizing Backblaze B2 credentials.
 - Any payment-card or identity step.
 

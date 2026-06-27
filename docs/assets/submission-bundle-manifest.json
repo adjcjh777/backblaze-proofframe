@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.submission_bundle.v1",
-  "created_at": "2026-06-27T08:14:48Z",
+  "created_at": "2026-06-27T08:22:35Z",
   "project": "ProofFrame",
   "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
@@ -81,24 +81,24 @@
       "path": "docs/devpost_draft.md",
       "label": "Copy-ready Devpost fields",
       "present": true,
-      "bytes": 5633,
-      "sha256": "992d9151e62dc267582815f9b7cf2113cdd8bda47ec9d9bb4bf40f07c0355165"
+      "bytes": 5621,
+      "sha256": "85588ba9e71787742caeb0098ce80bc9d3fc219e8d7b51803c9867cddf959ff2"
     },
     {
       "id": "devpost_packet_json",
       "path": "docs/assets/devpost-submission-packet.json",
       "label": "Machine-readable Devpost copy",
       "present": true,
-      "bytes": 5022,
-      "sha256": "e1616f95da8d8dd1dcbf6028a4cc500e60887cfb615011a764053c78e1ec3725"
+      "bytes": 5286,
+      "sha256": "60867c54a3665cc50c90ccf89ae824023623139ffdfdff0fe67afe3f5864c6e9"
     },
     {
       "id": "devpost_packet_md",
       "path": "docs/assets/devpost-submission-packet.md",
       "label": "Human-readable Devpost copy",
       "present": true,
-      "bytes": 3880,
-      "sha256": "73577faaea931cd00da68c097ba0c2dd794d3e834b8818656373e96971db0791"
+      "bytes": 4160,
+      "sha256": "8467e9a35e2a9de8fb62900c5a5d4ee4fe9100c8342fb7f0734a8eebabd133f0"
     },
     {
       "id": "demo_script",
@@ -113,8 +113,8 @@
       "path": "docs/evidence_package.md",
       "label": "Evidence package plan",
       "present": true,
-      "bytes": 7338,
-      "sha256": "c403e451309ffd8948bac77aa2614ee3885fbb762d99e64ada8ac515695d9843"
+      "bytes": 7473,
+      "sha256": "e5804067d385c589dff82fb3812c84f65445a34740299adee60a89300aa5dce2"
     },
     {
       "id": "public_claim_freeze",
@@ -137,16 +137,16 @@
       "path": "docs/submission.md",
       "label": "Registration and submission plan",
       "present": true,
-      "bytes": 2992,
-      "sha256": "c8e8450dd7f6d4a701df2f31ece9c951659e82fde68e878e309ca38111e1cc41"
+      "bytes": 2977,
+      "sha256": "7c245d51e4d7acbd49d103146c44e6a16263e41e45235e6dfcbdfb10fc3ab8f3"
     },
     {
       "id": "task_ledger",
       "path": "tasks.json",
       "label": "Machine-readable task board",
       "present": true,
-      "bytes": 15245,
-      "sha256": "f7d356645d15d2c362142624362c85615626b73ddf8385faf927d8ebbbf769f0"
+      "bytes": 15699,
+      "sha256": "7c3d2528034d6d80f74fb822a5ef4a33886b6a2af20ebcfce1b7c199783a13e8"
     },
     {
       "id": "local_ui_smoke",

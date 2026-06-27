@@ -40,6 +40,8 @@ This file is the internal source of truth for Devpost submission assets. Anythin
 | UI smoke screenshot | `docs/assets/proofframe-local-ui-smoke.png` | Public-ready |
 | Public HF Space smoke screenshot | `docs/assets/proofframe-hf-public-smoke.png` | Public-ready in local/mock mode |
 | Public HF Space API smoke | `python scripts/api_smoke.py --base-url https://adjcjh-backblaze-proofframe.hf.space` | Passed in local/mock mode |
+| Public HF Space judge-mode sync | Public HTML contains `shouldAutoLoadJudgeDemo`; `/api/submission/gate` returns `pre_live_safe` | Public-ready in local/mock mode |
+| Devpost registration | `tasks.json` T040 | Done; registered for the event |
 | Downloadable evidence ZIP | `/api/campaigns/{id}/packet.zip` | Public-ready in local mode |
 | One-click judge packet | `/api/demo/judge-packet` | Public-ready in local mode |
 | Final live proof preflight | `scripts/live_proof.py --preflight-only` | Public-ready; reports missing env/packages without printing secrets |
@@ -62,7 +64,6 @@ This file is the internal source of truth for Devpost submission assets. Anythin
 | --- | --- | --- |
 | T020 | One asset and one manifest uploaded to a dedicated Backblaze B2 bucket using env-only credentials, with sanitized object keys and checksums captured. | "ProofFrame stores media and manifests through Backblaze B2." |
 | T021 | One live Genblaze-backed generation run, with provider/model metadata captured in exported manifest. | "ProofFrame generates media through Genblaze." |
-| T040 | Devpost account registered and joined to the Backblaze event. | "We are registered for the event." |
 | T041A | Secret scan covering repo, screenshots, logs, manifests, and demo artifacts. | "Public package contains no exposed secrets." |
 | T042 | Accepted Devpost project submission. | "Submitted." |
 

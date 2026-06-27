@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T08:14:24Z",
+  "updated_at": "2026-06-27T08:22:27Z",
   "tasks": [
     {
       "id": "T001",
@@ -325,6 +325,15 @@
       "status": "done",
       "done_criteria": "HF Space serves ?judge=1 auto-load code and /api/submission/gate returns pre_live_safe task gate.",
       "notes": "Pushed HF Space commit 7dedc8d; verified public HTML contains shouldAutoLoadJudgeDemo and gate API reports pre_live_safe."
+    },
+    {
+      "id": "T039M",
+      "title": "Refresh post-registration submission packet",
+      "phase": "P3 Demo",
+      "owner": "codex",
+      "status": "done",
+      "done_criteria": "Devpost packet and submission docs reflect registered status and current remaining final gates.",
+      "notes": "Packet generator now reads tasks.json status, Markdown includes submission checklist, and docs no longer list Devpost registration as a blocker."
     },
     {
       "id": "T040",

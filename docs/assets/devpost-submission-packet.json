@@ -59,26 +59,37 @@
     {
       "task": "T020",
       "label": "B2 live proof complete",
+      "status": "doing",
       "required_for_final": true
     },
     {
       "task": "T021",
       "label": "Genblaze live proof complete",
+      "status": "doing",
       "required_for_final": true
     },
     {
       "task": "T040",
       "label": "Devpost registration complete",
+      "status": "done",
+      "required_for_final": true
+    },
+    {
+      "task": "T041",
+      "label": "Final submission audit complete",
+      "status": "todo",
       "required_for_final": true
     },
     {
       "task": "T041A",
       "label": "Final secret scan complete",
+      "status": "todo",
       "required_for_final": true
     },
     {
       "task": "T042",
       "label": "Devpost project submitted",
+      "status": "todo",
       "required_for_final": true
     }
   ]

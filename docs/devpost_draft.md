@@ -1,6 +1,6 @@
 # Devpost Submission Draft
 
-Status: draft. Do not submit until T020, T021, T040, T041, T041A, and T042 are complete.
+Status: draft. Do not submit until T020, T021, T041, and T041A are complete.
 
 ## Project Basics
 
@@ -132,7 +132,7 @@ The useful unit for generated media teams is not a single image. It is a packet:
 
 - [ ] T020 B2 live proof complete.
 - [ ] T021 Genblaze live proof complete.
-- [ ] T040 Devpost registration complete.
+- [x] T040 Devpost registration complete.
 - [x] Public mock demo URL available.
 - [ ] Demo video available.
 - [ ] Final secret scan complete.
