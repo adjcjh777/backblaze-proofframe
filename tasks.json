@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T06:47:03Z",
+  "updated_at": "2026-06-27T07:08:30Z",
   "tasks": [
     {
       "id": "T001",
@@ -244,6 +244,15 @@
       "status": "done",
       "done_criteria": "UI supports status filtering, evidence search, decision coverage, and a copy-safe summary for judges.",
       "notes": "Added review console scorecard, filters, safe HTML escaping, and evidence-summary copy affordance."
+    },
+    {
+      "id": "T039D",
+      "title": "Add fail-closed evidence safety gate",
+      "phase": "P3 Polish",
+      "owner": "executor",
+      "status": "done",
+      "done_criteria": "api_smoke evidence output refuses secret-like keys and signed-token values before writing JSON.",
+      "notes": "Added safe-evidence validation to scripts/api_smoke.py with tests for secret-like keys and signed URL values."
     },
     {
       "id": "T040",

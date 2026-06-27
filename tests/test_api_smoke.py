@@ -31,3 +31,30 @@ def test_write_evidence_creates_safe_json(tmp_path):
         "ok": True,
         "storage_backend": "b2",
     }
+
+
+def test_write_evidence_refuses_secret_like_key(tmp_path):
+    output = tmp_path / "proof" / "evidence.json"
+
+    with pytest.raises(SystemExit, match="forbidden evidence key"):
+        api_smoke.write_evidence(output, {"GENBLAZE_API_KEY": "placeholder"})
+
+    assert not output.exists()
+
+
+def test_write_evidence_refuses_signed_url_value(tmp_path):
+    output = tmp_path / "proof" / "evidence.json"
+    signature_key = "X-Amz-" + "Signature"
+
+    with pytest.raises(SystemExit, match="forbidden evidence value"):
+        api_smoke.write_evidence(
+            output,
+            {
+                "asset_url": (
+                    "https://example.test/object.png?"
+                    f"{signature_key}=0123456789abcdef0123456789abcdef"
+                )
+            },
+        )
+
+    assert not output.exists()

@@ -27,6 +27,8 @@ The `.github/workflows/ci.yml` workflow runs on `main`, `feature/**`, and pull r
 
 Use the CI result as public repo evidence for the non-secret local gate. It does not replace T020/T021 live sponsor proof because those require private credentials.
 
+Evidence files written by `scripts/api_smoke.py --evidence-out` are checked before writing and fail closed if they contain secret-like field names, bearer tokens, signed URL parameters, or GMI-style key values.
+
 ## Local App Smoke
 
 In one terminal:

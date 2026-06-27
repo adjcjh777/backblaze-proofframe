@@ -7,10 +7,22 @@ import argparse
 from io import BytesIO
 import json
 from pathlib import Path
+import re
 from typing import Any
 from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 from zipfile import ZipFile
+
+
+FORBIDDEN_EVIDENCE_KEYS = re.compile(
+    r"(?i)(api[_-]?key|application[_-]?key|authorization|cookie|password|secret|token)"
+)
+FORBIDDEN_EVIDENCE_VALUES = [
+    re.compile(r"(?i)authorization:\s*bearer\s+[A-Za-z0-9._\-]{20,}"),
+    re.compile(r"(?i)(api[_-]?key|application[_-]?key|secret|token|cookie)=[^&\s]{8,}"),
+    re.compile(r"(?i)x-amz-(credential|security-token|signature)=[^&\s]{8,}"),
+    re.compile(r"(?i)gmi-[A-Za-z0-9_\-]{16,}"),
+]
 
 
 def request_json(method: str, url: str, payload: dict[str, Any] | None = None) -> Any:
@@ -44,7 +56,33 @@ def require_backend(field: str, actual: str, expected: str | None) -> None:
         raise SystemExit(f"Expected {field}={expected}, got {actual}")
 
 
+def evidence_findings(value: Any, path: str = "$") -> list[str]:
+    findings: list[str] = []
+    if isinstance(value, dict):
+        for key, item in value.items():
+            key_path = f"{path}.{key}"
+            if FORBIDDEN_EVIDENCE_KEYS.search(str(key)):
+                findings.append(f"{key_path}: forbidden evidence key")
+            findings.extend(evidence_findings(item, key_path))
+    elif isinstance(value, list):
+        for index, item in enumerate(value):
+            findings.extend(evidence_findings(item, f"{path}[{index}]"))
+    elif isinstance(value, str):
+        for pattern in FORBIDDEN_EVIDENCE_VALUES:
+            if pattern.search(value):
+                findings.append(f"{path}: forbidden evidence value")
+                break
+    return findings
+
+
+def assert_safe_evidence(evidence: dict[str, Any]) -> None:
+    findings = evidence_findings(evidence)
+    if findings:
+        raise SystemExit("Unsafe evidence JSON refused:\n" + "\n".join(findings))
+
+
 def write_evidence(path: Path, evidence: dict[str, Any]) -> None:
+    assert_safe_evidence(evidence)
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(evidence, indent=2) + "\n", encoding="utf-8")
 
