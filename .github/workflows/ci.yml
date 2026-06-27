@@ -81,5 +81,8 @@ jobs:
       - name: Final submission control
         run: python scripts/final_submission_control.py
 
+      - name: Final operator brief
+        run: python scripts/final_operator_brief.py
+
       - name: Submission bundle
         run: python scripts/submission_bundle.py

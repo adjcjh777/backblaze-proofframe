@@ -98,6 +98,7 @@ python scripts/demo_readiness.py
 python scripts/recording_assets.py
 python scripts/award_readiness.py --min-score 75
 python scripts/final_submission_control.py
+python scripts/final_operator_brief.py
 python scripts/submission_audit.py
 python scripts/devpost_packet.py
 python scripts/submission_bundle.py
@@ -118,6 +119,7 @@ The browser UI and `GET /api/submission/gate` expose the same fail-closed final 
 `scripts/recording_assets.py` checks committed recording assets and can run GET-only public demo verification without creating data or using secrets.
 `scripts/award_readiness.py` scores sponsor fit, provenance depth, demo readiness, claim safety, and final closure so polish work stays aligned with judge expectations.
 `scripts/final_submission_control.py` aggregates the gate, form kit, storyboard, credential handoff, and award reports into one final Devpost control tower.
+`scripts/final_operator_brief.py` turns the remaining live-proof blockers into a no-secret handoff: user actions, Codex follow-up commands, and safety policy.
 
 B2 mode intentionally fails closed unless `B2_ENDPOINT_URL`, `B2_BUCKET`, `B2_KEY_ID`, and `B2_APPLICATION_KEY` are set. Genblaze mode intentionally fails closed unless a Genblaze/GMI key and `GENBLAZE_IMAGE_MODEL` are set, and the official `genblaze-core` and `genblaze-gmicloud` packages are installed.
 
@@ -140,6 +142,7 @@ python scripts/devpost_event_snapshot.py --validate-committed
 python scripts/demo_storyboard.py
 python scripts/demo_readiness.py
 python scripts/recording_assets.py
+python scripts/final_operator_brief.py
 ```
 
 See `docs/verification.md` for Docker and live B2/Genblaze proof commands.

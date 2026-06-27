@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.submission_bundle.v1",
-  "created_at": "2026-06-27T17:07:05Z",
+  "created_at": "2026-06-27T17:13:55Z",
   "project": "ProofFrame",
   "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
@@ -57,8 +57,8 @@
       "path": "README.md",
       "label": "Core public project overview",
       "present": true,
-      "bytes": 8509,
-      "sha256": "aba1021a9adc8274ddbfa27783f653565d141f0e1b7a7498c659b00791cc3ffa"
+      "bytes": 8746,
+      "sha256": "3a853951cea516c5bcb845b5dea976c446d0ffef4430cb1de104f981e2116ac1"
     },
     {
       "id": "prd",
@@ -234,15 +234,15 @@
       "label": "Machine-readable award readiness report",
       "present": true,
       "bytes": 10805,
-      "sha256": "3a0fccb11111c8d2e6f43c5fafe8a3e734b2af96d16aadcf0cb9289c6e4ff172"
+      "sha256": "bc14dffeeebf21c55138460a090e371608ec847a15ebca5d04fd7b1517bf08be"
     },
     {
       "id": "award_readiness_md",
       "path": "docs/assets/award-readiness-report.md",
       "label": "Human-readable award readiness report",
       "present": true,
-      "bytes": 4116,
-      "sha256": "4cc073a099772ffb9baaa80df9af967a3e4b8272ba0e86f4236cc410b48fc7b7"
+      "bytes": 4114,
+      "sha256": "1fd4a628ab1c178c28b6f6d9311a9f7b1c385d81607e1a75322235f4221a54b3"
     },
     {
       "id": "final_submission_control_script",
@@ -258,7 +258,7 @@
       "label": "Machine-readable final control report",
       "present": true,
       "bytes": 13583,
-      "sha256": "c16c0c78a836e54e83f1ae3484b18e525c100be49e76679249a8f8395847c84b"
+      "sha256": "8199f26e84038ef94651a68804919704c64e473495f8890fc363607e396cccd8"
     },
     {
       "id": "final_submission_control_md",
@@ -266,15 +266,39 @@
       "label": "Human-readable final control report",
       "present": true,
       "bytes": 4269,
-      "sha256": "85eb4b0fae2af6f6009c040e181f664ee807a167e8ba6bd94f071eaa63ff90da"
+      "sha256": "e13048e124be54d978c6777cef8d0df8fd226b98cca7a95bc2fd7a2869bb8650"
+    },
+    {
+      "id": "final_operator_brief_script",
+      "path": "scripts/final_operator_brief.py",
+      "label": "No-secret final operator brief",
+      "present": true,
+      "bytes": 12047,
+      "sha256": "32dad2c9e0c815e86026ceb37ce6c68731f530cd4d0d9ed53142c0367a1fd756"
+    },
+    {
+      "id": "final_operator_brief_json",
+      "path": "docs/assets/final-operator-brief.json",
+      "label": "Machine-readable final operator brief",
+      "present": true,
+      "bytes": 5061,
+      "sha256": "ed78dedc272cfb183069335834fab69b1b5de63e39cbaead2fec237ff812b146"
+    },
+    {
+      "id": "final_operator_brief_md",
+      "path": "docs/assets/final-operator-brief.md",
+      "label": "Human-readable final operator brief",
+      "present": true,
+      "bytes": 2902,
+      "sha256": "f3f3ca6c18fd82e3b61d4590c25eb855d50122133cc966baed930366bb8bc912"
     },
     {
       "id": "evidence_package",
       "path": "docs/evidence_package.md",
       "label": "Evidence package plan",
       "present": true,
-      "bytes": 11357,
-      "sha256": "a9113586902da655adabca3818ad1e8aba813ca3efcc24cfac24ebf6215215a3"
+      "bytes": 11609,
+      "sha256": "3c637c38f02d91dd3797de7679445f34a6b706701a89ff58f2194cfaba6242fd"
     },
     {
       "id": "public_claim_freeze",
@@ -289,8 +313,8 @@
       "path": "docs/verification.md",
       "label": "Local, CI, Docker, and live proof runbook",
       "present": true,
-      "bytes": 7197,
-      "sha256": "b30decf832a10f2d6a08fe102b855bafa8033864c4be3d13b6fd52c28a25c9c9"
+      "bytes": 7318,
+      "sha256": "25aabb0c4c93e236c9337e9f5eb0bfc919f424cd528a034f1ebeaf2a586183bf"
     },
     {
       "id": "final_env_template",
@@ -433,8 +457,8 @@
       "path": "tasks.json",
       "label": "Machine-readable task board",
       "present": true,
-      "bytes": 24491,
-      "sha256": "6779afa3ad8b7dd33f03db5741f9a932dd18213e834240aa2ab1c5ca24a53bda"
+      "bytes": 24962,
+      "sha256": "61957049eb401ad10892c1a7724d12cc361ab0ad382ca7709f7999a3861c207b"
     },
     {
       "id": "local_ui_smoke",

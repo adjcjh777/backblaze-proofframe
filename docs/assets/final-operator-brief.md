@@ -1,0 +1,74 @@
+# ProofFrame Final Operator Brief
+
+Mode: `credential_entry_ready`
+Ready for secret entry: `true`
+Safe to submit: `false`
+
+## Current Blockers
+
+- T020: `doing`
+- T021: `doing`
+- T040: `done`
+- T041: `todo`
+- T041A: `todo`
+- T042: `todo`
+
+## Credential Handoff
+
+- Source: `.env.final.local`
+- Mode: `missing_live_env`
+- Missing ids: `b2_key_id, b2_application_key, genblaze_api_key`
+- Missing only expected secrets: `true`
+
+## B2 Setup
+
+- status: `bucket_created_key_pending`
+- bucket_name: `proofframe-demo-a6b4e49`
+- endpoint: `s3.us-west-004.backblazeb2.com`
+- bucket_type: `private`
+- prepared_application_key_name: `proofframe-demo-live-proof`
+- application_key_status: `form_prepared_not_created`
+
+## User Actions
+
+- Create a least-privilege Backblaze B2 application key named `proofframe-demo-live-proof` scoped to `proofframe-demo-a6b4e49`, then enter only the key id and application key into `.env.final.local` via `python scripts/final_env_wizard.py --output .env.final.local --force`.
+- Enter a Genblaze/GMI API key into `.env.final.local` with the same wizard; do not paste it into chat, docs, screenshots, or git.
+- Run `python scripts/live_env_handoff.py --env-file .env.final.local --strict` and confirm it reports no missing ids.
+- Run the B2-only proof first, then the final B2 plus Genblaze proof, and commit only sanitized evidence JSON.
+- Record and upload the public demo video only after live proof evidence exists.
+- Run final secret scan, final submission audit, and Devpost submit after the video URL is in the packet.
+
+## Codex Actions After Credentials
+
+```bash
+python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out docs/assets/b2-live-proof-evidence.json
+python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json
+python scripts/devpost_packet.py --post-live --video-url <public video URL>
+python scripts/devpost_form_kit.py --strict-final
+python scripts/demo_storyboard.py --strict-final
+python scripts/demo_readiness.py --strict-final
+python scripts/recording_assets.py --verify-public --strict-final
+python scripts/secret_scan.py
+python scripts/submission_audit.py
+python scripts/final_submission_control.py --strict-final
+```
+
+## Safety Policy
+
+- `.env.final.local` ignored: `true`
+- Never commit:
+  - .env.final.local
+  - Backblaze key IDs or application keys
+  - Genblaze/GMI provider keys
+  - Devpost cookies or browser session files
+  - raw signed URLs or provider temporary URLs
+  - screen recordings that visibly expose secrets
+- Safe to commit only after scan:
+  - `docs/assets/b2-live-proof-evidence.json`
+  - `docs/assets/final-live-proof-evidence.json`
+  - `docs/assets/devpost-submission-packet.json`
+  - `docs/assets/devpost-form-kit.json`
+
+## Claim Boundary
+
+Do not claim completed B2 or Genblaze proof until sanitized live evidence is generated and final gates pass.

@@ -23,6 +23,7 @@ python scripts/demo_readiness.py
 python scripts/recording_assets.py
 python scripts/award_readiness.py --min-score 75
 python scripts/final_submission_control.py
+python scripts/final_operator_brief.py
 python scripts/submission_bundle.py
 ```
 
@@ -47,6 +48,7 @@ The `.github/workflows/ci.yml` workflow runs on `main`, `feature/**`, and pull r
 - `python scripts/recording_assets.py`
 - `python scripts/award_readiness.py --min-score 75`
 - `python scripts/final_submission_control.py`
+- `python scripts/final_operator_brief.py`
 - `python scripts/submission_bundle.py`
 
 Use the CI result as public repo evidence for the non-secret local gate. It does not replace T020/T021 live sponsor proof because those require private credentials.
@@ -222,6 +224,7 @@ python scripts/demo_readiness.py --strict-final
 python scripts/recording_assets.py --verify-public --strict-final
 python scripts/submission_bundle.py
 python scripts/final_submission_control.py --strict-final
+python scripts/final_operator_brief.py
 python scripts/submission_audit.py
 python scripts/task.py list --status doing
 python scripts/task.py list --status blocked
