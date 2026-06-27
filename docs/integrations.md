@@ -17,6 +17,20 @@ python scripts/check_integrations.py
 
 This command reports booleans only and does not print secrets.
 
+## Live Proof Gate
+
+When B2 and Genblaze credentials are available, run the app with those environment variables and require the expected backends:
+
+```bash
+python scripts/api_smoke.py \
+  --base-url http://127.0.0.1:8088 \
+  --require-storage-backend b2 \
+  --require-generation-backend genblaze \
+  --evidence-out docs/assets/final-live-proof-evidence.json
+```
+
+The evidence JSON is intentionally limited to campaign ids, provider/model names, sanitized storage keys, checksums, byte counts, and backend names. It must not contain raw API keys, cookies, signed URLs, or account dashboards.
+
 ## B2 Environment
 
 Required for `PROOFFRAME_STORAGE_BACKEND=b2`:

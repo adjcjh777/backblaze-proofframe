@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T06:31:06Z",
+  "updated_at": "2026-06-27T06:39:46Z",
   "tasks": [
     {
       "id": "T001",
@@ -226,6 +226,15 @@
       "status": "done",
       "done_criteria": "A credential-free public URL is available, browser-smoked, and API-smoked without B2/Genblaze secrets.",
       "notes": "Deployed Hugging Face Docker Space at https://adjcjh-backblaze-proofframe.hf.space/ and captured public smoke evidence."
+    },
+    {
+      "id": "T039B",
+      "title": "Add final live proof gate",
+      "phase": "P4 Submit",
+      "owner": "tester",
+      "status": "done",
+      "done_criteria": "API smoke can fail closed unless B2 and Genblaze backends are active and can write safe evidence JSON.",
+      "notes": "Enhanced scripts/api_smoke.py with required backend gates and evidence output for T020/T021/T042."
     },
     {
       "id": "T040",

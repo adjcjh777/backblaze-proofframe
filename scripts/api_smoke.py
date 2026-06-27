@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 from io import BytesIO
 import json
+from pathlib import Path
 from typing import Any
 from urllib.error import HTTPError
 from urllib.request import Request, urlopen
@@ -38,11 +39,28 @@ def request_bytes(method: str, url: str) -> tuple[bytes, str]:
         raise SystemExit(f"{method} {url} failed: {exc.code} {detail}") from exc
 
 
-def run_smoke(base_url: str) -> dict[str, Any]:
+def require_backend(field: str, actual: str, expected: str | None) -> None:
+    if expected and actual != expected:
+        raise SystemExit(f"Expected {field}={expected}, got {actual}")
+
+
+def write_evidence(path: Path, evidence: dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(evidence, indent=2) + "\n", encoding="utf-8")
+
+
+def run_smoke(
+    base_url: str,
+    *,
+    require_storage_backend: str | None = None,
+    require_generation_backend: str | None = None,
+) -> dict[str, Any]:
     base = base_url.rstrip("/")
     health = request_json("GET", f"{base}/api/health")
     if not health.get("ready"):
         raise SystemExit(f"App is not ready: {health}")
+    require_backend("storage_backend", health["storage_backend"], require_storage_backend)
+    require_backend("generation_backend", health["generation_backend"], require_generation_backend)
 
     campaign = request_json(
         "POST",
@@ -91,8 +109,14 @@ def run_smoke(base_url: str) -> dict[str, Any]:
         "storage_backend": health["storage_backend"],
         "campaign_id": campaign["id"],
         "asset_id": asset["id"],
+        "asset_provider": asset["provider"],
+        "asset_model": asset["model"],
+        "asset_storage_backend": asset["storage_backend"],
+        "asset_storage_key": asset["storage_key"],
+        "asset_public_url_present": bool(asset.get("public_url")),
         "asset_status": approved["status"],
         "asset_sha256": asset["sha256"],
+        "manifest_storage_backend": exported["stored_manifest"]["storage_backend"],
         "manifest_key": exported["stored_manifest"]["storage_key"],
         "manifest_sha256": exported["stored_manifest"]["sha256"],
         "packet_bytes": len(packet_bytes),
@@ -103,12 +127,34 @@ def run_smoke(base_url: str) -> dict[str, Any]:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Smoke test a running ProofFrame API.")
     parser.add_argument("--base-url", default="http://127.0.0.1:8088")
+    parser.add_argument(
+        "--require-storage-backend",
+        choices=["local", "b2"],
+        help="Fail unless /api/health reports this storage backend.",
+    )
+    parser.add_argument(
+        "--require-generation-backend",
+        choices=["mock", "genblaze"],
+        help="Fail unless /api/health reports this generation backend.",
+    )
+    parser.add_argument(
+        "--evidence-out",
+        type=Path,
+        help="Write the safe smoke-test evidence JSON to this path.",
+    )
     return parser
 
 
 def main() -> None:
     args = build_parser().parse_args()
-    print(json.dumps(run_smoke(args.base_url), indent=2))
+    evidence = run_smoke(
+        args.base_url,
+        require_storage_backend=args.require_storage_backend,
+        require_generation_backend=args.require_generation_backend,
+    )
+    if args.evidence_out:
+        write_evidence(args.evidence_out, evidence)
+    print(json.dumps(evidence, indent=2))
 
 
 if __name__ == "__main__":

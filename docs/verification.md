@@ -74,7 +74,10 @@ Run:
 . .venv/bin/activate
 python scripts/check_integrations.py
 uvicorn proofframe.app:app --host 127.0.0.1 --port 8088
-python scripts/api_smoke.py --base-url http://127.0.0.1:8088
+python scripts/api_smoke.py \
+  --base-url http://127.0.0.1:8088 \
+  --require-storage-backend b2 \
+  --evidence-out docs/assets/b2-live-proof-evidence.json
 ```
 
 Evidence to save after T020:
@@ -99,6 +102,13 @@ GENBLAZE_TIMEOUT_SECONDS=180
 
 Run the same app smoke command. Evidence to save after T021:
 
+```bash
+python scripts/api_smoke.py \
+  --base-url http://127.0.0.1:8088 \
+  --require-generation-backend genblaze \
+  --evidence-out docs/assets/genblaze-live-proof-evidence.json
+```
+
 - provider `genblaze/gmicloud-image`
 - model name
 - Genblaze run id
@@ -112,6 +122,11 @@ Before Devpost submit:
 
 ```bash
 python scripts/secret_scan.py
+python scripts/api_smoke.py \
+  --base-url <final-demo-url> \
+  --require-storage-backend b2 \
+  --require-generation-backend genblaze \
+  --evidence-out docs/assets/final-live-proof-evidence.json
 python scripts/task.py list --status doing
 python scripts/task.py list --status blocked
 python scripts/task.py list --status todo
