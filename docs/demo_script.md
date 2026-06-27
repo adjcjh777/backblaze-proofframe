@@ -28,7 +28,15 @@ Narration:
 
 > ProofFrame helps teams trust generated media after the prompt is over. It turns each generated asset into a reviewable packet with prompt history, provider metadata, storage location, checksum, and approval status.
 
-### 0:12-0:35 - Create A Campaign
+### 0:12-0:30 - Sponsor Evidence Model
+
+On screen: manifest fields, B2 setup record, and final-gate status.
+
+Narration:
+
+> Before I generate anything, the packet is already designed around the sponsor proof model: storage backend, storage key, checksum, manifest, and approval state. In this public run the storage backend is local, but a private Backblaze B2 bucket and one-command B2 proof runner are prepared for the final live upload gate.
+
+### 0:30-0:48 - Create A Campaign
 
 On screen: enter title, audience, tone, and campaign brief.
 
@@ -40,7 +48,7 @@ Fast path:
 
 > For a judge walkthrough, open `/?judge=1` or click Judge Demo to create a complete local packet immediately.
 
-### 0:35-0:58 - Generate Variants
+### 0:48-1:10 - Generate Variants
 
 On screen: click generate and show three assets in the ledger.
 
@@ -52,7 +60,7 @@ Narration after T021 is live-verified:
 
 > This run uses the Genblaze-backed generation path. ProofFrame captures the model, provider, request metadata, prompt, and resulting asset hash for each generated file.
 
-### 0:58-1:25 - Review And Approve
+### 1:10-1:32 - Review And Approve
 
 On screen: approve one asset, reject or leave drafts for others.
 
@@ -60,7 +68,7 @@ Narration:
 
 > The ledger is built for creative approval. Each asset can be approved, rejected, or left in draft. The status travels with the asset packet, so downstream teams do not need to infer which generated files are safe to use.
 
-### 1:25-1:48 - Manifest Preview
+### 1:32-1:55 - Manifest Preview
 
 On screen: manifest panel with checksum, storage backend, provider, model, and status.
 
@@ -68,7 +76,7 @@ Narration:
 
 > The manifest is the key object. It gives the team a compact audit record for every asset: prompt, provider, model, storage key, checksum, and approval state.
 
-### 1:48-2:08 - Export Packet
+### 1:55-2:08 - Export Packet
 
 On screen: click export, show exported manifest confirmation, then download the ZIP packet.
 

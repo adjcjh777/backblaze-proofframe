@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T10:38:47Z",
+  "updated_at": "2026-06-27T11:01:01Z",
   "tasks": [
     {
       "id": "T001",
@@ -424,6 +424,15 @@
       "status": "done",
       "done_criteria": "A one-command runner can load the local final env file, force B2 storage plus mock generation, preflight required B2 values, and write sanitized b2-live-proof evidence once the scoped key is present.",
       "notes": "Added scripts/run_b2_live_proof.py, tests, docs, bundle/readiness wiring, and B2 setup next-command coverage."
+    },
+    {
+      "id": "T039X",
+      "title": "Add sponsor fit and award readiness audits",
+      "phase": "P3 Demo",
+      "owner": "codex",
+      "status": "done",
+      "done_criteria": "Sponsor-fit and award-readiness reports make Backblaze B2 and Genblaze central to judge-facing copy, verify early demo coverage, remain claim-safe before live proof, and are included in CI plus the submission bundle.",
+      "notes": "Added docs/sponsor_fit_matrix.md, scripts/sponsor_fit_audit.py, scripts/award_readiness.py, tests, CI steps, regenerated Devpost/form/storyboard/readiness/bundle artifacts, and expanded claim-safe sponsor-fit copy."
     },
     {
       "id": "T040",

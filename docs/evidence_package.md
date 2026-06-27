@@ -59,6 +59,9 @@ This file is the internal source of truth for Devpost submission assets. Anythin
 | Safe submission bundle manifest | `docs/assets/submission-bundle-manifest.json`, `docs/assets/submission-bundle-manifest.md` | Public-ready in pre-live-safe mode |
 | Demo readiness report | `scripts/demo_readiness.py`, `docs/assets/demo-readiness-report.json`, `docs/assets/demo-readiness-report.md` | Public-ready for mock recording; strict final mode intentionally waits for T020/T021/T041A |
 | Demo storyboard | `scripts/demo_storyboard.py`, `docs/assets/demo-storyboard.json`, `docs/assets/demo-storyboard.md` | Public-ready for mock recording; strict final mode waits for live proof and a public video URL |
+| Sponsor fit matrix | `docs/sponsor_fit_matrix.md` | Public-ready; maps official judging angles to current evidence, safe claims, final gates, and demo shots |
+| Sponsor fit audit | `scripts/sponsor_fit_audit.py`, `docs/assets/sponsor-fit-audit.json`, `docs/assets/sponsor-fit-audit.md` | Public-ready; checks Devpost B2/Genblaze specificity, early demo coverage, and claim-safe final gates |
+| Award readiness report | `scripts/award_readiness.py`, `docs/assets/award-readiness-report.json`, `docs/assets/award-readiness-report.md` | Public-ready; scores sponsor fit, provenance depth, demo readiness, claim safety, and final closure |
 | Devpost draft | `docs/devpost_draft.md` | Public-ready after final claim check |
 | Deployment runbook | `docs/deployment.md` | Public-ready |
 | Task ledger | `tasks.json`, `scripts/task.py` | Public-ready |

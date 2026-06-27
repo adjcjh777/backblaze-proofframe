@@ -15,8 +15,10 @@ def test_default_packet_uses_pre_live_safe_claims():
 
     assert packet["mode"] == "pre_live_safe"
     assert "local demo" in packet["short_description"]
-    assert "live B2 proof is a final submission gate" in packet["b2_usage"]
-    assert "live Genblaze proof is a final submission gate" in packet["genblaze_usage"]
+    assert "B2-ready object model" in packet["b2_usage"]
+    assert "final submission gate" in packet["b2_usage"]
+    assert "Genblaze Pipeline API" in packet["genblaze_usage"]
+    assert "final submission gate" in packet["genblaze_usage"]
     assert packet["repository_url"] == "https://github.com/adjcjh777/backblaze-proofframe"
     assert packet["demo_url"].endswith("/?judge=1")
     assert {"task": "T040", "label": "Devpost registration complete", "status": "done", "required_for_final": True} in packet[

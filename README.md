@@ -92,7 +92,9 @@ python scripts/final_env_wizard.py --check-only
 python scripts/devpost_form_kit.py
 python scripts/claim_lint.py
 python scripts/demo_storyboard.py
+python scripts/sponsor_fit_audit.py
 python scripts/demo_readiness.py
+python scripts/award_readiness.py --min-score 75
 python scripts/submission_audit.py
 python scripts/devpost_packet.py
 python scripts/submission_bundle.py
@@ -107,7 +109,9 @@ The browser UI and `GET /api/submission/gate` expose the same fail-closed final 
 `scripts/run_final_live_proof.py` is the final one-command live runner: once B2 and Genblaze env vars are present, it starts the app, verifies `/api/health` reports `b2` plus `genblaze`, writes sanitized final evidence, and stops the server.
 `scripts/claim_lint.py` keeps pre-live public copy from claiming completed Backblaze B2 or Genblaze proof before evidence exists.
 `scripts/demo_storyboard.py` keeps the demo video timeline under 3 minutes and tracks the public video URL as a final gate.
+`scripts/sponsor_fit_audit.py` checks that Backblaze B2 and Genblaze are explained as product-critical sponsor paths without overclaiming live proof.
 `scripts/demo_readiness.py` keeps the mock demo recording package ready while failing strict final mode until live B2/Genblaze proof and the final secret scan are complete.
+`scripts/award_readiness.py` scores sponsor fit, provenance depth, demo readiness, claim safety, and final closure so polish work stays aligned with judge expectations.
 
 B2 mode intentionally fails closed unless `B2_ENDPOINT_URL`, `B2_BUCKET`, `B2_KEY_ID`, and `B2_APPLICATION_KEY` are set. Genblaze mode intentionally fails closed unless a Genblaze/GMI key and `GENBLAZE_IMAGE_MODEL` are set, and the official `genblaze-core` and `genblaze-gmicloud` packages are installed.
 

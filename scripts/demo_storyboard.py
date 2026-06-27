@@ -41,8 +41,20 @@ SEGMENTS = [
     },
     {
         "start": "0:12",
-        "end": "0:35",
-        "seconds": 23,
+        "end": "0:30",
+        "seconds": 18,
+        "title": "Sponsor evidence model",
+        "screen": "Manifest fields plus non-secret B2 setup and final-gate status.",
+        "safe_narration": (
+            "Before any live credential is shown, the packet already has the B2-ready evidence "
+            "shape: storage backend, storage key, checksum, manifest, and approval state. The "
+            "private B2 bucket and runner are prepared, while live upload stays a final gate."
+        ),
+    },
+    {
+        "start": "0:30",
+        "end": "0:48",
+        "seconds": 18,
         "title": "Campaign brief",
         "screen": "Campaign, audience, tone, and brief fields.",
         "safe_narration": (
@@ -51,9 +63,9 @@ SEGMENTS = [
         ),
     },
     {
-        "start": "0:35",
-        "end": "0:58",
-        "seconds": 23,
+        "start": "0:48",
+        "end": "1:10",
+        "seconds": 22,
         "title": "Generate variants",
         "screen": "Generated asset ledger with provider/model evidence.",
         "safe_narration": (
@@ -62,9 +74,9 @@ SEGMENTS = [
         ),
     },
     {
-        "start": "0:58",
-        "end": "1:25",
-        "seconds": 27,
+        "start": "1:10",
+        "end": "1:32",
+        "seconds": 22,
         "title": "Review and approve",
         "screen": "Approve, reject, search, and filter evidence.",
         "safe_narration": (
@@ -73,8 +85,8 @@ SEGMENTS = [
         ),
     },
     {
-        "start": "1:25",
-        "end": "1:48",
+        "start": "1:32",
+        "end": "1:55",
         "seconds": 23,
         "title": "Manifest preview",
         "screen": "Provenance chain and manifest JSON.",
@@ -84,9 +96,9 @@ SEGMENTS = [
         ),
     },
     {
-        "start": "1:48",
+        "start": "1:55",
         "end": "2:08",
-        "seconds": 20,
+        "seconds": 13,
         "title": "Export packet",
         "screen": "Export manifest and download evidence ZIP.",
         "safe_narration": (

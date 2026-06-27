@@ -62,6 +62,10 @@ def write_bundle_fixtures(root: Path) -> None:
                     }
                 ),
             )
+        elif relative_path.endswith("sponsor-fit-audit.json"):
+            write_fixture_file(root, relative_path, json.dumps({"ok": True}))
+        elif relative_path.endswith("award-readiness-report.json"):
+            write_fixture_file(root, relative_path, json.dumps({"score": 80}))
         else:
             write_fixture_file(root, relative_path, "# ProofFrame\n")
 

@@ -63,5 +63,14 @@ jobs:
       - name: Demo storyboard
         run: python scripts/demo_storyboard.py
 
+      - name: Sponsor fit audit
+        run: python scripts/sponsor_fit_audit.py
+
       - name: Demo readiness
         run: python scripts/demo_readiness.py
+
+      - name: Award readiness
+        run: python scripts/award_readiness.py --min-score 75
+
+      - name: Submission bundle
+        run: python scripts/submission_bundle.py

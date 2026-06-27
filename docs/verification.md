@@ -17,7 +17,9 @@ python scripts/live_env_handoff.py
 python scripts/final_env_wizard.py --check-only
 python scripts/devpost_form_kit.py
 python scripts/demo_storyboard.py
+python scripts/sponsor_fit_audit.py
 python scripts/demo_readiness.py
+python scripts/award_readiness.py --min-score 75
 python scripts/submission_bundle.py
 ```
 
@@ -36,7 +38,10 @@ The `.github/workflows/ci.yml` workflow runs on `main`, `feature/**`, and pull r
 - `python scripts/final_env_wizard.py --check-only`
 - `python scripts/devpost_form_kit.py`
 - `python scripts/demo_storyboard.py`
+- `python scripts/sponsor_fit_audit.py`
 - `python scripts/demo_readiness.py`
+- `python scripts/award_readiness.py --min-score 75`
+- `python scripts/submission_bundle.py`
 
 Use the CI result as public repo evidence for the non-secret local gate. It does not replace T020/T021 live sponsor proof because those require private credentials.
 

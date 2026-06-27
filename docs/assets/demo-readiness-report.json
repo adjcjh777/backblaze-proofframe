@@ -36,12 +36,12 @@
     {
       "path": "README.md",
       "present": true,
-      "bytes": 7398
+      "bytes": 7802
     },
     {
       "path": "docs/demo_script.md",
       "present": true,
-      "bytes": 5245
+      "bytes": 5690
     },
     {
       "path": "docs/public_claim_freeze.md",
@@ -51,32 +51,32 @@
     {
       "path": "docs/assets/devpost-submission-packet.json",
       "present": true,
-      "bytes": 5286
+      "bytes": 6234
     },
     {
       "path": "docs/assets/devpost-submission-packet.md",
       "present": true,
-      "bytes": 4160
+      "bytes": 5108
     },
     {
       "path": "docs/assets/devpost-form-kit.json",
       "present": true,
-      "bytes": 11543
+      "bytes": 12491
     },
     {
       "path": "docs/assets/devpost-form-kit.md",
       "present": true,
-      "bytes": 6556
+      "bytes": 7504
     },
     {
       "path": "docs/assets/submission-bundle-manifest.json",
       "present": true,
-      "bytes": 11203
+      "bytes": 13439
     },
     {
       "path": "docs/assets/submission-bundle-manifest.md",
       "present": true,
-      "bytes": 4596
+      "bytes": 5538
     },
     {
       "path": "docs/assets/live-credential-handoff.json",
@@ -91,12 +91,12 @@
     {
       "path": "docs/assets/demo-storyboard.json",
       "present": true,
-      "bytes": 4024
+      "bytes": 4496
     },
     {
       "path": "docs/assets/demo-storyboard.md",
       "present": true,
-      "bytes": 2335
+      "bytes": 2686
     },
     {
       "path": "docs/assets/proofframe-local-ui-smoke.png",
@@ -131,7 +131,7 @@
     {
       "path": "scripts/demo_storyboard.py",
       "present": true,
-      "bytes": 10468
+      "bytes": 11007
     },
     {
       "path": "scripts/live_env_handoff.py",

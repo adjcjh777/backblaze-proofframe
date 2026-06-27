@@ -88,6 +88,7 @@ def test_demo_storyboard_is_ready_for_mock_video_but_not_final(tmp_path):
     assert storyboard["final_video_ready"] is False
     assert storyboard["under_time_limit"] is True
     assert storyboard["total_seconds"] == 135
+    assert storyboard["segments"][1]["title"] == "Sponsor evidence model"
     assert "Record and upload the final public demo video under 3 minutes." in storyboard["next_actions"]
 
 

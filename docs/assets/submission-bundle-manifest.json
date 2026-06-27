@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.submission_bundle.v1",
-  "created_at": "2026-06-27T10:38:59Z",
+  "created_at": "2026-06-27T11:02:06Z",
   "project": "ProofFrame",
   "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
@@ -57,8 +57,8 @@
       "path": "README.md",
       "label": "Core public project overview",
       "present": true,
-      "bytes": 7398,
-      "sha256": "dd9a4560a1c48f9b74c3094ae80bf97afcdc7168de451c07e3cfa899ea95560a"
+      "bytes": 7802,
+      "sha256": "8637dc227e4eb181228ae77161f8d869b598fe0fa14b0743954d5221138ea471"
     },
     {
       "id": "prd",
@@ -89,16 +89,16 @@
       "path": "docs/assets/devpost-submission-packet.json",
       "label": "Machine-readable Devpost copy",
       "present": true,
-      "bytes": 5286,
-      "sha256": "60867c54a3665cc50c90ccf89ae824023623139ffdfdff0fe67afe3f5864c6e9"
+      "bytes": 6234,
+      "sha256": "333fc3ce900e7059892110938a4340b236e62d63240fce449ff9a1a2a188b79d"
     },
     {
       "id": "devpost_packet_md",
       "path": "docs/assets/devpost-submission-packet.md",
       "label": "Human-readable Devpost copy",
       "present": true,
-      "bytes": 4160,
-      "sha256": "8467e9a35e2a9de8fb62900c5a5d4ee4fe9100c8342fb7f0734a8eebabd133f0"
+      "bytes": 5108,
+      "sha256": "e2a4431abd9b9565418f54e2368be591bd15e69d08b843211a69e73e74f83201"
     },
     {
       "id": "devpost_form_kit_script",
@@ -113,16 +113,16 @@
       "path": "docs/assets/devpost-form-kit.json",
       "label": "Machine-readable Devpost form kit",
       "present": true,
-      "bytes": 11543,
-      "sha256": "1b917545fdb3ec444b0d1241d0f86a18f8ec20d27e11fc48dba1078df111f1de"
+      "bytes": 12491,
+      "sha256": "4b9e0a7e8284e7a98a66d3440c1da9e7c032aa0278ca1653f7867547031d3568"
     },
     {
       "id": "devpost_form_kit_md",
       "path": "docs/assets/devpost-form-kit.md",
       "label": "Human-readable Devpost form kit",
       "present": true,
-      "bytes": 6556,
-      "sha256": "d4adc19fba7b7d962e7666f214cbc09e355d3918beb8c1ddf37ba60a1691752c"
+      "bytes": 7504,
+      "sha256": "f0af423732a0613e245f32736db31d3451a9c0fd48c00e50e66becc7b5a45036"
     },
     {
       "id": "frontend_ui",
@@ -137,40 +137,96 @@
       "path": "docs/demo_script.md",
       "label": "Video shot list and narration",
       "present": true,
-      "bytes": 5245,
-      "sha256": "c160051925806534c4d3756d216037aa78d6aad098dfbe8d26ade266944b2245"
+      "bytes": 5690,
+      "sha256": "1a3128155b57c6770f4d3a2bad3b31728fae9435180baa0fd3476268c22c05cc"
     },
     {
       "id": "demo_storyboard_script",
       "path": "scripts/demo_storyboard.py",
       "label": "Machine-checked demo video storyboard",
       "present": true,
-      "bytes": 10468,
-      "sha256": "91cb5c18caf821933b264545c0cc915b8a8308403b4528b2074318f927bfa1fd"
+      "bytes": 11007,
+      "sha256": "dadfe2907f2c1ca5ec738fdc87370aacbea15506b427496d73dd4e7f4395fa28"
     },
     {
       "id": "demo_storyboard_json",
       "path": "docs/assets/demo-storyboard.json",
       "label": "Machine-readable demo storyboard",
       "present": true,
-      "bytes": 4024,
-      "sha256": "d8d1c69e6b71df471430b29c243a3b6269191e527ab78d29963f85d8fd5e6e11"
+      "bytes": 4496,
+      "sha256": "68cddae91116f11dba111e9282004c5a3b284c69cbb06a3a3c9dd12873f50eeb"
     },
     {
       "id": "demo_storyboard_md",
       "path": "docs/assets/demo-storyboard.md",
       "label": "Human-readable demo storyboard",
       "present": true,
-      "bytes": 2335,
-      "sha256": "df2fa670669380a04c9327c8f6df5b3fd605d81c865bc5c1ce649ab81cdc5aa3"
+      "bytes": 2686,
+      "sha256": "b5a03a0bd468630b14c760803ae03291ed05ed76de3f7b3b1aac1f7dec39b819"
+    },
+    {
+      "id": "sponsor_fit_matrix",
+      "path": "docs/sponsor_fit_matrix.md",
+      "label": "Sponsor judging matrix and claim boundary",
+      "present": true,
+      "bytes": 3221,
+      "sha256": "8838d6647a8ae25c8974dea9b28fa5025408ce4d6c930897ab491e97d61b5a17"
+    },
+    {
+      "id": "sponsor_fit_audit_script",
+      "path": "scripts/sponsor_fit_audit.py",
+      "label": "Sponsor-fit clarity audit",
+      "present": true,
+      "bytes": 7638,
+      "sha256": "02c63787a86e2a8c3417a6d6f4697a332d8ddf3d0c5174c73d359e4dd5931282"
+    },
+    {
+      "id": "sponsor_fit_audit_json",
+      "path": "docs/assets/sponsor-fit-audit.json",
+      "label": "Machine-readable sponsor-fit audit",
+      "present": true,
+      "bytes": 1426,
+      "sha256": "43d48c0a5f8243b75d4b335cb2ce8d370b5e0b7f2abe39d241aa47cbae4a85c7"
+    },
+    {
+      "id": "sponsor_fit_audit_md",
+      "path": "docs/assets/sponsor-fit-audit.md",
+      "label": "Human-readable sponsor-fit audit",
+      "present": true,
+      "bytes": 971,
+      "sha256": "37660ea6e11236a92cafde56e0b287abc807946308dd4f7dbaa882a0a3acb3b6"
+    },
+    {
+      "id": "award_readiness_script",
+      "path": "scripts/award_readiness.py",
+      "label": "Judge-facing award readiness scorecard",
+      "present": true,
+      "bytes": 21019,
+      "sha256": "a2c47bc7f1c0b593c059b18fc310fbb229bfd898722492eee4e2bf486ef5922e"
+    },
+    {
+      "id": "award_readiness_json",
+      "path": "docs/assets/award-readiness-report.json",
+      "label": "Machine-readable award readiness report",
+      "present": true,
+      "bytes": 10205,
+      "sha256": "b2687d61f05416edb018a0a7470b8148e1d6d511c78ff7e8da8cbafdd2280ed5"
+    },
+    {
+      "id": "award_readiness_md",
+      "path": "docs/assets/award-readiness-report.md",
+      "label": "Human-readable award readiness report",
+      "present": true,
+      "bytes": 3880,
+      "sha256": "a5badbf23a741d1b5ae6527d90eed396b9dcee36caafb860a8c229d7243a81e8"
     },
     {
       "id": "evidence_package",
       "path": "docs/evidence_package.md",
       "label": "Evidence package plan",
       "present": true,
-      "bytes": 9629,
-      "sha256": "ee84fcb99de00ba08421c6553c857d9f76edd892c343580fe7f518166a5dc535"
+      "bytes": 10267,
+      "sha256": "00a8c0eda14cffa9d60c937f88115cfc1e8d80c7c495b9695f062ba341ec4fb8"
     },
     {
       "id": "public_claim_freeze",
@@ -185,8 +241,8 @@
       "path": "docs/verification.md",
       "label": "Local, CI, Docker, and live proof runbook",
       "present": true,
-      "bytes": 6509,
-      "sha256": "3fc1610d0bc48c350b76b24978f5b046f04cd3f8c7a1e812e16676f3dacd9731"
+      "bytes": 6727,
+      "sha256": "a83398744b25370d3c8cd74817994e82335ea16c5a3b3bf8a4953bea64469d31"
     },
     {
       "id": "final_env_template",
@@ -274,7 +330,7 @@
       "label": "Machine-readable demo readiness report",
       "present": true,
       "bytes": 3552,
-      "sha256": "e9fb43ac5db8a9e2c72aaca548ae39831e6dc85441ad229de3649c02ec0f0890"
+      "sha256": "6dfe055e31e5286522b7182b1b58e2b861bf5587fa3d2ba85d6ef9be750a3314"
     },
     {
       "id": "demo_readiness_md",
@@ -305,8 +361,8 @@
       "path": "tasks.json",
       "label": "Machine-readable task board",
       "present": true,
-      "bytes": 20543,
-      "sha256": "2357842097bdaf6cc45938b974e1b2c7f4e6960ad4a0c9283f9250d2cfdf1a54"
+      "bytes": 21187,
+      "sha256": "f1eb677c510b6024031104afca7fe4151ef03b47ca3c8ba0b9e7d858d4ed923f"
     },
     {
       "id": "local_ui_smoke",

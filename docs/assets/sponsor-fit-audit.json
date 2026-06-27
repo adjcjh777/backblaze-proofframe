@@ -1,0 +1,48 @@
+{
+  "schema": "proofframe.sponsor_fit_audit.v1",
+  "ok": true,
+  "mode": "sponsor_fit_ready",
+  "packet_mode": "pre_live_safe",
+  "storyboard_mode": "mock_storyboard_ready",
+  "submission_gate_mode": "pre_live_safe",
+  "signals": [
+    {
+      "id": "matrix_present",
+      "ok": true,
+      "detail": "docs/sponsor_fit_matrix.md maps judging criteria to safe claims and final gates."
+    },
+    {
+      "id": "b2_usage_specific",
+      "ok": true,
+      "detail": "Devpost B2 copy explains the object model, prepared bucket, and final live gate."
+    },
+    {
+      "id": "genblaze_usage_specific",
+      "ok": true,
+      "detail": "Devpost Genblaze copy explains the adapter and final provider/model proof."
+    },
+    {
+      "id": "storyboard_b2_early",
+      "ok": true,
+      "detail": "The video introduces Backblaze/B2 relevance within the first 45 seconds."
+    },
+    {
+      "id": "storyboard_genblaze_present",
+      "ok": true,
+      "detail": "The storyboard still covers the Genblaze generation path."
+    },
+    {
+      "id": "claim_lint_safe",
+      "ok": true,
+      "detail": "Public copy remains claim-safe for the current evidence mode."
+    },
+    {
+      "id": "final_gate_controls_claims",
+      "ok": true,
+      "detail": "Final sponsor claims remain controlled by T020/T021 and final evidence."
+    }
+  ],
+  "next_actions": [
+    "Use sponsor-fit matrix while recording and filling Devpost."
+  ]
+}

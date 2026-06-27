@@ -98,12 +98,22 @@ SAFE_BEFORE_LIVE = {
         "Genblaze-backed generation and Backblaze B2-backed storage."
     ),
     "b2_usage": (
-        "ProofFrame includes a Backblaze B2-compatible storage backend and live B2 proof is "
-        "a final submission gate."
+        "ProofFrame treats Backblaze B2 as the final durable evidence layer, not as a late "
+        "file-upload checkbox. The public demo currently runs in local/mock mode, but every "
+        "asset packet already carries the B2-ready object model: storage backend, storage key, "
+        "checksum, byte size, prompt, provider/model metadata, approval state, and risk note. "
+        "The repo includes a dedicated B2 S3-compatible storage adapter, a recorded private B2 "
+        "bucket setup, and a one-command B2 proof runner that will upload one generated asset "
+        "and one manifest with environment-only credentials. That live upload remains the final "
+        "submission gate before any public claim is upgraded to completed B2 storage."
     ),
     "genblaze_usage": (
-        "ProofFrame includes a Genblaze/GMICloud image provider path and live Genblaze proof "
-        "is a final submission gate."
+        "ProofFrame includes a Genblaze/GMICloud provider adapter built around the official "
+        "Genblaze Pipeline API. In the public mock demo, deterministic generation keeps the "
+        "workflow inspectable without secrets; the same manifest fields are reserved for the "
+        "final provider, model, request/run metadata, prompt, and asset checksum. The final "
+        "submission gate is a live Genblaze-compatible run that proves the provider path and "
+        "then carries the resulting asset into the ProofFrame review and storage packet."
     ),
     "claim_warning": "Safe for public mock demo only. Do not submit as final sponsor proof.",
 }
