@@ -86,7 +86,7 @@ Then open `http://127.0.0.1:8088/`.
 . .venv/bin/activate
 python scripts/check_integrations.py
 python scripts/live_proof.py --preflight-only
-python scripts/run_final_live_proof.py --preflight-only
+python scripts/run_final_live_proof.py --env-file .env.final.local --preflight-only
 python scripts/live_env_handoff.py
 python scripts/final_env_wizard.py --check-only
 python scripts/devpost_form_kit.py

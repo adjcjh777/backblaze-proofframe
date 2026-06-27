@@ -65,7 +65,9 @@ def test_live_env_handoff_writes_reports(tmp_path):
         "required": [],
         "optional": [],
         "missing_ids": ["b2_bucket"],
-        "next_commands": ["python scripts/run_final_live_proof.py --preflight-only"],
+        "next_commands": [
+            "python scripts/run_final_live_proof.py --env-file .env.final.local --preflight-only"
+        ],
         "secret_policy": "No values.",
     }
     json_path = tmp_path / "handoff.json"

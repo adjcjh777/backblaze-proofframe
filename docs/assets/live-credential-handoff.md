@@ -41,10 +41,10 @@ set -a; source .env.final.local; set +a
 python scripts/live_env_handoff.py --env-file .env.final.local
 ```
 ```bash
-python scripts/run_final_live_proof.py --preflight-only
+python scripts/run_final_live_proof.py --env-file .env.final.local --preflight-only
 ```
 ```bash
-python scripts/run_final_live_proof.py --evidence-out docs/assets/final-live-proof-evidence.json
+python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json
 ```
 ```bash
 python scripts/devpost_packet.py --post-live --video-url <public video URL>

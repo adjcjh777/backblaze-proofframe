@@ -22,8 +22,8 @@ SAFE_ENV_RE = re.compile(r"^[A-Za-z0-9_./:@%+=,-]+$")
 NEXT_COMMANDS = [
     "set -a; source .env.final.local; set +a",
     "python scripts/live_env_handoff.py --env-file .env.final.local --strict",
-    "python scripts/run_final_live_proof.py --preflight-only",
-    "python scripts/run_final_live_proof.py --evidence-out docs/assets/final-live-proof-evidence.json",
+    "python scripts/run_final_live_proof.py --env-file .env.final.local --preflight-only",
+    "python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json",
 ]
 
 

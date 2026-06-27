@@ -24,7 +24,7 @@ When B2 and Genblaze credentials are available, first run the preflight without 
 ```bash
 python scripts/live_env_handoff.py --env-file .env.final.local
 python scripts/live_proof.py --preflight-only
-python scripts/run_final_live_proof.py --preflight-only
+python scripts/run_final_live_proof.py --env-file .env.final.local --preflight-only
 ```
 
 Use `.env.final.example` as the copy source for `.env.final.local`. The handoff report records only variable names, presence, expected modes, and next commands; it never prints, hashes, stores, or commits credential values.
@@ -33,6 +33,7 @@ Then use the one-command runner:
 
 ```bash
 python scripts/run_final_live_proof.py \
+  --env-file .env.final.local \
   --evidence-out docs/assets/final-live-proof-evidence.json
 ```
 

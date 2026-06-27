@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.submission_bundle.v1",
-  "created_at": "2026-06-27T19:18:24Z",
+  "created_at": "2026-06-27T19:25:37Z",
   "project": "ProofFrame",
   "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
@@ -123,8 +123,8 @@
       "path": "README.md",
       "label": "Core public project overview",
       "present": true,
-      "bytes": 9895,
-      "sha256": "322e51bf12638304cf29d7357f19363d1041a28db9630f312440138c23794eb4"
+      "bytes": 9923,
+      "sha256": "8eabd3886ca4fb234bd5873436cb87be62ac4290583b1b941b06a9d842aa920b"
     },
     {
       "id": "dockerfile",
@@ -244,7 +244,7 @@
       "label": "Machine-readable public Space sync report",
       "present": true,
       "bytes": 3792,
-      "sha256": "fe5ca599fed14d94adba83f37ee8ede02ef751a68e1b1592b256dc4ed6c32717"
+      "sha256": "3c4b0df72ff1101cb5a830a9ae00c50196964596cdc4158085224d071dbb14e4"
     },
     {
       "id": "public_space_sync_md",
@@ -252,7 +252,7 @@
       "label": "Human-readable public Space sync report",
       "present": true,
       "bytes": 1816,
-      "sha256": "34c7fd9781df50c8b27fa2780d28512f9a3054980801f718329983e9bd5879f1"
+      "sha256": "b832a75c8ec8068dd4a91ef66176d821fb155a7ba877a00cd7e513d3628f5414"
     },
     {
       "id": "devpost_form_kit_script",
@@ -388,7 +388,7 @@
       "label": "Machine-readable final control report",
       "present": true,
       "bytes": 17497,
-      "sha256": "2837d27302a8994bb5077e1f10d7d321fc08f8732629b84c77d7e6edaa235714"
+      "sha256": "a88335521bd07600d33a9703d19d788d533ba8cb42bc9a2709b8ca55a79c7289"
     },
     {
       "id": "final_submission_control_md",
@@ -396,7 +396,7 @@
       "label": "Human-readable final control report",
       "present": true,
       "bytes": 5231,
-      "sha256": "0a379d1ff4f5b1d89e748b414270a432e927c5c4f7dddca3655fa893521aa0f7"
+      "sha256": "ed43e4a5fbb54d6429d458f44f979a58b8fbbd1bff1b6d3e66c3f4eb71ee9a03"
     },
     {
       "id": "final_operator_brief_script",
@@ -436,7 +436,7 @@
       "label": "Machine-readable submission audit report",
       "present": true,
       "bytes": 5201,
-      "sha256": "fa82e32f07ccf89b0d56adefdc08c4ccd8fa03ab99785b299300f3d2adb13757"
+      "sha256": "680ad49d9ba394f62e34e1905d5bcbfcfb9f316711fb08f9dc0dfdc35da07dad"
     },
     {
       "id": "submission_audit_md",
@@ -444,7 +444,7 @@
       "label": "Human-readable submission audit report",
       "present": true,
       "bytes": 3887,
-      "sha256": "0578e8a4a79a765c134d710284c2a9996333ed7049b8c8a2896fea4edc15fa33"
+      "sha256": "feebd2d7fd0ea2c8b9e959fa4b73dff17ce3d8c705137c5f10bb02ebb2c62b87"
     },
     {
       "id": "devpost_receipt_script",
@@ -475,8 +475,8 @@
       "path": "docs/evidence_package.md",
       "label": "Evidence package plan",
       "present": true,
-      "bytes": 13040,
-      "sha256": "d6c03c45cb95b61072b45e0d464b04a83553ec2a178e06705b2048ed3a38df60"
+      "bytes": 13096,
+      "sha256": "eaacba215605363cb9af9a3d4f50ba3f9952b4eb72c95c339baf1d2c01169fd4"
     },
     {
       "id": "public_claim_freeze",
@@ -491,8 +491,8 @@
       "path": "docs/verification.md",
       "label": "Local, CI, Docker, and live proof runbook",
       "present": true,
-      "bytes": 8175,
-      "sha256": "7f76a7665069a91b3f9f4040e8e0ba36f6eb4d3007d1d44d2f4f57fb0e400146"
+      "bytes": 8267,
+      "sha256": "18320353526db29b4a86f82f93ea3c931675d693eec7a89b18ebc1bdf37333c8"
     },
     {
       "id": "final_env_template",
@@ -516,7 +516,7 @@
       "label": "Machine-readable secret scan report",
       "present": true,
       "bytes": 8242,
-      "sha256": "2c07c2af0b7bfb6ae9e4de2e2c6c71e04881d18335a66af9c6576a23b56baa91"
+      "sha256": "414cff9d1a7a6d243687b4b630799df0ff854b9b50e3f3180c2fa81671050208"
     },
     {
       "id": "secret_scan_md",
@@ -524,7 +524,7 @@
       "label": "Human-readable secret scan report",
       "present": true,
       "bytes": 846,
-      "sha256": "3e05230a20a4bc9c93b4f1f29472846f00891525793653f26b8dd97057791ffa"
+      "sha256": "a94f3146e15a2162a385468af3d19913f45df5f317e81a0977613e267f68db3d"
     },
     {
       "id": "b2_live_setup_json",
@@ -555,32 +555,32 @@
       "path": "scripts/live_env_handoff.py",
       "label": "Redacted live credential handoff gate",
       "present": true,
-      "bytes": 9278,
-      "sha256": "a10bddfc1048122d9b7c3deaf352e49b6d1ddbbf142aa7cede03890af1b1d9f8"
+      "bytes": 9334,
+      "sha256": "8bdde6af8a35038f5323a5b2adffad4e7017adb177ee4e28bd9fdf85ff1ad4e7"
     },
     {
       "id": "live_env_handoff_json",
       "path": "docs/assets/live-credential-handoff.json",
       "label": "Machine-readable live credential handoff",
       "present": true,
-      "bytes": 4269,
-      "sha256": "6a6a62634cde12cdab9fb9743454b9f48a1d1bf36b7b275046ba74a8485e7f56"
+      "bytes": 4325,
+      "sha256": "eae8df767412496f94cdcfc3c41bef04f4f0afbbec04649a01b90f0605d91608"
     },
     {
       "id": "live_env_handoff_md",
       "path": "docs/assets/live-credential-handoff.md",
       "label": "Human-readable live credential handoff",
       "present": true,
-      "bytes": 2158,
-      "sha256": "75481d5d095709a3371d01803c440b3318f3ec4f6f24d6d4861e5c4e93b498a8"
+      "bytes": 2214,
+      "sha256": "92da5e4e7f5fe361b8b379e8c32bad57e71055802df7f2243e175d11e1118c31"
     },
     {
       "id": "final_env_wizard",
       "path": "scripts/final_env_wizard.py",
       "label": "Local final credential env wizard",
       "present": true,
-      "bytes": 11654,
-      "sha256": "9cd606a2cbca1a93901115484982011e73603a514db3d154c582e6e5850e7ba7"
+      "bytes": 11710,
+      "sha256": "64c7839582fa3d4d37985dc7277cec08795cab1d030b6c84584853bd0cbbf6e0"
     },
     {
       "id": "public_claim_lint",
@@ -628,7 +628,7 @@
       "label": "Machine-readable recording asset report",
       "present": true,
       "bytes": 6080,
-      "sha256": "e154e0c05b6b55d2dbd2b67e03176448995955142f258733690a6ac3cc64d0bb"
+      "sha256": "a05050a8875c4f546a029ddaf7cd4b37bf42af34ada5160f41e12860239e6b5e"
     },
     {
       "id": "recording_assets_md",
@@ -643,8 +643,8 @@
       "path": "scripts/run_final_live_proof.py",
       "label": "One-command final B2 plus Genblaze proof runner",
       "present": true,
-      "bytes": 4938,
-      "sha256": "21e83a6213cd5f139fe37075cfaa31eb607bf40f0cdc3182d12e88330c0c55e0"
+      "bytes": 5814,
+      "sha256": "c6b9dc2fc9d7c67061a796d769eb5598e6d54d0b7b96b76c60472abf34b90923"
     },
     {
       "id": "submission_plan",
@@ -659,8 +659,8 @@
       "path": "tasks.json",
       "label": "Machine-readable task board",
       "present": true,
-      "bytes": 29937,
-      "sha256": "b40b40493b9e3f4db65809eb37b6be854d406c69cdffa1c6d330006013b35d75"
+      "bytes": 30623,
+      "sha256": "d4af4a6b8753c0bc744b72d6dd3d1b50c23ed898920df83c256d92b33988e984"
     },
     {
       "id": "local_ui_smoke",

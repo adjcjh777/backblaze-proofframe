@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import importlib.util
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -18,13 +19,23 @@ from proofframe.config import Settings
 
 
 ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_ENV_FILE = ROOT / ".env.final.local"
 DEFAULT_EVIDENCE = ROOT / "docs" / "assets" / "final-live-proof-evidence.json"
 DEFAULT_LOG = ROOT / "var" / "live-proof" / "uvicorn.log"
 LIVE_PROOF_PATH = ROOT / "scripts" / "live_proof.py"
+LIVE_ENV_HANDOFF_PATH = ROOT / "scripts" / "live_env_handoff.py"
+
 LIVE_PROOF_SPEC = importlib.util.spec_from_file_location("live_proof", LIVE_PROOF_PATH)
 live_proof = importlib.util.module_from_spec(LIVE_PROOF_SPEC)
 assert LIVE_PROOF_SPEC.loader is not None
 LIVE_PROOF_SPEC.loader.exec_module(live_proof)
+
+LIVE_ENV_HANDOFF_SPEC = importlib.util.spec_from_file_location(
+    "live_env_handoff", LIVE_ENV_HANDOFF_PATH
+)
+live_env_handoff = importlib.util.module_from_spec(LIVE_ENV_HANDOFF_SPEC)
+assert LIVE_ENV_HANDOFF_SPEC.loader is not None
+LIVE_ENV_HANDOFF_SPEC.loader.exec_module(live_env_handoff)
 
 
 def build_uvicorn_command(host: str, port: int) -> list[str]:
@@ -47,6 +58,16 @@ def base_url(host: str, port: int) -> str:
 def read_health(url: str) -> dict[str, Any]:
     with urlopen(f"{url.rstrip('/')}/api/health", timeout=2) as response:
         return json.loads(response.read().decode("utf-8"))
+
+
+def apply_env_file(env_file: Path | None) -> dict[str, str]:
+    values: dict[str, str] = {}
+    if env_file and env_file.exists():
+        values.update(live_env_handoff.parse_env_file(env_file))
+    values["PROOFFRAME_STORAGE_BACKEND"] = "b2"
+    values["PROOFFRAME_GENERATION_BACKEND"] = "genblaze"
+    os.environ.update(values)
+    return values
 
 
 def wait_for_live_app(
@@ -78,6 +99,7 @@ def wait_for_live_app(
 
 
 def run_final_live_proof(args: argparse.Namespace) -> int:
+    apply_env_file(args.env_file)
     settings = Settings.from_env()
     report = live_proof.build_preflight_report(
         settings,
@@ -133,6 +155,7 @@ def build_parser() -> argparse.ArgumentParser:
         )
     )
     parser.add_argument("--host", default="127.0.0.1")
+    parser.add_argument("--env-file", type=Path, default=DEFAULT_ENV_FILE)
     parser.add_argument("--port", type=int, default=8088)
     parser.add_argument("--timeout-seconds", type=float, default=30)
     parser.add_argument("--evidence-out", type=Path, default=DEFAULT_EVIDENCE)

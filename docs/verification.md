@@ -72,7 +72,7 @@ python scripts/final_env_wizard.py --output .env.final.local
 set -a; source .env.final.local; set +a
 python scripts/live_env_handoff.py --env-file .env.final.local
 python scripts/live_proof.py --preflight-only
-python scripts/run_final_live_proof.py --preflight-only
+python scripts/run_final_live_proof.py --env-file .env.final.local --preflight-only
 ```
 
 When B2 and Genblaze env/packages are complete, use the one-command runner:
@@ -80,6 +80,7 @@ When B2 and Genblaze env/packages are complete, use the one-command runner:
 ```bash
 . .venv/bin/activate
 python scripts/run_final_live_proof.py \
+  --env-file .env.final.local \
   --evidence-out docs/assets/final-live-proof-evidence.json
 ```
 
@@ -231,6 +232,7 @@ python scripts/agent_handoff_check.py --check-bus
 python scripts/public_space_sync.py
 python scripts/devpost_event_snapshot.py --fetch-live
 python scripts/run_final_live_proof.py \
+  --env-file .env.final.local \
   --evidence-out docs/assets/final-live-proof-evidence.json
 python scripts/devpost_packet.py --post-live --video-url <public video URL>
 python scripts/devpost_form_kit.py --strict-final

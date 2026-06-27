@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T19:15:00Z",
+  "updated_at": "2026-06-27T19:24:04Z",
   "tasks": [
     {
       "id": "T001",
@@ -613,6 +613,15 @@
       "status": "done",
       "done_criteria": "A repeatable verifier checks HF Space metadata/runtime sha, raw handoff artifact, public health/gate APIs, judge-mode HTML markers, and feeds final control plus the submission bundle.",
       "notes": "Added scripts/public_space_sync.py and docs/assets/public-space-sync-report.*; current report is public_space_synced for runtime sha e71d73f7e55a977c4103aa4a50b0bd072314318c."
+    },
+    {
+      "id": "T042H",
+      "title": "Align final live proof env-file CLI",
+      "phase": "P4 Submit",
+      "owner": "codex",
+      "status": "done",
+      "done_criteria": "The documented final live proof command accepts --env-file .env.final.local, loads non-secret/live env values without printing secrets, still fails closed when credentials are missing, and generated operator commands match the CLI.",
+      "notes": "Added --env-file support to scripts/run_final_live_proof.py, aligned live_env_handoff/final_env_wizard next commands and runbooks, and verified preflight now reports missing B2 key/application key/Genblaze API key instead of CLI argument failure."
     }
   ]
 }
