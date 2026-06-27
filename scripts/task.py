@@ -21,7 +21,9 @@ def load_data() -> dict[str, Any]:
 
 
 def save_data(data: dict[str, Any]) -> None:
-    data["updated_at"] = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+    data["updated_at"] = (
+        datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+    )
     tmp_path = TASKS_PATH.with_suffix(".json.tmp")
     with tmp_path.open("w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
@@ -42,6 +44,51 @@ def print_task(task: dict[str, Any]) -> None:
     print(f"{task['id']} [{task['status']}] {task['phase']} / {task['owner']} - {task['title']}{note}")
 
 
+def task_search_text(task: dict[str, Any]) -> str:
+    values = [
+        task.get("id", ""),
+        task.get("title", ""),
+        task.get("phase", ""),
+        task.get("owner", ""),
+        task.get("status", ""),
+        task.get("done_criteria", ""),
+        task.get("notes", ""),
+    ]
+    return "\n".join(str(value) for value in values).lower()
+
+
+def insert_task(data: dict[str, Any], task: dict[str, Any], after: str | None = None) -> None:
+    tasks = data["tasks"]
+    if any(existing["id"].upper() == task["id"].upper() for existing in tasks):
+        raise SystemExit(f"Task already exists: {task['id']}")
+    if not after:
+        tasks.append(task)
+        return
+
+    after = after.upper()
+    for index, existing in enumerate(tasks):
+        if existing["id"].upper() == after:
+            tasks.insert(index + 1, task)
+            return
+    raise SystemExit(f"Task not found for --after: {after}")
+
+
+def cmd_add(args: argparse.Namespace) -> None:
+    data = load_data()
+    task = {
+        "id": args.task_id.upper(),
+        "title": args.title,
+        "phase": args.phase,
+        "owner": args.owner,
+        "status": args.status,
+        "done_criteria": args.done_criteria,
+        "notes": args.note,
+    }
+    insert_task(data, task, args.after)
+    save_data(data)
+    print_task(task)
+
+
 def cmd_list(args: argparse.Namespace) -> None:
     data = load_data()
     tasks = data["tasks"]
@@ -59,6 +106,20 @@ def cmd_show(args: argparse.Namespace) -> None:
     print(json.dumps(task, indent=2, ensure_ascii=False))
 
 
+def cmd_search(args: argparse.Namespace) -> None:
+    data = load_data()
+    terms = [term.lower() for term in args.query]
+    tasks = data["tasks"]
+    if args.status:
+        tasks = [task for task in tasks if task["status"] == args.status]
+    if args.owner:
+        tasks = [task for task in tasks if task["owner"] == args.owner]
+    for task in tasks:
+        text = task_search_text(task)
+        if all(term in text for term in terms):
+            print_task(task)
+
+
 def update_status(args: argparse.Namespace, status: str) -> None:
     data = load_data()
     task = find_task(data, args.task_id)
@@ -73,6 +134,17 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Query and update ProofFrame tasks.")
     subparsers = parser.add_subparsers(dest="command", required=True)
 
+    add_parser = subparsers.add_parser("add", help="Add a task.")
+    add_parser.add_argument("task_id")
+    add_parser.add_argument("title")
+    add_parser.add_argument("--phase", required=True)
+    add_parser.add_argument("--owner", required=True)
+    add_parser.add_argument("--status", choices=sorted(VALID_STATUSES), default="todo")
+    add_parser.add_argument("--done-criteria", default="")
+    add_parser.add_argument("--note", default="")
+    add_parser.add_argument("--after", help="Insert after an existing task id.")
+    add_parser.set_defaults(func=cmd_add)
+
     list_parser = subparsers.add_parser("list", help="List tasks.")
     list_parser.add_argument("--status", choices=sorted(VALID_STATUSES))
     list_parser.add_argument("--owner")
@@ -81,6 +153,12 @@ def build_parser() -> argparse.ArgumentParser:
     show_parser = subparsers.add_parser("show", help="Show one task as JSON.")
     show_parser.add_argument("task_id")
     show_parser.set_defaults(func=cmd_show)
+
+    search_parser = subparsers.add_parser("search", help="Search tasks.")
+    search_parser.add_argument("query", nargs="+")
+    search_parser.add_argument("--status", choices=sorted(VALID_STATUSES))
+    search_parser.add_argument("--owner")
+    search_parser.set_defaults(func=cmd_search)
 
     for status in sorted(VALID_STATUSES):
         status_parser = subparsers.add_parser(status, help=f"Mark a task as {status}.")

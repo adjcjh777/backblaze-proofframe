@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T07:08:30Z",
+  "updated_at": "2026-06-27T07:09:43Z",
   "tasks": [
     {
       "id": "T001",
@@ -253,6 +253,15 @@
       "status": "done",
       "done_criteria": "api_smoke evidence output refuses secret-like keys and signed-token values before writing JSON.",
       "notes": "Added safe-evidence validation to scripts/api_smoke.py with tests for secret-like keys and signed URL values."
+    },
+    {
+      "id": "T039E",
+      "title": "Enhance task ledger CLI",
+      "phase": "P3 Polish",
+      "owner": "executor",
+      "status": "done",
+      "done_criteria": "Task helper can add new tasks and search across ids, titles, notes, owners, phases, and done criteria.",
+      "notes": "Added add/search commands, README examples, docs/todo examples, and CLI tests."
     },
     {
       "id": "T040",

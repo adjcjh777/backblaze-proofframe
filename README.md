@@ -39,7 +39,9 @@ Why this one:
 ```bash
 python3 scripts/task.py list
 python3 scripts/task.py list --status todo
+python3 scripts/task.py search Genblaze --status doing
 python3 scripts/task.py show T001
+python3 scripts/task.py add T099 "Record final demo" --phase "P4 Submit" --owner controller --after T041
 python3 scripts/task.py done T001
 python3 scripts/task.py block T010 --note "Requires account setup"
 ```
@@ -60,9 +62,11 @@ Stage 1 is complete enough for local demo iteration: FastAPI MVP skeleton, mock 
 
 Stage 2 is in progress: B2-compatible storage code and a Genblaze/GMICloud image provider path exist, but live B2 and Genblaze runs still need credentials/provider verification before final submission claims.
 
-Stage 3 preparation has started: Proof Ledger UI smoke is captured, and demo/evidence/claim-freeze docs are ready for the final sponsor-integration pass.
+Stage 3 preparation is active: the public mock demo is deployed, Review Console polish is captured, Devpost/evidence/claim-freeze docs are ready for the final sponsor-integration pass, and API evidence exports fail closed if secret-like values appear.
 
 ![ProofFrame local UI smoke](docs/assets/proofframe-local-ui-smoke.png)
+
+![ProofFrame review console smoke](docs/assets/proofframe-review-console-smoke.png)
 
 ## Run Locally
 

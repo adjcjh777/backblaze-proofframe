@@ -53,7 +53,10 @@ ProofFrame provides a browser-based ledger for generated media approvals:
 - Create a campaign brief.
 - Generate candidate media assets.
 - Review, approve, or reject assets.
+- Search/filter evidence by prompt, model, storage key, checksum, and status.
+- Track decision coverage across approved, draft, and rejected assets.
 - Inspect prompt, provider, model, storage backend, storage key, checksum, and risk note.
+- Copy a safe evidence summary without credentials, cookies, signed URLs, or raw secrets.
 - Export a manifest.
 - Download an evidence ZIP containing the manifest, README, and available media.
 - Use Judge Demo to create a complete local packet instantly.
@@ -63,6 +66,8 @@ ProofFrame provides a browser-based ledger for generated media approvals:
 ProofFrame uses FastAPI for the API, a single-file browser UI for the proof ledger, local storage for credential-free demos, a Backblaze B2-compatible S3 storage backend, and a Genblaze/GMICloud provider adapter built around the official Genblaze Pipeline API.
 
 The local demo intentionally runs without secrets. The B2 and Genblaze adapters fail closed so missing credentials are visible instead of silently falling back.
+
+The public mock demo is deployed as a Hugging Face Space for judge-friendly product inspection while the final sponsor-backed proof remains gated.
 
 ## Backblaze B2 Usage
 
@@ -103,10 +108,13 @@ The biggest challenge is avoiding shallow sponsor integration. ProofFrame has to
 ## Accomplishments
 
 - Built a working local product, not just a pitch.
+- Deployed a credential-free public mock demo.
 - Added a one-click Judge Demo path.
+- Added a review console with evidence search, status filtering, decision coverage, and safe summary copy.
 - Added downloadable evidence ZIPs.
 - Added B2-compatible storage and Genblaze/GMICloud provider code paths.
 - Added CI that runs readiness checks, lint, tests, API smoke, and secret scan.
+- Added a fail-closed safety gate for evidence JSON exports.
 - Kept public claims gated until live sponsor proof exists.
 
 ## What We Learned
@@ -117,7 +125,6 @@ The useful unit for generated media teams is not a single image. It is a packet:
 
 - Live B2 proof with a dedicated bucket and least-privilege key.
 - Live Genblaze proof with provider/model/run metadata.
-- Public demo deployment.
 - Demo video under the event limit.
 - Final Devpost submission.
 
@@ -126,7 +133,7 @@ The useful unit for generated media teams is not a single image. It is a packet:
 - [ ] T020 B2 live proof complete.
 - [ ] T021 Genblaze live proof complete.
 - [ ] T040 Devpost registration complete.
-- [ ] Demo URL available.
+- [x] Public mock demo URL available.
 - [ ] Demo video available.
 - [ ] Final secret scan complete.
 - [ ] Final audit complete.

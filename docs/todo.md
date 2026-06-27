@@ -7,7 +7,10 @@ Use `tasks.json` as the source of truth and `scripts/task.py` for machine-readab
 ```bash
 python3 scripts/task.py list
 python3 scripts/task.py list --status todo
+python3 scripts/task.py search B2
+python3 scripts/task.py search Devpost --status blocked
 python3 scripts/task.py show T001
+python3 scripts/task.py add T099 "Record final demo" --phase "P4 Submit" --owner controller --after T041
 python3 scripts/task.py done T001
 python3 scripts/task.py block T010 --note "Needs manual Devpost login"
 ```
