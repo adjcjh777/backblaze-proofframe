@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T11:13:24Z",
+  "updated_at": "2026-06-27T16:13:51Z",
   "tasks": [
     {
       "id": "T001",
@@ -442,6 +442,15 @@
       "status": "done",
       "done_criteria": "Judge-mode first viewport shows a claim-safe sponsor evidence model covering Genblaze step, B2 object route, manifest proof, and current claim mode; tests and readiness audits verify the UI copy remains present.",
       "notes": "Added first-viewport Sponsor Evidence Model UI for Genblaze step, B2 object route, manifest proof, and claim mode; wired API tests plus sponsor/award readiness checks and refreshed reports."
+    },
+    {
+      "id": "T039Z",
+      "title": "Sync sponsor evidence public Space",
+      "phase": "P3 Demo",
+      "owner": "codex",
+      "status": "done",
+      "done_criteria": "The public HF Space judge-mode URL serves the Sponsor Evidence Model UI and still passes public mock API smoke with pre_live_safe submission gate.",
+      "notes": "Pushed HF Space commits c530a1d and 3308508; verified public ?judge=1 HTML contains Sponsor Evidence Model, /api/submission/gate reports pre_live_safe with current tasks, and scripts/api_smoke.py passes against the public Space."
     },
     {
       "id": "T040",

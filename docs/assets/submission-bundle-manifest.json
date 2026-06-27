@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.submission_bundle.v1",
-  "created_at": "2026-06-27T16:05:10Z",
+  "created_at": "2026-06-27T16:14:33Z",
   "project": "ProofFrame",
   "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
@@ -225,8 +225,8 @@
       "path": "docs/evidence_package.md",
       "label": "Evidence package plan",
       "present": true,
-      "bytes": 10441,
-      "sha256": "2ce3cd1fccd2f03b3ca92821fab95addf65c01b6b2a1e539f73d8c343245d62a"
+      "bytes": 10492,
+      "sha256": "506100d984198890c889b769f26e391a68e114aa3d77b2a5dee999a3defb3311"
     },
     {
       "id": "public_claim_freeze",
@@ -361,8 +361,8 @@
       "path": "tasks.json",
       "label": "Machine-readable task board",
       "present": true,
-      "bytes": 21801,
-      "sha256": "757087bffbe2fb78536186a2a576b157c696ce14700cb89fcaf665cd252895ae"
+      "bytes": 22381,
+      "sha256": "c015acf60fe4cebf959a60a1c113f7894c0e3f258198b07fcbef8af4e7a06e1c"
     },
     {
       "id": "local_ui_smoke",

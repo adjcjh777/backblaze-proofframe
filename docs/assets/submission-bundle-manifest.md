@@ -1,6 +1,6 @@
 # ProofFrame Submission Bundle
 
-Created: `2026-06-27T16:05:10Z`
+Created: `2026-06-27T16:14:33Z`
 Repository: https://github.com/adjcjh777/backblaze-proofframe
 Public mock demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 Devpost packet mode: `pre_live_safe`
@@ -44,7 +44,7 @@ Final gate ready: `false`
 - `scripts/award_readiness.py` (21382 bytes, sha256 `f5a3a59f7c33f75c...`) - Judge-facing award readiness scorecard
 - `docs/assets/award-readiness-report.json` (10504 bytes, sha256 `d7508620d451050e...`) - Machine-readable award readiness report
 - `docs/assets/award-readiness-report.md` (3993 bytes, sha256 `841b753556e68b15...`) - Human-readable award readiness report
-- `docs/evidence_package.md` (10441 bytes, sha256 `2ce3cd1fccd2f03b...`) - Evidence package plan
+- `docs/evidence_package.md` (10492 bytes, sha256 `506100d984198890...`) - Evidence package plan
 - `docs/public_claim_freeze.md` (4089 bytes, sha256 `735b9188feae74ea...`) - Verified-claim boundary
 - `docs/verification.md` (6727 bytes, sha256 `a83398744b25370d...`) - Local, CI, Docker, and live proof runbook
 - `.env.final.example` (352 bytes, sha256 `d250e97bb0a653fa...`) - Redacted final B2 plus Genblaze env template
@@ -61,7 +61,7 @@ Final gate ready: `false`
 - `docs/assets/demo-readiness-report.md` (1647 bytes, sha256 `742c02b42b2dd717...`) - Human-readable demo readiness report
 - `scripts/run_final_live_proof.py` (4938 bytes, sha256 `21e83a6213cd5f13...`) - One-command final B2 plus Genblaze proof runner
 - `docs/submission.md` (3209 bytes, sha256 `1441300c209a5c40...`) - Registration and submission plan
-- `tasks.json` (21801 bytes, sha256 `757087bffbe2fb78...`) - Machine-readable task board
+- `tasks.json` (22381 bytes, sha256 `c015acf60fe4cebf...`) - Machine-readable task board
 - `docs/assets/proofframe-local-ui-smoke.png` (364927 bytes, sha256 `cca671ad38bda4dc...`) - Local UI screenshot
 - `docs/assets/proofframe-review-console-smoke.png` (343618 bytes, sha256 `30620a33e3c7ab28...`) - Review console screenshot
 - `docs/assets/proofframe-hf-public-smoke.png` (369328 bytes, sha256 `8f7dc32d520f8391...`) - Public mock demo screenshot
