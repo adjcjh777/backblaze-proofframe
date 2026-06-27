@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.final_submission_control.v1",
-  "created_at": "2026-06-27T19:25:37Z",
+  "created_at": "2026-06-27T19:35:40Z",
   "mode": "pre_live_control",
   "safe_to_submit": false,
   "event": {
@@ -450,7 +450,7 @@
     "python scripts/live_env_handoff.py --env-file .env.final.local",
     "python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out docs/assets/b2-live-proof-evidence.json",
     "python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json",
-    "python scripts/devpost_packet.py --post-live --video-url <public video URL>",
+    "python scripts/devpost_packet.py --post-live --video-url \"$PROOFFRAME_PUBLIC_VIDEO_URL\"",
     "python scripts/agent_handoff_check.py",
     "python scripts/public_space_sync.py",
     "python scripts/secret_scan.py",
@@ -459,7 +459,7 @@
     "python scripts/demo_readiness.py --strict-final",
     "python scripts/recording_assets.py --verify-public --strict-final",
     "python scripts/submission_audit.py --strict-final",
-    "python scripts/devpost_submission_receipt.py --project-url <public Devpost project URL> --submitted-at <ISO timestamp> --confirmation-note \"Devpost accepted/submitted the ProofFrame project.\""
+    "python scripts/devpost_submission_receipt.py --project-url \"$PROOFFRAME_DEVPOST_PROJECT_URL\" --submitted-at \"$PROOFFRAME_DEVPOST_SUBMITTED_AT\" --confirmation-note \"Devpost accepted/submitted the ProofFrame project.\""
   ],
   "claim_boundary": "Public demo remains local/mock and pre_live_safe until final live B2 plus Genblaze proof is captured."
 }

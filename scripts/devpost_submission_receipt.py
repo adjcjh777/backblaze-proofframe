@@ -136,7 +136,7 @@ def build_receipt(
         "secret_policy": "Receipt stores only public Devpost URL, timestamp, and confirmation text; no cookies, browser sessions, tokens, or private form data.",
         "next_actions": [
             "Submit the project in Devpost after strict final gates are green.",
-            "Run python scripts/devpost_submission_receipt.py --project-url <public Devpost project URL> --submitted-at <ISO timestamp> --confirmation-note \"Devpost accepted/submitted the ProofFrame project.\"",
+            'Run python scripts/devpost_submission_receipt.py --project-url "$PROOFFRAME_DEVPOST_PROJECT_URL" --submitted-at "$PROOFFRAME_DEVPOST_SUBMITTED_AT" --confirmation-note "Devpost accepted/submitted the ProofFrame project."',
             "Mark T042 done only after this receipt is ok.",
             "Rerun python scripts/final_submission_control.py --strict-final.",
         ],

@@ -154,12 +154,12 @@ def test_final_operator_brief_is_ready_for_secret_entry(tmp_path):
     ]
     assert report["safety_policy"]["env_final_local_ignored"] is True
     assert any("least-privilege Backblaze B2" in action for action in report["user_actions"])
-    assert "python scripts/devpost_packet.py --post-live --video-url <public video URL>" in report[
+    assert 'python scripts/devpost_packet.py --post-live --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL"' in report[
         "codex_actions_after_credentials"
     ]
     assert "python scripts/submission_audit.py --strict-final" in report["codex_actions_after_credentials"]
     assert any(
-        action.startswith("python scripts/devpost_submission_receipt.py --project-url <public Devpost project URL>")
+        action.startswith('python scripts/devpost_submission_receipt.py --project-url "$PROOFFRAME_DEVPOST_PROJECT_URL"')
         for action in report["codex_actions_after_credentials"]
     )
     assert report["reports"]["secret_scan"]["schema_ok"] is True

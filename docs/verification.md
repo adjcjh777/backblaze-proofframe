@@ -234,7 +234,8 @@ python scripts/devpost_event_snapshot.py --fetch-live
 python scripts/run_final_live_proof.py \
   --env-file .env.final.local \
   --evidence-out docs/assets/final-live-proof-evidence.json
-python scripts/devpost_packet.py --post-live --video-url <public video URL>
+export PROOFFRAME_PUBLIC_VIDEO_URL="https://..."
+python scripts/devpost_packet.py --post-live --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL"
 python scripts/devpost_form_kit.py --strict-final
 python scripts/demo_storyboard.py --strict-final
 python scripts/demo_readiness.py --strict-final
@@ -244,9 +245,11 @@ python scripts/final_submission_control.py --strict-final
 python scripts/final_operator_brief.py
 python scripts/submission_audit.py --strict-final
 # After Devpost accepts the project:
+export PROOFFRAME_DEVPOST_PROJECT_URL="https://devpost.com/software/..."
+export PROOFFRAME_DEVPOST_SUBMITTED_AT="2026-08-03T21:00:00Z"
 python scripts/devpost_submission_receipt.py \
-  --project-url <public Devpost project URL> \
-  --submitted-at <ISO timestamp> \
+  --project-url "$PROOFFRAME_DEVPOST_PROJECT_URL" \
+  --submitted-at "$PROOFFRAME_DEVPOST_SUBMITTED_AT" \
   --confirmation-note "Devpost accepted/submitted the ProofFrame project."
 python scripts/task.py list --status doing
 python scripts/task.py list --status blocked

@@ -47,7 +47,7 @@ python scripts/run_final_live_proof.py --env-file .env.final.local --preflight-o
 python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json
 ```
 ```bash
-python scripts/devpost_packet.py --post-live --video-url <public video URL>
+python scripts/devpost_packet.py --post-live --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL"
 ```
 ```bash
 python scripts/secret_scan.py

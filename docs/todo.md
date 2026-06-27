@@ -30,6 +30,6 @@ python3 scripts/task.py doing T020 --note "Live B2 proof in progress"
 1. Copy `.env.final.example` to `.env.final.local`, fill B2/Genblaze values outside git, then run `python scripts/live_env_handoff.py --env-file .env.final.local`.
 2. Complete live Backblaze B2 upload proof for one asset and one manifest.
 3. Complete live Genblaze-backed generation proof and capture provider/model metadata.
-4. Record and upload the demo video using `docs/demo_script.md`, then regenerate `docs/assets/devpost-submission-packet.*` with `python scripts/devpost_packet.py --post-live --video-url <public video URL>`.
+4. Record and upload the demo video using `docs/demo_script.md`, then regenerate `docs/assets/devpost-submission-packet.*` with `python scripts/devpost_packet.py --post-live --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL"`.
 5. Run the final secret scan, strict form/storyboard/readiness gates, and `python scripts/submission_audit.py --strict-final`.
 6. Keep public claims frozen with `docs/public_claim_freeze.md` until real B2 and Genblaze evidence exists and the strict audit is green.

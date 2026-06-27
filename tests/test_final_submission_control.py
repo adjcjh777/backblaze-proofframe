@@ -1,5 +1,7 @@
 import importlib.util
 import json
+import shlex
+import sys
 from pathlib import Path
 
 
@@ -286,6 +288,24 @@ def test_control_report_writes_json_and_markdown(tmp_path):
     assert saved["schema"] == "proofframe.final_submission_control.v1"
     assert "# ProofFrame Final Submission Control" in markdown
     assert "Safe to submit: `false`" in markdown
-    assert "python scripts/devpost_packet.py --post-live --video-url <public video URL>" in markdown
+    assert 'python scripts/devpost_packet.py --post-live --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL"' in markdown
     assert "python scripts/submission_audit.py --strict-final" in markdown
-    assert "python scripts/devpost_submission_receipt.py --project-url <public Devpost project URL>" in markdown
+    assert 'python scripts/devpost_submission_receipt.py --project-url "$PROOFFRAME_DEVPOST_PROJECT_URL"' in markdown
+
+
+def test_operator_commands_are_shell_safe_and_parseable():
+    root = Path(__file__).resolve().parents[1]
+
+    for index, command in enumerate(final_submission_control.OPERATOR_COMMANDS, start=1):
+        assert "<" not in command and ">" not in command, f"command {index} is not shell-safe: {command}"
+        parts = shlex.split(command)
+        assert parts[:1] == ["python"]
+        script = root / parts[1]
+        assert script.exists(), f"command {index} references missing script: {parts[1]}"
+
+        spec = importlib.util.spec_from_file_location(f"operator_command_{index}_{script.stem}", script)
+        module = importlib.util.module_from_spec(spec)
+        assert spec and spec.loader is not None
+        sys.modules[spec.name] = module
+        spec.loader.exec_module(module)
+        module.build_parser().parse_args(parts[2:])

@@ -386,7 +386,7 @@ def build_audit_report(
         "next_commands": [
             "python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out docs/assets/b2-live-proof-evidence.json",
             "python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json",
-            "python scripts/devpost_packet.py --post-live --video-url <public video URL>",
+            'python scripts/devpost_packet.py --post-live --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL"',
             "python scripts/devpost_form_kit.py --strict-final",
             "python scripts/demo_storyboard.py --strict-final",
             "python scripts/demo_readiness.py --strict-final",
@@ -394,7 +394,7 @@ def build_audit_report(
             "python scripts/secret_scan.py",
             "python scripts/final_submission_control.py --strict-final",
             "python scripts/submission_audit.py --strict-final",
-            "python scripts/devpost_submission_receipt.py --project-url <public Devpost project URL> --submitted-at <ISO timestamp> --confirmation-note \"Devpost accepted/submitted the ProofFrame project.\"",
+            'python scripts/devpost_submission_receipt.py --project-url "$PROOFFRAME_DEVPOST_PROJECT_URL" --submitted-at "$PROOFFRAME_DEVPOST_SUBMITTED_AT" --confirmation-note "Devpost accepted/submitted the ProofFrame project."',
         ],
         "signoff_instruction": (
             "When this report is ok, mark T041 done, submit Devpost, generate the public submission receipt, then mark T042 done and rerun final_submission_control.py --strict-final."
