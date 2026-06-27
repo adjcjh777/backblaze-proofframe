@@ -1,3 +1,5 @@
+import builtins
+
 import pytest
 
 from proofframe.config import ConfigurationError, Settings
@@ -18,13 +20,22 @@ def test_genblaze_backend_requires_explicit_config():
         create_media_provider(settings)
 
 
-def test_genblaze_provider_fails_closed_without_package():
+def test_genblaze_provider_fails_closed_without_package(monkeypatch):
+    real_import = builtins.__import__
+
+    def fake_import(name, globals=None, locals=None, fromlist=(), level=0):
+        if name in {"genblaze_core", "genblaze_gmicloud"}:
+            raise ModuleNotFoundError(name)
+        return real_import(name, globals, locals, fromlist, level)
+
     provider = GenblazeMediaProvider(
         api_key="test-key",
         image_model="test-model",
         base_url="http://localhost:8800/v1",
     )
     campaign = Campaign(title="Launch", brief="Generate one safe image.")
+
+    monkeypatch.setattr(builtins, "__import__", fake_import)
     with pytest.raises(ConfigurationError, match="Genblaze generation requires"):
         provider.generate(campaign)
 

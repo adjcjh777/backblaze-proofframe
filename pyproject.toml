@@ -21,9 +21,9 @@ dev = [
 ]
 integrations = [
   "boto3>=1.34",
-  "genblaze-core>=0.4",
-  "genblaze-s3>=0.4",
-  "genblaze-gmicloud>=0.4",
+  "genblaze-core>=0.3.4",
+  "genblaze-s3>=0.3.4",
+  "genblaze-gmicloud>=0.3.2",
 ]
 
 [project.scripts]

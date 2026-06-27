@@ -122,7 +122,11 @@ class GenblazeMediaProvider:
                         modality=Modality.IMAGE,
                         aspect_ratio=self.aspect_ratio,
                     )
-                    .run(timeout=self.timeout_seconds, max_retries=1)
+                    .run(
+                        timeout=self.timeout_seconds,
+                        max_retries=1,
+                        raise_on_failure=True,
+                    )
                 )
             except Exception as exc:
                 raise ConfigurationError(f"Genblaze generation failed: {exc}") from exc
