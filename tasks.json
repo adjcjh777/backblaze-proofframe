@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T07:44:07Z",
+  "updated_at": "2026-06-27T07:54:35Z",
   "tasks": [
     {
       "id": "T001",
@@ -300,13 +300,22 @@
       "notes": "Added /api/submission/gate, sidebar gate panel, Deerflow signature, and unit/API tests."
     },
     {
+      "id": "T039J",
+      "title": "Add safe submission bundle manifest",
+      "phase": "P3 Polish",
+      "owner": "executor",
+      "status": "done",
+      "done_criteria": "A script generates public-safe JSON/Markdown manifests for submission artifacts, checksums, Devpost copy mode, and remaining gate blockers.",
+      "notes": "Added scripts/submission_bundle.py, generated docs/assets/submission-bundle-manifest.*, and tests."
+    },
+    {
       "id": "T040",
       "title": "Register on Devpost",
       "phase": "P4 Submit",
       "owner": "controller",
-      "status": "blocked",
+      "status": "done",
       "done_criteria": "User account is registered for the Backblaze event.",
-      "notes": "Devpost form has Working solo/Backblaze/Website, Genblaze star Yes, eligibility and rules checked; awaiting exact Backblaze Account Email before final Register."
+      "notes": "Devpost registration complete; page shows Thanks for registering and manage/submissions is available."
     },
     {
       "id": "T041",

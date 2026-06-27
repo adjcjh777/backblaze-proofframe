@@ -12,6 +12,7 @@ python scripts/check_integrations.py
 ruff check .
 pytest
 python scripts/secret_scan.py
+python scripts/submission_bundle.py
 ```
 
 ## GitHub CI
@@ -161,6 +162,7 @@ Before Devpost submit:
 
 ```bash
 python scripts/secret_scan.py
+python scripts/submission_bundle.py
 python scripts/live_proof.py \
   --base-url <final-demo-url> \
   --evidence-out docs/assets/final-live-proof-evidence.json

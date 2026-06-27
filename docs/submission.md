@@ -39,6 +39,7 @@ Codex can handle:
 - Credential-free public mock demo URL: https://adjcjh-backblaze-proofframe.hf.space/
 - B2/Genblaze-backed demo URL or Docker instructions after T020/T021.
 - Devpost text from `docs/devpost_draft.md`.
+- Safe submission bundle manifest from `docs/assets/submission-bundle-manifest.md` and `.json`.
 - 2 minute demo video.
 - Project title: ProofFrame.
 - Tagline: "A provenance-first vault for generated media."
@@ -54,7 +55,7 @@ The result is a shareable asset packet that explains where each generated file c
 
 ## Final Submission Checklist
 
-- [ ] Registered on Devpost.
+- [x] Registered on Devpost.
 - [ ] Backblaze B2 bucket created.
 - [ ] B2 media and manifest upload verified.
 - [ ] Genblaze run captured.
@@ -68,4 +69,5 @@ The result is a shareable asset packet that explains where each generated file c
 - [ ] `python scripts/submission_audit.py` passes.
 - [ ] Demo video recorded.
 - [ ] Devpost draft reviewed.
+- [x] Safe submission bundle manifest generated.
 - [ ] Submitted before 2026-08-04 05:00 Beijing.

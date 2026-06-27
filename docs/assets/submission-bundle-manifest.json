@@ -1,0 +1,177 @@
+{
+  "schema": "proofframe.submission_bundle.v1",
+  "created_at": "2026-06-27T07:55:02Z",
+  "project": "ProofFrame",
+  "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
+  "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/",
+  "safe_to_share": true,
+  "devpost_packet": {
+    "present": true,
+    "mode": "pre_live_safe",
+    "project_name": "ProofFrame",
+    "tagline": "A provenance-first vault for generated media.",
+    "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
+    "demo_url": "https://adjcjh-backblaze-proofframe.hf.space/",
+    "claim_warning": "Safe for public mock demo only. Do not submit as final sponsor proof."
+  },
+  "submission_gate": {
+    "ok": false,
+    "mode": "pre_live_safe",
+    "summary": {
+      "required": 6,
+      "done": 1,
+      "blocked": 0,
+      "doing": 2,
+      "todo": 3,
+      "missing": 0
+    },
+    "packet_gate": {
+      "ok": true,
+      "status": "ready",
+      "path": "/Users/junhaocheng/Documents/Codex/2026-06-27/quan/backblaze-proofframe/docs/assets/devpost-submission-packet.json",
+      "mode": "pre_live_safe",
+      "claim_warning": "Safe for public mock demo only. Do not submit as final sponsor proof."
+    },
+    "evidence_gate": {
+      "ok": false,
+      "status": "missing",
+      "path": "/Users/junhaocheng/Documents/Codex/2026-06-27/quan/backblaze-proofframe/docs/assets/final-live-proof-evidence.json",
+      "findings": [
+        {
+          "field": "final-live-proof-evidence",
+          "detail": "Final B2 and Genblaze evidence file is missing or invalid JSON."
+        }
+      ]
+    },
+    "next_actions": [
+      "Run a live Backblaze B2 asset and manifest proof.",
+      "Run a live Genblaze generation proof and capture provider metadata.",
+      "Run the final submission audit after live proofs are captured.",
+      "Run the final secret scan before recording or submitting.",
+      "Submit the Devpost project after every preceding gate is done."
+    ]
+  },
+  "artifacts": [
+    {
+      "id": "repo_readme",
+      "path": "README.md",
+      "label": "Core public project overview",
+      "present": true,
+      "bytes": 5570,
+      "sha256": "ad10d66927006cfcf09544760578a2e2067b8144dbda4843247d7867cae770fe"
+    },
+    {
+      "id": "prd",
+      "path": "docs/prd.md",
+      "label": "Product requirements",
+      "present": true,
+      "bytes": 3918,
+      "sha256": "ada7e9161b86483cdaead118e1c36f09bc7c8f041132b3d64df205ffdd71a21c"
+    },
+    {
+      "id": "technical_spec",
+      "path": "docs/spec.md",
+      "label": "Implementation specification",
+      "present": true,
+      "bytes": 4874,
+      "sha256": "8320ef186af3407557419e3ee7270b716ad453571c50757572b9ffb4701cd8a6"
+    },
+    {
+      "id": "devpost_draft",
+      "path": "docs/devpost_draft.md",
+      "label": "Copy-ready Devpost fields",
+      "present": true,
+      "bytes": 5582,
+      "sha256": "16cb4a81e97afacbfd9841492362ddfc518e38c4b4536ab5f002e88a6d66f2c5"
+    },
+    {
+      "id": "devpost_packet_json",
+      "path": "docs/assets/devpost-submission-packet.json",
+      "label": "Machine-readable Devpost copy",
+      "present": true,
+      "bytes": 5014,
+      "sha256": "4e876712ba4cee5427399ee29a201f24fd20339f2aaede47ef9af70febb1809e"
+    },
+    {
+      "id": "devpost_packet_md",
+      "path": "docs/assets/devpost-submission-packet.md",
+      "label": "Human-readable Devpost copy",
+      "present": true,
+      "bytes": 3872,
+      "sha256": "a42ceffb260a1bca252ee3d369ac348e2cf7b5395d3704331ee4c1a3e76b5e1c"
+    },
+    {
+      "id": "demo_script",
+      "path": "docs/demo_script.md",
+      "label": "Video shot list and narration",
+      "present": true,
+      "bytes": 4696,
+      "sha256": "3ae04bd70345224ece5c1b4a5aa6eed33957bb89c8d719c264432f67f11e7f59"
+    },
+    {
+      "id": "evidence_package",
+      "path": "docs/evidence_package.md",
+      "label": "Evidence package plan",
+      "present": true,
+      "bytes": 7305,
+      "sha256": "c2f1e4313f766470238760b35c3e2344a71e9f28092b599cda1b87a96cb10fed"
+    },
+    {
+      "id": "public_claim_freeze",
+      "path": "docs/public_claim_freeze.md",
+      "label": "Verified-claim boundary",
+      "present": true,
+      "bytes": 3869,
+      "sha256": "88eb5c59f83ccc6f5d4e4afaabe42f1d952dfaac6f619272ada3e9134cab6fae"
+    },
+    {
+      "id": "verification_runbook",
+      "path": "docs/verification.md",
+      "label": "Local, CI, Docker, and live proof runbook",
+      "present": true,
+      "bytes": 4593,
+      "sha256": "806be9ebfaf386c023dfdcba1410d479123af71a053045d999df36e583da7b6b"
+    },
+    {
+      "id": "submission_plan",
+      "path": "docs/submission.md",
+      "label": "Registration and submission plan",
+      "present": true,
+      "bytes": 2984,
+      "sha256": "9dbc819b471821efa75e86830137289b0595d9d15b089ec87aead37a7e86c2c2"
+    },
+    {
+      "id": "task_ledger",
+      "path": "tasks.json",
+      "label": "Machine-readable task board",
+      "present": true,
+      "bytes": 14402,
+      "sha256": "c1844e5485835bdeaab9d2239c5d647235c802cac83b73e47583bd2d3a1bf057"
+    },
+    {
+      "id": "local_ui_smoke",
+      "path": "docs/assets/proofframe-local-ui-smoke.png",
+      "label": "Local UI screenshot",
+      "present": true,
+      "bytes": 221853,
+      "sha256": "2685c1c53b3589bea70f23a0ef1a1ba19540b4ea932b55ca1e1832d647d733a0"
+    },
+    {
+      "id": "review_console_smoke",
+      "path": "docs/assets/proofframe-review-console-smoke.png",
+      "label": "Review console screenshot",
+      "present": true,
+      "bytes": 343618,
+      "sha256": "30620a33e3c7ab286c267dd6479d9cfb4d39d319e6613feb2346eef8e77d95cf"
+    },
+    {
+      "id": "public_hf_smoke",
+      "path": "docs/assets/proofframe-hf-public-smoke.png",
+      "label": "Public mock demo screenshot",
+      "present": true,
+      "bytes": 270826,
+      "sha256": "5a7e0d64ad8cb2c7a5e04cb7c1f3c4ac5c2e219a7b184b2dc10ba5f96ea0dcd4"
+    }
+  ],
+  "missing_artifacts": []
+}
