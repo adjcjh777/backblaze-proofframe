@@ -45,5 +45,18 @@ python3 scripts/task.py block T010 --note "Requires account setup"
 
 ## Current Status
 
-Stage 0 is the project foundation: selected competition, repo, PRD/spec/todo, Agent Bus team, and GitHub setup.
+Stage 0 is complete: selected competition, repo, PRD/spec/todo, Agent Bus team, and GitHub setup.
 
+Stage 1 has started with a local FastAPI MVP skeleton.
+
+## Run Locally
+
+```bash
+python3.11 -m venv .venv
+. .venv/bin/activate
+pip install -e ".[dev]"
+pytest
+uvicorn proofframe.app:app --reload --port 8088
+```
+
+Then open `http://127.0.0.1:8088/api/health`.

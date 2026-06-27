@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T04:43:14Z",
+  "updated_at": "2026-06-27T04:46:42Z",
   "tasks": [
     {
       "id": "T001",
@@ -43,9 +43,9 @@
       "title": "Create GitHub repository and push foundation commit",
       "phase": "P0 Foundation",
       "owner": "controller",
-      "status": "todo",
+      "status": "done",
       "done_criteria": "Remote origin exists and feature/backblaze-proofframe is pushed.",
-      "notes": ""
+      "notes": "GitHub repo https://github.com/adjcjh777/backblaze-proofframe created and branch pushed"
     },
     {
       "id": "T006",
@@ -61,36 +61,36 @@
       "title": "Build local FastAPI skeleton",
       "phase": "P1 MVP",
       "owner": "executor",
-      "status": "todo",
+      "status": "done",
       "done_criteria": "GET /api/health returns app, storage, and generation readiness.",
-      "notes": ""
+      "notes": "FastAPI app exposes /api/health and campaign flow"
     },
     {
       "id": "T011",
       "title": "Implement manifest model and checksum utility",
       "phase": "P1 MVP",
       "owner": "executor",
-      "status": "todo",
+      "status": "done",
       "done_criteria": "Unit tests cover manifest output and deterministic checksums.",
-      "notes": ""
+      "notes": "Manifest and checksum utilities implemented with tests"
     },
     {
       "id": "T012",
       "title": "Implement mock media provider",
       "phase": "P1 MVP",
       "owner": "executor",
-      "status": "todo",
+      "status": "done",
       "done_criteria": "Mock provider creates deterministic sample assets without network calls.",
-      "notes": ""
+      "notes": "Deterministic mock SVG provider implemented"
     },
     {
       "id": "T013",
       "title": "Implement local storage backend",
       "phase": "P1 MVP",
       "owner": "executor",
-      "status": "todo",
+      "status": "done",
       "done_criteria": "Assets and manifests write under var/storage and are retrievable.",
-      "notes": ""
+      "notes": "Local storage backend writes assets under var/storage"
     },
     {
       "id": "T014",
