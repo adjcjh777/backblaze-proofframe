@@ -92,6 +92,7 @@ python scripts/final_env_wizard.py --check-only
 python scripts/devpost_form_kit.py
 python scripts/devpost_event_snapshot.py --validate-committed
 python scripts/agent_handoff_check.py
+python scripts/public_space_sync.py
 python scripts/claim_lint.py
 python scripts/demo_storyboard.py
 python scripts/sponsor_fit_audit.py
@@ -114,6 +115,7 @@ The browser UI and `GET /api/submission/gate` expose the same fail-closed final 
 `scripts/devpost_form_kit.py` turns the safe packet into field-by-field Devpost copy with length checks and a strict final gate.
 `scripts/devpost_event_snapshot.py` keeps official Devpost deadline, participants, submission requirements, and judging criteria as a refreshable evidence report.
 `scripts/agent_handoff_check.py` keeps AGENTS.md, Codex, and Agent Bus handoff paths aligned with the current repo so future role sessions do not follow stale project metadata.
+`scripts/public_space_sync.py` verifies the public Hugging Face Space runtime sha, raw handoff artifact, health/gate APIs, and judge-mode HTML markers.
 `scripts/run_final_live_proof.py` is the final one-command live runner: once B2 and Genblaze env vars are present, it starts the app, verifies `/api/health` reports `b2` plus `genblaze`, writes sanitized final evidence, and stops the server.
 `scripts/claim_lint.py` keeps pre-live public copy from claiming completed Backblaze B2 or Genblaze proof before evidence exists.
 `scripts/secret_scan.py` writes a no-value secret scan report for public files, generated evidence, local logs, and media inventory while excluding local credential files without reading them.
@@ -146,6 +148,7 @@ python scripts/final_env_wizard.py --check-only
 python scripts/devpost_form_kit.py
 python scripts/devpost_event_snapshot.py --validate-committed
 python scripts/agent_handoff_check.py
+python scripts/public_space_sync.py
 python scripts/demo_storyboard.py
 python scripts/demo_readiness.py
 python scripts/recording_assets.py

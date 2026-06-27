@@ -1,0 +1,96 @@
+{
+  "schema": "proofframe.public_space_sync.v1",
+  "created_at": "2026-06-27T19:18:02Z",
+  "ok": true,
+  "mode": "public_space_synced",
+  "space_id": "ADJCJH/backblaze-proofframe",
+  "public_host": "https://adjcjh-backblaze-proofframe.hf.space",
+  "expected_sha": "e71d73f7e55a977c4103aa4a50b0bd072314318c",
+  "observed": {
+    "space_sha": "e71d73f7e55a977c4103aa4a50b0bd072314318c",
+    "runtime_sha": "e71d73f7e55a977c4103aa4a50b0bd072314318c",
+    "runtime_stage": "RUNNING",
+    "domain_ready": true,
+    "last_modified": "2026-06-27T19:05:08.000Z",
+    "health": {
+      "ready": true,
+      "storage_backend": "local",
+      "generation_backend": "mock"
+    },
+    "submission_gate": {
+      "mode": "pre_live_safe",
+      "summary": {
+        "required": 6,
+        "done": 1,
+        "blocked": 0,
+        "doing": 2,
+        "todo": 3,
+        "missing": 0
+      },
+      "report_gate_status": "incomplete",
+      "paths_relative": true
+    },
+    "handoff_mode": "handoff_ready",
+    "html_markers": {
+      "judge_recording_slate": true,
+      "sponsor_evidence_model": true,
+      "auto_load_judge_demo": true,
+      "final_reports_pending": true
+    }
+  },
+  "urls": {
+    "space_api": "https://huggingface.co/api/spaces/ADJCJH/backblaze-proofframe",
+    "runtime_api": "https://huggingface.co/api/spaces/ADJCJH/backblaze-proofframe/runtime",
+    "raw_handoff_report": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/agent-handoff-report.json",
+    "judge": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
+    "health": "https://adjcjh-backblaze-proofframe.hf.space/api/health",
+    "submission_gate": "https://adjcjh-backblaze-proofframe.hf.space/api/submission/gate"
+  },
+  "checks": [
+    {
+      "id": "space_metadata",
+      "label": "Space metadata points at the expected commit",
+      "ok": true,
+      "detail": "Space sha is e71d73f7e55a977c4103aa4a50b0bd072314318c; expected e71d73f7e55a977c4103aa4a50b0bd072314318c.",
+      "evidence": "https://huggingface.co/api/spaces/ADJCJH/backblaze-proofframe"
+    },
+    {
+      "id": "runtime_ready",
+      "label": "Space runtime is running the expected commit",
+      "ok": true,
+      "detail": "Runtime stage is RUNNING; runtime sha is e71d73f7e55a977c4103aa4a50b0bd072314318c; domain ready is True.",
+      "evidence": "https://huggingface.co/api/spaces/ADJCJH/backblaze-proofframe/runtime"
+    },
+    {
+      "id": "raw_handoff_report",
+      "label": "Raw handoff report is public and ready",
+      "ok": true,
+      "detail": "Handoff schema is proofframe.agent_handoff.v1; mode is handoff_ready.",
+      "evidence": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/agent-handoff-report.json"
+    },
+    {
+      "id": "public_health",
+      "label": "Public demo health is local/mock and ready",
+      "ok": true,
+      "detail": "Health storage=local, generation=mock, ready=True.",
+      "evidence": "https://adjcjh-backblaze-proofframe.hf.space/api/health"
+    },
+    {
+      "id": "submission_gate",
+      "label": "Public submission gate is fail-closed with repo-relative paths",
+      "ok": true,
+      "detail": "Gate mode is pre_live_safe; report gate is incomplete; relative paths=True.",
+      "evidence": "https://adjcjh-backblaze-proofframe.hf.space/api/submission/gate"
+    },
+    {
+      "id": "judge_html_markers",
+      "label": "Judge-mode HTML contains recording and sponsor markers",
+      "ok": true,
+      "detail": "Markers: judge_recording_slate=True, sponsor_evidence_model=True, auto_load_judge_demo=True, final_reports_pending=True.",
+      "evidence": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1"
+    }
+  ],
+  "next_actions": [
+    "Public Space sync evidence is ready for the pre-live Devpost demo."
+  ]
+}

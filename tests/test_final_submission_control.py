@@ -108,6 +108,15 @@ def write_common_reports(root: Path, *, final_done: bool = False) -> None:
     )
     write_json(
         root,
+        "docs/assets/public-space-sync-report.json",
+        {
+            "schema": "proofframe.public_space_sync.v1",
+            "mode": "public_space_synced",
+            "ok": True,
+        },
+    )
+    write_json(
+        root,
         "docs/assets/demo-readiness-report.json",
         {
             "schema": "proofframe.demo_readiness.v1",
@@ -210,6 +219,7 @@ def test_control_report_blocks_pre_live_submission(tmp_path):
     assert "B2_KEY_ID" in report["next_actions"][0]
     assert report["report_inputs"]["devpost_form"]["path"] == "docs/assets/devpost-form-kit.json"
     assert report["report_inputs"]["agent_handoff"]["mode"] == "handoff_ready"
+    assert report["report_inputs"]["public_space_sync"]["mode"] == "public_space_synced"
     assert str(tmp_path) not in json.dumps(report)
 
 

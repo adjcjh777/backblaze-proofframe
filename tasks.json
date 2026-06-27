@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T19:08:05Z",
+  "updated_at": "2026-06-27T19:15:00Z",
   "tasks": [
     {
       "id": "T001",
@@ -604,6 +604,15 @@
       "status": "done",
       "done_criteria": "HF Space serves the latest handoff-aware public mock demo, runtime sha is recorded, raw handoff artifact is readable, and public API smoke passes.",
       "notes": "Uploaded HF Space commit e71d73f7e55a977c4103aa4a50b0bd072314318c via huggingface_hub; runtime reports RUNNING on that sha, raw docs/assets/agent-handoff-report.json returns handoff_ready, public /api/submission/gate remains pre_live_safe, and scripts/api_smoke.py plus recording_assets --verify-public pass."
+    },
+    {
+      "id": "T042G",
+      "title": "Add public Space sync verifier",
+      "phase": "P4 Submit",
+      "owner": "codex",
+      "status": "done",
+      "done_criteria": "A repeatable verifier checks HF Space metadata/runtime sha, raw handoff artifact, public health/gate APIs, judge-mode HTML markers, and feeds final control plus the submission bundle.",
+      "notes": "Added scripts/public_space_sync.py and docs/assets/public-space-sync-report.*; current report is public_space_synced for runtime sha e71d73f7e55a977c4103aa4a50b0bd072314318c."
     }
   ]
 }

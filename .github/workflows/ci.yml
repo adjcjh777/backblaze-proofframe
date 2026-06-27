@@ -66,6 +66,9 @@ jobs:
       - name: Agent handoff consistency
         run: python scripts/agent_handoff_check.py
 
+      - name: Public Space sync
+        run: python scripts/public_space_sync.py
+
       - name: Demo storyboard
         run: python scripts/demo_storyboard.py
 

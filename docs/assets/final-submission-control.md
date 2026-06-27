@@ -2,7 +2,7 @@
 
 Mode: `pre_live_control`
 Safe to submit: `false`
-Created: `2026-06-27T19:08:58Z`
+Created: `2026-06-27T19:18:23Z`
 Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 Repository: https://github.com/adjcjh777/backblaze-proofframe
 
@@ -31,6 +31,7 @@ Repository: https://github.com/adjcjh777/backblaze-proofframe
 | OK | Credential-free public demo is ready | Devpost form kit mode is pre_live_form_ready. | `docs/assets/devpost-form-kit.json` |
 | OK | Official Devpost event snapshot is fresh | Snapshot checked at 2026-06-27T18:45:48Z; submission open is True; age days is 0. | `docs/assets/devpost-event-snapshot.json` |
 | OK | Agent handoff metadata points at the current repo | Agent handoff mode is handoff_ready; ok is True. | `docs/assets/agent-handoff-report.json` |
+| OK | Public Space is synced to the current judge-facing demo | Public Space sync mode is public_space_synced; ok is True. | `docs/assets/public-space-sync-report.json` |
 | OK | Recording assets are ready | Recording assets mode is public_mock_verified; public mock verified is True. | `docs/assets/recording-assets.json` |
 | OK | Control input reports match expected schemas | All input report schemas are current. | `docs/assets/*.json readiness reports` |
 | PENDING | Backblaze B2 live proof captured | T020 is doing; B2 evidence status is missing; final evidence status is missing. | `tasks.json, docs/assets/b2-live-proof-evidence.json, and docs/assets/final-live-proof-evidence.json` |
@@ -62,6 +63,8 @@ python scripts/live_env_handoff.py --env-file .env.final.local
 python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out docs/assets/b2-live-proof-evidence.json
 python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json
 python scripts/devpost_packet.py --post-live --video-url <public video URL>
+python scripts/agent_handoff_check.py
+python scripts/public_space_sync.py
 python scripts/secret_scan.py
 python scripts/devpost_form_kit.py --strict-final
 python scripts/demo_storyboard.py --strict-final

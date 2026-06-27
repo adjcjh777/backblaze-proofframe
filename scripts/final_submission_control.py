@@ -36,6 +36,8 @@ OPERATOR_COMMANDS = [
     "python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out docs/assets/b2-live-proof-evidence.json",
     "python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json",
     "python scripts/devpost_packet.py --post-live --video-url <public video URL>",
+    "python scripts/agent_handoff_check.py",
+    "python scripts/public_space_sync.py",
     "python scripts/secret_scan.py",
     "python scripts/devpost_form_kit.py --strict-final",
     "python scripts/demo_storyboard.py --strict-final",
@@ -184,6 +186,7 @@ def build_requirements(
     form: dict[str, Any],
     event_snapshot: dict[str, Any],
     agent_handoff: dict[str, Any],
+    public_space_sync: dict[str, Any],
     storyboard: dict[str, Any],
     demo: dict[str, Any],
     recording: dict[str, Any],
@@ -197,6 +200,7 @@ def build_requirements(
         "Devpost form": form,
         "Devpost event snapshot": event_snapshot,
         "Agent handoff": agent_handoff,
+        "Public Space sync": public_space_sync,
         "Demo storyboard": storyboard,
         "Demo readiness": demo,
         "Recording assets": recording,
@@ -251,6 +255,15 @@ def build_requirements(
             and bool(agent_handoff.get("ok")),
             f"Agent handoff mode is {agent_handoff.get('mode')}; ok is {agent_handoff.get('ok')}.",
             "docs/assets/agent-handoff-report.json",
+        ),
+        requirement(
+            "public_space_sync",
+            "Public Space is synced to the current judge-facing demo",
+            bool(public_space_sync.get("present"))
+            and bool(public_space_sync.get("schema_ok"))
+            and bool(public_space_sync.get("ok")),
+            f"Public Space sync mode is {public_space_sync.get('mode')}; ok is {public_space_sync.get('ok')}.",
+            "docs/assets/public-space-sync-report.json",
         ),
         requirement(
             "recording_assets",
@@ -379,6 +392,8 @@ def next_actions(requirements: list[dict[str, Any]]) -> list[str]:
         actions.append("Refresh the official Devpost event snapshot before recording or submitting.")
     if "agent_handoff" in missing:
         actions.append("Run the Agent handoff check so future Codex and Agent Bus sessions use the current repo path.")
+    if "public_space_sync" in missing:
+        actions.append("Run the public Space sync verifier and refresh the HF Space if the runtime/artifacts drift.")
     if "b2_live_proof" in missing:
         actions.append("Run the B2 live proof runner and save sanitized B2 evidence.")
     if "genblaze_live_proof" in missing:
@@ -405,6 +420,11 @@ def build_control_report(root: Path = ROOT) -> dict[str, Any]:
     agent_handoff = report_summary(
         root / "docs" / "assets" / "agent-handoff-report.json",
         "proofframe.agent_handoff.v1",
+        root,
+    )
+    public_space_sync = report_summary(
+        root / "docs" / "assets" / "public-space-sync-report.json",
+        "proofframe.public_space_sync.v1",
         root,
     )
     storyboard = report_summary(root / "docs" / "assets" / "demo-storyboard.json", "proofframe.demo_storyboard.v1", root)
@@ -439,6 +459,7 @@ def build_control_report(root: Path = ROOT) -> dict[str, Any]:
         form=form,
         event_snapshot=event_snapshot,
         agent_handoff=agent_handoff,
+        public_space_sync=public_space_sync,
         storyboard=storyboard,
         demo=demo,
         recording=recording,
@@ -470,6 +491,7 @@ def build_control_report(root: Path = ROOT) -> dict[str, Any]:
             "devpost_form": form,
             "devpost_event_snapshot": event_snapshot,
             "agent_handoff": agent_handoff,
+            "public_space_sync": public_space_sync,
             "demo_storyboard": storyboard,
             "demo_readiness": demo,
             "recording_assets": recording,
