@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-28T04:09:09Z",
+  "updated_at": "2026-06-28T04:23:18Z",
   "tasks": [
     {
       "id": "T001",
@@ -730,6 +730,15 @@
       "status": "done",
       "done_criteria": "Public judge-mode UI exposes a 30-second Judge Brief from the same safe judge-brief artifact, the API returns the safe brief JSON, public Space sync checks the HTML marker, and tests cover the endpoint plus marker.",
       "notes": "Added /api/judge/brief, first-screen Judge Brief panel, evidence links, favicon polish, public sync marker, and API/public sync tests."
+    },
+    {
+      "id": "T044",
+      "title": "Add final submission rehearsal checklist",
+      "phase": "P4 Submit",
+      "owner": "codex",
+      "status": "done",
+      "done_criteria": "A no-secret final rehearsal report combines operator readiness, launch phase, public Space sync, form kit, recording readiness, secret scan, task status, exact final commands, stop rules, and safe-to-commit artifacts so the final credential/live-proof/Devpost pass can be executed without overclaiming or leaking secrets.",
+      "notes": "Added scripts/final_rehearsal.py, docs/assets/final-rehearsal-checklist.*, tests, submission bundle/audit integration, and README/evidence/spec references."
     }
   ]
 }

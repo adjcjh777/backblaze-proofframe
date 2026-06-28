@@ -121,6 +121,19 @@
       "mock_recording_ready": null,
       "public_mock_verified": null
     },
+    "final_rehearsal": {
+      "present": true,
+      "path": "docs/assets/final-rehearsal-checklist.json",
+      "schema_ok": true,
+      "mode": "ready_for_credential_rehearsal",
+      "ok": true,
+      "score": null,
+      "max_score": null,
+      "safe_to_submit": false,
+      "validation_ok": null,
+      "mock_recording_ready": null,
+      "public_mock_verified": null
+    },
     "devpost_submission_receipt": {
       "present": true,
       "path": "docs/assets/devpost-submission-receipt.json",

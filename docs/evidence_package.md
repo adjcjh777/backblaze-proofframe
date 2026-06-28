@@ -55,6 +55,7 @@ This file is the internal source of truth for Devpost submission assets. Anythin
 | Agent handoff consistency | `scripts/agent_handoff_check.py`, `docs/assets/agent-handoff-report.json`, `docs/assets/agent-handoff-report.md` | Public-ready; verifies AGENTS.md points future Codex and Agent Bus sessions at the current repo path |
 | Public Space sync report | `scripts/public_space_sync.py`, `docs/assets/public-space-sync-report.json`, `docs/assets/public-space-sync-report.md` | Public-ready; verifies HF Space metadata/runtime sha, raw handoff report, raw final launch plan, local/mock health, fail-closed submission gate, and judge HTML markers |
 | Judge brief | `scripts/judge_brief.py`, `docs/assets/judge-brief.json`, `docs/assets/judge-brief.md` | Public-ready; 30-second judge framing with safe claims, current blockers, walkthrough, and evidence links |
+| Final rehearsal checklist | `scripts/final_rehearsal.py`, `docs/assets/final-rehearsal-checklist.json`, `docs/assets/final-rehearsal-checklist.md` | Internal-ready; no-secret sequence for credential entry, live proof, video, audit, Devpost receipt, and final green gate |
 | Devpost registration | `tasks.json` T040 | Done; registered for the event |
 | Downloadable evidence ZIP | `/api/campaigns/{id}/packet.zip` | Public-ready in local mode |
 | One-click judge packet | `/api/demo/judge-packet` | Public-ready in local mode |

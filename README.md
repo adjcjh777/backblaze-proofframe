@@ -133,6 +133,7 @@ The browser UI and `GET /api/submission/gate` expose the same fail-closed final 
 `scripts/run_b2_live_proof.py` verifies the Backblaze B2 storage path independently with mock generation, so T020 can close before Genblaze credentials are ready.
 `scripts/devpost_form_kit.py` turns the safe packet into field-by-field Devpost copy with length checks and a strict final gate.
 `scripts/judge_brief.py` condenses the current public demo, award posture, safe claims, and final blockers into a 30-second judge brief.
+`scripts/final_rehearsal.py` turns the final operator brief, launch plan, public sync, and gates into a no-secret final-submission rehearsal checklist.
 `scripts/devpost_event_snapshot.py` keeps official Devpost deadline, participants, submission requirements, and judging criteria as a refreshable evidence report.
 `scripts/agent_handoff_check.py` keeps AGENTS.md, Codex, and Agent Bus handoff paths aligned with the current repo so future role sessions do not follow stale project metadata.
 `scripts/public_space_sync.py` verifies the public Hugging Face Space runtime sha, raw handoff and final launch plan artifacts, health/gate APIs, and judge-mode HTML markers.

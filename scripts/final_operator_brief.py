@@ -194,6 +194,11 @@ def build_report(root: Path = ROOT) -> dict[str, Any]:
             "docs/assets/submission-audit-report.json",
             "proofframe.submission_audit.v1",
         ),
+        "final_rehearsal": report_status(
+            root,
+            "docs/assets/final-rehearsal-checklist.json",
+            "proofframe.final_rehearsal.v1",
+        ),
         "devpost_submission_receipt": report_status(
             root,
             "docs/assets/devpost-submission-receipt.json",

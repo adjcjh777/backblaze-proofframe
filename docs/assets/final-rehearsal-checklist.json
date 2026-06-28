@@ -1,0 +1,391 @@
+{
+  "schema": "proofframe.final_rehearsal.v1",
+  "created_at": "2026-06-28T04:35:51Z",
+  "mode": "ready_for_credential_rehearsal",
+  "ok": true,
+  "safe_to_submit": false,
+  "current_phase": "credential_entry",
+  "next_command": "python scripts/final_env_wizard.py --output .env.final.local --force",
+  "task_statuses": {
+    "T020": "doing",
+    "T021": "doing",
+    "T040": "done",
+    "T041": "todo",
+    "T041A": "todo",
+    "T042": "todo"
+  },
+  "preconditions": [
+    {
+      "id": "operator_ready",
+      "ok": true,
+      "detail": "Operator brief mode is credential_entry_ready.",
+      "evidence": "docs/assets/final-operator-brief.json"
+    },
+    {
+      "id": "only_expected_secrets_missing",
+      "ok": true,
+      "detail": "Missing ids: b2_application_key, b2_key_id, genblaze_api_key.",
+      "evidence": "docs/assets/final-operator-brief.json"
+    },
+    {
+      "id": "launch_plan_at_credential_entry",
+      "ok": true,
+      "detail": "Current phase is credential_entry.",
+      "evidence": "docs/assets/final-launch-plan.json"
+    },
+    {
+      "id": "public_space_synced",
+      "ok": true,
+      "detail": "Runtime sha: cbb686640283a157a6ab93a68ff5b0b5d7848977.",
+      "evidence": "docs/assets/public-space-sync-report.json"
+    },
+    {
+      "id": "mock_form_ready",
+      "ok": true,
+      "detail": "Devpost form mode is pre_live_form_ready.",
+      "evidence": "docs/assets/devpost-form-kit.json"
+    },
+    {
+      "id": "mock_recording_ready",
+      "ok": true,
+      "detail": "Recording assets mode is public_mock_verified.",
+      "evidence": "docs/assets/recording-assets.json"
+    },
+    {
+      "id": "secret_scan_currently_clear",
+      "ok": true,
+      "detail": "Secret scan mode is clear.",
+      "evidence": "docs/assets/secret-scan-report.json"
+    },
+    {
+      "id": "final_gate_fail_closed",
+      "ok": true,
+      "detail": "Final control mode is pre_live_control.",
+      "evidence": "docs/assets/final-submission-control.json"
+    },
+    {
+      "id": "live_tasks_not_overclaimed",
+      "ok": true,
+      "detail": "T020=doing; T021=doing.",
+      "evidence": "tasks.json"
+    }
+  ],
+  "required_secret_ids": [
+    "b2_key_id",
+    "b2_application_key",
+    "genblaze_api_key"
+  ],
+  "steps": [
+    {
+      "id": "enter_credentials",
+      "owner": "operator",
+      "command": "python scripts/final_env_wizard.py --output .env.final.local --force",
+      "success_signal": "docs/assets/live-credential-handoff.json reports no missing ids after live_env_handoff.py --strict.",
+      "safe_to_commit": []
+    },
+    {
+      "id": "b2_live_proof",
+      "owner": "codex",
+      "command": "python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out docs/assets/b2-live-proof-evidence.json",
+      "success_signal": "B2 evidence JSON has ok=true, storage_backend=b2, asset and manifest checksums, and sanitized object keys.",
+      "safe_to_commit": [
+        "docs/assets/b2-live-proof-evidence.json"
+      ],
+      "task_update": "python3 scripts/task.py done T020 --note \"B2 live proof evidence captured in docs/assets/b2-live-proof-evidence.json.\""
+    },
+    {
+      "id": "final_live_proof",
+      "owner": "codex",
+      "command": "python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json",
+      "success_signal": "Final evidence JSON has storage_backend=b2, generation_backend=genblaze, provider/model metadata, checksums, and no raw provider URLs.",
+      "safe_to_commit": [
+        "docs/assets/final-live-proof-evidence.json"
+      ],
+      "task_update": "python3 scripts/task.py done T021 --note \"Final B2 plus Genblaze live proof evidence captured in docs/assets/final-live-proof-evidence.json.\""
+    },
+    {
+      "id": "post_live_devpost_packet",
+      "owner": "codex",
+      "command": "python scripts/devpost_packet.py --post-live --video-url \"$PROOFFRAME_PUBLIC_VIDEO_URL\" && python scripts/devpost_form_kit.py --strict-final",
+      "success_signal": "Devpost packet mode is post_live_verified, video URL is public, and form kit is final_form_ready.",
+      "safe_to_commit": [
+        "docs/assets/devpost-submission-packet.json",
+        "docs/assets/devpost-form-kit.json"
+      ]
+    },
+    {
+      "id": "recording_and_final_audit",
+      "owner": "codex",
+      "command": "python scripts/demo_storyboard.py --strict-final && python scripts/demo_readiness.py --strict-final && python scripts/recording_assets.py --verify-public --strict-final && python scripts/secret_scan.py && python scripts/submission_audit.py --strict-final",
+      "success_signal": "Recording assets are final_video_ready, secret scan is clear, and submission audit is pre_submit_audit_ready.",
+      "safe_to_commit": [
+        "docs/assets/demo-storyboard.json",
+        "docs/assets/demo-readiness-report.json",
+        "docs/assets/recording-assets.json",
+        "docs/assets/secret-scan-report.json",
+        "docs/assets/submission-audit-report.json"
+      ],
+      "task_update": "python3 scripts/task.py done T041A --note \"Final secret scan clear after live proof and public video.\" && python3 scripts/task.py done T041 --note \"Final submission audit passed after live proof and public video.\""
+    },
+    {
+      "id": "devpost_receipt",
+      "owner": "operator",
+      "command": "python scripts/devpost_submission_receipt.py --project-url \"$PROOFFRAME_DEVPOST_PROJECT_URL\" --submitted-at \"$PROOFFRAME_DEVPOST_SUBMITTED_AT\" --confirmation-note \"Devpost accepted/submitted the ProofFrame project.\"",
+      "success_signal": "Devpost receipt JSON is ok=true, uses a devpost.com project URL, and contains no cookies or session data.",
+      "safe_to_commit": [
+        "docs/assets/devpost-submission-receipt.json"
+      ],
+      "task_update": "python3 scripts/task.py done T042 --note \"Devpost project submitted and public receipt captured.\""
+    },
+    {
+      "id": "final_green_gate",
+      "owner": "codex",
+      "command": "python scripts/final_submission_control.py --strict-final && python scripts/final_launch_plan.py --strict-final",
+      "success_signal": "Final control reports safe_to_submit=true and launch plan mode is submitted.",
+      "safe_to_commit": [
+        "docs/assets/final-submission-control.json",
+        "docs/assets/final-launch-plan.json"
+      ]
+    }
+  ],
+  "stop_rules": [
+    "Stop immediately if a command prints or writes a value that looks like a B2 key, Genblaze/GMI key, browser cookie, authorization header, or signed URL.",
+    "Do not mark T020 or T021 done unless the corresponding sanitized evidence JSON exists and passes the expected backend/provider checks.",
+    "Do not run Devpost submission until final_submission_control.py --strict-final passes after live proof, public video, final scan, and final audit.",
+    "Do not update public copy from pre-live to completed sponsor proof until both B2 and Genblaze evidence are committed after a clean secret scan."
+  ],
+  "reports": {
+    "operator_brief": {
+      "path": "docs/assets/final-operator-brief.json",
+      "present": true,
+      "schema_ok": true,
+      "mode": "credential_entry_ready",
+      "ok": null,
+      "safe_to_submit": false,
+      "ready_for_secret_entry": true,
+      "current_phase": null,
+      "next_command": null,
+      "mock_form_ready": null,
+      "final_form_ready": null,
+      "mock_recording_ready": null,
+      "final_video_ready": null,
+      "runtime_sha": null,
+      "failed_checks": [],
+      "missing_ids": [
+        "b2_key_id",
+        "b2_application_key",
+        "genblaze_api_key"
+      ],
+      "blocking_items": []
+    },
+    "launch_plan": {
+      "path": "docs/assets/final-launch-plan.json",
+      "present": true,
+      "schema_ok": true,
+      "mode": "ready_for_credential_entry",
+      "ok": false,
+      "safe_to_submit": null,
+      "ready_for_secret_entry": null,
+      "current_phase": "credential_entry",
+      "next_command": "python scripts/final_env_wizard.py --output .env.final.local --force",
+      "mock_form_ready": null,
+      "final_form_ready": null,
+      "mock_recording_ready": null,
+      "final_video_ready": null,
+      "runtime_sha": null,
+      "failed_checks": [],
+      "missing_ids": [],
+      "blocking_items": []
+    },
+    "final_control": {
+      "path": "docs/assets/final-submission-control.json",
+      "present": true,
+      "schema_ok": true,
+      "mode": "pre_live_control",
+      "ok": null,
+      "safe_to_submit": false,
+      "ready_for_secret_entry": null,
+      "current_phase": null,
+      "next_command": null,
+      "mock_form_ready": null,
+      "final_form_ready": null,
+      "mock_recording_ready": null,
+      "final_video_ready": null,
+      "runtime_sha": null,
+      "failed_checks": [],
+      "missing_ids": [],
+      "blocking_items": [
+        {
+          "id": "b2_live_proof",
+          "label": "Backblaze B2 live proof captured",
+          "ok": false,
+          "detail": "T020 is doing; B2 evidence status is missing; final evidence status is missing.",
+          "evidence": "tasks.json, docs/assets/b2-live-proof-evidence.json, and docs/assets/final-live-proof-evidence.json"
+        },
+        {
+          "id": "genblaze_live_proof",
+          "label": "Genblaze live proof captured",
+          "ok": false,
+          "detail": "T021 is doing; final evidence status is missing.",
+          "evidence": "tasks.json and docs/assets/final-live-proof-evidence.json"
+        },
+        {
+          "id": "credential_handoff",
+          "label": "Live credential handoff is ready",
+          "ok": false,
+          "detail": "Credential handoff mode is missing_live_env; missing ids: b2_key_id, b2_application_key, genblaze_api_key.",
+          "evidence": "docs/assets/live-credential-handoff.json"
+        },
+        {
+          "id": "public_video",
+          "label": "Final public demo video URL is ready",
+          "ok": false,
+          "detail": "Storyboard mode is mock_storyboard_ready; public video ready is False.",
+          "evidence": "docs/assets/demo-storyboard.json"
+        },
+        {
+          "id": "final_recording",
+          "label": "Final recording gate is ready",
+          "ok": false,
+          "detail": "Demo readiness mode is pre_live_mock_ready; final recording ready is False.",
+          "evidence": "docs/assets/demo-readiness-report.json"
+        },
+        {
+          "id": "final_secret_scan",
+          "label": "Final secret scan is complete",
+          "ok": false,
+          "detail": "T041A is todo; secret scan mode is clear; secret scan ok is True.",
+          "evidence": "tasks.json and docs/assets/secret-scan-report.json"
+        },
+        {
+          "id": "final_submission_audit",
+          "label": "Final submission audit is complete",
+          "ok": false,
+          "detail": "T041 is todo; audit mode is pre_submit_audit_blocked; audit ok is False.",
+          "evidence": "tasks.json and docs/assets/submission-audit-report.json"
+        },
+        {
+          "id": "devpost_submitted",
+          "label": "Devpost project submitted",
+          "ok": false,
+          "detail": "T042 is todo; receipt mode is pending_submission; receipt ok is False.",
+          "evidence": "tasks.json and docs/assets/devpost-submission-receipt.json"
+        }
+      ]
+    },
+    "devpost_form": {
+      "path": "docs/assets/devpost-form-kit.json",
+      "present": true,
+      "schema_ok": true,
+      "mode": "pre_live_form_ready",
+      "ok": null,
+      "safe_to_submit": null,
+      "ready_for_secret_entry": null,
+      "current_phase": null,
+      "next_command": null,
+      "mock_form_ready": true,
+      "final_form_ready": false,
+      "mock_recording_ready": null,
+      "final_video_ready": null,
+      "runtime_sha": null,
+      "failed_checks": [],
+      "missing_ids": [],
+      "blocking_items": []
+    },
+    "public_space_sync": {
+      "path": "docs/assets/public-space-sync-report.json",
+      "present": true,
+      "schema_ok": true,
+      "mode": "public_space_synced",
+      "ok": true,
+      "safe_to_submit": null,
+      "ready_for_secret_entry": null,
+      "current_phase": null,
+      "next_command": null,
+      "mock_form_ready": null,
+      "final_form_ready": null,
+      "mock_recording_ready": null,
+      "final_video_ready": null,
+      "runtime_sha": "cbb686640283a157a6ab93a68ff5b0b5d7848977",
+      "failed_checks": [],
+      "missing_ids": [],
+      "blocking_items": []
+    },
+    "recording_assets": {
+      "path": "docs/assets/recording-assets.json",
+      "present": true,
+      "schema_ok": true,
+      "mode": "public_mock_verified",
+      "ok": null,
+      "safe_to_submit": null,
+      "ready_for_secret_entry": null,
+      "current_phase": null,
+      "next_command": null,
+      "mock_form_ready": null,
+      "final_form_ready": null,
+      "mock_recording_ready": true,
+      "final_video_ready": false,
+      "runtime_sha": null,
+      "failed_checks": [],
+      "missing_ids": [],
+      "blocking_items": []
+    },
+    "secret_scan": {
+      "path": "docs/assets/secret-scan-report.json",
+      "present": true,
+      "schema_ok": true,
+      "mode": "clear",
+      "ok": true,
+      "safe_to_submit": null,
+      "ready_for_secret_entry": null,
+      "current_phase": null,
+      "next_command": null,
+      "mock_form_ready": null,
+      "final_form_ready": null,
+      "mock_recording_ready": null,
+      "final_video_ready": null,
+      "runtime_sha": null,
+      "failed_checks": [],
+      "missing_ids": [],
+      "blocking_items": []
+    },
+    "submission_audit": {
+      "path": "docs/assets/submission-audit-report.json",
+      "present": true,
+      "schema_ok": true,
+      "mode": "pre_submit_audit_blocked",
+      "ok": false,
+      "safe_to_submit": null,
+      "ready_for_secret_entry": null,
+      "current_phase": null,
+      "next_command": null,
+      "mock_form_ready": null,
+      "final_form_ready": null,
+      "mock_recording_ready": null,
+      "final_video_ready": null,
+      "runtime_sha": null,
+      "failed_checks": [],
+      "missing_ids": [],
+      "blocking_items": []
+    },
+    "devpost_receipt": {
+      "path": "docs/assets/devpost-submission-receipt.json",
+      "present": true,
+      "schema_ok": true,
+      "mode": "pending_submission",
+      "ok": false,
+      "safe_to_submit": null,
+      "ready_for_secret_entry": null,
+      "current_phase": null,
+      "next_command": null,
+      "mock_form_ready": null,
+      "final_form_ready": null,
+      "mock_recording_ready": null,
+      "final_video_ready": null,
+      "runtime_sha": null,
+      "failed_checks": [],
+      "missing_ids": [],
+      "blocking_items": []
+    }
+  }
+}

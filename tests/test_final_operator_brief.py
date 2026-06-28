@@ -130,6 +130,15 @@ def write_ready_fixtures(root: Path) -> None:
     )
     write_json(
         root,
+        "docs/assets/final-rehearsal-checklist.json",
+        {
+            "schema": "proofframe.final_rehearsal.v1",
+            "mode": "ready_for_credential_rehearsal",
+            "ok": True,
+        },
+    )
+    write_json(
+        root,
         "docs/assets/devpost-submission-receipt.json",
         {
             "schema": "proofframe.devpost_submission_receipt.v1",
@@ -164,6 +173,7 @@ def test_final_operator_brief_is_ready_for_secret_entry(tmp_path):
     )
     assert report["reports"]["secret_scan"]["schema_ok"] is True
     assert report["reports"]["submission_audit"]["schema_ok"] is True
+    assert report["reports"]["final_rehearsal"]["schema_ok"] is True
     assert report["reports"]["devpost_submission_receipt"]["schema_ok"] is True
 
 
