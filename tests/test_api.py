@@ -54,6 +54,8 @@ def test_health_and_campaign_flow(tmp_path):
     assert "crosswalkRows" in index_response.text
     assert "Recording Runbook" in index_response.text
     assert "recordingRows" in index_response.text
+    assert "Devpost Kit" in index_response.text
+    assert "devpostRows" in index_response.text
     assert "B2/Genblaze final proof gated" in index_response.text
     assert "Claim Boundary" in index_response.text
     assert "Submission readiness gate" in index_response.text
@@ -93,6 +95,15 @@ def test_health_and_campaign_flow(tmp_path):
     assert recording["final_video_ready"] is False
     assert len(recording["shot_plan"]) >= 3
     assert recording["source_reports"]["storyboard"]["schema_ok"] is True
+
+    devpost_response = client.get("/api/judge/devpost")
+    assert devpost_response.status_code == 200
+    devpost = devpost_response.json()
+    assert devpost["schema"] == "proofframe.devpost_form_kit.v1"
+    assert devpost["mode"] == "pre_live_form_ready"
+    assert devpost["final_form_ready"] is False
+    field_ids = {field["id"] for field in devpost["fields"]}
+    assert {"project_name", "tagline", "video_url"} <= field_ids
 
     campaign_response = client.post(
         "/api/campaigns",

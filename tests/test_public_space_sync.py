@@ -116,13 +116,28 @@ def fake_fetcher(url: str, timeout: int) -> dict:
             ),
             "error": None,
         }
+    if url.endswith("/docs/assets/devpost-form-kit.json"):
+        return {
+            "ok": True,
+            "status": 200,
+            "body": json.dumps(
+                {
+                    "schema": "proofframe.devpost_form_kit.v1",
+                    "mode": "pre_live_form_ready",
+                    "mock_form_ready": True,
+                    "final_form_ready": False,
+                    "fields": [{"id": f"field_{index}"} for index in range(10)],
+                }
+            ),
+            "error": None,
+        }
     if url.endswith("/?judge=1"):
         return {
             "ok": True,
             "status": 200,
             "body": (
                 "Judge recording slate Sponsor Evidence Model shouldAutoLoadJudgeDemo "
-                "30-Second Judge Brief Criteria crosswalk Recording Runbook Final reports pending"
+                "30-Second Judge Brief Criteria crosswalk Recording Runbook Devpost Kit Final reports pending"
             ),
             "error": None,
         }

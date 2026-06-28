@@ -11,7 +11,7 @@ Next command: `python scripts/final_env_wizard.py --output .env.final.local --fo
 - OK `operator_ready`: Operator brief mode is credential_entry_ready. Evidence: `docs/assets/final-operator-brief.json`
 - OK `only_expected_secrets_missing`: Missing ids: b2_application_key, b2_key_id, genblaze_api_key. Evidence: `docs/assets/final-operator-brief.json`
 - OK `launch_plan_at_credential_entry`: Current phase is credential_entry. Evidence: `docs/assets/final-launch-plan.json`
-- OK `public_space_synced`: Runtime sha: 4b9274b78fee50c3a749ea7adadf768d61941507. Evidence: `docs/assets/public-space-sync-report.json`
+- OK `public_space_synced`: Runtime sha: bd6cbae7231e7e3c2b1531ad0459bec41189c4f8. Evidence: `docs/assets/public-space-sync-report.json`
 - OK `mock_form_ready`: Devpost form mode is pre_live_form_ready. Evidence: `docs/assets/devpost-form-kit.json`
 - OK `mock_recording_ready`: Recording assets mode is public_mock_verified. Evidence: `docs/assets/recording-assets.json`
 - OK `secret_scan_currently_clear`: Secret scan mode is clear. Evidence: `docs/assets/secret-scan-report.json`

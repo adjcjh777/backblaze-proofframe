@@ -64,6 +64,7 @@ FastAPI app
 | `GET` | `/api/judge/brief` | Return the public-safe judge brief artifact that powers the first-screen Judge Brief panel. |
 | `GET` | `/api/judge/crosswalk` | Return the public-safe judge criteria crosswalk artifact that powers the first-screen Criteria Crosswalk panel. |
 | `GET` | `/api/judge/recording` | Return the public-safe recording runbook artifact that powers the first-screen Recording Runbook panel. |
+| `GET` | `/api/judge/devpost` | Return the public-safe Devpost form kit artifact that powers the first-screen Devpost Kit panel. |
 | `POST` | `/api/campaigns` | Create campaign. |
 | `GET` | `/api/campaigns` | List campaigns. |
 | `POST` | `/api/campaigns/{id}/generate` | Generate variants. |

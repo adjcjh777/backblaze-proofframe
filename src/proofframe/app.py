@@ -147,6 +147,14 @@ def create_app(storage_root: Path | str | None = None, settings: Settings | None
             "Recording assets",
         )
 
+    @app.get("/api/judge/devpost")
+    def judge_devpost() -> dict[str, object]:
+        return load_public_artifact(
+            "devpost-form-kit.json",
+            "proofframe.devpost_form_kit.v1",
+            "Devpost form kit",
+        )
+
     @app.post("/api/campaigns", response_model=Campaign)
     def create_campaign(payload: CampaignCreate) -> Campaign:
         return repo.add_campaign(Campaign(**payload.model_dump()))

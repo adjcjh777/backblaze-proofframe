@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-28T09:08:50Z",
+  "updated_at": "2026-06-28T09:22:43Z",
   "tasks": [
     {
       "id": "T001",
@@ -793,6 +793,15 @@
       "status": "done",
       "done_criteria": "The public judge-mode UI exposes a Recording Runbook panel powered by /api/judge/recording, API smoke verifies the recording artifact schema and shot plan, public Space sync verifies the raw recording-assets artifact plus HTML marker, and HF Space serves the updated build.",
       "notes": "Added /api/judge/recording, in-app Recording Runbook panel, public-safe recording asset verification markers, tests, and API/public sync coverage."
+    },
+    {
+      "id": "T051",
+      "title": "Expose in-app Devpost kit",
+      "phase": "P3 Polish",
+      "owner": "codex",
+      "status": "done",
+      "done_criteria": "The public judge-mode UI exposes a Devpost Kit panel powered by /api/judge/devpost, API smoke verifies the Devpost form kit schema and field count, public Space sync verifies the raw devpost-form-kit artifact plus HTML marker, and HF Space serves the updated build.",
+      "notes": "Added /api/judge/devpost, in-app Devpost Kit panel, public sync raw form-kit check, API smoke fields, and tests."
     }
   ]
 }

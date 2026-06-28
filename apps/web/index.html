@@ -550,6 +550,76 @@
         overflow-wrap: anywhere;
       }
 
+      .devpost-kit-strip {
+        border-top: 1px solid var(--ink);
+        display: grid;
+        gap: 12px;
+        grid-column: 1 / -1;
+        padding: 14px 16px 16px;
+      }
+
+      .devpost-kit-strip header {
+        align-items: baseline;
+        display: flex;
+        gap: 12px;
+        justify-content: space-between;
+      }
+
+      .devpost-kit-strip h2 {
+        font-family: var(--display);
+        font-size: 21px;
+        line-height: 1;
+        margin: 0;
+      }
+
+      .devpost-kit-strip header span {
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 11px;
+      }
+
+      .devpost-grid {
+        border-top: 1px solid var(--rule);
+        display: grid;
+        grid-template-columns: 0.8fr 1fr 1fr;
+      }
+
+      .devpost-row {
+        border-right: 1px solid var(--rule);
+        min-height: 116px;
+        padding: 12px 12px 4px 0;
+      }
+
+      .devpost-row:last-child {
+        border-right: 0;
+      }
+
+      .devpost-row label {
+        color: var(--muted);
+        display: block;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+      }
+
+      .devpost-row strong {
+        display: block;
+        font-size: 15px;
+        line-height: 1.22;
+        margin-bottom: 7px;
+      }
+
+      .devpost-row span {
+        color: var(--muted);
+        display: block;
+        font-family: var(--mono);
+        font-size: 11px;
+        line-height: 1.42;
+        overflow-wrap: anywhere;
+      }
+
       .slate-item label {
         color: var(--muted);
         display: block;
@@ -889,6 +959,10 @@
           grid-template-columns: 1fr;
         }
 
+        .devpost-grid {
+          grid-template-columns: 1fr;
+        }
+
         .slate-item {
           border-right: 0;
           border-bottom: 1px solid var(--rule);
@@ -931,6 +1005,16 @@
         }
 
         .recording-row:last-child {
+          border-bottom: 0;
+        }
+
+        .devpost-row {
+          border-right: 0;
+          border-bottom: 1px solid var(--rule);
+          padding-right: 0;
+        }
+
+        .devpost-row:last-child {
           border-bottom: 0;
         }
 
@@ -1144,6 +1228,19 @@
               </div>
             </div>
           </div>
+          <div class="devpost-kit-strip" aria-label="Devpost kit">
+            <header>
+              <h2>Devpost Kit</h2>
+              <span id="devpostStatus">Loading form gate</span>
+            </header>
+            <div class="devpost-grid" id="devpostRows">
+              <div class="devpost-row">
+                <label>Project Name</label>
+                <strong>ProofFrame</strong>
+                <span>Waiting for public-safe form kit.</span>
+              </div>
+            </div>
+          </div>
         </section>
 
         <section class="brief-panel" aria-label="Campaign brief">
@@ -1289,6 +1386,7 @@
         judgeBrief: null,
         judgeCrosswalk: null,
         judgeRecording: null,
+        judgeDevpost: null,
         health: null,
         packetStatus: "No packet exported",
         packetDetail: "Awaiting campaign manifest.",
@@ -1401,6 +1499,15 @@
           state.judgeRecording = { error: error.message };
         }
         renderJudgeRecording();
+      }
+
+      async function loadJudgeDevpost() {
+        try {
+          state.judgeDevpost = await api("/api/judge/devpost");
+        } catch (error) {
+          state.judgeDevpost = { error: error.message };
+        }
+        renderJudgeDevpost();
       }
 
       async function loadCampaigns() {
@@ -1588,6 +1695,40 @@
               <label>Next Action</label>
               <strong>Recording gate pending</strong>
               <span>${escapeHtml(recording.error || nextActions[0] || "Waiting for generated recording assets.")}</span>
+            </div>
+          `;
+      }
+
+      function renderJudgeDevpost() {
+        const devpost = state.judgeDevpost || {};
+        const fields = Array.isArray(devpost.fields) ? devpost.fields : [];
+        const fieldById = Object.fromEntries(fields.map((field) => [field.id, field]));
+        const displayFields = ["project_name", "tagline", "video_url"]
+          .map((fieldId) => fieldById[fieldId])
+          .filter(Boolean);
+        const finalFormReady = Boolean(devpost.final_form_ready);
+        el("devpostStatus").textContent = devpost.error
+          ? "Form kit unavailable"
+          : finalFormReady
+            ? "Final form ready"
+            : humanizeStatus(devpost.mode || "pre_live_form_ready");
+        el("devpostRows").innerHTML = displayFields.length
+          ? displayFields
+              .map(
+                (field) => `
+                <div class="devpost-row">
+                  <label>${escapeHtml(field.ok_for_final ? "Final Ready" : "Final Pending")}</label>
+                  <strong>${escapeHtml(field.label || "Devpost field")}</strong>
+                  <span>${escapeHtml(field.value || "Awaiting final value.")}</span>
+                </div>
+              `,
+              )
+              .join("")
+          : `
+            <div class="devpost-row">
+              <label>Unavailable</label>
+              <strong>Form kit pending</strong>
+              <span>${escapeHtml(devpost.error || "Waiting for generated Devpost form kit.")}</span>
             </div>
           `;
       }
@@ -1822,6 +1963,7 @@
           loadJudgeBrief(),
           loadJudgeCrosswalk(),
           loadJudgeRecording(),
+          loadJudgeDevpost(),
         ]);
         renderInspector();
         if (shouldAutoLoadJudgeDemo()) {

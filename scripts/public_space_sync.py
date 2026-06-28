@@ -19,7 +19,7 @@ SCHEMA = "proofframe.public_space_sync.v1"
 
 SPACE_ID = "ADJCJH/backblaze-proofframe"
 SPACE_HOST = "https://adjcjh-backblaze-proofframe.hf.space"
-EXPECTED_SPACE_SHA = "4b9274b78fee50c3a749ea7adadf768d61941507"
+EXPECTED_SPACE_SHA = "bd6cbae7231e7e3c2b1531ad0459bec41189c4f8"
 TIMEOUT_SECONDS = 30
 
 HTML_MARKERS = {
@@ -28,6 +28,7 @@ HTML_MARKERS = {
     "judge_brief_panel": "30-Second Judge Brief",
     "criteria_crosswalk_link": "Criteria crosswalk",
     "recording_runbook_panel": "Recording Runbook",
+    "devpost_kit_panel": "Devpost Kit",
     "auto_load_judge_demo": "shouldAutoLoadJudgeDemo",
     "final_reports_pending": "Final reports pending",
 }
@@ -102,6 +103,7 @@ def build_report(
     judge_brief_url = raw_file_url(space_id, "docs/assets/judge-brief.json")
     judge_crosswalk_url = raw_file_url(space_id, "docs/assets/judge-crosswalk.json")
     recording_assets_url = raw_file_url(space_id, "docs/assets/recording-assets.json")
+    devpost_form_kit_url = raw_file_url(space_id, "docs/assets/devpost-form-kit.json")
     judge_url = public_url(public_host, "/?judge=1")
     health_url = public_url(public_host, "/api/health")
     gate_url = public_url(public_host, "/api/submission/gate")
@@ -113,6 +115,7 @@ def build_report(
     judge_brief_result = fetcher(judge_brief_url, TIMEOUT_SECONDS)
     judge_crosswalk_result = fetcher(judge_crosswalk_url, TIMEOUT_SECONDS)
     recording_assets_result = fetcher(recording_assets_url, TIMEOUT_SECONDS)
+    devpost_form_kit_result = fetcher(devpost_form_kit_url, TIMEOUT_SECONDS)
     judge_result = fetcher(judge_url, TIMEOUT_SECONDS)
     health_result = fetcher(health_url, TIMEOUT_SECONDS)
     gate_result = fetcher(gate_url, TIMEOUT_SECONDS)
@@ -124,6 +127,7 @@ def build_report(
     judge_brief = parse_json(judge_brief_result)
     judge_crosswalk = parse_json(judge_crosswalk_result)
     recording_assets = parse_json(recording_assets_result)
+    devpost_form_kit = parse_json(devpost_form_kit_result)
     health = parse_json(health_result)
     gate = parse_json(gate_result)
     html = str(judge_result.get("body") or "")
@@ -248,6 +252,25 @@ def build_report(
                 f"final_video_ready is {recording_assets.get('final_video_ready') if recording_assets else None}."
             ),
             recording_assets_url,
+        ),
+        check_item(
+            "raw_devpost_form_kit",
+            "Raw Devpost form kit is public and final-form gated",
+            bool(
+                devpost_form_kit_result.get("ok")
+                and devpost_form_kit
+                and devpost_form_kit.get("schema") == "proofframe.devpost_form_kit.v1"
+                and devpost_form_kit.get("mock_form_ready") is True
+                and devpost_form_kit.get("final_form_ready") is False
+                and isinstance(devpost_form_kit.get("fields"), list)
+                and len(devpost_form_kit.get("fields", [])) >= 10
+            ),
+            (
+                f"Devpost form schema is {devpost_form_kit.get('schema') if devpost_form_kit else None}; "
+                f"mode is {devpost_form_kit.get('mode') if devpost_form_kit else None}; "
+                f"final_form_ready is {devpost_form_kit.get('final_form_ready') if devpost_form_kit else None}."
+            ),
+            devpost_form_kit_url,
         ),
         check_item(
             "public_health",

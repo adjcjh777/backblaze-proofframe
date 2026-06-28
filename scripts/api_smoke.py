@@ -127,6 +127,16 @@ def run_smoke(
     if not isinstance(recording_final_ready, bool):
         raise SystemExit("Judge recording endpoint did not include a boolean final_video_ready flag.")
 
+    judge_devpost = request_json("GET", f"{base}/api/judge/devpost")
+    if judge_devpost.get("schema") != "proofframe.devpost_form_kit.v1":
+        raise SystemExit("Judge Devpost endpoint did not return the expected schema.")
+    devpost_fields = judge_devpost.get("fields")
+    if not isinstance(devpost_fields, list) or len(devpost_fields) < 10:
+        raise SystemExit("Judge Devpost endpoint did not include the expected form fields.")
+    devpost_final_ready = judge_devpost.get("final_form_ready")
+    if not isinstance(devpost_final_ready, bool):
+        raise SystemExit("Judge Devpost endpoint did not include a boolean final_form_ready flag.")
+
     campaign = request_json(
         "POST",
         f"{base}/api/campaigns",
@@ -182,6 +192,10 @@ def run_smoke(
         "judge_recording_mode": judge_recording.get("mode"),
         "judge_recording_final_video_ready": recording_final_ready,
         "judge_recording_shots": len(recording_shots),
+        "judge_devpost_schema": judge_devpost["schema"],
+        "judge_devpost_mode": judge_devpost.get("mode"),
+        "judge_devpost_final_form_ready": devpost_final_ready,
+        "judge_devpost_fields": len(devpost_fields),
         "campaign_id": campaign["id"],
         "asset_id": asset["id"],
         "asset_provider": asset["provider"],
