@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.submission_bundle.v1",
-  "created_at": "2026-06-28T10:15:21Z",
+  "created_at": "2026-06-28T10:17:23Z",
   "project": "ProofFrame",
   "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
@@ -156,7 +156,7 @@
       "label": "Public demo deployment runbook",
       "present": true,
       "bytes": 5441,
-      "sha256": "f974020c2570b599e860b4d0f1652552815a2e6292b79215f8bc5665fc044500"
+      "sha256": "05f6ec91b765220dba38e05001405b09e434124e8835388d6424581993c4505b"
     },
     {
       "id": "devpost_draft",
@@ -236,7 +236,7 @@
       "label": "Public Hugging Face Space sync verifier",
       "present": true,
       "bytes": 25659,
-      "sha256": "11e2355cc677b9854f1d5f75b8fcb4e5a555cabe002ab3976a1cd0d4cf4c8551"
+      "sha256": "8d2e026728e4fc9db4d9ea328508aa0a1e904cf4fb78a42d60c97ada731cab0c"
     },
     {
       "id": "public_space_sync_json",
@@ -244,7 +244,7 @@
       "label": "Machine-readable public Space sync report",
       "present": true,
       "bytes": 8366,
-      "sha256": "e267e0cb3474cbd92e65e4b479d2773f8fbe0b5b93fa7e38a8aff3392767dc47"
+      "sha256": "fa9f25a4006c515b02a38d084e0e70f89223a89259fa95672f61c4d0d975207a"
     },
     {
       "id": "public_space_sync_md",
@@ -252,7 +252,7 @@
       "label": "Human-readable public Space sync report",
       "present": true,
       "bytes": 4097,
-      "sha256": "3581a2c88e4740890cba1c84a78897c4548aa16b667fe2043f14aed23d4aef01"
+      "sha256": "18f39885d6a7daade3811b519b0ac6a80089fc0f316cd47f2bf69e0fa9685adc"
     },
     {
       "id": "devpost_form_kit_script",
@@ -516,7 +516,7 @@
       "label": "Machine-readable final control report",
       "present": true,
       "bytes": 23756,
-      "sha256": "2aa2c20b108c6234be1aab4b34c365f8cc4e308f0071e3e56db06eea824d1bab"
+      "sha256": "9e4443b4c3a9e1f4bac44fc722fc3a98624c0a2a17f107ac02a9dcb0e12d6c9b"
     },
     {
       "id": "final_submission_control_md",
@@ -524,7 +524,7 @@
       "label": "Human-readable final control report",
       "present": true,
       "bytes": 6580,
-      "sha256": "8960a40f7ebb05ec39cd120cef853be0be73a67c08d8edcad742daec88201f0f"
+      "sha256": "83aa07a17b700f55544e2e0a294caf6505dd5e4ebdc2fed5bce613bf51a97d7c"
     },
     {
       "id": "final_operator_brief_script",
@@ -588,7 +588,7 @@
       "label": "Machine-readable final rehearsal checklist",
       "present": true,
       "bytes": 16339,
-      "sha256": "2b13a2e6c9a90620e9790be6b3cbeaf2b40c4987125242522e88ee72accc40d7"
+      "sha256": "9288e90378fadc90c369550d2fde4cff18b4ddab2f2f4d56020d53355df87422"
     },
     {
       "id": "final_rehearsal_md",
@@ -596,7 +596,7 @@
       "label": "Human-readable final rehearsal checklist",
       "present": true,
       "bytes": 6716,
-      "sha256": "b19b34791d13641616f905ea366ad42f34c06ed0250ae935f0349748daa70b46"
+      "sha256": "bbac7a6b77bbb062f8595567196eae28a75a3cb4a35ada952c2e4efdc40d2d1b"
     },
     {
       "id": "submission_audit_script",
@@ -612,7 +612,7 @@
       "label": "Machine-readable submission audit report",
       "present": true,
       "bytes": 5925,
-      "sha256": "30264a44d4bfefd3eb71f99089ad5329c38b0728726e7e8818377e6a0cdac498"
+      "sha256": "b53d8dc812e2ea344e0629ce6d0fd90cf94b97609d3a5952b8d369069ae448ff"
     },
     {
       "id": "submission_audit_md",
@@ -620,7 +620,7 @@
       "label": "Human-readable submission audit report",
       "present": true,
       "bytes": 4459,
-      "sha256": "9c0816a39dfe18f7c78d3e358f7faa3cc991d64dbf7df9d3908a87cc0d701393"
+      "sha256": "4127c38459f932768891a62773929c3d0b97a563dcc39e1bba39b987495012fc"
     },
     {
       "id": "devpost_receipt_script",
@@ -652,7 +652,7 @@
       "label": "Evidence package plan",
       "present": true,
       "bytes": 17662,
-      "sha256": "bd844e400c8cc54019e2bc1db690e65fe24e8ff7564da706ab8f539113065542"
+      "sha256": "b5980c4f4e471e82440043ac02eec7e768129d54f79aeb7cf88b44f74b89ba8c"
     },
     {
       "id": "public_claim_freeze",
@@ -692,7 +692,7 @@
       "label": "Machine-readable secret scan report",
       "present": true,
       "bytes": 9701,
-      "sha256": "927d99f7e48fcbaaf14c09d2c93cc4dc3bf50b8c0970f40b166ca39044b1c223"
+      "sha256": "61c45d7e0ec0f665f0cdfe75446ef81180f841b49e61d376b8bb105b4653695a"
     },
     {
       "id": "secret_scan_md",
@@ -700,7 +700,7 @@
       "label": "Human-readable secret scan report",
       "present": true,
       "bytes": 846,
-      "sha256": "894505b6a5d9d78096ce37b8998d0ad57260a91706e131549a7e6d3de468f14d"
+      "sha256": "304d4c6447a19769cf371e03ba21ececc83ce83f34e81a82ddb191052eb5adca"
     },
     {
       "id": "b2_live_setup_json",

@@ -19,7 +19,7 @@ SCHEMA = "proofframe.public_space_sync.v1"
 
 SPACE_ID = "ADJCJH/backblaze-proofframe"
 SPACE_HOST = "https://adjcjh-backblaze-proofframe.hf.space"
-EXPECTED_SPACE_SHA = "52b556cc5935a2988ebb1c7ba30a5069f9eb887f"
+EXPECTED_SPACE_SHA = "bcd0bcad0bfcd912c38fd1f570a22112f61aead3"
 TIMEOUT_SECONDS = 30
 DRAFT_VIDEO_MIN_BYTES = 100_000
 
