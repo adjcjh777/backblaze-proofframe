@@ -59,6 +59,40 @@ def valid_submission_bundle() -> dict:
     }
 
 
+def valid_event_snapshot() -> dict:
+    return {
+        "schema": "proofframe.devpost_event_snapshot.v1",
+        "checked_at": "2026-06-28T16:00:00Z",
+        "mode": "live_official_snapshot",
+        "event": {
+            "participant_count_observed": 365,
+            "deadline_utc": "2026-08-03T21:00:00Z",
+        },
+        "rules": {
+            "requirements": {
+                "working_app_url": True,
+                "github_repo_url": True,
+                "demo_video": True,
+                "video_under_three_minutes": True,
+                "public_video_host": True,
+                "b2_usage": True,
+                "genblaze_usage": True,
+            },
+            "judging_criteria": [
+                {"name": "Real-world Utility", "present": True},
+                {"name": "Production Readiness", "present": True},
+                {"name": "B2 Storage + Data Orchestration", "present": True},
+                {"name": "Use of Genblaze", "present": True},
+            ],
+        },
+        "sources": [
+            {"id": "overview", "ok": True, "status": 200},
+            {"id": "rules", "ok": True, "status": 200},
+        ],
+        "validation": {"ok": True, "submission_open": True},
+    }
+
+
 def fake_fetcher(url: str, timeout: int) -> dict:
     assert timeout == public_space_sync.TIMEOUT_SECONDS
     if url.endswith("/api/spaces/ADJCJH/backblaze-proofframe"):
@@ -101,6 +135,13 @@ def fake_fetcher(url: str, timeout: int) -> dict:
                     "mode": "handoff_ready",
                 }
             ),
+            "error": None,
+        }
+    if url.endswith("/docs/assets/devpost-event-snapshot.json"):
+        return {
+            "ok": True,
+            "status": 200,
+            "body": json.dumps(valid_event_snapshot()),
             "error": None,
         }
     if url.endswith("/docs/assets/final-launch-plan.json"):
@@ -309,6 +350,9 @@ def test_public_space_sync_report_passes_when_space_is_current():
     assert report["mode"] == "public_space_synced"
     assert report["observed"]["runtime_sha"] == EXPECTED_SHA
     assert report["observed"]["handoff_mode"] == "handoff_ready"
+    assert report["observed"]["event_snapshot"]["participant_count_observed"] == 365
+    assert report["observed"]["event_snapshot"]["submission_open"] is True
+    assert report["observed"]["event_snapshot"]["requirements_ok"] is True
     assert report["observed"]["launch_plan_mode"] == "ready_for_credential_entry"
     assert report["observed"]["launch_plan_phase"] == "credential_entry"
     assert report["observed"]["judge_brief_schema"] == "proofframe.judge_brief.v1"
@@ -365,6 +409,43 @@ def test_public_space_sync_fails_on_missing_launch_plan():
     failed = {item["id"] for item in report["checks"] if not item["ok"]}
     assert report["ok"] is False
     assert "raw_launch_plan" in failed
+
+
+def test_public_space_sync_fails_on_stale_event_snapshot_with_action():
+    def broken_fetcher(url: str, timeout: int) -> dict:
+        result = fake_fetcher(url, timeout)
+        if url.endswith("/docs/assets/devpost-event-snapshot.json"):
+            snapshot = valid_event_snapshot()
+            snapshot["checked_at"] = "2026-05-01T00:00:00Z"
+            result = {**result, "body": json.dumps(snapshot)}
+        return result
+
+    report = public_space_sync.build_report(expected_sha=EXPECTED_SHA, fetcher=broken_fetcher)
+
+    failed = {item["id"] for item in report["checks"] if not item["ok"]}
+    assert report["ok"] is False
+    assert "raw_event_snapshot" in failed
+    assert (
+        "Regenerate and upload docs/assets/devpost-event-snapshot.json to the Space."
+        in report["next_actions"]
+    )
+
+
+def test_public_space_sync_fails_on_missing_event_requirement():
+    def broken_fetcher(url: str, timeout: int) -> dict:
+        result = fake_fetcher(url, timeout)
+        if url.endswith("/docs/assets/devpost-event-snapshot.json"):
+            snapshot = valid_event_snapshot()
+            snapshot["rules"]["requirements"]["genblaze_usage"] = False
+            result = {**result, "body": json.dumps(snapshot)}
+        return result
+
+    report = public_space_sync.build_report(expected_sha=EXPECTED_SHA, fetcher=broken_fetcher)
+
+    failed = {item["id"] for item in report["checks"] if not item["ok"]}
+    assert report["ok"] is False
+    assert "raw_event_snapshot" in failed
+    assert report["observed"]["event_snapshot"]["requirements_ok"] is False
 
 
 def test_public_space_sync_fails_on_unsafe_judge_brief():

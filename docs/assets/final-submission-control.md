@@ -2,7 +2,7 @@
 
 Mode: `pre_live_control`
 Safe to submit: `false`
-Created: `2026-06-28T16:21:12Z`
+Created: `2026-06-28T16:37:53Z`
 Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 Repository: https://github.com/adjcjh777/backblaze-proofframe
 
@@ -11,7 +11,7 @@ Repository: https://github.com/adjcjh777/backblaze-proofframe
 - Event: Backblaze Generative Media Hackathon
 - Deadline: Aug 3, 2026 @ 5:00pm EDT / 2026-08-04 05:00 Asia/Shanghai
 - Prize total: `$10000`
-- Observed participants: `365` checked `2026-06-28 Asia/Shanghai`
+- Observed participants: `365` checked `2026-06-29 Asia/Shanghai`
 - Source: https://backblaze-generative-media.devpost.com/
 - Note: Dynamic Devpost count; recheck before final public claims.
 
@@ -42,7 +42,7 @@ Repository: https://github.com/adjcjh777/backblaze-proofframe
 | OK | Devpost registration complete | T040 is done. | `tasks.json` |
 | OK | Credential-free public demo is ready | Devpost form kit mode is pre_live_form_ready. | `docs/assets/devpost-form-kit.json` |
 | PENDING | Final Devpost web submission checklist is ready | Devpost submission checklist mode is pre_submit_blocked; safe_to_submit is False. | `docs/assets/devpost-submission-checklist.json` |
-| OK | Official Devpost event snapshot is fresh | Snapshot checked at 2026-06-28T15:59:37Z; submission open is True; age days is 0. | `docs/assets/devpost-event-snapshot.json` |
+| OK | Official Devpost event snapshot is fresh | Snapshot checked at 2026-06-28T16:30:54Z; submission open is True; age days is 0. | `docs/assets/devpost-event-snapshot.json` |
 | OK | Agent handoff metadata points at the current repo | Agent handoff mode is handoff_ready; ok is True; bus status is skipped; active role cwd ok is None. | `docs/assets/agent-handoff-report.json` |
 | OK | Public Space is synced to the current judge-facing demo | Public Space sync mode is public_space_synced; ok is True. | `docs/assets/public-space-sync-report.json` |
 | OK | Final launch plan exposes the current operator step | Launch plan mode is ready_for_credential_entry; current phase is credential_entry; next command is python scripts/final_env_wizard.py --output .env.final.local --missing-only --force. | `docs/assets/final-launch-plan.json` |

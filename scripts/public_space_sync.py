@@ -19,9 +19,10 @@ SCHEMA = "proofframe.public_space_sync.v1"
 
 SPACE_ID = "ADJCJH/backblaze-proofframe"
 SPACE_HOST = "https://adjcjh-backblaze-proofframe.hf.space"
-EXPECTED_SPACE_SHA = "f54fafafe78a5e2544c2dd0c905dca2778b25ef1"
+EXPECTED_SPACE_SHA = "d9a3ed6964c0cf9834e18bd465baea1a4ad2d84e"
 TIMEOUT_SECONDS = 30
 DRAFT_VIDEO_MIN_BYTES = 100_000
+EVENT_SNAPSHOT_MAX_AGE_DAYS = 14
 POST_CREDENTIAL_REQUIRED_SEQUENCE = (
     "credential_handoff",
     "b2_live_proof",
@@ -82,6 +83,17 @@ Fetcher = Callable[[str, int], FetchResult]
 
 def utc_now() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+
+
+def checked_at_age_days(checked_at: Any) -> int | None:
+    if not isinstance(checked_at, str) or not checked_at:
+        return None
+    try:
+        checked = datetime.fromisoformat(checked_at.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    now = datetime.now(timezone.utc)
+    return max(0, (now - checked.astimezone(timezone.utc)).days)
 
 
 def fetch_text(url: str, timeout: int = TIMEOUT_SECONDS) -> FetchResult:
@@ -236,6 +248,7 @@ def build_report(
     api_url = space_api_url(space_id)
     runtime_url = runtime_api_url(space_id)
     handoff_url = raw_file_url(space_id, "docs/assets/agent-handoff-report.json")
+    event_snapshot_url = raw_file_url(space_id, "docs/assets/devpost-event-snapshot.json")
     launch_plan_url = raw_file_url(space_id, "docs/assets/final-launch-plan.json")
     judge_brief_url = raw_file_url(space_id, "docs/assets/judge-brief.json")
     judge_crosswalk_url = raw_file_url(space_id, "docs/assets/judge-crosswalk.json")
@@ -253,6 +266,7 @@ def build_report(
     space_result = fetcher(api_url, TIMEOUT_SECONDS)
     runtime_result = fetcher(runtime_url, TIMEOUT_SECONDS)
     handoff_result = fetcher(handoff_url, TIMEOUT_SECONDS)
+    event_snapshot_result = fetcher(event_snapshot_url, TIMEOUT_SECONDS)
     launch_plan_result = fetcher(launch_plan_url, TIMEOUT_SECONDS)
     judge_brief_result = fetcher(judge_brief_url, TIMEOUT_SECONDS)
     judge_crosswalk_result = fetcher(judge_crosswalk_url, TIMEOUT_SECONDS)
@@ -270,6 +284,7 @@ def build_report(
     space = parse_json(space_result)
     runtime = parse_json(runtime_result)
     handoff = parse_json(handoff_result)
+    event_snapshot = parse_json(event_snapshot_result)
     launch_plan = parse_json(launch_plan_result)
     judge_brief = parse_json(judge_brief_result)
     judge_crosswalk = parse_json(judge_crosswalk_result)
@@ -299,6 +314,22 @@ def build_report(
         gate and all(isinstance(path, str) and path and not path.startswith("/") for path in gate_paths)
     )
     report_gate_status = dict_field(gate, "report_gate").get("status") if gate else None
+    event_snapshot_event = dict_field(event_snapshot, "event")
+    event_snapshot_rules = dict_field(event_snapshot, "rules")
+    event_snapshot_validation = dict_field(event_snapshot, "validation")
+    event_snapshot_sources = dict_list_field(event_snapshot, "sources")
+    event_snapshot_requirements = dict_field(event_snapshot_rules, "requirements")
+    event_snapshot_criteria = dict_list_field(event_snapshot_rules, "judging_criteria")
+    event_snapshot_age_days = checked_at_age_days(event_snapshot.get("checked_at") if event_snapshot else None)
+    event_snapshot_sources_ok = len(event_snapshot_sources) >= 2 and all(
+        source.get("ok") is True and source.get("status") == 200 for source in event_snapshot_sources
+    )
+    event_snapshot_requirements_ok = bool(event_snapshot_requirements) and all(
+        present is True for present in event_snapshot_requirements.values()
+    )
+    event_snapshot_criteria_ok = len(event_snapshot_criteria) >= 4 and all(
+        criterion.get("present") is True for criterion in event_snapshot_criteria
+    )
     post_credential_commands = command_dicts(post_credential_plan)
     post_credential_command_ids = [str(command["id"]) for command in post_credential_commands]
     post_credential_sequence_ok = (
@@ -362,6 +393,33 @@ def build_report(
             ),
             f"Handoff schema is {handoff.get('schema') if handoff else None}; mode is {handoff.get('mode') if handoff else None}.",
             handoff_url,
+        ),
+        check_item(
+            "raw_event_snapshot",
+            "Raw Devpost event snapshot is public and fresh",
+            bool(
+                event_snapshot_result.get("ok")
+                and event_snapshot
+                and event_snapshot.get("schema") == "proofframe.devpost_event_snapshot.v1"
+                and event_snapshot.get("mode") == "live_official_snapshot"
+                and event_snapshot_validation.get("ok") is True
+                and event_snapshot_validation.get("submission_open") is True
+                and event_snapshot_sources_ok
+                and event_snapshot_requirements_ok
+                and event_snapshot_criteria_ok
+                and isinstance(event_snapshot_event.get("participant_count_observed"), int)
+                and event_snapshot_event.get("participant_count_observed", 0) > 0
+                and event_snapshot_event.get("deadline_utc") == "2026-08-03T21:00:00Z"
+                and event_snapshot_age_days is not None
+                and event_snapshot_age_days <= EVENT_SNAPSHOT_MAX_AGE_DAYS
+            ),
+            (
+                f"Event snapshot schema is {event_snapshot.get('schema') if event_snapshot else None}; "
+                f"submission_open={event_snapshot_validation.get('submission_open') if event_snapshot else None}; "
+                f"age_days={event_snapshot_age_days}; "
+                f"participants={event_snapshot_event.get('participant_count_observed') if event_snapshot else None}."
+            ),
+            event_snapshot_url,
         ),
         check_item(
             "raw_launch_plan",
@@ -632,6 +690,16 @@ def build_report(
                 "paths_relative": gate_paths_relative,
             },
             "handoff_mode": handoff.get("mode") if handoff else None,
+            "event_snapshot": {
+                "checked_at": event_snapshot.get("checked_at") if event_snapshot else None,
+                "age_days": event_snapshot_age_days,
+                "participant_count_observed": (
+                    event_snapshot_event.get("participant_count_observed") if event_snapshot else None
+                ),
+                "submission_open": event_snapshot_validation.get("submission_open") if event_snapshot else None,
+                "requirements_ok": event_snapshot_requirements_ok,
+                "criteria_ok": event_snapshot_criteria_ok,
+            },
             "launch_plan_mode": launch_plan.get("mode") if launch_plan else None,
             "launch_plan_phase": launch_plan.get("current_phase") if launch_plan else None,
             "judge_brief_schema": judge_brief.get("schema") if judge_brief else None,
@@ -675,6 +743,7 @@ def build_report(
             "space_api": api_url,
             "runtime_api": runtime_url,
             "raw_handoff_report": handoff_url,
+            "raw_event_snapshot": event_snapshot_url,
             "raw_launch_plan": launch_plan_url,
             "raw_judge_brief": judge_brief_url,
             "raw_judge_crosswalk": judge_crosswalk_url,
@@ -698,6 +767,8 @@ def next_actions(checks: list[dict[str, Any]]) -> list[str]:
         actions.append("Upload the current public demo bundle to the Hugging Face Space and wait for RUNNING.")
     if "raw_handoff_report" in failed:
         actions.append("Regenerate and upload docs/assets/agent-handoff-report.json to the Space.")
+    if "raw_event_snapshot" in failed:
+        actions.append("Regenerate and upload docs/assets/devpost-event-snapshot.json to the Space.")
     if "raw_launch_plan" in failed:
         actions.append("Regenerate and upload docs/assets/final-launch-plan.json to the Space.")
     if "raw_judge_brief" in failed:

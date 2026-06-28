@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-28T16:20:23Z",
+  "updated_at": "2026-06-28T16:36:54Z",
   "tasks": [
     {
       "id": "T001",
@@ -892,6 +892,15 @@
       "status": "done",
       "done_criteria": "public_space_sync verifies the public Space exposes the post-credential live proof plan with evidence validators and the submission bundle manifest with safe_to_share=true but safe_to_submit=false before final live proof.",
       "notes": "Hardened after read-only reviewer findings: public_space_sync now requires the full ordered post-credential sequence, strict no-secret policy wording, malformed-command fail-closed behavior, and non-truncated submission bundle gate/artifact evidence. Verified against live HF Space runtime f54fafafe78a5e2544c2dd0c905dca2778b25ef1."
+    },
+    {
+      "id": "T062",
+      "title": "Refresh official event drift gate",
+      "phase": "P4 Submit",
+      "owner": "scout",
+      "status": "done",
+      "done_criteria": "Official Devpost snapshot is refetched, stale hard-coded participant counts are removed from docs, public_space_sync validates the raw Devpost event snapshot on the public Space, and the refreshed public artifact state is verified.",
+      "notes": "Added raw Devpost event snapshot freshness/requirements/criteria checks to public_space_sync, refreshed the official snapshot to participant count 365 checked 2026-06-29 Asia/Shanghai, removed stale hard-coded 358 references, pushed HF Space commit d9a3ed6964c0cf9834e18bd465baea1a4ad2d84e, and verified public_space_sync plus API smoke."
     }
   ]
 }
