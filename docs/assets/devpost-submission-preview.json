@@ -1,0 +1,255 @@
+{
+  "schema": "proofframe.devpost_submission_preview.v1",
+  "created_at": "2026-06-28T18:05:28Z",
+  "mode": "pre_live_preview_ready",
+  "ok": true,
+  "safe_to_share": true,
+  "safe_to_submit": false,
+  "project": {
+    "name": "ProofFrame",
+    "tagline": "B2-ready provenance desk for GenAI media.",
+    "one_liner": "ProofFrame turns generated media into approved evidence packets with B2-ready manifests, Genblaze-gated provider metadata, checksums, review status, and an exportable proof bundle.",
+    "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
+    "demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
+    "video_url": "TBD after final B2 and Genblaze proof."
+  },
+  "copy_blocks": {
+    "thirty_second_pitch": "ProofFrame is not another image generator. It is a media operations desk that turns each generated asset into a reviewable packet: prompt, provider/model metadata, storage reference, checksum, approval state, risk note, manifest, and exportable evidence.",
+    "short_description": "ProofFrame is a review desk for generated media. The local demo creates a campaign, generates mock variants, approves or rejects assets, exports a manifest, and downloads an evidence ZIP with prompts, provider/model fields, storage references, hashes, and approval status. The final hackathon submission gate is to verify the same flow with Genblaze-backed generation and Backblaze B2-backed storage.",
+    "backblaze_b2_usage": "ProofFrame treats Backblaze B2 as the final durable evidence layer, not as a late file-upload checkbox. The public demo currently runs in local/mock mode, but every asset packet already carries the B2-ready object model: storage backend, storage key, checksum, byte size, prompt, provider/model metadata, approval state, and risk note. The repo includes a dedicated B2 S3-compatible storage adapter, a recorded private B2 bucket setup, and a one-command B2 proof runner that will upload one generated asset and one manifest with environment-only credentials. That live upload remains the final submission gate before any public claim is upgraded to completed B2 storage.",
+    "genblaze_usage": "ProofFrame includes a Genblaze/GMICloud provider adapter built around the official Genblaze Pipeline API. In the public mock demo, deterministic generation keeps the workflow inspectable without secrets; the same manifest fields are reserved for the final provider, model, request/run metadata, prompt, and asset checksum. The final submission gate is a live Genblaze-compatible run that proves the provider path and then carries the resulting asset into the ProofFrame review and storage packet.",
+    "accomplishments": [
+      "Built a working local product, not just a pitch.",
+      "Deployed a credential-free public mock demo.",
+      "Added a one-click Judge Demo path.",
+      "Added a review console with evidence search, status filtering, decision coverage, and safe summary copy.",
+      "Added downloadable evidence ZIPs.",
+      "Added B2-compatible storage and Genblaze/GMICloud provider code paths.",
+      "Added CI that runs readiness checks, lint, tests, API smoke, and secret scan.",
+      "Added fail-closed gates for evidence JSON exports and final submission audits.",
+      "Kept public claims gated until live sponsor proof exists."
+    ],
+    "whats_next": [
+      "Live B2 proof with a dedicated bucket and least-privilege key.",
+      "Live Genblaze proof with provider/model/run metadata.",
+      "Demo video under the event limit.",
+      "Final Devpost submission."
+    ],
+    "judge_note": "Use this preview as a copy/reference pack. It is not final-submittable until safe_to_submit becomes true."
+  },
+  "submission_readiness": {
+    "packet_mode": "pre_live_safe",
+    "form_mode": "pre_live_form_ready",
+    "final_control_mode": "pre_live_control",
+    "submit_checklist_mode": "pre_submit_blocked",
+    "submission_audit_mode": "pre_submit_audit_blocked",
+    "secret_scan_mode": "clear",
+    "public_space_mode": "public_space_synced",
+    "public_screenshot_mode": "public_judge_screenshot_ready",
+    "final_blockers": [
+      {
+        "id": "devpost_submission_checklist",
+        "label": "Final Devpost web submission checklist is ready",
+        "detail": "Devpost submission checklist mode is pre_submit_blocked; safe_to_submit is False.",
+        "evidence": "docs/assets/devpost-submission-checklist.json"
+      },
+      {
+        "id": "b2_live_proof",
+        "label": "live Backblaze B2 proof",
+        "detail": "T020 is doing; B2 evidence status is missing; final evidence status is missing.",
+        "evidence": "tasks.json, docs/assets/b2-live-proof-evidence.json, and docs/assets/final-live-proof-evidence.json"
+      },
+      {
+        "id": "genblaze_live_proof",
+        "label": "live Genblaze proof",
+        "detail": "T021 is doing; final evidence status is missing.",
+        "evidence": "tasks.json and docs/assets/final-live-proof-evidence.json"
+      },
+      {
+        "id": "credential_handoff",
+        "label": "Live credential handoff is ready",
+        "detail": "Credential handoff mode is missing_live_env; missing ids: b2_key_id, b2_application_key, genblaze_api_key.",
+        "evidence": "docs/assets/live-credential-handoff.json"
+      },
+      {
+        "id": "public_video",
+        "label": "final public video",
+        "detail": "Storyboard mode is mock_storyboard_ready; public video ready is False.",
+        "evidence": "docs/assets/demo-storyboard.json"
+      },
+      {
+        "id": "public_video_check",
+        "label": "public video URL check",
+        "detail": "Public video check mode is pending_video_url; safe_to_submit is False.",
+        "evidence": "docs/assets/public-video-check.json"
+      },
+      {
+        "id": "final_recording",
+        "label": "Final recording gate is ready",
+        "detail": "Demo readiness mode is pre_live_mock_ready; final recording ready is False.",
+        "evidence": "docs/assets/demo-readiness-report.json"
+      },
+      {
+        "id": "final_secret_scan",
+        "label": "final secret scan task completion",
+        "detail": "T041A is todo; secret scan mode is clear; secret scan ok is True.",
+        "evidence": "tasks.json and docs/assets/secret-scan-report.json"
+      },
+      {
+        "id": "final_submission_audit",
+        "label": "strict final submission audit",
+        "detail": "T041 is todo; audit mode is pre_submit_audit_blocked; audit ok is False.",
+        "evidence": "tasks.json and docs/assets/submission-audit-report.json"
+      },
+      {
+        "id": "devpost_submitted",
+        "label": "Devpost submission receipt",
+        "detail": "T042 is todo; receipt mode is pending_submission; receipt ok is False.",
+        "evidence": "tasks.json and docs/assets/devpost-submission-receipt.json"
+      }
+    ]
+  },
+  "field_rollup": {
+    "field_count": 19,
+    "mock_ready": true,
+    "final_ready": false,
+    "public_video_ready": false,
+    "final_pending_fields": [
+      {
+        "id": "video_url",
+        "label": "Demo video URL"
+      }
+    ]
+  },
+  "criteria_rollup": {
+    "mode": "pre_live_crosswalk_ready",
+    "safe_to_submit": false,
+    "official_criteria": [
+      "Real-world Utility",
+      "Production Readiness",
+      "B2 Storage + Data Orchestration",
+      "Use of Genblaze"
+    ],
+    "row_count": 4
+  },
+  "evidence_links": {
+    "public_demo": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
+    "repository": "https://github.com/adjcjh777/backblaze-proofframe",
+    "public_screenshot": "docs/assets/proofframe-hf-public-smoke.png",
+    "screenshot_report": "docs/assets/public-demo-screenshot-report.json",
+    "public_space_sync": "docs/assets/public-space-sync-report.json",
+    "judge_brief": "docs/assets/judge-brief.json",
+    "judge_crosswalk": "docs/assets/judge-crosswalk.json",
+    "form_kit": "docs/assets/devpost-form-kit.json",
+    "final_control": "docs/assets/final-submission-control.json",
+    "submission_bundle": "docs/assets/submission-bundle-manifest.json"
+  },
+  "claim_boundary": [
+    "Public demo evidence proves only the credential-free local/mock judge flow.",
+    "Do not claim completed live Backblaze B2 storage until T020 has sanitized live evidence.",
+    "Do not claim completed live Genblaze generation until T021 has sanitized live evidence.",
+    "Do not submit this packet as final until safe_to_submit is true."
+  ],
+  "source_status": {
+    "packet": {
+      "id": "packet",
+      "path": "docs/assets/devpost-submission-packet.json",
+      "present": true,
+      "schema": "proofframe.devpost_packet.v1",
+      "schema_ok": true,
+      "mode": "pre_live_safe",
+      "ok": null
+    },
+    "form_kit": {
+      "id": "form_kit",
+      "path": "docs/assets/devpost-form-kit.json",
+      "present": true,
+      "schema": "proofframe.devpost_form_kit.v1",
+      "schema_ok": true,
+      "mode": "pre_live_form_ready",
+      "ok": null
+    },
+    "judge_brief": {
+      "id": "judge_brief",
+      "path": "docs/assets/judge-brief.json",
+      "present": true,
+      "schema": "proofframe.judge_brief.v1",
+      "schema_ok": true,
+      "mode": null,
+      "ok": null
+    },
+    "judge_crosswalk": {
+      "id": "judge_crosswalk",
+      "path": "docs/assets/judge-crosswalk.json",
+      "present": true,
+      "schema": "proofframe.judge_crosswalk.v1",
+      "schema_ok": true,
+      "mode": "pre_live_crosswalk_ready",
+      "ok": true
+    },
+    "public_screenshot": {
+      "id": "public_screenshot",
+      "path": "docs/assets/public-demo-screenshot-report.json",
+      "present": true,
+      "schema": "proofframe.public_demo_screenshot.v1",
+      "schema_ok": true,
+      "mode": "public_judge_screenshot_ready",
+      "ok": true
+    },
+    "public_space_sync": {
+      "id": "public_space_sync",
+      "path": "docs/assets/public-space-sync-report.json",
+      "present": true,
+      "schema": "proofframe.public_space_sync.v1",
+      "schema_ok": true,
+      "mode": "public_space_synced",
+      "ok": true
+    },
+    "final_control": {
+      "id": "final_control",
+      "path": "docs/assets/final-submission-control.json",
+      "present": true,
+      "schema": "proofframe.final_submission_control.v1",
+      "schema_ok": true,
+      "mode": "pre_live_control",
+      "ok": null
+    },
+    "submit_checklist": {
+      "id": "submit_checklist",
+      "path": "docs/assets/devpost-submission-checklist.json",
+      "present": true,
+      "schema": "proofframe.devpost_submission_checklist.v1",
+      "schema_ok": true,
+      "mode": "pre_submit_blocked",
+      "ok": false
+    },
+    "submission_audit": {
+      "id": "submission_audit",
+      "path": "docs/assets/submission-audit-report.json",
+      "present": true,
+      "schema": "proofframe.submission_audit.v1",
+      "schema_ok": true,
+      "mode": "pre_submit_audit_blocked",
+      "ok": false
+    },
+    "secret_scan": {
+      "id": "secret_scan",
+      "path": "docs/assets/secret-scan-report.json",
+      "present": true,
+      "schema": "proofframe.secret_scan.v1",
+      "schema_ok": true,
+      "mode": "clear",
+      "ok": true
+    }
+  },
+  "next_actions": [
+    "Finalize Devpost fields: Demo video URL.",
+    "Resolve final blocker: Final Devpost web submission checklist is ready.",
+    "Resolve final blocker: live Backblaze B2 proof.",
+    "Resolve final blocker: live Genblaze proof.",
+    "Resolve final blocker: Live credential handoff is ready.",
+    "Resolve final blocker: final public video.",
+    "Resolve final blocker: public video URL check.",
+    "Resolve final blocker: Final recording gate is ready."
+  ]
+}

@@ -111,6 +111,9 @@ jobs:
       - name: Submission audit
         run: python scripts/submission_audit.py
 
+      - name: Devpost submission preview
+        run: python scripts/devpost_submission_preview.py
+
       - name: Devpost submission receipt
         run: python scripts/devpost_submission_receipt.py
 

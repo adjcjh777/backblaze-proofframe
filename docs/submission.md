@@ -43,6 +43,7 @@ Codex can handle:
 - B2/Genblaze-backed demo URL or Docker instructions after T020/T021.
 - Devpost text from `docs/devpost_draft.md`.
 - Field-by-field Devpost form kit from `docs/assets/devpost-form-kit.md` and `.json`.
+- One-page Devpost submission preview from `docs/assets/devpost-submission-preview.md` and `.json`.
 - Final Devpost web submission checklist from `docs/assets/devpost-submission-checklist.md` and `.json`.
 - No-secret B2 key scope checklist from `docs/assets/b2-key-scope-checklist.md` and `.json`.
 - Official criteria crosswalk from `docs/assets/judge-crosswalk.md` and `.json`.

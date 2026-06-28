@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-28T17:44:35Z",
+  "updated_at": "2026-06-28T17:59:35Z",
   "tasks": [
     {
       "id": "T001",
@@ -946,6 +946,15 @@
       "status": "done",
       "done_criteria": "Public judge screenshot is refreshed from the live HF Space, verified for visible/html judge markers and nonblank image stats, included in recording assets/submission bundle/public Space sync gates, and synced to the public Space.",
       "notes": "Captured docs/assets/proofframe-hf-public-smoke.png via scripts/public_demo_screenshot.py; uploaded HF Space commit 6a909b229afd3f08099877fb4cff633438f72ba5; public_space_sync and public API smoke pass with raw public-demo-screenshot-report verification."
+    },
+    {
+      "id": "T068",
+      "title": "Add Devpost submission preview",
+      "phase": "P4 Submit",
+      "owner": "reviewer",
+      "status": "done",
+      "done_criteria": "A one-page Devpost preview consolidates copy blocks, public demo evidence, screenshot evidence, readiness modes, and final blockers while separating safe_to_share from safe_to_submit.",
+      "notes": "Added scripts/devpost_submission_preview.py with tests; generated docs/assets/devpost-submission-preview.*; wired preview into CI, submission bundle, evidence docs, and public_space_sync raw artifact validation."
     }
   ]
 }

@@ -180,6 +180,33 @@ def valid_public_demo_screenshot() -> dict:
     }
 
 
+def valid_devpost_preview() -> dict:
+    return {
+        "schema": "proofframe.devpost_submission_preview.v1",
+        "mode": "pre_live_preview_ready",
+        "ok": True,
+        "safe_to_share": True,
+        "safe_to_submit": False,
+        "submission_readiness": {
+            "packet_mode": "pre_live_safe",
+            "public_space_mode": "public_space_synced",
+            "public_screenshot_mode": "public_judge_screenshot_ready",
+            "final_blockers": [
+                {"id": "b2_live_proof"},
+                {"id": "genblaze_live_proof"},
+            ],
+        },
+        "field_rollup": {
+            "mock_ready": True,
+            "final_ready": False,
+        },
+        "evidence_links": {
+            "public_demo": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
+            "public_screenshot": "docs/assets/proofframe-hf-public-smoke.png",
+        },
+    }
+
+
 def fake_fetcher(url: str, timeout: int) -> dict:
     assert timeout == public_space_sync.TIMEOUT_SECONDS
     if url.endswith("/api/spaces/ADJCJH/backblaze-proofframe"):
@@ -347,6 +374,13 @@ def fake_fetcher(url: str, timeout: int) -> dict:
             ),
             "error": None,
         }
+    if url.endswith("/docs/assets/devpost-submission-preview.json"):
+        return {
+            "ok": True,
+            "status": 200,
+            "body": json.dumps(valid_devpost_preview()),
+            "error": None,
+        }
     if url.endswith("/docs/assets/devpost-submission-checklist.json"):
         return {
             "ok": True,
@@ -474,6 +508,11 @@ def test_public_space_sync_report_passes_when_space_is_current():
     assert report["observed"]["public_demo_screenshot"]["html_ok"] is True
     assert report["observed"]["public_demo_screenshot"]["bytes"] == 717007
     assert report["observed"]["public_demo_screenshot"]["size"] == [1440, 2692]
+    assert report["observed"]["devpost_preview"]["mode"] == "pre_live_preview_ready"
+    assert report["observed"]["devpost_preview"]["safe_to_share"] is True
+    assert report["observed"]["devpost_preview"]["safe_to_submit"] is False
+    assert report["observed"]["devpost_preview"]["field_final_ready"] is False
+    assert report["observed"]["devpost_preview"]["blocker_count"] == 2
     assert report["observed"]["post_credential_plan_mode"] == "plan_only"
     assert report["observed"]["post_credential_plan_validators"] == {
         "validate_b2_evidence": True,
@@ -575,6 +614,28 @@ def test_public_space_sync_fails_on_unsafe_public_demo_screenshot_with_action():
     assert report["observed"]["public_demo_screenshot"]["html_ok"] is False
     assert (
         "Regenerate and upload docs/assets/public-demo-screenshot-report.json to the Space."
+        in report["next_actions"]
+    )
+
+
+def test_public_space_sync_fails_on_unsafe_devpost_preview_with_action():
+    def broken_fetcher(url: str, timeout: int) -> dict:
+        result = fake_fetcher(url, timeout)
+        if url.endswith("/docs/assets/devpost-submission-preview.json"):
+            preview = valid_devpost_preview()
+            preview["safe_to_share"] = False
+            preview["submission_readiness"]["final_blockers"] = []
+            result = {**result, "body": json.dumps(preview)}
+        return result
+
+    report = public_space_sync.build_report(expected_sha=EXPECTED_SHA, fetcher=broken_fetcher)
+
+    failed = {item["id"] for item in report["checks"] if not item["ok"]}
+    assert report["ok"] is False
+    assert "raw_devpost_preview" in failed
+    assert report["observed"]["devpost_preview"]["safe_to_share"] is False
+    assert (
+        "Regenerate and upload docs/assets/devpost-submission-preview.json to the Space."
         in report["next_actions"]
     )
 

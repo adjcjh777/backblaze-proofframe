@@ -19,7 +19,7 @@ SCHEMA = "proofframe.public_space_sync.v1"
 
 SPACE_ID = "ADJCJH/backblaze-proofframe"
 SPACE_HOST = "https://adjcjh-backblaze-proofframe.hf.space"
-EXPECTED_SPACE_SHA = "a65c040e9f61df8a46d31af418f5ed67051ea4d9"
+EXPECTED_SPACE_SHA = "36ebc46e15d51ef48118c0c3f6a647ca304f72f2"
 TIMEOUT_SECONDS = 30
 DRAFT_VIDEO_MIN_BYTES = 100_000
 EVENT_SNAPSHOT_MAX_AGE_DAYS = 14
@@ -57,6 +57,8 @@ REQUIRED_BUNDLE_ARTIFACT_IDS = {
     "public_space_sync_json",
     "public_demo_screenshot_json",
     "public_demo_screenshot_script",
+    "devpost_preview_json",
+    "devpost_preview_script",
     "post_credential_live_proof_json",
     "post_credential_live_proof_script",
     "b2_key_scope_checklist_json",
@@ -262,6 +264,7 @@ def build_report(
     demo_video_draft_url = raw_file_url(space_id, "docs/assets/demo-video-draft.json")
     demo_video_draft_mp4_url = resolve_file_url(space_id, "docs/assets/proofframe-demo-draft.mp4")
     devpost_form_kit_url = raw_file_url(space_id, "docs/assets/devpost-form-kit.json")
+    devpost_preview_url = raw_file_url(space_id, "docs/assets/devpost-submission-preview.json")
     submit_checklist_url = raw_file_url(space_id, "docs/assets/devpost-submission-checklist.json")
     post_credential_plan_url = raw_file_url(space_id, "docs/assets/post-credential-live-proof-plan.json")
     submission_bundle_url = raw_file_url(space_id, "docs/assets/submission-bundle-manifest.json")
@@ -282,6 +285,7 @@ def build_report(
     demo_video_draft_result = fetcher(demo_video_draft_url, TIMEOUT_SECONDS)
     demo_video_draft_mp4_result = fetcher(demo_video_draft_mp4_url, TIMEOUT_SECONDS)
     devpost_form_kit_result = fetcher(devpost_form_kit_url, TIMEOUT_SECONDS)
+    devpost_preview_result = fetcher(devpost_preview_url, TIMEOUT_SECONDS)
     submit_checklist_result = fetcher(submit_checklist_url, TIMEOUT_SECONDS)
     post_credential_plan_result = fetcher(post_credential_plan_url, TIMEOUT_SECONDS)
     submission_bundle_result = fetcher(submission_bundle_url, TIMEOUT_SECONDS)
@@ -301,6 +305,7 @@ def build_report(
     public_demo_screenshot = parse_json(public_demo_screenshot_result)
     demo_video_draft = parse_json(demo_video_draft_result)
     devpost_form_kit = parse_json(devpost_form_kit_result)
+    devpost_preview = parse_json(devpost_preview_result)
     submit_checklist = parse_json(submit_checklist_result)
     post_credential_plan = parse_json(post_credential_plan_result)
     submission_bundle = parse_json(submission_bundle_result)
@@ -389,6 +394,36 @@ def build_report(
         and (public_demo_screenshot_image.get("bytes") or 0) >= 100_000
         and (public_demo_screenshot_image.get("width") or 0) >= 1200
         and (public_demo_screenshot_image.get("height") or 0) >= 900
+    )
+    devpost_preview_readiness = dict_field(devpost_preview, "submission_readiness")
+    devpost_preview_field_rollup = dict_field(devpost_preview, "field_rollup")
+    devpost_preview_blockers = list_field(devpost_preview_readiness, "final_blockers")
+    devpost_preview_evidence_links = dict_field(devpost_preview, "evidence_links")
+    devpost_preview_ok = bool(
+        devpost_preview_result.get("ok")
+        and devpost_preview
+        and devpost_preview.get("schema") == "proofframe.devpost_submission_preview.v1"
+        and devpost_preview.get("ok") is True
+        and devpost_preview.get("safe_to_share") is True
+        and devpost_preview.get("safe_to_submit") is False
+        and devpost_preview.get("mode") == "pre_live_preview_ready"
+        and devpost_preview_readiness.get("packet_mode") == "pre_live_safe"
+        and devpost_preview_readiness.get("public_space_mode") == "public_space_synced"
+        and devpost_preview_readiness.get("public_screenshot_mode") == "public_judge_screenshot_ready"
+        and devpost_preview_field_rollup.get("mock_ready") is True
+        and devpost_preview_field_rollup.get("final_ready") is False
+        and any(
+            isinstance(blocker, dict) and blocker.get("id") == "b2_live_proof"
+            for blocker in devpost_preview_blockers
+        )
+        and any(
+            isinstance(blocker, dict) and blocker.get("id") == "genblaze_live_proof"
+            for blocker in devpost_preview_blockers
+        )
+        and devpost_preview_evidence_links.get("public_demo")
+        == "https://adjcjh-backblaze-proofframe.hf.space/?judge=1"
+        and devpost_preview_evidence_links.get("public_screenshot")
+        == "docs/assets/proofframe-hf-public-smoke.png"
     )
     b2_key_scope_expected = dict_field(b2_key_scope_checklist, "expected_key")
     b2_key_scope_bucket = dict_field(b2_key_scope_expected, "bucket_scope")
@@ -647,6 +682,19 @@ def build_report(
             devpost_form_kit_url,
         ),
         check_item(
+            "raw_devpost_preview",
+            "Raw Devpost submission preview is public and claim-safe",
+            devpost_preview_ok,
+            (
+                f"Preview schema is {devpost_preview.get('schema') if devpost_preview else None}; "
+                f"mode is {devpost_preview.get('mode') if devpost_preview else None}; "
+                f"safe_to_share={devpost_preview.get('safe_to_share') if devpost_preview else None}; "
+                f"safe_to_submit={devpost_preview.get('safe_to_submit') if devpost_preview else None}; "
+                f"blockers={len(devpost_preview_blockers)}."
+            ),
+            devpost_preview_url,
+        ),
+        check_item(
             "raw_submit_checklist",
             "Raw Devpost submit checklist is public and fail-closed",
             bool(
@@ -844,6 +892,13 @@ def build_report(
                     public_demo_screenshot_image.get("height"),
                 ],
             },
+            "devpost_preview": {
+                "mode": devpost_preview.get("mode") if devpost_preview else None,
+                "safe_to_share": devpost_preview.get("safe_to_share") if devpost_preview else None,
+                "safe_to_submit": devpost_preview.get("safe_to_submit") if devpost_preview else None,
+                "field_final_ready": devpost_preview_field_rollup.get("final_ready"),
+                "blocker_count": len(devpost_preview_blockers),
+            },
             "demo_video_draft_mode": demo_video_draft.get("mode") if demo_video_draft else None,
             "demo_video_draft_safe_to_submit": (
                 demo_video_draft.get("safe_to_submit") if demo_video_draft else None
@@ -884,6 +939,9 @@ def build_report(
             "raw_public_demo_screenshot": public_demo_screenshot_url,
             "raw_demo_video_draft": demo_video_draft_url,
             "demo_video_draft_mp4": demo_video_draft_mp4_url,
+            "raw_devpost_form_kit": devpost_form_kit_url,
+            "raw_devpost_preview": devpost_preview_url,
+            "raw_submit_checklist": submit_checklist_url,
             "raw_post_credential_plan": post_credential_plan_url,
             "raw_submission_bundle": submission_bundle_url,
             "judge": judge_url,
@@ -922,6 +980,8 @@ def next_actions(checks: list[dict[str, Any]]) -> list[str]:
         actions.append("Regenerate and upload docs/assets/proofframe-demo-draft.mp4 to the Space.")
     if "raw_devpost_form_kit" in failed:
         actions.append("Regenerate and upload docs/assets/devpost-form-kit.json to the Space.")
+    if "raw_devpost_preview" in failed:
+        actions.append("Regenerate and upload docs/assets/devpost-submission-preview.json to the Space.")
     if "raw_submit_checklist" in failed:
         actions.append("Regenerate and upload docs/assets/devpost-submission-checklist.json to the Space.")
     if "raw_post_credential_plan" in failed:
