@@ -139,6 +139,14 @@ def create_app(storage_root: Path | str | None = None, settings: Settings | None
             "Judge crosswalk",
         )
 
+    @app.get("/api/judge/recording")
+    def judge_recording() -> dict[str, object]:
+        return load_public_artifact(
+            "recording-assets.json",
+            "proofframe.recording_assets.v1",
+            "Recording assets",
+        )
+
     @app.post("/api/campaigns", response_model=Campaign)
     def create_campaign(payload: CampaignCreate) -> Campaign:
         return repo.add_campaign(Campaign(**payload.model_dump()))

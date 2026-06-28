@@ -9,7 +9,7 @@
     {
       "path": "README.md",
       "present": true,
-      "bytes": 11739
+      "bytes": 12290
     },
     {
       "path": "docs/demo_script.md",
@@ -59,12 +59,12 @@
     {
       "path": "docs/assets/final-submission-control.json",
       "present": true,
-      "bytes": 22673
+      "bytes": 23756
     },
     {
       "path": "docs/assets/final-submission-control.md",
       "present": true,
-      "bytes": 6476
+      "bytes": 6580
     },
     {
       "path": "docs/assets/proofframe-local-ui-smoke.png",
@@ -151,6 +151,7 @@
     "html_markers": {
       "judge_recording_slate": true,
       "sponsor_evidence_model": true,
+      "recording_runbook": true,
       "auto_load_judge_demo": true,
       "final_report_gate_copy": true
     },

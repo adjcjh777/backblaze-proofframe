@@ -52,6 +52,8 @@ def test_health_and_campaign_flow(tmp_path):
     assert "30-Second Judge Brief" in index_response.text
     assert "Criteria Crosswalk" in index_response.text
     assert "crosswalkRows" in index_response.text
+    assert "Recording Runbook" in index_response.text
+    assert "recordingRows" in index_response.text
     assert "B2/Genblaze final proof gated" in index_response.text
     assert "Claim Boundary" in index_response.text
     assert "Submission readiness gate" in index_response.text
@@ -83,6 +85,14 @@ def test_health_and_campaign_flow(tmp_path):
     assert crosswalk["safe_to_submit"] is False
     row_ids = {row["id"] for row in crosswalk["rows"]}
     assert {"real_world_utility", "production_readiness"} <= row_ids
+
+    recording_response = client.get("/api/judge/recording")
+    assert recording_response.status_code == 200
+    recording = recording_response.json()
+    assert recording["schema"] == "proofframe.recording_assets.v1"
+    assert recording["final_video_ready"] is False
+    assert len(recording["shot_plan"]) >= 3
+    assert recording["source_reports"]["storyboard"]["schema_ok"] is True
 
     campaign_response = client.post(
         "/api/campaigns",

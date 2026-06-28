@@ -81,7 +81,7 @@ Stage 1 is complete enough for local demo iteration: FastAPI MVP skeleton, mock 
 
 Stage 2 is in progress: B2-compatible storage code and a Genblaze/GMICloud image provider path exist, but live B2 and Genblaze runs still need credentials/provider verification before final submission claims.
 
-Stage 3 preparation is active: the public mock demo is deployed, Review Console polish is captured, Devpost/evidence/claim-freeze docs are ready for the final sponsor-integration pass, API evidence exports fail closed if secret-like values appear, and the app now displays a fail-closed submission gate dashboard plus a judge recording slate for final task/live-proof status.
+Stage 3 preparation is active: the public mock demo is deployed, Review Console polish is captured, Devpost/evidence/claim-freeze docs are ready for the final sponsor-integration pass, API evidence exports fail closed if secret-like values appear, and the app now displays a fail-closed submission gate dashboard, judge recording slate, criteria crosswalk, and recording runbook for final task/live-proof status.
 
 ![ProofFrame local UI smoke](docs/assets/proofframe-local-ui-smoke.png)
 
@@ -151,7 +151,7 @@ The browser UI and `GET /api/submission/gate` expose the same fail-closed final 
 `scripts/public_video_check.py` verifies the final public demo video URL is non-placeholder, token-free, Devpost-compatible, and reachable before final submission.
 `scripts/sponsor_fit_audit.py` checks that Backblaze B2 and Genblaze are explained as product-critical sponsor paths without overclaiming live proof.
 `scripts/demo_readiness.py` keeps the mock demo recording package ready while failing strict final mode until live B2/Genblaze proof and the final secret scan are complete.
-`scripts/recording_assets.py` checks committed recording assets and can run GET-only public demo verification without creating data or using secrets.
+`scripts/recording_assets.py` checks committed recording assets, powers the in-app Recording Runbook through `GET /api/judge/recording`, and can run GET-only public demo verification without creating data or using secrets.
 `scripts/award_readiness.py` scores sponsor fit, provenance depth, demo readiness, claim safety, and final closure so polish work stays aligned with judge expectations.
 `scripts/final_submission_control.py` aggregates the gate, form kit, storyboard, credential handoff, and award reports into one final Devpost control tower.
 `scripts/final_operator_brief.py` turns the remaining live-proof blockers into a no-secret handoff: user actions, Codex follow-up commands, and safety policy.

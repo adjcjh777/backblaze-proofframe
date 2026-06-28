@@ -97,13 +97,32 @@ def fake_fetcher(url: str, timeout: int) -> dict:
             ),
             "error": None,
         }
+    if url.endswith("/docs/assets/recording-assets.json"):
+        return {
+            "ok": True,
+            "status": 200,
+            "body": json.dumps(
+                {
+                    "schema": "proofframe.recording_assets.v1",
+                    "mode": "public_mock_verified",
+                    "mock_recording_ready": True,
+                    "final_video_ready": False,
+                    "shot_plan": [
+                        {"id": "judge_slate"},
+                        {"id": "sponsor_model"},
+                        {"id": "creative_brief"},
+                    ],
+                }
+            ),
+            "error": None,
+        }
     if url.endswith("/?judge=1"):
         return {
             "ok": True,
             "status": 200,
             "body": (
                 "Judge recording slate Sponsor Evidence Model shouldAutoLoadJudgeDemo "
-                "30-Second Judge Brief Criteria crosswalk Final reports pending"
+                "30-Second Judge Brief Criteria crosswalk Recording Runbook Final reports pending"
             ),
             "error": None,
         }

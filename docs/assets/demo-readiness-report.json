@@ -36,7 +36,7 @@
     {
       "path": "README.md",
       "present": true,
-      "bytes": 11739
+      "bytes": 12290
     },
     {
       "path": "docs/demo_script.md",
@@ -71,12 +71,12 @@
     {
       "path": "docs/assets/submission-bundle-manifest.json",
       "present": true,
-      "bytes": 27075
+      "bytes": 28749
     },
     {
       "path": "docs/assets/submission-bundle-manifest.md",
       "present": true,
-      "bytes": 10568
+      "bytes": 11261
     },
     {
       "path": "docs/assets/live-credential-handoff.json",

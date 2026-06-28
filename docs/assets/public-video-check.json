@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.public_video_check.v1",
-  "created_at": "2026-06-28T09:00:22Z",
+  "created_at": "2026-06-28T09:13:02Z",
   "mode": "pending_video_url",
   "ok": false,
   "safe_to_submit": false,

@@ -480,6 +480,76 @@
         overflow-wrap: anywhere;
       }
 
+      .recording-runbook-strip {
+        border-top: 1px solid var(--ink);
+        display: grid;
+        gap: 12px;
+        grid-column: 1 / -1;
+        padding: 14px 16px 16px;
+      }
+
+      .recording-runbook-strip header {
+        align-items: baseline;
+        display: flex;
+        gap: 12px;
+        justify-content: space-between;
+      }
+
+      .recording-runbook-strip h2 {
+        font-family: var(--display);
+        font-size: 21px;
+        line-height: 1;
+        margin: 0;
+      }
+
+      .recording-runbook-strip header span {
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 11px;
+      }
+
+      .recording-grid {
+        border-top: 1px solid var(--rule);
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .recording-row {
+        border-right: 1px solid var(--rule);
+        min-height: 116px;
+        padding: 12px 12px 4px 0;
+      }
+
+      .recording-row:last-child {
+        border-right: 0;
+      }
+
+      .recording-row label {
+        color: var(--muted);
+        display: block;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+      }
+
+      .recording-row strong {
+        display: block;
+        font-size: 15px;
+        line-height: 1.22;
+        margin-bottom: 7px;
+      }
+
+      .recording-row span {
+        color: var(--muted);
+        display: block;
+        font-family: var(--mono);
+        font-size: 11px;
+        line-height: 1.42;
+        overflow-wrap: anywhere;
+      }
+
       .slate-item label {
         color: var(--muted);
         display: block;
@@ -815,6 +885,10 @@
           grid-template-columns: 1fr;
         }
 
+        .recording-grid {
+          grid-template-columns: 1fr;
+        }
+
         .slate-item {
           border-right: 0;
           border-bottom: 1px solid var(--rule);
@@ -847,6 +921,16 @@
         }
 
         .crosswalk-row:last-child {
+          border-bottom: 0;
+        }
+
+        .recording-row {
+          border-right: 0;
+          border-bottom: 1px solid var(--rule);
+          padding-right: 0;
+        }
+
+        .recording-row:last-child {
           border-bottom: 0;
         }
 
@@ -1013,6 +1097,11 @@
                 rel="noreferrer"
               >Criteria crosswalk</a>
               <a
+                href="https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/recording-assets.md"
+                target="_blank"
+                rel="noreferrer"
+              >Recording runbook</a>
+              <a
                 href="https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/devpost-form-kit.md"
                 target="_blank"
                 rel="noreferrer"
@@ -1039,6 +1128,19 @@
                 <label>Official Angle</label>
                 <strong>Real-world Utility</strong>
                 <span>Waiting for public-safe evidence map.</span>
+              </div>
+            </div>
+          </div>
+          <div class="recording-runbook-strip" aria-label="Recording runbook">
+            <header>
+              <h2>Recording Runbook</h2>
+              <span id="recordingStatus">Loading recording gate</span>
+            </header>
+            <div class="recording-grid" id="recordingRows">
+              <div class="recording-row">
+                <label>First Shot</label>
+                <strong>Judge slate</strong>
+                <span>Waiting for public-safe recording assets.</span>
               </div>
             </div>
           </div>
@@ -1186,6 +1288,7 @@
         submissionGate: null,
         judgeBrief: null,
         judgeCrosswalk: null,
+        judgeRecording: null,
         health: null,
         packetStatus: "No packet exported",
         packetDetail: "Awaiting campaign manifest.",
@@ -1289,6 +1392,15 @@
           state.judgeCrosswalk = { error: error.message };
         }
         renderJudgeCrosswalk();
+      }
+
+      async function loadJudgeRecording() {
+        try {
+          state.judgeRecording = await api("/api/judge/recording");
+        } catch (error) {
+          state.judgeRecording = { error: error.message };
+        }
+        renderJudgeRecording();
       }
 
       async function loadCampaigns() {
@@ -1444,6 +1556,38 @@
               <label>Unavailable</label>
               <strong>Criteria map pending</strong>
               <span>${escapeHtml(crosswalk.error || "Waiting for generated judge crosswalk artifact.")}</span>
+            </div>
+          `;
+      }
+
+      function renderJudgeRecording() {
+        const recording = state.judgeRecording || {};
+        const shots = Array.isArray(recording.shot_plan) ? recording.shot_plan : [];
+        const nextActions = Array.isArray(recording.next_actions) ? recording.next_actions : [];
+        const finalVideoReady = Boolean(recording.final_video_ready);
+        el("recordingStatus").textContent = recording.error
+          ? "Runbook unavailable"
+          : finalVideoReady
+            ? "Final video ready"
+            : humanizeStatus(recording.mode || "mock_recording_ready");
+        el("recordingRows").innerHTML = shots.length
+          ? shots
+              .slice(0, 3)
+              .map(
+                (shot) => `
+                <div class="recording-row">
+                  <label>${escapeHtml(humanizeStatus(shot.id || "shot"))}</label>
+                  <strong>${escapeHtml(shot.source || "Recording source")}</strong>
+                  <span>${escapeHtml(shot.screen || "Screen detail tracked.")}</span>
+                </div>
+              `,
+              )
+              .join("")
+          : `
+            <div class="recording-row">
+              <label>Next Action</label>
+              <strong>Recording gate pending</strong>
+              <span>${escapeHtml(recording.error || nextActions[0] || "Waiting for generated recording assets.")}</span>
             </div>
           `;
       }
@@ -1677,6 +1821,7 @@
           loadSubmissionGate(),
           loadJudgeBrief(),
           loadJudgeCrosswalk(),
+          loadJudgeRecording(),
         ]);
         renderInspector();
         if (shouldAutoLoadJudgeDemo()) {

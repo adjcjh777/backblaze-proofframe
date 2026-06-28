@@ -19,7 +19,7 @@ SCHEMA = "proofframe.public_space_sync.v1"
 
 SPACE_ID = "ADJCJH/backblaze-proofframe"
 SPACE_HOST = "https://adjcjh-backblaze-proofframe.hf.space"
-EXPECTED_SPACE_SHA = "413c5fe90d97eb0a137a1fc4d5ca697e3b7cab14"
+EXPECTED_SPACE_SHA = "4b9274b78fee50c3a749ea7adadf768d61941507"
 TIMEOUT_SECONDS = 30
 
 HTML_MARKERS = {
@@ -27,6 +27,7 @@ HTML_MARKERS = {
     "sponsor_evidence_model": "Sponsor Evidence Model",
     "judge_brief_panel": "30-Second Judge Brief",
     "criteria_crosswalk_link": "Criteria crosswalk",
+    "recording_runbook_panel": "Recording Runbook",
     "auto_load_judge_demo": "shouldAutoLoadJudgeDemo",
     "final_reports_pending": "Final reports pending",
 }
@@ -100,6 +101,7 @@ def build_report(
     launch_plan_url = raw_file_url(space_id, "docs/assets/final-launch-plan.json")
     judge_brief_url = raw_file_url(space_id, "docs/assets/judge-brief.json")
     judge_crosswalk_url = raw_file_url(space_id, "docs/assets/judge-crosswalk.json")
+    recording_assets_url = raw_file_url(space_id, "docs/assets/recording-assets.json")
     judge_url = public_url(public_host, "/?judge=1")
     health_url = public_url(public_host, "/api/health")
     gate_url = public_url(public_host, "/api/submission/gate")
@@ -110,6 +112,7 @@ def build_report(
     launch_plan_result = fetcher(launch_plan_url, TIMEOUT_SECONDS)
     judge_brief_result = fetcher(judge_brief_url, TIMEOUT_SECONDS)
     judge_crosswalk_result = fetcher(judge_crosswalk_url, TIMEOUT_SECONDS)
+    recording_assets_result = fetcher(recording_assets_url, TIMEOUT_SECONDS)
     judge_result = fetcher(judge_url, TIMEOUT_SECONDS)
     health_result = fetcher(health_url, TIMEOUT_SECONDS)
     gate_result = fetcher(gate_url, TIMEOUT_SECONDS)
@@ -120,6 +123,7 @@ def build_report(
     launch_plan = parse_json(launch_plan_result)
     judge_brief = parse_json(judge_brief_result)
     judge_crosswalk = parse_json(judge_crosswalk_result)
+    recording_assets = parse_json(recording_assets_result)
     health = parse_json(health_result)
     gate = parse_json(gate_result)
     html = str(judge_result.get("body") or "")
@@ -225,6 +229,25 @@ def build_report(
                 f"safe_to_submit is {judge_crosswalk.get('safe_to_submit') if judge_crosswalk else None}."
             ),
             judge_crosswalk_url,
+        ),
+        check_item(
+            "raw_recording_assets",
+            "Raw recording runbook is public and final-video gated",
+            bool(
+                recording_assets_result.get("ok")
+                and recording_assets
+                and recording_assets.get("schema") == "proofframe.recording_assets.v1"
+                and recording_assets.get("mock_recording_ready") is True
+                and recording_assets.get("final_video_ready") is False
+                and isinstance(recording_assets.get("shot_plan"), list)
+                and len(recording_assets.get("shot_plan", [])) >= 3
+            ),
+            (
+                f"Recording schema is {recording_assets.get('schema') if recording_assets else None}; "
+                f"mode is {recording_assets.get('mode') if recording_assets else None}; "
+                f"final_video_ready is {recording_assets.get('final_video_ready') if recording_assets else None}."
+            ),
+            recording_assets_url,
         ),
         check_item(
             "public_health",

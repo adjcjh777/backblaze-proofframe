@@ -165,6 +165,7 @@ def verify_public_demo(base_url: str, fetcher: Fetcher = fetch_text) -> dict[str
     html_markers = {
         "judge_recording_slate": "Judge recording slate" in html_body,
         "sponsor_evidence_model": "Sponsor Evidence Model" in html_body,
+        "recording_runbook": "Recording Runbook" in html_body,
         "auto_load_judge_demo": "shouldAutoLoadJudgeDemo" in html_body,
         "final_report_gate_copy": "Final reports pending" in html_body,
     }

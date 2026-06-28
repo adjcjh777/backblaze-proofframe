@@ -117,6 +117,16 @@ def run_smoke(
     if not isinstance(crosswalk_rows, list) or len(crosswalk_rows) < 4:
         raise SystemExit("Judge crosswalk endpoint did not include the expected criteria rows.")
 
+    judge_recording = request_json("GET", f"{base}/api/judge/recording")
+    if judge_recording.get("schema") != "proofframe.recording_assets.v1":
+        raise SystemExit("Judge recording endpoint did not return the expected schema.")
+    recording_shots = judge_recording.get("shot_plan")
+    if not isinstance(recording_shots, list) or len(recording_shots) < 3:
+        raise SystemExit("Judge recording endpoint did not include the expected shot plan.")
+    recording_final_ready = judge_recording.get("final_video_ready")
+    if not isinstance(recording_final_ready, bool):
+        raise SystemExit("Judge recording endpoint did not include a boolean final_video_ready flag.")
+
     campaign = request_json(
         "POST",
         f"{base}/api/campaigns",
@@ -168,6 +178,10 @@ def run_smoke(
         "judge_crosswalk_mode": judge_crosswalk.get("mode"),
         "judge_crosswalk_safe_to_submit": crosswalk_safe_to_submit,
         "judge_crosswalk_rows": len(crosswalk_rows),
+        "judge_recording_schema": judge_recording["schema"],
+        "judge_recording_mode": judge_recording.get("mode"),
+        "judge_recording_final_video_ready": recording_final_ready,
+        "judge_recording_shots": len(recording_shots),
         "campaign_id": campaign["id"],
         "asset_id": asset["id"],
         "asset_provider": asset["provider"],

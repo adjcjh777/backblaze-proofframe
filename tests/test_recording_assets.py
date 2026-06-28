@@ -90,7 +90,7 @@ def fake_public_fetcher(url: str, timeout: int) -> dict:
             "status": 200,
             "body": (
                 "Judge recording slate Sponsor Evidence Model shouldAutoLoadJudgeDemo "
-                "Final reports pending"
+                "Recording Runbook Final reports pending"
             ),
             "error": None,
         }
