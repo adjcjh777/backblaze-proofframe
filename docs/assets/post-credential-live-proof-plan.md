@@ -2,7 +2,7 @@
 
 Mode: `plan_only`
 OK: `true`
-Created: `2026-06-28T11:19:31Z`
+Created: `2026-06-28T15:48:26Z`
 Env file: `.env.final.local`
 Update tasks: `false`
 
@@ -14,7 +14,9 @@ This report stores command strings, statuses, and artifact paths only. It never 
 | --- | --- | --- |
 | PLANNED | `credential_handoff` | `/Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe/.venv/bin/python /Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe/scripts/live_env_handoff.py --env-file .env.final.local --strict` |
 | PLANNED | `b2_live_proof` | `/Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe/.venv/bin/python /Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe/scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out docs/assets/b2-live-proof-evidence.json` |
+| PLANNED | `validate_b2_evidence` | `/Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe/.venv/bin/python /Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe/scripts/post_credential_live_proof.py --validate-evidence b2 --evidence-path docs/assets/b2-live-proof-evidence.json` |
 | PLANNED | `final_live_proof` | `/Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe/.venv/bin/python /Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe/scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json` |
+| PLANNED | `validate_final_evidence` | `/Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe/.venv/bin/python /Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe/scripts/post_credential_live_proof.py --validate-evidence final --evidence-path docs/assets/final-live-proof-evidence.json` |
 | PLANNED | `live_env_handoff_report` | `/Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe/.venv/bin/python /Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe/scripts/live_env_handoff.py --env-file .env.final.local` |
 | PLANNED | `devpost_form_kit` | `/Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe/.venv/bin/python /Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe/scripts/devpost_form_kit.py` |
 | PLANNED | `devpost_submission_checklist` | `/Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe/.venv/bin/python /Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe/scripts/devpost_submission_checklist.py` |

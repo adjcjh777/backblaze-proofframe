@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-28T11:09:26Z",
+  "updated_at": "2026-06-28T15:48:12Z",
   "tasks": [
     {
       "id": "T001",
@@ -865,6 +865,15 @@
       "status": "done",
       "done_criteria": "post_credential_live_proof can emit a no-secret plan by default, requires --execute to run live proof commands, stops on first failure, can mark T020/T021 only after successful proof commands when --update-tasks is explicit, regenerates downstream final reports, and is covered by tests and submission bundle artifacts.",
       "notes": "Added scripts/post_credential_live_proof.py to plan or execute the credential-ready B2 proof, final Genblaze proof, task updates, and report regeneration sequence without storing secrets."
+    },
+    {
+      "id": "T059",
+      "title": "Harden post-credential review gates",
+      "phase": "P4 Submit",
+      "owner": "reviewer",
+      "status": "done",
+      "done_criteria": "Post-credential live proof validates B2 and final evidence before task updates, final operator brief avoids duplicate live proof commands, submission bundle CLI ok tracks safe_to_submit instead of shareability, and reviewer-driven tests cover the fail-closed behavior.",
+      "notes": "Addressed independent reviewer findings from Faraday: added evidence validators before T020/T021 updates, removed duplicate runner commands, and made submission_bundle fail closed for final submit readiness."
     }
   ]
 }

@@ -94,7 +94,7 @@ When B2 and Genblaze env/packages are complete, use the post-credential runner:
 python scripts/post_credential_live_proof.py --env-file .env.final.local --execute --update-tasks
 ```
 
-The runner starts a local ProofFrame server with inherited environment variables, waits until `/api/health` reports `storage_backend=b2` and `generation_backend=genblaze`, runs the safe API smoke proof, writes sanitized evidence, and then stops the server. Server logs go to `var/live-proof/uvicorn.log`, which is ignored by git.
+The runner first runs the B2-only proof with mock generation, validates `docs/assets/b2-live-proof-evidence.json`, and only then marks T020 when `--update-tasks` is set. It then runs the final B2 plus Genblaze proof, validates `docs/assets/final-live-proof-evidence.json`, and only then marks T021. Both validators require the expected backend/provider fields, nonempty checksum/object-key fields, and no secret-like keys, bearer tokens, signed URL parameters, or GMI-style key values. Server logs stay under `var/live-proof/`, which is ignored by git.
 
 If the app is already running with those env vars, use:
 

@@ -114,7 +114,7 @@ def build_user_actions(b2_setup: dict[str, Any], handoff: dict[str, Any]) -> lis
     actions.extend(
         [
             "Run `python scripts/live_env_handoff.py --env-file .env.final.local --strict` and confirm it reports no missing ids.",
-            "Run the B2-only proof first, then the final B2 plus Genblaze proof, and commit only sanitized evidence JSON.",
+            "Run the post-credential live proof runner once; it validates B2-only and final evidence before any task updates.",
             "Record and upload the public demo video only after live proof evidence exists.",
             "Run final secret scan and final submission audit, submit Devpost, then generate the public Devpost submission receipt.",
         ]
@@ -125,8 +125,6 @@ def build_user_actions(b2_setup: dict[str, Any], handoff: dict[str, Any]) -> lis
 def build_codex_actions() -> list[str]:
     return [
         "python scripts/post_credential_live_proof.py --env-file .env.final.local --execute --update-tasks",
-        "python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out docs/assets/b2-live-proof-evidence.json",
-        "python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json",
         "python scripts/demo_storyboard.py --strict-final",
         'python scripts/public_video_check.py --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL" --verify-url --strict-final',
         "python scripts/demo_readiness.py --strict-final",

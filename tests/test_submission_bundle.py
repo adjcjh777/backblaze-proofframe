@@ -1,6 +1,7 @@
 import importlib.util
 import json
 from pathlib import Path
+from types import SimpleNamespace
 from zipfile import ZipFile
 
 
@@ -120,6 +121,7 @@ def test_submission_bundle_manifest_records_artifacts_and_gate(tmp_path):
     manifest = submission_bundle.build_manifest(tmp_path)
 
     assert manifest["safe_to_share"] is True
+    assert manifest["safe_to_submit"] is False
     assert manifest["devpost_packet"]["project_name"] == "ProofFrame"
     assert manifest["submission_gate"]["summary"]["done"] == 6
     assert manifest["submission_gate"]["report_gate"]["status"] == "verified"
@@ -150,3 +152,19 @@ def test_submission_bundle_writes_markdown_json_and_optional_zip(tmp_path):
         names = set(archive.namelist())
         assert "submission-bundle-manifest.json" in names
         assert "README.md" in names
+
+
+def test_submission_bundle_cli_ok_tracks_final_gate_not_shareability(tmp_path):
+    write_bundle_fixtures(tmp_path)
+    manifest = submission_bundle.build_manifest(tmp_path)
+    args = SimpleNamespace(
+        json_out=tmp_path / "bundle.json",
+        markdown_out=tmp_path / "bundle.md",
+        zip_out=None,
+    )
+
+    summary = submission_bundle.cli_summary(manifest, args)
+
+    assert summary["safe_to_share"] is True
+    assert summary["safe_to_submit"] is False
+    assert summary["ok"] is False

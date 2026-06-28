@@ -34,7 +34,7 @@ Safe to submit: `false`
 - Create a least-privilege Backblaze B2 application key named `proofframe-demo-live-proof` scoped to `proofframe-demo-a6b4e49`, then enter only the key id and application key into `.env.final.local` via `python scripts/final_env_wizard.py --output .env.final.local --missing-only --force`.
 - Enter a Genblaze/GMI API key into `.env.final.local` with the same wizard; do not paste it into chat, docs, screenshots, or git.
 - Run `python scripts/live_env_handoff.py --env-file .env.final.local --strict` and confirm it reports no missing ids.
-- Run the B2-only proof first, then the final B2 plus Genblaze proof, and commit only sanitized evidence JSON.
+- Run the post-credential live proof runner once; it validates B2-only and final evidence before any task updates.
 - Record and upload the public demo video only after live proof evidence exists.
 - Run final secret scan and final submission audit, submit Devpost, then generate the public Devpost submission receipt.
 
@@ -42,8 +42,6 @@ Safe to submit: `false`
 
 ```bash
 python scripts/post_credential_live_proof.py --env-file .env.final.local --execute --update-tasks
-python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out docs/assets/b2-live-proof-evidence.json
-python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json
 python scripts/demo_storyboard.py --strict-final
 python scripts/public_video_check.py --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL" --verify-url --strict-final
 python scripts/demo_readiness.py --strict-final

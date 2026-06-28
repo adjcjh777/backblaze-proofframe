@@ -1,10 +1,11 @@
 {
   "schema": "proofframe.submission_bundle.v1",
-  "created_at": "2026-06-28T11:19:47Z",
+  "created_at": "2026-06-28T15:48:27Z",
   "project": "ProofFrame",
   "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
   "safe_to_share": true,
+  "safe_to_submit": false,
   "devpost_packet": {
     "present": true,
     "mode": "pre_live_safe",
@@ -516,7 +517,7 @@
       "label": "Machine-readable final control report",
       "present": true,
       "bytes": 23824,
-      "sha256": "3c599f73884c620e61659a53692a55e4792f5acb71702da43337abc809734591"
+      "sha256": "5ffe570661b09dc1fcc1db8f4d50e20d08344903381ff17925d0afb350ccc8ae"
     },
     {
       "id": "final_submission_control_md",
@@ -524,31 +525,31 @@
       "label": "Human-readable final control report",
       "present": true,
       "bytes": 6633,
-      "sha256": "ef99ba4bcb337d429ee791da054a5a57e31afe71998953c67f8335d52f7548e3"
+      "sha256": "363ad49d07bde676aa9f3a70b06a78785765e61840fc389eb2fbd5da7f262a84"
     },
     {
       "id": "final_operator_brief_script",
       "path": "scripts/final_operator_brief.py",
       "label": "No-secret final operator brief",
       "present": true,
-      "bytes": 13824,
-      "sha256": "3e3e74329e7b246327387a29b2ba09edfa1d6e012e20dbb2f1a4c07ef5c43730"
+      "bytes": 13562,
+      "sha256": "b23b16080b0b65a174c5cbb4fe59a2056f7763d685c14ed678dcba600845f14c"
     },
     {
       "id": "final_operator_brief_json",
       "path": "docs/assets/final-operator-brief.json",
       "label": "Machine-readable final operator brief",
       "present": true,
-      "bytes": 7983,
-      "sha256": "18b58a3330ad546020c510a37ef114fe49da847e0a711d22edd7324a03018265"
+      "bytes": 7729,
+      "sha256": "29127adaaafdf0aa0927cf2dbcce0db15010906e4853cde7784069ba38340ea4"
     },
     {
       "id": "final_operator_brief_md",
       "path": "docs/assets/final-operator-brief.md",
       "label": "Human-readable final operator brief",
       "present": true,
-      "bytes": 3537,
-      "sha256": "9720dddf545af353e6b56c7ac8ac241b2674d8632b9570834037dd257380aa41"
+      "bytes": 3297,
+      "sha256": "cfa3f96b420461780ca342981eb63286b3b1209abeaf21a9018e9bf4af781881"
     },
     {
       "id": "final_launch_plan_script",
@@ -588,7 +589,7 @@
       "label": "Machine-readable final rehearsal checklist",
       "present": true,
       "bytes": 16384,
-      "sha256": "07f0b3454e1b94207fdba4dd98a331af367099c57a282ddac9988f5a8fa486e4"
+      "sha256": "df6e6df4e21d9e05f93124333bcdd717e237dae18e1f5f70dd66f09d8fc581eb"
     },
     {
       "id": "final_rehearsal_md",
@@ -612,7 +613,7 @@
       "label": "Machine-readable submission audit report",
       "present": true,
       "bytes": 5925,
-      "sha256": "43b92309716a9a59a995936aeee524aaae205f273edf78087138c5ad892d77cf"
+      "sha256": "0f9b0ba13117cdfb20192ca79149e8761087fe9fa2173cc0c31706d3c85644b7"
     },
     {
       "id": "submission_audit_md",
@@ -620,7 +621,7 @@
       "label": "Human-readable submission audit report",
       "present": true,
       "bytes": 4459,
-      "sha256": "2360d6482c8077473dacedf921733fd328977dd75b506e096c1c68913d415736"
+      "sha256": "aff22415a3b894e9c1b44a170ff07a7189b52cea84139b0d57e29e22db2626cf"
     },
     {
       "id": "devpost_receipt_script",
@@ -651,8 +652,8 @@
       "path": "docs/evidence_package.md",
       "label": "Evidence package plan",
       "present": true,
-      "bytes": 18308,
-      "sha256": "c38425c627ac77389fd06ff9e78f86c1536f0dcdd40da28b9843fcae07a959ab"
+      "bytes": 18482,
+      "sha256": "d5d166c099b3aa846e9bb1ecc059095eb6a563e85005eb0681bbcef38d952b62"
     },
     {
       "id": "public_claim_freeze",
@@ -667,8 +668,8 @@
       "path": "docs/verification.md",
       "label": "Local, CI, Docker, and live proof runbook",
       "present": true,
-      "bytes": 9194,
-      "sha256": "1d3712f26f37be088c40eb6c930206e11690631bcab5af9a78ef7dfde0503da9"
+      "bytes": 9417,
+      "sha256": "758574f39b143499d749e90a36fc8fa58fb814f5a5279d2792d57df5aa0ca100"
     },
     {
       "id": "final_env_template",
@@ -692,7 +693,7 @@
       "label": "Machine-readable secret scan report",
       "present": true,
       "bytes": 9904,
-      "sha256": "1f6a9f88f89efd476b7710203ba09bed813fb1e536f8efcb644d35d6019318ff"
+      "sha256": "13fc5e656e9d21e6825324bd238eb0e7f38def20af4c1fa7cb5b3ba905e3ffec"
     },
     {
       "id": "secret_scan_md",
@@ -700,7 +701,7 @@
       "label": "Human-readable secret scan report",
       "present": true,
       "bytes": 846,
-      "sha256": "ac61e3129135bcbf0f26ddb6787268a88b620c0ed0d7d0381ae4785e71b9cae6"
+      "sha256": "9f935b30197c5947aa04eaa4bc57f28fea2b9bc048a3ac62a624f294053b6e50"
     },
     {
       "id": "b2_live_setup_json",
@@ -763,24 +764,24 @@
       "path": "scripts/post_credential_live_proof.py",
       "label": "Post-credential live proof sequence runner",
       "present": true,
-      "bytes": 11754,
-      "sha256": "1cf6bca4ec3f9c2922971401c8edb0f2a6b0197a26ce6e0147bdccbba1f9bac8"
+      "bytes": 16876,
+      "sha256": "7e9b5ce23a798849906a062d40503140da2860cccaa0c635078521dcd24bac1a"
     },
     {
       "id": "post_credential_live_proof_json",
       "path": "docs/assets/post-credential-live-proof-plan.json",
       "label": "Machine-readable post-credential live proof plan",
       "present": true,
-      "bytes": 7779,
-      "sha256": "ec40c6e082d7d06e7a32cc2d548586b894d259fbc68fc7cfb4833f713655cdc2"
+      "bytes": 8744,
+      "sha256": "489280b4758c2ad2fcaa1863ac69acf996cb11466bace8981c661d4e8afa7e71"
     },
     {
       "id": "post_credential_live_proof_md",
       "path": "docs/assets/post-credential-live-proof-plan.md",
       "label": "Human-readable post-credential live proof plan",
       "present": true,
-      "bytes": 5123,
-      "sha256": "da4961598f00de135960580fcfe8b9ded2ae8ae7ce801efe378fb2841e80f153"
+      "bytes": 5754,
+      "sha256": "67d345b3cc74448f1ae8c95aed77a01f9863ad80224429348ae8ecabc66eb984"
     },
     {
       "id": "public_claim_lint",
@@ -859,8 +860,8 @@
       "path": "tasks.json",
       "label": "Machine-readable task board",
       "present": true,
-      "bytes": 47713,
-      "sha256": "b5aad6c3036783ca7f3a9a2cb5b039f76973e5131fed7af5b1acaefc4321533f"
+      "bytes": 48399,
+      "sha256": "c33182e600b0e8586e0d62231a1270b08c6fd7a9539e54734f5edcf0528edde3"
     },
     {
       "id": "local_ui_smoke",

@@ -185,6 +185,14 @@ def test_final_operator_brief_is_ready_for_secret_entry(tmp_path):
     assert 'python scripts/devpost_packet.py --post-live --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL"' in report[
         "codex_actions_after_credentials"
     ]
+    assert report["codex_actions_after_credentials"][0] == (
+        "python scripts/post_credential_live_proof.py --env-file .env.final.local --execute --update-tasks"
+    )
+    assert not any(
+        action.startswith("python scripts/run_b2_live_proof.py")
+        or action.startswith("python scripts/run_final_live_proof.py")
+        for action in report["codex_actions_after_credentials"]
+    )
     assert "python scripts/submission_audit.py --strict-final" in report["codex_actions_after_credentials"]
     assert "python scripts/devpost_submission_checklist.py --strict-final" in report[
         "codex_actions_after_credentials"

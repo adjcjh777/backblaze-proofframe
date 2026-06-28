@@ -172,6 +172,7 @@ def build_manifest(root: Path = ROOT) -> dict[str, Any]:
         "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
         "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
         "safe_to_share": not missing,
+        "safe_to_submit": gate["ok"],
         "devpost_packet": load_packet_summary(root),
         "submission_gate": {
             "ok": gate["ok"],
@@ -254,6 +255,19 @@ def write_outputs(
                     archive.write(root / artifact["path"], artifact["path"])
 
 
+def cli_summary(manifest: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
+    return {
+        "ok": manifest["safe_to_submit"],
+        "mode": manifest["submission_gate"]["mode"],
+        "safe_to_share": manifest["safe_to_share"],
+        "safe_to_submit": manifest["safe_to_submit"],
+        "json": str(args.json_out),
+        "markdown": str(args.markdown_out),
+        "zip": str(args.zip_out) if args.zip_out else None,
+        "missing_artifacts": manifest["missing_artifacts"],
+    }
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Build a safe ProofFrame submission bundle manifest.")
     parser.add_argument("--json-out", type=Path, default=DEFAULT_JSON)
@@ -272,19 +286,7 @@ def main() -> None:
         zip_path=args.zip_out,
         root=ROOT,
     )
-    print(
-        json.dumps(
-            {
-                "ok": manifest["safe_to_share"],
-                "mode": manifest["submission_gate"]["mode"],
-                "json": str(args.json_out),
-                "markdown": str(args.markdown_out),
-                "zip": str(args.zip_out) if args.zip_out else None,
-                "missing_artifacts": manifest["missing_artifacts"],
-            },
-            indent=2,
-        )
-    )
+    print(json.dumps(cli_summary(manifest, args), indent=2))
 
 
 if __name__ == "__main__":

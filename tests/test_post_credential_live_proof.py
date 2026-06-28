@@ -1,5 +1,6 @@
 import argparse
 import importlib.util
+import json
 from pathlib import Path
 import subprocess
 import sys
@@ -24,8 +25,12 @@ def test_build_commands_orders_live_proof_and_task_updates():
     assert command_ids[:5] == [
         "credential_handoff",
         "b2_live_proof",
+        "validate_b2_evidence",
         "mark_t020_done",
         "final_live_proof",
+    ]
+    assert command_ids[5:7] == [
+        "validate_final_evidence",
         "mark_t021_done",
     ]
     assert "final_submission_control" in command_ids
@@ -104,3 +109,60 @@ def test_report_never_stores_secret_values():
     assert "Backblaze keys" in report["secret_policy"]
     assert "B2_APPLICATION_KEY=" not in markdown
     assert "GENBLAZE_API_KEY=" not in markdown
+
+
+def test_validate_evidence_accepts_expected_b2_and_final_files(tmp_path):
+    b2_evidence = {
+        "ok": True,
+        "storage_backend": "b2",
+        "generation_backend": "mock",
+        "asset_storage_backend": "b2",
+        "asset_provider": "mock",
+        "manifest_storage_backend": "b2",
+        "asset_sha256": "a" * 64,
+        "manifest_sha256": "b" * 64,
+        "asset_storage_key": "campaigns/demo/assets/asset.png",
+        "manifest_key": "campaigns/demo/manifests/manifest.json",
+    }
+    final_evidence = {
+        **b2_evidence,
+        "generation_backend": "genblaze",
+        "asset_provider": "genblaze/gmicloud-image",
+    }
+    b2_path = tmp_path / "b2.json"
+    final_path = tmp_path / "final.json"
+    b2_path.write_text(json.dumps(b2_evidence), encoding="utf-8")
+    final_path.write_text(json.dumps(final_evidence), encoding="utf-8")
+
+    assert post_credential_live_proof.validate_evidence("b2", b2_path)["ok"] is True
+    assert post_credential_live_proof.validate_evidence("final", final_path)["ok"] is True
+
+
+def test_validate_evidence_rejects_wrong_backend_and_secret_shapes(tmp_path):
+    evidence_path = tmp_path / "unsafe.json"
+    evidence_path.write_text(
+        json.dumps(
+            {
+                "ok": True,
+                "storage_backend": "b2",
+                "generation_backend": "mock",
+                "asset_storage_backend": "b2",
+                "asset_provider": "mock",
+                "manifest_storage_backend": "b2",
+                "asset_sha256": "a" * 64,
+                "manifest_sha256": "b" * 64,
+                "asset_storage_key": "campaigns/demo/assets/asset.png",
+                "manifest_key": "campaigns/demo/manifests/manifest.json",
+                "debug_url": "https://example.test/file?X-Amz-Signature=123456789abcdef",
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    report = post_credential_live_proof.validate_evidence("final", evidence_path)
+
+    assert report["ok"] is False
+    fields = {finding["field"] for finding in report["findings"]}
+    assert "generation_backend" in fields
+    assert "asset_provider" in fields
+    assert "secret_safety" in fields
