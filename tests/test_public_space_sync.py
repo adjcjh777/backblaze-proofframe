@@ -71,6 +71,18 @@ def fake_fetcher(url: str, timeout: int) -> dict:
             ),
             "error": None,
         }
+    if url.endswith("/docs/assets/judge-brief.json"):
+        return {
+            "ok": True,
+            "status": 200,
+            "body": json.dumps(
+                {
+                    "schema": "proofframe.judge_brief.v1",
+                    "status": {"safe_to_submit": False},
+                }
+            ),
+            "error": None,
+        }
     if url.endswith("/?judge=1"):
         return {
             "ok": True,
@@ -125,6 +137,8 @@ def test_public_space_sync_report_passes_when_space_is_current():
     assert report["observed"]["handoff_mode"] == "handoff_ready"
     assert report["observed"]["launch_plan_mode"] == "ready_for_credential_entry"
     assert report["observed"]["launch_plan_phase"] == "credential_entry"
+    assert report["observed"]["judge_brief_schema"] == "proofframe.judge_brief.v1"
+    assert report["observed"]["judge_brief_safe_to_submit"] is False
     assert all(item["ok"] for item in report["checks"])
 
 
@@ -164,6 +178,29 @@ def test_public_space_sync_fails_on_missing_launch_plan():
     failed = {item["id"] for item in report["checks"] if not item["ok"]}
     assert report["ok"] is False
     assert "raw_launch_plan" in failed
+
+
+def test_public_space_sync_fails_on_unsafe_judge_brief():
+    def broken_fetcher(url: str, timeout: int) -> dict:
+        result = fake_fetcher(url, timeout)
+        if url.endswith("/docs/assets/judge-brief.json"):
+            result = {
+                **result,
+                "body": json.dumps(
+                    {
+                        "schema": "proofframe.judge_brief.v1",
+                        "status": {"safe_to_submit": True},
+                        "not_yet_claimed": [],
+                    }
+                ),
+            }
+        return result
+
+    report = public_space_sync.build_report(expected_sha=EXPECTED_SHA, fetcher=broken_fetcher)
+
+    failed = {item["id"] for item in report["checks"] if not item["ok"]}
+    assert report["ok"] is False
+    assert "raw_judge_brief" in failed
 
 
 def test_public_space_sync_writes_reports(tmp_path):

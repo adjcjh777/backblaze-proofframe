@@ -19,7 +19,7 @@ SCHEMA = "proofframe.public_space_sync.v1"
 
 SPACE_ID = "ADJCJH/backblaze-proofframe"
 SPACE_HOST = "https://adjcjh-backblaze-proofframe.hf.space"
-EXPECTED_SPACE_SHA = "772a79fb645e975df32f7acbe49eae15a96a6626"
+EXPECTED_SPACE_SHA = "0bf36eaabc491f1afda189c02a6fbcb7cd63030b"
 TIMEOUT_SECONDS = 30
 
 HTML_MARKERS = {
@@ -96,6 +96,7 @@ def build_report(
     runtime_url = runtime_api_url(space_id)
     handoff_url = raw_file_url(space_id, "docs/assets/agent-handoff-report.json")
     launch_plan_url = raw_file_url(space_id, "docs/assets/final-launch-plan.json")
+    judge_brief_url = raw_file_url(space_id, "docs/assets/judge-brief.json")
     judge_url = public_url(public_host, "/?judge=1")
     health_url = public_url(public_host, "/api/health")
     gate_url = public_url(public_host, "/api/submission/gate")
@@ -104,6 +105,7 @@ def build_report(
     runtime_result = fetcher(runtime_url, TIMEOUT_SECONDS)
     handoff_result = fetcher(handoff_url, TIMEOUT_SECONDS)
     launch_plan_result = fetcher(launch_plan_url, TIMEOUT_SECONDS)
+    judge_brief_result = fetcher(judge_brief_url, TIMEOUT_SECONDS)
     judge_result = fetcher(judge_url, TIMEOUT_SECONDS)
     health_result = fetcher(health_url, TIMEOUT_SECONDS)
     gate_result = fetcher(gate_url, TIMEOUT_SECONDS)
@@ -112,6 +114,7 @@ def build_report(
     runtime = parse_json(runtime_result)
     handoff = parse_json(handoff_result)
     launch_plan = parse_json(launch_plan_result)
+    judge_brief = parse_json(judge_brief_result)
     health = parse_json(health_result)
     gate = parse_json(gate_result)
     html = str(judge_result.get("body") or "")
@@ -186,6 +189,21 @@ def build_report(
             launch_plan_url,
         ),
         check_item(
+            "raw_judge_brief",
+            "Raw judge brief is public and claim-safe",
+            bool(
+                judge_brief_result.get("ok")
+                and judge_brief
+                and judge_brief.get("schema") == "proofframe.judge_brief.v1"
+                and judge_brief.get("status", {}).get("safe_to_submit") is False
+            ),
+            (
+                f"Judge brief schema is {judge_brief.get('schema') if judge_brief else None}; "
+                f"safe_to_submit is {judge_brief.get('status', {}).get('safe_to_submit') if judge_brief else None}."
+            ),
+            judge_brief_url,
+        ),
+        check_item(
             "public_health",
             "Public demo health is local/mock and ready",
             bool(
@@ -255,6 +273,10 @@ def build_report(
             "handoff_mode": handoff.get("mode") if handoff else None,
             "launch_plan_mode": launch_plan.get("mode") if launch_plan else None,
             "launch_plan_phase": launch_plan.get("current_phase") if launch_plan else None,
+            "judge_brief_schema": judge_brief.get("schema") if judge_brief else None,
+            "judge_brief_safe_to_submit": (
+                judge_brief.get("status", {}).get("safe_to_submit") if judge_brief else None
+            ),
             "html_markers": html_markers,
         },
         "urls": {
@@ -262,6 +284,7 @@ def build_report(
             "runtime_api": runtime_url,
             "raw_handoff_report": handoff_url,
             "raw_launch_plan": launch_plan_url,
+            "raw_judge_brief": judge_brief_url,
             "judge": judge_url,
             "health": health_url,
             "submission_gate": gate_url,
@@ -280,6 +303,8 @@ def next_actions(checks: list[dict[str, Any]]) -> list[str]:
         actions.append("Regenerate and upload docs/assets/agent-handoff-report.json to the Space.")
     if "raw_launch_plan" in failed:
         actions.append("Regenerate and upload docs/assets/final-launch-plan.json to the Space.")
+    if "raw_judge_brief" in failed:
+        actions.append("Regenerate and upload docs/assets/judge-brief.json to the Space.")
     if "public_health" in failed or "submission_gate" in failed or "judge_html_markers" in failed:
         actions.append("Rebuild the public Space and rerun public API/HTML smoke checks.")
     if not actions:

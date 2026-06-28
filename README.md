@@ -24,6 +24,18 @@ Why this one:
 - Sponsor requirements are specific enough to reward meaningful integration: Genblaze plus Backblaze B2.
 - A polished, useful product can beat a raw model demo here.
 
+## Judge Quickstart
+
+For a 60-second review path:
+
+1. Open the [public judge-mode demo](https://adjcjh-backblaze-proofframe.hf.space/?judge=1).
+2. Read the first-screen Sponsor Evidence Model and fail-closed gate status.
+3. Use the one-click Judge Demo packet if it does not auto-load.
+4. Inspect the generated asset ledger, manifest preview, approval state, checksum, and evidence ZIP.
+5. Treat the public run as local/mock mode: B2 and Genblaze integration code paths are present, but live B2/Genblaze proof remains the final gate before sponsor-complete claims.
+
+Copy-ready judge brief: `docs/assets/judge-brief.md`.
+
 ## Core Documents
 
 - `docs/research.md`: competition search, candidate comparison, selected-event evidence.
@@ -120,6 +132,7 @@ The browser UI and `GET /api/submission/gate` expose the same fail-closed final 
 `scripts/final_env_wizard.py` creates a local git-ignored `.env.final.local` with 0600 permissions, can prefill non-secret B2/default values, reads existing local values as defaults, and uses hidden prompts for credential values.
 `scripts/run_b2_live_proof.py` verifies the Backblaze B2 storage path independently with mock generation, so T020 can close before Genblaze credentials are ready.
 `scripts/devpost_form_kit.py` turns the safe packet into field-by-field Devpost copy with length checks and a strict final gate.
+`scripts/judge_brief.py` condenses the current public demo, award posture, safe claims, and final blockers into a 30-second judge brief.
 `scripts/devpost_event_snapshot.py` keeps official Devpost deadline, participants, submission requirements, and judging criteria as a refreshable evidence report.
 `scripts/agent_handoff_check.py` keeps AGENTS.md, Codex, and Agent Bus handoff paths aligned with the current repo so future role sessions do not follow stale project metadata.
 `scripts/public_space_sync.py` verifies the public Hugging Face Space runtime sha, raw handoff and final launch plan artifacts, health/gate APIs, and judge-mode HTML markers.

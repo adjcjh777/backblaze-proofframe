@@ -15,6 +15,8 @@ def test_default_packet_uses_pre_live_safe_claims():
 
     assert packet["schema"] == "proofframe.devpost_packet.v1"
     assert packet["mode"] == "pre_live_safe"
+    assert packet["tagline"] == "B2-ready provenance desk for GenAI media."
+    assert "Genblaze-gated" in packet["one_liner"]
     assert "local demo" in packet["short_description"]
     assert "B2-ready object model" in packet["b2_usage"]
     assert "final submission gate" in packet["b2_usage"]

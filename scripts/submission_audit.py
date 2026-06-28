@@ -26,6 +26,8 @@ REQUIRED_PUBLIC_FILES = [
     "docs/assets/devpost-submission-packet.md",
     "docs/assets/devpost-form-kit.json",
     "docs/assets/devpost-form-kit.md",
+    "docs/assets/judge-brief.json",
+    "docs/assets/judge-brief.md",
     "docs/assets/devpost-event-snapshot.json",
     "docs/assets/devpost-event-snapshot.md",
     "docs/assets/demo-storyboard.json",
@@ -50,6 +52,7 @@ REQUIRED_SCREENSHOTS = [
 ]
 REQUIRED_REPORT_SCHEMAS = {
     "docs/assets/devpost-form-kit.json": "proofframe.devpost_form_kit.v1",
+    "docs/assets/judge-brief.json": "proofframe.judge_brief.v1",
     "docs/assets/devpost-event-snapshot.json": "proofframe.devpost_event_snapshot.v1",
     "docs/assets/demo-storyboard.json": "proofframe.demo_storyboard.v1",
     "docs/assets/demo-readiness-report.json": "proofframe.demo_readiness.v1",

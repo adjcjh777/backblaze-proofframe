@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-28T03:21:22Z",
+  "updated_at": "2026-06-28T03:48:57Z",
   "tasks": [
     {
       "id": "T001",
@@ -685,6 +685,42 @@
       "status": "done",
       "done_criteria": "HF Space serves the final-control/launch-plan-aware artifacts after reviewer alignment, public sync verifier targets the new runtime sha, and public API smoke passes.",
       "notes": "Uploaded HF Space commit 772a79fb645e975df32f7acbe49eae15a96a6626 after final control consumed launch plan and warning/boundary copy was added."
+    },
+    {
+      "id": "T042P",
+      "title": "Add public judge brief",
+      "phase": "P4 Submit",
+      "owner": "codex",
+      "status": "done",
+      "done_criteria": "A generated public-safe judge brief summarizes the 30-second pitch, why ProofFrame can win, safe claims, current blockers, walkthrough, and evidence links; it is included in CI, final audit, and the submission bundle.",
+      "notes": "Added scripts/judge_brief.py plus docs/assets/judge-brief.*; public Space sync now verifies the raw judge brief stays safe_to_submit=false before live proof."
+    },
+    {
+      "id": "T042Q",
+      "title": "Sync public Space with judge brief",
+      "phase": "P4 Submit",
+      "owner": "codex",
+      "status": "done",
+      "done_criteria": "HF Space serves the judge-brief-aware build, raw judge brief is publicly readable and claim-safe, public sync verifier targets the new runtime sha, and public API smoke passes.",
+      "notes": "Uploaded HF Space commit 0eb210c2b25cc44af1991e17e14af062b9ad5479 with docs/assets/judge-brief.* and raw judge brief verification."
+    },
+    {
+      "id": "T042R",
+      "title": "Apply Claude review to judge brief",
+      "phase": "P4 Submit",
+      "owner": "codex",
+      "status": "done",
+      "done_criteria": "Claude Code reviews the judge brief/public sync change, stale or ambiguous claim issues are resolved, the public Space is refreshed again, and verification proves raw judge brief remains public-safe.",
+      "notes": "Claude session 11111111-2222-4333-8444-555555555555 flagged stale runtime sha and wording risk; judge brief now avoids volatile sha, tightens B2/Genblaze language, and HF Space commit 3748545778fba56837dacf9320bb656cdf183bff was uploaded."
+    },
+    {
+      "id": "T042S",
+      "title": "Add judge comprehension pack",
+      "phase": "P4 Submit",
+      "owner": "codex",
+      "status": "done",
+      "done_criteria": "README and evidence package include a 60-second Judge Quickstart, Devpost tagline/one-liner foreground B2-ready and Genblaze-gated value without live-proof overclaiming, and demo storyboard/script opening plus close clarify the before/after outcome.",
+      "notes": "Applied Agent Bus reviewer guidance: added Judge Quickstart, tightened first-impression Devpost copy, and revised demo narrative while claim_lint and sponsor_fit_audit remain green."
     }
   ]
 }

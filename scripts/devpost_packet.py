@@ -18,11 +18,11 @@ DEFAULT_TASKS = ROOT / "tasks.json"
 BASE_PACKET = {
     "schema": "proofframe.devpost_packet.v1",
     "project_name": "ProofFrame",
-    "tagline": "A provenance-first vault for generated media.",
+    "tagline": "B2-ready provenance desk for GenAI media.",
     "one_liner": (
-        "ProofFrame turns generated media into reviewable evidence packets with prompts, "
-        "provider/model metadata, storage references, hashes, approval state, and a "
-        "downloadable manifest bundle."
+        "ProofFrame turns generated media into approved evidence packets with B2-ready "
+        "manifests, Genblaze-gated provider metadata, checksums, review status, and an "
+        "exportable proof bundle."
     ),
     "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
     "demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",

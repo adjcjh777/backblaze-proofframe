@@ -22,20 +22,20 @@ ProofFrame
 
 - Status: `OK` / `FINAL OK`
 - Source: `packet.tagline`
-- Length: `45 / 140`
+- Length: `41 / 140`
 
 ```text
-A provenance-first vault for generated media.
+B2-ready provenance desk for GenAI media.
 ```
 
 ### One-liner
 
 - Status: `OK` / `FINAL OK`
 - Source: `packet.one_liner`
-- Length: `184 / 280`
+- Length: `180 / 280`
 
 ```text
-ProofFrame turns generated media into reviewable evidence packets with prompts, provider/model metadata, storage references, hashes, approval state, and a downloadable manifest bundle.
+ProofFrame turns generated media into approved evidence packets with B2-ready manifests, Genblaze-gated provider metadata, checksums, review status, and an exportable proof bundle.
 ```
 
 ### Short description

@@ -10,11 +10,11 @@ Project name:
 
 Tagline:
 
-> A provenance-first vault for generated media.
+> B2-ready provenance desk for GenAI media.
 
 One-liner:
 
-> ProofFrame turns generated media into reviewable evidence packets with prompts, provider/model metadata, storage references, hashes, approval state, and a downloadable manifest bundle.
+> ProofFrame turns generated media into approved evidence packets with B2-ready manifests, Genblaze-gated provider metadata, checksums, review status, and an exportable proof bundle.
 
 Repository:
 

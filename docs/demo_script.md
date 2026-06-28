@@ -27,6 +27,7 @@ On screen: ProofFrame dashboard.
 Narration:
 
 > ProofFrame helps teams trust generated media after the prompt is over. It turns each generated asset into a reviewable packet with prompt history, provider metadata, storage location, checksum, and approval status.
+> In one minute, loose generated files become an approved, exportable evidence packet a team can actually defend.
 
 ### 0:12-0:30 - Sponsor Evidence Model
 
@@ -34,7 +35,7 @@ On screen: manifest fields, B2 setup record, and final-gate status.
 
 Narration:
 
-> Before I generate anything, the packet is already designed around the sponsor proof model: storage backend, storage key, checksum, manifest, and approval state. In this public run the storage backend is local, but a private Backblaze B2 bucket and one-command B2 proof runner are prepared for the final live upload gate.
+> Before I generate anything, the packet is already designed around the sponsor proof model: storage backend, storage key, checksum, manifest, and approval state. Backblaze B2 is the durable evidence layer, Genblaze is the final generation route, and this public run stays local/mock until those live proof gates pass.
 
 ### 0:30-0:48 - Create A Campaign
 
@@ -94,7 +95,7 @@ On screen: repo link, final status, and app title.
 
 Narration:
 
-> ProofFrame makes generated media usable for real teams: creative enough to move fast, but traceable enough to trust.
+> ProofFrame makes generated media usable for real teams: creative enough to move fast, but traceable enough to trust, export, and verify through final B2 and Genblaze proof.
 
 ## Shot List
 

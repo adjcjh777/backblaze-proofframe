@@ -35,8 +35,8 @@ SEGMENTS = [
         "title": "Product hook",
         "screen": "ProofFrame dashboard and judge recording slate.",
         "safe_narration": (
-            "ProofFrame helps teams trust generated media after the prompt is over by turning "
-            "each asset into a reviewable packet."
+            "ProofFrame turns loose generated files into approved, exportable evidence packets "
+            "so a team can decide what is safe to ship."
         ),
     },
     {
@@ -46,9 +46,9 @@ SEGMENTS = [
         "title": "Sponsor evidence model",
         "screen": "Manifest fields plus non-secret B2 setup and final-gate status.",
         "safe_narration": (
-            "Before any live credential is shown, the packet already has the B2-ready evidence "
-            "shape: storage backend, storage key, checksum, manifest, and approval state. The "
-            "private B2 bucket and runner are prepared, while live upload stays a final gate."
+            "Backblaze B2 is the durable evidence layer, and Genblaze is the final generation "
+            "route. This public run is mock and claim-safe, while live B2 and Genblaze proofs "
+            "remain explicit final gates."
         ),
     },
     {
@@ -113,8 +113,8 @@ SEGMENTS = [
         "title": "Close",
         "screen": "Repo link, gate status, and ProofFrame title.",
         "safe_narration": (
-            "ProofFrame makes generated media creative enough to move fast and traceable enough "
-            "to trust."
+            "The output is not just an image. It is an approved media packet with a manifest, "
+            "downloadable proof, and a clear path to final B2 and Genblaze verification."
         ),
     },
 ]

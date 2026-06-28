@@ -11,14 +11,14 @@ Video URL: TBD after final B2 and Genblaze proof.
 
 | Time | Shot | Screen | Narration |
 | --- | --- | --- | --- |
-| 0:00-0:12 | Product hook | ProofFrame dashboard and judge recording slate. | ProofFrame helps teams trust generated media after the prompt is over by turning each asset into a reviewable packet. |
-| 0:12-0:30 | Sponsor evidence model | Manifest fields plus non-secret B2 setup and final-gate status. | Before any live credential is shown, the packet already has the B2-ready evidence shape: storage backend, storage key, checksum, manifest, and approval state. The private B2 bucket and runner are prepared, while live upload stays a final gate. |
+| 0:00-0:12 | Product hook | ProofFrame dashboard and judge recording slate. | ProofFrame turns loose generated files into approved, exportable evidence packets so a team can decide what is safe to ship. |
+| 0:12-0:30 | Sponsor evidence model | Manifest fields plus non-secret B2 setup and final-gate status. | Backblaze B2 is the durable evidence layer, and Genblaze is the final generation route. This public run is mock and claim-safe, while live B2 and Genblaze proofs remain explicit final gates. |
 | 0:30-0:48 | Campaign brief | Campaign, audience, tone, and brief fields. | The workflow starts with a creative brief while preserving the operational details teams usually lose. |
 | 0:48-1:10 | Generate variants | Generated asset ledger with provider/model evidence. | The public demo uses deterministic mock generation; the same manifest fields are reserved for the final live Genblaze run. |
 | 1:10-1:32 | Review and approve | Approve, reject, search, and filter evidence. | Every approval decision travels with the packet so downstream teams know which generated files are safe to use. |
 | 1:32-1:55 | Manifest preview | Provenance chain and manifest JSON. | The manifest ties each asset to its prompt, provider, model, storage key, checksum, approval state, and risk note. |
 | 1:55-2:08 | Export packet | Export manifest and download evidence ZIP. | The local packet exports as a downloadable ZIP; final B2 proof must verify the same flow through Backblaze storage before public claims are upgraded. |
-| 2:08-2:15 | Close | Repo link, gate status, and ProofFrame title. | ProofFrame makes generated media creative enough to move fast and traceable enough to trust. |
+| 2:08-2:15 | Close | Repo link, gate status, and ProofFrame title. | The output is not just an image. It is an approved media packet with a manifest, downloadable proof, and a clear path to final B2 and Genblaze verification. |
 
 ## Required Assets
 
