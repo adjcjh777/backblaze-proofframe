@@ -2,7 +2,7 @@
 
 Mode: `pre_live_control`
 Safe to submit: `false`
-Created: `2026-06-28T04:35:43Z`
+Created: `2026-06-28T04:52:33Z`
 Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 Repository: https://github.com/adjcjh777/backblaze-proofframe
 
@@ -41,6 +41,7 @@ Repository: https://github.com/adjcjh777/backblaze-proofframe
 | --- | --- | --- | --- |
 | OK | Devpost registration complete | T040 is done. | `tasks.json` |
 | OK | Credential-free public demo is ready | Devpost form kit mode is pre_live_form_ready. | `docs/assets/devpost-form-kit.json` |
+| PENDING | Final Devpost web submission checklist is ready | Devpost submission checklist mode is pre_submit_blocked; safe_to_submit is False. | `docs/assets/devpost-submission-checklist.json` |
 | OK | Official Devpost event snapshot is fresh | Snapshot checked at 2026-06-27T18:45:48Z; submission open is True; age days is 0. | `docs/assets/devpost-event-snapshot.json` |
 | OK | Agent handoff metadata points at the current repo | Agent handoff mode is handoff_ready; ok is True; bus status is stale; active role cwd ok is True. | `docs/assets/agent-handoff-report.json` |
 | OK | Public Space is synced to the current judge-facing demo | Public Space sync mode is public_space_synced; ok is True. | `docs/assets/public-space-sync-report.json` |
@@ -63,6 +64,7 @@ Repository: https://github.com/adjcjh777/backblaze-proofframe
 - Run the B2 live proof runner and save sanitized B2 evidence.
 - Run the final B2 plus Genblaze proof runner and save sanitized final evidence.
 - Record and upload the public demo video after live proof is captured.
+- Regenerate the final Devpost submission checklist after the form kit and final control gates are current.
 - Run and mark the final secret scan after live evidence/video assets are ready.
 - Run final submission audit after proof, video, and secret scan pass.
 - Submit Devpost after every preceding control item is green, then generate the public submission receipt.
@@ -75,14 +77,15 @@ python scripts/final_env_wizard.py --output .env.final.local
 python scripts/live_env_handoff.py --env-file .env.final.local
 python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out docs/assets/b2-live-proof-evidence.json
 python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json
-python scripts/devpost_packet.py --post-live --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL"
 python scripts/agent_handoff_check.py
 python scripts/public_space_sync.py
-python scripts/secret_scan.py
-python scripts/devpost_form_kit.py --strict-final
 python scripts/demo_storyboard.py --strict-final
 python scripts/demo_readiness.py --strict-final
 python scripts/recording_assets.py --verify-public --strict-final
+python scripts/secret_scan.py
+python scripts/devpost_packet.py --post-live --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL"
+python scripts/devpost_form_kit.py --strict-final
+python scripts/devpost_submission_checklist.py --strict-final
 python scripts/submission_audit.py --strict-final
 python scripts/devpost_submission_receipt.py --project-url "$PROOFFRAME_DEVPOST_PROJECT_URL" --submitted-at "$PROOFFRAME_DEVPOST_SUBMITTED_AT" --confirmation-note "Devpost accepted/submitted the ProofFrame project."
 ```

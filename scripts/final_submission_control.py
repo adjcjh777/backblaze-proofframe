@@ -35,14 +35,15 @@ OPERATOR_COMMANDS = [
     "python scripts/live_env_handoff.py --env-file .env.final.local",
     "python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out docs/assets/b2-live-proof-evidence.json",
     "python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json",
-    'python scripts/devpost_packet.py --post-live --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL"',
     "python scripts/agent_handoff_check.py",
     "python scripts/public_space_sync.py",
-    "python scripts/secret_scan.py",
-    "python scripts/devpost_form_kit.py --strict-final",
     "python scripts/demo_storyboard.py --strict-final",
     "python scripts/demo_readiness.py --strict-final",
     "python scripts/recording_assets.py --verify-public --strict-final",
+    "python scripts/secret_scan.py",
+    'python scripts/devpost_packet.py --post-live --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL"',
+    "python scripts/devpost_form_kit.py --strict-final",
+    "python scripts/devpost_submission_checklist.py --strict-final",
     "python scripts/submission_audit.py --strict-final",
     'python scripts/devpost_submission_receipt.py --project-url "$PROOFFRAME_DEVPOST_PROJECT_URL" --submitted-at "$PROOFFRAME_DEVPOST_SUBMITTED_AT" --confirmation-note "Devpost accepted/submitted the ProofFrame project."',
 ]
@@ -89,6 +90,7 @@ def report_summary(path: Path, expected_schema: str | None = None, root: Path = 
         "score": report.get("score"),
         "max_score": report.get("max_score"),
         "final_form_ready": report.get("final_form_ready"),
+        "safe_to_submit": report.get("safe_to_submit"),
         "final_video_ready": report.get("final_video_ready"),
         "final_recording_ready": report.get("final_recording_ready"),
         "mock_recording_ready": report.get("mock_recording_ready"),
@@ -189,6 +191,7 @@ def build_requirements(
     b2_evidence: dict[str, Any],
     statuses: dict[str, str],
     form: dict[str, Any],
+    devpost_checklist: dict[str, Any],
     event_snapshot: dict[str, Any],
     agent_handoff: dict[str, Any],
     final_launch_plan: dict[str, Any],
@@ -204,6 +207,7 @@ def build_requirements(
 ) -> list[dict[str, Any]]:
     summaries = {
         "Devpost form": form,
+        "Devpost submission checklist": devpost_checklist,
         "Devpost event snapshot": event_snapshot,
         "Agent handoff": agent_handoff,
         "Final launch plan": final_launch_plan,
@@ -240,6 +244,18 @@ def build_requirements(
             and form.get("mode") in {"pre_live_form_ready", "final_form_ready"},
             f"Devpost form kit mode is {form.get('mode')}.",
             "docs/assets/devpost-form-kit.json",
+        ),
+        requirement(
+            "devpost_submission_checklist",
+            "Final Devpost web submission checklist is ready",
+            bool(devpost_checklist.get("present"))
+            and bool(devpost_checklist.get("schema_ok"))
+            and bool(devpost_checklist.get("safe_to_submit")),
+            (
+                f"Devpost submission checklist mode is {devpost_checklist.get('mode')}; "
+                f"safe_to_submit is {devpost_checklist.get('safe_to_submit')}."
+            ),
+            "docs/assets/devpost-submission-checklist.json",
         ),
         requirement(
             "official_event_snapshot",
@@ -430,6 +446,8 @@ def next_actions(requirements: list[dict[str, Any]]) -> list[str]:
         actions.append("Record and upload the public demo video after live proof is captured.")
     if "recording_assets" in missing:
         actions.append("Regenerate recording assets and run the public GET-only verifier.")
+    if "devpost_submission_checklist" in missing:
+        actions.append("Regenerate the final Devpost submission checklist after the form kit and final control gates are current.")
     if "final_secret_scan" in missing:
         actions.append("Run and mark the final secret scan after live evidence/video assets are ready.")
     if "final_submission_audit" in missing:
@@ -461,6 +479,11 @@ def build_control_report(root: Path = ROOT) -> dict[str, Any]:
     gate = build_submission_gate(root)
     statuses = task_statuses(root)
     form = report_summary(root / "docs" / "assets" / "devpost-form-kit.json", "proofframe.devpost_form_kit.v1", root)
+    devpost_checklist = report_summary(
+        root / "docs" / "assets" / "devpost-submission-checklist.json",
+        "proofframe.devpost_submission_checklist.v1",
+        root,
+    )
     event_snapshot = event_snapshot_summary(root)
     agent_handoff = report_summary(
         root / "docs" / "assets" / "agent-handoff-report.json",
@@ -507,6 +530,7 @@ def build_control_report(root: Path = ROOT) -> dict[str, Any]:
         b2_evidence=b2_evidence,
         statuses=statuses,
         form=form,
+        devpost_checklist=devpost_checklist,
         event_snapshot=event_snapshot,
         agent_handoff=agent_handoff,
         final_launch_plan=final_launch_plan,
@@ -541,6 +565,7 @@ def build_control_report(root: Path = ROOT) -> dict[str, Any]:
         "task_statuses": {task: statuses.get(task, "missing") for task in ["T020", "T021", "T040", "T041", "T041A", "T042"]},
         "report_inputs": {
             "devpost_form": form,
+            "devpost_submission_checklist": devpost_checklist,
             "devpost_event_snapshot": event_snapshot,
             "agent_handoff": agent_handoff,
             "public_space_sync": public_space_sync,

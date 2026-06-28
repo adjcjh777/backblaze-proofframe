@@ -16,6 +16,7 @@ python scripts/claim_lint.py
 python scripts/live_env_handoff.py
 python scripts/final_env_wizard.py --check-only
 python scripts/devpost_form_kit.py
+python scripts/devpost_submission_checklist.py
 python scripts/devpost_event_snapshot.py --validate-committed
 python scripts/agent_handoff_check.py
 python scripts/public_space_sync.py
@@ -46,6 +47,7 @@ The `.github/workflows/ci.yml` workflow runs on `main`, `feature/**`, and pull r
 - `python scripts/live_env_handoff.py`
 - `python scripts/final_env_wizard.py --check-only`
 - `python scripts/devpost_form_kit.py`
+- `python scripts/devpost_submission_checklist.py`
 - `python scripts/devpost_event_snapshot.py --validate-committed`
 - `python scripts/agent_handoff_check.py`
 - `python scripts/public_space_sync.py`
@@ -235,11 +237,13 @@ python scripts/run_final_live_proof.py \
   --env-file .env.final.local \
   --evidence-out docs/assets/final-live-proof-evidence.json
 export PROOFFRAME_PUBLIC_VIDEO_URL="https://..."
-python scripts/devpost_packet.py --post-live --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL"
-python scripts/devpost_form_kit.py --strict-final
 python scripts/demo_storyboard.py --strict-final
 python scripts/demo_readiness.py --strict-final
 python scripts/recording_assets.py --verify-public --strict-final
+python scripts/secret_scan.py
+python scripts/devpost_packet.py --post-live --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL"
+python scripts/devpost_form_kit.py --strict-final
+python scripts/devpost_submission_checklist.py --strict-final
 python scripts/submission_bundle.py
 python scripts/final_operator_brief.py
 python scripts/final_launch_plan.py

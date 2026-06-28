@@ -43,6 +43,7 @@ Codex can handle:
 - B2/Genblaze-backed demo URL or Docker instructions after T020/T021.
 - Devpost text from `docs/devpost_draft.md`.
 - Field-by-field Devpost form kit from `docs/assets/devpost-form-kit.md` and `.json`.
+- Final Devpost web submission checklist from `docs/assets/devpost-submission-checklist.md` and `.json`.
 - Safe submission bundle manifest from `docs/assets/submission-bundle-manifest.md` and `.json`.
 - Final submission control report from `docs/assets/final-submission-control.md` and `.json`.
 - Structured demo storyboard from `docs/assets/demo-storyboard.md` and `.json`.

@@ -139,6 +139,16 @@ def write_ready_fixtures(root: Path) -> None:
     )
     write_json(
         root,
+        "docs/assets/devpost-submission-checklist.json",
+        {
+            "schema": "proofframe.devpost_submission_checklist.v1",
+            "mode": "pre_submit_blocked",
+            "ok": False,
+            "safe_to_submit": False,
+        },
+    )
+    write_json(
+        root,
         "docs/assets/devpost-submission-receipt.json",
         {
             "schema": "proofframe.devpost_submission_receipt.v1",
@@ -167,6 +177,9 @@ def test_final_operator_brief_is_ready_for_secret_entry(tmp_path):
         "codex_actions_after_credentials"
     ]
     assert "python scripts/submission_audit.py --strict-final" in report["codex_actions_after_credentials"]
+    assert "python scripts/devpost_submission_checklist.py --strict-final" in report[
+        "codex_actions_after_credentials"
+    ]
     assert any(
         action.startswith('python scripts/devpost_submission_receipt.py --project-url "$PROOFFRAME_DEVPOST_PROJECT_URL"')
         for action in report["codex_actions_after_credentials"]
@@ -174,6 +187,7 @@ def test_final_operator_brief_is_ready_for_secret_entry(tmp_path):
     assert report["reports"]["secret_scan"]["schema_ok"] is True
     assert report["reports"]["submission_audit"]["schema_ok"] is True
     assert report["reports"]["final_rehearsal"]["schema_ok"] is True
+    assert report["reports"]["devpost_submission_checklist"]["schema_ok"] is True
     assert report["reports"]["devpost_submission_receipt"]["schema_ok"] is True
 
 

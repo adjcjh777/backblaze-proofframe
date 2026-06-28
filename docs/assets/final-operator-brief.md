@@ -43,12 +43,13 @@ Safe to submit: `false`
 ```bash
 python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out docs/assets/b2-live-proof-evidence.json
 python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json
-python scripts/devpost_packet.py --post-live --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL"
-python scripts/devpost_form_kit.py --strict-final
 python scripts/demo_storyboard.py --strict-final
 python scripts/demo_readiness.py --strict-final
 python scripts/recording_assets.py --verify-public --strict-final
 python scripts/secret_scan.py
+python scripts/devpost_packet.py --post-live --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL"
+python scripts/devpost_form_kit.py --strict-final
+python scripts/devpost_submission_checklist.py --strict-final
 python scripts/submission_audit.py --strict-final
 python scripts/devpost_submission_receipt.py --project-url "$PROOFFRAME_DEVPOST_PROJECT_URL" --submitted-at "$PROOFFRAME_DEVPOST_SUBMITTED_AT" --confirmation-note "Devpost accepted/submitted the ProofFrame project."
 python scripts/final_submission_control.py --strict-final
@@ -69,6 +70,7 @@ python scripts/final_submission_control.py --strict-final
   - `docs/assets/final-live-proof-evidence.json`
   - `docs/assets/devpost-submission-packet.json`
   - `docs/assets/devpost-form-kit.json`
+  - `docs/assets/devpost-submission-checklist.json`
 
 ## Claim Boundary
 

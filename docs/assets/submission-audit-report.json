@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.submission_audit.v1",
-  "created_at": "2026-06-28T04:35:58Z",
+  "created_at": "2026-06-28T04:52:42Z",
   "mode": "pre_submit_audit_blocked",
   "ok": false,
   "root": ".",
@@ -30,7 +30,7 @@
     "final_evidence": 1,
     "devpost_packet": 5,
     "event_snapshot": 0,
-    "final_reports": 5,
+    "final_reports": 6,
     "final_control": 1
   },
   "findings": [
@@ -95,6 +95,12 @@
       "evidence": "docs/assets/devpost-form-kit.json"
     },
     {
+      "gate": "devpost_submission_checklist.safe_to_submit",
+      "status": "incomplete",
+      "detail": "Final Devpost submission checklist is not ready.",
+      "evidence": "docs/assets/devpost-submission-checklist.json"
+    },
+    {
       "gate": "demo_storyboard.public_video_ready",
       "status": "incomplete",
       "detail": "Storyboard does not have a public video URL ready.",
@@ -121,19 +127,20 @@
     {
       "gate": "final_submission_control.blocking_items",
       "status": "blocked",
-      "detail": "Unexpected blockers remain before audit sign-off: b2_live_proof, credential_handoff, final_recording, final_secret_scan, genblaze_live_proof, public_video",
+      "detail": "Unexpected blockers remain before audit sign-off: b2_live_proof, credential_handoff, devpost_submission_checklist, final_recording, final_secret_scan, genblaze_live_proof, public_video",
       "evidence": "docs/assets/final-submission-control.json"
     }
   ],
   "next_commands": [
     "python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out docs/assets/b2-live-proof-evidence.json",
     "python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json",
-    "python scripts/devpost_packet.py --post-live --video-url \"$PROOFFRAME_PUBLIC_VIDEO_URL\"",
-    "python scripts/devpost_form_kit.py --strict-final",
     "python scripts/demo_storyboard.py --strict-final",
     "python scripts/demo_readiness.py --strict-final",
     "python scripts/recording_assets.py --verify-public --strict-final",
     "python scripts/secret_scan.py",
+    "python scripts/devpost_packet.py --post-live --video-url \"$PROOFFRAME_PUBLIC_VIDEO_URL\"",
+    "python scripts/devpost_form_kit.py --strict-final",
+    "python scripts/devpost_submission_checklist.py --strict-final",
     "python scripts/final_submission_control.py --strict-final",
     "python scripts/submission_audit.py --strict-final",
     "python scripts/devpost_submission_receipt.py --project-url \"$PROOFFRAME_DEVPOST_PROJECT_URL\" --submitted-at \"$PROOFFRAME_DEVPOST_SUBMITTED_AT\" --confirmation-note \"Devpost accepted/submitted the ProofFrame project.\""

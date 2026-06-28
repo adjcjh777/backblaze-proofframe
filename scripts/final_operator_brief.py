@@ -126,12 +126,13 @@ def build_codex_actions() -> list[str]:
     return [
         "python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out docs/assets/b2-live-proof-evidence.json",
         "python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json",
-        'python scripts/devpost_packet.py --post-live --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL"',
-        "python scripts/devpost_form_kit.py --strict-final",
         "python scripts/demo_storyboard.py --strict-final",
         "python scripts/demo_readiness.py --strict-final",
         "python scripts/recording_assets.py --verify-public --strict-final",
         "python scripts/secret_scan.py",
+        'python scripts/devpost_packet.py --post-live --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL"',
+        "python scripts/devpost_form_kit.py --strict-final",
+        "python scripts/devpost_submission_checklist.py --strict-final",
         "python scripts/submission_audit.py --strict-final",
         'python scripts/devpost_submission_receipt.py --project-url "$PROOFFRAME_DEVPOST_PROJECT_URL" --submitted-at "$PROOFFRAME_DEVPOST_SUBMITTED_AT" --confirmation-note "Devpost accepted/submitted the ProofFrame project."',
         "python scripts/final_submission_control.py --strict-final",
@@ -154,6 +155,7 @@ def build_safety_policy(root: Path) -> dict[str, Any]:
             "docs/assets/final-live-proof-evidence.json",
             "docs/assets/devpost-submission-packet.json",
             "docs/assets/devpost-form-kit.json",
+            "docs/assets/devpost-submission-checklist.json",
         ],
     }
 
@@ -198,6 +200,11 @@ def build_report(root: Path = ROOT) -> dict[str, Any]:
             root,
             "docs/assets/final-rehearsal-checklist.json",
             "proofframe.final_rehearsal.v1",
+        ),
+        "devpost_submission_checklist": report_status(
+            root,
+            "docs/assets/devpost-submission-checklist.json",
+            "proofframe.devpost_submission_checklist.v1",
         ),
         "devpost_submission_receipt": report_status(
             root,

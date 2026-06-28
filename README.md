@@ -108,6 +108,7 @@ python scripts/run_final_live_proof.py --env-file .env.final.local --preflight-o
 python scripts/live_env_handoff.py
 python scripts/final_env_wizard.py --check-only
 python scripts/devpost_form_kit.py
+python scripts/devpost_submission_checklist.py
 python scripts/devpost_event_snapshot.py --validate-committed
 python scripts/agent_handoff_check.py
 python scripts/public_space_sync.py
@@ -132,6 +133,7 @@ The browser UI and `GET /api/submission/gate` expose the same fail-closed final 
 `scripts/final_env_wizard.py` creates a local git-ignored `.env.final.local` with 0600 permissions, can prefill non-secret B2/default values, reads existing local values as defaults, and uses hidden prompts for credential values.
 `scripts/run_b2_live_proof.py` verifies the Backblaze B2 storage path independently with mock generation, so T020 can close before Genblaze credentials are ready.
 `scripts/devpost_form_kit.py` turns the safe packet into field-by-field Devpost copy with length checks and a strict final gate.
+`scripts/devpost_submission_checklist.py` turns the final form kit into an ordered, no-secret Devpost web submission checklist with preflight gates, copy order, stop rules, and post-submit receipt commands.
 `scripts/judge_brief.py` condenses the current public demo, award posture, safe claims, and final blockers into a 30-second judge brief.
 `scripts/final_rehearsal.py` turns the final operator brief, launch plan, public sync, and gates into a no-secret final-submission rehearsal checklist.
 `scripts/devpost_event_snapshot.py` keeps official Devpost deadline, participants, submission requirements, and judging criteria as a refreshable evidence report.
@@ -168,6 +170,7 @@ python scripts/claim_lint.py
 python scripts/live_env_handoff.py
 python scripts/final_env_wizard.py --check-only
 python scripts/devpost_form_kit.py
+python scripts/devpost_submission_checklist.py
 python scripts/devpost_event_snapshot.py --validate-committed
 python scripts/agent_handoff_check.py
 python scripts/public_space_sync.py

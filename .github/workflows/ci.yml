@@ -60,6 +60,9 @@ jobs:
       - name: Devpost form kit
         run: python scripts/devpost_form_kit.py
 
+      - name: Devpost submission checklist
+        run: python scripts/devpost_submission_checklist.py
+
       - name: Judge brief
         run: python scripts/judge_brief.py
 

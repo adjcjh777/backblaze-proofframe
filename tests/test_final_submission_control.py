@@ -66,6 +66,16 @@ def write_common_reports(root: Path, *, final_done: bool = False) -> None:
     )
     write_json(
         root,
+        "docs/assets/devpost-submission-checklist.json",
+        {
+            "schema": "proofframe.devpost_submission_checklist.v1",
+            "mode": "ready_to_submit_devpost" if final_done else "pre_submit_blocked",
+            "ok": final_done,
+            "safe_to_submit": final_done,
+        },
+    )
+    write_json(
+        root,
         "docs/assets/devpost-event-snapshot.json",
         {
             "schema": "proofframe.devpost_event_snapshot.v1",
@@ -240,6 +250,7 @@ def test_control_report_blocks_pre_live_submission(tmp_path):
     assert report["event"]["participant_count_observed"] == 343
     assert "B2_KEY_ID" in report["next_actions"][0]
     assert report["report_inputs"]["devpost_form"]["path"] == "docs/assets/devpost-form-kit.json"
+    assert report["report_inputs"]["devpost_submission_checklist"]["path"] == "docs/assets/devpost-submission-checklist.json"
     assert report["report_inputs"]["agent_handoff"]["mode"] == "handoff_ready"
     assert report["report_inputs"]["agent_handoff"]["bus_status"] == "stale"
     assert report["report_inputs"]["agent_handoff"]["active_role_cwd_ok"] is True
@@ -324,6 +335,7 @@ def test_control_report_writes_json_and_markdown(tmp_path):
     assert "## Warnings" in markdown
     assert "agent_handoff_bus_stale" in markdown
     assert 'python scripts/devpost_packet.py --post-live --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL"' in markdown
+    assert "python scripts/devpost_submission_checklist.py --strict-final" in markdown
     assert "python scripts/submission_audit.py --strict-final" in markdown
     assert 'python scripts/devpost_submission_receipt.py --project-url "$PROOFFRAME_DEVPOST_PROJECT_URL"' in markdown
 

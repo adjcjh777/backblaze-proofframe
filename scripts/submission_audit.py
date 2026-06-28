@@ -26,6 +26,8 @@ REQUIRED_PUBLIC_FILES = [
     "docs/assets/devpost-submission-packet.md",
     "docs/assets/devpost-form-kit.json",
     "docs/assets/devpost-form-kit.md",
+    "docs/assets/devpost-submission-checklist.json",
+    "docs/assets/devpost-submission-checklist.md",
     "docs/assets/judge-brief.json",
     "docs/assets/judge-brief.md",
     "docs/assets/devpost-event-snapshot.json",
@@ -54,6 +56,7 @@ REQUIRED_SCREENSHOTS = [
 ]
 REQUIRED_REPORT_SCHEMAS = {
     "docs/assets/devpost-form-kit.json": "proofframe.devpost_form_kit.v1",
+    "docs/assets/devpost-submission-checklist.json": "proofframe.devpost_submission_checklist.v1",
     "docs/assets/judge-brief.json": "proofframe.judge_brief.v1",
     "docs/assets/devpost-event-snapshot.json": "proofframe.devpost_event_snapshot.v1",
     "docs/assets/demo-storyboard.json": "proofframe.demo_storyboard.v1",
@@ -278,6 +281,13 @@ def check_final_reports(root: Path) -> list[dict[str, str]]:
             "Final Devpost form kit is not ready.",
         ),
         (
+            "docs/assets/devpost-submission-checklist.json",
+            "devpost_submission_checklist.safe_to_submit",
+            "safe_to_submit",
+            True,
+            "Final Devpost submission checklist is not ready.",
+        ),
+        (
             "docs/assets/demo-storyboard.json",
             "demo_storyboard.public_video_ready",
             "public_video_ready",
@@ -392,12 +402,13 @@ def build_audit_report(
         "next_commands": [
             "python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out docs/assets/b2-live-proof-evidence.json",
             "python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json",
-            'python scripts/devpost_packet.py --post-live --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL"',
-            "python scripts/devpost_form_kit.py --strict-final",
             "python scripts/demo_storyboard.py --strict-final",
             "python scripts/demo_readiness.py --strict-final",
             "python scripts/recording_assets.py --verify-public --strict-final",
             "python scripts/secret_scan.py",
+            'python scripts/devpost_packet.py --post-live --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL"',
+            "python scripts/devpost_form_kit.py --strict-final",
+            "python scripts/devpost_submission_checklist.py --strict-final",
             "python scripts/final_submission_control.py --strict-final",
             "python scripts/submission_audit.py --strict-final",
             'python scripts/devpost_submission_receipt.py --project-url "$PROOFFRAME_DEVPOST_PROJECT_URL" --submitted-at "$PROOFFRAME_DEVPOST_SUBMITTED_AT" --confirmation-note "Devpost accepted/submitted the ProofFrame project."',

@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-28T04:23:18Z",
+  "updated_at": "2026-06-28T04:43:07Z",
   "tasks": [
     {
       "id": "T001",
@@ -739,6 +739,15 @@
       "status": "done",
       "done_criteria": "A no-secret final rehearsal report combines operator readiness, launch phase, public Space sync, form kit, recording readiness, secret scan, task status, exact final commands, stop rules, and safe-to-commit artifacts so the final credential/live-proof/Devpost pass can be executed without overclaiming or leaking secrets.",
       "notes": "Added scripts/final_rehearsal.py, docs/assets/final-rehearsal-checklist.*, tests, submission bundle/audit integration, and README/evidence/spec references."
+    },
+    {
+      "id": "T045",
+      "title": "Add final Devpost submission checklist",
+      "phase": "P4 Submit",
+      "owner": "codex",
+      "status": "done",
+      "done_criteria": "A no-secret Devpost web submission checklist converts the final form kit into ordered copy steps, preflight gates, stop rules, and post-submit receipt commands; it is integrated into bundle/audit/operator/rehearsal/docs/tests without marking final submission ready.",
+      "notes": "Added scripts/devpost_submission_checklist.py, docs/assets/devpost-submission-checklist.*, tests, submission bundle/audit/operator/rehearsal integration, and README/evidence/spec references."
     }
   ]
 }

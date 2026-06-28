@@ -1,0 +1,359 @@
+{
+  "schema": "proofframe.devpost_submission_checklist.v1",
+  "created_at": "2026-06-28T04:51:27Z",
+  "mode": "pre_submit_blocked",
+  "ok": false,
+  "safe_to_submit": false,
+  "task_statuses": {
+    "T020": "doing",
+    "T021": "doing",
+    "T040": "done",
+    "T041A": "todo",
+    "T041": "todo",
+    "T042": "todo"
+  },
+  "preflight": [
+    {
+      "id": "final_form_ready",
+      "ok": false,
+      "detail": "Devpost form kit mode is pre_live_form_ready.",
+      "evidence": "docs/assets/devpost-form-kit.json"
+    },
+    {
+      "id": "packet_post_live_verified",
+      "ok": false,
+      "detail": "Devpost packet mode is pre_live_safe.",
+      "evidence": "docs/assets/devpost-submission-packet.json"
+    },
+    {
+      "id": "prerequisite_tasks_done",
+      "ok": false,
+      "detail": "T020=doing, T021=doing, T040=done, T041A=todo",
+      "evidence": "tasks.json"
+    },
+    {
+      "id": "submission_audit_report_present",
+      "ok": true,
+      "detail": "Submission audit mode is pre_submit_audit_blocked.",
+      "evidence": "docs/assets/submission-audit-report.json"
+    },
+    {
+      "id": "final_control_report_present",
+      "ok": true,
+      "detail": "Final control mode is pre_live_control; safe_to_submit=False.",
+      "evidence": "docs/assets/final-submission-control.json"
+    },
+    {
+      "id": "receipt_not_already_done",
+      "ok": true,
+      "detail": "T042=todo; receipt mode=pending_submission.",
+      "evidence": "docs/assets/devpost-submission-receipt.json"
+    }
+  ],
+  "field_gate": {
+    "ok": false,
+    "field_count": 19,
+    "final_pending_fields": [
+      "video_url"
+    ]
+  },
+  "fields": [
+    {
+      "id": "project_name",
+      "label": "Project name",
+      "source": "packet.project_name",
+      "chars": 10,
+      "max_chars": 80,
+      "ok_for_mock": true,
+      "ok_for_final": true,
+      "copy_value": "ProofFrame",
+      "copy_instruction": "Paste into Devpost field: Project name",
+      "verification": [
+        "Confirm the pasted text matches this checklist exactly.",
+        "Confirm Devpost does not show a length or required-field error."
+      ]
+    },
+    {
+      "id": "tagline",
+      "label": "Tagline",
+      "source": "packet.tagline",
+      "chars": 41,
+      "max_chars": 140,
+      "ok_for_mock": true,
+      "ok_for_final": true,
+      "copy_value": "B2-ready provenance desk for GenAI media.",
+      "copy_instruction": "Paste into Devpost field: Tagline",
+      "verification": [
+        "Confirm the pasted text matches this checklist exactly.",
+        "Confirm Devpost does not show a length or required-field error."
+      ]
+    },
+    {
+      "id": "one_liner",
+      "label": "One-liner",
+      "source": "packet.one_liner",
+      "chars": 180,
+      "max_chars": 280,
+      "ok_for_mock": true,
+      "ok_for_final": true,
+      "copy_value": "ProofFrame turns generated media into approved evidence packets with B2-ready manifests, Genblaze-gated provider metadata, checksums, review status, and an exportable proof bundle.",
+      "copy_instruction": "Paste into Devpost field: One-liner",
+      "verification": [
+        "Confirm the pasted text matches this checklist exactly.",
+        "Confirm Devpost does not show a length or required-field error."
+      ]
+    },
+    {
+      "id": "short_description",
+      "label": "Short description",
+      "source": "packet.short_description",
+      "chars": 400,
+      "max_chars": 2000,
+      "ok_for_mock": true,
+      "ok_for_final": true,
+      "copy_value": "ProofFrame is a review desk for generated media. The local demo creates a campaign, generates mock variants, approves or rejects assets, exports a manifest, and downloads an evidence ZIP with prompts, provider/model fields, storage references, hashes, and approval status. The final hackathon submission gate is to verify the same flow with Genblaze-backed generation and Backblaze B2-backed storage.",
+      "copy_instruction": "Paste into Devpost field: Short description",
+      "verification": [
+        "Confirm the pasted text matches this checklist exactly.",
+        "Confirm Devpost does not show a length or required-field error."
+      ]
+    },
+    {
+      "id": "repository_url",
+      "label": "Repository URL",
+      "source": "packet.repository_url",
+      "chars": 49,
+      "max_chars": 300,
+      "ok_for_mock": true,
+      "ok_for_final": true,
+      "copy_value": "https://github.com/adjcjh777/backblaze-proofframe",
+      "copy_instruction": "Paste into Devpost field: Repository URL",
+      "verification": [
+        "Confirm the pasted text matches this checklist exactly.",
+        "Confirm Devpost does not show a length or required-field error."
+      ]
+    },
+    {
+      "id": "demo_url",
+      "label": "Demo URL",
+      "source": "packet.demo_url",
+      "chars": 53,
+      "max_chars": 300,
+      "ok_for_mock": true,
+      "ok_for_final": true,
+      "copy_value": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
+      "copy_instruction": "Paste into Devpost field: Demo URL",
+      "verification": [
+        "Confirm the pasted text matches this checklist exactly.",
+        "Confirm Devpost does not show a length or required-field error."
+      ]
+    },
+    {
+      "id": "video_url",
+      "label": "Demo video URL",
+      "source": "packet.video_url",
+      "chars": 38,
+      "max_chars": 300,
+      "ok_for_mock": true,
+      "ok_for_final": false,
+      "copy_value": "TBD after final B2 and Genblaze proof.",
+      "copy_instruction": "Paste into Devpost field: Demo video URL",
+      "verification": [
+        "Confirm the pasted text matches this checklist exactly.",
+        "Confirm Devpost does not show a length or required-field error."
+      ]
+    },
+    {
+      "id": "built_with",
+      "label": "Built with",
+      "source": "form.built_with",
+      "chars": 103,
+      "max_chars": 800,
+      "ok_for_mock": true,
+      "ok_for_final": true,
+      "copy_value": "Python, FastAPI, Backblaze B2 S3-compatible API, Genblaze/GMICloud, Hugging Face Spaces, GitHub Actions",
+      "copy_instruction": "Paste into Devpost field: Built with",
+      "verification": [
+        "Confirm the pasted text matches this checklist exactly.",
+        "Confirm Devpost does not show a length or required-field error."
+      ]
+    },
+    {
+      "id": "tags",
+      "label": "Suggested tags",
+      "source": "form.tags",
+      "chars": 74,
+      "max_chars": 500,
+      "ok_for_mock": true,
+      "ok_for_final": true,
+      "copy_value": "AI, Generative media, Backblaze B2, Genblaze, Provenance, Media operations",
+      "copy_instruction": "Paste into Devpost field: Suggested tags",
+      "verification": [
+        "Confirm the pasted text matches this checklist exactly.",
+        "Confirm Devpost does not show a length or required-field error."
+      ]
+    },
+    {
+      "id": "inspiration",
+      "label": "Inspiration",
+      "source": "packet.inspiration",
+      "chars": 238,
+      "max_chars": 2000,
+      "ok_for_mock": true,
+      "ok_for_final": true,
+      "copy_value": "Generated media is easy to make and hard to govern. Teams often lose the prompt, model, provider, approval status, and durable storage evidence for the files that eventually ship. ProofFrame treats provenance as the product, not a footer.",
+      "copy_instruction": "Paste into Devpost field: Inspiration",
+      "verification": [
+        "Confirm the pasted text matches this checklist exactly.",
+        "Confirm Devpost does not show a length or required-field error."
+      ]
+    },
+    {
+      "id": "what_it_does",
+      "label": "What it does",
+      "source": "packet.what_it_does",
+      "chars": 595,
+      "max_chars": 2500,
+      "ok_for_mock": true,
+      "ok_for_final": true,
+      "copy_value": "- Create a campaign brief.\n- Generate candidate media assets.\n- Review, approve, or reject assets.\n- Search and filter evidence by prompt, model, storage key, checksum, and status.\n- Track decision coverage across approved, draft, and rejected assets.\n- Inspect prompt, provider, model, storage backend, storage key, checksum, and risk note.\n- Copy a safe evidence summary without credentials, cookies, signed URLs, or raw secrets.\n- Export a manifest.\n- Download an evidence ZIP containing the manifest, README, and available media.\n- Use Judge Demo to create a complete local packet instantly.",
+      "copy_instruction": "Paste into Devpost field: What it does",
+      "verification": [
+        "Confirm the pasted text matches this checklist exactly.",
+        "Confirm Devpost does not show a length or required-field error."
+      ]
+    },
+    {
+      "id": "how_we_built_it",
+      "label": "How we built it",
+      "source": "packet.how_we_built_it",
+      "chars": 407,
+      "max_chars": 2500,
+      "ok_for_mock": true,
+      "ok_for_final": true,
+      "copy_value": "ProofFrame uses FastAPI for the API, a single-file browser UI for the proof ledger, local storage for credential-free demos, a Backblaze B2-compatible S3 storage backend, and a Genblaze/GMICloud provider adapter built around the official Genblaze Pipeline API. The public mock demo is deployed as a Hugging Face Space for judge-friendly product inspection while the final sponsor-backed proof remains gated.",
+      "copy_instruction": "Paste into Devpost field: How we built it",
+      "verification": [
+        "Confirm the pasted text matches this checklist exactly.",
+        "Confirm Devpost does not show a length or required-field error."
+      ]
+    },
+    {
+      "id": "backblaze_b2_usage",
+      "label": "Backblaze B2 usage",
+      "source": "packet.b2_usage",
+      "chars": 670,
+      "max_chars": 1500,
+      "ok_for_mock": true,
+      "ok_for_final": true,
+      "copy_value": "ProofFrame treats Backblaze B2 as the final durable evidence layer, not as a late file-upload checkbox. The public demo currently runs in local/mock mode, but every asset packet already carries the B2-ready object model: storage backend, storage key, checksum, byte size, prompt, provider/model metadata, approval state, and risk note. The repo includes a dedicated B2 S3-compatible storage adapter, a recorded private B2 bucket setup, and a one-command B2 proof runner that will upload one generated asset and one manifest with environment-only credentials. That live upload remains the final submission gate before any public claim is upgraded to completed B2 storage.",
+      "copy_instruction": "Paste into Devpost field: Backblaze B2 usage",
+      "verification": [
+        "Confirm the pasted text matches this checklist exactly.",
+        "Confirm Devpost does not show a length or required-field error."
+      ]
+    },
+    {
+      "id": "genblaze_usage",
+      "label": "Genblaze usage",
+      "source": "packet.genblaze_usage",
+      "chars": 496,
+      "max_chars": 1500,
+      "ok_for_mock": true,
+      "ok_for_final": true,
+      "copy_value": "ProofFrame includes a Genblaze/GMICloud provider adapter built around the official Genblaze Pipeline API. In the public mock demo, deterministic generation keeps the workflow inspectable without secrets; the same manifest fields are reserved for the final provider, model, request/run metadata, prompt, and asset checksum. The final submission gate is a live Genblaze-compatible run that proves the provider path and then carries the resulting asset into the ProofFrame review and storage packet.",
+      "copy_instruction": "Paste into Devpost field: Genblaze usage",
+      "verification": [
+        "Confirm the pasted text matches this checklist exactly.",
+        "Confirm Devpost does not show a length or required-field error."
+      ]
+    },
+    {
+      "id": "challenges",
+      "label": "Challenges",
+      "source": "packet.challenges",
+      "chars": 332,
+      "max_chars": 2000,
+      "ok_for_mock": true,
+      "ok_for_final": true,
+      "copy_value": "The biggest challenge is avoiding shallow sponsor integration. ProofFrame has to make storage and provenance central: B2 should be the durable evidence layer, and Genblaze should be the generation orchestration path. Another challenge is public claim hygiene, so the repo separates local demo behavior from final live sponsor proof.",
+      "copy_instruction": "Paste into Devpost field: Challenges",
+      "verification": [
+        "Confirm the pasted text matches this checklist exactly.",
+        "Confirm Devpost does not show a length or required-field error."
+      ]
+    },
+    {
+      "id": "accomplishments",
+      "label": "Accomplishments",
+      "source": "packet.accomplishments",
+      "chars": 571,
+      "max_chars": 2500,
+      "ok_for_mock": true,
+      "ok_for_final": true,
+      "copy_value": "- Built a working local product, not just a pitch.\n- Deployed a credential-free public mock demo.\n- Added a one-click Judge Demo path.\n- Added a review console with evidence search, status filtering, decision coverage, and safe summary copy.\n- Added downloadable evidence ZIPs.\n- Added B2-compatible storage and Genblaze/GMICloud provider code paths.\n- Added CI that runs readiness checks, lint, tests, API smoke, and secret scan.\n- Added fail-closed gates for evidence JSON exports and final submission audits.\n- Kept public claims gated until live sponsor proof exists.",
+      "copy_instruction": "Paste into Devpost field: Accomplishments",
+      "verification": [
+        "Confirm the pasted text matches this checklist exactly.",
+        "Confirm Devpost does not show a length or required-field error."
+      ]
+    },
+    {
+      "id": "what_we_learned",
+      "label": "What we learned",
+      "source": "packet.what_we_learned",
+      "chars": 169,
+      "max_chars": 2000,
+      "ok_for_mock": true,
+      "ok_for_final": true,
+      "copy_value": "The useful unit for generated media teams is not a single image. It is a packet: asset, prompt, provider, model, storage object, checksum, approval state, and risk note.",
+      "copy_instruction": "Paste into Devpost field: What we learned",
+      "verification": [
+        "Confirm the pasted text matches this checklist exactly.",
+        "Confirm Devpost does not show a length or required-field error."
+      ]
+    },
+    {
+      "id": "whats_next",
+      "label": "What's next",
+      "source": "packet.whats_next",
+      "chars": 184,
+      "max_chars": 1800,
+      "ok_for_mock": true,
+      "ok_for_final": true,
+      "copy_value": "- Live B2 proof with a dedicated bucket and least-privilege key.\n- Live Genblaze proof with provider/model/run metadata.\n- Demo video under the event limit.\n- Final Devpost submission.",
+      "copy_instruction": "Paste into Devpost field: What's next",
+      "verification": [
+        "Confirm the pasted text matches this checklist exactly.",
+        "Confirm Devpost does not show a length or required-field error."
+      ]
+    },
+    {
+      "id": "judging_note",
+      "label": "Judging note",
+      "source": "form.judging_note",
+      "chars": 105,
+      "max_chars": 1000,
+      "ok_for_mock": true,
+      "ok_for_final": true,
+      "copy_value": "Current packet mode: pre_live_safe. Safe for public mock demo only. Do not submit as final sponsor proof.",
+      "copy_instruction": "Paste into Devpost field: Judging note",
+      "verification": [
+        "Confirm the pasted text matches this checklist exactly.",
+        "Confirm Devpost does not show a length or required-field error."
+      ]
+    }
+  ],
+  "stop_rules": [
+    "Do not paste Backblaze keys, Genblaze/GMI keys, Devpost cookies, authorization headers, or signed URLs into Devpost.",
+    "Do not press Submit unless every preflight item is OK and final_submission_control.py --strict-final passes.",
+    "If Devpost changes field labels or requirements, stop and update this checklist before submitting.",
+    "After Devpost accepts the project, record only the public project URL and submitted timestamp; never capture cookies or private browser state."
+  ],
+  "post_submit_commands": [
+    "python scripts/devpost_submission_receipt.py --project-url \"$PROOFFRAME_DEVPOST_PROJECT_URL\" --submitted-at \"$PROOFFRAME_DEVPOST_SUBMITTED_AT\" --confirmation-note \"Devpost accepted/submitted the ProofFrame project.\"",
+    "python3 scripts/task.py done T042 --note \"Devpost project submitted and public receipt captured.\"",
+    "PYTHONPATH=src python scripts/final_submission_control.py --strict-final",
+    "PYTHONPATH=src python scripts/submission_bundle.py"
+  ]
+}

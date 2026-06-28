@@ -200,28 +200,38 @@ def rehearsal_steps() -> list[dict[str, Any]]:
             "task_update": 'python3 scripts/task.py done T021 --note "Final B2 plus Genblaze live proof evidence captured in docs/assets/final-live-proof-evidence.json."',
         },
         {
-            "id": "post_live_devpost_packet",
+            "id": "recording_and_secret_scan",
             "owner": "codex",
-            "command": 'python scripts/devpost_packet.py --post-live --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL" && python scripts/devpost_form_kit.py --strict-final',
-            "success_signal": "Devpost packet mode is post_live_verified, video URL is public, and form kit is final_form_ready.",
-            "safe_to_commit": [
-                "docs/assets/devpost-submission-packet.json",
-                "docs/assets/devpost-form-kit.json",
-            ],
-        },
-        {
-            "id": "recording_and_final_audit",
-            "owner": "codex",
-            "command": "python scripts/demo_storyboard.py --strict-final && python scripts/demo_readiness.py --strict-final && python scripts/recording_assets.py --verify-public --strict-final && python scripts/secret_scan.py && python scripts/submission_audit.py --strict-final",
-            "success_signal": "Recording assets are final_video_ready, secret scan is clear, and submission audit is pre_submit_audit_ready.",
+            "command": "python scripts/demo_storyboard.py --strict-final && python scripts/demo_readiness.py --strict-final && python scripts/recording_assets.py --verify-public --strict-final && python scripts/secret_scan.py",
+            "success_signal": "Recording assets are final_video_ready and secret scan is clear after live proof and public video.",
             "safe_to_commit": [
                 "docs/assets/demo-storyboard.json",
                 "docs/assets/demo-readiness-report.json",
                 "docs/assets/recording-assets.json",
                 "docs/assets/secret-scan-report.json",
+            ],
+            "task_update": 'python3 scripts/task.py done T041A --note "Final secret scan clear after live proof and public video."',
+        },
+        {
+            "id": "post_live_devpost_packet",
+            "owner": "codex",
+            "command": 'python scripts/devpost_packet.py --post-live --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL" && python scripts/devpost_form_kit.py --strict-final && python scripts/devpost_submission_checklist.py --strict-final',
+            "success_signal": "Devpost packet mode is post_live_verified, video URL is public, form kit is final_form_ready, and submission checklist is ready_to_submit_devpost.",
+            "safe_to_commit": [
+                "docs/assets/devpost-submission-packet.json",
+                "docs/assets/devpost-form-kit.json",
+                "docs/assets/devpost-submission-checklist.json",
+            ],
+        },
+        {
+            "id": "final_submission_audit",
+            "owner": "codex",
+            "command": "python scripts/submission_audit.py --strict-final",
+            "success_signal": "Submission audit is pre_submit_audit_ready after live proof, final video, final scan, and Devpost checklist.",
+            "safe_to_commit": [
                 "docs/assets/submission-audit-report.json",
             ],
-            "task_update": 'python3 scripts/task.py done T041A --note "Final secret scan clear after live proof and public video." && python3 scripts/task.py done T041 --note "Final submission audit passed after live proof and public video."',
+            "task_update": 'python3 scripts/task.py done T041 --note "Final submission audit passed after live proof, public video, secret scan, and Devpost checklist."',
         },
         {
             "id": "devpost_receipt",
