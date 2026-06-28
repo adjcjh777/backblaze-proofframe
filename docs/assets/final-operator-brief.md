@@ -52,6 +52,8 @@ python scripts/devpost_packet.py --post-live --video-url "$PROOFFRAME_PUBLIC_VID
 python scripts/devpost_form_kit.py --strict-final
 python scripts/devpost_submission_checklist.py --strict-final
 python scripts/submission_audit.py --strict-final
+python scripts/devpost_submission_preview.py
+python scripts/secret_scan.py
 python scripts/devpost_submission_receipt.py --project-url "$PROOFFRAME_DEVPOST_PROJECT_URL" --submitted-at "$PROOFFRAME_DEVPOST_SUBMITTED_AT" --confirmation-note "Devpost accepted/submitted the ProofFrame project."
 python scripts/final_submission_control.py --strict-final
 ```
@@ -72,6 +74,7 @@ python scripts/final_submission_control.py --strict-final
   - `docs/assets/public-video-check.json`
   - `docs/assets/devpost-submission-packet.json`
   - `docs/assets/devpost-form-kit.json`
+  - `docs/assets/devpost-submission-preview.json`
   - `docs/assets/devpost-submission-checklist.json`
 
 ## Claim Boundary

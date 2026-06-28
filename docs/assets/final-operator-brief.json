@@ -141,14 +141,14 @@
       "public_mock_verified": null
     },
     "final_rehearsal": {
-      "present": true,
+      "present": false,
       "path": "docs/assets/final-rehearsal-checklist.json",
-      "schema_ok": true,
-      "mode": "ready_for_credential_rehearsal",
-      "ok": true,
+      "schema_ok": false,
+      "mode": null,
+      "ok": null,
       "score": null,
       "max_score": null,
-      "safe_to_submit": false,
+      "safe_to_submit": null,
       "validation_ok": null,
       "mock_recording_ready": null,
       "public_mock_verified": null
@@ -159,6 +159,19 @@
       "schema_ok": true,
       "mode": "pre_submit_blocked",
       "ok": false,
+      "score": null,
+      "max_score": null,
+      "safe_to_submit": false,
+      "validation_ok": null,
+      "mock_recording_ready": null,
+      "public_mock_verified": null
+    },
+    "devpost_submission_preview": {
+      "present": true,
+      "path": "docs/assets/devpost-submission-preview.json",
+      "schema_ok": true,
+      "mode": "pre_live_preview_ready",
+      "ok": true,
       "score": null,
       "max_score": null,
       "safe_to_submit": false,
@@ -200,6 +213,8 @@
     "python scripts/devpost_form_kit.py --strict-final",
     "python scripts/devpost_submission_checklist.py --strict-final",
     "python scripts/submission_audit.py --strict-final",
+    "python scripts/devpost_submission_preview.py",
+    "python scripts/secret_scan.py",
     "python scripts/devpost_submission_receipt.py --project-url \"$PROOFFRAME_DEVPOST_PROJECT_URL\" --submitted-at \"$PROOFFRAME_DEVPOST_SUBMITTED_AT\" --confirmation-note \"Devpost accepted/submitted the ProofFrame project.\"",
     "python scripts/final_submission_control.py --strict-final"
   ],
@@ -219,6 +234,7 @@
       "docs/assets/public-video-check.json",
       "docs/assets/devpost-submission-packet.json",
       "docs/assets/devpost-form-kit.json",
+      "docs/assets/devpost-submission-preview.json",
       "docs/assets/devpost-submission-checklist.json"
     ]
   },

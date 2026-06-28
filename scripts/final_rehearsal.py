@@ -241,6 +241,15 @@ def rehearsal_steps() -> list[dict[str, Any]]:
             ],
         },
         {
+            "id": "devpost_submission_preview",
+            "owner": "codex",
+            "command": "python scripts/devpost_submission_preview.py",
+            "success_signal": "Devpost submission preview is regenerated with current copy, evidence links, and remaining final blockers.",
+            "safe_to_commit": [
+                "docs/assets/devpost-submission-preview.json",
+            ],
+        },
+        {
             "id": "final_submission_audit",
             "owner": "codex",
             "command": "python scripts/submission_audit.py --strict-final",

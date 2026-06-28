@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-28T17:59:35Z",
+  "updated_at": "2026-06-28T18:26:18Z",
   "tasks": [
     {
       "id": "T001",
@@ -955,6 +955,24 @@
       "status": "done",
       "done_criteria": "A one-page Devpost preview consolidates copy blocks, public demo evidence, screenshot evidence, readiness modes, and final blockers while separating safe_to_share from safe_to_submit.",
       "notes": "Added scripts/devpost_submission_preview.py with tests; generated docs/assets/devpost-submission-preview.*; wired preview into CI, submission bundle, evidence docs, and public_space_sync raw artifact validation."
+    },
+    {
+      "id": "T069",
+      "title": "Wire Devpost preview into post-credential chain",
+      "phase": "P4 Submit",
+      "owner": "reviewer",
+      "status": "done",
+      "done_criteria": "Post-credential runner, operator brief, final rehearsal, and public Space sync all require/regenerate the Devpost submission preview so live-proof submission materials cannot go stale.",
+      "notes": "Added devpost_submission_preview.py to post-credential report regeneration, final operator actions, final rehearsal steps, and raw public post-credential plan verification."
+    },
+    {
+      "id": "T070",
+      "title": "Harden post-credential preview review gates",
+      "phase": "P4 Submit",
+      "owner": "reviewer",
+      "status": "done",
+      "done_criteria": "Public Space sync fails closed when the post-credential report tail omits or misorders Devpost preview, and operator brief runs a no-value secret scan after preview regeneration.",
+      "notes": "Addressed read-only reviewer findings: added ordered report-tail validation for submission_audit -> devpost_submission_preview -> secret_scan -> submission_bundle, added missing/misordered preview public sync tests, and added a post-preview secret scan to final operator actions."
     }
   ]
 }

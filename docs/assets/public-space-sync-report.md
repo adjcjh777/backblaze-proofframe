@@ -2,19 +2,19 @@
 
 Mode: `public_space_synced`
 OK: `true`
-Created: `2026-06-28T18:04:34Z`
+Created: `2026-06-28T18:29:25Z`
 Space: `ADJCJH/backblaze-proofframe`
 Public host: https://adjcjh-backblaze-proofframe.hf.space
-Expected sha: `36ebc46e15d51ef48118c0c3f6a647ca304f72f2`
-Runtime sha: `36ebc46e15d51ef48118c0c3f6a647ca304f72f2`
+Expected sha: `d417916b6ff922cf412959da109a4ac5e0ef3309`
+Runtime sha: `d417916b6ff922cf412959da109a4ac5e0ef3309`
 Runtime stage: `RUNNING`
 
 ## Checks
 
 | Status | Check | Detail | Evidence |
 | --- | --- | --- | --- |
-| OK | Space metadata points at the expected commit | Space sha is 36ebc46e15d51ef48118c0c3f6a647ca304f72f2; expected 36ebc46e15d51ef48118c0c3f6a647ca304f72f2. | https://huggingface.co/api/spaces/ADJCJH/backblaze-proofframe |
-| OK | Space runtime is running the expected commit | Runtime stage is RUNNING; runtime sha is 36ebc46e15d51ef48118c0c3f6a647ca304f72f2; domain ready is True. | https://huggingface.co/api/spaces/ADJCJH/backblaze-proofframe/runtime |
+| OK | Space metadata points at the expected commit | Space sha is d417916b6ff922cf412959da109a4ac5e0ef3309; expected d417916b6ff922cf412959da109a4ac5e0ef3309. | https://huggingface.co/api/spaces/ADJCJH/backblaze-proofframe |
+| OK | Space runtime is running the expected commit | Runtime stage is RUNNING; runtime sha is d417916b6ff922cf412959da109a4ac5e0ef3309; domain ready is True. | https://huggingface.co/api/spaces/ADJCJH/backblaze-proofframe/runtime |
 | OK | Raw handoff report is public and ready | Handoff schema is proofframe.agent_handoff.v1; mode is handoff_ready. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/agent-handoff-report.json |
 | OK | Raw Devpost event snapshot is public and fresh | Event snapshot schema is proofframe.devpost_event_snapshot.v1; submission_open=True; age_days=0; participants=365. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/devpost-event-snapshot.json |
 | OK | Raw final launch plan is public and phase-aware | Launch plan schema is proofframe.final_launch_plan.v1; mode is ready_for_credential_entry; current phase is credential_entry. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/final-launch-plan.json |
@@ -28,7 +28,7 @@ Runtime stage: `RUNNING`
 | OK | Raw Devpost form kit is public and final-form gated | Devpost form schema is proofframe.devpost_form_kit.v1; mode is pre_live_form_ready; final_form_ready is False. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/devpost-form-kit.json |
 | OK | Raw Devpost submission preview is public and claim-safe | Preview schema is proofframe.devpost_submission_preview.v1; mode is pre_live_preview_ready; safe_to_share=True; safe_to_submit=False; blockers=10. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/devpost-submission-preview.json |
 | OK | Raw Devpost submit checklist is public and fail-closed | Submit checklist schema is proofframe.devpost_submission_checklist.v1; mode is pre_submit_blocked; safe_to_submit is False. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/devpost-submission-checklist.json |
-| OK | Raw post-credential live proof plan is public and task-safe | Post-credential schema is proofframe.post_credential_live_proof.v1; mode is plan_only; required sequence=True; secret policy safe=True. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/post-credential-live-proof-plan.json |
+| OK | Raw post-credential live proof plan is public and task-safe | Post-credential schema is proofframe.post_credential_live_proof.v1; mode is plan_only; required sequence=True; report sequence=True; secret policy safe=True; devpost preview included=True. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/post-credential-live-proof-plan.json |
 | OK | Raw submission bundle separates shareability from final submit readiness | Bundle schema is proofframe.submission_bundle.v1; safe_to_share=True; safe_to_submit=False; required artifacts=True. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/submission-bundle-manifest.json |
 | OK | Public demo health is local/mock and ready | Health storage=local, generation=mock, ready=True. | https://adjcjh-backblaze-proofframe.hf.space/api/health |
 | OK | Public submission gate is fail-closed with repo-relative paths | Gate mode is pre_live_safe; report gate is incomplete; relative paths=True. | https://adjcjh-backblaze-proofframe.hf.space/api/submission/gate |

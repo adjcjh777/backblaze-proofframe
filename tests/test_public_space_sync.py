@@ -13,6 +13,33 @@ SPEC.loader.exec_module(public_space_sync)
 EXPECTED_SHA = "abc123"
 
 
+def valid_post_credential_commands() -> list[dict]:
+    return [
+        {"id": "credential_handoff"},
+        {"id": "b2_live_proof"},
+        {"id": "validate_b2_evidence"},
+        {"id": "final_live_proof"},
+        {"id": "validate_final_evidence"},
+        {"id": "live_env_handoff_report"},
+        {"id": "devpost_form_kit"},
+        {"id": "devpost_submission_checklist"},
+        {"id": "judge_brief"},
+        {"id": "judge_crosswalk"},
+        {"id": "demo_storyboard"},
+        {"id": "demo_readiness"},
+        {"id": "recording_assets"},
+        {"id": "award_readiness"},
+        {"id": "final_operator_brief"},
+        {"id": "final_launch_plan"},
+        {"id": "final_rehearsal"},
+        {"id": "final_submission_control"},
+        {"id": "submission_audit"},
+        {"id": "devpost_submission_preview"},
+        {"id": "secret_scan"},
+        {"id": "submission_bundle"},
+    ]
+
+
 def bundle_artifact(artifact_id: str) -> dict:
     return {
         "id": artifact_id,
@@ -410,13 +437,7 @@ def fake_fetcher(url: str, timeout: int) -> dict:
                     "mode": "plan_only",
                     "execute": False,
                     "update_tasks": False,
-                    "commands": [
-                        {"id": "credential_handoff"},
-                        {"id": "b2_live_proof"},
-                        {"id": "validate_b2_evidence"},
-                        {"id": "final_live_proof"},
-                        {"id": "validate_final_evidence"},
-                    ],
+                    "commands": valid_post_credential_commands(),
                     "secret_policy": (
                         "This report stores command strings, statuses, and artifact paths only. "
                         "It never stores Backblaze keys, Genblaze/GMI keys, Devpost cookies, "
@@ -517,8 +538,10 @@ def test_public_space_sync_report_passes_when_space_is_current():
     assert report["observed"]["post_credential_plan_validators"] == {
         "validate_b2_evidence": True,
         "validate_final_evidence": True,
+        "devpost_submission_preview": True,
     }
     assert report["observed"]["post_credential_plan_required_sequence"] is True
+    assert report["observed"]["post_credential_plan_report_sequence"] is True
     assert report["observed"]["post_credential_plan_secret_policy_safe"] is True
     assert report["observed"]["submission_bundle"]["safe_to_share"] is True
     assert report["observed"]["submission_bundle"]["safe_to_submit"] is False
@@ -786,13 +809,7 @@ def test_public_space_sync_fails_on_unsafe_post_credential_secret_policy():
                         "mode": "plan_only",
                         "execute": False,
                         "update_tasks": False,
-                        "commands": [
-                            {"id": "credential_handoff"},
-                            {"id": "b2_live_proof"},
-                            {"id": "validate_b2_evidence"},
-                            {"id": "final_live_proof"},
-                            {"id": "validate_final_evidence"},
-                        ],
+                        "commands": valid_post_credential_commands(),
                         "secret_policy": "Store secrets and signed URLs in the public report.",
                     }
                 ),
@@ -872,8 +889,85 @@ def test_public_space_sync_fails_when_post_credential_plan_only_has_validators()
     assert report["observed"]["post_credential_plan_validators"] == {
         "validate_b2_evidence": True,
         "validate_final_evidence": True,
+        "devpost_submission_preview": False,
     }
     assert report["observed"]["post_credential_plan_required_sequence"] is False
+
+
+def test_public_space_sync_fails_when_post_credential_preview_is_missing_from_valid_sequence():
+    def broken_fetcher(url: str, timeout: int) -> dict:
+        result = fake_fetcher(url, timeout)
+        if url.endswith("/docs/assets/post-credential-live-proof-plan.json"):
+            commands = [
+                command
+                for command in valid_post_credential_commands()
+                if command["id"] != "devpost_submission_preview"
+            ]
+            result = {
+                **result,
+                "body": json.dumps(
+                    {
+                        "schema": "proofframe.post_credential_live_proof.v1",
+                        "ok": True,
+                        "mode": "plan_only",
+                        "execute": False,
+                        "update_tasks": False,
+                        "commands": commands,
+                        "secret_policy": (
+                            "This report never stores Backblaze keys, Genblaze/GMI keys, "
+                            "Devpost cookies, provider responses, or signed URLs."
+                        ),
+                    }
+                ),
+            }
+        return result
+
+    report = public_space_sync.build_report(expected_sha=EXPECTED_SHA, fetcher=broken_fetcher)
+
+    failed = {item["id"] for item in report["checks"] if not item["ok"]}
+    assert report["ok"] is False
+    assert "raw_post_credential_plan" in failed
+    assert report["observed"]["post_credential_plan_required_sequence"] is True
+    assert report["observed"]["post_credential_plan_report_sequence"] is False
+    assert report["observed"]["post_credential_plan_validators"]["devpost_submission_preview"] is False
+
+
+def test_public_space_sync_fails_when_post_credential_preview_is_after_secret_scan():
+    def broken_fetcher(url: str, timeout: int) -> dict:
+        result = fake_fetcher(url, timeout)
+        if url.endswith("/docs/assets/post-credential-live-proof-plan.json"):
+            commands = valid_post_credential_commands()
+            ids = [command["id"] for command in commands]
+            preview_index = ids.index("devpost_submission_preview")
+            secret_scan_index = ids.index("secret_scan")
+            commands[preview_index], commands[secret_scan_index] = commands[secret_scan_index], commands[preview_index]
+            result = {
+                **result,
+                "body": json.dumps(
+                    {
+                        "schema": "proofframe.post_credential_live_proof.v1",
+                        "ok": True,
+                        "mode": "plan_only",
+                        "execute": False,
+                        "update_tasks": False,
+                        "commands": commands,
+                        "secret_policy": (
+                            "This report never stores Backblaze keys, Genblaze/GMI keys, "
+                            "Devpost cookies, provider responses, or signed URLs."
+                        ),
+                    }
+                ),
+            }
+        return result
+
+    report = public_space_sync.build_report(expected_sha=EXPECTED_SHA, fetcher=broken_fetcher)
+
+    failed = {item["id"] for item in report["checks"] if not item["ok"]}
+    assert report["ok"] is False
+    assert "raw_post_credential_plan" in failed
+    assert report["observed"]["post_credential_plan_required_sequence"] is True
+    assert report["observed"]["post_credential_plan_report_sequence"] is False
+    assert report["observed"]["post_credential_plan_validators"]["devpost_submission_preview"] is True
 
 
 def test_public_space_sync_fails_when_bundle_claims_submit_ready():

@@ -217,6 +217,11 @@ def build_commands(
                 "Regenerate pre-submit audit report",
                 script_command("submission_audit.py", python=python),
             ),
+            CommandSpec(
+                "devpost_submission_preview",
+                "Regenerate one-page Devpost submission preview",
+                script_command("devpost_submission_preview.py", python=python),
+            ),
             CommandSpec("secret_scan", "Run no-value secret scan", script_command("secret_scan.py", python=python)),
             CommandSpec("submission_bundle", "Regenerate submission bundle manifest", script_command("submission_bundle.py", python=python)),
         ]

@@ -155,6 +155,8 @@ def build_codex_actions() -> list[str]:
         "python scripts/devpost_form_kit.py --strict-final",
         "python scripts/devpost_submission_checklist.py --strict-final",
         "python scripts/submission_audit.py --strict-final",
+        "python scripts/devpost_submission_preview.py",
+        "python scripts/secret_scan.py",
         'python scripts/devpost_submission_receipt.py --project-url "$PROOFFRAME_DEVPOST_PROJECT_URL" --submitted-at "$PROOFFRAME_DEVPOST_SUBMITTED_AT" --confirmation-note "Devpost accepted/submitted the ProofFrame project."',
         "python scripts/final_submission_control.py --strict-final",
     ]
@@ -177,6 +179,7 @@ def build_safety_policy(root: Path) -> dict[str, Any]:
             "docs/assets/public-video-check.json",
             "docs/assets/devpost-submission-packet.json",
             "docs/assets/devpost-form-kit.json",
+            "docs/assets/devpost-submission-preview.json",
             "docs/assets/devpost-submission-checklist.json",
         ],
     }
@@ -233,6 +236,11 @@ def build_report(root: Path = ROOT) -> dict[str, Any]:
             root,
             "docs/assets/devpost-submission-checklist.json",
             "proofframe.devpost_submission_checklist.v1",
+        ),
+        "devpost_submission_preview": report_status(
+            root,
+            "docs/assets/devpost-submission-preview.json",
+            "proofframe.devpost_submission_preview.v1",
         ),
         "devpost_submission_receipt": report_status(
             root,

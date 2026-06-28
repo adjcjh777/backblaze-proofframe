@@ -1,6 +1,6 @@
 # ProofFrame Submission Bundle
 
-Created: `2026-06-28T18:05:35Z`
+Created: `2026-06-28T18:29:49Z`
 Repository: https://github.com/adjcjh777/backblaze-proofframe
 Public mock demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 Devpost packet mode: `pre_live_safe`
@@ -36,11 +36,11 @@ Final gate ready: `false`
 - `docs/assets/devpost-event-snapshot.json` (2492 bytes, sha256 `94769a0cd36810a3...`) - Machine-readable Devpost event snapshot
 - `docs/assets/devpost-event-snapshot.md` (1443 bytes, sha256 `7c9997fb75686d81...`) - Human-readable Devpost event snapshot
 - `scripts/agent_handoff_check.py` (14559 bytes, sha256 `3ef180b6a92eb987...`) - Agent Bus and Codex handoff path checker
-- `docs/assets/agent-handoff-report.json` (2253 bytes, sha256 `d7db6502dbb8b257...`) - Machine-readable Agent handoff report
-- `docs/assets/agent-handoff-report.md` (1571 bytes, sha256 `058883dbe2520ad3...`) - Human-readable Agent handoff report
-- `scripts/public_space_sync.py` (53157 bytes, sha256 `aea2ee90cc0a49b6...`) - Public Hugging Face Space sync verifier
-- `docs/assets/public-space-sync-report.json` (13814 bytes, sha256 `3104c0f393769288...`) - Machine-readable public Space sync report
-- `docs/assets/public-space-sync-report.md` (6064 bytes, sha256 `b68bf372198b0b03...`) - Human-readable public Space sync report
+- `docs/assets/agent-handoff-report.json` (2253 bytes, sha256 `d73891dac95b8719...`) - Machine-readable Agent handoff report
+- `docs/assets/agent-handoff-report.md` (1571 bytes, sha256 `859d6c2c8e99380a...`) - Human-readable Agent handoff report
+- `scripts/public_space_sync.py` (54190 bytes, sha256 `42f06669a9d3d62b...`) - Public Hugging Face Space sync verifier
+- `docs/assets/public-space-sync-report.json` (13959 bytes, sha256 `649213130c895733...`) - Machine-readable public Space sync report
+- `docs/assets/public-space-sync-report.md` (6117 bytes, sha256 `89462a85fb52111a...`) - Human-readable public Space sync report
 - `scripts/public_demo_screenshot.py` (8926 bytes, sha256 `3eb5b0a003e383dd...`) - Public judge-mode screenshot verifier
 - `docs/assets/public-demo-screenshot-report.json` (2421 bytes, sha256 `e8ce08735a86a920...`) - Machine-readable public screenshot report
 - `docs/assets/public-demo-screenshot-report.md` (1418 bytes, sha256 `dce44c3bc2188131...`) - Human-readable public screenshot report
@@ -48,7 +48,7 @@ Final gate ready: `false`
 - `docs/assets/devpost-form-kit.json` (12483 bytes, sha256 `96196519c036e0aa...`) - Machine-readable Devpost form kit
 - `docs/assets/devpost-form-kit.md` (7496 bytes, sha256 `f6beeb3fe9e7f94d...`) - Human-readable Devpost form kit
 - `scripts/devpost_submission_preview.py` (17329 bytes, sha256 `28ed8703ca6479fc...`) - One-page claim-safe Devpost preview
-- `docs/assets/devpost-submission-preview.json` (11611 bytes, sha256 `9fc148c41276db8c...`) - Machine-readable Devpost preview
+- `docs/assets/devpost-submission-preview.json` (11611 bytes, sha256 `055c1b8b21119dd8...`) - Machine-readable Devpost preview
 - `docs/assets/devpost-submission-preview.md` (5407 bytes, sha256 `760d948b804fbe97...`) - Human-readable Devpost preview
 - `scripts/devpost_submission_checklist.py` (11252 bytes, sha256 `78b8e1b70da428fd...`) - No-secret final Devpost web submission checklist
 - `docs/assets/devpost-submission-checklist.json` (16428 bytes, sha256 `c0076a55f6931805...`) - Machine-readable final Devpost submission checklist
@@ -79,20 +79,20 @@ Final gate ready: `false`
 - `docs/assets/award-readiness-report.json` (11377 bytes, sha256 `66417f6e0c2a15d9...`) - Machine-readable award readiness report
 - `docs/assets/award-readiness-report.md` (4390 bytes, sha256 `5be57ca5d9cab53d...`) - Human-readable award readiness report
 - `scripts/final_submission_control.py` (31549 bytes, sha256 `c5ac3a7e236a122c...`) - Final submission control tower
-- `docs/assets/final-submission-control.json` (23824 bytes, sha256 `371bc92728fcca65...`) - Machine-readable final control report
-- `docs/assets/final-submission-control.md` (6633 bytes, sha256 `4ddb9df7e4bc736e...`) - Human-readable final control report
-- `scripts/final_operator_brief.py` (14478 bytes, sha256 `d64dd7c9b4a3f756...`) - No-secret final operator brief
-- `docs/assets/final-operator-brief.json` (8394 bytes, sha256 `48863d7be71d8618...`) - Machine-readable final operator brief
-- `docs/assets/final-operator-brief.md` (3618 bytes, sha256 `585065cd0eb9ee15...`) - Human-readable final operator brief
+- `docs/assets/final-submission-control.json` (23824 bytes, sha256 `a32b6d90705ee9bb...`) - Machine-readable final control report
+- `docs/assets/final-submission-control.md` (6633 bytes, sha256 `fb2769ddcfdc32cb...`) - Human-readable final control report
+- `scripts/final_operator_brief.py` (14831 bytes, sha256 `f7e547cc8622f960...`) - No-secret final operator brief
+- `docs/assets/final-operator-brief.json` (8896 bytes, sha256 `64da4a483abbd8f2...`) - Machine-readable final operator brief
+- `docs/assets/final-operator-brief.md` (3743 bytes, sha256 `7aa19a59394d305b...`) - Human-readable final operator brief
 - `scripts/final_launch_plan.py` (17299 bytes, sha256 `663b02205dc4bbb6...`) - No-secret final launch phase plan
 - `docs/assets/final-launch-plan.json` (5650 bytes, sha256 `cdc3d112db423132...`) - Machine-readable final launch plan
 - `docs/assets/final-launch-plan.md` (4596 bytes, sha256 `7747b3177be9562a...`) - Human-readable final launch plan
-- `scripts/final_rehearsal.py` (17468 bytes, sha256 `bc44abb94771023f...`) - No-secret final submission rehearsal checklist
-- `docs/assets/final-rehearsal-checklist.json` (16384 bytes, sha256 `9d1b7d608aa51ba2...`) - Machine-readable final rehearsal checklist
-- `docs/assets/final-rehearsal-checklist.md` (6746 bytes, sha256 `3a4a5827b7e5ff9c...`) - Human-readable final rehearsal checklist
+- `scripts/final_rehearsal.py` (17888 bytes, sha256 `4915342d5c0f3a35...`) - No-secret final submission rehearsal checklist
+- `docs/assets/final-rehearsal-checklist.json` (16750 bytes, sha256 `2fadfc190449cd92...`) - Machine-readable final rehearsal checklist
+- `docs/assets/final-rehearsal-checklist.md` (7066 bytes, sha256 `25a1c1580be9a3a2...`) - Human-readable final rehearsal checklist
 - `scripts/submission_audit.py` (20524 bytes, sha256 `877f7e7c3e2f26d0...`) - Pre-submit audit gate
-- `docs/assets/submission-audit-report.json` (5925 bytes, sha256 `74e27503a47dd462...`) - Machine-readable submission audit report
-- `docs/assets/submission-audit-report.md` (4459 bytes, sha256 `9dffcc926bfd1015...`) - Human-readable submission audit report
+- `docs/assets/submission-audit-report.json` (5925 bytes, sha256 `8e717c22bb51d7bb...`) - Machine-readable submission audit report
+- `docs/assets/submission-audit-report.md` (4459 bytes, sha256 `36de94e2760c85b7...`) - Human-readable submission audit report
 - `scripts/devpost_submission_receipt.py` (9209 bytes, sha256 `76c55e8ff1aeaa52...`) - Public-safe Devpost submission receipt generator
 - `docs/assets/devpost-submission-receipt.json` (1298 bytes, sha256 `bf646cf968665c8c...`) - Machine-readable Devpost submission receipt
 - `docs/assets/devpost-submission-receipt.md` (996 bytes, sha256 `af2fa18349d5c017...`) - Human-readable Devpost submission receipt
@@ -101,8 +101,8 @@ Final gate ready: `false`
 - `docs/verification.md` (9585 bytes, sha256 `1e796ae03eebf21d...`) - Local, CI, Docker, and live proof runbook
 - `.env.final.example` (352 bytes, sha256 `d250e97bb0a653fa...`) - Redacted final B2 plus Genblaze env template
 - `scripts/secret_scan.py` (11105 bytes, sha256 `02aec3a4a6e9fd47...`) - Final secret scanner
-- `docs/assets/secret-scan-report.json` (10532 bytes, sha256 `ff807d81eadd26f6...`) - Machine-readable secret scan report
-- `docs/assets/secret-scan-report.md` (846 bytes, sha256 `c257088a8a084a11...`) - Human-readable secret scan report
+- `docs/assets/secret-scan-report.json` (10532 bytes, sha256 `ce1b6cd556672eb5...`) - Machine-readable secret scan report
+- `docs/assets/secret-scan-report.md` (846 bytes, sha256 `f95a51fe832b1b33...`) - Human-readable secret scan report
 - `docs/assets/b2-live-setup.json` (719 bytes, sha256 `a377923f48e112b1...`) - Non-secret B2 bucket setup record
 - `docs/assets/b2-live-setup.md` (864 bytes, sha256 `863b2a02e3d2824f...`) - Human-readable B2 bucket setup record
 - `scripts/b2_key_scope_checklist.py` (17240 bytes, sha256 `bb1e6140f10aa3ac...`) - No-secret Backblaze B2 application key scope checklist
@@ -113,9 +113,9 @@ Final gate ready: `false`
 - `docs/assets/live-credential-handoff.json` (4315 bytes, sha256 `5f025c40cb740383...`) - Machine-readable live credential handoff
 - `docs/assets/live-credential-handoff.md` (2197 bytes, sha256 `d254843a1e684df5...`) - Human-readable live credential handoff
 - `scripts/final_env_wizard.py` (15789 bytes, sha256 `a885c927c1bb09ee...`) - Local final credential env wizard
-- `scripts/post_credential_live_proof.py` (16876 bytes, sha256 `7e9b5ce23a798849...`) - Post-credential live proof sequence runner
-- `docs/assets/post-credential-live-proof-plan.json` (8744 bytes, sha256 `489280b4758c2ad2...`) - Machine-readable post-credential live proof plan
-- `docs/assets/post-credential-live-proof-plan.md` (5754 bytes, sha256 `67d345b3cc74448f...`) - Human-readable post-credential live proof plan
+- `scripts/post_credential_live_proof.py` (17108 bytes, sha256 `aec873007c4cb809...`) - Post-credential live proof sequence runner
+- `docs/assets/post-credential-live-proof-plan.json` (9127 bytes, sha256 `c98417e979fac562...`) - Machine-readable post-credential live proof plan
+- `docs/assets/post-credential-live-proof-plan.md` (5992 bytes, sha256 `4b7bd91cb02a170a...`) - Human-readable post-credential live proof plan
 - `scripts/claim_lint.py` (5190 bytes, sha256 `d8e9f53dfee772a1...`) - Fail-closed public claim lint
 - `scripts/demo_readiness.py` (8661 bytes, sha256 `d38ad138a2ca0d78...`) - Demo recording readiness gate
 - `docs/assets/demo-readiness-report.json` (3893 bytes, sha256 `834832a24f0cf6b1...`) - Machine-readable demo readiness report
@@ -125,7 +125,7 @@ Final gate ready: `false`
 - `docs/assets/recording-assets.md` (3566 bytes, sha256 `762375e6d7a8d984...`) - Human-readable recording asset report
 - `scripts/run_final_live_proof.py` (5814 bytes, sha256 `c6b9dc2fc9d7c670...`) - One-command final B2 plus Genblaze proof runner
 - `docs/submission.md` (4000 bytes, sha256 `3800b9a0950779d0...`) - Registration and submission plan
-- `tasks.json` (54412 bytes, sha256 `32355ab8e3c566ae...`) - Machine-readable task board
+- `tasks.json` (55667 bytes, sha256 `0df17c5d8b2747f3...`) - Machine-readable task board
 - `docs/assets/proofframe-local-ui-smoke.png` (364927 bytes, sha256 `cca671ad38bda4dc...`) - Local UI screenshot
 - `docs/assets/proofframe-review-console-smoke.png` (343618 bytes, sha256 `30620a33e3c7ab28...`) - Review console screenshot
 - `docs/assets/proofframe-hf-public-smoke.png` (741074 bytes, sha256 `5d6f68f7a4a2fdee...`) - Public mock demo screenshot

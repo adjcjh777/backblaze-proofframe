@@ -212,9 +212,11 @@ def test_final_operator_brief_is_ready_for_secret_entry(tmp_path):
         for action in report["codex_actions_after_credentials"]
     )
     assert "python scripts/submission_audit.py --strict-final" in report["codex_actions_after_credentials"]
+    assert "python scripts/devpost_submission_preview.py" in report["codex_actions_after_credentials"]
     assert "python scripts/devpost_submission_checklist.py --strict-final" in report[
         "codex_actions_after_credentials"
     ]
+    assert "docs/assets/devpost-submission-preview.json" in report["safety_policy"]["safe_to_commit_after_scan"]
     assert any(
         action.startswith('python scripts/devpost_submission_receipt.py --project-url "$PROOFFRAME_DEVPOST_PROJECT_URL"')
         for action in report["codex_actions_after_credentials"]

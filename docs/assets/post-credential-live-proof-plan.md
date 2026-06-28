@@ -2,7 +2,7 @@
 
 Mode: `plan_only`
 OK: `true`
-Created: `2026-06-28T15:48:26Z`
+Created: `2026-06-28T18:26:28Z`
 Env file: `.env.final.local`
 Update tasks: `false`
 
@@ -31,6 +31,7 @@ This report stores command strings, statuses, and artifact paths only. It never 
 | PLANNED | `final_rehearsal` | `/Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe/.venv/bin/python /Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe/scripts/final_rehearsal.py` |
 | PLANNED | `final_submission_control` | `/Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe/.venv/bin/python /Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe/scripts/final_submission_control.py` |
 | PLANNED | `submission_audit` | `/Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe/.venv/bin/python /Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe/scripts/submission_audit.py` |
+| PLANNED | `devpost_submission_preview` | `/Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe/.venv/bin/python /Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe/scripts/devpost_submission_preview.py` |
 | PLANNED | `secret_scan` | `/Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe/.venv/bin/python /Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe/scripts/secret_scan.py` |
 | PLANNED | `submission_bundle` | `/Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe/.venv/bin/python /Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe/scripts/submission_bundle.py` |
 

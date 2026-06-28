@@ -1,17 +1,17 @@
 {
   "schema": "proofframe.public_space_sync.v1",
-  "created_at": "2026-06-28T18:04:34Z",
+  "created_at": "2026-06-28T18:29:25Z",
   "ok": true,
   "mode": "public_space_synced",
   "space_id": "ADJCJH/backblaze-proofframe",
   "public_host": "https://adjcjh-backblaze-proofframe.hf.space",
-  "expected_sha": "36ebc46e15d51ef48118c0c3f6a647ca304f72f2",
+  "expected_sha": "d417916b6ff922cf412959da109a4ac5e0ef3309",
   "observed": {
-    "space_sha": "36ebc46e15d51ef48118c0c3f6a647ca304f72f2",
-    "runtime_sha": "36ebc46e15d51ef48118c0c3f6a647ca304f72f2",
+    "space_sha": "d417916b6ff922cf412959da109a4ac5e0ef3309",
+    "runtime_sha": "d417916b6ff922cf412959da109a4ac5e0ef3309",
     "runtime_stage": "RUNNING",
     "domain_ready": true,
-    "last_modified": "2026-06-28T18:00:10.000Z",
+    "last_modified": "2026-06-28T18:27:30.000Z",
     "health": {
       "ready": true,
       "storage_backend": "local",
@@ -84,9 +84,11 @@
     "post_credential_plan_mode": "plan_only",
     "post_credential_plan_validators": {
       "validate_b2_evidence": true,
-      "validate_final_evidence": true
+      "validate_final_evidence": true,
+      "devpost_submission_preview": true
     },
     "post_credential_plan_required_sequence": true,
+    "post_credential_plan_report_sequence": true,
     "post_credential_plan_secret_policy_safe": true,
     "submission_bundle": {
       "safe_to_share": true,
@@ -139,14 +141,14 @@
       "id": "space_metadata",
       "label": "Space metadata points at the expected commit",
       "ok": true,
-      "detail": "Space sha is 36ebc46e15d51ef48118c0c3f6a647ca304f72f2; expected 36ebc46e15d51ef48118c0c3f6a647ca304f72f2.",
+      "detail": "Space sha is d417916b6ff922cf412959da109a4ac5e0ef3309; expected d417916b6ff922cf412959da109a4ac5e0ef3309.",
       "evidence": "https://huggingface.co/api/spaces/ADJCJH/backblaze-proofframe"
     },
     {
       "id": "runtime_ready",
       "label": "Space runtime is running the expected commit",
       "ok": true,
-      "detail": "Runtime stage is RUNNING; runtime sha is 36ebc46e15d51ef48118c0c3f6a647ca304f72f2; domain ready is True.",
+      "detail": "Runtime stage is RUNNING; runtime sha is d417916b6ff922cf412959da109a4ac5e0ef3309; domain ready is True.",
       "evidence": "https://huggingface.co/api/spaces/ADJCJH/backblaze-proofframe/runtime"
     },
     {
@@ -244,7 +246,7 @@
       "id": "raw_post_credential_plan",
       "label": "Raw post-credential live proof plan is public and task-safe",
       "ok": true,
-      "detail": "Post-credential schema is proofframe.post_credential_live_proof.v1; mode is plan_only; required sequence=True; secret policy safe=True.",
+      "detail": "Post-credential schema is proofframe.post_credential_live_proof.v1; mode is plan_only; required sequence=True; report sequence=True; secret policy safe=True; devpost preview included=True.",
       "evidence": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/post-credential-live-proof-plan.json"
     },
     {

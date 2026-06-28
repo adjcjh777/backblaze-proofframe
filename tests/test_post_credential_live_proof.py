@@ -34,6 +34,9 @@ def test_build_commands_orders_live_proof_and_task_updates():
         "mark_t021_done",
     ]
     assert "final_submission_control" in command_ids
+    assert "devpost_submission_preview" in command_ids
+    assert command_ids.index("submission_audit") < command_ids.index("devpost_submission_preview")
+    assert command_ids.index("devpost_submission_preview") < command_ids.index("submission_bundle")
     assert "submission_bundle" == command_ids[-1]
     assert "--env-file" in commands[0].command
     assert ".env.final.local" in commands[0].command

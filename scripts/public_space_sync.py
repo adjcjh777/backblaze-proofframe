@@ -19,7 +19,7 @@ SCHEMA = "proofframe.public_space_sync.v1"
 
 SPACE_ID = "ADJCJH/backblaze-proofframe"
 SPACE_HOST = "https://adjcjh-backblaze-proofframe.hf.space"
-EXPECTED_SPACE_SHA = "36ebc46e15d51ef48118c0c3f6a647ca304f72f2"
+EXPECTED_SPACE_SHA = "d417916b6ff922cf412959da109a4ac5e0ef3309"
 TIMEOUT_SECONDS = 30
 DRAFT_VIDEO_MIN_BYTES = 100_000
 EVENT_SNAPSHOT_MAX_AGE_DAYS = 14
@@ -29,6 +29,12 @@ POST_CREDENTIAL_REQUIRED_SEQUENCE = (
     "validate_b2_evidence",
     "final_live_proof",
     "validate_final_evidence",
+)
+POST_CREDENTIAL_REQUIRED_REPORT_SEQUENCE = (
+    "submission_audit",
+    "devpost_submission_preview",
+    "secret_scan",
+    "submission_bundle",
 )
 SECRET_POLICY_REQUIRED_TERMS = (
     "never stores",
@@ -170,6 +176,17 @@ def command_dicts(plan: dict[str, Any] | None) -> list[dict[str, Any]]:
         if not isinstance(command.get("id"), str) or not command.get("id"):
             return []
     return commands
+
+
+def sequence_in_order(values: list[str], required: tuple[str, ...]) -> bool:
+    search_start = 0
+    for item in required:
+        try:
+            found_at = values.index(item, search_start)
+        except ValueError:
+            return False
+        search_start = found_at + 1
+    return True
 
 
 def secret_policy_is_safe(policy: Any) -> bool:
@@ -350,6 +367,10 @@ def build_report(
     post_credential_sequence_ok = (
         post_credential_command_ids[: len(POST_CREDENTIAL_REQUIRED_SEQUENCE)]
         == list(POST_CREDENTIAL_REQUIRED_SEQUENCE)
+    )
+    post_credential_report_sequence_ok = sequence_in_order(
+        post_credential_command_ids,
+        POST_CREDENTIAL_REQUIRED_REPORT_SEQUENCE,
     )
     post_credential_no_task_update = no_task_update_commands(post_credential_commands)
     post_credential_secret_policy_ok = secret_policy_is_safe(
@@ -725,6 +746,7 @@ def build_report(
                 and post_credential_plan.get("execute") is False
                 and post_credential_plan.get("update_tasks") is False
                 and post_credential_sequence_ok
+                and post_credential_report_sequence_ok
                 and post_credential_no_task_update
                 and post_credential_secret_policy_ok
             ),
@@ -732,7 +754,9 @@ def build_report(
                 f"Post-credential schema is {post_credential_plan.get('schema') if post_credential_plan else None}; "
                 f"mode is {post_credential_plan.get('mode') if post_credential_plan else None}; "
                 f"required sequence={post_credential_sequence_ok}; "
-                f"secret policy safe={post_credential_secret_policy_ok}."
+                f"report sequence={post_credential_report_sequence_ok}; "
+                f"secret policy safe={post_credential_secret_policy_ok}; "
+                f"devpost preview included={'devpost_submission_preview' in post_credential_command_ids}."
             ),
             post_credential_plan_url,
         ),
@@ -907,8 +931,10 @@ def build_report(
             "post_credential_plan_validators": {
                 "validate_b2_evidence": "validate_b2_evidence" in post_credential_command_ids,
                 "validate_final_evidence": "validate_final_evidence" in post_credential_command_ids,
+                "devpost_submission_preview": "devpost_submission_preview" in post_credential_command_ids,
             },
             "post_credential_plan_required_sequence": post_credential_sequence_ok,
+            "post_credential_plan_report_sequence": post_credential_report_sequence_ok,
             "post_credential_plan_secret_policy_safe": post_credential_secret_policy_ok,
             "submission_bundle": {
                 "safe_to_share": submission_bundle.get("safe_to_share") if submission_bundle else None,

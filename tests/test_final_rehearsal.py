@@ -123,6 +123,7 @@ def test_final_rehearsal_is_ready_for_credential_entry(tmp_path):
     assert report["required_secret_ids"] == ["b2_key_id", "b2_application_key", "genblaze_api_key"]
     assert report["next_command"].endswith("--force")
     assert any(step["id"] == "final_green_gate" for step in report["steps"])
+    assert any(step["id"] == "devpost_submission_preview" for step in report["steps"])
     assert any("Stop immediately" in rule for rule in report["stop_rules"])
 
 
