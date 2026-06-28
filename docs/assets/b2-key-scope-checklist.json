@@ -1,10 +1,23 @@
 {
   "schema": "proofframe.b2_key_scope_checklist.v1",
-  "created_at": "2026-06-28T17:08:40Z",
+  "created_at": "2026-06-28T17:26:11Z",
   "mode": "scope_ready_key_not_created",
   "ok": true,
   "safe_to_commit": true,
   "requires_user_confirmation_before_key_creation": true,
+  "pre_key_creation_confirmation": {
+    "status": "required_before_key_creation",
+    "required_phrase": "I confirm ProofFrame B2 key scope: standard key, bucket proofframe-demo-a6b4e49, prefix campaigns/, no all-bucket access, no delete/admin permissions, and no secrets in chat/docs/git.",
+    "why": "The B2 application key is a real credential; ProofFrame must not create or use it from a vague instruction.",
+    "safe_to_store": true,
+    "forbidden_confirmation_contents": [
+      "B2 key id",
+      "B2 application key",
+      "Backblaze account identifiers",
+      "browser cookies",
+      "screenshots that show secrets"
+    ]
+  },
   "setup_path": "docs/assets/b2-live-setup.json",
   "setup": {
     "present": true,
@@ -140,6 +153,7 @@
     ]
   },
   "operator_steps": [
+    "Before creating the key, explicitly confirm the confirmation phrase from this checklist without adding any key values.",
     "Create a standard application key, not a master application key.",
     "Set the key name to `proofframe-demo-live-proof`.",
     "Limit bucket access to the single bucket `proofframe-demo-a6b4e49`; do not choose all buckets.",

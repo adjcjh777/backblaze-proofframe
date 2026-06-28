@@ -58,6 +58,22 @@ def write_ready_fixtures(root: Path) -> None:
     )
     write_json(
         root,
+        "docs/assets/b2-key-scope-checklist.json",
+        {
+            "schema": "proofframe.b2_key_scope_checklist.v1",
+            "pre_key_creation_confirmation": {
+                "status": "required_before_key_creation",
+                "required_phrase": (
+                    "I confirm ProofFrame B2 key scope: standard key, bucket proofframe-demo, "
+                    "prefix campaigns/, no all-bucket access, no delete/admin permissions, "
+                    "and no secrets in chat/docs/git."
+                ),
+                "safe_to_store": True,
+            },
+        },
+    )
+    write_json(
+        root,
         "docs/assets/live-credential-handoff.json",
         {
             "schema": "proofframe.live_credential_handoff.v1",
@@ -181,6 +197,8 @@ def test_final_operator_brief_is_ready_for_secret_entry(tmp_path):
         "genblaze_api_key",
     ]
     assert report["safety_policy"]["env_final_local_ignored"] is True
+    assert report["b2_pre_key_confirmation"]["status"] == "required_before_key_creation"
+    assert any("I confirm ProofFrame B2 key scope" in action for action in report["user_actions"])
     assert any("least-privilege Backblaze B2" in action for action in report["user_actions"])
     assert 'python scripts/devpost_packet.py --post-live --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL"' in report[
         "codex_actions_after_credentials"
@@ -234,3 +252,4 @@ def test_final_operator_brief_writes_outputs(tmp_path):
     assert saved["schema"] == final_operator_brief.SCHEMA
     assert "# ProofFrame Final Operator Brief" in markdown
     assert "## User Actions" in markdown
+    assert "I confirm ProofFrame B2 key scope" in markdown

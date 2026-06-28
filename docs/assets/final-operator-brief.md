@@ -31,6 +31,7 @@ Safe to submit: `false`
 
 ## User Actions
 
+- Before creating the Backblaze B2 key, explicitly confirm this no-secret phrase: `I confirm ProofFrame B2 key scope: standard key, bucket proofframe-demo-a6b4e49, prefix campaigns/, no all-bucket access, no delete/admin permissions, and no secrets in chat/docs/git.`
 - Review `docs/assets/b2-key-scope-checklist.md`, then create a least-privilege Backblaze B2 application key named `proofframe-demo-live-proof` scoped to `proofframe-demo-a6b4e49`, then enter only the key id and application key into `.env.final.local` via `python scripts/final_env_wizard.py --output .env.final.local --missing-only --force`.
 - Enter a Genblaze/GMI API key into `.env.final.local` with the same wizard; do not paste it into chat, docs, screenshots, or git.
 - Run `python scripts/live_env_handoff.py --env-file .env.final.local --strict` and confirm it reports no missing ids.

@@ -81,12 +81,12 @@
     {
       "path": "docs/assets/live-credential-handoff.json",
       "present": true,
-      "bytes": 4414
+      "bytes": 4315
     },
     {
       "path": "docs/assets/live-credential-handoff.md",
       "present": true,
-      "bytes": 2415
+      "bytes": 2197
     },
     {
       "path": "docs/assets/demo-storyboard.json",

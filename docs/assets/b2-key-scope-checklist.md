@@ -5,6 +5,12 @@ OK: `true`
 Safe to commit: `true`
 Requires user confirmation before key creation: `true`
 
+## Required Pre-Key Confirmation
+
+- Status: `required_before_key_creation`
+- Phrase: `I confirm ProofFrame B2 key scope: standard key, bucket proofframe-demo-a6b4e49, prefix campaigns/, no all-bucket access, no delete/admin permissions, and no secrets in chat/docs/git.`
+- Do not include any key id, application key, account identifier, cookie, or screenshot in the confirmation.
+
 ## Target
 
 - Bucket: `proofframe-demo-a6b4e49`
@@ -39,15 +45,16 @@ Requires user confirmation before key creation: `true`
 
 ## Operator Steps
 
-1. Create a standard application key, not a master application key.
-2. Set the key name to `proofframe-demo-live-proof`.
-3. Limit bucket access to the single bucket `proofframe-demo-a6b4e49`; do not choose all buckets.
-4. Set the file name prefix to `campaigns/` so the key can only write ProofFrame proof objects.
-5. Use Write Only access for the upload proof; add read/list only if a changed verification command explicitly needs it.
-6. Enable `listAllBucketNames` for S3 SDK compatibility with the bucket-restricted key.
-7. Set an expiration no longer than 604800 seconds for the hackathon proof window.
-8. Copy the key id and application key only into `.env.final.local` through `python scripts/final_env_wizard.py --output .env.final.local --missing-only --force`.
-9. Immediately run `python scripts/live_env_handoff.py --env-file .env.final.local --strict` and then the B2 proof runner.
+1. Before creating the key, explicitly confirm the confirmation phrase from this checklist without adding any key values.
+2. Create a standard application key, not a master application key.
+3. Set the key name to `proofframe-demo-live-proof`.
+4. Limit bucket access to the single bucket `proofframe-demo-a6b4e49`; do not choose all buckets.
+5. Set the file name prefix to `campaigns/` so the key can only write ProofFrame proof objects.
+6. Use Write Only access for the upload proof; add read/list only if a changed verification command explicitly needs it.
+7. Enable `listAllBucketNames` for S3 SDK compatibility with the bucket-restricted key.
+8. Set an expiration no longer than 604800 seconds for the hackathon proof window.
+9. Copy the key id and application key only into `.env.final.local` through `python scripts/final_env_wizard.py --output .env.final.local --missing-only --force`.
+10. Immediately run `python scripts/live_env_handoff.py --env-file .env.final.local --strict` and then the B2 proof runner.
 
 ## Stop Conditions
 

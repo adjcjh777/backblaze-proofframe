@@ -100,6 +100,15 @@ def valid_b2_key_scope_checklist() -> dict:
         "ok": True,
         "safe_to_commit": True,
         "requires_user_confirmation_before_key_creation": True,
+        "pre_key_creation_confirmation": {
+            "status": "required_before_key_creation",
+            "required_phrase": (
+                "I confirm ProofFrame B2 key scope: standard key, bucket "
+                "proofframe-demo-a6b4e49, prefix campaigns/, no all-bucket access, "
+                "no delete/admin permissions, and no secrets in chat/docs/git."
+            ),
+            "safe_to_store": True,
+        },
         "expected_key": {
             "bucket_scope": {
                 "mode": "single_bucket",
@@ -397,6 +406,8 @@ def test_public_space_sync_report_passes_when_space_is_current():
     assert report["observed"]["launch_plan_mode"] == "ready_for_credential_entry"
     assert report["observed"]["launch_plan_phase"] == "credential_entry"
     assert report["observed"]["b2_key_scope_checklist"]["safe_to_commit"] is True
+    assert report["observed"]["b2_key_scope_checklist"]["confirmation_status"] == "required_before_key_creation"
+    assert report["observed"]["b2_key_scope_checklist"]["confirmation_phrase_safe"] is True
     assert report["observed"]["b2_key_scope_checklist"]["bucket_name"] == "proofframe-demo-a6b4e49"
     assert report["observed"]["b2_key_scope_checklist"]["prefix"] == "campaigns/"
     assert {"writeFiles", "listAllBucketNames"} <= set(
@@ -464,6 +475,8 @@ def test_public_space_sync_fails_on_unsafe_b2_key_scope_checklist():
         if url.endswith("/docs/assets/b2-key-scope-checklist.json"):
             checklist = valid_b2_key_scope_checklist()
             checklist["safe_to_commit"] = False
+            checklist["pre_key_creation_confirmation"]["status"] = "missing"
+            checklist["pre_key_creation_confirmation"]["required_phrase"] = "create the key"
             checklist["secret_policy"]["forbidden_setup_fields"] = ["$.application_key"]
             checklist["expected_key"]["bucket_scope"] = {
                 "mode": "all_buckets",

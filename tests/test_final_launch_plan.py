@@ -62,6 +62,22 @@ def write_base_reports(root: Path) -> None:
     )
     write_json(
         root,
+        "docs/assets/b2-key-scope-checklist.json",
+        {
+            "schema": "proofframe.b2_key_scope_checklist.v1",
+            "pre_key_creation_confirmation": {
+                "status": "required_before_key_creation",
+                "required_phrase": (
+                    "I confirm ProofFrame B2 key scope: standard key, bucket proofframe-demo-a6b4e49, "
+                    "prefix campaigns/, no all-bucket access, no delete/admin permissions, "
+                    "and no secrets in chat/docs/git."
+                ),
+                "safe_to_store": True,
+            },
+        },
+    )
+    write_json(
+        root,
         "docs/assets/final-submission-control.json",
         {
             "schema": "proofframe.final_submission_control.v1",
@@ -106,6 +122,7 @@ def test_launch_plan_is_ready_for_credential_entry(tmp_path):
     assert plan["current_phase"] == "credential_entry"
     assert plan["summary"] == {"total": 6, "done": 0, "ready": 1, "blocked": 5}
     assert "final_env_wizard.py" in plan["next_command"]
+    assert "I confirm ProofFrame B2 key scope" in " ".join(plan["phases"][0]["expected_artifacts"])
     assert "T020" in plan["phases"][1]["task_updates_after_success"][0]
     assert plan["safety_policy"]["source_env_files"] is False
     assert "source .env.final.local" not in json.dumps(plan)
@@ -185,5 +202,6 @@ def test_launch_plan_writes_outputs(tmp_path):
     markdown = markdown_path.read_text(encoding="utf-8")
     assert saved["schema"] == final_launch_plan.SCHEMA
     assert "# ProofFrame Final Launch Plan" in markdown
+    assert "I confirm ProofFrame B2 key scope" in markdown
     assert "Task ledger updates after success" in markdown
     assert "Do not source `.env.final.local`" in markdown

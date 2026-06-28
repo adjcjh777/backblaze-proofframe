@@ -93,6 +93,9 @@ def build_phases(root: Path, reports: dict[str, dict[str, Any]], statuses: dict[
     receipt = reports["devpost_receipt"]
     b2_evidence = reports["b2_evidence"]
     final_evidence = reports["final_evidence"]
+    b2_checklist = reports["b2_key_scope_checklist"]
+    b2_confirmation = b2_checklist.get("pre_key_creation_confirmation") or {}
+    b2_confirmation_phrase = b2_confirmation.get("required_phrase")
     missing_ids = {str(item) for item in handoff.get("missing_ids", [])}
     blocks = blocking_ids(final_control)
 
@@ -174,6 +177,11 @@ def build_phases(root: Path, reports: dict[str, dict[str, Any]], statuses: dict[
             command="python scripts/final_env_wizard.py --output .env.final.local --missing-only --force",
             expected_artifacts=[
                 "docs/assets/b2-key-scope-checklist.md reviewed before key creation",
+                (
+                    f"B2 pre-key confirmation phrase recorded without secrets: {b2_confirmation_phrase}"
+                    if b2_confirmation_phrase
+                    else "B2 pre-key confirmation phrase recorded without secrets"
+                ),
                 ".env.final.local (git-ignored, never committed)",
             ],
         ),
@@ -268,6 +276,7 @@ def build_report(root: Path = ROOT) -> dict[str, Any]:
     reports = {
         "credential_handoff": report(root, "docs/assets/live-credential-handoff.json"),
         "operator_brief": report(root, "docs/assets/final-operator-brief.json"),
+        "b2_key_scope_checklist": report(root, "docs/assets/b2-key-scope-checklist.json"),
         "final_control": report(root, "docs/assets/final-submission-control.json"),
         "recording_assets": report(root, "docs/assets/recording-assets.json"),
         "submission_audit": report(root, "docs/assets/submission-audit-report.json"),

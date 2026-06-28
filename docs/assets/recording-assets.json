@@ -1,8 +1,8 @@
 {
   "schema": "proofframe.recording_assets.v1",
-  "mode": "mock_recording_ready",
+  "mode": "public_mock_verified",
   "mock_recording_ready": true,
-  "public_mock_verified": false,
+  "public_mock_verified": true,
   "final_video_ready": false,
   "public_base_url": "https://adjcjh-backblaze-proofframe.hf.space",
   "required_assets": [
@@ -165,11 +165,43 @@
     }
   },
   "public_verification": {
-    "checked": false,
-    "ok": null,
+    "checked": true,
+    "ok": true,
     "judge_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
     "health_url": "https://adjcjh-backblaze-proofframe.hf.space/api/health",
-    "gate_url": "https://adjcjh-backblaze-proofframe.hf.space/api/submission/gate"
+    "gate_url": "https://adjcjh-backblaze-proofframe.hf.space/api/submission/gate",
+    "html_status": 200,
+    "health_status": 200,
+    "gate_status": 200,
+    "html_markers": {
+      "judge_recording_slate": true,
+      "sponsor_evidence_model": true,
+      "recording_runbook": true,
+      "auto_load_judge_demo": true,
+      "final_report_gate_copy": true
+    },
+    "health": {
+      "ok": true,
+      "storage_backend": "local",
+      "generation_backend": "mock",
+      "ready": true
+    },
+    "submission_gate": {
+      "ok": true,
+      "mode": "pre_live_safe",
+      "summary": {
+        "required": 6,
+        "done": 1,
+        "blocked": 0,
+        "doing": 2,
+        "todo": 3,
+        "missing": 0
+      },
+      "report_gate_present": true,
+      "report_gate_status": "incomplete",
+      "paths_relative": true
+    },
+    "errors": []
   },
   "shot_plan": [
     {
@@ -216,7 +248,6 @@
     "python scripts/final_submission_control.py --strict-final"
   ],
   "next_actions": [
-    "Run python scripts/recording_assets.py --verify-public before recording.",
     "After live B2/Genblaze proof, record and upload the final public video.",
     "Run python scripts/final_submission_control.py --strict-final before Devpost submit."
   ]

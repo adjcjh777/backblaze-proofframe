@@ -19,7 +19,7 @@ SCHEMA = "proofframe.public_space_sync.v1"
 
 SPACE_ID = "ADJCJH/backblaze-proofframe"
 SPACE_HOST = "https://adjcjh-backblaze-proofframe.hf.space"
-EXPECTED_SPACE_SHA = "2f1532df85103b7114cfba5a1267764ee8a00fd6"
+EXPECTED_SPACE_SHA = "a3aa614b569d277d81229606783c4444ff5d2155"
 TIMEOUT_SECONDS = 30
 DRAFT_VIDEO_MIN_BYTES = 100_000
 EVENT_SNAPSHOT_MAX_AGE_DAYS = 14
@@ -367,6 +367,8 @@ def build_report(
     b2_key_scope_bucket = dict_field(b2_key_scope_expected, "bucket_scope")
     b2_key_scope_prefix = dict_field(b2_key_scope_expected, "file_name_prefix")
     b2_key_scope_secret_policy = dict_field(b2_key_scope_checklist, "secret_policy")
+    b2_key_scope_confirmation = dict_field(b2_key_scope_checklist, "pre_key_creation_confirmation")
+    b2_key_scope_confirmation_phrase = str(b2_key_scope_confirmation.get("required_phrase", ""))
     b2_key_scope_required_capabilities = {
         str(item.get("capability"))
         for item in dict_list_field(b2_key_scope_expected, "required_capabilities")
@@ -386,6 +388,12 @@ def build_report(
         and b2_key_scope_checklist.get("ok") is True
         and b2_key_scope_checklist.get("safe_to_commit") is True
         and b2_key_scope_checklist.get("requires_user_confirmation_before_key_creation") is True
+        and b2_key_scope_confirmation.get("status") == "required_before_key_creation"
+        and b2_key_scope_confirmation.get("safe_to_store") is True
+        and "proofframe-demo-a6b4e49" in b2_key_scope_confirmation_phrase
+        and "campaigns/" in b2_key_scope_confirmation_phrase
+        and "no delete/admin permissions" in b2_key_scope_confirmation_phrase
+        and "no secrets in chat/docs/git" in b2_key_scope_confirmation_phrase
         and b2_key_scope_secret_policy.get("forbidden_setup_fields") == []
         and b2_key_scope_bucket.get("mode") == "single_bucket"
         and b2_key_scope_bucket.get("bucket_name") == "proofframe-demo-a6b4e49"
@@ -486,6 +494,7 @@ def build_report(
                 f"safe_to_commit={b2_key_scope_checklist.get('safe_to_commit') if b2_key_scope_checklist else None}; "
                 f"bucket={b2_key_scope_bucket.get('bucket_name') if b2_key_scope_checklist else None}; "
                 f"prefix={b2_key_scope_prefix.get('value') if b2_key_scope_checklist else None}; "
+                f"confirmation={b2_key_scope_confirmation.get('status') if b2_key_scope_checklist else None}; "
                 f"required={sorted(b2_key_scope_required_capabilities)}."
             ),
             b2_key_scope_checklist_url,
@@ -764,6 +773,11 @@ def build_report(
                     b2_key_scope_checklist.get("requires_user_confirmation_before_key_creation")
                     if b2_key_scope_checklist
                     else None
+                ),
+                "confirmation_status": b2_key_scope_confirmation.get("status"),
+                "confirmation_phrase_safe": bool(
+                    b2_key_scope_confirmation.get("safe_to_store")
+                    and "no secrets in chat/docs/git" in b2_key_scope_confirmation_phrase
                 ),
                 "bucket_name": b2_key_scope_bucket.get("bucket_name"),
                 "prefix": b2_key_scope_prefix.get("value"),

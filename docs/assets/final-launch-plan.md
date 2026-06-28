@@ -23,6 +23,7 @@ python scripts/final_env_wizard.py --output .env.final.local --missing-only --fo
 ```
 - Expected artifacts:
   - `docs/assets/b2-key-scope-checklist.md reviewed before key creation`
+  - `B2 pre-key confirmation phrase recorded without secrets: I confirm ProofFrame B2 key scope: standard key, bucket proofframe-demo-a6b4e49, prefix campaigns/, no all-bucket access, no delete/admin permissions, and no secrets in chat/docs/git.`
   - `.env.final.local (git-ignored, never committed)`
 
 ### b2_live_proof - Capture Backblaze B2 live proof

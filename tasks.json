@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-28T17:18:13Z",
+  "updated_at": "2026-06-28T17:29:26Z",
   "tasks": [
     {
       "id": "T001",
@@ -928,6 +928,15 @@
       "status": "done",
       "done_criteria": "Deployment runbook and evidence package point at the latest public HF Space runtime, include the B2 key scope checklist/post-credential/bundle public checks, and no longer expose stale public demo evidence.",
       "notes": "Updated docs/deployment.md from stale d9a3ed Space evidence to runtime 2f1532df85103b7114cfba5a1267764ee8a00fd6, expanded docs/evidence_package.md public_space_sync coverage for B2 key checklist/post-credential plan/submission bundle, and revalidated claim_lint, secret_scan, public_space_sync, public API smoke, ruff, and pytest."
+    },
+    {
+      "id": "T066",
+      "title": "Sync B2 pre-key confirmation gate",
+      "phase": "P4 Submit",
+      "owner": "reviewer",
+      "status": "done",
+      "done_criteria": "B2 key scope checklist includes an explicit no-secret pre-key confirmation phrase, public_space_sync verifies the raw public checklist confirmation status and scope, and HF Space serves the updated public artifact.",
+      "notes": "Added pre_key_creation_confirmation to the B2 key scope checklist and final operator/launch artifacts; uploaded HF Space commit a3aa614b569d277d81229606783c4444ff5d2155; public_space_sync, raw checklist spot-check, and public API smoke pass."
     }
   ]
 }

@@ -20,6 +20,12 @@
     "prepared_application_key_name": "proofframe-demo-live-proof",
     "application_key_status": "form_prepared_not_created"
   },
+  "b2_pre_key_confirmation": {
+    "present": true,
+    "status": "required_before_key_creation",
+    "required_phrase": "I confirm ProofFrame B2 key scope: standard key, bucket proofframe-demo-a6b4e49, prefix campaigns/, no all-bucket access, no delete/admin permissions, and no secrets in chat/docs/git.",
+    "safe_to_store": true
+  },
   "credential_handoff": {
     "present": true,
     "mode": "missing_live_env",
@@ -60,14 +66,14 @@
       "present": true,
       "path": "docs/assets/recording-assets.json",
       "schema_ok": true,
-      "mode": "mock_recording_ready",
+      "mode": "public_mock_verified",
       "ok": null,
       "score": null,
       "max_score": null,
       "safe_to_submit": null,
       "validation_ok": null,
       "mock_recording_ready": true,
-      "public_mock_verified": false
+      "public_mock_verified": true
     },
     "public_video_check": {
       "present": true,
@@ -175,6 +181,7 @@
     }
   },
   "user_actions": [
+    "Before creating the Backblaze B2 key, explicitly confirm this no-secret phrase: `I confirm ProofFrame B2 key scope: standard key, bucket proofframe-demo-a6b4e49, prefix campaigns/, no all-bucket access, no delete/admin permissions, and no secrets in chat/docs/git.`",
     "Review `docs/assets/b2-key-scope-checklist.md`, then create a least-privilege Backblaze B2 application key named `proofframe-demo-live-proof` scoped to `proofframe-demo-a6b4e49`, then enter only the key id and application key into `.env.final.local` via `python scripts/final_env_wizard.py --output .env.final.local --missing-only --force`.",
     "Enter a Genblaze/GMI API key into `.env.final.local` with the same wizard; do not paste it into chat, docs, screenshots, or git.",
     "Run `python scripts/live_env_handoff.py --env-file .env.final.local --strict` and confirm it reports no missing ids.",

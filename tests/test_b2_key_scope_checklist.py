@@ -41,6 +41,12 @@ def test_b2_key_scope_checklist_builds_no_secret_scope_report(tmp_path):
     assert report["ok"] is True
     assert report["mode"] == "scope_ready_key_not_created"
     assert report["requires_user_confirmation_before_key_creation"] is True
+    confirmation = report["pre_key_creation_confirmation"]
+    assert confirmation["status"] == "required_before_key_creation"
+    assert "proofframe-demo-a6b4e49" in confirmation["required_phrase"]
+    assert "campaigns/" in confirmation["required_phrase"]
+    assert "no delete/admin permissions" in confirmation["required_phrase"]
+    assert confirmation["safe_to_store"] is True
     assert report["expected_key"]["bucket_scope"]["mode"] == "single_bucket"
     assert report["expected_key"]["file_name_prefix"]["value"] == "campaigns/"
     required = {item["capability"] for item in report["expected_key"]["required_capabilities"]}
@@ -81,6 +87,9 @@ def test_b2_key_scope_checklist_markdown_and_outputs_do_not_leak(tmp_path):
     saved = json.loads(json_path.read_text(encoding="utf-8"))
     markdown = markdown_path.read_text(encoding="utf-8")
     assert saved["schema"] == "proofframe.b2_key_scope_checklist.v1"
+    assert saved["pre_key_creation_confirmation"]["status"] == "required_before_key_creation"
     assert "proofframe-demo-live-proof" in markdown
+    assert "Required Pre-Key Confirmation" in markdown
+    assert "no secrets in chat/docs/git" in markdown
     assert "`listAllBucketNames`" in markdown
     assert "No key id, application key, token, cookie, signed URL, or account secret is stored here." in markdown

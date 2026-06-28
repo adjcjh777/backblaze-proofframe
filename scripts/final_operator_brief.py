@@ -56,6 +56,17 @@ def b2_setup_summary(root: Path) -> dict[str, Any]:
     }
 
 
+def b2_confirmation_summary(root: Path) -> dict[str, Any]:
+    checklist = load_json(root / "docs" / "assets" / "b2-key-scope-checklist.json") or {}
+    confirmation = checklist.get("pre_key_creation_confirmation") or {}
+    return {
+        "present": bool(checklist),
+        "status": confirmation.get("status"),
+        "required_phrase": confirmation.get("required_phrase"),
+        "safe_to_store": confirmation.get("safe_to_store"),
+    }
+
+
 def handoff_summary(root: Path) -> dict[str, Any]:
     handoff = load_json(root / "docs" / "assets" / "live-credential-handoff.json") or {}
     missing = [str(item) for item in handoff.get("missing_ids", [])]
@@ -96,12 +107,22 @@ def task_summary(statuses: dict[str, str]) -> dict[str, str]:
     return {task: statuses.get(task, "missing") for task in ["T020", "T021", "T040", "T041", "T041A", "T042"]}
 
 
-def build_user_actions(b2_setup: dict[str, Any], handoff: dict[str, Any]) -> list[str]:
+def build_user_actions(
+    b2_setup: dict[str, Any],
+    handoff: dict[str, Any],
+    b2_confirmation: dict[str, Any],
+) -> list[str]:
     key_name = b2_setup.get("prepared_application_key_name") or "proofframe-demo-live-proof"
     bucket = b2_setup.get("bucket_name") or "the dedicated ProofFrame bucket"
     missing = set(handoff.get("missing_ids", []))
     actions: list[str] = []
     if {"b2_key_id", "b2_application_key"} & missing:
+        phrase = b2_confirmation.get("required_phrase")
+        if phrase:
+            actions.append(
+                "Before creating the Backblaze B2 key, explicitly confirm this no-secret phrase: "
+                f"`{phrase}`"
+            )
         actions.append(
             "Review `docs/assets/b2-key-scope-checklist.md`, then create a least-privilege Backblaze B2 application key named "
             f"`{key_name}` scoped to `{bucket}`, then enter only the key id and application key "
@@ -165,6 +186,7 @@ def build_report(root: Path = ROOT) -> dict[str, Any]:
     root = root.resolve()
     statuses = task_statuses(root)
     b2_setup = b2_setup_summary(root)
+    b2_confirmation = b2_confirmation_summary(root)
     handoff = handoff_summary(root)
     reports = {
         "event_snapshot": report_status(
@@ -234,9 +256,10 @@ def build_report(root: Path = ROOT) -> dict[str, Any]:
         "safe_to_submit": bool(reports["final_control"].get("safe_to_submit")),
         "task_statuses": task_summary(statuses),
         "b2_setup": b2_setup,
+        "b2_pre_key_confirmation": b2_confirmation,
         "credential_handoff": handoff,
         "reports": reports,
-        "user_actions": build_user_actions(b2_setup, handoff),
+        "user_actions": build_user_actions(b2_setup, handoff, b2_confirmation),
         "codex_actions_after_credentials": build_codex_actions(),
         "safety_policy": build_safety_policy(root),
         "claim_boundary": "Do not claim completed B2 or Genblaze proof until sanitized live evidence is generated and final gates pass.",

@@ -17,6 +17,11 @@ DEFAULT_JSON = ROOT / "docs" / "assets" / "b2-key-scope-checklist.json"
 DEFAULT_MD = ROOT / "docs" / "assets" / "b2-key-scope-checklist.md"
 PROOFFRAME_B2_PREFIX = "campaigns/"
 RECOMMENDED_MAX_DURATION_SECONDS = 7 * 24 * 60 * 60
+CONFIRMATION_PHRASE = (
+    "I confirm ProofFrame B2 key scope: standard key, bucket "
+    "proofframe-demo-a6b4e49, prefix campaigns/, no all-bucket access, "
+    "no delete/admin permissions, and no secrets in chat/docs/git."
+)
 SAFE_PENDING_KEY_STATUSES = {
     "form_prepared_not_created",
     "created_outside_repo",
@@ -208,6 +213,7 @@ def operator_steps(setup: dict[str, Any]) -> list[str]:
     bucket = setup.get("bucket_name") or "the dedicated ProofFrame B2 bucket"
     key_name = setup.get("application_key_name") or "proofframe-demo-live-proof"
     return [
+        "Before creating the key, explicitly confirm the confirmation phrase from this checklist without adding any key values.",
         "Create a standard application key, not a master application key.",
         f"Set the key name to `{key_name}`.",
         f"Limit bucket access to the single bucket `{bucket}`; do not choose all buckets.",
@@ -278,6 +284,19 @@ def build_report(setup_path: Path = DEFAULT_SETUP) -> dict[str, Any]:
         "ok": scope_ready,
         "safe_to_commit": not forbidden_secret_fields,
         "requires_user_confirmation_before_key_creation": True,
+        "pre_key_creation_confirmation": {
+            "status": "required_before_key_creation",
+            "required_phrase": CONFIRMATION_PHRASE,
+            "why": "The B2 application key is a real credential; ProofFrame must not create or use it from a vague instruction.",
+            "safe_to_store": True,
+            "forbidden_confirmation_contents": [
+                "B2 key id",
+                "B2 application key",
+                "Backblaze account identifiers",
+                "browser cookies",
+                "screenshots that show secrets",
+            ],
+        },
         "setup_path": str(setup_path.relative_to(ROOT) if setup_path.is_relative_to(ROOT) else setup_path),
         "setup": setup,
         "expected_key": build_expected_key(setup),
@@ -313,6 +332,12 @@ def render_markdown(report: dict[str, Any]) -> str:
         f"OK: `{str(report['ok']).lower()}`",
         f"Safe to commit: `{str(report['safe_to_commit']).lower()}`",
         f"Requires user confirmation before key creation: `{str(report['requires_user_confirmation_before_key_creation']).lower()}`",
+        "",
+        "## Required Pre-Key Confirmation",
+        "",
+        f"- Status: `{report['pre_key_creation_confirmation']['status']}`",
+        f"- Phrase: `{report['pre_key_creation_confirmation']['required_phrase']}`",
+        "- Do not include any key id, application key, account identifier, cookie, or screenshot in the confirmation.",
         "",
         "## Target",
         "",

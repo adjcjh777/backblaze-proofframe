@@ -11,9 +11,9 @@ Next command: `python scripts/final_env_wizard.py --output .env.final.local --mi
 - OK `operator_ready`: Operator brief mode is credential_entry_ready. Evidence: `docs/assets/final-operator-brief.json`
 - OK `only_expected_secrets_missing`: Missing ids: b2_application_key, b2_key_id, genblaze_api_key. Evidence: `docs/assets/final-operator-brief.json`
 - OK `launch_plan_at_credential_entry`: Current phase is credential_entry. Evidence: `docs/assets/final-launch-plan.json`
-- OK `public_space_synced`: Runtime sha: 2f1532df85103b7114cfba5a1267764ee8a00fd6. Evidence: `docs/assets/public-space-sync-report.json`
+- OK `public_space_synced`: Runtime sha: a3aa614b569d277d81229606783c4444ff5d2155. Evidence: `docs/assets/public-space-sync-report.json`
 - OK `mock_form_ready`: Devpost form mode is pre_live_form_ready. Evidence: `docs/assets/devpost-form-kit.json`
-- OK `mock_recording_ready`: Recording assets mode is mock_recording_ready. Evidence: `docs/assets/recording-assets.json`
+- OK `mock_recording_ready`: Recording assets mode is public_mock_verified. Evidence: `docs/assets/recording-assets.json`
 - OK `secret_scan_currently_clear`: Secret scan mode is clear. Evidence: `docs/assets/secret-scan-report.json`
 - OK `final_gate_fail_closed`: Final control mode is pre_live_control. Evidence: `docs/assets/final-submission-control.json`
 - OK `live_tasks_not_overclaimed`: T020=doing; T021=doing. Evidence: `tasks.json`
