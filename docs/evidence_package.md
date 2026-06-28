@@ -33,7 +33,7 @@ This file is the internal source of truth for Devpost submission assets. Anythin
 2. Confirm the first screen shows the Sponsor Evidence Model and the fail-closed final gate.
 3. Use Judge Demo to create a local/mock media packet.
 4. Inspect the asset ledger, manifest preview, approval state, checksum, and downloadable evidence ZIP.
-5. Read `docs/assets/judge-brief.md` and `docs/assets/final-submission-control.md` for the safe claim boundary: B2 and Genblaze code paths are implemented, while live proof remains final-gated.
+5. Read `docs/assets/judge-brief.md`, `docs/assets/judge-crosswalk.md`, and `docs/assets/final-submission-control.md` for the safe claim boundary: B2 and Genblaze code paths are implemented, while live proof remains final-gated.
 
 ## Current Verified Evidence
 
@@ -55,6 +55,7 @@ This file is the internal source of truth for Devpost submission assets. Anythin
 | Agent handoff consistency | `scripts/agent_handoff_check.py`, `docs/assets/agent-handoff-report.json`, `docs/assets/agent-handoff-report.md` | Public-ready; verifies AGENTS.md points future Codex and Agent Bus sessions at the current repo path |
 | Public Space sync report | `scripts/public_space_sync.py`, `docs/assets/public-space-sync-report.json`, `docs/assets/public-space-sync-report.md` | Public-ready; verifies HF Space metadata/runtime sha, raw handoff report, raw final launch plan, local/mock health, fail-closed submission gate, and judge HTML markers |
 | Judge brief | `scripts/judge_brief.py`, `docs/assets/judge-brief.json`, `docs/assets/judge-brief.md` | Public-ready; 30-second judge framing with safe claims, current blockers, walkthrough, and evidence links |
+| Judge crosswalk | `scripts/judge_crosswalk.py`, `docs/assets/judge-crosswalk.json`, `docs/assets/judge-crosswalk.md` | Public-ready; maps official judging criteria and submission requirements to evidence artifacts, safe claims, final gates, and demo shots |
 | Final rehearsal checklist | `scripts/final_rehearsal.py`, `docs/assets/final-rehearsal-checklist.json`, `docs/assets/final-rehearsal-checklist.md` | Internal-ready; no-secret sequence for credential entry, live proof, video, audit, Devpost receipt, and final green gate |
 | Devpost registration | `tasks.json` T040 | Done; registered for the event |
 | Downloadable evidence ZIP | `/api/campaigns/{id}/packet.zip` | Public-ready in local mode |

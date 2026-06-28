@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-28T05:04:46Z",
+  "updated_at": "2026-06-28T05:19:00Z",
   "tasks": [
     {
       "id": "T001",
@@ -757,6 +757,15 @@
       "status": "done",
       "done_criteria": "A no-secret public video check validates the final demo video URL against Devpost video requirements, token-free public URL rules, storyboard duration, and optional GET-only accessibility before final submission; it is integrated into recording, final control, submission audit, bundle, CI, docs, and tests.",
       "notes": "Added scripts/public_video_check.py, docs/assets/public-video-check.*, tests, final submission/recording/audit/bundle/CI integration, and verification/evidence/spec/submission docs."
+    },
+    {
+      "id": "T047",
+      "title": "Add judge criteria crosswalk",
+      "phase": "P4 Submit",
+      "owner": "codex",
+      "status": "done",
+      "done_criteria": "A schema-stamped judge crosswalk maps official criteria and submission requirements to current evidence, safe claims, final gates, and demo shots; it is integrated into CI, submission bundle, submission audit, and docs.",
+      "notes": "Added scripts/judge_crosswalk.py plus docs/assets/judge-crosswalk.* with fail-closed source schema checks and pre-live claim boundaries."
     }
   ]
 }

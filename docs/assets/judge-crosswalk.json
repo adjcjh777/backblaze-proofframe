@@ -1,0 +1,268 @@
+{
+  "schema": "proofframe.judge_crosswalk.v1",
+  "created_at": "2026-06-28T05:23:27Z",
+  "mode": "pre_live_crosswalk_ready",
+  "ok": true,
+  "safe_to_submit": false,
+  "event": {
+    "name": "Backblaze Generative Media Hackathon",
+    "deadline_utc": "2026-08-03T21:00:00Z",
+    "deadline_beijing": "2026-08-04 05:00 Asia/Shanghai",
+    "devpost_url": "https://backblaze-generative-media.devpost.com/",
+    "rules_url": "https://backblaze-generative-media.devpost.com/rules"
+  },
+  "source_reports": [
+    {
+      "path": "docs/assets/devpost-event-snapshot.json",
+      "present": true,
+      "expected_schema": "proofframe.devpost_event_snapshot.v1",
+      "actual_schema": "proofframe.devpost_event_snapshot.v1",
+      "ok": true
+    },
+    {
+      "path": "docs/assets/judge-brief.json",
+      "present": true,
+      "expected_schema": "proofframe.judge_brief.v1",
+      "actual_schema": "proofframe.judge_brief.v1",
+      "ok": true
+    },
+    {
+      "path": "docs/assets/sponsor-fit-audit.json",
+      "present": true,
+      "expected_schema": "proofframe.sponsor_fit_audit.v1",
+      "actual_schema": "proofframe.sponsor_fit_audit.v1",
+      "ok": true
+    },
+    {
+      "path": "docs/assets/award-readiness-report.json",
+      "present": true,
+      "expected_schema": "proofframe.award_readiness.v1",
+      "actual_schema": "proofframe.award_readiness.v1",
+      "ok": true
+    },
+    {
+      "path": "docs/assets/final-submission-control.json",
+      "present": true,
+      "expected_schema": "proofframe.final_submission_control.v1",
+      "actual_schema": "proofframe.final_submission_control.v1",
+      "ok": true
+    }
+  ],
+  "missing_evidence_files": [],
+  "official_criteria": [
+    {
+      "name": "Real-world Utility",
+      "present": true
+    },
+    {
+      "name": "Production Readiness",
+      "present": true
+    },
+    {
+      "name": "B2 Storage + Data Orchestration",
+      "present": true
+    },
+    {
+      "name": "Use of Genblaze",
+      "present": true
+    }
+  ],
+  "submission_requirements": [
+    {
+      "id": "working_app_url",
+      "label": "Working application URL",
+      "official_marker_present": true,
+      "evidence": "Public mock demo URL in README and Devpost form kit"
+    },
+    {
+      "id": "github_repo_url",
+      "label": "GitHub repository URL",
+      "official_marker_present": true,
+      "evidence": "Public GitHub repository and submission bundle manifest"
+    },
+    {
+      "id": "demo_video",
+      "label": "Demonstration video",
+      "official_marker_present": true,
+      "evidence": "Public video check and storyboard reports; final URL still gated"
+    },
+    {
+      "id": "video_under_three_minutes",
+      "label": "Video under three minutes",
+      "official_marker_present": true,
+      "evidence": "Demo storyboard duration gate"
+    },
+    {
+      "id": "public_video_host",
+      "label": "Public video host",
+      "official_marker_present": true,
+      "evidence": "Public video check URL rules"
+    },
+    {
+      "id": "b2_usage",
+      "label": "Backblaze B2 usage",
+      "official_marker_present": true,
+      "evidence": "B2 adapter, B2 live setup record, and T020 live proof runner"
+    },
+    {
+      "id": "genblaze_usage",
+      "label": "Genblaze usage",
+      "official_marker_present": true,
+      "evidence": "Genblaze provider adapter and T021 final live proof runner"
+    }
+  ],
+  "rows": [
+    {
+      "id": "real_world_utility",
+      "criterion": "Real-world Utility",
+      "official_present": true,
+      "readiness": "public_mock_ready",
+      "evidence": [
+        "docs/prd.md",
+        "docs/spec.md",
+        "apps/web/index.html",
+        "docs/assets/judge-brief.md",
+        "Downloadable evidence ZIP from /api/campaigns/{id}/packet.zip"
+      ],
+      "safe_claim": "ProofFrame is a working provenance and review desk for generated media, with the public demo running in credential-free local/mock mode.",
+      "final_gate": "Final video must show one creator workflow end-to-end with live proof context.",
+      "demo_shot": "Judge Demo packet, asset review, approval state, manifest preview, evidence ZIP."
+    },
+    {
+      "id": "production_readiness",
+      "criterion": "Production Readiness",
+      "official_present": true,
+      "readiness": "pre_live_fail_closed",
+      "evidence": [
+        ".github/workflows/ci.yml",
+        "scripts/secret_scan.py",
+        "scripts/claim_lint.py",
+        "scripts/final_submission_control.py",
+        "scripts/submission_audit.py"
+      ],
+      "safe_claim": "The repo has fail-closed readiness gates, CI checks, secret scanning, claim linting, and generated submission reports.",
+      "final_gate": "T041A secret scan, T041 strict audit, and T042 receipt must close before submit.",
+      "demo_shot": "Final gate dashboard and judge recording slate showing current safe-to-submit state."
+    },
+    {
+      "id": "b2_storage_data_orchestration",
+      "criterion": "B2 Storage + Data Orchestration",
+      "official_present": true,
+      "readiness": "code_ready_live_proof_pending",
+      "evidence": [
+        "src/proofframe/storage.py",
+        "docs/assets/b2-live-setup.md",
+        "scripts/run_b2_live_proof.py",
+        "docs/assets/live-credential-handoff.md",
+        "docs/assets/final-submission-control.md"
+      ],
+      "safe_claim": "ProofFrame includes B2-compatible storage paths and B2-ready manifests; completed live B2 proof is not claimed until T020 is done.",
+      "final_gate": "T020 must capture sanitized B2 asset and manifest object keys plus checksums.",
+      "demo_shot": "B2 Object Route and manifest checksum fields in the first-screen evidence model."
+    },
+    {
+      "id": "use_of_genblaze",
+      "criterion": "Use of Genblaze",
+      "official_present": true,
+      "readiness": "adapter_ready_live_proof_pending",
+      "evidence": [
+        "src/proofframe/providers.py",
+        "scripts/run_final_live_proof.py",
+        ".env.final.example",
+        "docs/assets/live-credential-handoff.md",
+        "docs/assets/devpost-submission-packet.md"
+      ],
+      "safe_claim": "ProofFrame includes a Genblaze-compatible provider path and manifest fields; completed live Genblaze proof is not claimed until T021 is done.",
+      "final_gate": "T021 must capture live provider/model metadata from the final Genblaze path.",
+      "demo_shot": "Genblaze Step, provider/model metadata, and prompt lineage in the manifest preview."
+    }
+  ],
+  "summary": {
+    "judge_brief_safe_to_submit": false,
+    "sponsor_fit_mode": "sponsor_fit_ready",
+    "sponsor_fit_ok": true,
+    "award_score": 97,
+    "award_max_score": 115,
+    "final_control_mode": "pre_live_control"
+  },
+  "task_statuses": {
+    "T020": "doing",
+    "T021": "doing",
+    "T040": "done",
+    "T041": "todo",
+    "T041A": "todo",
+    "T042": "todo"
+  },
+  "blocking_items": [
+    {
+      "id": "devpost_submission_checklist",
+      "label": "Final Devpost web submission checklist is ready",
+      "detail": "Devpost submission checklist mode is pre_submit_blocked; safe_to_submit is False.",
+      "evidence": "docs/assets/devpost-submission-checklist.json"
+    },
+    {
+      "id": "b2_live_proof",
+      "label": "Backblaze B2 live proof captured",
+      "detail": "T020 is doing; B2 evidence status is missing; final evidence status is missing.",
+      "evidence": "tasks.json, docs/assets/b2-live-proof-evidence.json, and docs/assets/final-live-proof-evidence.json"
+    },
+    {
+      "id": "genblaze_live_proof",
+      "label": "Genblaze live proof captured",
+      "detail": "T021 is doing; final evidence status is missing.",
+      "evidence": "tasks.json and docs/assets/final-live-proof-evidence.json"
+    },
+    {
+      "id": "credential_handoff",
+      "label": "Live credential handoff is ready",
+      "detail": "Credential handoff mode is missing_live_env; missing ids: b2_key_id, b2_application_key, genblaze_api_key.",
+      "evidence": "docs/assets/live-credential-handoff.json"
+    },
+    {
+      "id": "public_video",
+      "label": "Final public demo video URL is ready",
+      "detail": "Storyboard mode is mock_storyboard_ready; public video ready is False.",
+      "evidence": "docs/assets/demo-storyboard.json"
+    },
+    {
+      "id": "public_video_check",
+      "label": "Final public demo video URL is accessible and safe",
+      "detail": "Public video check mode is pending_video_url; safe_to_submit is False.",
+      "evidence": "docs/assets/public-video-check.json"
+    },
+    {
+      "id": "final_recording",
+      "label": "Final recording gate is ready",
+      "detail": "Demo readiness mode is pre_live_mock_ready; final recording ready is False.",
+      "evidence": "docs/assets/demo-readiness-report.json"
+    },
+    {
+      "id": "final_secret_scan",
+      "label": "Final secret scan is complete",
+      "detail": "T041A is todo; secret scan mode is clear; secret scan ok is True.",
+      "evidence": "tasks.json and docs/assets/secret-scan-report.json"
+    },
+    {
+      "id": "final_submission_audit",
+      "label": "Final submission audit is complete",
+      "detail": "T041 is todo; audit mode is pre_submit_audit_blocked; audit ok is False.",
+      "evidence": "tasks.json and docs/assets/submission-audit-report.json"
+    },
+    {
+      "id": "devpost_submitted",
+      "label": "Devpost project submitted",
+      "detail": "T042 is todo; receipt mode is pending_submission; receipt ok is False.",
+      "evidence": "tasks.json and docs/assets/devpost-submission-receipt.json"
+    }
+  ],
+  "claim_boundaries": [
+    "Do not claim completed B2 live storage until T020 is done and evidence is sanitized.",
+    "Do not claim completed Genblaze live generation until T021 is done and provider/model metadata is captured.",
+    "Do not mark safe_to_submit true until public video, strict audit, final secret scan, and Devpost receipt are complete."
+  ],
+  "next_actions": [
+    "Use this crosswalk as the judge-facing map while recording the final video and filling Devpost.",
+    "After T020/T021 and the public video URL are ready, rerun final reports and regenerate this crosswalk.",
+    "Submit only after final_submission_control.py --strict-final and submission_audit.py --strict-final pass."
+  ]
+}

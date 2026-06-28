@@ -152,6 +152,7 @@ The selected interface is Proof Ledger, a restrained audit-and-approval board fo
 - Docker build and local run.
 - Submission audit against Devpost requirements.
 - Submission gate API and UI checks.
+- Schema-stamped judge crosswalk from official criteria to evidence, safe claims, final gates, and demo shots.
 - No-secret final rehearsal checklist before credential entry and Devpost submission.
 - No-secret Devpost web submission checklist before pressing the final submit button.
 - Public demo video URL check for token-free, reachable final video evidence.

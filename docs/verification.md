@@ -17,6 +17,8 @@ python scripts/live_env_handoff.py
 python scripts/final_env_wizard.py --check-only
 python scripts/devpost_form_kit.py
 python scripts/devpost_submission_checklist.py
+python scripts/judge_brief.py
+python scripts/judge_crosswalk.py
 python scripts/devpost_event_snapshot.py --validate-committed
 python scripts/agent_handoff_check.py
 python scripts/public_space_sync.py
@@ -49,6 +51,8 @@ The `.github/workflows/ci.yml` workflow runs on `main`, `feature/**`, and pull r
 - `python scripts/final_env_wizard.py --check-only`
 - `python scripts/devpost_form_kit.py`
 - `python scripts/devpost_submission_checklist.py`
+- `python scripts/judge_brief.py`
+- `python scripts/judge_crosswalk.py`
 - `python scripts/devpost_event_snapshot.py --validate-committed`
 - `python scripts/agent_handoff_check.py`
 - `python scripts/public_space_sync.py`
@@ -247,6 +251,8 @@ python scripts/secret_scan.py
 python scripts/devpost_packet.py --post-live --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL"
 python scripts/devpost_form_kit.py --strict-final
 python scripts/devpost_submission_checklist.py --strict-final
+python scripts/judge_brief.py
+python scripts/judge_crosswalk.py
 python scripts/submission_bundle.py
 python scripts/final_operator_brief.py
 python scripts/final_launch_plan.py
