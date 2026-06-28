@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-28T10:13:50Z",
+  "updated_at": "2026-06-28T10:23:04Z",
   "tasks": [
     {
       "id": "T001",
@@ -585,7 +585,7 @@
       "owner": "scout",
       "status": "done",
       "done_criteria": "Official Devpost overview and rules pages are re-fetched, validation remains ok, dynamic participant count is updated, and downstream control/bundle reports use the refreshed snapshot.",
-      "notes": "Refetched overview and rules pages on 2026-06-28 Asia/Shanghai; participant count moved from 343 to 345, submission remains open, and public copy keeps the count dynamic."
+      "notes": "Earlier refresh on 2026-06-28 Asia/Shanghai moved participant count from 343 to 345; latest T055 refresh records 358 and keeps public copy dynamic."
     },
     {
       "id": "T042E",
@@ -829,6 +829,15 @@
       "status": "done",
       "done_criteria": "Public Space sync verifies the raw demo-video-draft report stays mock_video_draft_ready and fail-closed, verifies the public MP4 is readable as video/mp4 with expected byte size, emits specific next actions on draft failures, and records only stable public URLs rather than signed redirects.",
       "notes": "Extended scripts/public_space_sync.py to verify docs/assets/demo-video-draft.json and public docs/assets/proofframe-demo-draft.mp4 readability without storing signed redirect URLs."
+    },
+    {
+      "id": "T055",
+      "title": "Refresh official event snapshot",
+      "phase": "P4 Submit",
+      "owner": "codex",
+      "status": "done",
+      "done_criteria": "Official Devpost overview and rules pages are refetched live, committed snapshot validation passes with submission_open=true, the observed participant count is refreshed to 358, and downstream final-control/bundle reports can consume the updated snapshot.",
+      "notes": "Refetched official Devpost overview and rules pages on 2026-06-28; participant count is now 358, submission remains open, and requirements/judging criteria validated."
     }
   ]
 }

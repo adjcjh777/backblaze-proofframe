@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.devpost_event_snapshot.v1",
-  "checked_at": "2026-06-27T18:45:48Z",
+  "checked_at": "2026-06-28T10:22:12Z",
   "mode": "live_official_snapshot",
   "event": {
     "name": "Backblaze Generative Media Hackathon",
@@ -8,7 +8,7 @@
     "deadline_utc": "2026-08-03T21:00:00Z",
     "deadline_et": "Aug 3, 2026 @ 5:00pm EDT",
     "deadline_beijing": "2026-08-04 05:00 Asia/Shanghai",
-    "participant_count_observed": 345,
+    "participant_count_observed": 358,
     "prize_total_usd": 10000,
     "sponsor_tech": [
       "Backblaze B2",
@@ -51,7 +51,7 @@
       }
     ],
     "feedback_prize_present": true,
-    "rules_participant_count_observed": 345
+    "rules_participant_count_observed": 358
   },
   "sources": [
     {
@@ -59,7 +59,7 @@
       "url": "https://backblaze-generative-media.devpost.com/",
       "ok": true,
       "status": 200,
-      "bytes": 89422,
+      "bytes": 89421,
       "error": null,
       "transport": "curl"
     },
