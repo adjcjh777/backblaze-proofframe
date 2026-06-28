@@ -1,0 +1,121 @@
+{
+  "schema": "proofframe.final_launch_plan.v1",
+  "ok": false,
+  "mode": "ready_for_credential_entry",
+  "repo_root": "/Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe",
+  "current_phase": "credential_entry",
+  "summary": {
+    "total": 6,
+    "done": 0,
+    "ready": 1,
+    "blocked": 5
+  },
+  "task_statuses": {
+    "T020": "doing",
+    "T021": "doing",
+    "T040": "done",
+    "T041": "todo",
+    "T041A": "todo",
+    "T042": "todo"
+  },
+  "phases": [
+    {
+      "id": "credential_entry",
+      "title": "Enter final credentials locally",
+      "status": "ready",
+      "detail": "Only expected secret ids are missing; operator can enter them locally.",
+      "command": "python scripts/final_env_wizard.py --output .env.final.local --force",
+      "expected_artifacts": [
+        ".env.final.local (git-ignored, never committed)"
+      ],
+      "safe_to_commit_after_scan": []
+    },
+    {
+      "id": "b2_live_proof",
+      "title": "Capture Backblaze B2 live proof",
+      "status": "blocked",
+      "detail": "Waiting on credential entry.",
+      "command": "python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out docs/assets/b2-live-proof-evidence.json",
+      "expected_artifacts": [
+        "docs/assets/b2-live-proof-evidence.json"
+      ],
+      "safe_to_commit_after_scan": [
+        "docs/assets/b2-live-proof-evidence.json"
+      ]
+    },
+    {
+      "id": "genblaze_live_proof",
+      "title": "Capture final B2 plus Genblaze proof",
+      "status": "blocked",
+      "detail": "Waiting on the B2-only proof.",
+      "command": "python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json",
+      "expected_artifacts": [
+        "docs/assets/final-live-proof-evidence.json"
+      ],
+      "safe_to_commit_after_scan": [
+        "docs/assets/final-live-proof-evidence.json"
+      ]
+    },
+    {
+      "id": "public_video",
+      "title": "Record and verify public demo video",
+      "status": "blocked",
+      "detail": "Waiting on live B2 plus Genblaze evidence.",
+      "command": "python scripts/devpost_packet.py --post-live --video-url \"$PROOFFRAME_PUBLIC_VIDEO_URL\"",
+      "expected_artifacts": [
+        "public demo video URL",
+        "docs/assets/devpost-submission-packet.json",
+        "docs/assets/devpost-form-kit.json",
+        "docs/assets/demo-storyboard.json",
+        "docs/assets/recording-assets.json"
+      ],
+      "safe_to_commit_after_scan": [
+        "docs/assets/devpost-submission-packet.json",
+        "docs/assets/devpost-form-kit.json",
+        "docs/assets/demo-storyboard.json",
+        "docs/assets/recording-assets.json"
+      ]
+    },
+    {
+      "id": "final_safety_audit",
+      "title": "Run final secret scan and submission audit",
+      "status": "blocked",
+      "detail": "Waiting on final public video.",
+      "command": "python scripts/secret_scan.py && python scripts/submission_audit.py --strict-final",
+      "expected_artifacts": [
+        "docs/assets/secret-scan-report.json",
+        "docs/assets/submission-audit-report.json"
+      ],
+      "safe_to_commit_after_scan": [
+        "docs/assets/secret-scan-report.json",
+        "docs/assets/submission-audit-report.json"
+      ]
+    },
+    {
+      "id": "devpost_submit",
+      "title": "Submit Devpost and capture receipt",
+      "status": "blocked",
+      "detail": "Waiting on all pre-submit gates.",
+      "command": "python scripts/devpost_submission_receipt.py --project-url \"$PROOFFRAME_DEVPOST_PROJECT_URL\" --submitted-at \"$PROOFFRAME_DEVPOST_SUBMITTED_AT\" --confirmation-note \"Devpost accepted/submitted the ProofFrame project.\"",
+      "expected_artifacts": [
+        "docs/assets/devpost-submission-receipt.json"
+      ],
+      "safe_to_commit_after_scan": [
+        "docs/assets/devpost-submission-receipt.json"
+      ]
+    }
+  ],
+  "next_command": "python scripts/final_env_wizard.py --output .env.final.local --force",
+  "next_detail": "Only expected secret ids are missing; operator can enter them locally.",
+  "safety_policy": {
+    "no_secret_values_in_report": true,
+    "never_commit": [
+      ".env.final.local",
+      "Backblaze key IDs or application keys",
+      "Genblaze/GMI API keys",
+      "Devpost cookies or browser session files",
+      "raw signed URLs or provider temporary URLs"
+    ],
+    "source_env_files": false
+  }
+}

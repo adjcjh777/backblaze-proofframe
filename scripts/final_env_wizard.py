@@ -70,6 +70,27 @@ def env_lookup(field: EnvField, environ: Mapping[str, str]) -> str:
     return ""
 
 
+def parse_env_file(path: Path) -> dict[str, str]:
+    values: dict[str, str] = {}
+    for raw_line in path.read_text(encoding="utf-8").splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, value = line.split("=", 1)
+        key = key.strip()
+        if key.startswith("export "):
+            key = key.removeprefix("export ").strip()
+        if key:
+            values[key] = normalize(value).strip('"').strip("'")
+    return values
+
+
+def default_source(environ: Mapping[str, str], initial_values: Mapping[str, str] | None) -> dict[str, str]:
+    values = dict(initial_values or {})
+    values.update(environ)
+    return values
+
+
 def prompt_for_field(
     field: EnvField,
     default: str,
@@ -91,10 +112,11 @@ def collect_values(
     *,
     from_env: bool,
     environ: Mapping[str, str] | None = None,
+    initial_values: Mapping[str, str] | None = None,
     input_func: Callable[[str], str] = input,
     secret_input: Callable[[str], str] = getpass.getpass,
 ) -> dict[str, str]:
-    source = os.environ if environ is None else environ
+    source = default_source(os.environ if environ is None else environ, initial_values)
     values: dict[str, str] = {}
     missing: list[str] = []
 
@@ -332,7 +354,8 @@ def main() -> None:
         raise SystemExit(0)
 
     try:
-        values = collect_values(from_env=args.from_env)
+        initial_values = parse_env_file(args.output) if args.output.exists() else {}
+        values = collect_values(from_env=args.from_env, initial_values=initial_values)
         write_env_file(args.output, render_env_file(values), force=args.force)
     except (FileExistsError, ValueError) as exc:
         print(json.dumps({"ok": False, "error": str(exc)}, indent=2))

@@ -90,6 +90,9 @@ jobs:
       - name: Final operator brief
         run: python scripts/final_operator_brief.py
 
+      - name: Final launch plan
+        run: python scripts/final_launch_plan.py
+
       - name: Submission audit
         run: python scripts/submission_audit.py
 

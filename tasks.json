@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-28T02:31:17Z",
+  "updated_at": "2026-06-28T02:55:15Z",
   "tasks": [
     {
       "id": "T001",
@@ -649,6 +649,15 @@
       "status": "done",
       "done_criteria": "Reviewer no-credential audit issues are addressed: final runbooks avoid sourcing .env.final.local, pre-live evidence/package status is clearly labeled, public Space serves the new fail-closed packet status, and generated reports are refreshed.",
       "notes": "Removed shell-sourcing of the final env file from runbooks/next commands, relabeled T032 as a pre-live evidence package, made /api/submission/gate require post_live_verified packet mode for final_ready, and synced HF Space runtime sha a0418b6da52376ca3984294c850e368552920404."
+    },
+    {
+      "id": "T042L",
+      "title": "Add no-secret final launch plan",
+      "phase": "P4 Submit",
+      "owner": "codex",
+      "status": "done",
+      "done_criteria": "Final launch phases are generated as public-safe JSON/Markdown, covered by tests, wired into CI, verification docs, and the submission bundle.",
+      "notes": "Added scripts/final_launch_plan.py plus docs/assets/final-launch-plan.*; it groups credential entry, B2 proof, Genblaze proof, public video, final audit, and Devpost receipt without secret values."
     }
   ]
 }

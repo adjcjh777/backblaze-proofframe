@@ -107,6 +107,7 @@ python scripts/recording_assets.py
 python scripts/award_readiness.py --min-score 75
 python scripts/final_submission_control.py
 python scripts/final_operator_brief.py
+python scripts/final_launch_plan.py
 python scripts/submission_audit.py
 python scripts/devpost_submission_receipt.py
 python scripts/devpost_packet.py
@@ -116,7 +117,7 @@ python scripts/submission_bundle.py
 The browser UI and `GET /api/submission/gate` expose the same fail-closed final gate: required task status, Devpost packet presence, final B2/Genblaze evidence readiness, and the final secret scan, submission audit, and Devpost receipt reports.
 `scripts/submission_bundle.py` creates a safe manifest of public submission artifacts, screenshots, checksums, Devpost copy mode, and remaining gate blockers.
 `scripts/live_env_handoff.py` creates a redacted B2/Genblaze credential handoff report so final proof setup can be checked without printing keys.
-`scripts/final_env_wizard.py` creates a local git-ignored `.env.final.local` with 0600 permissions, can prefill non-secret B2/default values, and uses hidden prompts for credential values.
+`scripts/final_env_wizard.py` creates a local git-ignored `.env.final.local` with 0600 permissions, can prefill non-secret B2/default values, reads existing local values as defaults, and uses hidden prompts for credential values.
 `scripts/run_b2_live_proof.py` verifies the Backblaze B2 storage path independently with mock generation, so T020 can close before Genblaze credentials are ready.
 `scripts/devpost_form_kit.py` turns the safe packet into field-by-field Devpost copy with length checks and a strict final gate.
 `scripts/devpost_event_snapshot.py` keeps official Devpost deadline, participants, submission requirements, and judging criteria as a refreshable evidence report.
@@ -132,6 +133,7 @@ The browser UI and `GET /api/submission/gate` expose the same fail-closed final 
 `scripts/award_readiness.py` scores sponsor fit, provenance depth, demo readiness, claim safety, and final closure so polish work stays aligned with judge expectations.
 `scripts/final_submission_control.py` aggregates the gate, form kit, storyboard, credential handoff, and award reports into one final Devpost control tower.
 `scripts/final_operator_brief.py` turns the remaining live-proof blockers into a no-secret handoff: user actions, Codex follow-up commands, and safety policy.
+`scripts/final_launch_plan.py` turns the final operator brief and gate reports into a no-secret phased launch checklist from credential entry through Devpost receipt.
 `scripts/submission_audit.py` writes a schema-stamped pre-submit audit report and only passes strict mode after live proof, final scan, public video, and submit-ready copy are synchronized.
 `scripts/devpost_submission_receipt.py` records the final public Devpost `/software/<slug>` URL and confirmation note after submission, without cookies or private form data.
 
@@ -159,6 +161,7 @@ python scripts/demo_storyboard.py
 python scripts/demo_readiness.py
 python scripts/recording_assets.py
 python scripts/final_operator_brief.py
+python scripts/final_launch_plan.py
 ```
 
 See `docs/verification.md` for Docker and live B2/Genblaze proof commands.

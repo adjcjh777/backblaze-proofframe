@@ -59,6 +59,59 @@ def test_final_env_wizard_refuses_missing_required_env():
         final_env_wizard.collect_values(from_env=True, environ={})
 
 
+def test_final_env_wizard_uses_existing_file_values_as_prompt_defaults(tmp_path):
+    existing = tmp_path / ".env.final.local"
+    existing.write_text(
+        "\n".join(
+            [
+                "PROOFFRAME_STORAGE_BACKEND=b2",
+                "PROOFFRAME_GENERATION_BACKEND=genblaze",
+                "B2_ENDPOINT_URL=s3.us-west-004.backblazeb2.com",
+                "B2_BUCKET=proofframe-demo-a6b4e49",
+                "B2_KEY_ID=existing-key-id",
+                "B2_APPLICATION_KEY='existing b2 secret'",
+                "GENBLAZE_API_KEY=existing-gmi-secret",
+                "GENBLAZE_IMAGE_MODEL=seedream-5.0-lite",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    values = final_env_wizard.collect_values(
+        from_env=False,
+        initial_values=final_env_wizard.parse_env_file(existing),
+        input_func=lambda prompt: "",
+        secret_input=lambda prompt: "",
+    )
+
+    assert values["B2_ENDPOINT_URL"] == "s3.us-west-004.backblazeb2.com"
+    assert values["B2_BUCKET"] == "proofframe-demo-a6b4e49"
+    assert values["B2_KEY_ID"] == "existing-key-id"
+    assert values["B2_APPLICATION_KEY"] == "existing b2 secret"
+    assert values["GENBLAZE_API_KEY"] == "existing-gmi-secret"
+    assert values["GMI_API_KEY"] == "existing-gmi-secret"
+
+
+def test_final_env_wizard_environment_overrides_existing_defaults(tmp_path):
+    existing = tmp_path / ".env.final.local"
+    existing.write_text("B2_BUCKET=old-bucket\n", encoding="utf-8")
+
+    values = final_env_wizard.collect_values(
+        from_env=True,
+        environ={
+            "B2_ENDPOINT_URL": "s3.us-west-004.backblazeb2.com",
+            "B2_BUCKET": "env-bucket",
+            "B2_KEY_ID": "env-key-id",
+            "B2_APPLICATION_KEY": "env-b2-secret",
+            "GENBLAZE_API_KEY": "env-gmi-secret",
+        },
+        initial_values=final_env_wizard.parse_env_file(existing),
+    )
+
+    assert values["B2_BUCKET"] == "env-bucket"
+
+
 def test_final_env_wizard_prefills_non_secret_b2_values(tmp_path):
     setup_path = tmp_path / "b2-live-setup.json"
     setup_path.write_text(
