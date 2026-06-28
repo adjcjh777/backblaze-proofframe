@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-28T10:23:04Z",
+  "updated_at": "2026-06-28T10:38:43Z",
   "tasks": [
     {
       "id": "T001",
@@ -838,6 +838,15 @@
       "status": "done",
       "done_criteria": "Official Devpost overview and rules pages are refetched live, committed snapshot validation passes with submission_open=true, the observed participant count is refreshed to 358, and downstream final-control/bundle reports can consume the updated snapshot.",
       "notes": "Refetched official Devpost overview and rules pages on 2026-06-28; participant count is now 358, submission remains open, and requirements/judging criteria validated."
+    },
+    {
+      "id": "T056",
+      "title": "Sync Space after event refresh",
+      "phase": "P4 Submit",
+      "owner": "codex",
+      "status": "done",
+      "done_criteria": "HF Space serves the post-refresh public mock demo at the recorded runtime sha, public Space sync passes with no failed checks, public API smoke remains local/mock and fail-closed, and raw public Devpost snapshot/final-control artifacts show participant count 358 without marking final submission ready.",
+      "notes": "Uploaded HF Space commit d3b50a27e2a5062fb5411c5f0b5d966f47205ef3 after the Devpost event refresh; public Space sync, API smoke, and raw snapshot checks confirm participant count 358 and fail-closed final control."
     }
   ]
 }
