@@ -1,6 +1,6 @@
 # ProofFrame Judge Brief
 
-Created: `2026-06-28T05:40:48Z`
+Created: `2026-06-28T09:00:23Z`
 Tagline: B2-ready provenance desk for GenAI media.
 Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 Repository: https://github.com/adjcjh777/backblaze-proofframe

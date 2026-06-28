@@ -410,6 +410,76 @@
         background: rgba(23, 23, 20, 0.06);
       }
 
+      .criteria-crosswalk-strip {
+        border-top: 1px solid var(--ink);
+        display: grid;
+        gap: 12px;
+        grid-column: 1 / -1;
+        padding: 14px 16px 16px;
+      }
+
+      .criteria-crosswalk-strip header {
+        align-items: baseline;
+        display: flex;
+        gap: 12px;
+        justify-content: space-between;
+      }
+
+      .criteria-crosswalk-strip h2 {
+        font-family: var(--display);
+        font-size: 21px;
+        line-height: 1;
+        margin: 0;
+      }
+
+      .criteria-crosswalk-strip header span {
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 11px;
+      }
+
+      .crosswalk-grid {
+        border-top: 1px solid var(--rule);
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .crosswalk-row {
+        border-right: 1px solid var(--rule);
+        min-height: 118px;
+        padding: 12px 12px 4px 0;
+      }
+
+      .crosswalk-row:last-child {
+        border-right: 0;
+      }
+
+      .crosswalk-row label {
+        color: var(--muted);
+        display: block;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+      }
+
+      .crosswalk-row strong {
+        display: block;
+        font-size: 15px;
+        line-height: 1.22;
+        margin-bottom: 7px;
+      }
+
+      .crosswalk-row span {
+        color: var(--muted);
+        display: block;
+        font-family: var(--mono);
+        font-size: 11px;
+        line-height: 1.42;
+        overflow-wrap: anywhere;
+      }
+
       .slate-item label {
         color: var(--muted);
         display: block;
@@ -741,6 +811,10 @@
           grid-template-columns: 1fr;
         }
 
+        .crosswalk-grid {
+          grid-template-columns: 1fr;
+        }
+
         .slate-item {
           border-right: 0;
           border-bottom: 1px solid var(--rule);
@@ -763,6 +837,16 @@
         }
 
         .brief-node:last-child {
+          border-bottom: 0;
+        }
+
+        .crosswalk-row {
+          border-right: 0;
+          border-bottom: 1px solid var(--rule);
+          padding-right: 0;
+        }
+
+        .crosswalk-row:last-child {
           border-bottom: 0;
         }
 
@@ -945,6 +1029,19 @@
               >Final gate</a>
             </nav>
           </div>
+          <div class="criteria-crosswalk-strip" aria-label="Criteria crosswalk">
+            <header>
+              <h2>Criteria Crosswalk</h2>
+              <span id="crosswalkStatus">Loading official criteria</span>
+            </header>
+            <div class="crosswalk-grid" id="crosswalkRows">
+              <div class="crosswalk-row">
+                <label>Official Angle</label>
+                <strong>Real-world Utility</strong>
+                <span>Waiting for public-safe evidence map.</span>
+              </div>
+            </div>
+          </div>
         </section>
 
         <section class="brief-panel" aria-label="Campaign brief">
@@ -1088,6 +1185,7 @@
         manifest: {},
         submissionGate: null,
         judgeBrief: null,
+        judgeCrosswalk: null,
         health: null,
         packetStatus: "No packet exported",
         packetDetail: "Awaiting campaign manifest.",
@@ -1182,6 +1280,15 @@
           state.judgeBrief = { error: error.message };
         }
         renderJudgeBrief();
+      }
+
+      async function loadJudgeCrosswalk() {
+        try {
+          state.judgeCrosswalk = await api("/api/judge/crosswalk");
+        } catch (error) {
+          state.judgeCrosswalk = { error: error.message };
+        }
+        renderJudgeCrosswalk();
       }
 
       async function loadCampaigns() {
@@ -1308,6 +1415,37 @@
           : `${blockers.length || 3} final claims gated`;
         el("briefBlockersDetail").textContent =
           blockers.slice(0, 2).join(" / ") || "B2, Genblaze, video, audit, and Devpost receipt.";
+      }
+
+      function renderJudgeCrosswalk() {
+        const crosswalk = state.judgeCrosswalk || {};
+        const rows = Array.isArray(crosswalk.rows) ? crosswalk.rows : [];
+        const safeToSubmit = Boolean(crosswalk.safe_to_submit);
+        el("crosswalkStatus").textContent = crosswalk.error
+          ? "Crosswalk unavailable"
+          : safeToSubmit
+            ? "Final-ready criteria map"
+            : humanizeStatus(crosswalk.mode || "pre_live_crosswalk_ready");
+        el("crosswalkRows").innerHTML = rows.length
+          ? rows
+              .slice(0, 4)
+              .map(
+                (row) => `
+                <div class="crosswalk-row">
+                  <label>${escapeHtml(humanizeStatus(row.readiness || "tracked"))}</label>
+                  <strong>${escapeHtml(row.criterion || "Official criterion")}</strong>
+                  <span>${escapeHtml(row.final_gate || row.safe_claim || "Evidence gate tracked.")}</span>
+                </div>
+              `,
+              )
+              .join("")
+          : `
+            <div class="crosswalk-row">
+              <label>Unavailable</label>
+              <strong>Criteria map pending</strong>
+              <span>${escapeHtml(crosswalk.error || "Waiting for generated judge crosswalk artifact.")}</span>
+            </div>
+          `;
       }
 
       function renderCampaigns() {
@@ -1533,7 +1671,13 @@
       });
 
       async function boot() {
-        await Promise.all([loadHealth(), loadCampaigns(), loadSubmissionGate(), loadJudgeBrief()]);
+        await Promise.all([
+          loadHealth(),
+          loadCampaigns(),
+          loadSubmissionGate(),
+          loadJudgeBrief(),
+          loadJudgeCrosswalk(),
+        ]);
         renderInspector();
         if (shouldAutoLoadJudgeDemo()) {
           await loadJudgeDemo("auto");

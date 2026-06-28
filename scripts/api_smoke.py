@@ -107,6 +107,16 @@ def run_smoke(
     if not isinstance(safe_to_submit, bool):
         raise SystemExit("Judge brief endpoint did not include a boolean safe_to_submit flag.")
 
+    judge_crosswalk = request_json("GET", f"{base}/api/judge/crosswalk")
+    if judge_crosswalk.get("schema") != "proofframe.judge_crosswalk.v1":
+        raise SystemExit("Judge crosswalk endpoint did not return the expected schema.")
+    crosswalk_safe_to_submit = judge_crosswalk.get("safe_to_submit")
+    if not isinstance(crosswalk_safe_to_submit, bool):
+        raise SystemExit("Judge crosswalk endpoint did not include a boolean safe_to_submit flag.")
+    crosswalk_rows = judge_crosswalk.get("rows")
+    if not isinstance(crosswalk_rows, list) or len(crosswalk_rows) < 4:
+        raise SystemExit("Judge crosswalk endpoint did not include the expected criteria rows.")
+
     campaign = request_json(
         "POST",
         f"{base}/api/campaigns",
@@ -154,6 +164,10 @@ def run_smoke(
         "storage_backend": health["storage_backend"],
         "judge_brief_schema": judge_brief["schema"],
         "judge_safe_to_submit": safe_to_submit,
+        "judge_crosswalk_schema": judge_crosswalk["schema"],
+        "judge_crosswalk_mode": judge_crosswalk.get("mode"),
+        "judge_crosswalk_safe_to_submit": crosswalk_safe_to_submit,
+        "judge_crosswalk_rows": len(crosswalk_rows),
         "campaign_id": campaign["id"],
         "asset_id": asset["id"],
         "asset_provider": asset["provider"],

@@ -50,6 +50,19 @@ def public_artifact_path(filename: str) -> Path | None:
     return None
 
 
+def load_public_artifact(filename: str, expected_schema: str, label: str) -> dict[str, object]:
+    path = public_artifact_path(filename)
+    if path is None:
+        raise HTTPException(status_code=404, detail=f"{label} artifact not found")
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        raise HTTPException(status_code=503, detail=f"{label} artifact is invalid") from exc
+    if payload.get("schema") != expected_schema:
+        raise HTTPException(status_code=503, detail=f"{label} schema mismatch")
+    return payload
+
+
 def create_app(storage_root: Path | str | None = None, settings: Settings | None = None) -> FastAPI:
     settings = settings or Settings.from_env()
     if storage_root is not None:
@@ -116,16 +129,15 @@ def create_app(storage_root: Path | str | None = None, settings: Settings | None
 
     @app.get("/api/judge/brief")
     def judge_brief() -> dict[str, object]:
-        path = public_artifact_path("judge-brief.json")
-        if path is None:
-            raise HTTPException(status_code=404, detail="Judge brief artifact not found")
-        try:
-            payload = json.loads(path.read_text(encoding="utf-8"))
-        except json.JSONDecodeError as exc:
-            raise HTTPException(status_code=503, detail="Judge brief artifact is invalid") from exc
-        if payload.get("schema") != "proofframe.judge_brief.v1":
-            raise HTTPException(status_code=503, detail="Judge brief schema mismatch")
-        return payload
+        return load_public_artifact("judge-brief.json", "proofframe.judge_brief.v1", "Judge brief")
+
+    @app.get("/api/judge/crosswalk")
+    def judge_crosswalk() -> dict[str, object]:
+        return load_public_artifact(
+            "judge-crosswalk.json",
+            "proofframe.judge_crosswalk.v1",
+            "Judge crosswalk",
+        )
 
     @app.post("/api/campaigns", response_model=Campaign)
     def create_campaign(payload: CampaignCreate) -> Campaign:

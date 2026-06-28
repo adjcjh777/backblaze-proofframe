@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-28T05:38:23Z",
+  "updated_at": "2026-06-28T08:53:35Z",
   "tasks": [
     {
       "id": "T001",
@@ -775,6 +775,15 @@
       "status": "done",
       "done_criteria": "HF Space serves the Criteria crosswalk link, raw judge-crosswalk artifact is publicly readable and claim-safe, public Space sync verifier targets the new runtime sha, and public API smoke passes in local/mock mode.",
       "notes": "Uploaded HF Space commit 77006332d53103cd6890f3b3cda446c096892554; public sync verifies raw docs/assets/judge-crosswalk.json is proofframe.judge_crosswalk.v1, ok=true, safe_to_submit=false, and judge HTML contains Criteria crosswalk."
+    },
+    {
+      "id": "T049",
+      "title": "Add in-app criteria crosswalk panel",
+      "phase": "P3 Polish",
+      "owner": "codex",
+      "status": "done",
+      "done_criteria": "The public judge-mode UI exposes a Criteria Crosswalk panel powered by /api/judge/crosswalk, API smoke verifies the endpoint schema and safe_to_submit boundary, and HF Space serves the updated build with public sync and CI passing.",
+      "notes": "Added /api/judge/crosswalk, in-app Criteria Crosswalk panel, API smoke fields, tests, and uploaded HF Space commit 413c5fe90d97eb0a137a1fc4d5ca697e3b7cab14."
     }
   ]
 }

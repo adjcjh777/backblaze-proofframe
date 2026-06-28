@@ -1,9 +1,11 @@
 from io import BytesIO
 from zipfile import ZipFile
 
+import pytest
+from fastapi import HTTPException
 from fastapi.testclient import TestClient
 
-from proofframe.app import create_app, frontend_index_path, public_artifact_path
+from proofframe.app import create_app, frontend_index_path, load_public_artifact, public_artifact_path
 
 
 def test_frontend_index_path_can_use_explicit_web_root(tmp_path, monkeypatch):
@@ -24,6 +26,20 @@ def test_public_artifact_path_finds_judge_brief():
     assert path.name == "judge-brief.json"
 
 
+def test_public_artifact_loader_rejects_schema_mismatch(tmp_path, monkeypatch):
+    artifact = tmp_path / "docs" / "assets"
+    artifact.mkdir(parents=True)
+    path = artifact / "bad.json"
+    path.write_text('{"schema": "wrong"}', encoding="utf-8")
+    monkeypatch.chdir(tmp_path)
+
+    with pytest.raises(HTTPException) as exc_info:
+        load_public_artifact("bad.json", "proofframe.expected.v1", "Bad")
+
+    assert exc_info.value.status_code == 503
+    assert exc_info.value.detail == "Bad schema mismatch"
+
+
 def test_health_and_campaign_flow(tmp_path):
     client = TestClient(create_app(storage_root=tmp_path))
 
@@ -34,6 +50,8 @@ def test_health_and_campaign_flow(tmp_path):
     assert "Judge recording slate" in index_response.text
     assert "Sponsor Evidence Model" in index_response.text
     assert "30-Second Judge Brief" in index_response.text
+    assert "Criteria Crosswalk" in index_response.text
+    assert "crosswalkRows" in index_response.text
     assert "B2/Genblaze final proof gated" in index_response.text
     assert "Claim Boundary" in index_response.text
     assert "Submission readiness gate" in index_response.text
@@ -57,6 +75,14 @@ def test_health_and_campaign_flow(tmp_path):
     assert brief["schema"] == "proofframe.judge_brief.v1"
     assert brief["status"]["safe_to_submit"] is False
     assert "Genblaze" in " ".join(brief["not_yet_claimed"])
+
+    crosswalk_response = client.get("/api/judge/crosswalk")
+    assert crosswalk_response.status_code == 200
+    crosswalk = crosswalk_response.json()
+    assert crosswalk["schema"] == "proofframe.judge_crosswalk.v1"
+    assert crosswalk["safe_to_submit"] is False
+    row_ids = {row["id"] for row in crosswalk["rows"]}
+    assert {"real_world_utility", "production_readiness"} <= row_ids
 
     campaign_response = client.post(
         "/api/campaigns",

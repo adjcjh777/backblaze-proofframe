@@ -139,7 +139,7 @@ The browser UI and `GET /api/submission/gate` expose the same fail-closed final 
 `scripts/devpost_form_kit.py` turns the safe packet into field-by-field Devpost copy with length checks and a strict final gate.
 `scripts/devpost_submission_checklist.py` turns the final form kit into an ordered, no-secret Devpost web submission checklist with preflight gates, copy order, stop rules, and post-submit receipt commands.
 `scripts/judge_brief.py` condenses the current public demo, award posture, safe claims, and final blockers into a 30-second judge brief.
-`scripts/judge_crosswalk.py` maps official judging criteria and submission requirements to current evidence, safe claims, final gates, and demo shots.
+`scripts/judge_crosswalk.py` maps official judging criteria and submission requirements to current evidence, safe claims, final gates, and demo shots; the browser UI exposes the same map through `GET /api/judge/crosswalk`.
 `scripts/final_rehearsal.py` turns the final operator brief, launch plan, public sync, and gates into a no-secret final-submission rehearsal checklist.
 `scripts/devpost_event_snapshot.py` keeps official Devpost deadline, participants, submission requirements, and judging criteria as a refreshable evidence report.
 `scripts/agent_handoff_check.py` keeps AGENTS.md, Codex, and Agent Bus handoff paths aligned with the current repo so future role sessions do not follow stale project metadata.
