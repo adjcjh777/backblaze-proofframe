@@ -81,7 +81,7 @@ Stage 1 is complete enough for local demo iteration: FastAPI MVP skeleton, mock 
 
 Stage 2 is in progress: B2-compatible storage code and a Genblaze/GMICloud image provider path exist, but live B2 and Genblaze runs still need credentials/provider verification before final submission claims.
 
-Stage 3 preparation is active: the public mock demo is deployed, Review Console polish is captured, Devpost/evidence/claim-freeze docs are ready for the final sponsor-integration pass, API evidence exports fail closed if secret-like values appear, and the app now displays a fail-closed submission gate dashboard, judge recording slate, criteria crosswalk, recording runbook, and Devpost kit for final task/live-proof status.
+Stage 3 preparation is active: the public mock demo is deployed, Review Console polish is captured, Devpost/evidence/claim-freeze docs are ready for the final sponsor-integration pass, API evidence exports fail closed if secret-like values appear, and the app now displays a fail-closed submission gate dashboard, judge recording slate, criteria crosswalk, recording runbook, Devpost kit, and submit checklist for final task/live-proof status.
 
 ![ProofFrame local UI smoke](docs/assets/proofframe-local-ui-smoke.png)
 
@@ -137,7 +137,7 @@ The browser UI and `GET /api/submission/gate` expose the same fail-closed final 
 `scripts/final_env_wizard.py` creates a local git-ignored `.env.final.local` with 0600 permissions, can prefill non-secret B2/default values, reads existing local values as defaults, and uses hidden prompts for credential values.
 `scripts/run_b2_live_proof.py` verifies the Backblaze B2 storage path independently with mock generation, so T020 can close before Genblaze credentials are ready.
 `scripts/devpost_form_kit.py` turns the safe packet into field-by-field Devpost copy with length checks, a strict final gate, and an in-app Devpost Kit through `GET /api/judge/devpost`.
-`scripts/devpost_submission_checklist.py` turns the final form kit into an ordered, no-secret Devpost web submission checklist with preflight gates, copy order, stop rules, and post-submit receipt commands.
+`scripts/devpost_submission_checklist.py` turns the final form kit into an ordered, no-secret Devpost web submission checklist with preflight gates, copy order, stop rules, post-submit receipt commands, and an in-app Submit Checklist through `GET /api/judge/submission-checklist`.
 `scripts/judge_brief.py` condenses the current public demo, award posture, safe claims, and final blockers into a 30-second judge brief.
 `scripts/judge_crosswalk.py` maps official judging criteria and submission requirements to current evidence, safe claims, final gates, and demo shots; the browser UI exposes the same map through `GET /api/judge/crosswalk`.
 `scripts/final_rehearsal.py` turns the final operator brief, launch plan, public sync, and gates into a no-secret final-submission rehearsal checklist.

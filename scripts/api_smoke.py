@@ -137,6 +137,16 @@ def run_smoke(
     if not isinstance(devpost_final_ready, bool):
         raise SystemExit("Judge Devpost endpoint did not include a boolean final_form_ready flag.")
 
+    submission_checklist = request_json("GET", f"{base}/api/judge/submission-checklist")
+    if submission_checklist.get("schema") != "proofframe.devpost_submission_checklist.v1":
+        raise SystemExit("Judge submission checklist endpoint did not return the expected schema.")
+    checklist_preflight = submission_checklist.get("preflight")
+    if not isinstance(checklist_preflight, list) or len(checklist_preflight) < 3:
+        raise SystemExit("Judge submission checklist endpoint did not include the expected preflight rows.")
+    checklist_safe_to_submit = submission_checklist.get("safe_to_submit")
+    if not isinstance(checklist_safe_to_submit, bool):
+        raise SystemExit("Judge submission checklist endpoint did not include a boolean safe_to_submit flag.")
+
     campaign = request_json(
         "POST",
         f"{base}/api/campaigns",
@@ -196,6 +206,10 @@ def run_smoke(
         "judge_devpost_mode": judge_devpost.get("mode"),
         "judge_devpost_final_form_ready": devpost_final_ready,
         "judge_devpost_fields": len(devpost_fields),
+        "judge_submit_checklist_schema": submission_checklist["schema"],
+        "judge_submit_checklist_mode": submission_checklist.get("mode"),
+        "judge_submit_checklist_safe_to_submit": checklist_safe_to_submit,
+        "judge_submit_checklist_preflight": len(checklist_preflight),
         "campaign_id": campaign["id"],
         "asset_id": asset["id"],
         "asset_provider": asset["provider"],

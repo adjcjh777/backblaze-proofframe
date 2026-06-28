@@ -131,13 +131,31 @@ def fake_fetcher(url: str, timeout: int) -> dict:
             ),
             "error": None,
         }
+    if url.endswith("/docs/assets/devpost-submission-checklist.json"):
+        return {
+            "ok": True,
+            "status": 200,
+            "body": json.dumps(
+                {
+                    "schema": "proofframe.devpost_submission_checklist.v1",
+                    "mode": "pre_submit_blocked",
+                    "safe_to_submit": False,
+                    "preflight": [
+                        {"id": "final_form_ready", "ok": False},
+                        {"id": "packet_post_live_verified", "ok": False},
+                        {"id": "prerequisite_tasks_done", "ok": False},
+                    ],
+                }
+            ),
+            "error": None,
+        }
     if url.endswith("/?judge=1"):
         return {
             "ok": True,
             "status": 200,
             "body": (
                 "Judge recording slate Sponsor Evidence Model shouldAutoLoadJudgeDemo "
-                "30-Second Judge Brief Criteria crosswalk Recording Runbook Devpost Kit Final reports pending"
+                "30-Second Judge Brief Criteria crosswalk Recording Runbook Devpost Kit Submit Checklist Final reports pending"
             ),
             "error": None,
         }
@@ -276,6 +294,24 @@ def test_public_space_sync_fails_on_unsafe_judge_crosswalk():
     failed = {item["id"] for item in report["checks"] if not item["ok"]}
     assert report["ok"] is False
     assert "raw_judge_crosswalk" in failed
+
+
+def test_public_space_sync_fails_on_bad_submit_checklist_with_action():
+    def broken_fetcher(url: str, timeout: int) -> dict:
+        result = fake_fetcher(url, timeout)
+        if url.endswith("/docs/assets/devpost-submission-checklist.json"):
+            result = {**result, "body": json.dumps({"schema": "wrong"})}
+        return result
+
+    report = public_space_sync.build_report(expected_sha=EXPECTED_SHA, fetcher=broken_fetcher)
+
+    failed = {item["id"] for item in report["checks"] if not item["ok"]}
+    assert report["ok"] is False
+    assert "raw_submit_checklist" in failed
+    assert (
+        "Regenerate and upload docs/assets/devpost-submission-checklist.json to the Space."
+        in report["next_actions"]
+    )
 
 
 def test_public_space_sync_writes_reports(tmp_path):

@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-28T09:22:43Z",
+  "updated_at": "2026-06-28T09:34:51Z",
   "tasks": [
     {
       "id": "T001",
@@ -802,6 +802,15 @@
       "status": "done",
       "done_criteria": "The public judge-mode UI exposes a Devpost Kit panel powered by /api/judge/devpost, API smoke verifies the Devpost form kit schema and field count, public Space sync verifies the raw devpost-form-kit artifact plus HTML marker, and HF Space serves the updated build.",
       "notes": "Added /api/judge/devpost, in-app Devpost Kit panel, public sync raw form-kit check, API smoke fields, and tests."
+    },
+    {
+      "id": "T052",
+      "title": "Expose in-app submit checklist",
+      "phase": "P3 Polish",
+      "owner": "codex",
+      "status": "done",
+      "done_criteria": "The public judge-mode UI exposes a Submit Checklist panel powered by /api/judge/submission-checklist, API smoke verifies the checklist schema and preflight rows, public Space sync verifies the raw devpost-submission-checklist artifact plus HTML marker, and HF Space serves the updated build.",
+      "notes": "Added /api/judge/submission-checklist, in-app Submit Checklist panel, public sync raw checklist check, API smoke fields, and tests."
     }
   ]
 }

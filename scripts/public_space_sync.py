@@ -19,7 +19,7 @@ SCHEMA = "proofframe.public_space_sync.v1"
 
 SPACE_ID = "ADJCJH/backblaze-proofframe"
 SPACE_HOST = "https://adjcjh-backblaze-proofframe.hf.space"
-EXPECTED_SPACE_SHA = "bd6cbae7231e7e3c2b1531ad0459bec41189c4f8"
+EXPECTED_SPACE_SHA = "6609140ba9e1e12c851190d668cddf98e6f8d67c"
 TIMEOUT_SECONDS = 30
 
 HTML_MARKERS = {
@@ -29,6 +29,7 @@ HTML_MARKERS = {
     "criteria_crosswalk_link": "Criteria crosswalk",
     "recording_runbook_panel": "Recording Runbook",
     "devpost_kit_panel": "Devpost Kit",
+    "submit_checklist_panel": "Submit Checklist",
     "auto_load_judge_demo": "shouldAutoLoadJudgeDemo",
     "final_reports_pending": "Final reports pending",
 }
@@ -104,6 +105,7 @@ def build_report(
     judge_crosswalk_url = raw_file_url(space_id, "docs/assets/judge-crosswalk.json")
     recording_assets_url = raw_file_url(space_id, "docs/assets/recording-assets.json")
     devpost_form_kit_url = raw_file_url(space_id, "docs/assets/devpost-form-kit.json")
+    submit_checklist_url = raw_file_url(space_id, "docs/assets/devpost-submission-checklist.json")
     judge_url = public_url(public_host, "/?judge=1")
     health_url = public_url(public_host, "/api/health")
     gate_url = public_url(public_host, "/api/submission/gate")
@@ -116,6 +118,7 @@ def build_report(
     judge_crosswalk_result = fetcher(judge_crosswalk_url, TIMEOUT_SECONDS)
     recording_assets_result = fetcher(recording_assets_url, TIMEOUT_SECONDS)
     devpost_form_kit_result = fetcher(devpost_form_kit_url, TIMEOUT_SECONDS)
+    submit_checklist_result = fetcher(submit_checklist_url, TIMEOUT_SECONDS)
     judge_result = fetcher(judge_url, TIMEOUT_SECONDS)
     health_result = fetcher(health_url, TIMEOUT_SECONDS)
     gate_result = fetcher(gate_url, TIMEOUT_SECONDS)
@@ -128,6 +131,7 @@ def build_report(
     judge_crosswalk = parse_json(judge_crosswalk_result)
     recording_assets = parse_json(recording_assets_result)
     devpost_form_kit = parse_json(devpost_form_kit_result)
+    submit_checklist = parse_json(submit_checklist_result)
     health = parse_json(health_result)
     gate = parse_json(gate_result)
     html = str(judge_result.get("body") or "")
@@ -273,6 +277,25 @@ def build_report(
             devpost_form_kit_url,
         ),
         check_item(
+            "raw_submit_checklist",
+            "Raw Devpost submit checklist is public and fail-closed",
+            bool(
+                submit_checklist_result.get("ok")
+                and submit_checklist
+                and submit_checklist.get("schema") == "proofframe.devpost_submission_checklist.v1"
+                and submit_checklist.get("safe_to_submit") is False
+                and submit_checklist.get("mode") == "pre_submit_blocked"
+                and isinstance(submit_checklist.get("preflight"), list)
+                and len(submit_checklist.get("preflight", [])) >= 3
+            ),
+            (
+                f"Submit checklist schema is {submit_checklist.get('schema') if submit_checklist else None}; "
+                f"mode is {submit_checklist.get('mode') if submit_checklist else None}; "
+                f"safe_to_submit is {submit_checklist.get('safe_to_submit') if submit_checklist else None}."
+            ),
+            submit_checklist_url,
+        ),
+        check_item(
             "public_health",
             "Public demo health is local/mock and ready",
             bool(
@@ -382,6 +405,12 @@ def next_actions(checks: list[dict[str, Any]]) -> list[str]:
         actions.append("Regenerate and upload docs/assets/judge-brief.json to the Space.")
     if "raw_judge_crosswalk" in failed:
         actions.append("Regenerate and upload docs/assets/judge-crosswalk.json to the Space.")
+    if "raw_recording_assets" in failed:
+        actions.append("Regenerate and upload docs/assets/recording-assets.json to the Space.")
+    if "raw_devpost_form_kit" in failed:
+        actions.append("Regenerate and upload docs/assets/devpost-form-kit.json to the Space.")
+    if "raw_submit_checklist" in failed:
+        actions.append("Regenerate and upload docs/assets/devpost-submission-checklist.json to the Space.")
     if "public_health" in failed or "submission_gate" in failed or "judge_html_markers" in failed:
         actions.append("Rebuild the public Space and rerun public API/HTML smoke checks.")
     if not actions:

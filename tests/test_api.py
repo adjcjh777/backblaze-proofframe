@@ -56,6 +56,8 @@ def test_health_and_campaign_flow(tmp_path):
     assert "recordingRows" in index_response.text
     assert "Devpost Kit" in index_response.text
     assert "devpostRows" in index_response.text
+    assert "Submit Checklist" in index_response.text
+    assert "submitRows" in index_response.text
     assert "B2/Genblaze final proof gated" in index_response.text
     assert "Claim Boundary" in index_response.text
     assert "Submission readiness gate" in index_response.text
@@ -104,6 +106,15 @@ def test_health_and_campaign_flow(tmp_path):
     assert devpost["final_form_ready"] is False
     field_ids = {field["id"] for field in devpost["fields"]}
     assert {"project_name", "tagline", "video_url"} <= field_ids
+
+    checklist_response = client.get("/api/judge/submission-checklist")
+    assert checklist_response.status_code == 200
+    checklist = checklist_response.json()
+    assert checklist["schema"] == "proofframe.devpost_submission_checklist.v1"
+    assert checklist["mode"] == "pre_submit_blocked"
+    assert checklist["safe_to_submit"] is False
+    assert len(checklist["preflight"]) >= 3
+    assert checklist["field_gate"]["final_pending_fields"] == ["video_url"]
 
     campaign_response = client.post(
         "/api/campaigns",

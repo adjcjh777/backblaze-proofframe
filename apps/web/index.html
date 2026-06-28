@@ -620,6 +620,76 @@
         overflow-wrap: anywhere;
       }
 
+      .submit-checklist-strip {
+        border-top: 1px solid var(--ink);
+        display: grid;
+        gap: 12px;
+        grid-column: 1 / -1;
+        padding: 14px 16px 16px;
+      }
+
+      .submit-checklist-strip header {
+        align-items: baseline;
+        display: flex;
+        gap: 12px;
+        justify-content: space-between;
+      }
+
+      .submit-checklist-strip h2 {
+        font-family: var(--display);
+        font-size: 21px;
+        line-height: 1;
+        margin: 0;
+      }
+
+      .submit-checklist-strip header span {
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 11px;
+      }
+
+      .submit-grid {
+        border-top: 1px solid var(--rule);
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .submit-row {
+        border-right: 1px solid var(--rule);
+        min-height: 116px;
+        padding: 12px 12px 4px 0;
+      }
+
+      .submit-row:last-child {
+        border-right: 0;
+      }
+
+      .submit-row label {
+        color: var(--muted);
+        display: block;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+      }
+
+      .submit-row strong {
+        display: block;
+        font-size: 15px;
+        line-height: 1.22;
+        margin-bottom: 7px;
+      }
+
+      .submit-row span {
+        color: var(--muted);
+        display: block;
+        font-family: var(--mono);
+        font-size: 11px;
+        line-height: 1.42;
+        overflow-wrap: anywhere;
+      }
+
       .slate-item label {
         color: var(--muted);
         display: block;
@@ -963,6 +1033,10 @@
           grid-template-columns: 1fr;
         }
 
+        .submit-grid {
+          grid-template-columns: 1fr;
+        }
+
         .slate-item {
           border-right: 0;
           border-bottom: 1px solid var(--rule);
@@ -1015,6 +1089,16 @@
         }
 
         .devpost-row:last-child {
+          border-bottom: 0;
+        }
+
+        .submit-row {
+          border-right: 0;
+          border-bottom: 1px solid var(--rule);
+          padding-right: 0;
+        }
+
+        .submit-row:last-child {
           border-bottom: 0;
         }
 
@@ -1191,6 +1275,11 @@
                 rel="noreferrer"
               >Devpost kit</a>
               <a
+                href="https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/devpost-submission-checklist.md"
+                target="_blank"
+                rel="noreferrer"
+              >Submit checklist</a>
+              <a
                 href="https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/final-launch-plan.md"
                 target="_blank"
                 rel="noreferrer"
@@ -1238,6 +1327,19 @@
                 <label>Project Name</label>
                 <strong>ProofFrame</strong>
                 <span>Waiting for public-safe form kit.</span>
+              </div>
+            </div>
+          </div>
+          <div class="submit-checklist-strip" aria-label="Submit checklist">
+            <header>
+              <h2>Submit Checklist</h2>
+              <span id="submitStatus">Loading preflight</span>
+            </header>
+            <div class="submit-grid" id="submitRows">
+              <div class="submit-row">
+                <label>Preflight</label>
+                <strong>Final gate pending</strong>
+                <span>Waiting for public-safe submission checklist.</span>
               </div>
             </div>
           </div>
@@ -1387,6 +1489,7 @@
         judgeCrosswalk: null,
         judgeRecording: null,
         judgeDevpost: null,
+        judgeSubmitChecklist: null,
         health: null,
         packetStatus: "No packet exported",
         packetDetail: "Awaiting campaign manifest.",
@@ -1508,6 +1611,15 @@
           state.judgeDevpost = { error: error.message };
         }
         renderJudgeDevpost();
+      }
+
+      async function loadJudgeSubmitChecklist() {
+        try {
+          state.judgeSubmitChecklist = await api("/api/judge/submission-checklist");
+        } catch (error) {
+          state.judgeSubmitChecklist = { error: error.message };
+        }
+        renderJudgeSubmitChecklist();
       }
 
       async function loadCampaigns() {
@@ -1729,6 +1841,38 @@
               <label>Unavailable</label>
               <strong>Form kit pending</strong>
               <span>${escapeHtml(devpost.error || "Waiting for generated Devpost form kit.")}</span>
+            </div>
+          `;
+      }
+
+      function renderJudgeSubmitChecklist() {
+        const checklist = state.judgeSubmitChecklist || {};
+        const preflight = Array.isArray(checklist.preflight) ? checklist.preflight : [];
+        const stopRules = Array.isArray(checklist.stop_rules) ? checklist.stop_rules : [];
+        const safeToSubmit = Boolean(checklist.safe_to_submit);
+        el("submitStatus").textContent = checklist.error
+          ? "Checklist unavailable"
+          : safeToSubmit
+            ? "Ready to submit"
+            : humanizeStatus(checklist.mode || "pre_submit_blocked");
+        el("submitRows").innerHTML = preflight.length
+          ? preflight
+              .slice(0, 3)
+              .map(
+                (item) => `
+                <div class="submit-row">
+                  <label>${escapeHtml(item.ok ? "OK" : "Blocked")}</label>
+                  <strong>${escapeHtml(humanizeStatus(item.id || "preflight"))}</strong>
+                  <span>${escapeHtml(item.detail || item.evidence || "Preflight tracked.")}</span>
+                </div>
+              `,
+              )
+              .join("")
+          : `
+            <div class="submit-row">
+              <label>Stop Rule</label>
+              <strong>Submission gate pending</strong>
+              <span>${escapeHtml(checklist.error || stopRules[0] || "Waiting for generated Devpost submission checklist.")}</span>
             </div>
           `;
       }
@@ -1964,6 +2108,7 @@
           loadJudgeCrosswalk(),
           loadJudgeRecording(),
           loadJudgeDevpost(),
+          loadJudgeSubmitChecklist(),
         ]);
         renderInspector();
         if (shouldAutoLoadJudgeDemo()) {

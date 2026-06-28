@@ -155,6 +155,14 @@ def create_app(storage_root: Path | str | None = None, settings: Settings | None
             "Devpost form kit",
         )
 
+    @app.get("/api/judge/submission-checklist")
+    def judge_submission_checklist() -> dict[str, object]:
+        return load_public_artifact(
+            "devpost-submission-checklist.json",
+            "proofframe.devpost_submission_checklist.v1",
+            "Devpost submission checklist",
+        )
+
     @app.post("/api/campaigns", response_model=Campaign)
     def create_campaign(payload: CampaignCreate) -> Campaign:
         return repo.add_campaign(Campaign(**payload.model_dump()))
