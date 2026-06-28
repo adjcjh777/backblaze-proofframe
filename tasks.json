@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-28T17:07:30Z",
+  "updated_at": "2026-06-28T17:18:13Z",
   "tasks": [
     {
       "id": "T001",
@@ -919,6 +919,15 @@
       "status": "done",
       "done_criteria": "HF Space runs the latest public demo build containing the B2 key scope checklist, public_space_sync verifies the raw checklist schema/scope/no-secret policy, and public API smoke passes.",
       "notes": "Uploaded HF Space commit 2f1532df85103b7114cfba5a1267764ee8a00fd6; public_space_sync now verifies docs/assets/b2-key-scope-checklist.json plus bundle coverage, and public API smoke passes in local/mock mode."
+    },
+    {
+      "id": "T065",
+      "title": "Refresh public deployment evidence",
+      "phase": "P4 Submit",
+      "owner": "reviewer",
+      "status": "done",
+      "done_criteria": "Deployment runbook and evidence package point at the latest public HF Space runtime, include the B2 key scope checklist/post-credential/bundle public checks, and no longer expose stale public demo evidence.",
+      "notes": "Updated docs/deployment.md from stale d9a3ed Space evidence to runtime 2f1532df85103b7114cfba5a1267764ee8a00fd6, expanded docs/evidence_package.md public_space_sync coverage for B2 key checklist/post-credential plan/submission bundle, and revalidated claim_lint, secret_scan, public_space_sync, public API smoke, ruff, and pytest."
     }
   ]
 }
