@@ -19,13 +19,14 @@ SCHEMA = "proofframe.public_space_sync.v1"
 
 SPACE_ID = "ADJCJH/backblaze-proofframe"
 SPACE_HOST = "https://adjcjh-backblaze-proofframe.hf.space"
-EXPECTED_SPACE_SHA = "cbb686640283a157a6ab93a68ff5b0b5d7848977"
+EXPECTED_SPACE_SHA = "77006332d53103cd6890f3b3cda446c096892554"
 TIMEOUT_SECONDS = 30
 
 HTML_MARKERS = {
     "judge_recording_slate": "Judge recording slate",
     "sponsor_evidence_model": "Sponsor Evidence Model",
     "judge_brief_panel": "30-Second Judge Brief",
+    "criteria_crosswalk_link": "Criteria crosswalk",
     "auto_load_judge_demo": "shouldAutoLoadJudgeDemo",
     "final_reports_pending": "Final reports pending",
 }
@@ -98,6 +99,7 @@ def build_report(
     handoff_url = raw_file_url(space_id, "docs/assets/agent-handoff-report.json")
     launch_plan_url = raw_file_url(space_id, "docs/assets/final-launch-plan.json")
     judge_brief_url = raw_file_url(space_id, "docs/assets/judge-brief.json")
+    judge_crosswalk_url = raw_file_url(space_id, "docs/assets/judge-crosswalk.json")
     judge_url = public_url(public_host, "/?judge=1")
     health_url = public_url(public_host, "/api/health")
     gate_url = public_url(public_host, "/api/submission/gate")
@@ -107,6 +109,7 @@ def build_report(
     handoff_result = fetcher(handoff_url, TIMEOUT_SECONDS)
     launch_plan_result = fetcher(launch_plan_url, TIMEOUT_SECONDS)
     judge_brief_result = fetcher(judge_brief_url, TIMEOUT_SECONDS)
+    judge_crosswalk_result = fetcher(judge_crosswalk_url, TIMEOUT_SECONDS)
     judge_result = fetcher(judge_url, TIMEOUT_SECONDS)
     health_result = fetcher(health_url, TIMEOUT_SECONDS)
     gate_result = fetcher(gate_url, TIMEOUT_SECONDS)
@@ -116,6 +119,7 @@ def build_report(
     handoff = parse_json(handoff_result)
     launch_plan = parse_json(launch_plan_result)
     judge_brief = parse_json(judge_brief_result)
+    judge_crosswalk = parse_json(judge_crosswalk_result)
     health = parse_json(health_result)
     gate = parse_json(gate_result)
     html = str(judge_result.get("body") or "")
@@ -205,6 +209,24 @@ def build_report(
             judge_brief_url,
         ),
         check_item(
+            "raw_judge_crosswalk",
+            "Raw judge crosswalk is public and claim-safe",
+            bool(
+                judge_crosswalk_result.get("ok")
+                and judge_crosswalk
+                and judge_crosswalk.get("schema") == "proofframe.judge_crosswalk.v1"
+                and judge_crosswalk.get("ok") is True
+                and judge_crosswalk.get("safe_to_submit") is False
+                and judge_crosswalk.get("mode") in {"pre_live_crosswalk_ready", "final_crosswalk_ready"}
+            ),
+            (
+                f"Judge crosswalk schema is {judge_crosswalk.get('schema') if judge_crosswalk else None}; "
+                f"mode is {judge_crosswalk.get('mode') if judge_crosswalk else None}; "
+                f"safe_to_submit is {judge_crosswalk.get('safe_to_submit') if judge_crosswalk else None}."
+            ),
+            judge_crosswalk_url,
+        ),
+        check_item(
             "public_health",
             "Public demo health is local/mock and ready",
             bool(
@@ -278,6 +300,11 @@ def build_report(
             "judge_brief_safe_to_submit": (
                 judge_brief.get("status", {}).get("safe_to_submit") if judge_brief else None
             ),
+            "judge_crosswalk_schema": judge_crosswalk.get("schema") if judge_crosswalk else None,
+            "judge_crosswalk_mode": judge_crosswalk.get("mode") if judge_crosswalk else None,
+            "judge_crosswalk_safe_to_submit": (
+                judge_crosswalk.get("safe_to_submit") if judge_crosswalk else None
+            ),
             "html_markers": html_markers,
         },
         "urls": {
@@ -286,6 +313,7 @@ def build_report(
             "raw_handoff_report": handoff_url,
             "raw_launch_plan": launch_plan_url,
             "raw_judge_brief": judge_brief_url,
+            "raw_judge_crosswalk": judge_crosswalk_url,
             "judge": judge_url,
             "health": health_url,
             "submission_gate": gate_url,
@@ -306,6 +334,8 @@ def next_actions(checks: list[dict[str, Any]]) -> list[str]:
         actions.append("Regenerate and upload docs/assets/final-launch-plan.json to the Space.")
     if "raw_judge_brief" in failed:
         actions.append("Regenerate and upload docs/assets/judge-brief.json to the Space.")
+    if "raw_judge_crosswalk" in failed:
+        actions.append("Regenerate and upload docs/assets/judge-crosswalk.json to the Space.")
     if "public_health" in failed or "submission_gate" in failed or "judge_html_markers" in failed:
         actions.append("Rebuild the public Space and rerun public API/HTML smoke checks.")
     if not actions:

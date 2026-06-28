@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.final_submission_control.v1",
-  "created_at": "2026-06-28T05:22:15Z",
+  "created_at": "2026-06-28T05:40:57Z",
   "mode": "pre_live_control",
   "safe_to_submit": false,
   "event": {
@@ -143,8 +143,8 @@
       "current_phase": null,
       "next_command": null,
       "next_detail": null,
-      "bus_status": "stale",
-      "active_role_cwd_ok": true
+      "bus_status": "skipped",
+      "active_role_cwd_ok": null
     },
     "public_space_sync": {
       "present": true,
@@ -422,7 +422,7 @@
       "id": "agent_handoff",
       "label": "Agent handoff metadata points at the current repo",
       "ok": true,
-      "detail": "Agent handoff mode is handoff_ready; ok is True; bus status is stale; active role cwd ok is True.",
+      "detail": "Agent handoff mode is handoff_ready; ok is True; bus status is skipped; active role cwd ok is None.",
       "evidence": "docs/assets/agent-handoff-report.json"
     },
     {
@@ -596,14 +596,7 @@
       "evidence": "tasks.json and docs/assets/devpost-submission-receipt.json"
     }
   ],
-  "warnings": [
-    {
-      "id": "agent_handoff_bus_stale",
-      "level": "warning",
-      "detail": "Agent Bus durable team project metadata is stale; AGENTS.md and active role cwd remain the repo authority.",
-      "evidence": "docs/assets/agent-handoff-report.json"
-    }
-  ],
+  "warnings": [],
   "next_actions": [
     "Complete .env.final.local with B2_KEY_ID, B2_APPLICATION_KEY, and Genblaze/GMI API key values.",
     "Run the B2 live proof runner and save sanitized B2 evidence.",

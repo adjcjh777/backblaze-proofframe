@@ -2,7 +2,7 @@
 
 Mode: `pre_live_control`
 Safe to submit: `false`
-Created: `2026-06-28T05:22:15Z`
+Created: `2026-06-28T05:40:57Z`
 Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 Repository: https://github.com/adjcjh777/backblaze-proofframe
 
@@ -33,7 +33,7 @@ Repository: https://github.com/adjcjh777/backblaze-proofframe
 
 ## Warnings
 
-- `agent_handoff_bus_stale`: Agent Bus durable team project metadata is stale; AGENTS.md and active role cwd remain the repo authority. Evidence: `docs/assets/agent-handoff-report.json`
+- None.
 
 ## Requirements
 
@@ -43,7 +43,7 @@ Repository: https://github.com/adjcjh777/backblaze-proofframe
 | OK | Credential-free public demo is ready | Devpost form kit mode is pre_live_form_ready. | `docs/assets/devpost-form-kit.json` |
 | PENDING | Final Devpost web submission checklist is ready | Devpost submission checklist mode is pre_submit_blocked; safe_to_submit is False. | `docs/assets/devpost-submission-checklist.json` |
 | OK | Official Devpost event snapshot is fresh | Snapshot checked at 2026-06-27T18:45:48Z; submission open is True; age days is 0. | `docs/assets/devpost-event-snapshot.json` |
-| OK | Agent handoff metadata points at the current repo | Agent handoff mode is handoff_ready; ok is True; bus status is stale; active role cwd ok is True. | `docs/assets/agent-handoff-report.json` |
+| OK | Agent handoff metadata points at the current repo | Agent handoff mode is handoff_ready; ok is True; bus status is skipped; active role cwd ok is None. | `docs/assets/agent-handoff-report.json` |
 | OK | Public Space is synced to the current judge-facing demo | Public Space sync mode is public_space_synced; ok is True. | `docs/assets/public-space-sync-report.json` |
 | OK | Final launch plan exposes the current operator step | Launch plan mode is ready_for_credential_entry; current phase is credential_entry; next command is python scripts/final_env_wizard.py --output .env.final.local --force. | `docs/assets/final-launch-plan.json` |
 | OK | Recording assets are ready | Recording assets mode is public_mock_verified; public mock verified is True. | `docs/assets/recording-assets.json` |

@@ -83,13 +83,27 @@ def fake_fetcher(url: str, timeout: int) -> dict:
             ),
             "error": None,
         }
+    if url.endswith("/docs/assets/judge-crosswalk.json"):
+        return {
+            "ok": True,
+            "status": 200,
+            "body": json.dumps(
+                {
+                    "schema": "proofframe.judge_crosswalk.v1",
+                    "ok": True,
+                    "mode": "pre_live_crosswalk_ready",
+                    "safe_to_submit": False,
+                }
+            ),
+            "error": None,
+        }
     if url.endswith("/?judge=1"):
         return {
             "ok": True,
             "status": 200,
             "body": (
                 "Judge recording slate Sponsor Evidence Model shouldAutoLoadJudgeDemo "
-                "30-Second Judge Brief Final reports pending"
+                "30-Second Judge Brief Criteria crosswalk Final reports pending"
             ),
             "error": None,
         }
@@ -139,6 +153,9 @@ def test_public_space_sync_report_passes_when_space_is_current():
     assert report["observed"]["launch_plan_phase"] == "credential_entry"
     assert report["observed"]["judge_brief_schema"] == "proofframe.judge_brief.v1"
     assert report["observed"]["judge_brief_safe_to_submit"] is False
+    assert report["observed"]["judge_crosswalk_schema"] == "proofframe.judge_crosswalk.v1"
+    assert report["observed"]["judge_crosswalk_mode"] == "pre_live_crosswalk_ready"
+    assert report["observed"]["judge_crosswalk_safe_to_submit"] is False
     assert all(item["ok"] for item in report["checks"])
 
 
@@ -201,6 +218,30 @@ def test_public_space_sync_fails_on_unsafe_judge_brief():
     failed = {item["id"] for item in report["checks"] if not item["ok"]}
     assert report["ok"] is False
     assert "raw_judge_brief" in failed
+
+
+def test_public_space_sync_fails_on_unsafe_judge_crosswalk():
+    def broken_fetcher(url: str, timeout: int) -> dict:
+        result = fake_fetcher(url, timeout)
+        if url.endswith("/docs/assets/judge-crosswalk.json"):
+            result = {
+                **result,
+                "body": json.dumps(
+                    {
+                        "schema": "proofframe.judge_crosswalk.v1",
+                        "ok": True,
+                        "mode": "final_crosswalk_ready",
+                        "safe_to_submit": True,
+                    }
+                ),
+            }
+        return result
+
+    report = public_space_sync.build_report(expected_sha=EXPECTED_SHA, fetcher=broken_fetcher)
+
+    failed = {item["id"] for item in report["checks"] if not item["ok"]}
+    assert report["ok"] is False
+    assert "raw_judge_crosswalk" in failed
 
 
 def test_public_space_sync_writes_reports(tmp_path):

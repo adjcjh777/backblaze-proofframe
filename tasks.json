@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-28T05:19:00Z",
+  "updated_at": "2026-06-28T05:38:23Z",
   "tasks": [
     {
       "id": "T001",
@@ -766,6 +766,15 @@
       "status": "done",
       "done_criteria": "A schema-stamped judge crosswalk maps official criteria and submission requirements to current evidence, safe claims, final gates, and demo shots; it is integrated into CI, submission bundle, submission audit, and docs.",
       "notes": "Added scripts/judge_crosswalk.py plus docs/assets/judge-crosswalk.* with fail-closed source schema checks and pre-live claim boundaries."
+    },
+    {
+      "id": "T048",
+      "title": "Sync public Space with judge crosswalk",
+      "phase": "P4 Submit",
+      "owner": "codex",
+      "status": "done",
+      "done_criteria": "HF Space serves the Criteria crosswalk link, raw judge-crosswalk artifact is publicly readable and claim-safe, public Space sync verifier targets the new runtime sha, and public API smoke passes in local/mock mode.",
+      "notes": "Uploaded HF Space commit 77006332d53103cd6890f3b3cda446c096892554; public sync verifies raw docs/assets/judge-crosswalk.json is proofframe.judge_crosswalk.v1, ok=true, safe_to_submit=false, and judge HTML contains Criteria crosswalk."
     }
   ]
 }
