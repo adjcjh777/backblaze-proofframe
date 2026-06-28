@@ -124,6 +124,7 @@ def build_user_actions(b2_setup: dict[str, Any], handoff: dict[str, Any]) -> lis
 
 def build_codex_actions() -> list[str]:
     return [
+        "python scripts/post_credential_live_proof.py --env-file .env.final.local --execute --update-tasks",
         "python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out docs/assets/b2-live-proof-evidence.json",
         "python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json",
         "python scripts/demo_storyboard.py --strict-final",

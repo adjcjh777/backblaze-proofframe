@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-28T10:51:02Z",
+  "updated_at": "2026-06-28T11:09:26Z",
   "tasks": [
     {
       "id": "T001",
@@ -856,6 +856,15 @@
       "status": "done",
       "done_criteria": "final_env_wizard supports --missing-only, preserves existing .env.final.local field values and extra local-only variables, prompts only for missing required live-proof values, mirrors Genblaze/GMI aliases, never prints credential values, and regenerated handoff/launch/rehearsal/final-control reports point at the missing-only command.",
       "notes": "Added final_env_wizard --missing-only so the operator only fills missing B2 key id/application key and Genblaze/GMI key while preserving existing .env.final.local values and extra local-only variables; regenerated final handoff, launch, rehearsal, judge, and control reports."
+    },
+    {
+      "id": "T058",
+      "title": "Add post-credential live proof runner",
+      "phase": "P4 Submit",
+      "owner": "codex",
+      "status": "done",
+      "done_criteria": "post_credential_live_proof can emit a no-secret plan by default, requires --execute to run live proof commands, stops on first failure, can mark T020/T021 only after successful proof commands when --update-tasks is explicit, regenerates downstream final reports, and is covered by tests and submission bundle artifacts.",
+      "notes": "Added scripts/post_credential_live_proof.py to plan or execute the credential-ready B2 proof, final Genblaze proof, task updates, and report regeneration sequence without storing secrets."
     }
   ]
 }

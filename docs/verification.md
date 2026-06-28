@@ -82,17 +82,16 @@ The final sponsor proof has a preflight wrapper:
 python scripts/final_env_wizard.py --prefill-non-secret --output .env.final.local
 python scripts/final_env_wizard.py --output .env.final.local --missing-only --force
 python scripts/live_env_handoff.py --env-file .env.final.local
+python scripts/post_credential_live_proof.py
 python scripts/live_proof.py --preflight-only
 python scripts/run_final_live_proof.py --env-file .env.final.local --preflight-only
 ```
 
-When B2 and Genblaze env/packages are complete, use the one-command runner:
+When B2 and Genblaze env/packages are complete, use the post-credential runner:
 
 ```bash
 . .venv/bin/activate
-python scripts/run_final_live_proof.py \
-  --env-file .env.final.local \
-  --evidence-out docs/assets/final-live-proof-evidence.json
+python scripts/post_credential_live_proof.py --env-file .env.final.local --execute --update-tasks
 ```
 
 The runner starts a local ProofFrame server with inherited environment variables, waits until `/api/health` reports `storage_backend=b2` and `generation_backend=genblaze`, runs the safe API smoke proof, writes sanitized evidence, and then stops the server. Server logs go to `var/live-proof/uvicorn.log`, which is ignored by git.
@@ -238,12 +237,10 @@ python scripts/claim_lint.py
 python scripts/final_env_wizard.py --prefill-non-secret --output .env.final.local
 python scripts/final_env_wizard.py --output .env.final.local --missing-only --force
 python scripts/live_env_handoff.py --env-file .env.final.local
+python scripts/post_credential_live_proof.py --env-file .env.final.local --execute --update-tasks
 python scripts/agent_handoff_check.py --check-bus
 python scripts/public_space_sync.py
 python scripts/devpost_event_snapshot.py --fetch-live
-python scripts/run_final_live_proof.py \
-  --env-file .env.final.local \
-  --evidence-out docs/assets/final-live-proof-evidence.json
 export PROOFFRAME_PUBLIC_VIDEO_URL="https://..."
 python scripts/demo_storyboard.py --strict-final
 python scripts/public_video_check.py --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL" --verify-url --strict-final
