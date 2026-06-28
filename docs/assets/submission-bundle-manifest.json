@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.submission_bundle.v1",
-  "created_at": "2026-06-28T15:48:27Z",
+  "created_at": "2026-06-28T16:00:25Z",
   "project": "ProofFrame",
   "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
@@ -157,7 +157,7 @@
       "label": "Public demo deployment runbook",
       "present": true,
       "bytes": 5578,
-      "sha256": "93f1859ccb818a9482d402a867f7bed6a84e16877757f1cda4dd40731b26dff6"
+      "sha256": "433ecf6cb415c5e262b1c26e103576581b7524f36f14dfdc1cd936deef35238c"
     },
     {
       "id": "devpost_draft",
@@ -197,7 +197,7 @@
       "label": "Machine-readable Devpost event snapshot",
       "present": true,
       "bytes": 2492,
-      "sha256": "4fd4fd23e1acaa3ec285336334862180a92f83bc76e882a9cc31f05df25d54df"
+      "sha256": "e32578357744f809e0ac09aebb3aaad901367b4659f3abe7e06cde995ea705f8"
     },
     {
       "id": "devpost_event_snapshot_md",
@@ -205,7 +205,7 @@
       "label": "Human-readable Devpost event snapshot",
       "present": true,
       "bytes": 1443,
-      "sha256": "94b6670cc3024d2c49e7c7c3c3ca5bbc6a981fb181ffc95929cb392d1bd0901a"
+      "sha256": "1f34e78c080d3ed7af1d752d1e9f488bb0dea48d89a662e46fc9e1bee15f7f81"
     },
     {
       "id": "agent_handoff_script",
@@ -237,7 +237,7 @@
       "label": "Public Hugging Face Space sync verifier",
       "present": true,
       "bytes": 25659,
-      "sha256": "f456adf5049dc7778a15f8dd9475afd8fa1fc890e4d35719352522e8131d3e06"
+      "sha256": "1db03c893fde8f91d106da34197699d773c1b99a23ee0706e338b84079a638a2"
     },
     {
       "id": "public_space_sync_json",
@@ -245,7 +245,7 @@
       "label": "Machine-readable public Space sync report",
       "present": true,
       "bytes": 8366,
-      "sha256": "30e04dcec26260bd748abc12376a4e6dadce20e73b7ec944ce082359446c0d85"
+      "sha256": "c93081ab6be95291f1d2c39ca705f4e18d86d1b153d6fa453c99d61536a3c9e6"
     },
     {
       "id": "public_space_sync_md",
@@ -253,7 +253,7 @@
       "label": "Human-readable public Space sync report",
       "present": true,
       "bytes": 4097,
-      "sha256": "266ecd71a3746d1ff060e641e4e16bab3b6548cafa36ce852ad4e7fc7ed6872b"
+      "sha256": "17afcf38c076ee62b729ccb03f447a367e5d392e818ed2ea262ccebe4d44244c"
     },
     {
       "id": "devpost_form_kit_script",
@@ -317,7 +317,7 @@
       "label": "Machine-readable judge brief",
       "present": true,
       "bytes": 3734,
-      "sha256": "b51aeb1111dce1295f9c7017e18c1a30bef74d83d01fa104287b10dadc9e4bfe"
+      "sha256": "13356203d49ccfcd938bd19a2f3aceb04e0fb71d6aac5aaf13375f6ffbc5fe6f"
     },
     {
       "id": "judge_brief_md",
@@ -325,7 +325,7 @@
       "label": "Human-readable judge brief",
       "present": true,
       "bytes": 3000,
-      "sha256": "2b82d4c7e3ca0cb108e4e25f9e752fc9bc0f575543b6211228070a60caa9283b"
+      "sha256": "bebc22f9e9b4829a763ce78024f775cc6dfb56d406bd84f4af6b2b6880bd7338"
     },
     {
       "id": "judge_crosswalk_script",
@@ -341,7 +341,7 @@
       "label": "Machine-readable judge crosswalk",
       "present": true,
       "bytes": 10219,
-      "sha256": "f306cb945008960326655a07f169bb5c5df7fa42b197aff3279ffec583b3f9da"
+      "sha256": "9da792c8bb17a9f68901965caf164d8f3b0c3ae16d6dfa983e8ae2d0b21f3364"
     },
     {
       "id": "judge_crosswalk_md",
@@ -349,7 +349,7 @@
       "label": "Human-readable judge crosswalk",
       "present": true,
       "bytes": 6157,
-      "sha256": "6da6175262bd3cc82172fc1c6cb343669a86860f480f00c0b4f380eed9c8593e"
+      "sha256": "62c8e0313842cd8984e40d9de5a5d6f2b4b8c8a5eb913d00a8095246b6161463"
     },
     {
       "id": "frontend_ui",
@@ -517,7 +517,7 @@
       "label": "Machine-readable final control report",
       "present": true,
       "bytes": 23824,
-      "sha256": "5ffe570661b09dc1fcc1db8f4d50e20d08344903381ff17925d0afb350ccc8ae"
+      "sha256": "53e94e6f9cc876c8b7a912dca77667f1f49b356e2e1b88393d36c7ce03cfa0c6"
     },
     {
       "id": "final_submission_control_md",
@@ -525,7 +525,7 @@
       "label": "Human-readable final control report",
       "present": true,
       "bytes": 6633,
-      "sha256": "363ad49d07bde676aa9f3a70b06a78785765e61840fc389eb2fbd5da7f262a84"
+      "sha256": "a3c20f105e4d0844ecd272a0164dcc4c978e8edc3fe27eacf0a39821179126b1"
     },
     {
       "id": "final_operator_brief_script",
@@ -589,7 +589,7 @@
       "label": "Machine-readable final rehearsal checklist",
       "present": true,
       "bytes": 16384,
-      "sha256": "df6e6df4e21d9e05f93124333bcdd717e237dae18e1f5f70dd66f09d8fc581eb"
+      "sha256": "21e80b544b9895a712fc26b93806525818b35293bcb0319ea22a25a8f0a39dfe"
     },
     {
       "id": "final_rehearsal_md",
@@ -597,7 +597,7 @@
       "label": "Human-readable final rehearsal checklist",
       "present": true,
       "bytes": 6746,
-      "sha256": "527361b9c39d1f88a54481efde6a6871f6fd8fb8fab759e351fdb458fe11e3d2"
+      "sha256": "874c0798d072c2580b9e5173dee1e79d0634c543f31171f1fa11140d018d689f"
     },
     {
       "id": "submission_audit_script",
@@ -613,7 +613,7 @@
       "label": "Machine-readable submission audit report",
       "present": true,
       "bytes": 5925,
-      "sha256": "0f9b0ba13117cdfb20192ca79149e8761087fe9fa2173cc0c31706d3c85644b7"
+      "sha256": "2b11122a09d96f35b34993982d5dd85f6c3e3210de6f4f3a53a12433287fd6a4"
     },
     {
       "id": "submission_audit_md",
@@ -621,7 +621,7 @@
       "label": "Human-readable submission audit report",
       "present": true,
       "bytes": 4459,
-      "sha256": "aff22415a3b894e9c1b44a170ff07a7189b52cea84139b0d57e29e22db2626cf"
+      "sha256": "267f32ebf43b1ef4dd75c256f4d95b10835850691bb48f58eccce0979965af85"
     },
     {
       "id": "devpost_receipt_script",
@@ -653,7 +653,7 @@
       "label": "Evidence package plan",
       "present": true,
       "bytes": 18482,
-      "sha256": "d5d166c099b3aa846e9bb1ecc059095eb6a563e85005eb0681bbcef38d952b62"
+      "sha256": "fd9e20de0cc88057e581ff901099d74bcb83a36028051ce3213999da1ae9dfbd"
     },
     {
       "id": "public_claim_freeze",
@@ -693,7 +693,7 @@
       "label": "Machine-readable secret scan report",
       "present": true,
       "bytes": 9904,
-      "sha256": "13fc5e656e9d21e6825324bd238eb0e7f38def20af4c1fa7cb5b3ba905e3ffec"
+      "sha256": "aa52564f743528f7d7841ef4f7c0cedab6ffb1668da3cc9ba12921b5920e85e9"
     },
     {
       "id": "secret_scan_md",
@@ -701,7 +701,7 @@
       "label": "Human-readable secret scan report",
       "present": true,
       "bytes": 846,
-      "sha256": "9f935b30197c5947aa04eaa4bc57f28fea2b9bc048a3ac62a624f294053b6e50"
+      "sha256": "64eaa384d43c60b1f070028e1b0d4e1a076004af80f85b0df36cae7c8b058df3"
     },
     {
       "id": "b2_live_setup_json",
@@ -860,8 +860,8 @@
       "path": "tasks.json",
       "label": "Machine-readable task board",
       "present": true,
-      "bytes": 48399,
-      "sha256": "c33182e600b0e8586e0d62231a1270b08c6fd7a9539e54734f5edcf0528edde3"
+      "bytes": 48988,
+      "sha256": "4a5443b59eb1029e92af2d9539e823f54970dd97b4ecb7444e8461a5af8a0072"
     },
     {
       "id": "local_ui_smoke",

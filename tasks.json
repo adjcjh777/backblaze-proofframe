@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-28T15:48:12Z",
+  "updated_at": "2026-06-28T15:59:07Z",
   "tasks": [
     {
       "id": "T001",
@@ -874,6 +874,15 @@
       "status": "done",
       "done_criteria": "Post-credential live proof validates B2 and final evidence before task updates, final operator brief avoids duplicate live proof commands, submission bundle CLI ok tracks safe_to_submit instead of shareability, and reviewer-driven tests cover the fail-closed behavior.",
       "notes": "Addressed independent reviewer findings from Faraday: added evidence validators before T020/T021 updates, removed duplicate runner commands, and made submission_bundle fail closed for final submit readiness."
+    },
+    {
+      "id": "T060",
+      "title": "Sync public Space after gate hardening",
+      "phase": "P4 Submit",
+      "owner": "tester",
+      "status": "done",
+      "done_criteria": "HF Space main is pushed to the latest post-credential gate hardening build, runtime is RUNNING on the expected sha, public API smoke passes, public_space_sync passes, and docs cite the new public Space sha.",
+      "notes": "Pushed HF Space commit f54fafafe78a5e2544c2dd0c905dca2778b25ef1, verified public_space_sync and public API smoke in local/mock mode, and kept final submission fail-closed."
     }
   ]
 }
