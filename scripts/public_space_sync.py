@@ -21,6 +21,7 @@ SPACE_ID = "ADJCJH/backblaze-proofframe"
 SPACE_HOST = "https://adjcjh-backblaze-proofframe.hf.space"
 EXPECTED_SPACE_SHA = "52b556cc5935a2988ebb1c7ba30a5069f9eb887f"
 TIMEOUT_SECONDS = 30
+DRAFT_VIDEO_MIN_BYTES = 100_000
 
 HTML_MARKERS = {
     "judge_recording_slate": "Judge recording slate",
@@ -46,15 +47,31 @@ def fetch_text(url: str, timeout: int = TIMEOUT_SECONDS) -> FetchResult:
     request = Request(url, headers={"User-Agent": "ProofFrame public Space sync verifier"})
     try:
         with urlopen(request, timeout=timeout) as response:
-            body = response.read().decode("utf-8", errors="replace")
-            return {"ok": True, "status": response.status, "body": body, "error": None}
+            raw_body = response.read()
+            body = raw_body.decode("utf-8", errors="replace")
+            return {
+                "ok": True,
+                "status": response.status,
+                "body": body,
+                "bytes": len(raw_body),
+                "content_type": response.headers.get("content-type"),
+                "error": None,
+            }
     except HTTPError as error:
-        body = error.read().decode("utf-8", errors="replace")
-        return {"ok": False, "status": error.code, "body": body, "error": str(error)}
+        raw_body = error.read()
+        body = raw_body.decode("utf-8", errors="replace")
+        return {
+            "ok": False,
+            "status": error.code,
+            "body": body,
+            "bytes": len(raw_body),
+            "content_type": error.headers.get("content-type") if error.headers else None,
+            "error": str(error),
+        }
     except URLError as error:
-        return {"ok": False, "status": None, "body": "", "error": str(error.reason)}
+        return {"ok": False, "status": None, "body": "", "bytes": 0, "content_type": None, "error": str(error.reason)}
     except TimeoutError as error:
-        return {"ok": False, "status": None, "body": "", "error": str(error)}
+        return {"ok": False, "status": None, "body": "", "bytes": 0, "content_type": None, "error": str(error)}
 
 
 def parse_json(result: FetchResult) -> dict[str, Any] | None:
@@ -74,6 +91,10 @@ def runtime_api_url(space_id: str) -> str:
 
 def raw_file_url(space_id: str, relative_path: str) -> str:
     return f"https://huggingface.co/spaces/{space_id}/raw/main/{relative_path}"
+
+
+def resolve_file_url(space_id: str, relative_path: str) -> str:
+    return f"https://huggingface.co/spaces/{space_id}/resolve/main/{relative_path}"
 
 
 def public_url(host: str, path: str) -> str:
@@ -104,6 +125,8 @@ def build_report(
     judge_brief_url = raw_file_url(space_id, "docs/assets/judge-brief.json")
     judge_crosswalk_url = raw_file_url(space_id, "docs/assets/judge-crosswalk.json")
     recording_assets_url = raw_file_url(space_id, "docs/assets/recording-assets.json")
+    demo_video_draft_url = raw_file_url(space_id, "docs/assets/demo-video-draft.json")
+    demo_video_draft_mp4_url = resolve_file_url(space_id, "docs/assets/proofframe-demo-draft.mp4")
     devpost_form_kit_url = raw_file_url(space_id, "docs/assets/devpost-form-kit.json")
     submit_checklist_url = raw_file_url(space_id, "docs/assets/devpost-submission-checklist.json")
     judge_url = public_url(public_host, "/?judge=1")
@@ -117,6 +140,8 @@ def build_report(
     judge_brief_result = fetcher(judge_brief_url, TIMEOUT_SECONDS)
     judge_crosswalk_result = fetcher(judge_crosswalk_url, TIMEOUT_SECONDS)
     recording_assets_result = fetcher(recording_assets_url, TIMEOUT_SECONDS)
+    demo_video_draft_result = fetcher(demo_video_draft_url, TIMEOUT_SECONDS)
+    demo_video_draft_mp4_result = fetcher(demo_video_draft_mp4_url, TIMEOUT_SECONDS)
     devpost_form_kit_result = fetcher(devpost_form_kit_url, TIMEOUT_SECONDS)
     submit_checklist_result = fetcher(submit_checklist_url, TIMEOUT_SECONDS)
     judge_result = fetcher(judge_url, TIMEOUT_SECONDS)
@@ -130,6 +155,7 @@ def build_report(
     judge_brief = parse_json(judge_brief_result)
     judge_crosswalk = parse_json(judge_crosswalk_result)
     recording_assets = parse_json(recording_assets_result)
+    demo_video_draft = parse_json(demo_video_draft_result)
     devpost_form_kit = parse_json(devpost_form_kit_result)
     submit_checklist = parse_json(submit_checklist_result)
     health = parse_json(health_result)
@@ -258,6 +284,42 @@ def build_report(
             recording_assets_url,
         ),
         check_item(
+            "raw_demo_video_draft",
+            "Raw mock demo video draft report is public and fail-closed",
+            bool(
+                demo_video_draft_result.get("ok")
+                and demo_video_draft
+                and demo_video_draft.get("schema") == "proofframe.demo_video_draft.v1"
+                and demo_video_draft.get("ok") is True
+                and demo_video_draft.get("safe_to_submit") is False
+                and demo_video_draft.get("final_video_ready") is False
+                and demo_video_draft.get("video_path") == "docs/assets/proofframe-demo-draft.mp4"
+                and (demo_video_draft.get("video_probe", {}).get("bytes") or 0) >= DRAFT_VIDEO_MIN_BYTES
+            ),
+            (
+                f"Draft schema is {demo_video_draft.get('schema') if demo_video_draft else None}; "
+                f"mode is {demo_video_draft.get('mode') if demo_video_draft else None}; "
+                f"safe_to_submit is {demo_video_draft.get('safe_to_submit') if demo_video_draft else None}."
+            ),
+            demo_video_draft_url,
+        ),
+        check_item(
+            "public_demo_video_draft_mp4",
+            "Mock demo video draft MP4 is publicly readable",
+            bool(
+                demo_video_draft_mp4_result.get("ok")
+                and demo_video_draft_mp4_result.get("status") in {200, 206}
+                and (demo_video_draft_mp4_result.get("bytes") or 0) >= DRAFT_VIDEO_MIN_BYTES
+                and "video" in str(demo_video_draft_mp4_result.get("content_type") or "").lower()
+            ),
+            (
+                f"status={demo_video_draft_mp4_result.get('status')}; "
+                f"bytes={demo_video_draft_mp4_result.get('bytes')}; "
+                f"content_type={demo_video_draft_mp4_result.get('content_type')}."
+            ),
+            demo_video_draft_mp4_url,
+        ),
+        check_item(
             "raw_devpost_form_kit",
             "Raw Devpost form kit is public and final-form gated",
             bool(
@@ -374,6 +436,15 @@ def build_report(
             "judge_crosswalk_safe_to_submit": (
                 judge_crosswalk.get("safe_to_submit") if judge_crosswalk else None
             ),
+            "demo_video_draft_mode": demo_video_draft.get("mode") if demo_video_draft else None,
+            "demo_video_draft_safe_to_submit": (
+                demo_video_draft.get("safe_to_submit") if demo_video_draft else None
+            ),
+            "demo_video_draft_mp4": {
+                "status": demo_video_draft_mp4_result.get("status"),
+                "bytes": demo_video_draft_mp4_result.get("bytes"),
+                "content_type": demo_video_draft_mp4_result.get("content_type"),
+            },
             "html_markers": html_markers,
         },
         "urls": {
@@ -383,6 +454,8 @@ def build_report(
             "raw_launch_plan": launch_plan_url,
             "raw_judge_brief": judge_brief_url,
             "raw_judge_crosswalk": judge_crosswalk_url,
+            "raw_demo_video_draft": demo_video_draft_url,
+            "demo_video_draft_mp4": demo_video_draft_mp4_url,
             "judge": judge_url,
             "health": health_url,
             "submission_gate": gate_url,
@@ -407,6 +480,10 @@ def next_actions(checks: list[dict[str, Any]]) -> list[str]:
         actions.append("Regenerate and upload docs/assets/judge-crosswalk.json to the Space.")
     if "raw_recording_assets" in failed:
         actions.append("Regenerate and upload docs/assets/recording-assets.json to the Space.")
+    if "raw_demo_video_draft" in failed:
+        actions.append("Regenerate and upload docs/assets/demo-video-draft.json to the Space.")
+    if "public_demo_video_draft_mp4" in failed:
+        actions.append("Regenerate and upload docs/assets/proofframe-demo-draft.mp4 to the Space.")
     if "raw_devpost_form_kit" in failed:
         actions.append("Regenerate and upload docs/assets/devpost-form-kit.json to the Space.")
     if "raw_submit_checklist" in failed:

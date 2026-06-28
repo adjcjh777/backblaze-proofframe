@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.submission_bundle.v1",
-  "created_at": "2026-06-28T10:07:28Z",
+  "created_at": "2026-06-28T10:15:21Z",
   "project": "ProofFrame",
   "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
@@ -123,8 +123,8 @@
       "path": "README.md",
       "label": "Core public project overview",
       "present": true,
-      "bytes": 12723,
-      "sha256": "d25da7d61b8dd62c30dc1b716e5f6fe53e631765599cc5f9fa106ad8b3b05f51"
+      "bytes": 12731,
+      "sha256": "d98b00787ae9bf070d3690c0e227338682a9a4d58e2b24c7e18df0375bbf4bc9"
     },
     {
       "id": "dockerfile",
@@ -155,8 +155,8 @@
       "path": "docs/deployment.md",
       "label": "Public demo deployment runbook",
       "present": true,
-      "bytes": 5270,
-      "sha256": "184ecc064f14f0e851dd0dd2ebc0b27a1a4a20d4e99f4e351aff8e4f1f80fceb"
+      "bytes": 5441,
+      "sha256": "f974020c2570b599e860b4d0f1652552815a2e6292b79215f8bc5665fc044500"
     },
     {
       "id": "devpost_draft",
@@ -235,24 +235,24 @@
       "path": "scripts/public_space_sync.py",
       "label": "Public Hugging Face Space sync verifier",
       "present": true,
-      "bytes": 21758,
-      "sha256": "b9835d3332e28bb55f86f33a28ee35095e934fb687cc5f9a05886bc99b523930"
+      "bytes": 25659,
+      "sha256": "11e2355cc677b9854f1d5f75b8fcb4e5a555cabe002ab3976a1cd0d4cf4c8551"
     },
     {
       "id": "public_space_sync_json",
       "path": "docs/assets/public-space-sync-report.json",
       "label": "Machine-readable public Space sync report",
       "present": true,
-      "bytes": 7152,
-      "sha256": "1919033da035e12c36baee5e55cf3f1ab2c8e48763ea1451305a52bf5ddb3f0f"
+      "bytes": 8366,
+      "sha256": "e267e0cb3474cbd92e65e4b479d2773f8fbe0b5b93fa7e38a8aff3392767dc47"
     },
     {
       "id": "public_space_sync_md",
       "path": "docs/assets/public-space-sync-report.md",
       "label": "Human-readable public Space sync report",
       "present": true,
-      "bytes": 3600,
-      "sha256": "d56fe9d34e89f328620ae75d1c63445d124d80f226afd96149aac0ec696d5832"
+      "bytes": 4097,
+      "sha256": "3581a2c88e4740890cba1c84a78897c4548aa16b667fe2043f14aed23d4aef01"
     },
     {
       "id": "devpost_form_kit_script",
@@ -516,7 +516,7 @@
       "label": "Machine-readable final control report",
       "present": true,
       "bytes": 23756,
-      "sha256": "0b1b9f2fca0da326e876ba3ba52683c196e4830cce7f6c3b1ab7115e76e7b6b0"
+      "sha256": "2aa2c20b108c6234be1aab4b34c365f8cc4e308f0071e3e56db06eea824d1bab"
     },
     {
       "id": "final_submission_control_md",
@@ -524,7 +524,7 @@
       "label": "Human-readable final control report",
       "present": true,
       "bytes": 6580,
-      "sha256": "82f57b9d9e2d4c0b01c0313883e5019b4d1c7649c67889cbd303619d8e64b845"
+      "sha256": "8960a40f7ebb05ec39cd120cef853be0be73a67c08d8edcad742daec88201f0f"
     },
     {
       "id": "final_operator_brief_script",
@@ -651,8 +651,8 @@
       "path": "docs/evidence_package.md",
       "label": "Evidence package plan",
       "present": true,
-      "bytes": 17411,
-      "sha256": "0c3dbecd3e2a8ad84fb13d25c0bde033333743c72147ed7fb4e91bb4239569b5"
+      "bytes": 17662,
+      "sha256": "bd844e400c8cc54019e2bc1db690e65fe24e8ff7564da706ab8f539113065542"
     },
     {
       "id": "public_claim_freeze",
@@ -692,7 +692,7 @@
       "label": "Machine-readable secret scan report",
       "present": true,
       "bytes": 9701,
-      "sha256": "c0a07527f3905a5798f4059efd82e7e97ef50fb8bffb59f2bfc04e66d7e6d27b"
+      "sha256": "927d99f7e48fcbaaf14c09d2c93cc4dc3bf50b8c0970f40b166ca39044b1c223"
     },
     {
       "id": "secret_scan_md",
@@ -700,7 +700,7 @@
       "label": "Human-readable secret scan report",
       "present": true,
       "bytes": 846,
-      "sha256": "b59129d62771c6cce6313267abe0c4f8b9b3d0564d931ae3310359dbedc1eb08"
+      "sha256": "894505b6a5d9d78096ce37b8998d0ad57260a91706e131549a7e6d3de468f14d"
     },
     {
       "id": "b2_live_setup_json",
@@ -835,8 +835,8 @@
       "path": "tasks.json",
       "label": "Machine-readable task board",
       "present": true,
-      "bytes": 44186,
-      "sha256": "6dac157f86b448310df7bbf366962ef57d5530f1b74a4547609083af3986ceca"
+      "bytes": 44860,
+      "sha256": "a6141d8acb8af262784c094def66de41280acd0c9af4de60701ded86109e8ef6"
     },
     {
       "id": "local_ui_smoke",

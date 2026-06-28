@@ -116,6 +116,34 @@ def fake_fetcher(url: str, timeout: int) -> dict:
             ),
             "error": None,
         }
+    if url.endswith("/docs/assets/demo-video-draft.json"):
+        return {
+            "ok": True,
+            "status": 200,
+            "body": json.dumps(
+                {
+                    "schema": "proofframe.demo_video_draft.v1",
+                    "mode": "mock_video_draft_ready",
+                    "ok": True,
+                    "safe_to_submit": False,
+                    "final_video_ready": False,
+                    "video_path": "docs/assets/proofframe-demo-draft.mp4",
+                    "video_probe": {"bytes": 761356, "duration_seconds": 65.97},
+                }
+            ),
+            "bytes": 300,
+            "content_type": "application/json",
+            "error": None,
+        }
+    if url.endswith("/docs/assets/proofframe-demo-draft.mp4"):
+        return {
+            "ok": True,
+            "status": 200,
+            "body": "mp4",
+            "bytes": 761356,
+            "content_type": "video/mp4",
+            "error": None,
+        }
     if url.endswith("/docs/assets/devpost-form-kit.json"):
         return {
             "ok": True,
@@ -310,6 +338,30 @@ def test_public_space_sync_fails_on_bad_submit_checklist_with_action():
     assert "raw_submit_checklist" in failed
     assert (
         "Regenerate and upload docs/assets/devpost-submission-checklist.json to the Space."
+        in report["next_actions"]
+    )
+
+
+def test_public_space_sync_fails_on_missing_demo_video_mp4_with_action():
+    def broken_fetcher(url: str, timeout: int) -> dict:
+        result = fake_fetcher(url, timeout)
+        if url.endswith("/docs/assets/proofframe-demo-draft.mp4"):
+            result = {
+                **result,
+                "ok": False,
+                "status": 404,
+                "bytes": 0,
+                "content_type": "text/plain",
+            }
+        return result
+
+    report = public_space_sync.build_report(expected_sha=EXPECTED_SHA, fetcher=broken_fetcher)
+
+    failed = {item["id"] for item in report["checks"] if not item["ok"]}
+    assert report["ok"] is False
+    assert "public_demo_video_draft_mp4" in failed
+    assert (
+        "Regenerate and upload docs/assets/proofframe-demo-draft.mp4 to the Space."
         in report["next_actions"]
     )
 

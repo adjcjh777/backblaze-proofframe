@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-28T10:02:28Z",
+  "updated_at": "2026-06-28T10:13:50Z",
   "tasks": [
     {
       "id": "T001",
@@ -820,6 +820,15 @@
       "status": "done",
       "done_criteria": "A schema-stamped mock demo video draft report and MP4 are generated from public screenshots, recording-assets and submission-bundle reports include the draft artifacts, tests cover the fail-closed boundary, and final public video gates remain false until live proof exists.",
       "notes": "Added scripts/demo_video_draft.py, generated docs/assets/proofframe-demo-draft.mp4 plus demo-video-draft reports, and wired the draft into recording assets and submission bundle while keeping final video gates fail-closed."
+    },
+    {
+      "id": "T054",
+      "title": "Verify public demo video draft",
+      "phase": "P4 Submit",
+      "owner": "codex",
+      "status": "done",
+      "done_criteria": "Public Space sync verifies the raw demo-video-draft report stays mock_video_draft_ready and fail-closed, verifies the public MP4 is readable as video/mp4 with expected byte size, emits specific next actions on draft failures, and records only stable public URLs rather than signed redirects.",
+      "notes": "Extended scripts/public_space_sync.py to verify docs/assets/demo-video-draft.json and public docs/assets/proofframe-demo-draft.mp4 readability without storing signed redirect URLs."
     }
   ]
 }
