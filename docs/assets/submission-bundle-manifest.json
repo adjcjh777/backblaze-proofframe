@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.submission_bundle.v1",
-  "created_at": "2026-06-28T05:23:37Z",
+  "created_at": "2026-06-28T05:28:54Z",
   "project": "ProofFrame",
   "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
@@ -211,24 +211,24 @@
       "path": "scripts/agent_handoff_check.py",
       "label": "Agent Bus and Codex handoff path checker",
       "present": true,
-      "bytes": 13418,
-      "sha256": "653e86ce3510511bd4305c554fd77f7315f2a03ee70e92d0144a2cdb6f7c4fbd"
+      "bytes": 14559,
+      "sha256": "3ef180b6a92eb9871b8a6d10032ba15f14d96856e71a929f5912f3a5e09b196c"
     },
     {
       "id": "agent_handoff_json",
       "path": "docs/assets/agent-handoff-report.json",
       "label": "Machine-readable Agent handoff report",
       "present": true,
-      "bytes": 3618,
-      "sha256": "edcec734ec060e68956a3df2d7ee174dc3e0d3c27b3a75ab806753fd5da14b2d"
+      "bytes": 2253,
+      "sha256": "48ff54f440dc753e1f77acc5217b0b03efe26e3b67d27f93ad3d000975ca0a12"
     },
     {
       "id": "agent_handoff_md",
       "path": "docs/assets/agent-handoff-report.md",
       "label": "Human-readable Agent handoff report",
       "present": true,
-      "bytes": 1850,
-      "sha256": "14dd4a929990fbb6d9825fc2aa6b715d8bc1986007e1c34ea0ba37982917564c"
+      "bytes": 1571,
+      "sha256": "2757fcd6801188bc0650df2b1257ab7b9004d7da42533ebd466747b016fad2ee"
     },
     {
       "id": "public_space_sync_script",
@@ -660,7 +660,7 @@
       "label": "Machine-readable secret scan report",
       "present": true,
       "bytes": 9213,
-      "sha256": "9240bcd8d1ea304e354572edf8a2a7dee145ebbe08620648cd0a408c3b749520"
+      "sha256": "dc2930803828229fb1a61a4a78584e4baa693df1718f722fe0d7e4f58f6d5230"
     },
     {
       "id": "secret_scan_md",
@@ -668,7 +668,7 @@
       "label": "Human-readable secret scan report",
       "present": true,
       "bytes": 846,
-      "sha256": "2ceb20c1e5a643156e5c583f3451affbfd4df63456656cccba37460392f2c3d4"
+      "sha256": "dea332d7b6b28ce6ef981509512a98095bdf6f0f8d827fbd977ca7b9e7a79e79"
     },
     {
       "id": "b2_live_setup_json",

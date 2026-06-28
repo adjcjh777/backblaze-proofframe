@@ -55,6 +55,34 @@ def test_handoff_report_fails_when_agents_path_is_stale(tmp_path):
     assert "work_path_exists" in failed
 
 
+def test_handoff_report_accepts_local_agents_path_in_github_actions(tmp_path, monkeypatch):
+    root = tmp_path / "backblaze-proofframe"
+    root.mkdir()
+    write_agents(root, work_path="/Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe")
+    monkeypatch.setenv("GITHUB_ACTIONS", "true")
+
+    report = agent_handoff_check.build_report(root)
+
+    assert report["ok"] is True
+    assert report["environment"]["ci"] is True
+    assert report["agents"]["normalized_work_path"].endswith("/backblaze-proofframe")
+    assert all(item["ok"] for item in report["checks"])
+
+
+def test_handoff_report_rejects_wrong_repo_name_in_github_actions(tmp_path, monkeypatch):
+    root = tmp_path / "backblaze-proofframe"
+    root.mkdir()
+    write_agents(root, work_path="/Users/junhaocheng/working-dir/ai-competitions/old-proofframe")
+    monkeypatch.setenv("GITHUB_ACTIONS", "true")
+
+    report = agent_handoff_check.build_report(root)
+
+    failed = {item["id"] for item in report["checks"] if not item["ok"]}
+    assert report["ok"] is False
+    assert "work_path_matches_repo" in failed
+    assert "work_path_exists" in failed
+
+
 def test_handoff_markdown_lists_next_actions(tmp_path):
     write_agents(tmp_path, work_path=str(tmp_path / "old-proofframe-path"), branch="bugfix/wrong")
 

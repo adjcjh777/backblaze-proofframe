@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import subprocess
 from datetime import datetime, timezone
@@ -31,6 +32,14 @@ def utc_now() -> str:
 
 def normalize_path(raw_path: str) -> Path:
     return Path(raw_path).expanduser().resolve(strict=False)
+
+
+def running_in_ci() -> bool:
+    return os.environ.get("GITHUB_ACTIONS") == "true" or os.environ.get("CI") == "true"
+
+
+def documented_repo_name_matches(root: Path, work_path: str | None) -> bool:
+    return bool(work_path) and normalize_path(str(work_path)).name == root.name
 
 
 def extract(pattern: re.Pattern[str], text: str) -> str | None:
@@ -182,6 +191,29 @@ def build_report(
     documented_team_id = extract(TEAM_ID_RE, agents_text) if agents_present else None
     expected_root = str(root)
     normalized_work_path = str(normalize_path(work_path)) if work_path else None
+    ci = running_in_ci()
+    work_path_matches_repo = (
+        documented_repo_name_matches(root, work_path)
+        if ci
+        else bool(work_path)
+        and normalized_work_path == expected_root
+    )
+    work_path_exists = (
+        documented_repo_name_matches(root, work_path)
+        if ci
+        else bool(work_path)
+        and normalize_path(work_path).exists()
+    )
+    work_path_detail = (
+        f"AGENTS path is {work_path!r}; CI workspace is {expected_root!r}; repo name matches."
+        if ci and work_path_matches_repo
+        else f"AGENTS path is {work_path!r}; expected {expected_root!r}."
+    )
+    work_path_exists_detail = (
+        f"AGENTS path is {work_path!r}; CI cannot require the developer-local absolute path to exist."
+        if ci and work_path_exists
+        else f"AGENTS path is {work_path!r}."
+    )
 
     checks = [
         check_item(
@@ -194,15 +226,15 @@ def build_report(
         check_item(
             "work_path_matches_repo",
             "AGENTS work path matches this repo",
-            bool(work_path) and normalized_work_path == expected_root,
-            f"AGENTS path is {work_path!r}; expected {expected_root!r}.",
+            work_path_matches_repo,
+            work_path_detail,
             "AGENTS.md",
         ),
         check_item(
             "work_path_exists",
             "AGENTS work path exists",
-            bool(work_path) and normalize_path(work_path).exists(),
-            f"AGENTS path is {work_path!r}.",
+            work_path_exists,
+            work_path_exists_detail,
             "AGENTS.md",
         ),
         check_item(
@@ -252,6 +284,10 @@ def build_report(
         "ok": ok,
         "mode": "handoff_ready" if ok else "handoff_mismatch",
         "repo_root": expected_root,
+        "environment": {
+            "ci": ci,
+            "github_actions": os.environ.get("GITHUB_ACTIONS") == "true",
+        },
         "agents": {
             "path": "AGENTS.md",
             "work_path": work_path,

@@ -1,6 +1,6 @@
 # ProofFrame Submission Bundle
 
-Created: `2026-06-28T05:23:37Z`
+Created: `2026-06-28T05:28:54Z`
 Repository: https://github.com/adjcjh777/backblaze-proofframe
 Public mock demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 Devpost packet mode: `pre_live_safe`
@@ -35,9 +35,9 @@ Final gate ready: `false`
 - `scripts/devpost_event_snapshot.py` (19728 bytes, sha256 `1389e03af0d481ea...`) - Official Devpost event snapshot checker
 - `docs/assets/devpost-event-snapshot.json` (2492 bytes, sha256 `8d090de35fc1b361...`) - Machine-readable Devpost event snapshot
 - `docs/assets/devpost-event-snapshot.md` (1443 bytes, sha256 `8f4246393072aeef...`) - Human-readable Devpost event snapshot
-- `scripts/agent_handoff_check.py` (13418 bytes, sha256 `653e86ce3510511b...`) - Agent Bus and Codex handoff path checker
-- `docs/assets/agent-handoff-report.json` (3618 bytes, sha256 `edcec734ec060e68...`) - Machine-readable Agent handoff report
-- `docs/assets/agent-handoff-report.md` (1850 bytes, sha256 `14dd4a929990fbb6...`) - Human-readable Agent handoff report
+- `scripts/agent_handoff_check.py` (14559 bytes, sha256 `3ef180b6a92eb987...`) - Agent Bus and Codex handoff path checker
+- `docs/assets/agent-handoff-report.json` (2253 bytes, sha256 `48ff54f440dc753e...`) - Machine-readable Agent handoff report
+- `docs/assets/agent-handoff-report.md` (1571 bytes, sha256 `2757fcd6801188bc...`) - Human-readable Agent handoff report
 - `scripts/public_space_sync.py` (15797 bytes, sha256 `23311bec603b7c8d...`) - Public Hugging Face Space sync verifier
 - `docs/assets/public-space-sync-report.json` (5019 bytes, sha256 `71d959fe4b5fe08b...`) - Machine-readable public Space sync report
 - `docs/assets/public-space-sync-report.md` (2353 bytes, sha256 `e4bd3f4e3d0c47b3...`) - Human-readable public Space sync report
@@ -91,8 +91,8 @@ Final gate ready: `false`
 - `docs/verification.md` (9095 bytes, sha256 `122392fbd5551a93...`) - Local, CI, Docker, and live proof runbook
 - `.env.final.example` (352 bytes, sha256 `d250e97bb0a653fa...`) - Redacted final B2 plus Genblaze env template
 - `scripts/secret_scan.py` (11105 bytes, sha256 `02aec3a4a6e9fd47...`) - Final secret scanner
-- `docs/assets/secret-scan-report.json` (9213 bytes, sha256 `9240bcd8d1ea304e...`) - Machine-readable secret scan report
-- `docs/assets/secret-scan-report.md` (846 bytes, sha256 `2ceb20c1e5a64315...`) - Human-readable secret scan report
+- `docs/assets/secret-scan-report.json` (9213 bytes, sha256 `dc2930803828229f...`) - Machine-readable secret scan report
+- `docs/assets/secret-scan-report.md` (846 bytes, sha256 `dea332d7b6b28ce6...`) - Human-readable secret scan report
 - `docs/assets/b2-live-setup.json` (719 bytes, sha256 `a377923f48e112b1...`) - Non-secret B2 bucket setup record
 - `docs/assets/b2-live-setup.md` (864 bytes, sha256 `863b2a02e3d2824f...`) - Human-readable B2 bucket setup record
 - `scripts/run_b2_live_proof.py` (5781 bytes, sha256 `9678c0292a70cc0b...`) - One-command B2 storage proof runner
