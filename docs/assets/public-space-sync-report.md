@@ -2,19 +2,19 @@
 
 Mode: `public_space_synced`
 OK: `true`
-Created: `2026-06-28T09:53:21Z`
+Created: `2026-06-28T10:07:01Z`
 Space: `ADJCJH/backblaze-proofframe`
 Public host: https://adjcjh-backblaze-proofframe.hf.space
-Expected sha: `3115d6631f6e8d994da8c41a922fab20a0f9b1ba`
-Runtime sha: `3115d6631f6e8d994da8c41a922fab20a0f9b1ba`
+Expected sha: `52b556cc5935a2988ebb1c7ba30a5069f9eb887f`
+Runtime sha: `52b556cc5935a2988ebb1c7ba30a5069f9eb887f`
 Runtime stage: `RUNNING`
 
 ## Checks
 
 | Status | Check | Detail | Evidence |
 | --- | --- | --- | --- |
-| OK | Space metadata points at the expected commit | Space sha is 3115d6631f6e8d994da8c41a922fab20a0f9b1ba; expected 3115d6631f6e8d994da8c41a922fab20a0f9b1ba. | https://huggingface.co/api/spaces/ADJCJH/backblaze-proofframe |
-| OK | Space runtime is running the expected commit | Runtime stage is RUNNING; runtime sha is 3115d6631f6e8d994da8c41a922fab20a0f9b1ba; domain ready is True. | https://huggingface.co/api/spaces/ADJCJH/backblaze-proofframe/runtime |
+| OK | Space metadata points at the expected commit | Space sha is 52b556cc5935a2988ebb1c7ba30a5069f9eb887f; expected 52b556cc5935a2988ebb1c7ba30a5069f9eb887f. | https://huggingface.co/api/spaces/ADJCJH/backblaze-proofframe |
+| OK | Space runtime is running the expected commit | Runtime stage is RUNNING; runtime sha is 52b556cc5935a2988ebb1c7ba30a5069f9eb887f; domain ready is True. | https://huggingface.co/api/spaces/ADJCJH/backblaze-proofframe/runtime |
 | OK | Raw handoff report is public and ready | Handoff schema is proofframe.agent_handoff.v1; mode is handoff_ready. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/agent-handoff-report.json |
 | OK | Raw final launch plan is public and phase-aware | Launch plan schema is proofframe.final_launch_plan.v1; mode is ready_for_credential_entry; current phase is credential_entry. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/final-launch-plan.json |
 | OK | Raw judge brief is public and claim-safe | Judge brief schema is proofframe.judge_brief.v1; safe_to_submit is False. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/judge-brief.json |

@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.final_rehearsal.v1",
-  "created_at": "2026-06-28T09:53:38Z",
+  "created_at": "2026-06-28T10:07:28Z",
   "mode": "ready_for_credential_rehearsal",
   "ok": true,
   "safe_to_submit": false,
@@ -36,7 +36,7 @@
     {
       "id": "public_space_synced",
       "ok": true,
-      "detail": "Runtime sha: 3115d6631f6e8d994da8c41a922fab20a0f9b1ba.",
+      "detail": "Runtime sha: 52b556cc5935a2988ebb1c7ba30a5069f9eb887f.",
       "evidence": "docs/assets/public-space-sync-report.json"
     },
     {
@@ -347,7 +347,7 @@
       "final_form_ready": null,
       "mock_recording_ready": null,
       "final_video_ready": null,
-      "runtime_sha": "3115d6631f6e8d994da8c41a922fab20a0f9b1ba",
+      "runtime_sha": "52b556cc5935a2988ebb1c7ba30a5069f9eb887f",
       "failed_checks": [],
       "missing_ids": [],
       "blocking_items": []
