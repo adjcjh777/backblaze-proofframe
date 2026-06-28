@@ -2,7 +2,7 @@
 
 Mode: `pre_live_control`
 Safe to submit: `false`
-Created: `2026-06-28T02:59:17Z`
+Created: `2026-06-28T03:24:26Z`
 Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 Repository: https://github.com/adjcjh777/backblaze-proofframe
 
@@ -23,6 +23,18 @@ Repository: https://github.com/adjcjh777/backblaze-proofframe
 - Live evidence: `missing`
 - Devpost packet: `pre_live_packet_pending`
 
+## Launch Plan
+
+- Mode: `ready_for_credential_entry`
+- Current phase: `credential_entry`
+- Next command: `python scripts/final_env_wizard.py --output .env.final.local --force`
+- Detail: Only expected secret ids are missing; operator can enter them locally.
+- Source: `docs/assets/final-launch-plan.json`
+
+## Warnings
+
+- `agent_handoff_bus_stale`: Agent Bus durable team project metadata is stale; AGENTS.md and active role cwd remain the repo authority. Evidence: `docs/assets/agent-handoff-report.json`
+
 ## Requirements
 
 | Status | Requirement | Detail | Evidence |
@@ -32,6 +44,7 @@ Repository: https://github.com/adjcjh777/backblaze-proofframe
 | OK | Official Devpost event snapshot is fresh | Snapshot checked at 2026-06-27T18:45:48Z; submission open is True; age days is 0. | `docs/assets/devpost-event-snapshot.json` |
 | OK | Agent handoff metadata points at the current repo | Agent handoff mode is handoff_ready; ok is True; bus status is stale; active role cwd ok is True. | `docs/assets/agent-handoff-report.json` |
 | OK | Public Space is synced to the current judge-facing demo | Public Space sync mode is public_space_synced; ok is True. | `docs/assets/public-space-sync-report.json` |
+| OK | Final launch plan exposes the current operator step | Launch plan mode is ready_for_credential_entry; current phase is credential_entry; next command is python scripts/final_env_wizard.py --output .env.final.local --force. | `docs/assets/final-launch-plan.json` |
 | OK | Recording assets are ready | Recording assets mode is public_mock_verified; public mock verified is True. | `docs/assets/recording-assets.json` |
 | OK | Control input reports match expected schemas | All input report schemas are current. | `docs/assets/*.json readiness reports` |
 | PENDING | Backblaze B2 live proof captured | T020 is doing; B2 evidence status is missing; final evidence status is missing. | `tasks.json, docs/assets/b2-live-proof-evidence.json, and docs/assets/final-live-proof-evidence.json` |

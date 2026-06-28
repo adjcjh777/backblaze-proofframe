@@ -123,6 +123,22 @@ def write_common_reports(root: Path, *, final_done: bool = False) -> None:
     )
     write_json(
         root,
+        "docs/assets/final-launch-plan.json",
+        {
+            "schema": "proofframe.final_launch_plan.v1",
+            "ok": final_done,
+            "mode": "submitted" if final_done else "ready_for_credential_entry",
+            "current_phase": "complete" if final_done else "credential_entry",
+            "next_command": None
+            if final_done
+            else "python scripts/final_env_wizard.py --output .env.final.local --force",
+            "next_detail": "Final launch is complete."
+            if final_done
+            else "Only expected secret ids are missing; operator can enter them locally.",
+        },
+    )
+    write_json(
+        root,
         "docs/assets/demo-readiness-report.json",
         {
             "schema": "proofframe.demo_readiness.v1",
@@ -227,10 +243,15 @@ def test_control_report_blocks_pre_live_submission(tmp_path):
     assert report["report_inputs"]["agent_handoff"]["mode"] == "handoff_ready"
     assert report["report_inputs"]["agent_handoff"]["bus_status"] == "stale"
     assert report["report_inputs"]["agent_handoff"]["active_role_cwd_ok"] is True
+    assert report["warnings"][0]["id"] == "agent_handoff_bus_stale"
     handoff_requirement = next(item for item in report["requirements"] if item["id"] == "agent_handoff")
     assert "bus status is stale" in handoff_requirement["detail"]
     assert "active role cwd ok is True" in handoff_requirement["detail"]
     assert report["report_inputs"]["public_space_sync"]["mode"] == "public_space_synced"
+    assert report["report_inputs"]["final_launch_plan"]["current_phase"] == "credential_entry"
+    launch_requirement = next(item for item in report["requirements"] if item["id"] == "final_launch_plan")
+    assert launch_requirement["ok"] is True
+    assert "current phase is credential_entry" in launch_requirement["detail"]
     assert str(tmp_path) not in json.dumps(report)
 
 
@@ -297,6 +318,11 @@ def test_control_report_writes_json_and_markdown(tmp_path):
     assert saved["schema"] == "proofframe.final_submission_control.v1"
     assert "# ProofFrame Final Submission Control" in markdown
     assert "Safe to submit: `false`" in markdown
+    assert "## Launch Plan" in markdown
+    assert "Current phase: `credential_entry`" in markdown
+    assert "final_env_wizard.py" in markdown
+    assert "## Warnings" in markdown
+    assert "agent_handoff_bus_stale" in markdown
     assert 'python scripts/devpost_packet.py --post-live --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL"' in markdown
     assert "python scripts/submission_audit.py --strict-final" in markdown
     assert 'python scripts/devpost_submission_receipt.py --project-url "$PROOFFRAME_DEVPOST_PROJECT_URL"' in markdown

@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.final_submission_control.v1",
-  "created_at": "2026-06-28T02:59:17Z",
+  "created_at": "2026-06-28T03:24:26Z",
   "mode": "pre_live_control",
   "safe_to_submit": false,
   "event": {
@@ -64,6 +64,9 @@
       "mock_recording_ready": null,
       "public_mock_verified": null,
       "public_video_ready": false,
+      "current_phase": null,
+      "next_command": null,
+      "next_detail": null,
       "bus_status": null,
       "active_role_cwd_ok": null
     },
@@ -113,6 +116,9 @@
       "mock_recording_ready": null,
       "public_mock_verified": null,
       "public_video_ready": null,
+      "current_phase": null,
+      "next_command": null,
+      "next_detail": null,
       "bus_status": "stale",
       "active_role_cwd_ok": true
     },
@@ -131,6 +137,30 @@
       "mock_recording_ready": null,
       "public_mock_verified": null,
       "public_video_ready": null,
+      "current_phase": null,
+      "next_command": null,
+      "next_detail": null,
+      "bus_status": null,
+      "active_role_cwd_ok": null
+    },
+    "final_launch_plan": {
+      "present": true,
+      "path": "docs/assets/final-launch-plan.json",
+      "schema_ok": true,
+      "schema": "proofframe.final_launch_plan.v1",
+      "mode": "ready_for_credential_entry",
+      "ok": false,
+      "score": null,
+      "max_score": null,
+      "final_form_ready": null,
+      "final_video_ready": null,
+      "final_recording_ready": null,
+      "mock_recording_ready": null,
+      "public_mock_verified": null,
+      "public_video_ready": null,
+      "current_phase": "credential_entry",
+      "next_command": "python scripts/final_env_wizard.py --output .env.final.local --force",
+      "next_detail": "Only expected secret ids are missing; operator can enter them locally.",
       "bus_status": null,
       "active_role_cwd_ok": null
     },
@@ -149,6 +179,9 @@
       "mock_recording_ready": null,
       "public_mock_verified": null,
       "public_video_ready": false,
+      "current_phase": null,
+      "next_command": null,
+      "next_detail": null,
       "bus_status": null,
       "active_role_cwd_ok": null
     },
@@ -167,6 +200,9 @@
       "mock_recording_ready": true,
       "public_mock_verified": null,
       "public_video_ready": null,
+      "current_phase": null,
+      "next_command": null,
+      "next_detail": null,
       "bus_status": null,
       "active_role_cwd_ok": null
     },
@@ -185,6 +221,9 @@
       "mock_recording_ready": true,
       "public_mock_verified": true,
       "public_video_ready": null,
+      "current_phase": null,
+      "next_command": null,
+      "next_detail": null,
       "bus_status": null,
       "active_role_cwd_ok": null
     },
@@ -203,6 +242,9 @@
       "mock_recording_ready": null,
       "public_mock_verified": null,
       "public_video_ready": null,
+      "current_phase": null,
+      "next_command": null,
+      "next_detail": null,
       "bus_status": null,
       "active_role_cwd_ok": null
     },
@@ -221,6 +263,9 @@
       "mock_recording_ready": null,
       "public_mock_verified": null,
       "public_video_ready": null,
+      "current_phase": null,
+      "next_command": null,
+      "next_detail": null,
       "bus_status": null,
       "active_role_cwd_ok": null
     },
@@ -261,6 +306,9 @@
       "mock_recording_ready": null,
       "public_mock_verified": null,
       "public_video_ready": null,
+      "current_phase": null,
+      "next_command": null,
+      "next_detail": null,
       "bus_status": null,
       "active_role_cwd_ok": null
     },
@@ -279,6 +327,9 @@
       "mock_recording_ready": null,
       "public_mock_verified": null,
       "public_video_ready": null,
+      "current_phase": null,
+      "next_command": null,
+      "next_detail": null,
       "bus_status": null,
       "active_role_cwd_ok": null
     }
@@ -318,6 +369,13 @@
       "ok": true,
       "detail": "Public Space sync mode is public_space_synced; ok is True.",
       "evidence": "docs/assets/public-space-sync-report.json"
+    },
+    {
+      "id": "final_launch_plan",
+      "label": "Final launch plan exposes the current operator step",
+      "ok": true,
+      "detail": "Launch plan mode is ready_for_credential_entry; current phase is credential_entry; next command is python scripts/final_env_wizard.py --output .env.final.local --force.",
+      "evidence": "docs/assets/final-launch-plan.json"
     },
     {
       "id": "recording_assets",
@@ -455,6 +513,14 @@
       "evidence": "tasks.json and docs/assets/devpost-submission-receipt.json"
     }
   ],
+  "warnings": [
+    {
+      "id": "agent_handoff_bus_stale",
+      "level": "warning",
+      "detail": "Agent Bus durable team project metadata is stale; AGENTS.md and active role cwd remain the repo authority.",
+      "evidence": "docs/assets/agent-handoff-report.json"
+    }
+  ],
   "next_actions": [
     "Complete .env.final.local with B2_KEY_ID, B2_APPLICATION_KEY, and Genblaze/GMI API key values.",
     "Run the B2 live proof runner and save sanitized B2 evidence.",
@@ -481,5 +547,12 @@
     "python scripts/submission_audit.py --strict-final",
     "python scripts/devpost_submission_receipt.py --project-url \"$PROOFFRAME_DEVPOST_PROJECT_URL\" --submitted-at \"$PROOFFRAME_DEVPOST_SUBMITTED_AT\" --confirmation-note \"Devpost accepted/submitted the ProofFrame project.\""
   ],
+  "launch_plan": {
+    "mode": "ready_for_credential_entry",
+    "current_phase": "credential_entry",
+    "next_command": "python scripts/final_env_wizard.py --output .env.final.local --force",
+    "next_detail": "Only expected secret ids are missing; operator can enter them locally.",
+    "path": "docs/assets/final-launch-plan.json"
+  },
   "claim_boundary": "Public demo remains local/mock and pre_live_safe until final live B2 plus Genblaze proof is captured."
 }

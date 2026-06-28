@@ -13,6 +13,8 @@ Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 - Final recording ready: `false`
 - Claim lint: `true`
 - Secret scan: `true`
+- Final closure: `0/10`
+- Interpretation: Pre-live score reflects product, demo, and documentation strength; final award readiness still requires live proof, final audit, and Devpost receipt.
 
 ## Criteria
 

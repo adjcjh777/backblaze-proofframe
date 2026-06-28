@@ -70,6 +70,7 @@ def make_phase(
     command: str | None,
     expected_artifacts: list[str],
     safe_to_commit_after_scan: list[str] | None = None,
+    task_updates_after_success: list[str] | None = None,
 ) -> dict[str, Any]:
     return {
         "id": phase_id,
@@ -79,6 +80,7 @@ def make_phase(
         "command": command,
         "expected_artifacts": expected_artifacts,
         "safe_to_commit_after_scan": safe_to_commit_after_scan or [],
+        "task_updates_after_success": task_updates_after_success or [],
     }
 
 
@@ -180,6 +182,9 @@ def build_phases(root: Path, reports: dict[str, dict[str, Any]], statuses: dict[
             command="python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out docs/assets/b2-live-proof-evidence.json",
             expected_artifacts=["docs/assets/b2-live-proof-evidence.json"],
             safe_to_commit_after_scan=["docs/assets/b2-live-proof-evidence.json"],
+            task_updates_after_success=[
+                'python3 scripts/task.py done T020 --note "B2 live proof evidence captured in docs/assets/b2-live-proof-evidence.json."'
+            ],
         ),
         make_phase(
             phase_id="genblaze_live_proof",
@@ -189,6 +194,9 @@ def build_phases(root: Path, reports: dict[str, dict[str, Any]], statuses: dict[
             command="python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json",
             expected_artifacts=["docs/assets/final-live-proof-evidence.json"],
             safe_to_commit_after_scan=["docs/assets/final-live-proof-evidence.json"],
+            task_updates_after_success=[
+                'python3 scripts/task.py done T021 --note "Final B2 plus Genblaze live proof evidence captured in docs/assets/final-live-proof-evidence.json."'
+            ],
         ),
         make_phase(
             phase_id="public_video",
@@ -224,6 +232,10 @@ def build_phases(root: Path, reports: dict[str, dict[str, Any]], statuses: dict[
                 "docs/assets/secret-scan-report.json",
                 "docs/assets/submission-audit-report.json",
             ],
+            task_updates_after_success=[
+                'python3 scripts/task.py done T041A --note "Final secret scan clear after live proof and public video."',
+                'python3 scripts/task.py done T041 --note "Final submission audit passed after live proof and public video."',
+            ],
         ),
         make_phase(
             phase_id="devpost_submit",
@@ -233,6 +245,9 @@ def build_phases(root: Path, reports: dict[str, dict[str, Any]], statuses: dict[
             command='python scripts/devpost_submission_receipt.py --project-url "$PROOFFRAME_DEVPOST_PROJECT_URL" --submitted-at "$PROOFFRAME_DEVPOST_SUBMITTED_AT" --confirmation-note "Devpost accepted/submitted the ProofFrame project."',
             expected_artifacts=["docs/assets/devpost-submission-receipt.json"],
             safe_to_commit_after_scan=["docs/assets/devpost-submission-receipt.json"],
+            task_updates_after_success=[
+                'python3 scripts/task.py done T042 --note "Devpost project submitted and public receipt captured."'
+            ],
         ),
     ]
 
@@ -334,6 +349,9 @@ def render_markdown(plan: dict[str, Any]) -> str:
         if phase["safe_to_commit_after_scan"]:
             lines.append("- Safe to commit after scan:")
             lines.extend(f"  - `{artifact}`" for artifact in phase["safe_to_commit_after_scan"])
+        if phase["task_updates_after_success"]:
+            lines.append("- Task ledger updates after success:")
+            lines.extend(f"  - `{command}`" for command in phase["task_updates_after_success"])
         lines.append("")
     lines.extend(["## Safety Policy", ""])
     lines.append("- This report contains command strings and artifact paths only; no secret values.")

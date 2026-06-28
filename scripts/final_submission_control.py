@@ -94,6 +94,9 @@ def report_summary(path: Path, expected_schema: str | None = None, root: Path = 
         "mock_recording_ready": report.get("mock_recording_ready"),
         "public_mock_verified": report.get("public_mock_verified"),
         "public_video_ready": report.get("public_video_ready"),
+        "current_phase": report.get("current_phase"),
+        "next_command": report.get("next_command"),
+        "next_detail": report.get("next_detail"),
         "bus_status": (report.get("bus") or {}).get("status"),
         "active_role_cwd_ok": (report.get("bus") or {}).get("active_role_cwd_ok"),
     }
@@ -188,6 +191,7 @@ def build_requirements(
     form: dict[str, Any],
     event_snapshot: dict[str, Any],
     agent_handoff: dict[str, Any],
+    final_launch_plan: dict[str, Any],
     public_space_sync: dict[str, Any],
     storyboard: dict[str, Any],
     demo: dict[str, Any],
@@ -202,6 +206,7 @@ def build_requirements(
         "Devpost form": form,
         "Devpost event snapshot": event_snapshot,
         "Agent handoff": agent_handoff,
+        "Final launch plan": final_launch_plan,
         "Public Space sync": public_space_sync,
         "Demo storyboard": storyboard,
         "Demo readiness": demo,
@@ -218,6 +223,7 @@ def build_requirements(
     ]
     schemas_ok = not bad_schemas
     b2_proof_ok = b2_evidence["ok"] or gate["evidence_gate"]["ok"]
+    launch_plan_actionable = bool(final_launch_plan.get("ok")) or bool(final_launch_plan.get("next_command"))
     return [
         requirement(
             "devpost_registration",
@@ -270,6 +276,20 @@ def build_requirements(
             and bool(public_space_sync.get("ok")),
             f"Public Space sync mode is {public_space_sync.get('mode')}; ok is {public_space_sync.get('ok')}.",
             "docs/assets/public-space-sync-report.json",
+        ),
+        requirement(
+            "final_launch_plan",
+            "Final launch plan exposes the current operator step",
+            bool(final_launch_plan.get("present"))
+            and bool(final_launch_plan.get("schema_ok"))
+            and bool(final_launch_plan.get("current_phase"))
+            and launch_plan_actionable,
+            (
+                f"Launch plan mode is {final_launch_plan.get('mode')}; "
+                f"current phase is {final_launch_plan.get('current_phase')}; "
+                f"next command is {final_launch_plan.get('next_command') or 'none'}."
+            ),
+            "docs/assets/final-launch-plan.json",
         ),
         requirement(
             "recording_assets",
@@ -400,6 +420,8 @@ def next_actions(requirements: list[dict[str, Any]]) -> list[str]:
         actions.append("Run the Agent handoff check so future Codex and Agent Bus sessions use the current repo path.")
     if "public_space_sync" in missing:
         actions.append("Run the public Space sync verifier and refresh the HF Space if the runtime/artifacts drift.")
+    if "final_launch_plan" in missing:
+        actions.append("Regenerate the final launch plan so the control report exposes the next safe operator command.")
     if "b2_live_proof" in missing:
         actions.append("Run the B2 live proof runner and save sanitized B2 evidence.")
     if "genblaze_live_proof" in missing:
@@ -417,6 +439,23 @@ def next_actions(requirements: list[dict[str, Any]]) -> list[str]:
     return actions[:8]
 
 
+def build_warnings(agent_handoff: dict[str, Any]) -> list[dict[str, str]]:
+    warnings: list[dict[str, str]] = []
+    bus_status = agent_handoff.get("bus_status")
+    if bus_status == "stale":
+        warnings.append(
+            {
+                "id": "agent_handoff_bus_stale",
+                "level": "warning",
+                "detail": (
+                    "Agent Bus durable team project metadata is stale; AGENTS.md and active role cwd remain the repo authority."
+                ),
+                "evidence": "docs/assets/agent-handoff-report.json",
+            }
+        )
+    return warnings
+
+
 def build_control_report(root: Path = ROOT) -> dict[str, Any]:
     root = root.resolve()
     gate = build_submission_gate(root)
@@ -431,6 +470,11 @@ def build_control_report(root: Path = ROOT) -> dict[str, Any]:
     public_space_sync = report_summary(
         root / "docs" / "assets" / "public-space-sync-report.json",
         "proofframe.public_space_sync.v1",
+        root,
+    )
+    final_launch_plan = report_summary(
+        root / "docs" / "assets" / "final-launch-plan.json",
+        "proofframe.final_launch_plan.v1",
         root,
     )
     storyboard = report_summary(root / "docs" / "assets" / "demo-storyboard.json", "proofframe.demo_storyboard.v1", root)
@@ -465,6 +509,7 @@ def build_control_report(root: Path = ROOT) -> dict[str, Any]:
         form=form,
         event_snapshot=event_snapshot,
         agent_handoff=agent_handoff,
+        final_launch_plan=final_launch_plan,
         public_space_sync=public_space_sync,
         storyboard=storyboard,
         demo=demo,
@@ -476,6 +521,7 @@ def build_control_report(root: Path = ROOT) -> dict[str, Any]:
         devpost_receipt=devpost_receipt,
     )
     ready = all(item["ok"] for item in requirements)
+    warnings = build_warnings(agent_handoff)
     return {
         "schema": "proofframe.final_submission_control.v1",
         "created_at": utc_now(),
@@ -498,6 +544,7 @@ def build_control_report(root: Path = ROOT) -> dict[str, Any]:
             "devpost_event_snapshot": event_snapshot,
             "agent_handoff": agent_handoff,
             "public_space_sync": public_space_sync,
+            "final_launch_plan": final_launch_plan,
             "demo_storyboard": storyboard,
             "demo_readiness": demo,
             "recording_assets": recording,
@@ -510,8 +557,16 @@ def build_control_report(root: Path = ROOT) -> dict[str, Any]:
         },
         "requirements": requirements,
         "blocking_items": [item for item in requirements if not item["ok"]],
+        "warnings": warnings,
         "next_actions": next_actions(requirements),
         "operator_commands": OPERATOR_COMMANDS,
+        "launch_plan": {
+            "mode": final_launch_plan.get("mode"),
+            "current_phase": final_launch_plan.get("current_phase"),
+            "next_command": final_launch_plan.get("next_command"),
+            "next_detail": final_launch_plan.get("next_detail"),
+            "path": final_launch_plan.get("path"),
+        },
         "claim_boundary": "Public demo remains local/mock and pre_live_safe until final live B2 plus Genblaze proof is captured.",
     }
 
@@ -543,11 +598,31 @@ def render_markdown(report: dict[str, Any]) -> str:
         f"- Live evidence: `{report['submission_gate']['evidence_status']}`",
         f"- Devpost packet: `{report['submission_gate']['packet_status']}`",
         "",
-        "## Requirements",
+        "## Launch Plan",
         "",
-        "| Status | Requirement | Detail | Evidence |",
-        "| --- | --- | --- | --- |",
+        f"- Mode: `{report['launch_plan']['mode']}`",
+        f"- Current phase: `{report['launch_plan']['current_phase']}`",
+        f"- Next command: `{report['launch_plan']['next_command'] or 'none'}`",
+        f"- Detail: {report['launch_plan']['next_detail'] or 'n/a'}",
+        f"- Source: `{report['launch_plan']['path']}`",
+        "",
+        "## Warnings",
+        "",
     ]
+    if report.get("warnings"):
+        for item in report["warnings"]:
+            lines.append(f"- `{item['id']}`: {item['detail']} Evidence: `{item['evidence']}`")
+    else:
+        lines.append("- None.")
+    lines.extend(
+        [
+            "",
+            "## Requirements",
+            "",
+            "| Status | Requirement | Detail | Evidence |",
+        "| --- | --- | --- | --- |",
+        ]
+    )
     for item in report["requirements"]:
         status = "OK" if item["ok"] else "PENDING"
         lines.append(f"| {status} | {item['label']} | {item['detail']} | `{item['evidence']}` |")

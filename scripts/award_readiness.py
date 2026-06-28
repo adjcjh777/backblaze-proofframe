@@ -440,6 +440,29 @@ def readiness_mode(score: int, gate_ok: bool) -> str:
     return "needs_polish"
 
 
+def readiness_interpretation(criteria: list[dict[str, Any]], gate_ok: bool, mode: str) -> dict[str, Any]:
+    by_id = {item["id"]: item for item in criteria}
+    final_closure = by_id.get("final_closure", {})
+    demo_submission = by_id.get("demo_and_submission", {})
+    final_closure_score = int(final_closure.get("score") or 0)
+    final_closure_max = int(final_closure.get("max_score") or 0)
+    return {
+        "mode": mode,
+        "pre_live_competitive": mode == "pre_live_competitive",
+        "final_award_ready": mode == "final_award_ready",
+        "submission_gate_ok": gate_ok,
+        "demo_and_submission_score": demo_submission.get("score"),
+        "demo_and_submission_max_score": demo_submission.get("max_score"),
+        "final_closure_score": final_closure_score,
+        "final_closure_max_score": final_closure_max,
+        "boundary": (
+            "Final award readiness is complete."
+            if gate_ok
+            else "Pre-live score reflects product, demo, and documentation strength; final award readiness still requires live proof, final audit, and Devpost receipt."
+        ),
+    }
+
+
 def build_report(root: Path = ROOT) -> dict[str, Any]:
     root = root.resolve()
     context = {
@@ -452,13 +475,14 @@ def build_report(root: Path = ROOT) -> dict[str, Any]:
     criteria = build_criteria(root, context)
     score = sum(item["score"] for item in criteria)
     max_score = sum(item["max_score"] for item in criteria)
+    mode = readiness_mode(score, context["submission_gate"]["ok"])
     report = {
         "schema": "proofframe.award_readiness.v1",
         "project": "ProofFrame",
         "score": score,
         "max_score": max_score,
         "percent": round(score / max_score * 100, 1) if max_score else 0,
-        "mode": readiness_mode(score, context["submission_gate"]["ok"]),
+        "mode": mode,
         "public_demo_url": (
             load_json(root / "docs" / "assets" / "devpost-submission-packet.json") or {}
         ).get("demo_url"),
@@ -488,6 +512,11 @@ def build_report(root: Path = ROOT) -> dict[str, Any]:
             "finding_count": len(context["secret_findings"]),
         },
         "criteria": criteria,
+        "readiness_interpretation": readiness_interpretation(
+            criteria,
+            context["submission_gate"]["ok"],
+            mode,
+        ),
     }
     report["next_actions"] = build_next_actions(report)
     return report
@@ -510,6 +539,8 @@ def render_markdown(report: dict[str, Any]) -> str:
         f"- Final recording ready: `{str(report['demo_readiness']['final_recording_ready']).lower()}`",
         f"- Claim lint: `{str(report['claim_lint']['ok']).lower()}`",
         f"- Secret scan: `{str(report['secret_scan']['ok']).lower()}`",
+        f"- Final closure: `{report['readiness_interpretation']['final_closure_score']}/{report['readiness_interpretation']['final_closure_max_score']}`",
+        f"- Interpretation: {report['readiness_interpretation']['boundary']}",
         "",
         "## Criteria",
         "",

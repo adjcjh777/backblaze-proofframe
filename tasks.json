@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-28T02:55:15Z",
+  "updated_at": "2026-06-28T03:21:22Z",
   "tasks": [
     {
       "id": "T001",
@@ -658,6 +658,33 @@
       "status": "done",
       "done_criteria": "Final launch phases are generated as public-safe JSON/Markdown, covered by tests, wired into CI, verification docs, and the submission bundle.",
       "notes": "Added scripts/final_launch_plan.py plus docs/assets/final-launch-plan.*; it groups credential entry, B2 proof, Genblaze proof, public video, final audit, and Devpost receipt without secret values."
+    },
+    {
+      "id": "T042M",
+      "title": "Sync public Space with final launch plan",
+      "phase": "P4 Submit",
+      "owner": "codex",
+      "status": "done",
+      "done_criteria": "HF Space runs the launch-plan-aware build, public sync verifier checks runtime sha plus raw final-launch-plan artifact, and public API smoke passes in local/mock mode.",
+      "notes": "Uploaded current repo to HF Space commit 1a3dda691e94b07642da89512c3b62f360c2cef9 and extended scripts/public_space_sync.py to verify docs/assets/final-launch-plan.json is public and ready_for_credential_entry."
+    },
+    {
+      "id": "T042N",
+      "title": "Align final launch plan with final control",
+      "phase": "P4 Submit",
+      "owner": "codex",
+      "status": "done",
+      "done_criteria": "Final submission control consumes final-launch-plan.json, exposes current phase and next command, launch phases include task-ledger update checkpoints, and regression tests cover the wiring.",
+      "notes": "Addressed reviewer audit: final control now checks launch plan schema/actionability and renders phase/next command; launch plan phases list post-success task.py updates for T020/T021/T041A/T041/T042."
+    },
+    {
+      "id": "T042O",
+      "title": "Sync public Space after launch control alignment",
+      "phase": "P4 Submit",
+      "owner": "codex",
+      "status": "done",
+      "done_criteria": "HF Space serves the final-control/launch-plan-aware artifacts after reviewer alignment, public sync verifier targets the new runtime sha, and public API smoke passes.",
+      "notes": "Uploaded HF Space commit 772a79fb645e975df32f7acbe49eae15a96a6626 after final control consumed launch plan and warning/boundary copy was added."
     }
   ]
 }

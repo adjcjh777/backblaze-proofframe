@@ -9,7 +9,7 @@ Status: public mock demo deployed. A B2/Genblaze-backed public URL is still a fi
 - Space repo: https://huggingface.co/spaces/ADJCJH/backblaze-proofframe
 - Runtime: Docker Space, local storage, mock generation
 - Verified with: `python scripts/api_smoke.py --base-url https://adjcjh-backblaze-proofframe.hf.space`
-- Judge-mode slate, sponsor evidence model, final report gate, and Agent handoff report sync verified after HF Space commit `a0418b6`: runtime reports sha `a0418b6da52376ca3984294c850e368552920404`; public HTML contains `Judge recording slate`, `Sponsor Evidence Model`, `shouldAutoLoadJudgeDemo`, and `Final reports pending`; `/api/submission/gate` returns `pre_live_safe` with `pre_live_packet_pending` and `report_gate`; raw Space artifact `docs/assets/agent-handoff-report.json` returns `handoff_ready`; public API smoke passes in local/mock mode.
+- Judge-mode slate, sponsor evidence model, final report gate, Agent handoff report, final launch plan, and final control alignment verified after HF Space commit `772a79`: runtime reports sha `772a79fb645e975df32f7acbe49eae15a96a6626`; public HTML contains `Judge recording slate`, `Sponsor Evidence Model`, `shouldAutoLoadJudgeDemo`, and `Final reports pending`; `/api/submission/gate` returns `pre_live_safe` with `pre_live_packet_pending` and `report_gate`; raw Space artifacts `docs/assets/agent-handoff-report.json` and `docs/assets/final-launch-plan.json` return `handoff_ready` and `ready_for_credential_entry`; public API smoke passes in local/mock mode.
 - Screenshot: `docs/assets/proofframe-hf-public-smoke.png`
 
 This URL is safe to use in Devpost as a credential-free public demo before live B2/Genblaze proof, as long as the description says local/mock mode.

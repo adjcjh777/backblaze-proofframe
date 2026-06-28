@@ -35,6 +35,8 @@ python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out d
   - `docs/assets/b2-live-proof-evidence.json`
 - Safe to commit after scan:
   - `docs/assets/b2-live-proof-evidence.json`
+- Task ledger updates after success:
+  - `python3 scripts/task.py done T020 --note "B2 live proof evidence captured in docs/assets/b2-live-proof-evidence.json."`
 
 ### genblaze_live_proof - Capture final B2 plus Genblaze proof
 - Status: `blocked`
@@ -47,6 +49,8 @@ python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-ou
   - `docs/assets/final-live-proof-evidence.json`
 - Safe to commit after scan:
   - `docs/assets/final-live-proof-evidence.json`
+- Task ledger updates after success:
+  - `python3 scripts/task.py done T021 --note "Final B2 plus Genblaze live proof evidence captured in docs/assets/final-live-proof-evidence.json."`
 
 ### public_video - Record and verify public demo video
 - Status: `blocked`
@@ -80,6 +84,9 @@ python scripts/secret_scan.py && python scripts/submission_audit.py --strict-fin
 - Safe to commit after scan:
   - `docs/assets/secret-scan-report.json`
   - `docs/assets/submission-audit-report.json`
+- Task ledger updates after success:
+  - `python3 scripts/task.py done T041A --note "Final secret scan clear after live proof and public video."`
+  - `python3 scripts/task.py done T041 --note "Final submission audit passed after live proof and public video."`
 
 ### devpost_submit - Submit Devpost and capture receipt
 - Status: `blocked`
@@ -92,6 +99,8 @@ python scripts/devpost_submission_receipt.py --project-url "$PROOFFRAME_DEVPOST_
   - `docs/assets/devpost-submission-receipt.json`
 - Safe to commit after scan:
   - `docs/assets/devpost-submission-receipt.json`
+- Task ledger updates after success:
+  - `python3 scripts/task.py done T042 --note "Devpost project submitted and public receipt captured."`
 
 ## Safety Policy
 

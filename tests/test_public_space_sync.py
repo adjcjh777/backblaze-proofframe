@@ -57,6 +57,20 @@ def fake_fetcher(url: str, timeout: int) -> dict:
             ),
             "error": None,
         }
+    if url.endswith("/docs/assets/final-launch-plan.json"):
+        return {
+            "ok": True,
+            "status": 200,
+            "body": json.dumps(
+                {
+                    "schema": "proofframe.final_launch_plan.v1",
+                    "ok": False,
+                    "mode": "ready_for_credential_entry",
+                    "current_phase": "credential_entry",
+                }
+            ),
+            "error": None,
+        }
     if url.endswith("/?judge=1"):
         return {
             "ok": True,
@@ -109,6 +123,8 @@ def test_public_space_sync_report_passes_when_space_is_current():
     assert report["mode"] == "public_space_synced"
     assert report["observed"]["runtime_sha"] == EXPECTED_SHA
     assert report["observed"]["handoff_mode"] == "handoff_ready"
+    assert report["observed"]["launch_plan_mode"] == "ready_for_credential_entry"
+    assert report["observed"]["launch_plan_phase"] == "credential_entry"
     assert all(item["ok"] for item in report["checks"])
 
 
@@ -134,6 +150,20 @@ def test_public_space_sync_fails_on_missing_judge_marker():
     failed = {item["id"] for item in report["checks"] if not item["ok"]}
     assert report["ok"] is False
     assert "judge_html_markers" in failed
+
+
+def test_public_space_sync_fails_on_missing_launch_plan():
+    def broken_fetcher(url: str, timeout: int) -> dict:
+        result = fake_fetcher(url, timeout)
+        if url.endswith("/docs/assets/final-launch-plan.json"):
+            result = {**result, "body": json.dumps({"schema": "wrong"})}
+        return result
+
+    report = public_space_sync.build_report(expected_sha=EXPECTED_SHA, fetcher=broken_fetcher)
+
+    failed = {item["id"] for item in report["checks"] if not item["ok"]}
+    assert report["ok"] is False
+    assert "raw_launch_plan" in failed
 
 
 def test_public_space_sync_writes_reports(tmp_path):

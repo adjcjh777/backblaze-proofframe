@@ -28,7 +28,8 @@
       "expected_artifacts": [
         ".env.final.local (git-ignored, never committed)"
       ],
-      "safe_to_commit_after_scan": []
+      "safe_to_commit_after_scan": [],
+      "task_updates_after_success": []
     },
     {
       "id": "b2_live_proof",
@@ -41,6 +42,9 @@
       ],
       "safe_to_commit_after_scan": [
         "docs/assets/b2-live-proof-evidence.json"
+      ],
+      "task_updates_after_success": [
+        "python3 scripts/task.py done T020 --note \"B2 live proof evidence captured in docs/assets/b2-live-proof-evidence.json.\""
       ]
     },
     {
@@ -54,6 +58,9 @@
       ],
       "safe_to_commit_after_scan": [
         "docs/assets/final-live-proof-evidence.json"
+      ],
+      "task_updates_after_success": [
+        "python3 scripts/task.py done T021 --note \"Final B2 plus Genblaze live proof evidence captured in docs/assets/final-live-proof-evidence.json.\""
       ]
     },
     {
@@ -74,7 +81,8 @@
         "docs/assets/devpost-form-kit.json",
         "docs/assets/demo-storyboard.json",
         "docs/assets/recording-assets.json"
-      ]
+      ],
+      "task_updates_after_success": []
     },
     {
       "id": "final_safety_audit",
@@ -89,6 +97,10 @@
       "safe_to_commit_after_scan": [
         "docs/assets/secret-scan-report.json",
         "docs/assets/submission-audit-report.json"
+      ],
+      "task_updates_after_success": [
+        "python3 scripts/task.py done T041A --note \"Final secret scan clear after live proof and public video.\"",
+        "python3 scripts/task.py done T041 --note \"Final submission audit passed after live proof and public video.\""
       ]
     },
     {
@@ -102,6 +114,9 @@
       ],
       "safe_to_commit_after_scan": [
         "docs/assets/devpost-submission-receipt.json"
+      ],
+      "task_updates_after_success": [
+        "python3 scripts/task.py done T042 --note \"Devpost project submitted and public receipt captured.\""
       ]
     }
   ],

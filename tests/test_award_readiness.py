@@ -195,6 +195,9 @@ def test_award_readiness_scores_pre_live_competitive_state(tmp_path):
     assert report["submission_gate"]["mode"] == "pre_live_safe"
     assert report["task_statuses"]["T020"] == "doing"
     assert report["secret_scan"]["ok"] is True
+    assert report["readiness_interpretation"]["pre_live_competitive"] is True
+    assert report["readiness_interpretation"]["final_award_ready"] is False
+    assert report["readiness_interpretation"]["final_closure_score"] == 0
     product_depth = next(item for item in report["criteria"] if item["id"] == "product_depth")
     trust = next(item for item in report["criteria"] if item["id"] == "trust_and_compliance")
     assert next(signal for signal in product_depth["signals"] if signal["id"] == "review_console")["ok"] is True
@@ -225,6 +228,7 @@ def test_award_readiness_reaches_final_mode_when_live_and_submit_tasks_done(tmp_
     assert report["mode"] == "final_award_ready"
     assert report["score"] == report["max_score"]
     assert report["submission_gate"]["ok"] is True
+    assert report["readiness_interpretation"]["final_award_ready"] is True
 
 
 def test_award_readiness_writes_markdown_and_json(tmp_path):
@@ -240,3 +244,5 @@ def test_award_readiness_writes_markdown_and_json(tmp_path):
     assert saved["schema"] == "proofframe.award_readiness.v1"
     assert "# ProofFrame Award Readiness" in markdown
     assert "Sponsor integration fit" in markdown
+    assert "Final closure: `0/10`" in markdown
+    assert "Pre-live score reflects product" in markdown

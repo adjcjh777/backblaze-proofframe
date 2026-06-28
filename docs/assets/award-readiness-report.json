@@ -337,6 +337,17 @@
       ]
     }
   ],
+  "readiness_interpretation": {
+    "mode": "pre_live_competitive",
+    "pre_live_competitive": true,
+    "final_award_ready": false,
+    "submission_gate_ok": false,
+    "demo_and_submission_score": 29,
+    "demo_and_submission_max_score": 29,
+    "final_closure_score": 0,
+    "final_closure_max_score": 10,
+    "boundary": "Pre-live score reflects product, demo, and documentation strength; final award readiness still requires live proof, final audit, and Devpost receipt."
+  },
   "next_actions": [
     "After explicit key-creation confirmation, create the scoped B2 key and run python scripts/run_b2_live_proof.py --env-file .env.final.local.",
     "Configure Genblaze/GMI credentials and run python scripts/run_final_live_proof.py --env-file .env.final.local.",
