@@ -69,7 +69,6 @@ The final sponsor proof has a preflight wrapper:
 . .venv/bin/activate
 python scripts/final_env_wizard.py --prefill-non-secret --output .env.final.local
 python scripts/final_env_wizard.py --output .env.final.local
-set -a; source .env.final.local; set +a
 python scripts/live_env_handoff.py --env-file .env.final.local
 python scripts/live_proof.py --preflight-only
 python scripts/run_final_live_proof.py --env-file .env.final.local --preflight-only
@@ -226,7 +225,6 @@ python scripts/secret_scan.py
 python scripts/claim_lint.py
 python scripts/final_env_wizard.py --prefill-non-secret --output .env.final.local
 python scripts/final_env_wizard.py --output .env.final.local
-set -a; source .env.final.local; set +a
 python scripts/live_env_handoff.py --env-file .env.final.local
 python scripts/agent_handoff_check.py --check-bus
 python scripts/public_space_sync.py

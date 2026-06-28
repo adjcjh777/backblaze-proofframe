@@ -106,6 +106,10 @@ def write_common_reports(root: Path, *, final_done: bool = False) -> None:
             "schema": "proofframe.agent_handoff.v1",
             "mode": "handoff_ready",
             "ok": True,
+            "bus": {
+                "status": "stale",
+                "active_role_cwd_ok": True,
+            },
         },
     )
     write_json(
@@ -221,6 +225,11 @@ def test_control_report_blocks_pre_live_submission(tmp_path):
     assert "B2_KEY_ID" in report["next_actions"][0]
     assert report["report_inputs"]["devpost_form"]["path"] == "docs/assets/devpost-form-kit.json"
     assert report["report_inputs"]["agent_handoff"]["mode"] == "handoff_ready"
+    assert report["report_inputs"]["agent_handoff"]["bus_status"] == "stale"
+    assert report["report_inputs"]["agent_handoff"]["active_role_cwd_ok"] is True
+    handoff_requirement = next(item for item in report["requirements"] if item["id"] == "agent_handoff")
+    assert "bus status is stale" in handoff_requirement["detail"]
+    assert "active role cwd ok is True" in handoff_requirement["detail"]
     assert report["report_inputs"]["public_space_sync"]["mode"] == "public_space_synced"
     assert str(tmp_path) not in json.dumps(report)
 

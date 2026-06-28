@@ -56,6 +56,72 @@ def load_agents_text(root: Path) -> tuple[str, bool]:
         return "", False
 
 
+def run_bus_json(root: Path, args: list[str]) -> tuple[dict[str, Any] | None, str | None]:
+    result = subprocess.run(
+        [str(BUS_CLI), *args],
+        cwd=root,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    if result.returncode != 0:
+        return None, result.stderr.strip() or result.stdout.strip() or "agent-bus command failed."
+    try:
+        return json.loads(result.stdout), None
+    except json.JSONDecodeError:
+        return None, "agent-bus command did not return JSON."
+
+
+def resolve_agent_summary(root: Path, session_id: str) -> dict[str, Any]:
+    payload, error = run_bus_json(root, ["resolve", session_id])
+    if error:
+        return {
+            "session_id": session_id,
+            "resolved": False,
+            "cwd": None,
+            "cwd_matches_repo": False,
+            "status": "resolve_error",
+            "detail": error,
+        }
+    agent = (payload or {}).get("agent") or {}
+    cwd = agent.get("cwd")
+    cwd_matches = bool(cwd) and normalize_path(str(cwd)) == root.resolve()
+    return {
+        "session_id": session_id,
+        "resolved": True,
+        "agent_id": agent.get("agent_id"),
+        "name": agent.get("name"),
+        "cwd": cwd,
+        "cwd_matches_repo": cwd_matches,
+        "status": agent.get("status"),
+        "stale": bool(agent.get("stale")),
+        "last_seen": agent.get("last_seen"),
+        "detail": (
+            "Agent registry cwd matches this repo."
+            if cwd_matches
+            else "Agent registry cwd is stale, missing, or unresolved."
+        ),
+    }
+
+
+def active_role_summaries(root: Path, roles: dict[str, Any]) -> list[dict[str, Any]]:
+    summaries: list[dict[str, Any]] = []
+    for role_name, role in sorted(roles.items()):
+        session_id = role.get("session_id") or role.get("thread_id")
+        if role.get("status") != "active" or not session_id:
+            continue
+        summary = resolve_agent_summary(root, str(session_id))
+        summary.update(
+            {
+                "role": role_name,
+                "role_status": role.get("status"),
+                "thread_id": role.get("thread_id"),
+            }
+        )
+        summaries.append(summary)
+    return summaries
+
+
 def bus_team_summary(root: Path, team_id: str = EXPECTED_TEAM_ID) -> dict[str, Any]:
     if not BUS_CLI.exists():
         return {
@@ -64,38 +130,27 @@ def bus_team_summary(root: Path, team_id: str = EXPECTED_TEAM_ID) -> dict[str, A
             "status": "unavailable",
             "team_id": team_id,
             "detail": f"Agent Bus CLI not found at {BUS_CLI}.",
+            "active_roles": [],
+            "active_role_cwd_ok": False,
         }
 
-    result = subprocess.run(
-        [str(BUS_CLI), "team", "show", team_id],
-        cwd=root,
-        capture_output=True,
-        text=True,
-        check=False,
-    )
-    if result.returncode != 0:
+    payload, error = run_bus_json(root, ["team", "show", team_id])
+    if error:
         return {
             "checked": True,
             "ok": False,
             "status": "error",
             "team_id": team_id,
-            "detail": result.stderr.strip() or result.stdout.strip() or "agent-bus team show failed.",
+            "detail": error,
+            "active_roles": [],
+            "active_role_cwd_ok": False,
         }
 
-    try:
-        payload = json.loads(result.stdout)
-    except json.JSONDecodeError:
-        return {
-            "checked": True,
-            "ok": False,
-            "status": "invalid_json",
-            "team_id": team_id,
-            "detail": "agent-bus team show did not return JSON.",
-        }
-
-    team = payload.get("team") or {}
+    team = (payload or {}).get("team") or {}
     project = team.get("project")
     project_matches = bool(project) and normalize_path(str(project)) == root.resolve()
+    active_roles = active_role_summaries(root, team.get("roles") or {})
+    active_role_cwd_ok = bool(active_roles) and all(role.get("cwd_matches_repo") for role in active_roles)
     return {
         "checked": True,
         "ok": project_matches,
@@ -103,6 +158,8 @@ def bus_team_summary(root: Path, team_id: str = EXPECTED_TEAM_ID) -> dict[str, A
         "team_id": team.get("team_id") or team_id,
         "project": project,
         "expected_project": str(root.resolve()),
+        "active_roles": active_roles,
+        "active_role_cwd_ok": active_role_cwd_ok,
         "detail": (
             "Agent Bus team project path matches this repo."
             if project_matches
@@ -173,6 +230,8 @@ def build_report(
             "status": "skipped",
             "team_id": team_id,
             "detail": "Pass --check-bus for local durable Agent Bus metadata inspection.",
+            "active_roles": [],
+            "active_role_cwd_ok": None,
         }
     )
     if strict_bus:
@@ -217,6 +276,8 @@ def next_actions(checks: list[dict[str, Any]], bus: dict[str, Any]) -> list[str]
         actions.append("Update AGENTS.md Team id if a new ProofFrame Agent Bus team is created.")
     if bus.get("status") == "stale":
         actions.append("Do not trust stale durable Agent Bus project metadata; use AGENTS.md as repo authority.")
+    if bus.get("checked") and bus.get("active_roles") and not bus.get("active_role_cwd_ok"):
+        actions.append("Reattach active Agent Bus roles with --cwd pointing to the current repo path.")
     if not actions:
         actions.append("Handoff metadata is ready for future Codex or Agent Bus sessions.")
     return actions
@@ -242,12 +303,34 @@ def render_markdown(report: dict[str, Any]) -> str:
         f"- Checked: `{str(report['bus']['checked']).lower()}`",
         f"- Status: `{report['bus']['status']}`",
         f"- Detail: {report['bus']['detail']}",
+        f"- Active role cwd ok: `{str(report['bus'].get('active_role_cwd_ok')).lower()}`",
         "",
+        "### Active Roles",
+        "",
+        "| Role | Session | Status | CWD matches repo | CWD |",
+        "| --- | --- | --- | --- | --- |",
+    ]
+    if report["bus"].get("active_roles"):
+        for role in report["bus"]["active_roles"]:
+            lines.append(
+                "| "
+                f"{role.get('role')} | "
+                f"`{role.get('session_id')}` | "
+                f"`{role.get('status')}` | "
+                f"`{str(role.get('cwd_matches_repo')).lower()}` | "
+                f"`{role.get('cwd')}` |"
+            )
+    else:
+        lines.append("| none | `n/a` | `n/a` | `n/a` | `n/a` |")
+    lines.extend(
+        [
+            "",
         "## Checks",
         "",
         "| Status | Check | Detail | Evidence |",
         "| --- | --- | --- | --- |",
-    ]
+        ]
+    )
     for item in report["checks"]:
         status = "OK" if item["ok"] else "FAIL"
         lines.append(f"| {status} | {item['label']} | {item['detail']} | `{item['evidence']}` |")

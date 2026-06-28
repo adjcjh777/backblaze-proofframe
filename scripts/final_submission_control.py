@@ -94,6 +94,8 @@ def report_summary(path: Path, expected_schema: str | None = None, root: Path = 
         "mock_recording_ready": report.get("mock_recording_ready"),
         "public_mock_verified": report.get("public_mock_verified"),
         "public_video_ready": report.get("public_video_ready"),
+        "bus_status": (report.get("bus") or {}).get("status"),
+        "active_role_cwd_ok": (report.get("bus") or {}).get("active_role_cwd_ok"),
     }
 
 
@@ -253,7 +255,11 @@ def build_requirements(
             bool(agent_handoff.get("present"))
             and bool(agent_handoff.get("schema_ok"))
             and bool(agent_handoff.get("ok")),
-            f"Agent handoff mode is {agent_handoff.get('mode')}; ok is {agent_handoff.get('ok')}.",
+            (
+                f"Agent handoff mode is {agent_handoff.get('mode')}; ok is {agent_handoff.get('ok')}; "
+                f"bus status is {agent_handoff.get('bus_status')}; "
+                f"active role cwd ok is {agent_handoff.get('active_role_cwd_ok')}."
+            ),
             "docs/assets/agent-handoff-report.json",
         ),
         requirement(

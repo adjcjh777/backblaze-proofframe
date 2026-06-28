@@ -25,7 +25,7 @@
       "missing": 0
     },
     "evidence_status": "missing",
-    "packet_status": "ready"
+    "packet_status": "pre_live_packet_pending"
   },
   "claim_lint": {
     "ok": true,
@@ -36,7 +36,7 @@
     {
       "path": "README.md",
       "present": true,
-      "bytes": 8936
+      "bytes": 9987
     },
     {
       "path": "docs/demo_script.md",
@@ -71,22 +71,22 @@
     {
       "path": "docs/assets/submission-bundle-manifest.json",
       "present": true,
-      "bytes": 16904
+      "bytes": 23617
     },
     {
       "path": "docs/assets/submission-bundle-manifest.md",
       "present": true,
-      "bytes": 7001
+      "bytes": 9083
     },
     {
       "path": "docs/assets/live-credential-handoff.json",
       "present": true,
-      "bytes": 4171
+      "bytes": 4391
     },
     {
       "path": "docs/assets/live-credential-handoff.md",
       "present": true,
-      "bytes": 2055
+      "bytes": 2392
     },
     {
       "path": "docs/assets/demo-storyboard.json",
@@ -136,7 +136,7 @@
     {
       "path": "scripts/live_env_handoff.py",
       "present": true,
-      "bytes": 9180
+      "bytes": 9299
     },
     {
       "path": "scripts/run_b2_live_proof.py",
@@ -146,7 +146,7 @@
     {
       "path": "scripts/secret_scan.py",
       "present": true,
-      "bytes": 2397
+      "bytes": 11105
     }
   ],
   "missing_files": [],

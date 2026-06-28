@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-27T19:32:46Z",
+  "updated_at": "2026-06-28T02:31:17Z",
   "tasks": [
     {
       "id": "T001",
@@ -148,12 +148,12 @@
     },
     {
       "id": "T032",
-      "title": "Prepare submission evidence package",
+      "title": "Prepare pre-live submission evidence package",
       "phase": "P3 Polish",
       "owner": "planner",
       "status": "done",
-      "done_criteria": "Evidence package includes app URL or Docker path, screenshots, video link, repo URL, B2 proof, Genblaze proof, and AI provider/model list.",
-      "notes": "Submission evidence package and Devpost copy bank prepared; final B2/Genblaze proofs still gated by T020/T021."
+      "done_criteria": "Pre-live evidence package includes app URL or Docker path, screenshots, repo URL, AI provider/model list, and explicit placeholders/gates for final video, B2 proof, and Genblaze proof.",
+      "notes": "Pre-live submission evidence package and Devpost copy bank are prepared; final video plus B2/Genblaze proofs remain gated by T020/T021 and final submission tasks."
     },
     {
       "id": "T033",
@@ -612,7 +612,7 @@
       "owner": "codex",
       "status": "done",
       "done_criteria": "A repeatable verifier checks HF Space metadata/runtime sha, raw handoff artifact, public health/gate APIs, judge-mode HTML markers, and feeds final control plus the submission bundle.",
-      "notes": "Added scripts/public_space_sync.py and docs/assets/public-space-sync-report.*; current report is public_space_synced for runtime sha e71d73f7e55a977c4103aa4a50b0bd072314318c."
+      "notes": "Added scripts/public_space_sync.py and docs/assets/public-space-sync-report.*; current report is public_space_synced for runtime sha a0418b6da52376ca3984294c850e368552920404."
     },
     {
       "id": "T042H",
@@ -631,6 +631,24 @@
       "status": "done",
       "done_criteria": "Final operator commands use shell-safe placeholder variables, generated reports are refreshed, and regression tests parse every command against the target script argparse.",
       "notes": "Replaced angle-bracket public video/Devpost placeholders with quoted PROOFFRAME_* environment variables across operator reports; added parseability and shell-safety coverage."
+    },
+    {
+      "id": "T042J",
+      "title": "Audit active Agent Bus role cwd",
+      "phase": "P4 Submit",
+      "owner": "codex",
+      "status": "done",
+      "done_criteria": "Agent handoff report records active Agent Bus role cwd status, reviewer/scout registrations point at the current working-dir repo, and stale durable team.project metadata remains explicitly documented as non-authoritative.",
+      "notes": "Reattached active reviewer/scout roles with --cwd /Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe and added agent_handoff_check coverage for active role cwd drift."
+    },
+    {
+      "id": "T042K",
+      "title": "Resolve no-credential final audit issues",
+      "phase": "P4 Submit",
+      "owner": "codex",
+      "status": "done",
+      "done_criteria": "Reviewer no-credential audit issues are addressed: final runbooks avoid sourcing .env.final.local, pre-live evidence/package status is clearly labeled, public Space serves the new fail-closed packet status, and generated reports are refreshed.",
+      "notes": "Removed shell-sourcing of the final env file from runbooks/next commands, relabeled T032 as a pre-live evidence package, made /api/submission/gate require post_live_verified packet mode for final_ready, and synced HF Space runtime sha a0418b6da52376ca3984294c850e368552920404."
     }
   ]
 }

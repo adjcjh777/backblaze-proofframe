@@ -2,7 +2,7 @@
 
 Mode: `pre_live_control`
 Safe to submit: `false`
-Created: `2026-06-27T19:35:40Z`
+Created: `2026-06-28T02:47:07Z`
 Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 Repository: https://github.com/adjcjh777/backblaze-proofframe
 
@@ -21,7 +21,7 @@ Repository: https://github.com/adjcjh777/backblaze-proofframe
 - Tasks: `1 / 6` done
 - B2 evidence: `missing`
 - Live evidence: `missing`
-- Devpost packet: `ready`
+- Devpost packet: `pre_live_packet_pending`
 
 ## Requirements
 
@@ -30,7 +30,7 @@ Repository: https://github.com/adjcjh777/backblaze-proofframe
 | OK | Devpost registration complete | T040 is done. | `tasks.json` |
 | OK | Credential-free public demo is ready | Devpost form kit mode is pre_live_form_ready. | `docs/assets/devpost-form-kit.json` |
 | OK | Official Devpost event snapshot is fresh | Snapshot checked at 2026-06-27T18:45:48Z; submission open is True; age days is 0. | `docs/assets/devpost-event-snapshot.json` |
-| OK | Agent handoff metadata points at the current repo | Agent handoff mode is handoff_ready; ok is True. | `docs/assets/agent-handoff-report.json` |
+| OK | Agent handoff metadata points at the current repo | Agent handoff mode is handoff_ready; ok is True; bus status is stale; active role cwd ok is True. | `docs/assets/agent-handoff-report.json` |
 | OK | Public Space is synced to the current judge-facing demo | Public Space sync mode is public_space_synced; ok is True. | `docs/assets/public-space-sync-report.json` |
 | OK | Recording assets are ready | Recording assets mode is public_mock_verified; public mock verified is True. | `docs/assets/recording-assets.json` |
 | OK | Control input reports match expected schemas | All input report schemas are current. | `docs/assets/*.json readiness reports` |

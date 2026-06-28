@@ -2,7 +2,7 @@
 
 Mode: `handoff_ready`
 OK: `true`
-Created: `2026-06-27T19:08:15Z`
+Created: `2026-06-28T02:46:22Z`
 Repo root: `/Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe`
 
 ## AGENTS.md
@@ -13,9 +13,17 @@ Repo root: `/Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe`
 
 ## Agent Bus
 
-- Checked: `false`
-- Status: `skipped`
-- Detail: Pass --check-bus for local durable Agent Bus metadata inspection.
+- Checked: `true`
+- Status: `stale`
+- Detail: Agent Bus team project path is stale or missing; AGENTS.md is the repo authority.
+- Active role cwd ok: `true`
+
+### Active Roles
+
+| Role | Session | Status | CWD matches repo | CWD |
+| --- | --- | --- | --- | --- |
+| reviewer | `019f0767-8fdb-7910-98ff-a65f237d7981` | `idle` | `true` | `/Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe` |
+| scout | `019f0760-b8b6-72d0-a755-21d973e016df` | `idle` | `true` | `/Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe` |
 
 ## Checks
 
@@ -29,4 +37,4 @@ Repo root: `/Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe`
 
 ## Next Actions
 
-- Handoff metadata is ready for future Codex or Agent Bus sessions.
+- Do not trust stale durable Agent Bus project metadata; use AGENTS.md as repo authority.

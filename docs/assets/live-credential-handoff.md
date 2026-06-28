@@ -35,9 +35,6 @@ python scripts/final_env_wizard.py --prefill-non-secret --output .env.final.loca
 python scripts/final_env_wizard.py --output .env.final.local
 ```
 ```bash
-set -a; source .env.final.local; set +a
-```
-```bash
 python scripts/live_env_handoff.py --env-file .env.final.local
 ```
 ```bash

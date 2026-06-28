@@ -1,3 +1,9 @@
+---
+title: Backblaze ProofFrame
+sdk: docker
+app_port: 8088
+---
+
 # ProofFrame
 
 ProofFrame is a provenance-first generative media vault for the Backblaze Generative Media Hackathon.

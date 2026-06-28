@@ -103,6 +103,21 @@ def test_submission_gate_fails_closed_without_final_reports(tmp_path):
     assert "Run the final secret scan and capture a clean report." in gate["next_actions"]
 
 
+def test_submission_gate_requires_post_live_packet_for_final_ready(tmp_path):
+    write_tasks(tmp_path, status="done")
+    write_packet(tmp_path, mode="pre_live_safe")
+    write_live_evidence(tmp_path)
+    write_final_reports(tmp_path)
+
+    gate = build_submission_gate(tmp_path)
+
+    assert gate["ok"] is False
+    assert gate["mode"] == "pre_live_safe"
+    assert gate["packet_gate"]["ok"] is False
+    assert gate["packet_gate"]["status"] == "pre_live_packet_pending"
+    assert "Regenerate the Devpost packet in post-live mode with the public video URL." in gate["next_actions"]
+
+
 def test_submission_gate_passes_with_done_tasks_packet_live_evidence_and_reports(tmp_path):
     write_tasks(tmp_path, status="done")
     write_packet(tmp_path, mode="post_live_verified")
@@ -116,5 +131,6 @@ def test_submission_gate_passes_with_done_tasks_packet_live_evidence_and_reports
     assert gate["summary"]["done"] == len(REQUIRED_FINAL_TASKS)
     assert gate["evidence_gate"]["ok"] is True
     assert gate["packet_gate"]["mode"] == "post_live_verified"
+    assert gate["packet_gate"]["status"] == "post_live_packet_ready"
     assert gate["report_gate"]["ok"] is True
     assert gate["next_actions"] == []

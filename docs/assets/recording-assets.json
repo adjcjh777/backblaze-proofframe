@@ -9,7 +9,7 @@
     {
       "path": "README.md",
       "present": true,
-      "bytes": 9923
+      "bytes": 9987
     },
     {
       "path": "docs/demo_script.md",
@@ -29,7 +29,7 @@
     {
       "path": "docs/assets/demo-readiness-report.json",
       "present": true,
-      "bytes": 3552
+      "bytes": 3571
     },
     {
       "path": "docs/assets/demo-readiness-report.md",
@@ -49,12 +49,12 @@
     {
       "path": "docs/assets/final-submission-control.json",
       "present": true,
-      "bytes": 17539
+      "bytes": 18209
     },
     {
       "path": "docs/assets/final-submission-control.md",
       "present": true,
-      "bytes": 5267
+      "bytes": 5334
     },
     {
       "path": "docs/assets/proofframe-local-ui-smoke.png",

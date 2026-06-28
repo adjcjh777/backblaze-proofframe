@@ -146,11 +146,19 @@ def build_packet_gate(root: Path) -> dict[str, Any]:
             "path": display_path(packet_path, root),
             "mode": None,
         }
+    mode = packet.get("mode")
+    final_packet_ready = mode == "post_live_verified"
+    if final_packet_ready:
+        status = "post_live_packet_ready"
+    elif mode == "pre_live_safe":
+        status = "pre_live_packet_pending"
+    else:
+        status = "invalid_packet_mode"
     return {
-        "ok": True,
-        "status": "ready",
+        "ok": final_packet_ready,
+        "status": status,
         "path": display_path(packet_path, root),
-        "mode": packet.get("mode"),
+        "mode": mode,
         "claim_warning": packet.get("claim_warning"),
     }
 
@@ -233,6 +241,7 @@ def build_report_gate(root: Path) -> dict[str, Any]:
 def next_actions(
     task_gates: list[dict[str, Any]],
     evidence_gate: dict[str, Any],
+    packet_gate: dict[str, Any],
     report_gate: dict[str, Any],
 ) -> list[str]:
     actions: list[str] = []
@@ -253,6 +262,8 @@ def next_actions(
             actions.append("Submit the Devpost project after every preceding gate is done.")
     if not evidence_gate["ok"] and "Capture final live proof evidence JSON." not in actions:
         actions.append("Capture final live proof evidence JSON.")
+    if not packet_gate["ok"]:
+        actions.append("Regenerate the Devpost packet in post-live mode with the public video URL.")
     for report in report_gate["reports"]:
         if report["ok"]:
             continue
@@ -305,5 +316,5 @@ def build_submission_gate(root: Path | None = None) -> dict[str, Any]:
         "evidence_gate": evidence_gate,
         "packet_gate": packet_gate,
         "report_gate": report_gate,
-        "next_actions": next_actions(task_gates, evidence_gate, report_gate),
+        "next_actions": next_actions(task_gates, evidence_gate, packet_gate, report_gate),
     }

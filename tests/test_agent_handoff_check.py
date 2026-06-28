@@ -1,4 +1,6 @@
 import importlib.util
+import json
+import subprocess
 from pathlib import Path
 
 
@@ -62,3 +64,97 @@ def test_handoff_markdown_lists_next_actions(tmp_path):
     assert "# ProofFrame Agent Handoff Report" in markdown
     assert "Update AGENTS.md so Work only inside points to the current repo path." in markdown
     assert "Update AGENTS.md Current branch" in markdown
+
+
+def test_bus_summary_reports_active_role_cwd_when_project_is_stale(tmp_path, monkeypatch):
+    write_agents(tmp_path, work_path=str(tmp_path))
+    fake_bus = tmp_path / "agent-bus"
+    fake_bus.write_text("#!/bin/sh\n", encoding="utf-8")
+    monkeypatch.setattr(agent_handoff_check, "BUS_CLI", fake_bus)
+
+    def fake_run(args, cwd, capture_output, text, check):
+        assert cwd == tmp_path.resolve()
+        if args[-3:] == ["team", "show", "proofframe-hackathon-58c62c50"]:
+            payload = {
+                "team": {
+                    "team_id": "proofframe-hackathon-58c62c50",
+                    "project": "/old/backblaze-proofframe",
+                    "roles": {
+                        "reviewer": {
+                            "status": "active",
+                            "session_id": "reviewer-session",
+                            "thread_id": "reviewer-session",
+                        },
+                        "tester": {"status": "pending", "session_id": None},
+                    },
+                }
+            }
+            return subprocess.CompletedProcess(args, 0, stdout=json.dumps(payload), stderr="")
+        if args[-2:] == ["resolve", "reviewer-session"]:
+            payload = {
+                "agent": {
+                    "agent_id": "proofframe-hackathon-reviewer",
+                    "name": "proofframe-hackathon-reviewer",
+                    "session_id": "reviewer-session",
+                    "cwd": str(tmp_path.resolve()),
+                    "status": "idle",
+                    "stale": False,
+                }
+            }
+            return subprocess.CompletedProcess(args, 0, stdout=json.dumps(payload), stderr="")
+        raise AssertionError(f"Unexpected args: {args}")
+
+    monkeypatch.setattr(agent_handoff_check.subprocess, "run", fake_run)
+
+    report = agent_handoff_check.build_report(tmp_path, check_bus=True)
+
+    assert report["ok"] is True
+    assert report["bus"]["status"] == "stale"
+    assert report["bus"]["active_role_cwd_ok"] is True
+    assert report["bus"]["active_roles"][0]["role"] == "reviewer"
+    assert report["bus"]["active_roles"][0]["cwd_matches_repo"] is True
+    assert "Reattach active Agent Bus roles" not in " ".join(report["next_actions"])
+
+
+def test_bus_summary_flags_stale_active_role_cwd(tmp_path, monkeypatch):
+    write_agents(tmp_path, work_path=str(tmp_path))
+    fake_bus = tmp_path / "agent-bus"
+    fake_bus.write_text("#!/bin/sh\n", encoding="utf-8")
+    monkeypatch.setattr(agent_handoff_check, "BUS_CLI", fake_bus)
+
+    def fake_run(args, cwd, capture_output, text, check):
+        if args[-3:] == ["team", "show", "proofframe-hackathon-58c62c50"]:
+            payload = {
+                "team": {
+                    "team_id": "proofframe-hackathon-58c62c50",
+                    "project": str(tmp_path.resolve()),
+                    "roles": {
+                        "scout": {
+                            "status": "active",
+                            "session_id": "scout-session",
+                            "thread_id": "scout-session",
+                        }
+                    },
+                }
+            }
+            return subprocess.CompletedProcess(args, 0, stdout=json.dumps(payload), stderr="")
+        if args[-2:] == ["resolve", "scout-session"]:
+            payload = {
+                "agent": {
+                    "agent_id": "proofframe-hackathon-scout",
+                    "session_id": "scout-session",
+                    "cwd": "/old/backblaze-proofframe",
+                    "status": "idle",
+                }
+            }
+            return subprocess.CompletedProcess(args, 0, stdout=json.dumps(payload), stderr="")
+        raise AssertionError(f"Unexpected args: {args}")
+
+    monkeypatch.setattr(agent_handoff_check.subprocess, "run", fake_run)
+
+    report = agent_handoff_check.build_report(tmp_path, check_bus=True)
+
+    assert report["bus"]["status"] == "current"
+    assert report["bus"]["active_role_cwd_ok"] is False
+    assert report["bus"]["active_roles"][0]["cwd_matches_repo"] is False
+    assert any("Reattach active Agent Bus roles" in action for action in report["next_actions"])
