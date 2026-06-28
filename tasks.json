@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-28T18:26:18Z",
+  "updated_at": "2026-06-28T18:36:27Z",
   "tasks": [
     {
       "id": "T001",
@@ -973,6 +973,15 @@
       "status": "done",
       "done_criteria": "Public Space sync fails closed when the post-credential report tail omits or misorders Devpost preview, and operator brief runs a no-value secret scan after preview regeneration.",
       "notes": "Addressed read-only reviewer findings: added ordered report-tail validation for submission_audit -> devpost_submission_preview -> secret_scan -> submission_bundle, added missing/misordered preview public sync tests, and added a post-preview secret scan to final operator actions."
+    },
+    {
+      "id": "T071",
+      "title": "Refresh official Devpost event evidence",
+      "phase": "P4 Submit",
+      "owner": "scout",
+      "status": "done",
+      "done_criteria": "Official Devpost overview and rules pages are fetched live, submission-open/deadline/requirements/criteria are validated, and downstream judge/submission reports are regenerated.",
+      "notes": "Refreshed docs/assets/devpost-event-snapshot.* with live official pages; observed 369 participants, deadline 2026-08-03T21:00:00Z, and submission_open=true; regenerated judge, Devpost, control, audit, public sync, and bundle reports."
     }
   ]
 }
