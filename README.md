@@ -108,6 +108,7 @@ python scripts/live_proof.py --preflight-only
 python scripts/run_final_live_proof.py --env-file .env.final.local --preflight-only
 python scripts/live_env_handoff.py
 python scripts/final_env_wizard.py --check-only
+python scripts/b2_key_scope_checklist.py
 python scripts/devpost_form_kit.py
 python scripts/devpost_submission_checklist.py
 python scripts/judge_brief.py
@@ -136,6 +137,7 @@ The browser UI and `GET /api/submission/gate` expose the same fail-closed final 
 `scripts/submission_bundle.py` creates a safe manifest of public submission artifacts, screenshots, checksums, Devpost copy mode, and remaining gate blockers.
 `scripts/live_env_handoff.py` creates a redacted B2/Genblaze credential handoff report so final proof setup can be checked without printing keys.
 `scripts/final_env_wizard.py` creates a local git-ignored `.env.final.local` with 0600 permissions, can prefill non-secret B2/default values, reads existing local values as defaults, and uses hidden prompts for credential values.
+`scripts/b2_key_scope_checklist.py` creates a no-secret B2 app-key scope checklist for the dedicated bucket, prefix, required upload capability, S3 SDK compatibility flag, forbidden permissions, and stop conditions before a key is created.
 `scripts/run_b2_live_proof.py` verifies the Backblaze B2 storage path independently with mock generation, so T020 can close before Genblaze credentials are ready.
 `scripts/devpost_form_kit.py` turns the safe packet into field-by-field Devpost copy with length checks, a strict final gate, and an in-app Devpost Kit through `GET /api/judge/devpost`.
 `scripts/devpost_submission_checklist.py` turns the final form kit into an ordered, no-secret Devpost web submission checklist with preflight gates, copy order, stop rules, post-submit receipt commands, and an in-app Submit Checklist through `GET /api/judge/submission-checklist`.
@@ -177,6 +179,7 @@ python scripts/secret_scan.py
 python scripts/claim_lint.py
 python scripts/live_env_handoff.py
 python scripts/final_env_wizard.py --check-only
+python scripts/b2_key_scope_checklist.py
 python scripts/devpost_form_kit.py
 python scripts/devpost_submission_checklist.py
 python scripts/judge_brief.py

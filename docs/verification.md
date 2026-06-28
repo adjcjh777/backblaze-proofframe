@@ -15,6 +15,7 @@ python scripts/secret_scan.py
 python scripts/claim_lint.py
 python scripts/live_env_handoff.py
 python scripts/final_env_wizard.py --check-only
+python scripts/b2_key_scope_checklist.py
 python scripts/devpost_form_kit.py
 python scripts/devpost_submission_checklist.py
 python scripts/judge_brief.py
@@ -50,6 +51,7 @@ The `.github/workflows/ci.yml` workflow runs on `main`, `feature/**`, and pull r
 - `python scripts/claim_lint.py`
 - `python scripts/live_env_handoff.py`
 - `python scripts/final_env_wizard.py --check-only`
+- `python scripts/b2_key_scope_checklist.py`
 - `python scripts/devpost_form_kit.py`
 - `python scripts/devpost_submission_checklist.py`
 - `python scripts/judge_brief.py`
@@ -80,6 +82,7 @@ The final sponsor proof has a preflight wrapper:
 ```bash
 . .venv/bin/activate
 python scripts/final_env_wizard.py --prefill-non-secret --output .env.final.local
+python scripts/b2_key_scope_checklist.py
 python scripts/final_env_wizard.py --output .env.final.local --missing-only --force
 python scripts/live_env_handoff.py --env-file .env.final.local
 python scripts/post_credential_live_proof.py
@@ -235,6 +238,7 @@ Before Devpost submit:
 python scripts/secret_scan.py
 python scripts/claim_lint.py
 python scripts/final_env_wizard.py --prefill-non-secret --output .env.final.local
+python scripts/b2_key_scope_checklist.py
 python scripts/final_env_wizard.py --output .env.final.local --missing-only --force
 python scripts/live_env_handoff.py --env-file .env.final.local
 python scripts/post_credential_live_proof.py --env-file .env.final.local --execute --update-tasks

@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-28T16:36:54Z",
+  "updated_at": "2026-06-28T16:49:31Z",
   "tasks": [
     {
       "id": "T001",
@@ -901,6 +901,15 @@
       "status": "done",
       "done_criteria": "Official Devpost snapshot is refetched, stale hard-coded participant counts are removed from docs, public_space_sync validates the raw Devpost event snapshot on the public Space, and the refreshed public artifact state is verified.",
       "notes": "Added raw Devpost event snapshot freshness/requirements/criteria checks to public_space_sync, refreshed the official snapshot to participant count 365 checked 2026-06-29 Asia/Shanghai, removed stale hard-coded 358 references, pushed HF Space commit d9a3ed6964c0cf9834e18bd465baea1a4ad2d84e, and verified public_space_sync plus API smoke."
+    },
+    {
+      "id": "T063",
+      "title": "Add B2 key scope checklist gate",
+      "phase": "P4 Submit",
+      "owner": "reviewer",
+      "status": "done",
+      "done_criteria": "No-secret B2 application-key scope checklist is generated, tested, included in audit/bundle/CI/docs, and blocks broad or secret-bearing setup before live proof.",
+      "notes": "Added scripts/b2_key_scope_checklist.py, generated docs/assets/b2-key-scope-checklist.*, wired CI/submission audit/submission bundle/docs/final handoffs, and kept key creation behind explicit user confirmation."
     }
   ]
 }

@@ -57,6 +57,9 @@ jobs:
       - name: Final env wizard
         run: python scripts/final_env_wizard.py --check-only
 
+      - name: B2 key scope checklist
+        run: python scripts/b2_key_scope_checklist.py
+
       - name: Devpost form kit
         run: python scripts/devpost_form_kit.py
 

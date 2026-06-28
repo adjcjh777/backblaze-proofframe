@@ -44,6 +44,7 @@ Codex can handle:
 - Devpost text from `docs/devpost_draft.md`.
 - Field-by-field Devpost form kit from `docs/assets/devpost-form-kit.md` and `.json`.
 - Final Devpost web submission checklist from `docs/assets/devpost-submission-checklist.md` and `.json`.
+- No-secret B2 key scope checklist from `docs/assets/b2-key-scope-checklist.md` and `.json`.
 - Official criteria crosswalk from `docs/assets/judge-crosswalk.md` and `.json`.
 - Safe submission bundle manifest from `docs/assets/submission-bundle-manifest.md` and `.json`.
 - Final submission control report from `docs/assets/final-submission-control.md` and `.json`.
@@ -67,6 +68,7 @@ The result is a shareable asset packet that explains where each generated file c
 
 - [x] Registered on Devpost.
 - [x] Backblaze B2 bucket created.
+- [x] No-secret B2 key scope checklist generated.
 - [ ] Least-privilege B2 application key created.
 - [ ] B2 media and manifest upload verified.
 - [ ] Genblaze run captured.

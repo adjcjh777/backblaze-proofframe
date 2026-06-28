@@ -1,15 +1,15 @@
 {
   "schema": "proofframe.recording_assets.v1",
-  "mode": "public_mock_verified",
+  "mode": "mock_recording_ready",
   "mock_recording_ready": true,
-  "public_mock_verified": true,
+  "public_mock_verified": false,
   "final_video_ready": false,
   "public_base_url": "https://adjcjh-backblaze-proofframe.hf.space",
   "required_assets": [
     {
       "path": "README.md",
       "present": true,
-      "bytes": 12731
+      "bytes": 13077
     },
     {
       "path": "docs/demo_script.md",
@@ -74,12 +74,12 @@
     {
       "path": "docs/assets/final-submission-control.json",
       "present": true,
-      "bytes": 23756
+      "bytes": 23824
     },
     {
       "path": "docs/assets/final-submission-control.md",
       "present": true,
-      "bytes": 6580
+      "bytes": 6633
     },
     {
       "path": "docs/assets/proofframe-local-ui-smoke.png",
@@ -165,43 +165,11 @@
     }
   },
   "public_verification": {
-    "checked": true,
-    "ok": true,
+    "checked": false,
+    "ok": null,
     "judge_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
     "health_url": "https://adjcjh-backblaze-proofframe.hf.space/api/health",
-    "gate_url": "https://adjcjh-backblaze-proofframe.hf.space/api/submission/gate",
-    "html_status": 200,
-    "health_status": 200,
-    "gate_status": 200,
-    "html_markers": {
-      "judge_recording_slate": true,
-      "sponsor_evidence_model": true,
-      "recording_runbook": true,
-      "auto_load_judge_demo": true,
-      "final_report_gate_copy": true
-    },
-    "health": {
-      "ok": true,
-      "storage_backend": "local",
-      "generation_backend": "mock",
-      "ready": true
-    },
-    "submission_gate": {
-      "ok": true,
-      "mode": "pre_live_safe",
-      "summary": {
-        "required": 6,
-        "done": 1,
-        "blocked": 0,
-        "doing": 2,
-        "todo": 3,
-        "missing": 0
-      },
-      "report_gate_present": true,
-      "report_gate_status": "incomplete",
-      "paths_relative": true
-    },
-    "errors": []
+    "gate_url": "https://adjcjh-backblaze-proofframe.hf.space/api/submission/gate"
   },
   "shot_plan": [
     {
@@ -248,6 +216,7 @@
     "python scripts/final_submission_control.py --strict-final"
   ],
   "next_actions": [
+    "Run python scripts/recording_assets.py --verify-public before recording.",
     "After live B2/Genblaze proof, record and upload the final public video.",
     "Run python scripts/final_submission_control.py --strict-final before Devpost submit."
   ]

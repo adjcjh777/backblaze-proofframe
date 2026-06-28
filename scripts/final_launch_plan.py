@@ -172,7 +172,10 @@ def build_phases(root: Path, reports: dict[str, dict[str, Any]], statuses: dict[
             status=credential_status,
             detail=credential_detail,
             command="python scripts/final_env_wizard.py --output .env.final.local --missing-only --force",
-            expected_artifacts=[".env.final.local (git-ignored, never committed)"],
+            expected_artifacts=[
+                "docs/assets/b2-key-scope-checklist.md reviewed before key creation",
+                ".env.final.local (git-ignored, never committed)",
+            ],
         ),
         make_phase(
             phase_id="b2_live_proof",

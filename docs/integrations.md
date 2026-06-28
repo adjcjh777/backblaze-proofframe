@@ -4,6 +4,7 @@
 
 - Local demo path: implemented and tested.
 - B2 code path: implemented as an S3-compatible backend with fake-client tests.
+- B2 key scope checklist: generated as a no-secret pre-creation gate for the dedicated bucket, `campaigns/` prefix, required upload/S3 compatibility permissions, and forbidden admin/delete permissions.
 - B2 live proof: not complete until a dedicated Backblaze bucket and least-privilege key are configured and one media object plus one manifest are uploaded.
 - Genblaze code path: implemented with the official Genblaze `Pipeline` API and `GMICloudImageProvider`.
 - Genblaze live proof: not complete until official Genblaze packages/provider credentials generate media and the manifest records provider/model/run metadata.
@@ -23,6 +24,7 @@ When B2 and Genblaze credentials are available, first run the preflight without 
 
 ```bash
 python scripts/live_env_handoff.py --env-file .env.final.local
+python scripts/b2_key_scope_checklist.py
 python scripts/live_proof.py --preflight-only
 python scripts/run_final_live_proof.py --env-file .env.final.local --preflight-only
 ```

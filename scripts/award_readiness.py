@@ -69,7 +69,7 @@ def run_secret_scan(root: Path) -> list[str]:
     original_root = secret_scan.ROOT
     secret_scan.ROOT = root
     try:
-        return secret_scan.run_scan()
+        return secret_scan.run_scan(root)
     finally:
         secret_scan.ROOT = original_root
 

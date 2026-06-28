@@ -26,6 +26,7 @@
       "detail": "Only expected secret ids are missing; operator can enter them locally.",
       "command": "python scripts/final_env_wizard.py --output .env.final.local --missing-only --force",
       "expected_artifacts": [
+        "docs/assets/b2-key-scope-checklist.md reviewed before key creation",
         ".env.final.local (git-ignored, never committed)"
       ],
       "safe_to_commit_after_scan": [],

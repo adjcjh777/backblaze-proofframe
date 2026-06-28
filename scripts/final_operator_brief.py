@@ -103,7 +103,7 @@ def build_user_actions(b2_setup: dict[str, Any], handoff: dict[str, Any]) -> lis
     actions: list[str] = []
     if {"b2_key_id", "b2_application_key"} & missing:
         actions.append(
-            "Create a least-privilege Backblaze B2 application key named "
+            "Review `docs/assets/b2-key-scope-checklist.md`, then create a least-privilege Backblaze B2 application key named "
             f"`{key_name}` scoped to `{bucket}`, then enter only the key id and application key "
             "into `.env.final.local` via `python scripts/final_env_wizard.py --output .env.final.local --missing-only --force`."
         )

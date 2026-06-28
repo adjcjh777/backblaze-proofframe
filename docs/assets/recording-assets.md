@@ -1,8 +1,8 @@
 # ProofFrame Recording Assets
 
-Mode: `public_mock_verified`
+Mode: `mock_recording_ready`
 Mock recording ready: `true`
-Public mock verified: `true`
+Public mock verified: `false`
 Final video ready: `false`
 Public judge URL: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 
@@ -40,10 +40,7 @@ Public judge URL: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 
 ## Public GET-only Verification
 
-- Overall: `true`
-- HTML status: `200`
-- Health: `local` / `mock`
-- Submission gate: `pre_live_safe`
+- Not checked in this run. Use `python scripts/recording_assets.py --verify-public`.
 
 ## Shot Plan
 
@@ -71,5 +68,6 @@ python scripts/final_submission_control.py --strict-final
 
 ## Next Actions
 
+- Run python scripts/recording_assets.py --verify-public before recording.
 - After live B2/Genblaze proof, record and upload the final public video.
 - Run python scripts/final_submission_control.py --strict-final before Devpost submit.

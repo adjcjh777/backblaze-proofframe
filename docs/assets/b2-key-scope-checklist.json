@@ -1,0 +1,189 @@
+{
+  "schema": "proofframe.b2_key_scope_checklist.v1",
+  "created_at": "2026-06-28T16:53:29Z",
+  "mode": "scope_ready_key_not_created",
+  "ok": true,
+  "safe_to_commit": true,
+  "requires_user_confirmation_before_key_creation": true,
+  "setup_path": "docs/assets/b2-live-setup.json",
+  "setup": {
+    "present": true,
+    "schema": "proofframe.b2_live_setup.v1",
+    "status": "bucket_created_key_pending",
+    "bucket_name": "proofframe-demo-a6b4e49",
+    "bucket_type": "private",
+    "endpoint": "s3.us-west-004.backblazeb2.com",
+    "application_key_name": "proofframe-demo-live-proof",
+    "application_key_status": "form_prepared_not_created",
+    "checks": [
+      {
+        "id": "setup_present",
+        "ok": true,
+        "detail": "B2 live setup JSON is present and parseable."
+      },
+      {
+        "id": "schema",
+        "ok": true,
+        "detail": "Setup record uses the expected schema."
+      },
+      {
+        "id": "safe_to_commit",
+        "ok": true,
+        "detail": "Setup record declares that it contains no secrets."
+      },
+      {
+        "id": "private_bucket",
+        "ok": true,
+        "detail": "Live proof bucket remains private."
+      },
+      {
+        "id": "single_bucket_target",
+        "ok": true,
+        "detail": "A single target bucket name is recorded."
+      },
+      {
+        "id": "s3_endpoint",
+        "ok": true,
+        "detail": "S3-compatible endpoint is recorded."
+      },
+      {
+        "id": "application_key_name",
+        "ok": true,
+        "detail": "Prepared application key name is recorded."
+      },
+      {
+        "id": "application_key_status_safe",
+        "ok": true,
+        "detail": "The committed setup must not contain created key material."
+      }
+    ],
+    "ok": true
+  },
+  "expected_key": {
+    "key_kind": "standard_application_key",
+    "forbidden_key_kind": "master_application_key",
+    "key_name": "proofframe-demo-live-proof",
+    "bucket_scope": {
+      "mode": "single_bucket",
+      "bucket_name": "proofframe-demo-a6b4e49",
+      "forbidden": "all_buckets"
+    },
+    "file_name_prefix": {
+      "value": "campaigns/",
+      "required": true,
+      "matches_uploaded_keys": [
+        "campaigns/{campaign_id}/media/{filename}",
+        "campaigns/{campaign_id}/manifests/{campaign_id}-manifest.json"
+      ]
+    },
+    "duration": {
+      "recommended_max_seconds": 604800,
+      "reason": "Short-lived proof key for final hackathon verification."
+    },
+    "web_ui_access": {
+      "preferred": "Write Only",
+      "upgrade_to_read_write_only_if": "Final verification is changed to perform HeadObject, GetObject, or ListObjects."
+    },
+    "required_capabilities": [
+      {
+        "capability": "writeFiles",
+        "why": "ProofFrame's B2 backend uploads generated media and manifests with S3 PutObject.",
+        "proof_path": "src/proofframe/storage.py:B2StorageBackend.put_bytes"
+      },
+      {
+        "capability": "listAllBucketNames",
+        "why": "Backblaze documents this as required for bucket-restricted app keys used with S3 SDKs and integrations.",
+        "proof_path": "Backblaze S3-compatible app key documentation"
+      }
+    ],
+    "conditional_capabilities": [
+      {
+        "capability": "readFiles",
+        "allowed_only_if": "A final verification command is changed to perform HeadObject or GetObject against the uploaded proof objects.",
+        "required_now": "false"
+      },
+      {
+        "capability": "listFiles",
+        "allowed_only_if": "A final verification command is changed to list only the configured ProofFrame prefix.",
+        "required_now": "false"
+      }
+    ],
+    "forbidden_capabilities": [
+      {
+        "capability": "deleteFiles",
+        "reason": "The live proof only uploads new media and manifest objects; deletion is unnecessary."
+      },
+      {
+        "capability": "writeBuckets/deleteBuckets",
+        "reason": "The bucket is already created; key must not create, modify, or delete buckets."
+      },
+      {
+        "capability": "writeBucketLifecycleRules",
+        "reason": "Lifecycle policy changes are outside the proof path."
+      },
+      {
+        "capability": "writeBucketEncryption",
+        "reason": "Encryption configuration is not needed for the one-bucket upload proof."
+      },
+      {
+        "capability": "writeBucketRetentions/writeFileRetentions/bypassGovernance",
+        "reason": "Object Lock and governance operations are not part of ProofFrame's proof."
+      },
+      {
+        "capability": "writeFileLegalHolds",
+        "reason": "Legal hold updates are not needed for submission evidence."
+      },
+      {
+        "capability": "writeBucketReplications/writeBucketNotifications/writeBucketLogging",
+        "reason": "Replication, notifications, and logging are admin features outside the live proof."
+      }
+    ]
+  },
+  "operator_steps": [
+    "Create a standard application key, not a master application key.",
+    "Set the key name to `proofframe-demo-live-proof`.",
+    "Limit bucket access to the single bucket `proofframe-demo-a6b4e49`; do not choose all buckets.",
+    "Set the file name prefix to `campaigns/` so the key can only write ProofFrame proof objects.",
+    "Use Write Only access for the upload proof; add read/list only if a changed verification command explicitly needs it.",
+    "Enable `listAllBucketNames` for S3 SDK compatibility with the bucket-restricted key.",
+    "Set an expiration no longer than 604800 seconds for the hackathon proof window.",
+    "Copy the key id and application key only into `.env.final.local` through `python scripts/final_env_wizard.py --output .env.final.local --missing-only --force`.",
+    "Immediately run `python scripts/live_env_handoff.py --env-file .env.final.local --strict` and then the B2 proof runner."
+  ],
+  "stop_conditions": [
+    "Stop if the UI asks for or displays a master application key.",
+    "Stop if bucket access cannot be limited to `proofframe-demo-a6b4e49`.",
+    "Stop if the file prefix cannot be set to `campaigns/` and ask before widening scope.",
+    "Stop if the key requires all-bucket access, bucket write/delete permissions, or deleteFiles.",
+    "Stop if a screenshot, recording, terminal, browser address bar, or chat message would expose the key id or application key.",
+    "Stop if any key value appears in a commit diff, generated report, or Devpost field."
+  ],
+  "secret_policy": {
+    "allowed_destination": ".env.final.local via final_env_wizard",
+    "forbidden_destinations": [
+      "git",
+      "docs",
+      "chat",
+      "screenshots",
+      "Devpost fields",
+      "browser recordings"
+    ],
+    "forbidden_setup_fields": []
+  },
+  "next_commands_after_key_entry": [
+    "python scripts/live_env_handoff.py --env-file .env.final.local --strict",
+    "python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out docs/assets/b2-live-proof-evidence.json"
+  ],
+  "official_sources": [
+    {
+      "label": "Backblaze B2 S3-Compatible App Keys",
+      "url": "https://www.backblaze.com/docs/cloud-storage-s3-compatible-app-keys",
+      "used_for": "Manual app key requirement, listAllBucketNames compatibility, and S3 capability mapping."
+    },
+    {
+      "label": "Backblaze Cloud Storage Application Keys",
+      "url": "https://www.backblaze.com/docs/cloud-storage-application-keys",
+      "used_for": "Standard versus master application key, single-bucket scope, file prefix, and duration controls."
+    }
+  ]
+}

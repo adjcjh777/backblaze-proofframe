@@ -22,6 +22,7 @@ Only expected secret ids are missing; operator can enter them locally.
 python scripts/final_env_wizard.py --output .env.final.local --missing-only --force
 ```
 - Expected artifacts:
+  - `docs/assets/b2-key-scope-checklist.md reviewed before key creation`
   - `.env.final.local (git-ignored, never committed)`
 
 ### b2_live_proof - Capture Backblaze B2 live proof

@@ -46,6 +46,8 @@ REQUIRED_PUBLIC_FILES = [
     "docs/assets/final-submission-control.md",
     "docs/assets/final-operator-brief.json",
     "docs/assets/final-operator-brief.md",
+    "docs/assets/b2-key-scope-checklist.json",
+    "docs/assets/b2-key-scope-checklist.md",
     "docs/assets/final-rehearsal-checklist.json",
     "docs/assets/final-rehearsal-checklist.md",
     "docs/evidence_package.md",
@@ -73,6 +75,7 @@ REQUIRED_REPORT_SCHEMAS = {
     "docs/assets/secret-scan-report.json": "proofframe.secret_scan.v1",
     "docs/assets/final-submission-control.json": "proofframe.final_submission_control.v1",
     "docs/assets/final-operator-brief.json": "proofframe.final_operator_brief.v1",
+    "docs/assets/b2-key-scope-checklist.json": "proofframe.b2_key_scope_checklist.v1",
     "docs/assets/final-rehearsal-checklist.json": "proofframe.final_rehearsal.v1",
     "docs/assets/devpost-submission-receipt.json": "proofframe.devpost_submission_receipt.v1",
 }
