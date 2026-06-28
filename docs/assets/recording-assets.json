@@ -9,7 +9,7 @@
     {
       "path": "README.md",
       "present": true,
-      "bytes": 13077
+      "bytes": 13101
     },
     {
       "path": "docs/demo_script.md",
@@ -74,12 +74,12 @@
     {
       "path": "docs/assets/final-submission-control.json",
       "present": true,
-      "bytes": 23824
+      "bytes": 23826
     },
     {
       "path": "docs/assets/final-submission-control.md",
       "present": true,
-      "bytes": 6633
+      "bytes": 6634
     },
     {
       "path": "docs/assets/proofframe-local-ui-smoke.png",

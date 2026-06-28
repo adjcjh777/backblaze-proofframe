@@ -19,7 +19,7 @@ SCHEMA = "proofframe.public_space_sync.v1"
 
 SPACE_ID = "ADJCJH/backblaze-proofframe"
 SPACE_HOST = "https://adjcjh-backblaze-proofframe.hf.space"
-EXPECTED_SPACE_SHA = "d9a3ed6964c0cf9834e18bd465baea1a4ad2d84e"
+EXPECTED_SPACE_SHA = "2f1532df85103b7114cfba5a1267764ee8a00fd6"
 TIMEOUT_SECONDS = 30
 DRAFT_VIDEO_MIN_BYTES = 100_000
 EVENT_SNAPSHOT_MAX_AGE_DAYS = 14
@@ -57,6 +57,8 @@ REQUIRED_BUNDLE_ARTIFACT_IDS = {
     "public_space_sync_json",
     "post_credential_live_proof_json",
     "post_credential_live_proof_script",
+    "b2_key_scope_checklist_json",
+    "b2_key_scope_checklist_script",
     "final_submission_control_json",
     "secret_scan_json",
     "submission_audit_json",
@@ -250,6 +252,7 @@ def build_report(
     handoff_url = raw_file_url(space_id, "docs/assets/agent-handoff-report.json")
     event_snapshot_url = raw_file_url(space_id, "docs/assets/devpost-event-snapshot.json")
     launch_plan_url = raw_file_url(space_id, "docs/assets/final-launch-plan.json")
+    b2_key_scope_checklist_url = raw_file_url(space_id, "docs/assets/b2-key-scope-checklist.json")
     judge_brief_url = raw_file_url(space_id, "docs/assets/judge-brief.json")
     judge_crosswalk_url = raw_file_url(space_id, "docs/assets/judge-crosswalk.json")
     recording_assets_url = raw_file_url(space_id, "docs/assets/recording-assets.json")
@@ -268,6 +271,7 @@ def build_report(
     handoff_result = fetcher(handoff_url, TIMEOUT_SECONDS)
     event_snapshot_result = fetcher(event_snapshot_url, TIMEOUT_SECONDS)
     launch_plan_result = fetcher(launch_plan_url, TIMEOUT_SECONDS)
+    b2_key_scope_checklist_result = fetcher(b2_key_scope_checklist_url, TIMEOUT_SECONDS)
     judge_brief_result = fetcher(judge_brief_url, TIMEOUT_SECONDS)
     judge_crosswalk_result = fetcher(judge_crosswalk_url, TIMEOUT_SECONDS)
     recording_assets_result = fetcher(recording_assets_url, TIMEOUT_SECONDS)
@@ -286,6 +290,7 @@ def build_report(
     handoff = parse_json(handoff_result)
     event_snapshot = parse_json(event_snapshot_result)
     launch_plan = parse_json(launch_plan_result)
+    b2_key_scope_checklist = parse_json(b2_key_scope_checklist_result)
     judge_brief = parse_json(judge_brief_result)
     judge_crosswalk = parse_json(judge_crosswalk_result)
     recording_assets = parse_json(recording_assets_result)
@@ -358,6 +363,40 @@ def build_report(
     submission_bundle_secret_scan = report_status(submission_bundle_reports, "secret_scan")
     submission_bundle_submission_audit = report_status(submission_bundle_reports, "submission_audit")
     submission_bundle_next_actions = list_field(submission_bundle_gate, "next_actions")
+    b2_key_scope_expected = dict_field(b2_key_scope_checklist, "expected_key")
+    b2_key_scope_bucket = dict_field(b2_key_scope_expected, "bucket_scope")
+    b2_key_scope_prefix = dict_field(b2_key_scope_expected, "file_name_prefix")
+    b2_key_scope_secret_policy = dict_field(b2_key_scope_checklist, "secret_policy")
+    b2_key_scope_required_capabilities = {
+        str(item.get("capability"))
+        for item in dict_list_field(b2_key_scope_expected, "required_capabilities")
+    }
+    b2_key_scope_conditional_capabilities = {
+        str(item.get("capability")): item
+        for item in dict_list_field(b2_key_scope_expected, "conditional_capabilities")
+    }
+    b2_key_scope_forbidden_capabilities = {
+        str(item.get("capability"))
+        for item in dict_list_field(b2_key_scope_expected, "forbidden_capabilities")
+    }
+    b2_key_scope_ok = bool(
+        b2_key_scope_checklist_result.get("ok")
+        and b2_key_scope_checklist
+        and b2_key_scope_checklist.get("schema") == "proofframe.b2_key_scope_checklist.v1"
+        and b2_key_scope_checklist.get("ok") is True
+        and b2_key_scope_checklist.get("safe_to_commit") is True
+        and b2_key_scope_checklist.get("requires_user_confirmation_before_key_creation") is True
+        and b2_key_scope_secret_policy.get("forbidden_setup_fields") == []
+        and b2_key_scope_bucket.get("mode") == "single_bucket"
+        and b2_key_scope_bucket.get("bucket_name") == "proofframe-demo-a6b4e49"
+        and b2_key_scope_bucket.get("forbidden") == "all_buckets"
+        and b2_key_scope_prefix.get("value") == "campaigns/"
+        and {"writeFiles", "listAllBucketNames"} <= b2_key_scope_required_capabilities
+        and b2_key_scope_conditional_capabilities.get("readFiles", {}).get("required_now") == "false"
+        and b2_key_scope_conditional_capabilities.get("listFiles", {}).get("required_now") == "false"
+        and "deleteFiles" in b2_key_scope_forbidden_capabilities
+        and "writeBuckets/deleteBuckets" in b2_key_scope_forbidden_capabilities
+    )
 
     checks = [
         check_item(
@@ -437,6 +476,19 @@ def build_report(
                 f"current phase is {launch_plan.get('current_phase') if launch_plan else None}."
             ),
             launch_plan_url,
+        ),
+        check_item(
+            "raw_b2_key_scope_checklist",
+            "Raw B2 key scope checklist is public and no-secret",
+            b2_key_scope_ok,
+            (
+                f"Checklist schema is {b2_key_scope_checklist.get('schema') if b2_key_scope_checklist else None}; "
+                f"safe_to_commit={b2_key_scope_checklist.get('safe_to_commit') if b2_key_scope_checklist else None}; "
+                f"bucket={b2_key_scope_bucket.get('bucket_name') if b2_key_scope_checklist else None}; "
+                f"prefix={b2_key_scope_prefix.get('value') if b2_key_scope_checklist else None}; "
+                f"required={sorted(b2_key_scope_required_capabilities)}."
+            ),
+            b2_key_scope_checklist_url,
         ),
         check_item(
             "raw_judge_brief",
@@ -702,6 +754,22 @@ def build_report(
             },
             "launch_plan_mode": launch_plan.get("mode") if launch_plan else None,
             "launch_plan_phase": launch_plan.get("current_phase") if launch_plan else None,
+            "b2_key_scope_checklist": {
+                "schema": b2_key_scope_checklist.get("schema") if b2_key_scope_checklist else None,
+                "ok": b2_key_scope_checklist.get("ok") if b2_key_scope_checklist else None,
+                "safe_to_commit": (
+                    b2_key_scope_checklist.get("safe_to_commit") if b2_key_scope_checklist else None
+                ),
+                "requires_user_confirmation_before_key_creation": (
+                    b2_key_scope_checklist.get("requires_user_confirmation_before_key_creation")
+                    if b2_key_scope_checklist
+                    else None
+                ),
+                "bucket_name": b2_key_scope_bucket.get("bucket_name"),
+                "prefix": b2_key_scope_prefix.get("value"),
+                "required_capabilities": sorted(b2_key_scope_required_capabilities),
+                "forbidden_setup_fields": b2_key_scope_secret_policy.get("forbidden_setup_fields"),
+            },
             "judge_brief_schema": judge_brief.get("schema") if judge_brief else None,
             "judge_brief_safe_to_submit": (
                 judge_brief.get("status", {}).get("safe_to_submit") if judge_brief else None
@@ -745,6 +813,7 @@ def build_report(
             "raw_handoff_report": handoff_url,
             "raw_event_snapshot": event_snapshot_url,
             "raw_launch_plan": launch_plan_url,
+            "raw_b2_key_scope_checklist": b2_key_scope_checklist_url,
             "raw_judge_brief": judge_brief_url,
             "raw_judge_crosswalk": judge_crosswalk_url,
             "raw_demo_video_draft": demo_video_draft_url,
@@ -771,6 +840,8 @@ def next_actions(checks: list[dict[str, Any]]) -> list[str]:
         actions.append("Regenerate and upload docs/assets/devpost-event-snapshot.json to the Space.")
     if "raw_launch_plan" in failed:
         actions.append("Regenerate and upload docs/assets/final-launch-plan.json to the Space.")
+    if "raw_b2_key_scope_checklist" in failed:
+        actions.append("Regenerate and upload docs/assets/b2-key-scope-checklist.json to the Space.")
     if "raw_judge_brief" in failed:
         actions.append("Regenerate and upload docs/assets/judge-brief.json to the Space.")
     if "raw_judge_crosswalk" in failed:

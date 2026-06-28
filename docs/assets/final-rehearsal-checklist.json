@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.final_rehearsal.v1",
-  "created_at": "2026-06-28T16:37:53Z",
+  "created_at": "2026-06-28T17:09:06Z",
   "mode": "ready_for_credential_rehearsal",
   "ok": true,
   "safe_to_submit": false,
@@ -36,7 +36,7 @@
     {
       "id": "public_space_synced",
       "ok": true,
-      "detail": "Runtime sha: d9a3ed6964c0cf9834e18bd465baea1a4ad2d84e.",
+      "detail": "Runtime sha: 2f1532df85103b7114cfba5a1267764ee8a00fd6.",
       "evidence": "docs/assets/public-space-sync-report.json"
     },
     {
@@ -48,7 +48,7 @@
     {
       "id": "mock_recording_ready",
       "ok": true,
-      "detail": "Recording assets mode is public_mock_verified.",
+      "detail": "Recording assets mode is mock_recording_ready.",
       "evidence": "docs/assets/recording-assets.json"
     },
     {
@@ -267,7 +267,7 @@
           "id": "credential_handoff",
           "label": "Live credential handoff is ready",
           "ok": false,
-          "detail": "Credential handoff mode is missing_live_env; missing ids: b2_key_id, b2_application_key, genblaze_api_key.",
+          "detail": "Credential handoff mode is missing_live_env; missing ids: storage_backend_mode, generation_backend_mode, b2_endpoint, b2_bucket, b2_key_id, b2_application_key, genblaze_api_key, genblaze_image_model.",
           "evidence": "docs/assets/live-credential-handoff.json"
         },
         {
@@ -347,7 +347,7 @@
       "final_form_ready": null,
       "mock_recording_ready": null,
       "final_video_ready": null,
-      "runtime_sha": "d9a3ed6964c0cf9834e18bd465baea1a4ad2d84e",
+      "runtime_sha": "2f1532df85103b7114cfba5a1267764ee8a00fd6",
       "failed_checks": [],
       "missing_ids": [],
       "blocking_items": []
@@ -356,7 +356,7 @@
       "path": "docs/assets/recording-assets.json",
       "present": true,
       "schema_ok": true,
-      "mode": "public_mock_verified",
+      "mode": "mock_recording_ready",
       "ok": null,
       "safe_to_submit": null,
       "ready_for_secret_entry": null,

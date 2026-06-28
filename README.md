@@ -146,7 +146,7 @@ The browser UI and `GET /api/submission/gate` expose the same fail-closed final 
 `scripts/final_rehearsal.py` turns the final operator brief, launch plan, public sync, and gates into a no-secret final-submission rehearsal checklist.
 `scripts/devpost_event_snapshot.py` keeps official Devpost deadline, participants, submission requirements, and judging criteria as a refreshable evidence report.
 `scripts/agent_handoff_check.py` keeps AGENTS.md, Codex, and Agent Bus handoff paths aligned with the current repo so future role sessions do not follow stale project metadata.
-`scripts/public_space_sync.py` verifies the public Hugging Face Space runtime sha, raw handoff, Devpost event snapshot, final launch plan, judge brief, judge crosswalk, mock video draft, health/gate APIs, and judge-mode HTML markers.
+`scripts/public_space_sync.py` verifies the public Hugging Face Space runtime sha, raw handoff, Devpost event snapshot, final launch plan, B2 key scope checklist, judge brief, judge crosswalk, mock video draft, health/gate APIs, and judge-mode HTML markers.
 `scripts/run_final_live_proof.py` is the final one-command live runner: once B2 and Genblaze env vars are present, it starts the app, verifies `/api/health` reports `b2` plus `genblaze`, writes sanitized final evidence, and stops the server.
 `scripts/claim_lint.py` keeps pre-live public copy from claiming completed Backblaze B2 or Genblaze proof before evidence exists.
 `scripts/secret_scan.py` writes a no-value secret scan report for public files, generated evidence, local logs, and media inventory while excluding local credential files without reading them.

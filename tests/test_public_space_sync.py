@@ -93,6 +93,40 @@ def valid_event_snapshot() -> dict:
     }
 
 
+def valid_b2_key_scope_checklist() -> dict:
+    return {
+        "schema": "proofframe.b2_key_scope_checklist.v1",
+        "mode": "scope_ready_key_not_created",
+        "ok": True,
+        "safe_to_commit": True,
+        "requires_user_confirmation_before_key_creation": True,
+        "expected_key": {
+            "bucket_scope": {
+                "mode": "single_bucket",
+                "bucket_name": "proofframe-demo-a6b4e49",
+                "forbidden": "all_buckets",
+            },
+            "file_name_prefix": {
+                "value": "campaigns/",
+                "required": True,
+            },
+            "required_capabilities": [
+                {"capability": "writeFiles"},
+                {"capability": "listAllBucketNames"},
+            ],
+            "conditional_capabilities": [
+                {"capability": "readFiles", "required_now": "false"},
+                {"capability": "listFiles", "required_now": "false"},
+            ],
+            "forbidden_capabilities": [
+                {"capability": "deleteFiles"},
+                {"capability": "writeBuckets/deleteBuckets"},
+            ],
+        },
+        "secret_policy": {"forbidden_setup_fields": []},
+    }
+
+
 def fake_fetcher(url: str, timeout: int) -> dict:
     assert timeout == public_space_sync.TIMEOUT_SECONDS
     if url.endswith("/api/spaces/ADJCJH/backblaze-proofframe"):
@@ -156,6 +190,13 @@ def fake_fetcher(url: str, timeout: int) -> dict:
                     "current_phase": "credential_entry",
                 }
             ),
+            "error": None,
+        }
+    if url.endswith("/docs/assets/b2-key-scope-checklist.json"):
+        return {
+            "ok": True,
+            "status": 200,
+            "body": json.dumps(valid_b2_key_scope_checklist()),
             "error": None,
         }
     if url.endswith("/docs/assets/judge-brief.json"):
@@ -355,6 +396,12 @@ def test_public_space_sync_report_passes_when_space_is_current():
     assert report["observed"]["event_snapshot"]["requirements_ok"] is True
     assert report["observed"]["launch_plan_mode"] == "ready_for_credential_entry"
     assert report["observed"]["launch_plan_phase"] == "credential_entry"
+    assert report["observed"]["b2_key_scope_checklist"]["safe_to_commit"] is True
+    assert report["observed"]["b2_key_scope_checklist"]["bucket_name"] == "proofframe-demo-a6b4e49"
+    assert report["observed"]["b2_key_scope_checklist"]["prefix"] == "campaigns/"
+    assert {"writeFiles", "listAllBucketNames"} <= set(
+        report["observed"]["b2_key_scope_checklist"]["required_capabilities"]
+    )
     assert report["observed"]["judge_brief_schema"] == "proofframe.judge_brief.v1"
     assert report["observed"]["judge_brief_safe_to_submit"] is False
     assert report["observed"]["judge_crosswalk_schema"] == "proofframe.judge_crosswalk.v1"
@@ -409,6 +456,34 @@ def test_public_space_sync_fails_on_missing_launch_plan():
     failed = {item["id"] for item in report["checks"] if not item["ok"]}
     assert report["ok"] is False
     assert "raw_launch_plan" in failed
+
+
+def test_public_space_sync_fails_on_unsafe_b2_key_scope_checklist():
+    def broken_fetcher(url: str, timeout: int) -> dict:
+        result = fake_fetcher(url, timeout)
+        if url.endswith("/docs/assets/b2-key-scope-checklist.json"):
+            checklist = valid_b2_key_scope_checklist()
+            checklist["safe_to_commit"] = False
+            checklist["secret_policy"]["forbidden_setup_fields"] = ["$.application_key"]
+            checklist["expected_key"]["bucket_scope"] = {
+                "mode": "all_buckets",
+                "bucket_name": None,
+                "forbidden": None,
+            }
+            checklist["expected_key"]["file_name_prefix"]["value"] = ""
+            checklist["expected_key"]["forbidden_capabilities"] = []
+            result = {**result, "body": json.dumps(checklist)}
+        return result
+
+    report = public_space_sync.build_report(expected_sha=EXPECTED_SHA, fetcher=broken_fetcher)
+
+    failed = {item["id"] for item in report["checks"] if not item["ok"]}
+    assert report["ok"] is False
+    assert "raw_b2_key_scope_checklist" in failed
+    assert (
+        "Regenerate and upload docs/assets/b2-key-scope-checklist.json to the Space."
+        in report["next_actions"]
+    )
 
 
 def test_public_space_sync_fails_on_stale_event_snapshot_with_action():
