@@ -24,7 +24,7 @@ This MP4 is a mock recording draft for rehearsal and public review. It is not th
 - Checked: `true`
 - OK: `true`
 - Duration: `65.97`
-- Bytes: `761356`
+- Bytes: `746805`
 - Size: `1280x720`
 - Error: `None`
 

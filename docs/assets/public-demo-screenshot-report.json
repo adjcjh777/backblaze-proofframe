@@ -1,0 +1,89 @@
+{
+  "schema": "proofframe.public_demo_screenshot.v1",
+  "created_at": "2026-06-28T17:42:26Z",
+  "mode": "public_judge_screenshot_ready",
+  "ok": true,
+  "safe_to_commit": true,
+  "url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
+  "screenshot": {
+    "present": true,
+    "path": "docs/assets/proofframe-hf-public-smoke.png",
+    "ok": true,
+    "bytes": 741074,
+    "width": 1440,
+    "height": 2692,
+    "luma_mean": 236.34,
+    "luma_stddev": 47.57
+  },
+  "viewport": {
+    "width": 1440,
+    "height": 1200
+  },
+  "markers": {
+    "visible": {
+      "proof_frame_title": {
+        "needle": "ProofFrame",
+        "present": true
+      },
+      "sponsor_evidence_model": {
+        "needle": "Sponsor Evidence Model",
+        "present": true
+      },
+      "final_reports_pending": {
+        "needle": "Final reports pending",
+        "present": true
+      },
+      "recording_runbook": {
+        "needle": "Recording Runbook",
+        "present": true
+      },
+      "criteria_crosswalk": {
+        "needle": "Criteria Crosswalk",
+        "present": true
+      },
+      "devpost_kit": {
+        "needle": "Devpost Kit",
+        "present": true
+      },
+      "submit_checklist": {
+        "needle": "Submit Checklist",
+        "present": true
+      },
+      "judge_brief": {
+        "needle": "30-Second Judge Brief",
+        "present": true
+      },
+      "local_storage": {
+        "needle": "local / B2 pending",
+        "present": true
+      },
+      "mock_generation": {
+        "needle": "mock / Genblaze pending",
+        "present": true
+      }
+    },
+    "html": {
+      "judge_recording_slate": {
+        "needle": "Judge recording slate",
+        "present": true
+      },
+      "auto_load_judge_demo": {
+        "needle": "shouldAutoLoadJudgeDemo",
+        "present": true
+      }
+    },
+    "visible_ok": true,
+    "html_ok": true
+  },
+  "claim_boundary": "This screenshot verifies the public local/mock judge demo view only. It does not prove live B2 storage, live Genblaze generation, final video readiness, or Devpost submission.",
+  "secret_policy": {
+    "public_url_only": true,
+    "no_login": true,
+    "no_cookies_recorded": true,
+    "no_secret_values_recorded": true
+  },
+  "next_actions": [
+    "Use this screenshot as the public mock demo visual evidence before live proof.",
+    "After live B2 and Genblaze proof, record the final public video and run strict final gates."
+  ]
+}

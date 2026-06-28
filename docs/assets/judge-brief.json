@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.judge_brief.v1",
-  "created_at": "2026-06-28T17:29:35Z",
+  "created_at": "2026-06-28T17:45:15Z",
   "project": "ProofFrame",
   "tagline": "B2-ready provenance desk for GenAI media.",
   "one_liner": "ProofFrame turns generated media into approved evidence packets with B2-ready manifests, Genblaze-gated provider metadata, checksums, review status, and an exportable proof bundle.",

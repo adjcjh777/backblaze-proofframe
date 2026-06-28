@@ -26,6 +26,9 @@ Public judge URL: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 - OK `docs/assets/proofframe-demo-draft.mp4`
 - OK `docs/assets/public-video-check.json`
 - OK `docs/assets/public-video-check.md`
+- OK `scripts/public_demo_screenshot.py`
+- OK `docs/assets/public-demo-screenshot-report.json`
+- OK `docs/assets/public-demo-screenshot-report.md`
 - OK `docs/assets/demo-readiness-report.json`
 - OK `docs/assets/demo-readiness-report.md`
 - OK `docs/assets/devpost-form-kit.json`

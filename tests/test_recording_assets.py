@@ -76,6 +76,22 @@ def write_fixtures(root: Path, *, final_ready: bool = False) -> None:
     )
     write_json(
         root,
+        "docs/assets/public-demo-screenshot-report.json",
+        {
+            "schema": "proofframe.public_demo_screenshot.v1",
+            "mode": "public_judge_screenshot_ready",
+            "ok": True,
+            "safe_to_commit": True,
+            "screenshot": {
+                "present": True,
+                "path": "docs/assets/proofframe-hf-public-smoke.png",
+                "ok": True,
+            },
+            "markers": {"visible_ok": True, "html_ok": True},
+        },
+    )
+    write_json(
+        root,
         "docs/assets/devpost-form-kit.json",
         {
             "schema": "proofframe.devpost_form_kit.v1",

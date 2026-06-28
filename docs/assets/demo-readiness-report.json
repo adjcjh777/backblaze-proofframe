@@ -71,12 +71,12 @@
     {
       "path": "docs/assets/submission-bundle-manifest.json",
       "present": true,
-      "bytes": 31744
+      "bytes": 32644
     },
     {
       "path": "docs/assets/submission-bundle-manifest.md",
       "present": true,
-      "bytes": 12552
+      "bytes": 12945
     },
     {
       "path": "docs/assets/live-credential-handoff.json",
@@ -121,7 +121,7 @@
     {
       "path": "docs/assets/proofframe-hf-public-smoke.png",
       "present": true,
-      "bytes": 514801
+      "bytes": 741074
     },
     {
       "path": ".env.final.example",

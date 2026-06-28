@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.submission_bundle.v1",
-  "created_at": "2026-06-28T17:30:33Z",
+  "created_at": "2026-06-28T17:50:06Z",
   "project": "ProofFrame",
   "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
@@ -156,8 +156,8 @@
       "path": "docs/deployment.md",
       "label": "Public demo deployment runbook",
       "present": true,
-      "bytes": 5925,
-      "sha256": "202a47b9123b07c4768642806310b92f8c1091179b38bf3de07c183d6adec453"
+      "bytes": 6104,
+      "sha256": "1a95d966a8c6b7408b3fc8e1741cd1fdf0a93554d16d695ea9cb54abc2007b14"
     },
     {
       "id": "devpost_draft",
@@ -236,24 +236,48 @@
       "path": "scripts/public_space_sync.py",
       "label": "Public Hugging Face Space sync verifier",
       "present": true,
-      "bytes": 46039,
-      "sha256": "1d9cd6270506cfd38cdb54eb0a786b50a3eb53d278186818e7d7491b71472f3f"
+      "bytes": 49648,
+      "sha256": "e07eb3135339d2e41d126f0dfa988e486c2c0ae93715f347db37c945f86dcd74"
     },
     {
       "id": "public_space_sync_json",
       "path": "docs/assets/public-space-sync-report.json",
       "label": "Machine-readable public Space sync report",
       "present": true,
-      "bytes": 11944,
-      "sha256": "68f9edcd886147c78c9f780aed2ceccc09e833dce56c5b25bff28badd4eca511"
+      "bytes": 12768,
+      "sha256": "ce2a6e145fd7db8b6b7ae404afc38b9f67f0ee5de6d7913c34330282be1a39a4"
     },
     {
       "id": "public_space_sync_md",
       "path": "docs/assets/public-space-sync-report.md",
       "label": "Human-readable public Space sync report",
       "present": true,
-      "bytes": 5409,
-      "sha256": "f034b4a7d0375e277d01c6d54ebb04dea8baedff3b4a75216b089b31030777b0"
+      "bytes": 5737,
+      "sha256": "b2f375fac4e211d74859728d4baaf9421e53a181bec0683351032ee9706a1bec"
+    },
+    {
+      "id": "public_demo_screenshot_script",
+      "path": "scripts/public_demo_screenshot.py",
+      "label": "Public judge-mode screenshot verifier",
+      "present": true,
+      "bytes": 8926,
+      "sha256": "3eb5b0a003e383dd4b734fe2e15d4936c9ce0cd6eca103c2d950c7075400d357"
+    },
+    {
+      "id": "public_demo_screenshot_json",
+      "path": "docs/assets/public-demo-screenshot-report.json",
+      "label": "Machine-readable public screenshot report",
+      "present": true,
+      "bytes": 2421,
+      "sha256": "e8ce08735a86a92064af3118ffa4ff31e6ecad3ea255a3f7ab409165ef370f3b"
+    },
+    {
+      "id": "public_demo_screenshot_md",
+      "path": "docs/assets/public-demo-screenshot-report.md",
+      "label": "Human-readable public screenshot report",
+      "present": true,
+      "bytes": 1418,
+      "sha256": "dce44c3bc2188131f7c581af8b6e3f7b2da02d96a4bf4d877157385c7b3f57b2"
     },
     {
       "id": "devpost_form_kit_script",
@@ -293,7 +317,7 @@
       "label": "Machine-readable final Devpost submission checklist",
       "present": true,
       "bytes": 16428,
-      "sha256": "843ccb8ae6f65b04d753d3f0505cce0ba07c04700f17da8cccd83bdf6a07f33c"
+      "sha256": "c0076a55f6931805e2386a4a022237aaf94700730dcdfe336df04b88f21a418f"
     },
     {
       "id": "devpost_submission_checklist_md",
@@ -317,7 +341,7 @@
       "label": "Machine-readable judge brief",
       "present": true,
       "bytes": 3734,
-      "sha256": "93397f654d40d05bf63a5cd52d4aed55c2990a84d67fabbc0f39cff102e66645"
+      "sha256": "e22cf8b12d0c4dde73de1fe6f3c41bdd0e5bc8121098c2514141849642744f0a"
     },
     {
       "id": "judge_brief_md",
@@ -325,7 +349,7 @@
       "label": "Human-readable judge brief",
       "present": true,
       "bytes": 3000,
-      "sha256": "5951a340243ded6de06c693125e4e07762f908499c0eb6ed2cf200d494f3cb3a"
+      "sha256": "1e61b76997304aa9240329eda25cbd2cc1d4bf43d38f2011742e0cf38d4c8a9f"
     },
     {
       "id": "judge_crosswalk_script",
@@ -341,7 +365,7 @@
       "label": "Machine-readable judge crosswalk",
       "present": true,
       "bytes": 10219,
-      "sha256": "88ba70930b821db6f50c85566f40148ce6822914a1e4b1a72f47ce3a1995818f"
+      "sha256": "a460c9e293a9c405dae481d84556134cd2eb05f7900f91cb0519c15831bc8d06"
     },
     {
       "id": "judge_crosswalk_md",
@@ -349,7 +373,7 @@
       "label": "Human-readable judge crosswalk",
       "present": true,
       "bytes": 6157,
-      "sha256": "0c0befa2673be0bf9657187acbb41f4c23bc0d22cb274829665f30d5c3aa806c"
+      "sha256": "85a92cce3f7cb19726c9918d70caacebe7e3c818eb8b8b62019f92e33dfc5c17"
     },
     {
       "id": "frontend_ui",
@@ -405,7 +429,7 @@
       "label": "Machine-readable demo video draft report",
       "present": true,
       "bytes": 2459,
-      "sha256": "75a075dac7e1aa5968362a12b84fbb462ffe1bc0e1530361528163566b5e1253"
+      "sha256": "79cb37a997722de7d8ec7b6ee8e97f7984773c5d2375041e0401d0129dac4bf7"
     },
     {
       "id": "demo_video_draft_md",
@@ -413,15 +437,15 @@
       "label": "Human-readable demo video draft report",
       "present": true,
       "bytes": 1562,
-      "sha256": "fcbccd5a4a24a0db7b491c31ba53d2a60b0d22ec10f0da7b6548ed3483c80879"
+      "sha256": "4b6b4a0c7b9a501e3065efd3d9cbd6c100c68acc5a0d7064a27f82e13b355415"
     },
     {
       "id": "demo_video_draft_mp4",
       "path": "docs/assets/proofframe-demo-draft.mp4",
       "label": "Public-safe mock demo video draft",
       "present": true,
-      "bytes": 761356,
-      "sha256": "9dc79d0a9f062e473d60f148bfbd350246a0afe5b96fcc2d1e44f6cddc1efbbb"
+      "bytes": 746805,
+      "sha256": "4b36a50d5957575f0d9bc942065295cf2b352a602facde0a220527a8187e344f"
     },
     {
       "id": "public_video_check_script",
@@ -517,7 +541,7 @@
       "label": "Machine-readable final control report",
       "present": true,
       "bytes": 23824,
-      "sha256": "8f9b5a2c95dd319559ceabd7d437808a84eebf14e327e47815343d8872581992"
+      "sha256": "7fa9f9d087f284c9b18f118b1e5da9de1124cc6a9eb4b3e46087f20147deccab"
     },
     {
       "id": "final_submission_control_md",
@@ -525,7 +549,7 @@
       "label": "Human-readable final control report",
       "present": true,
       "bytes": 6633,
-      "sha256": "3edd6962ff937e443f1b38e8dc7a069ad976857be299750e3ee0054d16a4d783"
+      "sha256": "3af17b53581c5cb0d559fe478aec1f20673c37911f507e67e3e4d3cfc29cbb83"
     },
     {
       "id": "final_operator_brief_script",
@@ -589,7 +613,7 @@
       "label": "Machine-readable final rehearsal checklist",
       "present": true,
       "bytes": 16384,
-      "sha256": "c83ade90afb1df6c6e4229766a40fb3cdc1aba6ae55e3ad0cbb80501ef533701"
+      "sha256": "cbe61ad2213e6dcc076f78f62dfb2b2f1449c4c5b2736005912e5ccd62a7045b"
     },
     {
       "id": "final_rehearsal_md",
@@ -597,7 +621,7 @@
       "label": "Human-readable final rehearsal checklist",
       "present": true,
       "bytes": 6746,
-      "sha256": "4ebc0a2fece1010201c15a46b7cc1e21402d45c2132d8b428b9500b3732dc3cf"
+      "sha256": "f52eff10bd41671c35041d3a8a5c2fd4af4a67df5c361fc2c637c35a870d1fb2"
     },
     {
       "id": "submission_audit_script",
@@ -613,7 +637,7 @@
       "label": "Machine-readable submission audit report",
       "present": true,
       "bytes": 5925,
-      "sha256": "0e08d7298c4819fe3d34e0b3d0719361bb0decc8aebff1b3af1a6a635e231e94"
+      "sha256": "29a13b37bbb8a9215c86a4ccbe9a4a2caa90330d8e0fde3f57095ebd13b3fda9"
     },
     {
       "id": "submission_audit_md",
@@ -621,7 +645,7 @@
       "label": "Human-readable submission audit report",
       "present": true,
       "bytes": 4459,
-      "sha256": "077a378d5cfbe76cdca841373750ae0b4005964ab44e4fdc8ec4c79e0d2a5872"
+      "sha256": "89d77b07f6a23585f922f71ef501140ce90b32d2ede2c80c491785042ac8ae6a"
     },
     {
       "id": "devpost_receipt_script",
@@ -652,8 +676,8 @@
       "path": "docs/evidence_package.md",
       "label": "Evidence package plan",
       "present": true,
-      "bytes": 19349,
-      "sha256": "ccc173a1de36d1c0a760cc3e9282596701f32ca40a25ece7c14c12dc3ee46948"
+      "bytes": 19881,
+      "sha256": "8795ff41c00d286bfb79c08d79b55c83ad27877a345637aac40650f0a68823df"
     },
     {
       "id": "public_claim_freeze",
@@ -692,8 +716,8 @@
       "path": "docs/assets/secret-scan-report.json",
       "label": "Machine-readable secret scan report",
       "present": true,
-      "bytes": 10148,
-      "sha256": "cc7c0ab35bb3761d600de1a54ec8b6d31cfc10e40ec04dcc3c96f669e9a9641f"
+      "bytes": 10339,
+      "sha256": "43107e3685aecf4979b38f88756bdcd4f31cb3d4c5694f893940e6ff15cded4f"
     },
     {
       "id": "secret_scan_md",
@@ -701,7 +725,7 @@
       "label": "Human-readable secret scan report",
       "present": true,
       "bytes": 846,
-      "sha256": "2955b7c924f504ee9e4de5088db8a78c18ff917f94d7f33eeab84460ed0adc9d"
+      "sha256": "8f194c402306736f8e84695f93adf61b4abc5d1948d8429b49a5706b78de24e9"
     },
     {
       "id": "b2_live_setup_json",
@@ -829,7 +853,7 @@
       "label": "Machine-readable demo readiness report",
       "present": true,
       "bytes": 3893,
-      "sha256": "2437d9d680b551bb44ea51c9c56e8f9672b6c5d4cfe83238f80d4596a3e640f1"
+      "sha256": "834832a24f0cf6b1ec4c22f18e1be63799495fdb4c365f48f81fea384ef43bce"
     },
     {
       "id": "demo_readiness_md",
@@ -844,24 +868,24 @@
       "path": "scripts/recording_assets.py",
       "label": "Public-safe recording asset gate",
       "present": true,
-      "bytes": 17809,
-      "sha256": "4e30e15f83aee2f5a9a9ce1d3ac54c1df932711a0b14711fb62b8a1d4ce2bc05"
+      "bytes": 17956,
+      "sha256": "768549a854d2283f8a307f4c2fffc7fc9533c3a6f34c46d833f8292c6860c889"
     },
     {
       "id": "recording_assets_json",
       "path": "docs/assets/recording-assets.json",
       "label": "Machine-readable recording asset report",
       "present": true,
-      "bytes": 7511,
-      "sha256": "b80ec246f7513dcf09b45f1d93be71991a0a341e0593c9d87fc2b69e749358fb"
+      "bytes": 7856,
+      "sha256": "e596b255c02916d7985c5b49cdd876d8536dab620bd51c63024b06548fc964fe"
     },
     {
       "id": "recording_assets_md",
       "path": "docs/assets/recording-assets.md",
       "label": "Human-readable recording asset report",
       "present": true,
-      "bytes": 3419,
-      "sha256": "7f27c5174dd636d809cff21ede6a2a4bed8a39ace1817643854959f69835788d"
+      "bytes": 3566,
+      "sha256": "762375e6d7a8d98479ba5d2ea87f003b11828d98aaa0dd3062a90f874e67f261"
     },
     {
       "id": "final_live_runner",
@@ -884,8 +908,8 @@
       "path": "tasks.json",
       "label": "Machine-readable task board",
       "present": true,
-      "bytes": 53114,
-      "sha256": "022f088edf468f6e85afc1669b5c60bf30b3f41e1af8d8f6f5c6b7db3d785d83"
+      "bytes": 53812,
+      "sha256": "efcc82d093e67abf366461d9eb5a4cde768c590d6e1a90013d7512a959e7e60d"
     },
     {
       "id": "local_ui_smoke",
@@ -908,8 +932,8 @@
       "path": "docs/assets/proofframe-hf-public-smoke.png",
       "label": "Public mock demo screenshot",
       "present": true,
-      "bytes": 514801,
-      "sha256": "46b528e3acfb0e8aa43378c7f951fb5242fbb2a1224eee88d795eb3e9560dcb5"
+      "bytes": 741074,
+      "sha256": "5d6f68f7a4a2fdee202eaa466f1730ff2753c585f69d6f0239c1875d93360200"
     }
   ],
   "missing_artifacts": []

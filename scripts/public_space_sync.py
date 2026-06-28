@@ -19,7 +19,7 @@ SCHEMA = "proofframe.public_space_sync.v1"
 
 SPACE_ID = "ADJCJH/backblaze-proofframe"
 SPACE_HOST = "https://adjcjh-backblaze-proofframe.hf.space"
-EXPECTED_SPACE_SHA = "a3aa614b569d277d81229606783c4444ff5d2155"
+EXPECTED_SPACE_SHA = "a65c040e9f61df8a46d31af418f5ed67051ea4d9"
 TIMEOUT_SECONDS = 30
 DRAFT_VIDEO_MIN_BYTES = 100_000
 EVENT_SNAPSHOT_MAX_AGE_DAYS = 14
@@ -55,6 +55,8 @@ REQUIRED_BUNDLE_ARTIFACT_IDS = {
     "repo_readme",
     "devpost_packet_json",
     "public_space_sync_json",
+    "public_demo_screenshot_json",
+    "public_demo_screenshot_script",
     "post_credential_live_proof_json",
     "post_credential_live_proof_script",
     "b2_key_scope_checklist_json",
@@ -256,6 +258,7 @@ def build_report(
     judge_brief_url = raw_file_url(space_id, "docs/assets/judge-brief.json")
     judge_crosswalk_url = raw_file_url(space_id, "docs/assets/judge-crosswalk.json")
     recording_assets_url = raw_file_url(space_id, "docs/assets/recording-assets.json")
+    public_demo_screenshot_url = raw_file_url(space_id, "docs/assets/public-demo-screenshot-report.json")
     demo_video_draft_url = raw_file_url(space_id, "docs/assets/demo-video-draft.json")
     demo_video_draft_mp4_url = resolve_file_url(space_id, "docs/assets/proofframe-demo-draft.mp4")
     devpost_form_kit_url = raw_file_url(space_id, "docs/assets/devpost-form-kit.json")
@@ -275,6 +278,7 @@ def build_report(
     judge_brief_result = fetcher(judge_brief_url, TIMEOUT_SECONDS)
     judge_crosswalk_result = fetcher(judge_crosswalk_url, TIMEOUT_SECONDS)
     recording_assets_result = fetcher(recording_assets_url, TIMEOUT_SECONDS)
+    public_demo_screenshot_result = fetcher(public_demo_screenshot_url, TIMEOUT_SECONDS)
     demo_video_draft_result = fetcher(demo_video_draft_url, TIMEOUT_SECONDS)
     demo_video_draft_mp4_result = fetcher(demo_video_draft_mp4_url, TIMEOUT_SECONDS)
     devpost_form_kit_result = fetcher(devpost_form_kit_url, TIMEOUT_SECONDS)
@@ -294,6 +298,7 @@ def build_report(
     judge_brief = parse_json(judge_brief_result)
     judge_crosswalk = parse_json(judge_crosswalk_result)
     recording_assets = parse_json(recording_assets_result)
+    public_demo_screenshot = parse_json(public_demo_screenshot_result)
     demo_video_draft = parse_json(demo_video_draft_result)
     devpost_form_kit = parse_json(devpost_form_kit_result)
     submit_checklist = parse_json(submit_checklist_result)
@@ -363,6 +368,28 @@ def build_report(
     submission_bundle_secret_scan = report_status(submission_bundle_reports, "secret_scan")
     submission_bundle_submission_audit = report_status(submission_bundle_reports, "submission_audit")
     submission_bundle_next_actions = list_field(submission_bundle_gate, "next_actions")
+    public_demo_screenshot_markers = dict_field(public_demo_screenshot, "markers")
+    public_demo_screenshot_visible = dict_field(public_demo_screenshot_markers, "visible")
+    public_demo_screenshot_html = dict_field(public_demo_screenshot_markers, "html")
+    public_demo_screenshot_image = dict_field(public_demo_screenshot, "screenshot")
+    public_demo_screenshot_ok = bool(
+        public_demo_screenshot_result.get("ok")
+        and public_demo_screenshot
+        and public_demo_screenshot.get("schema") == "proofframe.public_demo_screenshot.v1"
+        and public_demo_screenshot.get("ok") is True
+        and public_demo_screenshot.get("safe_to_commit") is True
+        and public_demo_screenshot.get("mode") == "public_judge_screenshot_ready"
+        and public_demo_screenshot_markers.get("visible_ok") is True
+        and public_demo_screenshot_markers.get("html_ok") is True
+        and public_demo_screenshot_visible.get("sponsor_evidence_model", {}).get("present") is True
+        and public_demo_screenshot_visible.get("final_reports_pending", {}).get("present") is True
+        and public_demo_screenshot_html.get("judge_recording_slate", {}).get("present") is True
+        and public_demo_screenshot_html.get("auto_load_judge_demo", {}).get("present") is True
+        and public_demo_screenshot_image.get("path") == "docs/assets/proofframe-hf-public-smoke.png"
+        and (public_demo_screenshot_image.get("bytes") or 0) >= 100_000
+        and (public_demo_screenshot_image.get("width") or 0) >= 1200
+        and (public_demo_screenshot_image.get("height") or 0) >= 900
+    )
     b2_key_scope_expected = dict_field(b2_key_scope_checklist, "expected_key")
     b2_key_scope_bucket = dict_field(b2_key_scope_expected, "bucket_scope")
     b2_key_scope_prefix = dict_field(b2_key_scope_expected, "file_name_prefix")
@@ -550,6 +577,19 @@ def build_report(
                 f"final_video_ready is {recording_assets.get('final_video_ready') if recording_assets else None}."
             ),
             recording_assets_url,
+        ),
+        check_item(
+            "raw_public_demo_screenshot",
+            "Raw public judge screenshot report is public and verified",
+            public_demo_screenshot_ok,
+            (
+                f"Screenshot schema is {public_demo_screenshot.get('schema') if public_demo_screenshot else None}; "
+                f"mode is {public_demo_screenshot.get('mode') if public_demo_screenshot else None}; "
+                f"visible_ok={public_demo_screenshot_markers.get('visible_ok') if public_demo_screenshot else None}; "
+                f"html_ok={public_demo_screenshot_markers.get('html_ok') if public_demo_screenshot else None}; "
+                f"bytes={public_demo_screenshot_image.get('bytes') if public_demo_screenshot else None}."
+            ),
+            public_demo_screenshot_url,
         ),
         check_item(
             "raw_demo_video_draft",
@@ -793,6 +833,17 @@ def build_report(
             "judge_crosswalk_safe_to_submit": (
                 judge_crosswalk.get("safe_to_submit") if judge_crosswalk else None
             ),
+            "public_demo_screenshot": {
+                "mode": public_demo_screenshot.get("mode") if public_demo_screenshot else None,
+                "ok": public_demo_screenshot.get("ok") if public_demo_screenshot else None,
+                "visible_ok": public_demo_screenshot_markers.get("visible_ok"),
+                "html_ok": public_demo_screenshot_markers.get("html_ok"),
+                "bytes": public_demo_screenshot_image.get("bytes"),
+                "size": [
+                    public_demo_screenshot_image.get("width"),
+                    public_demo_screenshot_image.get("height"),
+                ],
+            },
             "demo_video_draft_mode": demo_video_draft.get("mode") if demo_video_draft else None,
             "demo_video_draft_safe_to_submit": (
                 demo_video_draft.get("safe_to_submit") if demo_video_draft else None
@@ -830,6 +881,7 @@ def build_report(
             "raw_b2_key_scope_checklist": b2_key_scope_checklist_url,
             "raw_judge_brief": judge_brief_url,
             "raw_judge_crosswalk": judge_crosswalk_url,
+            "raw_public_demo_screenshot": public_demo_screenshot_url,
             "raw_demo_video_draft": demo_video_draft_url,
             "demo_video_draft_mp4": demo_video_draft_mp4_url,
             "raw_post_credential_plan": post_credential_plan_url,
@@ -862,6 +914,8 @@ def next_actions(checks: list[dict[str, Any]]) -> list[str]:
         actions.append("Regenerate and upload docs/assets/judge-crosswalk.json to the Space.")
     if "raw_recording_assets" in failed:
         actions.append("Regenerate and upload docs/assets/recording-assets.json to the Space.")
+    if "raw_public_demo_screenshot" in failed:
+        actions.append("Regenerate and upload docs/assets/public-demo-screenshot-report.json to the Space.")
     if "raw_demo_video_draft" in failed:
         actions.append("Regenerate and upload docs/assets/demo-video-draft.json to the Space.")
     if "public_demo_video_draft_mp4" in failed:

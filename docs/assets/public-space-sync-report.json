@@ -1,17 +1,17 @@
 {
   "schema": "proofframe.public_space_sync.v1",
-  "created_at": "2026-06-28T17:30:09Z",
+  "created_at": "2026-06-28T17:49:15Z",
   "ok": true,
   "mode": "public_space_synced",
   "space_id": "ADJCJH/backblaze-proofframe",
   "public_host": "https://adjcjh-backblaze-proofframe.hf.space",
-  "expected_sha": "a3aa614b569d277d81229606783c4444ff5d2155",
+  "expected_sha": "a65c040e9f61df8a46d31af418f5ed67051ea4d9",
   "observed": {
-    "space_sha": "a3aa614b569d277d81229606783c4444ff5d2155",
-    "runtime_sha": "a3aa614b569d277d81229606783c4444ff5d2155",
+    "space_sha": "a65c040e9f61df8a46d31af418f5ed67051ea4d9",
+    "runtime_sha": "a65c040e9f61df8a46d31af418f5ed67051ea4d9",
     "runtime_stage": "RUNNING",
     "domain_ready": true,
-    "last_modified": "2026-06-28T17:27:11.000Z",
+    "last_modified": "2026-06-28T17:46:04.000Z",
     "health": {
       "ready": true,
       "storage_backend": "local",
@@ -61,6 +61,17 @@
     "judge_crosswalk_schema": "proofframe.judge_crosswalk.v1",
     "judge_crosswalk_mode": "pre_live_crosswalk_ready",
     "judge_crosswalk_safe_to_submit": false,
+    "public_demo_screenshot": {
+      "mode": "public_judge_screenshot_ready",
+      "ok": true,
+      "visible_ok": true,
+      "html_ok": true,
+      "bytes": 741074,
+      "size": [
+        1440,
+        2692
+      ]
+    },
     "demo_video_draft_mode": "mock_video_draft_ready",
     "demo_video_draft_safe_to_submit": false,
     "post_credential_plan_mode": "plan_only",
@@ -76,11 +87,11 @@
       "gate_mode": "pre_live_safe",
       "required_artifacts_present": true,
       "missing_artifacts": 0,
-      "artifact_count": 99
+      "artifact_count": 102
     },
     "demo_video_draft_mp4": {
       "status": 200,
-      "bytes": 761356,
+      "bytes": 746805,
       "content_type": "video/mp4"
     },
     "html_markers": {
@@ -104,6 +115,7 @@
     "raw_b2_key_scope_checklist": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/b2-key-scope-checklist.json",
     "raw_judge_brief": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/judge-brief.json",
     "raw_judge_crosswalk": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/judge-crosswalk.json",
+    "raw_public_demo_screenshot": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/public-demo-screenshot-report.json",
     "raw_demo_video_draft": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/demo-video-draft.json",
     "demo_video_draft_mp4": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/resolve/main/docs/assets/proofframe-demo-draft.mp4",
     "raw_post_credential_plan": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/post-credential-live-proof-plan.json",
@@ -117,14 +129,14 @@
       "id": "space_metadata",
       "label": "Space metadata points at the expected commit",
       "ok": true,
-      "detail": "Space sha is a3aa614b569d277d81229606783c4444ff5d2155; expected a3aa614b569d277d81229606783c4444ff5d2155.",
+      "detail": "Space sha is a65c040e9f61df8a46d31af418f5ed67051ea4d9; expected a65c040e9f61df8a46d31af418f5ed67051ea4d9.",
       "evidence": "https://huggingface.co/api/spaces/ADJCJH/backblaze-proofframe"
     },
     {
       "id": "runtime_ready",
       "label": "Space runtime is running the expected commit",
       "ok": true,
-      "detail": "Runtime stage is RUNNING; runtime sha is a3aa614b569d277d81229606783c4444ff5d2155; domain ready is True.",
+      "detail": "Runtime stage is RUNNING; runtime sha is a65c040e9f61df8a46d31af418f5ed67051ea4d9; domain ready is True.",
       "evidence": "https://huggingface.co/api/spaces/ADJCJH/backblaze-proofframe/runtime"
     },
     {
@@ -173,8 +185,15 @@
       "id": "raw_recording_assets",
       "label": "Raw recording runbook is public and final-video gated",
       "ok": true,
-      "detail": "Recording schema is proofframe.recording_assets.v1; mode is mock_recording_ready; final_video_ready is False.",
+      "detail": "Recording schema is proofframe.recording_assets.v1; mode is public_mock_verified; final_video_ready is False.",
       "evidence": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/recording-assets.json"
+    },
+    {
+      "id": "raw_public_demo_screenshot",
+      "label": "Raw public judge screenshot report is public and verified",
+      "ok": true,
+      "detail": "Screenshot schema is proofframe.public_demo_screenshot.v1; mode is public_judge_screenshot_ready; visible_ok=True; html_ok=True; bytes=741074.",
+      "evidence": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/public-demo-screenshot-report.json"
     },
     {
       "id": "raw_demo_video_draft",
@@ -187,7 +206,7 @@
       "id": "public_demo_video_draft_mp4",
       "label": "Mock demo video draft MP4 is publicly readable",
       "ok": true,
-      "detail": "status=200; bytes=761356; content_type=video/mp4.",
+      "detail": "status=200; bytes=746805; content_type=video/mp4.",
       "evidence": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/resolve/main/docs/assets/proofframe-demo-draft.mp4"
     },
     {

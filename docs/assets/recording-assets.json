@@ -39,7 +39,7 @@
     {
       "path": "docs/assets/proofframe-demo-draft.mp4",
       "present": true,
-      "bytes": 761356
+      "bytes": 746805
     },
     {
       "path": "docs/assets/public-video-check.json",
@@ -50,6 +50,21 @@
       "path": "docs/assets/public-video-check.md",
       "present": true,
       "bytes": 1431
+    },
+    {
+      "path": "scripts/public_demo_screenshot.py",
+      "present": true,
+      "bytes": 8926
+    },
+    {
+      "path": "docs/assets/public-demo-screenshot-report.json",
+      "present": true,
+      "bytes": 2421
+    },
+    {
+      "path": "docs/assets/public-demo-screenshot-report.md",
+      "present": true,
+      "bytes": 1418
     },
     {
       "path": "docs/assets/demo-readiness-report.json",
@@ -74,12 +89,12 @@
     {
       "path": "docs/assets/final-submission-control.json",
       "present": true,
-      "bytes": 23826
+      "bytes": 23824
     },
     {
       "path": "docs/assets/final-submission-control.md",
       "present": true,
-      "bytes": 6634
+      "bytes": 6633
     },
     {
       "path": "docs/assets/proofframe-local-ui-smoke.png",
@@ -94,7 +109,7 @@
     {
       "path": "docs/assets/proofframe-hf-public-smoke.png",
       "present": true,
-      "bytes": 514801
+      "bytes": 741074
     },
     {
       "path": "docs/assets/proofframe-sponsor-model-smoke.png",

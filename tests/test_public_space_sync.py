@@ -136,6 +136,50 @@ def valid_b2_key_scope_checklist() -> dict:
     }
 
 
+def valid_public_demo_screenshot() -> dict:
+    return {
+        "schema": "proofframe.public_demo_screenshot.v1",
+        "mode": "public_judge_screenshot_ready",
+        "ok": True,
+        "safe_to_commit": True,
+        "url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
+        "screenshot": {
+            "present": True,
+            "path": "docs/assets/proofframe-hf-public-smoke.png",
+            "ok": True,
+            "bytes": 717007,
+            "width": 1440,
+            "height": 2692,
+            "luma_mean": 236.6,
+            "luma_stddev": 47.11,
+        },
+        "markers": {
+            "visible_ok": True,
+            "html_ok": True,
+            "visible": {
+                "sponsor_evidence_model": {
+                    "needle": "Sponsor Evidence Model",
+                    "present": True,
+                },
+                "final_reports_pending": {
+                    "needle": "Final reports pending",
+                    "present": True,
+                },
+            },
+            "html": {
+                "judge_recording_slate": {
+                    "needle": "Judge recording slate",
+                    "present": True,
+                },
+                "auto_load_judge_demo": {
+                    "needle": "shouldAutoLoadJudgeDemo",
+                    "present": True,
+                },
+            },
+        },
+    }
+
+
 def fake_fetcher(url: str, timeout: int) -> dict:
     assert timeout == public_space_sync.TIMEOUT_SECONDS
     if url.endswith("/api/spaces/ADJCJH/backblaze-proofframe"):
@@ -251,6 +295,13 @@ def fake_fetcher(url: str, timeout: int) -> dict:
                     ],
                 }
             ),
+            "error": None,
+        }
+    if url.endswith("/docs/assets/public-demo-screenshot-report.json"):
+        return {
+            "ok": True,
+            "status": 200,
+            "body": json.dumps(valid_public_demo_screenshot()),
             "error": None,
         }
     if url.endswith("/docs/assets/demo-video-draft.json"):
@@ -418,6 +469,11 @@ def test_public_space_sync_report_passes_when_space_is_current():
     assert report["observed"]["judge_crosswalk_schema"] == "proofframe.judge_crosswalk.v1"
     assert report["observed"]["judge_crosswalk_mode"] == "pre_live_crosswalk_ready"
     assert report["observed"]["judge_crosswalk_safe_to_submit"] is False
+    assert report["observed"]["public_demo_screenshot"]["ok"] is True
+    assert report["observed"]["public_demo_screenshot"]["visible_ok"] is True
+    assert report["observed"]["public_demo_screenshot"]["html_ok"] is True
+    assert report["observed"]["public_demo_screenshot"]["bytes"] == 717007
+    assert report["observed"]["public_demo_screenshot"]["size"] == [1440, 2692]
     assert report["observed"]["post_credential_plan_mode"] == "plan_only"
     assert report["observed"]["post_credential_plan_validators"] == {
         "validate_b2_evidence": True,
@@ -495,6 +551,30 @@ def test_public_space_sync_fails_on_unsafe_b2_key_scope_checklist():
     assert "raw_b2_key_scope_checklist" in failed
     assert (
         "Regenerate and upload docs/assets/b2-key-scope-checklist.json to the Space."
+        in report["next_actions"]
+    )
+
+
+def test_public_space_sync_fails_on_unsafe_public_demo_screenshot_with_action():
+    def broken_fetcher(url: str, timeout: int) -> dict:
+        result = fake_fetcher(url, timeout)
+        if url.endswith("/docs/assets/public-demo-screenshot-report.json"):
+            screenshot = valid_public_demo_screenshot()
+            screenshot["safe_to_commit"] = False
+            screenshot["markers"]["html_ok"] = False
+            screenshot["markers"]["html"]["judge_recording_slate"]["present"] = False
+            screenshot["screenshot"]["bytes"] = 100
+            result = {**result, "body": json.dumps(screenshot)}
+        return result
+
+    report = public_space_sync.build_report(expected_sha=EXPECTED_SHA, fetcher=broken_fetcher)
+
+    failed = {item["id"] for item in report["checks"] if not item["ok"]}
+    assert report["ok"] is False
+    assert "raw_public_demo_screenshot" in failed
+    assert report["observed"]["public_demo_screenshot"]["html_ok"] is False
+    assert (
+        "Regenerate and upload docs/assets/public-demo-screenshot-report.json to the Space."
         in report["next_actions"]
     )
 

@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-28T17:29:26Z",
+  "updated_at": "2026-06-28T17:44:35Z",
   "tasks": [
     {
       "id": "T001",
@@ -937,6 +937,15 @@
       "status": "done",
       "done_criteria": "B2 key scope checklist includes an explicit no-secret pre-key confirmation phrase, public_space_sync verifies the raw public checklist confirmation status and scope, and HF Space serves the updated public artifact.",
       "notes": "Added pre_key_creation_confirmation to the B2 key scope checklist and final operator/launch artifacts; uploaded HF Space commit a3aa614b569d277d81229606783c4444ff5d2155; public_space_sync, raw checklist spot-check, and public API smoke pass."
+    },
+    {
+      "id": "T067",
+      "title": "Refresh public judge screenshot evidence",
+      "phase": "P4 Submit",
+      "owner": "tester",
+      "status": "done",
+      "done_criteria": "Public judge screenshot is refreshed from the live HF Space, verified for visible/html judge markers and nonblank image stats, included in recording assets/submission bundle/public Space sync gates, and synced to the public Space.",
+      "notes": "Captured docs/assets/proofframe-hf-public-smoke.png via scripts/public_demo_screenshot.py; uploaded HF Space commit 6a909b229afd3f08099877fb4cff633438f72ba5; public_space_sync and public API smoke pass with raw public-demo-screenshot-report verification."
     }
   ]
 }
