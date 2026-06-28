@@ -100,6 +100,13 @@ def run_smoke(
     require_backend("storage_backend", health["storage_backend"], require_storage_backend)
     require_backend("generation_backend", health["generation_backend"], require_generation_backend)
 
+    judge_brief = request_json("GET", f"{base}/api/judge/brief")
+    if judge_brief.get("schema") != "proofframe.judge_brief.v1":
+        raise SystemExit("Judge brief endpoint did not return the expected schema.")
+    safe_to_submit = judge_brief.get("status", {}).get("safe_to_submit")
+    if not isinstance(safe_to_submit, bool):
+        raise SystemExit("Judge brief endpoint did not include a boolean safe_to_submit flag.")
+
     campaign = request_json(
         "POST",
         f"{base}/api/campaigns",
@@ -145,6 +152,8 @@ def run_smoke(
         "base_url": base,
         "generation_backend": health["generation_backend"],
         "storage_backend": health["storage_backend"],
+        "judge_brief_schema": judge_brief["schema"],
+        "judge_safe_to_submit": safe_to_submit,
         "campaign_id": campaign["id"],
         "asset_id": asset["id"],
         "asset_provider": asset["provider"],

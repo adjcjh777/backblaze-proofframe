@@ -61,6 +61,7 @@ FastAPI app
 | `GET` | `/` | Serve the Proof Ledger browser UI. |
 | `GET` | `/api/health` | Runtime health and adapter availability. |
 | `GET` | `/api/submission/gate` | Return fail-closed final submission readiness for task gates, Devpost packet, live proof evidence, and final report artifacts. |
+| `GET` | `/api/judge/brief` | Return the public-safe judge brief artifact that powers the first-screen Judge Brief panel. |
 | `POST` | `/api/campaigns` | Create campaign. |
 | `GET` | `/api/campaigns` | List campaigns. |
 | `POST` | `/api/campaigns/{id}/generate` | Generate variants. |

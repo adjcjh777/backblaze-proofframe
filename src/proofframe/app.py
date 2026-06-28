@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import os
+import json
 from io import BytesIO
 from pathlib import Path
 from zipfile import ZIP_DEFLATED, ZipFile
@@ -32,6 +33,17 @@ def frontend_index_path() -> Path | None:
             Path.cwd() / "apps" / "web" / "index.html",
         ]
     )
+    for candidate in candidates:
+        if candidate.exists():
+            return candidate
+    return None
+
+
+def public_artifact_path(filename: str) -> Path | None:
+    candidates = [
+        Path(__file__).resolve().parents[2] / "docs" / "assets" / filename,
+        Path.cwd() / "docs" / "assets" / filename,
+    ]
     for candidate in candidates:
         if candidate.exists():
             return candidate
@@ -101,6 +113,19 @@ def create_app(storage_root: Path | str | None = None, settings: Settings | None
     @app.get("/api/submission/gate")
     def submission_gate() -> dict[str, object]:
         return build_submission_gate()
+
+    @app.get("/api/judge/brief")
+    def judge_brief() -> dict[str, object]:
+        path = public_artifact_path("judge-brief.json")
+        if path is None:
+            raise HTTPException(status_code=404, detail="Judge brief artifact not found")
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as exc:
+            raise HTTPException(status_code=503, detail="Judge brief artifact is invalid") from exc
+        if payload.get("schema") != "proofframe.judge_brief.v1":
+            raise HTTPException(status_code=503, detail="Judge brief schema mismatch")
+        return payload
 
     @app.post("/api/campaigns", response_model=Campaign)
     def create_campaign(payload: CampaignCreate) -> Campaign:

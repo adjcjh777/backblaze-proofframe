@@ -89,7 +89,7 @@ def fake_fetcher(url: str, timeout: int) -> dict:
             "status": 200,
             "body": (
                 "Judge recording slate Sponsor Evidence Model shouldAutoLoadJudgeDemo "
-                "Final reports pending"
+                "30-Second Judge Brief Final reports pending"
             ),
             "error": None,
         }

@@ -19,12 +19,13 @@ SCHEMA = "proofframe.public_space_sync.v1"
 
 SPACE_ID = "ADJCJH/backblaze-proofframe"
 SPACE_HOST = "https://adjcjh-backblaze-proofframe.hf.space"
-EXPECTED_SPACE_SHA = "0bf36eaabc491f1afda189c02a6fbcb7cd63030b"
+EXPECTED_SPACE_SHA = "cbb686640283a157a6ab93a68ff5b0b5d7848977"
 TIMEOUT_SECONDS = 30
 
 HTML_MARKERS = {
     "judge_recording_slate": "Judge recording slate",
     "sponsor_evidence_model": "Sponsor Evidence Model",
+    "judge_brief_panel": "30-Second Judge Brief",
     "auto_load_judge_demo": "shouldAutoLoadJudgeDemo",
     "final_reports_pending": "Final reports pending",
 }

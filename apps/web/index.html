@@ -4,6 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>ProofFrame</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23171714'/%3E%3Cpath d='M8 8h16v5H13v4h9v5h-9v6H8z' fill='%23fbfaf6'/%3E%3C/svg%3E"
+    />
     <style>
       :root {
         --paper: #fbfaf6;
@@ -313,6 +317,97 @@
         font-size: 11px;
         line-height: 1.42;
         overflow-wrap: anywhere;
+      }
+
+      .judge-brief-strip {
+        border-top: 1px solid var(--ink);
+        display: grid;
+        gap: 13px;
+        grid-column: 1 / -1;
+        padding: 14px 16px 16px;
+      }
+
+      .judge-brief-strip header {
+        align-items: baseline;
+        display: flex;
+        gap: 12px;
+        justify-content: space-between;
+      }
+
+      .judge-brief-strip h2 {
+        font-family: var(--display);
+        font-size: 21px;
+        line-height: 1;
+        margin: 0;
+      }
+
+      .judge-brief-strip header span {
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 11px;
+      }
+
+      .brief-grid {
+        border-top: 1px solid var(--rule);
+        display: grid;
+        grid-template-columns: 1.25fr 0.7fr 1fr;
+      }
+
+      .brief-node {
+        border-right: 1px solid var(--rule);
+        min-height: 84px;
+        padding: 12px 14px 2px 0;
+      }
+
+      .brief-node:last-child {
+        border-right: 0;
+      }
+
+      .brief-node label {
+        color: var(--muted);
+        display: block;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+      }
+
+      .brief-node strong {
+        display: block;
+        font-size: 16px;
+        line-height: 1.22;
+        margin-bottom: 7px;
+      }
+
+      .brief-node span {
+        color: var(--muted);
+        display: block;
+        font-family: var(--mono);
+        font-size: 11px;
+        line-height: 1.42;
+        overflow-wrap: anywhere;
+      }
+
+      .brief-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .brief-links a {
+        border: 1px solid var(--line);
+        color: var(--ink);
+        font-family: var(--mono);
+        font-size: 11px;
+        font-weight: 800;
+        padding: 7px 9px;
+        text-decoration: none;
+      }
+
+      .brief-links a:hover {
+        border-color: var(--ink);
+        background: rgba(23, 23, 20, 0.06);
       }
 
       .slate-item label {
@@ -642,6 +737,10 @@
           grid-template-columns: 1fr;
         }
 
+        .brief-grid {
+          grid-template-columns: 1fr;
+        }
+
         .slate-item {
           border-right: 0;
           border-bottom: 1px solid var(--rule);
@@ -654,6 +753,16 @@
         }
 
         .sponsor-node:last-child {
+          border-bottom: 0;
+        }
+
+        .brief-node {
+          border-right: 0;
+          border-bottom: 1px solid var(--rule);
+          padding-right: 0;
+        }
+
+        .brief-node:last-child {
           border-bottom: 0;
         }
 
@@ -785,6 +894,51 @@
                 <span id="sponsorClaimDetail">no completed B2/Genblaze claim yet</span>
               </div>
             </div>
+          </div>
+          <div class="judge-brief-strip" aria-label="30-second judge brief">
+            <header>
+              <h2>30-Second Judge Brief</h2>
+              <span id="briefStatus">Loading safe boundary</span>
+            </header>
+            <div class="brief-grid">
+              <div class="brief-node">
+                <label>Outcome</label>
+                <strong id="briefOutcome">B2-ready evidence packets</strong>
+                <span id="briefOutcomeDetail">Generated media becomes manifest-backed approval evidence.</span>
+              </div>
+              <div class="brief-node">
+                <label>Award Posture</label>
+                <strong id="briefScore">Checking</strong>
+                <span id="briefScoreDetail">Final closure remains gated.</span>
+              </div>
+              <div class="brief-node">
+                <label>Still Gated</label>
+                <strong id="briefBlockers">Live proof pending</strong>
+                <span id="briefBlockersDetail">B2, Genblaze, video, audit, and Devpost receipt.</span>
+              </div>
+            </div>
+            <nav class="brief-links" aria-label="Judge evidence links">
+              <a
+                href="https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/judge-brief.md"
+                target="_blank"
+                rel="noreferrer"
+              >Judge brief</a>
+              <a
+                href="https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/devpost-form-kit.md"
+                target="_blank"
+                rel="noreferrer"
+              >Devpost kit</a>
+              <a
+                href="https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/final-launch-plan.md"
+                target="_blank"
+                rel="noreferrer"
+              >Launch plan</a>
+              <a
+                href="https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/final-submission-control.md"
+                target="_blank"
+                rel="noreferrer"
+              >Final gate</a>
+            </nav>
           </div>
         </section>
 
@@ -928,6 +1082,7 @@
         selectedAssetId: null,
         manifest: {},
         submissionGate: null,
+        judgeBrief: null,
         health: null,
         packetStatus: "No packet exported",
         packetDetail: "Awaiting campaign manifest.",
@@ -951,6 +1106,14 @@
       function short(value, length = 16) {
         if (!value) return "";
         return value.length > length ? `${value.slice(0, length)}...` : value;
+      }
+
+      function humanizeStatus(value) {
+        return String(value || "")
+          .replaceAll("_", " ")
+          .replace(/\b\w/g, (match) => match.toUpperCase())
+          .replaceAll("Pre Live", "Pre-Live")
+          .replaceAll("Post Live", "Post-Live");
       }
 
       function shouldAutoLoadJudgeDemo() {
@@ -1005,6 +1168,15 @@
       async function loadSubmissionGate() {
         state.submissionGate = await api("/api/submission/gate");
         renderSubmissionGate();
+      }
+
+      async function loadJudgeBrief() {
+        try {
+          state.judgeBrief = await api("/api/judge/brief");
+        } catch (error) {
+          state.judgeBrief = { error: error.message };
+        }
+        renderJudgeBrief();
       }
 
       async function loadCampaigns() {
@@ -1097,6 +1269,40 @@
         el("sponsorClaimDetail").textContent = finalReady
           ? "safe to claim live sponsor proof"
           : "no completed B2/Genblaze claim yet";
+        renderJudgeBrief();
+      }
+
+      function renderJudgeBrief() {
+        const brief = state.judgeBrief || {};
+        const status = brief.status || {};
+        const blockers = Array.isArray(brief.not_yet_claimed) ? brief.not_yet_claimed : [];
+        const safeToSubmit = Boolean(status.safe_to_submit);
+        const awardScore =
+          status.award_score == null || status.award_max_score == null
+            ? "Checking"
+            : `${status.award_score}/${status.award_max_score}`;
+        const closureScore =
+          status.final_closure_score == null || status.final_closure_max_score == null
+            ? "Final closure gated"
+            : `Final closure ${status.final_closure_score}/${status.final_closure_max_score}`;
+
+        el("briefStatus").textContent = brief.error
+          ? "Brief unavailable"
+          : safeToSubmit
+            ? "Final-ready"
+            : "Pre-live safe";
+        el("briefOutcome").textContent = brief.tagline || "B2-ready evidence packets";
+        el("briefOutcomeDetail").textContent =
+          brief.one_liner || "Generated media becomes manifest-backed approval evidence.";
+        el("briefScore").textContent = awardScore;
+        el("briefScoreDetail").textContent = `${humanizeStatus(
+          status.award_mode || "pre_live_competitive",
+        )} / ${closureScore}`;
+        el("briefBlockers").textContent = safeToSubmit
+          ? "Ready for Devpost"
+          : `${blockers.length || 3} final claims gated`;
+        el("briefBlockersDetail").textContent =
+          blockers.slice(0, 2).join(" / ") || "B2, Genblaze, video, audit, and Devpost receipt.";
       }
 
       function renderCampaigns() {
@@ -1322,7 +1528,7 @@
       });
 
       async function boot() {
-        await Promise.all([loadHealth(), loadCampaigns(), loadSubmissionGate()]);
+        await Promise.all([loadHealth(), loadCampaigns(), loadSubmissionGate(), loadJudgeBrief()]);
         renderInspector();
         if (shouldAutoLoadJudgeDemo()) {
           await loadJudgeDemo("auto");

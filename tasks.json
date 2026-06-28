@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-28T03:48:57Z",
+  "updated_at": "2026-06-28T04:09:09Z",
   "tasks": [
     {
       "id": "T001",
@@ -721,6 +721,15 @@
       "status": "done",
       "done_criteria": "README and evidence package include a 60-second Judge Quickstart, Devpost tagline/one-liner foreground B2-ready and Genblaze-gated value without live-proof overclaiming, and demo storyboard/script opening plus close clarify the before/after outcome.",
       "notes": "Applied Agent Bus reviewer guidance: added Judge Quickstart, tightened first-impression Devpost copy, and revised demo narrative while claim_lint and sponsor_fit_audit remain green."
+    },
+    {
+      "id": "T043",
+      "title": "Add in-app judge brief panel",
+      "phase": "P3 Polish",
+      "owner": "codex",
+      "status": "done",
+      "done_criteria": "Public judge-mode UI exposes a 30-second Judge Brief from the same safe judge-brief artifact, the API returns the safe brief JSON, public Space sync checks the HTML marker, and tests cover the endpoint plus marker.",
+      "notes": "Added /api/judge/brief, first-screen Judge Brief panel, evidence links, favicon polish, public sync marker, and API/public sync tests."
     }
   ]
 }

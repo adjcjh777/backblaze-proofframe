@@ -9,22 +9,22 @@
     {
       "path": "README.md",
       "present": true,
-      "bytes": 9987
+      "bytes": 11048
     },
     {
       "path": "docs/demo_script.md",
       "present": true,
-      "bytes": 5690
+      "bytes": 5856
     },
     {
       "path": "docs/assets/demo-storyboard.json",
       "present": true,
-      "bytes": 4496
+      "bytes": 4514
     },
     {
       "path": "docs/assets/demo-storyboard.md",
       "present": true,
-      "bytes": 2686
+      "bytes": 2704
     },
     {
       "path": "docs/assets/demo-readiness-report.json",
@@ -39,22 +39,22 @@
     {
       "path": "docs/assets/devpost-form-kit.json",
       "present": true,
-      "bytes": 12491
+      "bytes": 12483
     },
     {
       "path": "docs/assets/devpost-form-kit.md",
       "present": true,
-      "bytes": 7504
+      "bytes": 7496
     },
     {
       "path": "docs/assets/final-submission-control.json",
       "present": true,
-      "bytes": 18209
+      "bytes": 20842
     },
     {
       "path": "docs/assets/final-submission-control.md",
       "present": true,
-      "bytes": 5334
+      "bytes": 6110
     },
     {
       "path": "docs/assets/proofframe-local-ui-smoke.png",
@@ -69,7 +69,7 @@
     {
       "path": "docs/assets/proofframe-hf-public-smoke.png",
       "present": true,
-      "bytes": 369328
+      "bytes": 514801
     },
     {
       "path": "docs/assets/proofframe-sponsor-model-smoke.png",

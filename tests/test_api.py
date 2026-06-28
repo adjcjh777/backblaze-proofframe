@@ -3,7 +3,7 @@ from zipfile import ZipFile
 
 from fastapi.testclient import TestClient
 
-from proofframe.app import create_app, frontend_index_path
+from proofframe.app import create_app, frontend_index_path, public_artifact_path
 
 
 def test_frontend_index_path_can_use_explicit_web_root(tmp_path, monkeypatch):
@@ -17,6 +17,13 @@ def test_frontend_index_path_can_use_explicit_web_root(tmp_path, monkeypatch):
     assert frontend_index_path() == index_path
 
 
+def test_public_artifact_path_finds_judge_brief():
+    path = public_artifact_path("judge-brief.json")
+
+    assert path is not None
+    assert path.name == "judge-brief.json"
+
+
 def test_health_and_campaign_flow(tmp_path):
     client = TestClient(create_app(storage_root=tmp_path))
 
@@ -26,6 +33,7 @@ def test_health_and_campaign_flow(tmp_path):
     assert "Search Evidence" in index_response.text
     assert "Judge recording slate" in index_response.text
     assert "Sponsor Evidence Model" in index_response.text
+    assert "30-Second Judge Brief" in index_response.text
     assert "B2/Genblaze final proof gated" in index_response.text
     assert "Claim Boundary" in index_response.text
     assert "Submission readiness gate" in index_response.text
@@ -42,6 +50,13 @@ def test_health_and_campaign_flow(tmp_path):
     assert "task_gates" in gate
     assert "evidence_gate" in gate
     assert "report_gate" in gate
+
+    brief_response = client.get("/api/judge/brief")
+    assert brief_response.status_code == 200
+    brief = brief_response.json()
+    assert brief["schema"] == "proofframe.judge_brief.v1"
+    assert brief["status"]["safe_to_submit"] is False
+    assert "Genblaze" in " ".join(brief["not_yet_claimed"])
 
     campaign_response = client.post(
         "/api/campaigns",

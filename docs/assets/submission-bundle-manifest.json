@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.submission_bundle.v1",
-  "created_at": "2026-06-28T03:55:11Z",
+  "created_at": "2026-06-28T04:15:34Z",
   "project": "ProofFrame",
   "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
@@ -147,16 +147,16 @@
       "path": "docs/spec.md",
       "label": "Implementation specification",
       "present": true,
-      "bytes": 5107,
-      "sha256": "d6be8b19cd14624e32f84c0f743a4c4f370b8b2f3a5b42a8d9270237e1ca4230"
+      "bytes": 5232,
+      "sha256": "63dea3c6a153bb7f98cb61a7b5de12e02f3c3de8e6377073b51d2dff14131345"
     },
     {
       "id": "deployment_runbook",
       "path": "docs/deployment.md",
       "label": "Public demo deployment runbook",
       "present": true,
-      "bytes": 4233,
-      "sha256": "e875214530f3a8a4a3c6e9f577b8af8b7d3305015cc90ad5d465d5246a0d5dc0"
+      "bytes": 4284,
+      "sha256": "3870794852a5c35e948ca0fad65d1152c17a174cccf668de5ece7c8ec7762a14"
     },
     {
       "id": "devpost_draft",
@@ -235,24 +235,24 @@
       "path": "scripts/public_space_sync.py",
       "label": "Public Hugging Face Space sync verifier",
       "present": true,
-      "bytes": 15747,
-      "sha256": "d36465055dfdbbc677d75f03ad7efa6a80244263216a5a692a58f92cd605ebee"
+      "bytes": 15797,
+      "sha256": "23311bec603b7c8db217753fdca7e6f94d0b01b7bbf8b220bbe9007cbd2eeb34"
     },
     {
       "id": "public_space_sync_json",
       "path": "docs/assets/public-space-sync-report.json",
       "label": "Machine-readable public Space sync report",
       "present": true,
-      "bytes": 4962,
-      "sha256": "16e38dd517061b7b6d0457544e8c1a75a28706362526a4446db4d3fa38b36b7a"
+      "bytes": 5019,
+      "sha256": "ed9820f6617057a619555aecfd69cba6e033e85df3782ab117796652cdd85da8"
     },
     {
       "id": "public_space_sync_md",
       "path": "docs/assets/public-space-sync-report.md",
       "label": "Human-readable public Space sync report",
       "present": true,
-      "bytes": 2329,
-      "sha256": "80551f2033b6b7233134ec117bda1b69437176aab5599075c0a6663fb9e4e9fc"
+      "bytes": 2353,
+      "sha256": "8154a34f7d108f9ded130c4e9a30550af33d71ffe78a4b89d38297326a69ee69"
     },
     {
       "id": "devpost_form_kit_script",
@@ -307,8 +307,8 @@
       "path": "apps/web/index.html",
       "label": "Browser proof ledger UI",
       "present": true,
-      "bytes": 41336,
-      "sha256": "52508e553ace7d7de7e98d84855b229248fe22ab7c3dd945a17e7c0261ba8e61"
+      "bytes": 48197,
+      "sha256": "add19f05d10c7b778f076dc339a5d9f5bd5b4dce2c3d6e2f364d13360c4fda67"
     },
     {
       "id": "demo_script",
@@ -412,7 +412,7 @@
       "label": "Machine-readable final control report",
       "present": true,
       "bytes": 20842,
-      "sha256": "d84a346f2e412dd37427a8dd50877378e27a87a16ad66ab59548adbd63b33552"
+      "sha256": "0e42d05c42b0126528893a3060b5825bdec04cc9dc8c7166642df8ffa81e883c"
     },
     {
       "id": "final_submission_control_md",
@@ -420,7 +420,7 @@
       "label": "Human-readable final control report",
       "present": true,
       "bytes": 6110,
-      "sha256": "b9a381290c1a63ac3c9da82bac116b3c0e39c32119618327ab0d45cf1d84916f"
+      "sha256": "b17cbbaecff11e9d0f72828cb9c1ef128efa59de6c81024ed84d3a2755c084db"
     },
     {
       "id": "final_operator_brief_script",
@@ -484,7 +484,7 @@
       "label": "Machine-readable submission audit report",
       "present": true,
       "bytes": 5243,
-      "sha256": "ddd11f6745c8cd65db0fd9078e3f5a89b78f184d1b8e98e4356aea22171414c0"
+      "sha256": "6d8a8fe1c24d6518f85c29cf73b717b4ea76cefaf2c23ad0aa5340d9a5518b38"
     },
     {
       "id": "submission_audit_md",
@@ -492,7 +492,7 @@
       "label": "Human-readable submission audit report",
       "present": true,
       "bytes": 3923,
-      "sha256": "23825e0e2d0574733385368c7cbfd23fe08e844c1553ee33b4546e4d86154ccb"
+      "sha256": "0d0ab5e776a477b1b99ce576f3c29cef006b2be973d37441142b741c6783769c"
     },
     {
       "id": "devpost_receipt_script",
@@ -523,8 +523,8 @@
       "path": "docs/evidence_package.md",
       "label": "Evidence package plan",
       "present": true,
-      "bytes": 14508,
-      "sha256": "db338a7d7c3b7f9e88abd17dd7bb4eb98d46e5b614ea12601bd7d4c34585a4fc"
+      "bytes": 14533,
+      "sha256": "a7956291cf0d9dba258d7f774ef77198d4d5c4823e68a86d331c0ac9f16013e1"
     },
     {
       "id": "public_claim_freeze",
@@ -563,8 +563,8 @@
       "path": "docs/assets/secret-scan-report.json",
       "label": "Machine-readable secret scan report",
       "present": true,
-      "bytes": 8532,
-      "sha256": "7fdc194aaf0ac52ccbec4ed6786a9395701829f18b5dc8c3bc2cfe5b37207d89"
+      "bytes": 8533,
+      "sha256": "d45687b84e7a8056040c109dd4046bdd9106c902987f019fab86faa02da36acb"
     },
     {
       "id": "secret_scan_md",
@@ -572,7 +572,7 @@
       "label": "Human-readable secret scan report",
       "present": true,
       "bytes": 846,
-      "sha256": "7999f6889ca12ec1261a6e008d34b95dc45e67532dcc0c5b91e1393da4c5d1e9"
+      "sha256": "b02e9dc2b5c44809e2bab4b868950a912605c3432834166b958e3e056d869e2f"
     },
     {
       "id": "b2_live_setup_json",
@@ -675,8 +675,8 @@
       "path": "docs/assets/recording-assets.json",
       "label": "Machine-readable recording asset report",
       "present": true,
-      "bytes": 6080,
-      "sha256": "1dd5b9859ff67927db34c050e3d600bce2ba72f721b459d668d1a271810e3c31"
+      "bytes": 6081,
+      "sha256": "d9ca48348f1dfe3b9f08186d19429824090f2b10ac1cec4c942bc324d8f68e78"
     },
     {
       "id": "recording_assets_md",
@@ -707,8 +707,8 @@
       "path": "tasks.json",
       "label": "Machine-readable task board",
       "present": true,
-      "bytes": 37265,
-      "sha256": "4a72d9f8d1eecc939f430ac309ea6e06d64a03f6320ff649adc912ddb89234b9"
+      "bytes": 37814,
+      "sha256": "b41acd0a8179636a4597d36fd000fcb8875ff03704ff71598e8d48d02c921c06"
     },
     {
       "id": "local_ui_smoke",
@@ -731,8 +731,8 @@
       "path": "docs/assets/proofframe-hf-public-smoke.png",
       "label": "Public mock demo screenshot",
       "present": true,
-      "bytes": 369328,
-      "sha256": "8f7dc32d520f83912c1cd1d876c230f42fccdf67ed4c1f53226a1aab9abfed35"
+      "bytes": 514801,
+      "sha256": "46b528e3acfb0e8aa43378c7f951fb5242fbb2a1224eee88d795eb3e9560dcb5"
     }
   ],
   "missing_artifacts": []
