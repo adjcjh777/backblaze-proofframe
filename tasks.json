@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-28T15:59:07Z",
+  "updated_at": "2026-06-28T16:20:23Z",
   "tasks": [
     {
       "id": "T001",
@@ -883,6 +883,15 @@
       "status": "done",
       "done_criteria": "HF Space main is pushed to the latest post-credential gate hardening build, runtime is RUNNING on the expected sha, public API smoke passes, public_space_sync passes, and docs cite the new public Space sha.",
       "notes": "Pushed HF Space commit f54fafafe78a5e2544c2dd0c905dca2778b25ef1, verified public_space_sync and public API smoke in local/mock mode, and kept final submission fail-closed."
+    },
+    {
+      "id": "T061",
+      "title": "Verify public hardening artifacts",
+      "phase": "P4 Submit",
+      "owner": "tester",
+      "status": "done",
+      "done_criteria": "public_space_sync verifies the public Space exposes the post-credential live proof plan with evidence validators and the submission bundle manifest with safe_to_share=true but safe_to_submit=false before final live proof.",
+      "notes": "Hardened after read-only reviewer findings: public_space_sync now requires the full ordered post-credential sequence, strict no-secret policy wording, malformed-command fail-closed behavior, and non-truncated submission bundle gate/artifact evidence. Verified against live HF Space runtime f54fafafe78a5e2544c2dd0c905dca2778b25ef1."
     }
   ]
 }

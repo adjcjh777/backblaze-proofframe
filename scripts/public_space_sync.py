@@ -22,6 +22,47 @@ SPACE_HOST = "https://adjcjh-backblaze-proofframe.hf.space"
 EXPECTED_SPACE_SHA = "f54fafafe78a5e2544c2dd0c905dca2778b25ef1"
 TIMEOUT_SECONDS = 30
 DRAFT_VIDEO_MIN_BYTES = 100_000
+POST_CREDENTIAL_REQUIRED_SEQUENCE = (
+    "credential_handoff",
+    "b2_live_proof",
+    "validate_b2_evidence",
+    "final_live_proof",
+    "validate_final_evidence",
+)
+SECRET_POLICY_REQUIRED_TERMS = (
+    "never stores",
+    "backblaze keys",
+    "genblaze/gmi keys",
+    "devpost cookies",
+    "provider responses",
+    "signed urls",
+)
+SECRET_POLICY_FORBIDDEN_TERMS = (
+    "store secrets",
+    "stores secrets",
+    "store backblaze",
+    "store genblaze",
+    "store devpost",
+    "store signed urls",
+    "save secrets",
+    "saves secrets",
+    "include secrets",
+    "includes secrets",
+)
+TASK_UPDATE_COMMAND_MARKERS = ("scripts/task.py", " task.py ", "--update-tasks")
+REQUIRED_BUNDLE_ARTIFACT_IDS = {
+    "repo_readme",
+    "devpost_packet_json",
+    "public_space_sync_json",
+    "post_credential_live_proof_json",
+    "post_credential_live_proof_script",
+    "final_submission_control_json",
+    "secret_scan_json",
+    "submission_audit_json",
+    "devpost_submission_checklist_json",
+    "demo_video_draft_mp4",
+    "task_ledger",
+}
 
 HTML_MARKERS = {
     "judge_recording_slate": "Judge recording slate",
@@ -76,9 +117,83 @@ def fetch_text(url: str, timeout: int = TIMEOUT_SECONDS) -> FetchResult:
 
 def parse_json(result: FetchResult) -> dict[str, Any] | None:
     try:
-        return json.loads(str(result.get("body") or ""))
+        parsed = json.loads(str(result.get("body") or ""))
     except json.JSONDecodeError:
         return None
+    return parsed if isinstance(parsed, dict) else None
+
+
+def dict_field(value: dict[str, Any] | None, key: str) -> dict[str, Any]:
+    if not value:
+        return {}
+    field = value.get(key)
+    return field if isinstance(field, dict) else {}
+
+
+def list_field(value: dict[str, Any] | None, key: str) -> list[Any]:
+    if not value:
+        return []
+    field = value.get(key)
+    return field if isinstance(field, list) else []
+
+
+def dict_list_field(value: dict[str, Any] | None, key: str) -> list[dict[str, Any]]:
+    items = list_field(value, key)
+    if not all(isinstance(item, dict) for item in items):
+        return []
+    return items
+
+
+def command_dicts(plan: dict[str, Any] | None) -> list[dict[str, Any]]:
+    commands = dict_list_field(plan, "commands")
+    if not commands:
+        return []
+    for command in commands:
+        if not isinstance(command.get("id"), str) or not command.get("id"):
+            return []
+    return commands
+
+
+def secret_policy_is_safe(policy: Any) -> bool:
+    if not isinstance(policy, str):
+        return False
+    normalized = policy.lower()
+    return all(term in normalized for term in SECRET_POLICY_REQUIRED_TERMS) and not any(
+        term in normalized for term in SECRET_POLICY_FORBIDDEN_TERMS
+    )
+
+
+def no_task_update_commands(commands: list[dict[str, Any]]) -> bool:
+    for command in commands:
+        command_text = str(command.get("command") or "").lower()
+        if any(marker in command_text for marker in TASK_UPDATE_COMMAND_MARKERS):
+            return False
+    return True
+
+
+def sha256_like(value: Any) -> bool:
+    return isinstance(value, str) and len(value) == 64 and all(char in "0123456789abcdef" for char in value.lower())
+
+
+def artifact_is_present(artifact: dict[str, Any]) -> bool:
+    path = artifact.get("path")
+    return bool(
+        isinstance(artifact.get("id"), str)
+        and artifact.get("present") is True
+        and isinstance(path, str)
+        and path
+        and not path.startswith("/")
+        and isinstance(artifact.get("bytes"), int)
+        and artifact.get("bytes", 0) > 0
+        and sha256_like(artifact.get("sha256"))
+    )
+
+
+def report_status(reports: list[dict[str, Any]], report_id: str) -> dict[str, Any]:
+    for report in reports:
+        if report.get("id") == report_id:
+            return report
+    return {}
 
 
 def space_api_url(space_id: str) -> str:
@@ -129,6 +244,8 @@ def build_report(
     demo_video_draft_mp4_url = resolve_file_url(space_id, "docs/assets/proofframe-demo-draft.mp4")
     devpost_form_kit_url = raw_file_url(space_id, "docs/assets/devpost-form-kit.json")
     submit_checklist_url = raw_file_url(space_id, "docs/assets/devpost-submission-checklist.json")
+    post_credential_plan_url = raw_file_url(space_id, "docs/assets/post-credential-live-proof-plan.json")
+    submission_bundle_url = raw_file_url(space_id, "docs/assets/submission-bundle-manifest.json")
     judge_url = public_url(public_host, "/?judge=1")
     health_url = public_url(public_host, "/api/health")
     gate_url = public_url(public_host, "/api/submission/gate")
@@ -144,6 +261,8 @@ def build_report(
     demo_video_draft_mp4_result = fetcher(demo_video_draft_mp4_url, TIMEOUT_SECONDS)
     devpost_form_kit_result = fetcher(devpost_form_kit_url, TIMEOUT_SECONDS)
     submit_checklist_result = fetcher(submit_checklist_url, TIMEOUT_SECONDS)
+    post_credential_plan_result = fetcher(post_credential_plan_url, TIMEOUT_SECONDS)
+    submission_bundle_result = fetcher(submission_bundle_url, TIMEOUT_SECONDS)
     judge_result = fetcher(judge_url, TIMEOUT_SECONDS)
     health_result = fetcher(health_url, TIMEOUT_SECONDS)
     gate_result = fetcher(gate_url, TIMEOUT_SECONDS)
@@ -158,6 +277,8 @@ def build_report(
     demo_video_draft = parse_json(demo_video_draft_result)
     devpost_form_kit = parse_json(devpost_form_kit_result)
     submit_checklist = parse_json(submit_checklist_result)
+    post_credential_plan = parse_json(post_credential_plan_result)
+    submission_bundle = parse_json(submission_bundle_result)
     health = parse_json(health_result)
     gate = parse_json(gate_result)
     html = str(judge_result.get("body") or "")
@@ -177,7 +298,35 @@ def build_report(
     gate_paths_relative = bool(
         gate and all(isinstance(path, str) and path and not path.startswith("/") for path in gate_paths)
     )
-    report_gate_status = gate.get("report_gate", {}).get("status") if gate else None
+    report_gate_status = dict_field(gate, "report_gate").get("status") if gate else None
+    post_credential_commands = command_dicts(post_credential_plan)
+    post_credential_command_ids = [str(command["id"]) for command in post_credential_commands]
+    post_credential_sequence_ok = (
+        post_credential_command_ids[: len(POST_CREDENTIAL_REQUIRED_SEQUENCE)]
+        == list(POST_CREDENTIAL_REQUIRED_SEQUENCE)
+    )
+    post_credential_no_task_update = no_task_update_commands(post_credential_commands)
+    post_credential_secret_policy_ok = secret_policy_is_safe(
+        post_credential_plan.get("secret_policy") if post_credential_plan else None
+    )
+    submission_bundle_artifacts = dict_list_field(submission_bundle, "artifacts")
+    submission_bundle_artifact_ids = {
+        str(artifact.get("id")) for artifact in submission_bundle_artifacts if isinstance(artifact.get("id"), str)
+    }
+    submission_bundle_required_artifacts_ok = REQUIRED_BUNDLE_ARTIFACT_IDS <= submission_bundle_artifact_ids
+    submission_bundle_artifacts_valid = bool(submission_bundle_artifacts) and all(
+        artifact_is_present(artifact) for artifact in submission_bundle_artifacts
+    )
+    submission_bundle_missing_artifacts = list_field(submission_bundle, "missing_artifacts")
+    submission_bundle_devpost_packet = dict_field(submission_bundle, "devpost_packet")
+    submission_bundle_gate = dict_field(submission_bundle, "submission_gate")
+    submission_bundle_packet_gate = dict_field(submission_bundle_gate, "packet_gate")
+    submission_bundle_evidence_gate = dict_field(submission_bundle_gate, "evidence_gate")
+    submission_bundle_report_gate = dict_field(submission_bundle_gate, "report_gate")
+    submission_bundle_reports = dict_list_field(submission_bundle_report_gate, "reports")
+    submission_bundle_secret_scan = report_status(submission_bundle_reports, "secret_scan")
+    submission_bundle_submission_audit = report_status(submission_bundle_reports, "submission_audit")
+    submission_bundle_next_actions = list_field(submission_bundle_gate, "next_actions")
 
     checks = [
         check_item(
@@ -358,6 +507,64 @@ def build_report(
             submit_checklist_url,
         ),
         check_item(
+            "raw_post_credential_plan",
+            "Raw post-credential live proof plan is public and task-safe",
+            bool(
+                post_credential_plan_result.get("ok")
+                and post_credential_plan
+                and post_credential_plan.get("schema") == "proofframe.post_credential_live_proof.v1"
+                and post_credential_plan.get("ok") is True
+                and post_credential_plan.get("mode") == "plan_only"
+                and post_credential_plan.get("execute") is False
+                and post_credential_plan.get("update_tasks") is False
+                and post_credential_sequence_ok
+                and post_credential_no_task_update
+                and post_credential_secret_policy_ok
+            ),
+            (
+                f"Post-credential schema is {post_credential_plan.get('schema') if post_credential_plan else None}; "
+                f"mode is {post_credential_plan.get('mode') if post_credential_plan else None}; "
+                f"required sequence={post_credential_sequence_ok}; "
+                f"secret policy safe={post_credential_secret_policy_ok}."
+            ),
+            post_credential_plan_url,
+        ),
+        check_item(
+            "raw_submission_bundle",
+            "Raw submission bundle separates shareability from final submit readiness",
+            bool(
+                submission_bundle_result.get("ok")
+                and submission_bundle
+                and submission_bundle.get("schema") == "proofframe.submission_bundle.v1"
+                and submission_bundle.get("safe_to_share") is True
+                and submission_bundle.get("safe_to_submit") is False
+                and submission_bundle_missing_artifacts == []
+                and submission_bundle_artifacts_valid
+                and submission_bundle_required_artifacts_ok
+                and submission_bundle_devpost_packet.get("present") is True
+                and submission_bundle_devpost_packet.get("mode") == "pre_live_safe"
+                and "Do not submit" in str(submission_bundle_devpost_packet.get("claim_warning") or "")
+                and submission_bundle_gate.get("ok") is False
+                and submission_bundle_gate.get("mode") == "pre_live_safe"
+                and submission_bundle_packet_gate.get("status") == "pre_live_packet_pending"
+                and submission_bundle_evidence_gate.get("status") == "missing"
+                and submission_bundle_report_gate.get("status") == "incomplete"
+                and submission_bundle_secret_scan.get("ok") is True
+                and submission_bundle_secret_scan.get("status") == "verified"
+                and submission_bundle_submission_audit.get("ok") is False
+                and submission_bundle_submission_audit.get("status") == "incomplete"
+                and any("Backblaze B2" in str(action) for action in submission_bundle_next_actions)
+                and any("Genblaze" in str(action) for action in submission_bundle_next_actions)
+            ),
+            (
+                f"Bundle schema is {submission_bundle.get('schema') if submission_bundle else None}; "
+                f"safe_to_share={submission_bundle.get('safe_to_share') if submission_bundle else None}; "
+                f"safe_to_submit={submission_bundle.get('safe_to_submit') if submission_bundle else None}; "
+                f"required artifacts={submission_bundle_required_artifacts_ok}."
+            ),
+            submission_bundle_url,
+        ),
+        check_item(
             "public_health",
             "Public demo health is local/mock and ready",
             bool(
@@ -440,6 +647,23 @@ def build_report(
             "demo_video_draft_safe_to_submit": (
                 demo_video_draft.get("safe_to_submit") if demo_video_draft else None
             ),
+            "post_credential_plan_mode": post_credential_plan.get("mode") if post_credential_plan else None,
+            "post_credential_plan_validators": {
+                "validate_b2_evidence": "validate_b2_evidence" in post_credential_command_ids,
+                "validate_final_evidence": "validate_final_evidence" in post_credential_command_ids,
+            },
+            "post_credential_plan_required_sequence": post_credential_sequence_ok,
+            "post_credential_plan_secret_policy_safe": post_credential_secret_policy_ok,
+            "submission_bundle": {
+                "safe_to_share": submission_bundle.get("safe_to_share") if submission_bundle else None,
+                "safe_to_submit": submission_bundle.get("safe_to_submit") if submission_bundle else None,
+                "gate_mode": (
+                    submission_bundle_gate.get("mode") if submission_bundle else None
+                ),
+                "required_artifacts_present": submission_bundle_required_artifacts_ok,
+                "missing_artifacts": len(submission_bundle_missing_artifacts),
+                "artifact_count": len(submission_bundle_artifacts),
+            },
             "demo_video_draft_mp4": {
                 "status": demo_video_draft_mp4_result.get("status"),
                 "bytes": demo_video_draft_mp4_result.get("bytes"),
@@ -456,6 +680,8 @@ def build_report(
             "raw_judge_crosswalk": judge_crosswalk_url,
             "raw_demo_video_draft": demo_video_draft_url,
             "demo_video_draft_mp4": demo_video_draft_mp4_url,
+            "raw_post_credential_plan": post_credential_plan_url,
+            "raw_submission_bundle": submission_bundle_url,
             "judge": judge_url,
             "health": health_url,
             "submission_gate": gate_url,
@@ -488,6 +714,10 @@ def next_actions(checks: list[dict[str, Any]]) -> list[str]:
         actions.append("Regenerate and upload docs/assets/devpost-form-kit.json to the Space.")
     if "raw_submit_checklist" in failed:
         actions.append("Regenerate and upload docs/assets/devpost-submission-checklist.json to the Space.")
+    if "raw_post_credential_plan" in failed:
+        actions.append("Regenerate and upload docs/assets/post-credential-live-proof-plan.json to the Space.")
+    if "raw_submission_bundle" in failed:
+        actions.append("Regenerate and upload docs/assets/submission-bundle-manifest.json to the Space.")
     if "public_health" in failed or "submission_gate" in failed or "judge_html_markers" in failed:
         actions.append("Rebuild the public Space and rerun public API/HTML smoke checks.")
     if not actions:

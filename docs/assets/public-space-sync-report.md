@@ -2,7 +2,7 @@
 
 Mode: `public_space_synced`
 OK: `true`
-Created: `2026-06-28T15:59:48Z`
+Created: `2026-06-28T16:20:48Z`
 Space: `ADJCJH/backblaze-proofframe`
 Public host: https://adjcjh-backblaze-proofframe.hf.space
 Expected sha: `f54fafafe78a5e2544c2dd0c905dca2778b25ef1`
@@ -24,6 +24,8 @@ Runtime stage: `RUNNING`
 | OK | Mock demo video draft MP4 is publicly readable | status=200; bytes=761356; content_type=video/mp4. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/resolve/main/docs/assets/proofframe-demo-draft.mp4 |
 | OK | Raw Devpost form kit is public and final-form gated | Devpost form schema is proofframe.devpost_form_kit.v1; mode is pre_live_form_ready; final_form_ready is False. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/devpost-form-kit.json |
 | OK | Raw Devpost submit checklist is public and fail-closed | Submit checklist schema is proofframe.devpost_submission_checklist.v1; mode is pre_submit_blocked; safe_to_submit is False. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/devpost-submission-checklist.json |
+| OK | Raw post-credential live proof plan is public and task-safe | Post-credential schema is proofframe.post_credential_live_proof.v1; mode is plan_only; required sequence=True; secret policy safe=True. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/post-credential-live-proof-plan.json |
+| OK | Raw submission bundle separates shareability from final submit readiness | Bundle schema is proofframe.submission_bundle.v1; safe_to_share=True; safe_to_submit=False; required artifacts=True. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/submission-bundle-manifest.json |
 | OK | Public demo health is local/mock and ready | Health storage=local, generation=mock, ready=True. | https://adjcjh-backblaze-proofframe.hf.space/api/health |
 | OK | Public submission gate is fail-closed with repo-relative paths | Gate mode is pre_live_safe; report gate is incomplete; relative paths=True. | https://adjcjh-backblaze-proofframe.hf.space/api/submission/gate |
 | OK | Judge-mode HTML contains recording and sponsor markers | Markers: judge_recording_slate=True, sponsor_evidence_model=True, judge_brief_panel=True, criteria_crosswalk_link=True, recording_runbook_panel=True, devpost_kit_panel=True, submit_checklist_panel=True, auto_load_judge_demo=True, final_reports_pending=True. | https://adjcjh-backblaze-proofframe.hf.space/?judge=1 |
