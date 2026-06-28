@@ -23,6 +23,7 @@ python scripts/devpost_event_snapshot.py --validate-committed
 python scripts/agent_handoff_check.py
 python scripts/public_space_sync.py
 python scripts/demo_storyboard.py
+python scripts/demo_video_draft.py
 python scripts/public_video_check.py
 python scripts/sponsor_fit_audit.py
 python scripts/demo_readiness.py
@@ -57,6 +58,7 @@ The `.github/workflows/ci.yml` workflow runs on `main`, `feature/**`, and pull r
 - `python scripts/agent_handoff_check.py`
 - `python scripts/public_space_sync.py`
 - `python scripts/demo_storyboard.py`
+- `python scripts/demo_video_draft.py`
 - `python scripts/public_video_check.py`
 - `python scripts/sponsor_fit_audit.py`
 - `python scripts/demo_readiness.py`

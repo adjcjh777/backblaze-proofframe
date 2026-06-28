@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.submission_bundle.v1",
-  "created_at": "2026-06-28T09:54:00Z",
+  "created_at": "2026-06-28T10:04:52Z",
   "project": "ProofFrame",
   "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
@@ -123,8 +123,8 @@
       "path": "README.md",
       "label": "Core public project overview",
       "present": true,
-      "bytes": 12452,
-      "sha256": "87427a6f64c2e7f69bc9037469bf4a94f7e4f10492ebf1fb041a7ea4c5bf064b"
+      "bytes": 12723,
+      "sha256": "d25da7d61b8dd62c30dc1b716e5f6fe53e631765599cc5f9fa106ad8b3b05f51"
     },
     {
       "id": "dockerfile",
@@ -391,6 +391,38 @@
       "sha256": "3765ca34a5b53c7b30fd604230c91589bdd69a57168d4229673b38613f449370"
     },
     {
+      "id": "demo_video_draft_script",
+      "path": "scripts/demo_video_draft.py",
+      "label": "Mock demo video draft builder",
+      "present": true,
+      "bytes": 12209,
+      "sha256": "953f4b118ca2165f61e584239c4d10db451445e01ed71087a6de43ff7d7b8fb7"
+    },
+    {
+      "id": "demo_video_draft_json",
+      "path": "docs/assets/demo-video-draft.json",
+      "label": "Machine-readable demo video draft report",
+      "present": true,
+      "bytes": 2459,
+      "sha256": "75a075dac7e1aa5968362a12b84fbb462ffe1bc0e1530361528163566b5e1253"
+    },
+    {
+      "id": "demo_video_draft_md",
+      "path": "docs/assets/demo-video-draft.md",
+      "label": "Human-readable demo video draft report",
+      "present": true,
+      "bytes": 1562,
+      "sha256": "fcbccd5a4a24a0db7b491c31ba53d2a60b0d22ec10f0da7b6548ed3483c80879"
+    },
+    {
+      "id": "demo_video_draft_mp4",
+      "path": "docs/assets/proofframe-demo-draft.mp4",
+      "label": "Public-safe mock demo video draft",
+      "present": true,
+      "bytes": 761356,
+      "sha256": "9dc79d0a9f062e473d60f148bfbd350246a0afe5b96fcc2d1e44f6cddc1efbbb"
+    },
+    {
       "id": "public_video_check_script",
       "path": "scripts/public_video_check.py",
       "label": "Public demo video URL verifier",
@@ -484,7 +516,7 @@
       "label": "Machine-readable final control report",
       "present": true,
       "bytes": 23756,
-      "sha256": "10925922b1ceb2ff3daf185d7324a34f23f359ca65d334e2ba2eeabbe9b84a92"
+      "sha256": "d6a60ea56c93dd840f57ea9ac757e7c28b1473a08f8e28dff128facaf973043f"
     },
     {
       "id": "final_submission_control_md",
@@ -492,7 +524,7 @@
       "label": "Human-readable final control report",
       "present": true,
       "bytes": 6580,
-      "sha256": "f2cba60e2a9434bea0b33c5e18dd5a4fa42f8f93ab516c6279d9ae9c2fd9761d"
+      "sha256": "21593f085a235d283e3b531459268d97de7fd3c68640dcaa7463947922254f36"
     },
     {
       "id": "final_operator_brief_script",
@@ -580,7 +612,7 @@
       "label": "Machine-readable submission audit report",
       "present": true,
       "bytes": 5925,
-      "sha256": "601c35733a2a753caee7d09f1dd5b8e9ce52a56068b46108563aebf2b61562e0"
+      "sha256": "5015dfabad8968e6353f4ec88203b18d4e0eb4c75e55bac83bdfdf5f40f9439b"
     },
     {
       "id": "submission_audit_md",
@@ -588,7 +620,7 @@
       "label": "Human-readable submission audit report",
       "present": true,
       "bytes": 4459,
-      "sha256": "8acbd1f4891f79eb0abea1bed20651390844faeb6097e43151ad6f5e2a28c1da"
+      "sha256": "93a33595fcb577d06bb61dbec37b8a1993ec3a4b0c8b09f04ef40559a3930b43"
     },
     {
       "id": "devpost_receipt_script",
@@ -619,8 +651,8 @@
       "path": "docs/evidence_package.md",
       "label": "Evidence package plan",
       "present": true,
-      "bytes": 17119,
-      "sha256": "d32312c991f20e4c64b71dabb8ff6b1d4c3c7fafdfc1b83395c4cd100f38cd4a"
+      "bytes": 17411,
+      "sha256": "3914784b3e93c16aeff6c2f7f075df52750db2a374b335fff5c7b1f8e0e2a0a7"
     },
     {
       "id": "public_claim_freeze",
@@ -635,8 +667,8 @@
       "path": "docs/verification.md",
       "label": "Local, CI, Docker, and live proof runbook",
       "present": true,
-      "bytes": 9095,
-      "sha256": "122392fbd5551a93e91da29f543554e6065072a0886ee64801ff87cd62c1a885"
+      "bytes": 9169,
+      "sha256": "5f13ff164baa337f259efa0831d9f3200c658ccdc8fe5a4ca6084266b3f3daeb"
     },
     {
       "id": "final_env_template",
@@ -659,8 +691,8 @@
       "path": "docs/assets/secret-scan-report.json",
       "label": "Machine-readable secret scan report",
       "present": true,
-      "bytes": 9414,
-      "sha256": "36a5cfeaa92188a9a57fcaf584076d2e03842dd5c78a571cf1e9a45b736c8720"
+      "bytes": 9701,
+      "sha256": "b66a3ae3f0a8be6d37e0de236227042bc46ddb33c8076bc8a99cb6525f2cff17"
     },
     {
       "id": "secret_scan_md",
@@ -668,7 +700,7 @@
       "label": "Human-readable secret scan report",
       "present": true,
       "bytes": 846,
-      "sha256": "86e6c40f943e7b8127ea51919b496b40a7eb19b6c11bcac254e2331fd7e5a3e0"
+      "sha256": "92ac548e5d1c6fc50ec88a8c5fd443b706344bc73c57880a9c5417418211dcfe"
     },
     {
       "id": "b2_live_setup_json",
@@ -748,7 +780,7 @@
       "label": "Machine-readable demo readiness report",
       "present": true,
       "bytes": 3893,
-      "sha256": "48cfde5ea5a54c70468eb6848bc4bfd408c3a5526b344171b6899d160d5d58c6"
+      "sha256": "a62df92a19fb507bb49501c64b0c05255bb26ae00fd1e1a68b051f0b8b251b60"
     },
     {
       "id": "demo_readiness_md",
@@ -763,24 +795,24 @@
       "path": "scripts/recording_assets.py",
       "label": "Public-safe recording asset gate",
       "present": true,
-      "bytes": 17381,
-      "sha256": "cb87a44f08c961521238700ae4436e5978b27945b2858d62e2c93dd8fde56a96"
+      "bytes": 17809,
+      "sha256": "4e30e15f83aee2f5a9a9ce1d3ac54c1df932711a0b14711fb62b8a1d4ce2bc05"
     },
     {
       "id": "recording_assets_json",
       "path": "docs/assets/recording-assets.json",
       "label": "Machine-readable recording asset report",
       "present": true,
-      "bytes": 6700,
-      "sha256": "a243dba88897bfeb7d7bb74716e57ae5c1df0fdb5071aede72b76ede0e56cfa9"
+      "bytes": 7511,
+      "sha256": "791bc3d85a9656f6fc59ced8844dcca62f06f216a00a506a7f662aaf50478ea0"
     },
     {
       "id": "recording_assets_md",
       "path": "docs/assets/recording-assets.md",
       "label": "Human-readable recording asset report",
       "present": true,
-      "bytes": 3154,
-      "sha256": "726f52d384e8ba825c2f3ac097a3a8c0b6e0acfdaaec330324ed3c5ea49072f0"
+      "bytes": 3419,
+      "sha256": "7f27c5174dd636d809cff21ede6a2a4bed8a39ace1817643854959f69835788d"
     },
     {
       "id": "final_live_runner",
@@ -803,8 +835,8 @@
       "path": "tasks.json",
       "label": "Machine-readable task board",
       "present": true,
-      "bytes": 43493,
-      "sha256": "54ea13665a1c812ee758ebde7ddd129447b2db5f66778bc6caef9825ba2e1ae9"
+      "bytes": 44186,
+      "sha256": "6dac157f86b448310df7bbf366962ef57d5530f1b74a4547609083af3986ceca"
     },
     {
       "id": "local_ui_smoke",

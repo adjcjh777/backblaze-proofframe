@@ -117,6 +117,7 @@ python scripts/agent_handoff_check.py
 python scripts/public_space_sync.py
 python scripts/claim_lint.py
 python scripts/demo_storyboard.py
+python scripts/demo_video_draft.py --build-video
 python scripts/public_video_check.py
 python scripts/sponsor_fit_audit.py
 python scripts/demo_readiness.py
@@ -148,6 +149,7 @@ The browser UI and `GET /api/submission/gate` expose the same fail-closed final 
 `scripts/claim_lint.py` keeps pre-live public copy from claiming completed Backblaze B2 or Genblaze proof before evidence exists.
 `scripts/secret_scan.py` writes a no-value secret scan report for public files, generated evidence, local logs, and media inventory while excluding local credential files without reading them.
 `scripts/demo_storyboard.py` keeps the demo video timeline under 3 minutes and tracks the public video URL as a final gate.
+`scripts/demo_video_draft.py` builds a public-safe mock MP4 draft from committed screenshots for rehearsal, while explicitly keeping `safe_to_submit=false` and `final_video_ready=false`.
 `scripts/public_video_check.py` verifies the final public demo video URL is non-placeholder, token-free, Devpost-compatible, and reachable before final submission.
 `scripts/sponsor_fit_audit.py` checks that Backblaze B2 and Genblaze are explained as product-critical sponsor paths without overclaiming live proof.
 `scripts/demo_readiness.py` keeps the mock demo recording package ready while failing strict final mode until live B2/Genblaze proof and the final secret scan are complete.
@@ -183,6 +185,7 @@ python scripts/devpost_event_snapshot.py --validate-committed
 python scripts/agent_handoff_check.py
 python scripts/public_space_sync.py
 python scripts/demo_storyboard.py
+python scripts/demo_video_draft.py
 python scripts/public_video_check.py
 python scripts/demo_readiness.py
 python scripts/recording_assets.py

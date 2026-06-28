@@ -9,7 +9,7 @@
     {
       "path": "README.md",
       "present": true,
-      "bytes": 12452
+      "bytes": 12723
     },
     {
       "path": "docs/demo_script.md",
@@ -25,6 +25,21 @@
       "path": "docs/assets/demo-storyboard.md",
       "present": true,
       "bytes": 2704
+    },
+    {
+      "path": "docs/assets/demo-video-draft.json",
+      "present": true,
+      "bytes": 2459
+    },
+    {
+      "path": "docs/assets/demo-video-draft.md",
+      "present": true,
+      "bytes": 1562
+    },
+    {
+      "path": "docs/assets/proofframe-demo-draft.mp4",
+      "present": true,
+      "bytes": 761356
     },
     {
       "path": "docs/assets/public-video-check.json",
@@ -120,6 +135,16 @@
       "schema": "proofframe.public_video_check.v1",
       "mode": "pending_video_url",
       "safe_to_submit": false
+    },
+    "demo_video_draft": {
+      "present": true,
+      "path": "docs/assets/demo-video-draft.json",
+      "schema_ok": true,
+      "schema": "proofframe.demo_video_draft.v1",
+      "mode": "mock_video_draft_ready",
+      "safe_to_submit": false,
+      "final_video_ready": false,
+      "public_video_draft_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/resolve/main/docs/assets/proofframe-demo-draft.mp4"
     },
     "devpost_form": {
       "present": true,
@@ -217,6 +242,7 @@
     "python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out docs/assets/b2-live-proof-evidence.json",
     "python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json",
     "python scripts/demo_storyboard.py --strict-final",
+    "python scripts/demo_video_draft.py --build-video",
     "python scripts/public_video_check.py --video-url \"$PROOFFRAME_PUBLIC_VIDEO_URL\" --verify-url --strict-final",
     "python scripts/demo_readiness.py --strict-final",
     "python scripts/final_submission_control.py --strict-final"

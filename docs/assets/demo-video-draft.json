@@ -1,0 +1,81 @@
+{
+  "schema": "proofframe.demo_video_draft.v1",
+  "mode": "mock_video_draft_ready",
+  "ok": true,
+  "safe_to_submit": false,
+  "final_video_ready": false,
+  "public_video_draft_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/resolve/main/docs/assets/proofframe-demo-draft.mp4",
+  "video_path": "docs/assets/proofframe-demo-draft.mp4",
+  "expected_seconds": 54,
+  "max_seconds": 180,
+  "slides": [
+    {
+      "path": "docs/assets/proofframe-hf-public-smoke.png",
+      "title": "Judge-mode public demo",
+      "seconds": 10,
+      "present": true,
+      "bytes": 514801
+    },
+    {
+      "path": "docs/assets/proofframe-sponsor-model-smoke.png",
+      "title": "Sponsor evidence model",
+      "seconds": 12,
+      "present": true,
+      "bytes": 328627
+    },
+    {
+      "path": "docs/assets/proofframe-local-ui-smoke.png",
+      "title": "Campaign and asset ledger",
+      "seconds": 12,
+      "present": true,
+      "bytes": 364927
+    },
+    {
+      "path": "docs/assets/proofframe-review-console-smoke.png",
+      "title": "Review console",
+      "seconds": 12,
+      "present": true,
+      "bytes": 343618
+    },
+    {
+      "path": "docs/assets/proofframe-sponsor-model-mobile-smoke.png",
+      "title": "Mobile-safe judge proof",
+      "seconds": 8,
+      "present": true,
+      "bytes": 382613
+    }
+  ],
+  "missing_slides": [],
+  "video_probe": {
+    "checked": true,
+    "ok": true,
+    "duration_seconds": 65.97,
+    "bytes": 761356,
+    "width": 1280,
+    "height": 720,
+    "error": null
+  },
+  "checks": [
+    {
+      "id": "draft_inputs_present",
+      "ok": true,
+      "detail": "5 / 5 slide inputs present."
+    },
+    {
+      "id": "draft_video_present",
+      "ok": true,
+      "detail": "Video path is /Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe/docs/assets/proofframe-demo-draft.mp4."
+    },
+    {
+      "id": "draft_under_time_limit",
+      "ok": true,
+      "detail": "Duration is 65.97; max is 180."
+    }
+  ],
+  "claim_boundary": "This MP4 is a mock recording draft for rehearsal and public review. It is not the final Devpost video and does not prove live B2 or Genblaze execution.",
+  "next_actions": [
+    "Upload or sync this draft only as a mock video reference.",
+    "After B2 and Genblaze live proof, record the final narrated video and set PROOFFRAME_PUBLIC_VIDEO_URL.",
+    "Run scripts/public_video_check.py with --verify-url --strict-final on the final public video URL."
+  ]
+}

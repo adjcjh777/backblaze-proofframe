@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-28T09:34:51Z",
+  "updated_at": "2026-06-28T10:02:28Z",
   "tasks": [
     {
       "id": "T001",
@@ -811,6 +811,15 @@
       "status": "done",
       "done_criteria": "The public judge-mode UI exposes a Submit Checklist panel powered by /api/judge/submission-checklist, API smoke verifies the checklist schema and preflight rows, public Space sync verifies the raw devpost-submission-checklist artifact plus HTML marker, and HF Space serves the updated build.",
       "notes": "Added /api/judge/submission-checklist, in-app Submit Checklist panel, public sync raw checklist check, API smoke fields, and tests."
+    },
+    {
+      "id": "T053",
+      "title": "Add mock demo video draft",
+      "phase": "P4 Submit",
+      "owner": "codex",
+      "status": "done",
+      "done_criteria": "A schema-stamped mock demo video draft report and MP4 are generated from public screenshots, recording-assets and submission-bundle reports include the draft artifacts, tests cover the fail-closed boundary, and final public video gates remain false until live proof exists.",
+      "notes": "Added scripts/demo_video_draft.py, generated docs/assets/proofframe-demo-draft.mp4 plus demo-video-draft reports, and wired the draft into recording assets and submission bundle while keeping final video gates fail-closed."
     }
   ]
 }

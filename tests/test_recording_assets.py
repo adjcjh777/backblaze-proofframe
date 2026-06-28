@@ -27,6 +27,8 @@ def write_fixtures(root: Path, *, final_ready: bool = False) -> None:
     for path in recording_assets.REQUIRED_RECORDING_ASSETS:
         if path.endswith(".png"):
             write_file(root, path, b"\x89PNG\r\n\x1a\nfixture")
+        elif path.endswith(".mp4"):
+            write_file(root, path, b"mp4-fixture")
         elif path.endswith(".json"):
             continue
         else:
@@ -59,6 +61,17 @@ def write_fixtures(root: Path, *, final_ready: bool = False) -> None:
             "schema": "proofframe.public_video_check.v1",
             "mode": "public_video_verified" if final_ready else "pending_video_url",
             "safe_to_submit": final_ready,
+        },
+    )
+    write_json(
+        root,
+        "docs/assets/demo-video-draft.json",
+        {
+            "schema": "proofframe.demo_video_draft.v1",
+            "mode": "mock_video_draft_ready",
+            "safe_to_submit": False,
+            "final_video_ready": False,
+            "public_video_draft_url": "https://example.test/proofframe-demo-draft.mp4",
         },
     )
     write_json(
