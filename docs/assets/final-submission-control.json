@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.final_submission_control.v1",
-  "created_at": "2026-06-28T18:39:39Z",
+  "created_at": "2026-06-28T18:54:28Z",
   "mode": "pre_live_control",
   "safe_to_submit": false,
   "event": {
@@ -624,7 +624,12 @@
     "python scripts/devpost_form_kit.py --strict-final",
     "python scripts/devpost_submission_checklist.py --strict-final",
     "python scripts/submission_audit.py --strict-final",
-    "python scripts/devpost_submission_receipt.py --project-url \"$PROOFFRAME_DEVPOST_PROJECT_URL\" --submitted-at \"$PROOFFRAME_DEVPOST_SUBMITTED_AT\" --confirmation-note \"Devpost accepted/submitted the ProofFrame project.\""
+    "python scripts/devpost_submission_receipt.py --project-url \"$PROOFFRAME_DEVPOST_PROJECT_URL\" --submitted-at \"$PROOFFRAME_DEVPOST_SUBMITTED_AT\" --confirmation-note \"Devpost accepted/submitted the ProofFrame project.\"",
+    "python scripts/secret_scan.py",
+    "python scripts/final_submission_control.py --strict-final",
+    "python scripts/final_launch_plan.py --strict-final",
+    "python scripts/devpost_submission_preview.py --strict-final",
+    "python scripts/submission_bundle.py --strict-final"
   ],
   "launch_plan": {
     "mode": "ready_for_credential_entry",

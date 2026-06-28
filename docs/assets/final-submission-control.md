@@ -2,7 +2,7 @@
 
 Mode: `pre_live_control`
 Safe to submit: `false`
-Created: `2026-06-28T18:39:39Z`
+Created: `2026-06-28T18:54:28Z`
 Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 Repository: https://github.com/adjcjh777/backblaze-proofframe
 
@@ -90,6 +90,11 @@ python scripts/devpost_form_kit.py --strict-final
 python scripts/devpost_submission_checklist.py --strict-final
 python scripts/submission_audit.py --strict-final
 python scripts/devpost_submission_receipt.py --project-url "$PROOFFRAME_DEVPOST_PROJECT_URL" --submitted-at "$PROOFFRAME_DEVPOST_SUBMITTED_AT" --confirmation-note "Devpost accepted/submitted the ProofFrame project."
+python scripts/secret_scan.py
+python scripts/final_submission_control.py --strict-final
+python scripts/final_launch_plan.py --strict-final
+python scripts/devpost_submission_preview.py --strict-final
+python scripts/submission_bundle.py --strict-final
 ```
 
 ## Claim Boundary

@@ -11,7 +11,7 @@ Next command: `python scripts/final_env_wizard.py --output .env.final.local --mi
 - OK `operator_ready`: Operator brief mode is credential_entry_ready. Evidence: `docs/assets/final-operator-brief.json`
 - OK `only_expected_secrets_missing`: Missing ids: b2_application_key, b2_key_id, genblaze_api_key. Evidence: `docs/assets/final-operator-brief.json`
 - OK `launch_plan_at_credential_entry`: Current phase is credential_entry. Evidence: `docs/assets/final-launch-plan.json`
-- OK `public_space_synced`: Runtime sha: 61b791f16398b44c1ea6e9738e754d1f690e38fd. Evidence: `docs/assets/public-space-sync-report.json`
+- OK `public_space_synced`: Runtime sha: ff91f45b5e6598cf2163efdc6a217373f56dac0b. Evidence: `docs/assets/public-space-sync-report.json`
 - OK `mock_form_ready`: Devpost form mode is pre_live_form_ready. Evidence: `docs/assets/devpost-form-kit.json`
 - OK `mock_recording_ready`: Recording assets mode is public_mock_verified. Evidence: `docs/assets/recording-assets.json`
 - OK `secret_scan_currently_clear`: Secret scan mode is clear. Evidence: `docs/assets/secret-scan-report.json`
@@ -115,12 +115,15 @@ python scripts/devpost_submission_receipt.py --project-url "$PROOFFRAME_DEVPOST_
 
 ### 11. final_green_gate (codex)
 ```bash
-python scripts/final_submission_control.py --strict-final && python scripts/final_launch_plan.py --strict-final
+python scripts/secret_scan.py && python scripts/final_submission_control.py --strict-final && python scripts/final_launch_plan.py --strict-final && python scripts/devpost_submission_preview.py --strict-final && python scripts/submission_bundle.py --strict-final
 ```
-- Success signal: Final control reports safe_to_submit=true and launch plan mode is submitted.
+- Success signal: Final scan is clear; final control, launch plan, Devpost preview, and submission bundle all report final submit readiness.
 - Safe to commit after a clean secret scan:
+  - `docs/assets/secret-scan-report.json`
   - `docs/assets/final-submission-control.json`
   - `docs/assets/final-launch-plan.json`
+  - `docs/assets/devpost-submission-preview.json`
+  - `docs/assets/submission-bundle-manifest.json`
 
 ## Stop Rules
 

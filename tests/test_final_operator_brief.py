@@ -181,6 +181,15 @@ def write_ready_fixtures(root: Path) -> None:
             "ok": False,
         },
     )
+    write_json(
+        root,
+        "docs/assets/submission-bundle-manifest.json",
+        {
+            "schema": "proofframe.submission_bundle.v1",
+            "mode": "pre_live_safe",
+            "safe_to_submit": False,
+        },
+    )
 
 
 def test_final_operator_brief_is_ready_for_secret_entry(tmp_path):
@@ -221,12 +230,22 @@ def test_final_operator_brief_is_ready_for_secret_entry(tmp_path):
         action.startswith('python scripts/devpost_submission_receipt.py --project-url "$PROOFFRAME_DEVPOST_PROJECT_URL"')
         for action in report["codex_actions_after_credentials"]
     )
+    actions = report["codex_actions_after_credentials"]
+    receipt_index = next(index for index, action in enumerate(actions) if action.startswith("python scripts/devpost_submission_receipt.py"))
+    assert actions[receipt_index + 1 :] == [
+        "python scripts/secret_scan.py",
+        "python scripts/final_submission_control.py --strict-final",
+        "python scripts/final_launch_plan.py --strict-final",
+        "python scripts/devpost_submission_preview.py --strict-final",
+        "python scripts/submission_bundle.py --strict-final",
+    ]
     assert report["reports"]["secret_scan"]["schema_ok"] is True
     assert report["reports"]["public_video_check"]["schema_ok"] is True
     assert report["reports"]["submission_audit"]["schema_ok"] is True
     assert report["reports"]["final_rehearsal"]["schema_ok"] is True
     assert report["reports"]["devpost_submission_checklist"]["schema_ok"] is True
     assert report["reports"]["devpost_submission_receipt"]["schema_ok"] is True
+    assert report["reports"]["submission_bundle"]["schema_ok"] is True
 
 
 def test_final_operator_brief_blocks_unexpected_missing_values(tmp_path):

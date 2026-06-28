@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.final_rehearsal.v1",
-  "created_at": "2026-06-28T18:26:28Z",
+  "created_at": "2026-06-28T18:52:24Z",
   "mode": "ready_for_credential_rehearsal",
   "ok": true,
   "safe_to_submit": false,
@@ -36,7 +36,7 @@
     {
       "id": "public_space_synced",
       "ok": true,
-      "detail": "Runtime sha: 61b791f16398b44c1ea6e9738e754d1f690e38fd.",
+      "detail": "Runtime sha: ff91f45b5e6598cf2163efdc6a217373f56dac0b.",
       "evidence": "docs/assets/public-space-sync-report.json"
     },
     {
@@ -176,11 +176,14 @@
     {
       "id": "final_green_gate",
       "owner": "codex",
-      "command": "python scripts/final_submission_control.py --strict-final && python scripts/final_launch_plan.py --strict-final",
-      "success_signal": "Final control reports safe_to_submit=true and launch plan mode is submitted.",
+      "command": "python scripts/secret_scan.py && python scripts/final_submission_control.py --strict-final && python scripts/final_launch_plan.py --strict-final && python scripts/devpost_submission_preview.py --strict-final && python scripts/submission_bundle.py --strict-final",
+      "success_signal": "Final scan is clear; final control, launch plan, Devpost preview, and submission bundle all report final submit readiness.",
       "safe_to_commit": [
+        "docs/assets/secret-scan-report.json",
         "docs/assets/final-submission-control.json",
-        "docs/assets/final-launch-plan.json"
+        "docs/assets/final-launch-plan.json",
+        "docs/assets/devpost-submission-preview.json",
+        "docs/assets/submission-bundle-manifest.json"
       ]
     }
   ],
@@ -356,7 +359,7 @@
       "final_form_ready": null,
       "mock_recording_ready": null,
       "final_video_ready": null,
-      "runtime_sha": "61b791f16398b44c1ea6e9738e754d1f690e38fd",
+      "runtime_sha": "ff91f45b5e6598cf2163efdc6a217373f56dac0b",
       "failed_checks": [],
       "missing_ids": [],
       "blocking_items": []

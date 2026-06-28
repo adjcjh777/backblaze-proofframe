@@ -1,8 +1,11 @@
 import importlib.util
 import json
 from pathlib import Path
+import sys
 from types import SimpleNamespace
 from zipfile import ZipFile
+
+import pytest
 
 
 SCRIPT_PATH = Path(__file__).resolve().parents[1] / "scripts" / "submission_bundle.py"
@@ -107,6 +110,131 @@ def write_bundle_fixtures(root: Path) -> None:
             write_fixture_file(root, relative_path, "# ProofFrame\n")
 
 
+def write_final_gate_fixtures(root: Path, *, closeout_created_at: str = "2026-08-03T21:10:00Z") -> None:
+    write_bundle_fixtures(root)
+    tasks = {
+        "project": "ProofFrame",
+        "updated_at": "2026-08-03T21:15:00Z",
+        "tasks": [
+            {
+                "id": task_id,
+                "title": f"{task_id} gate",
+                "phase": "P4 Submit",
+                "owner": "tester",
+                "status": "done",
+                "done_criteria": "Gate passes.",
+                "notes": "",
+            }
+            for task_id in ["T020", "T021", "T040", "T041", "T041A", "T042"]
+        ],
+    }
+    write_fixture_file(root, "tasks.json", json.dumps(tasks))
+    write_fixture_file(
+        root,
+        "docs/assets/devpost-submission-packet.json",
+        json.dumps(
+            {
+                "mode": "post_live_verified",
+                "project_name": "ProofFrame",
+                "tagline": "A provenance-first vault for generated media.",
+                "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
+                "demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
+                "claim_warning": "final",
+            }
+        ),
+    )
+    write_fixture_file(
+        root,
+        "docs/assets/final-live-proof-evidence.json",
+        json.dumps(
+            {
+                "ok": True,
+                "storage_backend": "b2",
+                "generation_backend": "genblaze",
+                "asset_storage_backend": "b2",
+                "asset_provider": "genblaze/gmicloud-image",
+                "asset_sha256": "a" * 64,
+                "manifest_sha256": "b" * 64,
+                "asset_storage_key": "campaigns/final/asset.png",
+                "manifest_key": "campaigns/final/manifest.json",
+            }
+        ),
+    )
+    write_fixture_file(
+        root,
+        "docs/assets/secret-scan-report.json",
+        json.dumps(
+            {
+                "schema": "proofframe.secret_scan.v1",
+                "created_at": closeout_created_at,
+                "mode": "clear",
+                "ok": True,
+            }
+        ),
+    )
+    write_fixture_file(
+        root,
+        "docs/assets/submission-audit-report.json",
+        json.dumps(
+            {
+                "schema": "proofframe.submission_audit.v1",
+                "created_at": closeout_created_at,
+                "mode": "pre_submit_audit_ready",
+                "ok": True,
+            }
+        ),
+    )
+    write_fixture_file(
+        root,
+        "docs/assets/devpost-submission-receipt.json",
+        json.dumps(
+            {
+                "schema": "proofframe.devpost_submission_receipt.v1",
+                "created_at": "2026-08-03T21:05:00Z",
+                "mode": "submitted",
+                "ok": True,
+            }
+        ),
+    )
+    write_fixture_file(
+        root,
+        "docs/assets/final-submission-control.json",
+        json.dumps(
+            {
+                "schema": "proofframe.final_submission_control.v1",
+                "created_at": closeout_created_at,
+                "mode": "final_submit_ready",
+                "safe_to_submit": True,
+            }
+        ),
+    )
+    write_fixture_file(
+        root,
+        "docs/assets/final-launch-plan.json",
+        json.dumps(
+            {
+                "schema": "proofframe.final_launch_plan.v1",
+                "created_at": closeout_created_at,
+                "mode": "submitted",
+                "ok": True,
+            }
+        ),
+    )
+    write_fixture_file(
+        root,
+        "docs/assets/devpost-submission-preview.json",
+        json.dumps(
+            {
+                "schema": "proofframe.devpost_submission_preview.v1",
+                "created_at": closeout_created_at,
+                "mode": "final_preview_ready",
+                "safe_to_submit": True,
+                "ok": True,
+            }
+        ),
+    )
+
+
 def test_submission_bundle_fails_closed_when_artifacts_are_missing(tmp_path):
     manifest = submission_bundle.build_manifest(tmp_path)
 
@@ -168,3 +296,51 @@ def test_submission_bundle_cli_ok_tracks_final_gate_not_shareability(tmp_path):
     assert summary["safe_to_share"] is True
     assert summary["safe_to_submit"] is False
     assert summary["ok"] is False
+
+
+def test_submission_bundle_requires_post_receipt_closeout_reports(tmp_path):
+    write_final_gate_fixtures(tmp_path)
+
+    manifest = submission_bundle.build_manifest(tmp_path)
+
+    assert manifest["safe_to_share"] is True
+    assert manifest["submission_gate"]["ok"] is True
+    assert manifest["closeout_gate"]["ok"] is True
+    assert manifest["safe_to_submit"] is True
+
+
+def test_submission_bundle_blocks_stale_closeout_reports(tmp_path):
+    write_final_gate_fixtures(tmp_path, closeout_created_at="2026-08-03T21:00:00Z")
+
+    manifest = submission_bundle.build_manifest(tmp_path)
+
+    assert manifest["submission_gate"]["ok"] is True
+    assert manifest["closeout_gate"]["ok"] is False
+    assert manifest["safe_to_submit"] is False
+    assert any(
+        "before the Devpost receipt" in finding
+        for report in manifest["closeout_gate"]["reports"]
+        for finding in report["findings"]
+    )
+
+
+def test_submission_bundle_strict_final_exits_when_gate_is_not_ready(tmp_path, monkeypatch):
+    write_bundle_fixtures(tmp_path)
+    monkeypatch.setattr(submission_bundle, "ROOT", tmp_path)
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "submission_bundle.py",
+            "--strict-final",
+            "--json-out",
+            str(tmp_path / "bundle.json"),
+            "--markdown-out",
+            str(tmp_path / "bundle.md"),
+        ],
+    )
+
+    with pytest.raises(SystemExit) as exc:
+        submission_bundle.main()
+
+    assert exc.value.code == 2

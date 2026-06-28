@@ -348,6 +348,8 @@ def test_control_report_writes_json_and_markdown(tmp_path):
     assert "python scripts/devpost_submission_checklist.py --strict-final" in markdown
     assert "python scripts/submission_audit.py --strict-final" in markdown
     assert 'python scripts/devpost_submission_receipt.py --project-url "$PROOFFRAME_DEVPOST_PROJECT_URL"' in markdown
+    assert "python scripts/devpost_submission_preview.py --strict-final" in markdown
+    assert "python scripts/submission_bundle.py --strict-final" in markdown
 
 
 def test_operator_commands_are_shell_safe_and_parseable():
@@ -366,3 +368,18 @@ def test_operator_commands_are_shell_safe_and_parseable():
         sys.modules[spec.name] = module
         spec.loader.exec_module(module)
         module.build_parser().parse_args(parts[2:])
+
+
+def test_operator_commands_close_out_submission_bundle_after_receipt():
+    commands = final_submission_control.OPERATOR_COMMANDS
+    receipt_index = next(
+        index for index, command in enumerate(commands) if command.startswith("python scripts/devpost_submission_receipt.py")
+    )
+
+    assert commands[receipt_index + 1 :] == [
+        "python scripts/secret_scan.py",
+        "python scripts/final_submission_control.py --strict-final",
+        "python scripts/final_launch_plan.py --strict-final",
+        "python scripts/devpost_submission_preview.py --strict-final",
+        "python scripts/submission_bundle.py --strict-final",
+    ]

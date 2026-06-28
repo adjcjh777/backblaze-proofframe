@@ -47,6 +47,11 @@ OPERATOR_COMMANDS = [
     "python scripts/devpost_submission_checklist.py --strict-final",
     "python scripts/submission_audit.py --strict-final",
     'python scripts/devpost_submission_receipt.py --project-url "$PROOFFRAME_DEVPOST_PROJECT_URL" --submitted-at "$PROOFFRAME_DEVPOST_SUBMITTED_AT" --confirmation-note "Devpost accepted/submitted the ProofFrame project."',
+    "python scripts/secret_scan.py",
+    "python scripts/final_submission_control.py --strict-final",
+    "python scripts/final_launch_plan.py --strict-final",
+    "python scripts/devpost_submission_preview.py --strict-final",
+    "python scripts/submission_bundle.py --strict-final",
 ]
 
 

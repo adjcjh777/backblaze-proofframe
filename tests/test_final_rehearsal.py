@@ -124,6 +124,17 @@ def test_final_rehearsal_is_ready_for_credential_entry(tmp_path):
     assert report["next_command"].endswith("--force")
     assert any(step["id"] == "final_green_gate" for step in report["steps"])
     assert any(step["id"] == "devpost_submission_preview" for step in report["steps"])
+    step_ids = [step["id"] for step in report["steps"]]
+    assert step_ids[step_ids.index("devpost_receipt") + 1] == "final_green_gate"
+    final_green_gate = next(step for step in report["steps"] if step["id"] == "final_green_gate")
+    assert final_green_gate["command"] == (
+        "python scripts/secret_scan.py && "
+        "python scripts/final_submission_control.py --strict-final && "
+        "python scripts/final_launch_plan.py --strict-final && "
+        "python scripts/devpost_submission_preview.py --strict-final && "
+        "python scripts/submission_bundle.py --strict-final"
+    )
+    assert "docs/assets/submission-bundle-manifest.json" in final_green_gate["safe_to_commit"]
     assert any("Stop immediately" in rule for rule in report["stop_rules"])
 
 

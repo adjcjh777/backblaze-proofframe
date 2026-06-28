@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -14,6 +15,10 @@ DEFAULT_JSON = ROOT / "docs" / "assets" / "final-launch-plan.json"
 DEFAULT_MD = ROOT / "docs" / "assets" / "final-launch-plan.md"
 SCHEMA = "proofframe.final_launch_plan.v1"
 EXPECTED_SECRET_MISSING_IDS = {"b2_key_id", "b2_application_key", "genblaze_api_key"}
+
+
+def utc_now() -> str:
+    return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
 
 def load_json(path: Path) -> dict[str, Any]:
@@ -298,6 +303,7 @@ def build_report(root: Path = ROOT) -> dict[str, Any]:
         mode = f"blocked_at_{open_phase['id']}"
     return {
         "schema": SCHEMA,
+        "created_at": utc_now(),
         "ok": ok,
         "mode": mode,
         "repo_root": str(root),

@@ -141,14 +141,14 @@
       "public_mock_verified": null
     },
     "final_rehearsal": {
-      "present": false,
+      "present": true,
       "path": "docs/assets/final-rehearsal-checklist.json",
-      "schema_ok": false,
-      "mode": null,
-      "ok": null,
+      "schema_ok": true,
+      "mode": "ready_for_credential_rehearsal",
+      "ok": true,
       "score": null,
       "max_score": null,
-      "safe_to_submit": null,
+      "safe_to_submit": false,
       "validation_ok": null,
       "mock_recording_ready": null,
       "public_mock_verified": null
@@ -191,6 +191,19 @@
       "validation_ok": null,
       "mock_recording_ready": null,
       "public_mock_verified": null
+    },
+    "submission_bundle": {
+      "present": true,
+      "path": "docs/assets/submission-bundle-manifest.json",
+      "schema_ok": true,
+      "mode": null,
+      "ok": null,
+      "score": null,
+      "max_score": null,
+      "safe_to_submit": false,
+      "validation_ok": null,
+      "mock_recording_ready": null,
+      "public_mock_verified": null
     }
   },
   "user_actions": [
@@ -216,7 +229,11 @@
     "python scripts/devpost_submission_preview.py",
     "python scripts/secret_scan.py",
     "python scripts/devpost_submission_receipt.py --project-url \"$PROOFFRAME_DEVPOST_PROJECT_URL\" --submitted-at \"$PROOFFRAME_DEVPOST_SUBMITTED_AT\" --confirmation-note \"Devpost accepted/submitted the ProofFrame project.\"",
-    "python scripts/final_submission_control.py --strict-final"
+    "python scripts/secret_scan.py",
+    "python scripts/final_submission_control.py --strict-final",
+    "python scripts/final_launch_plan.py --strict-final",
+    "python scripts/devpost_submission_preview.py --strict-final",
+    "python scripts/submission_bundle.py --strict-final"
   ],
   "safety_policy": {
     "env_final_local_ignored": true,
@@ -235,7 +252,8 @@
       "docs/assets/devpost-submission-packet.json",
       "docs/assets/devpost-form-kit.json",
       "docs/assets/devpost-submission-preview.json",
-      "docs/assets/devpost-submission-checklist.json"
+      "docs/assets/devpost-submission-checklist.json",
+      "docs/assets/submission-bundle-manifest.json"
     ]
   },
   "claim_boundary": "Do not claim completed B2 or Genblaze proof until sanitized live evidence is generated and final gates pass."

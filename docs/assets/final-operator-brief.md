@@ -55,7 +55,11 @@ python scripts/submission_audit.py --strict-final
 python scripts/devpost_submission_preview.py
 python scripts/secret_scan.py
 python scripts/devpost_submission_receipt.py --project-url "$PROOFFRAME_DEVPOST_PROJECT_URL" --submitted-at "$PROOFFRAME_DEVPOST_SUBMITTED_AT" --confirmation-note "Devpost accepted/submitted the ProofFrame project."
+python scripts/secret_scan.py
 python scripts/final_submission_control.py --strict-final
+python scripts/final_launch_plan.py --strict-final
+python scripts/devpost_submission_preview.py --strict-final
+python scripts/submission_bundle.py --strict-final
 ```
 
 ## Safety Policy
@@ -76,6 +80,7 @@ python scripts/final_submission_control.py --strict-final
   - `docs/assets/devpost-form-kit.json`
   - `docs/assets/devpost-submission-preview.json`
   - `docs/assets/devpost-submission-checklist.json`
+  - `docs/assets/submission-bundle-manifest.json`
 
 ## Claim Boundary
 

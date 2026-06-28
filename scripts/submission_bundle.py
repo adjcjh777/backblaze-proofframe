@@ -17,6 +17,32 @@ from proofframe.submission_gate import build_submission_gate
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_JSON = ROOT / "docs" / "assets" / "submission-bundle-manifest.json"
 DEFAULT_MD = ROOT / "docs" / "assets" / "submission-bundle-manifest.md"
+CLOSEOUT_REPORTS = [
+    {
+        "id": "secret_scan_after_receipt",
+        "path": "docs/assets/secret-scan-report.json",
+        "schema": "proofframe.secret_scan.v1",
+        "ready_fields": {"ok": True, "mode": "clear"},
+    },
+    {
+        "id": "final_submission_control_after_receipt",
+        "path": "docs/assets/final-submission-control.json",
+        "schema": "proofframe.final_submission_control.v1",
+        "ready_fields": {"safe_to_submit": True, "mode": "final_submit_ready"},
+    },
+    {
+        "id": "final_launch_plan_after_receipt",
+        "path": "docs/assets/final-launch-plan.json",
+        "schema": "proofframe.final_launch_plan.v1",
+        "ready_fields": {"ok": True, "mode": "submitted"},
+    },
+    {
+        "id": "devpost_preview_after_receipt",
+        "path": "docs/assets/devpost-submission-preview.json",
+        "schema": "proofframe.devpost_submission_preview.v1",
+        "ready_fields": {"safe_to_submit": True, "mode": "final_preview_ready"},
+    },
+]
 
 ARTIFACTS = [
     ("repo_readme", "README.md", "Core public project overview"),
@@ -131,6 +157,26 @@ def utc_now() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
 
+def load_json(path: Path) -> dict[str, Any] | None:
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (FileNotFoundError, json.JSONDecodeError):
+        return None
+    return data if isinstance(data, dict) else None
+
+
+def parse_utc(value: Any) -> datetime | None:
+    if not isinstance(value, str) or not value.strip():
+        return None
+    try:
+        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    if parsed.tzinfo is None:
+        return None
+    return parsed.astimezone(timezone.utc)
+
+
 def sha256_file(path: Path) -> str:
     digest = hashlib.sha256()
     with path.open("rb") as handle:
@@ -154,9 +200,8 @@ def artifact_record(root: Path, artifact_id: str, relative_path: str, label: str
 
 def load_packet_summary(root: Path) -> dict[str, Any]:
     packet_path = root / "docs" / "assets" / "devpost-submission-packet.json"
-    try:
-        packet = json.loads(packet_path.read_text(encoding="utf-8"))
-    except (FileNotFoundError, json.JSONDecodeError):
+    packet = load_json(packet_path)
+    if packet is None:
         return {"present": False, "mode": None, "claim_warning": "Devpost packet missing."}
     return {
         "present": True,
@@ -169,11 +214,74 @@ def load_packet_summary(root: Path) -> dict[str, Any]:
     }
 
 
+def closeout_report_record(root: Path, spec: dict[str, Any], receipt_created_at: datetime | None) -> dict[str, Any]:
+    data = load_json(root / spec["path"])
+    record: dict[str, Any] = {
+        "id": spec["id"],
+        "path": spec["path"],
+        "present": data is not None,
+        "schema": data.get("schema") if data else None,
+        "schema_ok": bool(data and data.get("schema") == spec["schema"]),
+        "created_at": data.get("created_at") if data else None,
+        "ready": False,
+        "fresh_after_receipt": False,
+        "findings": [],
+    }
+    if data is None:
+        record["findings"].append("Report is missing or invalid JSON.")
+        return record
+    for key, expected in spec["ready_fields"].items():
+        actual = data.get(key)
+        if actual != expected:
+            record["findings"].append(f"Expected {key}={expected!r}, got {actual!r}.")
+    report_created_at = parse_utc(data.get("created_at"))
+    if report_created_at is None:
+        record["findings"].append("created_at is missing or invalid.")
+    elif receipt_created_at is None:
+        record["findings"].append("Receipt created_at is missing or invalid.")
+    else:
+        record["fresh_after_receipt"] = report_created_at >= receipt_created_at
+        if not record["fresh_after_receipt"]:
+            record["findings"].append("Report was generated before the Devpost receipt.")
+    record["ready"] = bool(record["schema_ok"] and not record["findings"])
+    return record
+
+
+def build_closeout_gate(root: Path) -> dict[str, Any]:
+    receipt_path = "docs/assets/devpost-submission-receipt.json"
+    receipt = load_json(root / receipt_path)
+    receipt_created_at = parse_utc(receipt.get("created_at") if receipt else None)
+    receipt_record = {
+        "path": receipt_path,
+        "present": receipt is not None,
+        "schema": receipt.get("schema") if receipt else None,
+        "schema_ok": bool(receipt and receipt.get("schema") == "proofframe.devpost_submission_receipt.v1"),
+        "ok": receipt.get("ok") if receipt else None,
+        "mode": receipt.get("mode") if receipt else None,
+        "created_at": receipt.get("created_at") if receipt else None,
+    }
+    reports = [closeout_report_record(root, spec, receipt_created_at) for spec in CLOSEOUT_REPORTS]
+    receipt_ok = bool(
+        receipt_record["present"]
+        and receipt_record["schema_ok"]
+        and receipt_record["ok"] is True
+        and receipt_record["mode"] == "submitted"
+        and receipt_created_at is not None
+    )
+    return {
+        "ok": bool(receipt_ok and all(report["ready"] for report in reports)),
+        "status": "verified" if receipt_ok and all(report["ready"] for report in reports) else "incomplete",
+        "receipt": receipt_record,
+        "reports": reports,
+    }
+
+
 def build_manifest(root: Path = ROOT) -> dict[str, Any]:
     root = root.resolve()
     artifacts = [artifact_record(root, *artifact) for artifact in ARTIFACTS]
     missing = [artifact for artifact in artifacts if not artifact["present"]]
     gate = build_submission_gate(root)
+    closeout_gate = build_closeout_gate(root)
     return {
         "schema": "proofframe.submission_bundle.v1",
         "created_at": utc_now(),
@@ -181,7 +289,7 @@ def build_manifest(root: Path = ROOT) -> dict[str, Any]:
         "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
         "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
         "safe_to_share": not missing,
-        "safe_to_submit": gate["ok"],
+        "safe_to_submit": bool(gate["ok"] and closeout_gate["ok"]),
         "devpost_packet": load_packet_summary(root),
         "submission_gate": {
             "ok": gate["ok"],
@@ -192,6 +300,7 @@ def build_manifest(root: Path = ROOT) -> dict[str, Any]:
             "report_gate": gate["report_gate"],
             "next_actions": gate["next_actions"],
         },
+        "closeout_gate": closeout_gate,
         "artifacts": artifacts,
         "missing_artifacts": [artifact["path"] for artifact in missing],
     }
@@ -220,6 +329,7 @@ def render_markdown(manifest: dict[str, Any]) -> str:
         f"- Live evidence: `{gate['evidence_gate']['status']}`",
         f"- Devpost copy packet: `{gate['packet_gate']['status']}`",
         f"- Final reports: `{gate['report_gate']['status']}`",
+        f"- Post-Devpost closeout: `{manifest['closeout_gate']['status']}`",
         "",
         "## Next Actions",
         "",
@@ -282,6 +392,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--json-out", type=Path, default=DEFAULT_JSON)
     parser.add_argument("--markdown-out", type=Path, default=DEFAULT_MD)
     parser.add_argument("--zip-out", type=Path, help="Optionally write a zip with public artifacts.")
+    parser.add_argument("--strict-final", action="store_true", help="Fail unless the final submission gate is ready.")
     return parser
 
 
@@ -296,6 +407,8 @@ def main() -> None:
         root=ROOT,
     )
     print(json.dumps(cli_summary(manifest, args), indent=2))
+    if args.strict_final and not manifest["safe_to_submit"]:
+        raise SystemExit(2)
 
 
 if __name__ == "__main__":

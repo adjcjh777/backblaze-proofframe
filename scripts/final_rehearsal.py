@@ -270,11 +270,14 @@ def rehearsal_steps() -> list[dict[str, Any]]:
         {
             "id": "final_green_gate",
             "owner": "codex",
-            "command": "python scripts/final_submission_control.py --strict-final && python scripts/final_launch_plan.py --strict-final",
-            "success_signal": "Final control reports safe_to_submit=true and launch plan mode is submitted.",
+            "command": "python scripts/secret_scan.py && python scripts/final_submission_control.py --strict-final && python scripts/final_launch_plan.py --strict-final && python scripts/devpost_submission_preview.py --strict-final && python scripts/submission_bundle.py --strict-final",
+            "success_signal": "Final scan is clear; final control, launch plan, Devpost preview, and submission bundle all report final submit readiness.",
             "safe_to_commit": [
+                "docs/assets/secret-scan-report.json",
                 "docs/assets/final-submission-control.json",
                 "docs/assets/final-launch-plan.json",
+                "docs/assets/devpost-submission-preview.json",
+                "docs/assets/submission-bundle-manifest.json",
             ],
         },
     ]

@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-28T18:36:27Z",
+  "updated_at": "2026-06-28T18:52:17Z",
   "tasks": [
     {
       "id": "T001",
@@ -982,6 +982,24 @@
       "status": "done",
       "done_criteria": "Official Devpost overview and rules pages are fetched live, submission-open/deadline/requirements/criteria are validated, and downstream judge/submission reports are regenerated.",
       "notes": "Refreshed docs/assets/devpost-event-snapshot.* with live official pages; observed 369 participants, deadline 2026-08-03T21:00:00Z, and submission_open=true; regenerated judge, Devpost, control, audit, public sync, and bundle reports."
+    },
+    {
+      "id": "T072",
+      "title": "Harden final post-Devpost closeout chain",
+      "phase": "P4 Submit",
+      "owner": "reviewer",
+      "status": "done",
+      "done_criteria": "After Devpost submission receipt, operator-facing runbooks require a clean secret scan plus strict final control, launch plan, Devpost preview, and submission bundle before final commit/push.",
+      "notes": "Added submission_bundle.py --strict-final, wired final closeout commands into final operator brief, final rehearsal, and final submission control, and covered the receipt-to-bundle sequence with tests."
+    },
+    {
+      "id": "T073",
+      "title": "Require fresh post-receipt closeout reports",
+      "phase": "P4 Submit",
+      "owner": "reviewer",
+      "status": "done",
+      "done_criteria": "The final submission bundle strict gate fails unless Devpost receipt is submitted and the post-receipt secret scan, final control, launch plan, and Devpost preview are final-ready and generated after the receipt.",
+      "notes": "Addressed read-only reviewer findings: final_launch_plan now emits created_at, submission_bundle has a closeout freshness gate, stale closeout reports fail safe_to_submit, and final rehearsal tests assert the exact receipt-to-green-gate sequence."
     }
   ]
 }
