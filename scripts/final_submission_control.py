@@ -31,7 +31,7 @@ EVENT_SNAPSHOT_SCHEMA = "proofframe.devpost_event_snapshot.v1"
 
 OPERATOR_COMMANDS = [
     "python scripts/final_env_wizard.py --prefill-non-secret --output .env.final.local",
-    "python scripts/final_env_wizard.py --output .env.final.local",
+    "python scripts/final_env_wizard.py --output .env.final.local --missing-only --force",
     "python scripts/live_env_handoff.py --env-file .env.final.local",
     "python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out docs/assets/b2-live-proof-evidence.json",
     "python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json",

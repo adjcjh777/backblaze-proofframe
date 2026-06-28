@@ -24,7 +24,7 @@
       "title": "Enter final credentials locally",
       "status": "ready",
       "detail": "Only expected secret ids are missing; operator can enter them locally.",
-      "command": "python scripts/final_env_wizard.py --output .env.final.local --force",
+      "command": "python scripts/final_env_wizard.py --output .env.final.local --missing-only --force",
       "expected_artifacts": [
         ".env.final.local (git-ignored, never committed)"
       ],
@@ -120,7 +120,7 @@
       ]
     }
   ],
-  "next_command": "python scripts/final_env_wizard.py --output .env.final.local --force",
+  "next_command": "python scripts/final_env_wizard.py --output .env.final.local --missing-only --force",
   "next_detail": "Only expected secret ids are missing; operator can enter them locally.",
   "safety_policy": {
     "no_secret_values_in_report": true,

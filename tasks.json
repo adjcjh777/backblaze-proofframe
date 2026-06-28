@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-28T10:38:43Z",
+  "updated_at": "2026-06-28T10:51:02Z",
   "tasks": [
     {
       "id": "T001",
@@ -847,6 +847,15 @@
       "status": "done",
       "done_criteria": "HF Space serves the post-refresh public mock demo at the recorded runtime sha, public Space sync passes with no failed checks, public API smoke remains local/mock and fail-closed, and raw public Devpost snapshot/final-control artifacts show participant count 358 without marking final submission ready.",
       "notes": "Uploaded HF Space commit d3b50a27e2a5062fb5411c5f0b5d966f47205ef3 after the Devpost event refresh; public Space sync, API smoke, and raw snapshot checks confirm participant count 358 and fail-closed final control."
+    },
+    {
+      "id": "T057",
+      "title": "Add missing-only credential wizard",
+      "phase": "P4 Submit",
+      "owner": "codex",
+      "status": "done",
+      "done_criteria": "final_env_wizard supports --missing-only, preserves existing .env.final.local field values and extra local-only variables, prompts only for missing required live-proof values, mirrors Genblaze/GMI aliases, never prints credential values, and regenerated handoff/launch/rehearsal/final-control reports point at the missing-only command.",
+      "notes": "Added final_env_wizard --missing-only so the operator only fills missing B2 key id/application key and Genblaze/GMI key while preserving existing .env.final.local values and extra local-only variables; regenerated final handoff, launch, rehearsal, judge, and control reports."
     }
   ]
 }

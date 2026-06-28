@@ -171,7 +171,7 @@ def build_phases(root: Path, reports: dict[str, dict[str, Any]], statuses: dict[
             title="Enter final credentials locally",
             status=credential_status,
             detail=credential_detail,
-            command="python scripts/final_env_wizard.py --output .env.final.local --force",
+            command="python scripts/final_env_wizard.py --output .env.final.local --missing-only --force",
             expected_artifacts=[".env.final.local (git-ignored, never committed)"],
         ),
         make_phase(

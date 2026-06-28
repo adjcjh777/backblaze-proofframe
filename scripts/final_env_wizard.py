@@ -141,6 +141,52 @@ def collect_values(
     return values
 
 
+def missing_required_fields(values: Mapping[str, str]) -> list[EnvField]:
+    missing: list[EnvField] = []
+    for field in FIELDS:
+        if field.required and not env_lookup(field, values):
+            missing.append(field)
+    return missing
+
+
+def collect_missing_values(
+    *,
+    initial_values: Mapping[str, str],
+    environ: Mapping[str, str] | None = None,
+    input_func: Callable[[str], str] = input,
+    secret_input: Callable[[str], str] = getpass.getpass,
+) -> tuple[dict[str, str], list[str]]:
+    values = dict(initial_values)
+    for field in missing_required_fields(values):
+        env_value = env_lookup(field, environ or {})
+        if env_value:
+            values[field.name] = env_value
+            for mirror_name in field.mirror_to:
+                values[mirror_name] = env_value
+    filled_names: list[str] = []
+
+    for field in missing_required_fields(values):
+        default = field.default
+        value = prompt_for_field(
+            field,
+            default,
+            input_func=input_func,
+            secret_input=secret_input,
+        )
+        if not value:
+            continue
+        values[field.name] = value
+        filled_names.append(field.name)
+        for mirror_name in field.mirror_to:
+            values[mirror_name] = value
+            filled_names.append(mirror_name)
+
+    still_missing = [field.name for field in missing_required_fields(values)]
+    if still_missing:
+        raise ValueError("Missing required final env values: " + ", ".join(still_missing))
+    return values, filled_names
+
+
 def load_b2_setup(path: Path = DEFAULT_B2_SETUP) -> dict[str, str]:
     try:
         data = json.loads(path.read_text(encoding="utf-8"))
@@ -191,6 +237,19 @@ def render_env_file(values: Mapping[str, str]) -> str:
         value = values.get(name, "")
         lines.append(f"{name}={quote_env_value(value)}")
     return "\n".join(lines) + "\n"
+
+
+def render_env_file_preserving_extra(values: Mapping[str, str]) -> str:
+    rendered_names = set(ordered_names())
+    content = render_env_file(values).rstrip("\n")
+    extra_lines = [
+        f"{name}={quote_env_value(value)}"
+        for name, value in values.items()
+        if name not in rendered_names
+    ]
+    if extra_lines:
+        content = "\n".join([content, "", "# Preserved local-only values.", *extra_lines])
+    return content + "\n"
 
 
 def path_for_git(root: Path, path: Path) -> str:
@@ -282,6 +341,23 @@ def build_success(output: Path, values: Mapping[str, str]) -> dict[str, object]:
     }
 
 
+def build_missing_only_success(
+    output: Path,
+    values: Mapping[str, str],
+    filled_names: list[str],
+) -> dict[str, object]:
+    return {
+        "ok": True,
+        "mode": "final_env_missing_values_filled",
+        "output": str(output),
+        "chmod": "0600",
+        "filled_names": filled_names,
+        "written_names": [name for name in ordered_names() if name in values],
+        "next_commands": NEXT_COMMANDS,
+        "secret_policy": "Only missing local values were prompted and written; credential values were not printed.",
+    }
+
+
 def build_prefill_success(output: Path, values: Mapping[str, str]) -> dict[str, object]:
     missing_secret_names = [
         name
@@ -302,7 +378,7 @@ def build_prefill_success(output: Path, values: Mapping[str, str]) -> dict[str, 
         "missing_required_names": missing_required_names,
         "missing_secret_names": missing_secret_names,
         "next_commands": [
-            "python scripts/final_env_wizard.py --output .env.final.local --force",
+            "python scripts/final_env_wizard.py --output .env.final.local --missing-only --force",
             *NEXT_COMMANDS,
         ],
         "secret_policy": "Only non-secret values were written. Credential values were not printed or stored.",
@@ -330,6 +406,11 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Write known non-secret B2/default values to the local env file and leave secrets empty.",
     )
+    parser.add_argument(
+        "--missing-only",
+        action="store_true",
+        help="Prompt only for missing required values, preserving existing local values.",
+    )
     parser.add_argument("--b2-setup", type=Path, default=DEFAULT_B2_SETUP)
     return parser
 
@@ -355,6 +436,14 @@ def main() -> None:
 
     try:
         initial_values = parse_env_file(args.output) if args.output.exists() else {}
+        if args.missing_only:
+            values, filled_names = collect_missing_values(
+                initial_values=initial_values,
+                environ=os.environ if args.from_env else None,
+            )
+            write_env_file(args.output, render_env_file_preserving_extra(values), force=args.force)
+            print(json.dumps(build_missing_only_success(args.output, values, filled_names), indent=2))
+            raise SystemExit(0)
         values = collect_values(from_env=args.from_env, initial_values=initial_values)
         write_env_file(args.output, render_env_file(values), force=args.force)
     except (FileExistsError, ValueError) as exc:

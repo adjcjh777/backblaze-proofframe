@@ -68,7 +68,7 @@ def write_brief_fixtures(root: Path) -> None:
         {
             "mode": "ready_for_credential_entry",
             "current_phase": "credential_entry",
-            "next_command": "python scripts/final_env_wizard.py --output .env.final.local --force",
+            "next_command": "python scripts/final_env_wizard.py --output .env.final.local --missing-only --force",
         },
     )
     write_json(

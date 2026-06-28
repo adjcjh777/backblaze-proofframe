@@ -1,11 +1,11 @@
 {
   "schema": "proofframe.final_rehearsal.v1",
-  "created_at": "2026-06-28T10:41:39Z",
+  "created_at": "2026-06-28T10:59:52Z",
   "mode": "ready_for_credential_rehearsal",
   "ok": true,
   "safe_to_submit": false,
   "current_phase": "credential_entry",
-  "next_command": "python scripts/final_env_wizard.py --output .env.final.local --force",
+  "next_command": "python scripts/final_env_wizard.py --output .env.final.local --missing-only --force",
   "task_statuses": {
     "T020": "doing",
     "T021": "doing",
@@ -79,7 +79,7 @@
     {
       "id": "enter_credentials",
       "owner": "operator",
-      "command": "python scripts/final_env_wizard.py --output .env.final.local --force",
+      "command": "python scripts/final_env_wizard.py --output .env.final.local --missing-only --force",
       "success_signal": "docs/assets/live-credential-handoff.json reports no missing ids after live_env_handoff.py --strict.",
       "safe_to_commit": []
     },
@@ -214,7 +214,7 @@
       "safe_to_submit": null,
       "ready_for_secret_entry": null,
       "current_phase": "credential_entry",
-      "next_command": "python scripts/final_env_wizard.py --output .env.final.local --force",
+      "next_command": "python scripts/final_env_wizard.py --output .env.final.local --missing-only --force",
       "mock_form_ready": null,
       "final_form_ready": null,
       "mock_recording_ready": null,

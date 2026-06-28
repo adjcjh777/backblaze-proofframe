@@ -32,7 +32,7 @@ This report records only variable names and presence checks. It never prints, ha
 python scripts/final_env_wizard.py --prefill-non-secret --output .env.final.local
 ```
 ```bash
-python scripts/final_env_wizard.py --output .env.final.local
+python scripts/final_env_wizard.py --output .env.final.local --missing-only --force
 ```
 ```bash
 python scripts/live_env_handoff.py --env-file .env.final.local

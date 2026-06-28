@@ -150,7 +150,7 @@ def write_common_reports(root: Path, *, final_done: bool = False) -> None:
             "current_phase": "complete" if final_done else "credential_entry",
             "next_command": None
             if final_done
-            else "python scripts/final_env_wizard.py --output .env.final.local --force",
+            else "python scripts/final_env_wizard.py --output .env.final.local --missing-only --force",
             "next_detail": "Final launch is complete."
             if final_done
             else "Only expected secret ids are missing; operator can enter them locally.",

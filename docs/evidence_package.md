@@ -62,7 +62,7 @@ This file is the internal source of truth for Devpost submission assets. Anythin
 | One-click judge packet | `/api/demo/judge-packet` | Public-ready in local mode |
 | Final live proof preflight | `scripts/live_proof.py --preflight-only` | Public-ready; reports missing env/packages without printing secrets |
 | Live credential handoff | `.env.final.example`, `scripts/live_env_handoff.py`, `docs/assets/live-credential-handoff.json`, `docs/assets/live-credential-handoff.md` | Public-ready; reports required variable presence and next commands without credential values |
-| Final env wizard | `scripts/final_env_wizard.py --output .env.final.local` | Local-only helper; writes git-ignored 0600 env files and prints variable names only |
+| Final env wizard | `scripts/final_env_wizard.py --output .env.final.local --missing-only --force` | Local-only helper; can fill only missing required values, writes git-ignored 0600 env files, and prints variable names only |
 | B2 live setup record | `docs/assets/b2-live-setup.json`, `docs/assets/b2-live-setup.md` | Public-ready; records bucket name, endpoint, private status, and pending application key without secrets |
 | B2 live proof runner | `scripts/run_b2_live_proof.py --env-file .env.final.local` | Public-ready; verifies B2 storage with mock generation and writes sanitized T020 evidence after B2 key is present |
 | Final live proof runner | `scripts/run_final_live_proof.py --env-file .env.final.local --preflight-only`, then `scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json` | Public-ready; starts and stops local app without committing logs or secrets |

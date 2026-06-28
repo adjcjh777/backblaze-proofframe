@@ -4,7 +4,7 @@ Mode: `ready_for_credential_rehearsal`
 OK: `true`
 Safe to submit: `false`
 Current phase: `credential_entry`
-Next command: `python scripts/final_env_wizard.py --output .env.final.local --force`
+Next command: `python scripts/final_env_wizard.py --output .env.final.local --missing-only --force`
 
 ## Preconditions
 
@@ -28,7 +28,7 @@ Next command: `python scripts/final_env_wizard.py --output .env.final.local --fo
 
 ### 1. enter_credentials (operator)
 ```bash
-python scripts/final_env_wizard.py --output .env.final.local --force
+python scripts/final_env_wizard.py --output .env.final.local --missing-only --force
 ```
 - Success signal: docs/assets/live-credential-handoff.json reports no missing ids after live_env_handoff.py --strict.
 

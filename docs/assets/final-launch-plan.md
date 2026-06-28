@@ -8,7 +8,7 @@ Progress: `0 / 6` done; `1` ready, `5` blocked.
 ## Next Command
 
 ```bash
-python scripts/final_env_wizard.py --output .env.final.local --force
+python scripts/final_env_wizard.py --output .env.final.local --missing-only --force
 ```
 Only expected secret ids are missing; operator can enter them locally.
 
@@ -19,7 +19,7 @@ Only expected secret ids are missing; operator can enter them locally.
 - Detail: Only expected secret ids are missing; operator can enter them locally.
 - Command:
 ```bash
-python scripts/final_env_wizard.py --output .env.final.local --force
+python scripts/final_env_wizard.py --output .env.final.local --missing-only --force
 ```
 - Expected artifacts:
   - `.env.final.local (git-ignored, never committed)`

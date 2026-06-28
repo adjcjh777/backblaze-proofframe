@@ -105,7 +105,7 @@ def build_user_actions(b2_setup: dict[str, Any], handoff: dict[str, Any]) -> lis
         actions.append(
             "Create a least-privilege Backblaze B2 application key named "
             f"`{key_name}` scoped to `{bucket}`, then enter only the key id and application key "
-            "into `.env.final.local` via `python scripts/final_env_wizard.py --output .env.final.local --force`."
+            "into `.env.final.local` via `python scripts/final_env_wizard.py --output .env.final.local --missing-only --force`."
         )
     if "genblaze_api_key" in missing:
         actions.append(

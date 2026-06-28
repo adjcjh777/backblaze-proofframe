@@ -179,7 +179,7 @@ def rehearsal_steps() -> list[dict[str, Any]]:
         {
             "id": "enter_credentials",
             "owner": "operator",
-            "command": "python scripts/final_env_wizard.py --output .env.final.local --force",
+            "command": "python scripts/final_env_wizard.py --output .env.final.local --missing-only --force",
             "success_signal": "docs/assets/live-credential-handoff.json reports no missing ids after live_env_handoff.py --strict.",
             "safe_to_commit": [],
         },
