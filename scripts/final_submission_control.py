@@ -38,6 +38,7 @@ OPERATOR_COMMANDS = [
     "python scripts/agent_handoff_check.py",
     "python scripts/public_space_sync.py",
     "python scripts/demo_storyboard.py --strict-final",
+    'python scripts/public_video_check.py --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL" --verify-url --strict-final',
     "python scripts/demo_readiness.py --strict-final",
     "python scripts/recording_assets.py --verify-public --strict-final",
     "python scripts/secret_scan.py",
@@ -197,6 +198,7 @@ def build_requirements(
     final_launch_plan: dict[str, Any],
     public_space_sync: dict[str, Any],
     storyboard: dict[str, Any],
+    public_video_check: dict[str, Any],
     demo: dict[str, Any],
     recording: dict[str, Any],
     award: dict[str, Any],
@@ -213,6 +215,7 @@ def build_requirements(
         "Final launch plan": final_launch_plan,
         "Public Space sync": public_space_sync,
         "Demo storyboard": storyboard,
+        "Public video check": public_video_check,
         "Demo readiness": demo,
         "Recording assets": recording,
         "Award readiness": award,
@@ -361,6 +364,18 @@ def build_requirements(
             "docs/assets/demo-storyboard.json",
         ),
         requirement(
+            "public_video_check",
+            "Final public demo video URL is accessible and safe",
+            bool(public_video_check.get("present"))
+            and bool(public_video_check.get("schema_ok"))
+            and bool(public_video_check.get("safe_to_submit")),
+            (
+                f"Public video check mode is {public_video_check.get('mode')}; "
+                f"safe_to_submit is {public_video_check.get('safe_to_submit')}."
+            ),
+            "docs/assets/public-video-check.json",
+        ),
+        requirement(
             "final_recording",
             "Final recording gate is ready",
             bool(demo.get("present"))
@@ -444,6 +459,8 @@ def next_actions(requirements: list[dict[str, Any]]) -> list[str]:
         actions.append("Run the final B2 plus Genblaze proof runner and save sanitized final evidence.")
     if "public_video" in missing or "final_recording" in missing:
         actions.append("Record and upload the public demo video after live proof is captured.")
+    if "public_video_check" in missing:
+        actions.append("Verify the public video URL with python scripts/public_video_check.py --verify-url --strict-final.")
     if "recording_assets" in missing:
         actions.append("Regenerate recording assets and run the public GET-only verifier.")
     if "devpost_submission_checklist" in missing:
@@ -501,6 +518,11 @@ def build_control_report(root: Path = ROOT) -> dict[str, Any]:
         root,
     )
     storyboard = report_summary(root / "docs" / "assets" / "demo-storyboard.json", "proofframe.demo_storyboard.v1", root)
+    public_video_check = report_summary(
+        root / "docs" / "assets" / "public-video-check.json",
+        "proofframe.public_video_check.v1",
+        root,
+    )
     demo = report_summary(root / "docs" / "assets" / "demo-readiness-report.json", "proofframe.demo_readiness.v1", root)
     recording = report_summary(root / "docs" / "assets" / "recording-assets.json", "proofframe.recording_assets.v1", root)
     award = report_summary(root / "docs" / "assets" / "award-readiness-report.json", "proofframe.award_readiness.v1", root)
@@ -536,6 +558,7 @@ def build_control_report(root: Path = ROOT) -> dict[str, Any]:
         final_launch_plan=final_launch_plan,
         public_space_sync=public_space_sync,
         storyboard=storyboard,
+        public_video_check=public_video_check,
         demo=demo,
         recording=recording,
         award=award,
@@ -571,6 +594,7 @@ def build_control_report(root: Path = ROOT) -> dict[str, Any]:
             "public_space_sync": public_space_sync,
             "final_launch_plan": final_launch_plan,
             "demo_storyboard": storyboard,
+            "public_video_check": public_video_check,
             "demo_readiness": demo,
             "recording_assets": recording,
             "award_readiness": award,

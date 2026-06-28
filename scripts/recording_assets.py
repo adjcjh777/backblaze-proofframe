@@ -23,6 +23,8 @@ REQUIRED_RECORDING_ASSETS = [
     "docs/demo_script.md",
     "docs/assets/demo-storyboard.json",
     "docs/assets/demo-storyboard.md",
+    "docs/assets/public-video-check.json",
+    "docs/assets/public-video-check.md",
     "docs/assets/demo-readiness-report.json",
     "docs/assets/demo-readiness-report.md",
     "docs/assets/devpost-form-kit.json",
@@ -76,6 +78,7 @@ RECORDING_COMMANDS = [
     "python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out docs/assets/b2-live-proof-evidence.json",
     "python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json",
     "python scripts/demo_storyboard.py --strict-final",
+    'python scripts/public_video_check.py --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL" --verify-url --strict-final',
     "python scripts/demo_readiness.py --strict-final",
     "python scripts/final_submission_control.py --strict-final",
 ]
@@ -284,6 +287,12 @@ def build_report(
             "proofframe.demo_readiness.v1",
             ["mock_recording_ready", "final_recording_ready"],
         ),
+        "public_video_check": report_summary(
+            root,
+            "docs/assets/public-video-check.json",
+            "proofframe.public_video_check.v1",
+            ["safe_to_submit"],
+        ),
         "devpost_form": report_summary(
             root,
             "docs/assets/devpost-form-kit.json",
@@ -311,6 +320,7 @@ def build_report(
     final_video_ready = bool(
         mock_recording_ready
         and source_reports["storyboard"].get("final_video_ready")
+        and source_reports["public_video_check"].get("safe_to_submit")
         and source_reports["readiness"].get("final_recording_ready")
         and source_reports["devpost_form"].get("public_video_ready")
     )

@@ -47,6 +47,7 @@ Codex can handle:
 - Safe submission bundle manifest from `docs/assets/submission-bundle-manifest.md` and `.json`.
 - Final submission control report from `docs/assets/final-submission-control.md` and `.json`.
 - Structured demo storyboard from `docs/assets/demo-storyboard.md` and `.json`.
+- Public video URL check from `docs/assets/public-video-check.md` and `.json`.
 - Local final credential setup via `scripts/final_env_wizard.py`.
 - 2 minute demo video.
 - Project title: ProofFrame.

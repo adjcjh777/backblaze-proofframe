@@ -2,7 +2,7 @@
 
 Mode: `pre_live_control`
 Safe to submit: `false`
-Created: `2026-06-28T04:52:33Z`
+Created: `2026-06-28T05:07:17Z`
 Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 Repository: https://github.com/adjcjh777/backblaze-proofframe
 
@@ -52,6 +52,7 @@ Repository: https://github.com/adjcjh777/backblaze-proofframe
 | PENDING | Genblaze live proof captured | T021 is doing; final evidence status is missing. | `tasks.json and docs/assets/final-live-proof-evidence.json` |
 | PENDING | Live credential handoff is ready | Credential handoff mode is missing_live_env; missing ids: b2_key_id, b2_application_key, genblaze_api_key. | `docs/assets/live-credential-handoff.json` |
 | PENDING | Final public demo video URL is ready | Storyboard mode is mock_storyboard_ready; public video ready is False. | `docs/assets/demo-storyboard.json` |
+| PENDING | Final public demo video URL is accessible and safe | Public video check mode is pending_video_url; safe_to_submit is False. | `docs/assets/public-video-check.json` |
 | PENDING | Final recording gate is ready | Demo readiness mode is pre_live_mock_ready; final recording ready is False. | `docs/assets/demo-readiness-report.json` |
 | OK | Award readiness score remains competitive | Award readiness score is 97/115. | `docs/assets/award-readiness-report.json` |
 | PENDING | Final secret scan is complete | T041A is todo; secret scan mode is clear; secret scan ok is True. | `tasks.json and docs/assets/secret-scan-report.json` |
@@ -64,10 +65,10 @@ Repository: https://github.com/adjcjh777/backblaze-proofframe
 - Run the B2 live proof runner and save sanitized B2 evidence.
 - Run the final B2 plus Genblaze proof runner and save sanitized final evidence.
 - Record and upload the public demo video after live proof is captured.
+- Verify the public video URL with python scripts/public_video_check.py --verify-url --strict-final.
 - Regenerate the final Devpost submission checklist after the form kit and final control gates are current.
 - Run and mark the final secret scan after live evidence/video assets are ready.
 - Run final submission audit after proof, video, and secret scan pass.
-- Submit Devpost after every preceding control item is green, then generate the public submission receipt.
 
 ## Operator Commands
 
@@ -80,6 +81,7 @@ python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-ou
 python scripts/agent_handoff_check.py
 python scripts/public_space_sync.py
 python scripts/demo_storyboard.py --strict-final
+python scripts/public_video_check.py --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL" --verify-url --strict-final
 python scripts/demo_readiness.py --strict-final
 python scripts/recording_assets.py --verify-public --strict-final
 python scripts/secret_scan.py

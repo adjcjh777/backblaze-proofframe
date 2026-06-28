@@ -2,7 +2,7 @@
 
 Mode: `pre_submit_audit_blocked`
 OK: `false`
-Created: `2026-06-28T04:52:42Z`
+Created: `2026-06-28T05:07:17Z`
 Final evidence: `docs/assets/final-live-proof-evidence.json`
 
 ## Task Statuses
@@ -22,7 +22,7 @@ Final evidence: `docs/assets/final-live-proof-evidence.json`
 - final_evidence: 1 finding(s)
 - devpost_packet: 5 finding(s)
 - event_snapshot: OK
-- final_reports: 6 finding(s)
+- final_reports: 7 finding(s)
 - final_control: 1 finding(s)
 
 ## Findings
@@ -39,16 +39,18 @@ Final evidence: `docs/assets/final-live-proof-evidence.json`
 - `devpost_form_kit.final_form_ready` [incomplete]: Final Devpost form kit is not ready. Evidence: `docs/assets/devpost-form-kit.json`
 - `devpost_submission_checklist.safe_to_submit` [incomplete]: Final Devpost submission checklist is not ready. Evidence: `docs/assets/devpost-submission-checklist.json`
 - `demo_storyboard.public_video_ready` [incomplete]: Storyboard does not have a public video URL ready. Evidence: `docs/assets/demo-storyboard.json`
+- `public_video_check.safe_to_submit` [incomplete]: Public demo video URL is not verified. Evidence: `docs/assets/public-video-check.json`
 - `demo_readiness.final_recording_ready` [incomplete]: Final recording readiness gate is not ready. Evidence: `docs/assets/demo-readiness-report.json`
 - `recording_assets.final_video_ready` [incomplete]: Recording assets do not verify the final public video. Evidence: `docs/assets/recording-assets.json`
 - `live_credential_handoff.ready_for_live_proof` [incomplete]: Live credential handoff is not ready. Evidence: `docs/assets/live-credential-handoff.json`
-- `final_submission_control.blocking_items` [blocked]: Unexpected blockers remain before audit sign-off: b2_live_proof, credential_handoff, devpost_submission_checklist, final_recording, final_secret_scan, genblaze_live_proof, public_video Evidence: `docs/assets/final-submission-control.json`
+- `final_submission_control.blocking_items` [blocked]: Unexpected blockers remain before audit sign-off: b2_live_proof, credential_handoff, devpost_submission_checklist, final_recording, final_secret_scan, genblaze_live_proof, public_video, public_video_check Evidence: `docs/assets/final-submission-control.json`
 
 ## Next Commands
 
 - `python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out docs/assets/b2-live-proof-evidence.json`
 - `python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json`
 - `python scripts/demo_storyboard.py --strict-final`
+- `python scripts/public_video_check.py --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL" --verify-url --strict-final`
 - `python scripts/demo_readiness.py --strict-final`
 - `python scripts/recording_assets.py --verify-public --strict-final`
 - `python scripts/secret_scan.py`

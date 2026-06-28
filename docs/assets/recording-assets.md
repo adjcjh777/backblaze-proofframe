@@ -10,6 +10,7 @@ Public judge URL: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 
 - OK `storyboard`: `docs/assets/demo-storyboard.json` mode `mock_storyboard_ready`
 - OK `readiness`: `docs/assets/demo-readiness-report.json` mode `pre_live_mock_ready`
+- OK `public_video_check`: `docs/assets/public-video-check.json` mode `pending_video_url`
 - OK `devpost_form`: `docs/assets/devpost-form-kit.json` mode `pre_live_form_ready`
 - OK `final_control`: `docs/assets/final-submission-control.json` mode `pre_live_control`
 
@@ -19,6 +20,8 @@ Public judge URL: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 - OK `docs/demo_script.md`
 - OK `docs/assets/demo-storyboard.json`
 - OK `docs/assets/demo-storyboard.md`
+- OK `docs/assets/public-video-check.json`
+- OK `docs/assets/public-video-check.md`
 - OK `docs/assets/demo-readiness-report.json`
 - OK `docs/assets/demo-readiness-report.md`
 - OK `docs/assets/devpost-form-kit.json`
@@ -56,6 +59,7 @@ python scripts/api_smoke.py --base-url https://adjcjh-backblaze-proofframe.hf.sp
 python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out docs/assets/b2-live-proof-evidence.json
 python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json
 python scripts/demo_storyboard.py --strict-final
+python scripts/public_video_check.py --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL" --verify-url --strict-final
 python scripts/demo_readiness.py --strict-final
 python scripts/final_submission_control.py --strict-final
 ```

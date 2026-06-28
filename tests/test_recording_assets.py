@@ -54,6 +54,15 @@ def write_fixtures(root: Path, *, final_ready: bool = False) -> None:
     )
     write_json(
         root,
+        "docs/assets/public-video-check.json",
+        {
+            "schema": "proofframe.public_video_check.v1",
+            "mode": "public_video_verified" if final_ready else "pending_video_url",
+            "safe_to_submit": final_ready,
+        },
+    )
+    write_json(
+        root,
         "docs/assets/devpost-form-kit.json",
         {
             "schema": "proofframe.devpost_form_kit.v1",

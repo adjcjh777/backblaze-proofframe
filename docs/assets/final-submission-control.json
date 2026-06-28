@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.final_submission_control.v1",
-  "created_at": "2026-06-28T04:52:33Z",
+  "created_at": "2026-06-28T05:07:17Z",
   "mode": "pre_live_control",
   "safe_to_submit": false,
   "event": {
@@ -206,6 +206,28 @@
       "mock_recording_ready": null,
       "public_mock_verified": null,
       "public_video_ready": false,
+      "current_phase": null,
+      "next_command": null,
+      "next_detail": null,
+      "bus_status": null,
+      "active_role_cwd_ok": null
+    },
+    "public_video_check": {
+      "present": true,
+      "path": "docs/assets/public-video-check.json",
+      "schema_ok": true,
+      "schema": "proofframe.public_video_check.v1",
+      "mode": "pending_video_url",
+      "ok": false,
+      "score": null,
+      "max_score": null,
+      "final_form_ready": null,
+      "safe_to_submit": false,
+      "final_video_ready": null,
+      "final_recording_ready": null,
+      "mock_recording_ready": null,
+      "public_mock_verified": null,
+      "public_video_ready": null,
       "current_phase": null,
       "next_command": null,
       "next_detail": null,
@@ -460,6 +482,13 @@
       "evidence": "docs/assets/demo-storyboard.json"
     },
     {
+      "id": "public_video_check",
+      "label": "Final public demo video URL is accessible and safe",
+      "ok": false,
+      "detail": "Public video check mode is pending_video_url; safe_to_submit is False.",
+      "evidence": "docs/assets/public-video-check.json"
+    },
+    {
       "id": "final_recording",
       "label": "Final recording gate is ready",
       "ok": false,
@@ -532,6 +561,13 @@
       "evidence": "docs/assets/demo-storyboard.json"
     },
     {
+      "id": "public_video_check",
+      "label": "Final public demo video URL is accessible and safe",
+      "ok": false,
+      "detail": "Public video check mode is pending_video_url; safe_to_submit is False.",
+      "evidence": "docs/assets/public-video-check.json"
+    },
+    {
       "id": "final_recording",
       "label": "Final recording gate is ready",
       "ok": false,
@@ -573,10 +609,10 @@
     "Run the B2 live proof runner and save sanitized B2 evidence.",
     "Run the final B2 plus Genblaze proof runner and save sanitized final evidence.",
     "Record and upload the public demo video after live proof is captured.",
+    "Verify the public video URL with python scripts/public_video_check.py --verify-url --strict-final.",
     "Regenerate the final Devpost submission checklist after the form kit and final control gates are current.",
     "Run and mark the final secret scan after live evidence/video assets are ready.",
-    "Run final submission audit after proof, video, and secret scan pass.",
-    "Submit Devpost after every preceding control item is green, then generate the public submission receipt."
+    "Run final submission audit after proof, video, and secret scan pass."
   ],
   "operator_commands": [
     "python scripts/final_env_wizard.py --prefill-non-secret --output .env.final.local",
@@ -587,6 +623,7 @@
     "python scripts/agent_handoff_check.py",
     "python scripts/public_space_sync.py",
     "python scripts/demo_storyboard.py --strict-final",
+    "python scripts/public_video_check.py --video-url \"$PROOFFRAME_PUBLIC_VIDEO_URL\" --verify-url --strict-final",
     "python scripts/demo_readiness.py --strict-final",
     "python scripts/recording_assets.py --verify-public --strict-final",
     "python scripts/secret_scan.py",

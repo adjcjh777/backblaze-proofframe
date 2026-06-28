@@ -93,6 +93,15 @@ def write_ready_fixtures(root: Path) -> None:
     )
     write_json(
         root,
+        "docs/assets/public-video-check.json",
+        {
+            "schema": "proofframe.public_video_check.v1",
+            "mode": "pending_video_url",
+            "safe_to_submit": False,
+        },
+    )
+    write_json(
+        root,
         "docs/assets/award-readiness-report.json",
         {
             "schema": "proofframe.award_readiness.v1",
@@ -185,6 +194,7 @@ def test_final_operator_brief_is_ready_for_secret_entry(tmp_path):
         for action in report["codex_actions_after_credentials"]
     )
     assert report["reports"]["secret_scan"]["schema_ok"] is True
+    assert report["reports"]["public_video_check"]["schema_ok"] is True
     assert report["reports"]["submission_audit"]["schema_ok"] is True
     assert report["reports"]["final_rehearsal"]["schema_ok"] is True
     assert report["reports"]["devpost_submission_checklist"]["schema_ok"] is True

@@ -9,7 +9,7 @@
     {
       "path": "README.md",
       "present": true,
-      "bytes": 11048
+      "bytes": 11739
     },
     {
       "path": "docs/demo_script.md",
@@ -27,14 +27,24 @@
       "bytes": 2704
     },
     {
+      "path": "docs/assets/public-video-check.json",
+      "present": true,
+      "bytes": 2579
+    },
+    {
+      "path": "docs/assets/public-video-check.md",
+      "present": true,
+      "bytes": 1431
+    },
+    {
       "path": "docs/assets/demo-readiness-report.json",
       "present": true,
-      "bytes": 3571
+      "bytes": 3893
     },
     {
       "path": "docs/assets/demo-readiness-report.md",
       "present": true,
-      "bytes": 1647
+      "bytes": 1768
     },
     {
       "path": "docs/assets/devpost-form-kit.json",
@@ -49,12 +59,12 @@
     {
       "path": "docs/assets/final-submission-control.json",
       "present": true,
-      "bytes": 20842
+      "bytes": 22673
     },
     {
       "path": "docs/assets/final-submission-control.md",
       "present": true,
-      "bytes": 6110
+      "bytes": 6476
     },
     {
       "path": "docs/assets/proofframe-local-ui-smoke.png",
@@ -102,6 +112,14 @@
       "mode": "pre_live_mock_ready",
       "mock_recording_ready": true,
       "final_recording_ready": false
+    },
+    "public_video_check": {
+      "present": true,
+      "path": "docs/assets/public-video-check.json",
+      "schema_ok": true,
+      "schema": "proofframe.public_video_check.v1",
+      "mode": "pending_video_url",
+      "safe_to_submit": false
     },
     "devpost_form": {
       "present": true,
@@ -198,6 +216,7 @@
     "python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out docs/assets/b2-live-proof-evidence.json",
     "python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json",
     "python scripts/demo_storyboard.py --strict-final",
+    "python scripts/public_video_check.py --video-url \"$PROOFFRAME_PUBLIC_VIDEO_URL\" --verify-url --strict-final",
     "python scripts/demo_readiness.py --strict-final",
     "python scripts/final_submission_control.py --strict-final"
   ],

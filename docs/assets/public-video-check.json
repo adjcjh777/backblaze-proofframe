@@ -1,0 +1,81 @@
+{
+  "schema": "proofframe.public_video_check.v1",
+  "created_at": "2026-06-28T05:06:43Z",
+  "mode": "pending_video_url",
+  "ok": false,
+  "safe_to_submit": false,
+  "video_url": "TBD after final B2 and Genblaze proof.",
+  "event_requirements": {
+    "path": "docs/assets/devpost-event-snapshot.json",
+    "schema_ok": true,
+    "validation_ok": true,
+    "demo_video": true,
+    "video_under_three_minutes": true,
+    "public_video_host": true
+  },
+  "storyboard_requirements": {
+    "path": "docs/assets/demo-storyboard.json",
+    "schema_ok": true,
+    "under_time_limit": true,
+    "total_seconds": 135,
+    "max_seconds": 180,
+    "public_video_ready": false
+  },
+  "url_analysis": {
+    "url": "TBD after final B2 and Genblaze proof.",
+    "present": false,
+    "scheme_ok": false,
+    "host": null,
+    "host_public": false,
+    "has_credentials": false,
+    "token_params": [],
+    "safe_query": false,
+    "ok": false,
+    "reason": "missing_or_placeholder"
+  },
+  "access_check": {
+    "checked": false,
+    "ok": false,
+    "status": null,
+    "content_type": null,
+    "final_url": "TBD after final B2 and Genblaze proof.",
+    "error": "URL verification was not requested."
+  },
+  "checks": [
+    {
+      "id": "official_event_video_requirements",
+      "ok": true,
+      "detail": "demo_video=True; public_video_host=True; snapshot validation=True.",
+      "evidence": "docs/assets/devpost-event-snapshot.json"
+    },
+    {
+      "id": "storyboard_under_three_minutes",
+      "ok": true,
+      "detail": "Storyboard duration is 135s / 180s.",
+      "evidence": "docs/assets/demo-storyboard.json"
+    },
+    {
+      "id": "video_url_present",
+      "ok": false,
+      "detail": "Video URL source is missing or placeholder.",
+      "evidence": "docs/assets/devpost-submission-packet.json or PROOFFRAME_PUBLIC_VIDEO_URL"
+    },
+    {
+      "id": "video_url_public_and_safe",
+      "ok": false,
+      "detail": "scheme_ok=False; host=None; host_public=False; token_params=[].",
+      "evidence": "public video URL"
+    },
+    {
+      "id": "video_url_accessible",
+      "ok": false,
+      "detail": "checked=False; status=None; error=URL verification was not requested..",
+      "evidence": "public video URL"
+    }
+  ],
+  "next_actions": [
+    "Record and upload the final demo video, then set PROOFFRAME_PUBLIC_VIDEO_URL.",
+    "Use a public http(s) video URL without credential, token, signature, or expiry query parameters.",
+    "Run python scripts/public_video_check.py --video-url \"$PROOFFRAME_PUBLIC_VIDEO_URL\" --verify-url --strict-final after upload."
+  ]
+}

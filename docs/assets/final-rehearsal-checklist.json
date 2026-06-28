@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.final_rehearsal.v1",
-  "created_at": "2026-06-28T04:52:33Z",
+  "created_at": "2026-06-28T05:07:27Z",
   "mode": "ready_for_credential_rehearsal",
   "ok": true,
   "safe_to_submit": false,
@@ -104,26 +104,43 @@
       "task_update": "python3 scripts/task.py done T021 --note \"Final B2 plus Genblaze live proof evidence captured in docs/assets/final-live-proof-evidence.json.\""
     },
     {
-      "id": "recording_and_secret_scan",
+      "id": "seed_public_video_packet",
       "owner": "codex",
-      "command": "python scripts/demo_storyboard.py --strict-final && python scripts/demo_readiness.py --strict-final && python scripts/recording_assets.py --verify-public --strict-final && python scripts/secret_scan.py",
-      "success_signal": "Recording assets are final_video_ready and secret scan is clear after live proof and public video.",
+      "command": "python scripts/devpost_packet.py --post-live --video-url \"$PROOFFRAME_PUBLIC_VIDEO_URL\" && python scripts/public_video_check.py --video-url \"$PROOFFRAME_PUBLIC_VIDEO_URL\" --verify-url --strict-final",
+      "success_signal": "Devpost packet includes the public video URL and public-video-check reports safe_to_submit=true.",
       "safe_to_commit": [
-        "docs/assets/demo-storyboard.json",
-        "docs/assets/demo-readiness-report.json",
-        "docs/assets/recording-assets.json",
+        "docs/assets/devpost-submission-packet.json",
+        "docs/assets/public-video-check.json"
+      ]
+    },
+    {
+      "id": "final_secret_scan",
+      "owner": "codex",
+      "command": "python scripts/secret_scan.py",
+      "success_signal": "Secret scan is clear after live proof and public video URL are present.",
+      "safe_to_commit": [
         "docs/assets/secret-scan-report.json"
       ],
       "task_update": "python3 scripts/task.py done T041A --note \"Final secret scan clear after live proof and public video.\""
     },
     {
-      "id": "post_live_devpost_packet",
+      "id": "final_video_reports",
       "owner": "codex",
-      "command": "python scripts/devpost_packet.py --post-live --video-url \"$PROOFFRAME_PUBLIC_VIDEO_URL\" && python scripts/devpost_form_kit.py --strict-final && python scripts/devpost_submission_checklist.py --strict-final",
-      "success_signal": "Devpost packet mode is post_live_verified, video URL is public, form kit is final_form_ready, and submission checklist is ready_to_submit_devpost.",
+      "command": "python scripts/devpost_form_kit.py --strict-final && python scripts/demo_storyboard.py --strict-final && python scripts/demo_readiness.py --strict-final && python scripts/recording_assets.py --verify-public --strict-final",
+      "success_signal": "Devpost form kit, storyboard, demo readiness, and recording assets all report final video readiness.",
       "safe_to_commit": [
-        "docs/assets/devpost-submission-packet.json",
         "docs/assets/devpost-form-kit.json",
+        "docs/assets/demo-storyboard.json",
+        "docs/assets/demo-readiness-report.json",
+        "docs/assets/recording-assets.json"
+      ]
+    },
+    {
+      "id": "devpost_submission_checklist",
+      "owner": "codex",
+      "command": "python scripts/devpost_submission_checklist.py --strict-final",
+      "success_signal": "Devpost submission checklist is ready_to_submit_devpost.",
+      "safe_to_commit": [
         "docs/assets/devpost-submission-checklist.json"
       ]
     },
@@ -259,6 +276,13 @@
           "ok": false,
           "detail": "Storyboard mode is mock_storyboard_ready; public video ready is False.",
           "evidence": "docs/assets/demo-storyboard.json"
+        },
+        {
+          "id": "public_video_check",
+          "label": "Final public demo video URL is accessible and safe",
+          "ok": false,
+          "detail": "Public video check mode is pending_video_url; safe_to_submit is False.",
+          "evidence": "docs/assets/public-video-check.json"
         },
         {
           "id": "final_recording",

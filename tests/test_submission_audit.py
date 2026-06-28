@@ -121,6 +121,11 @@ def write_complete_audit_fixture(root: Path) -> tuple[Path, Path]:
     )
     write_json(
         root,
+        "docs/assets/public-video-check.json",
+        {"schema": "proofframe.public_video_check.v1", "safe_to_submit": True},
+    )
+    write_json(
+        root,
         "docs/assets/demo-readiness-report.json",
         {"schema": "proofframe.demo_readiness.v1", "final_recording_ready": True},
     )

@@ -69,6 +69,7 @@ def write_common_fixtures(root: Path, *, live_done: bool = False, final_done: bo
     write_file(root, "scripts/claim_lint.py", "# claim lint\n")
     write_file(root, "scripts/devpost_form_kit.py", "# form kit\n")
     write_file(root, "scripts/demo_storyboard.py", "# storyboard\n")
+    write_file(root, "scripts/public_video_check.py", "# public video check\n")
     write_file(root, "scripts/live_env_handoff.py", "# handoff\n")
     write_file(root, "scripts/secret_scan.py", "# secret scan\n")
     write_file(root, ".env.final.example", "PROOFFRAME_STORAGE_BACKEND=b2\n")
@@ -128,6 +129,8 @@ def write_common_fixtures(root: Path, *, live_done: bool = False, final_done: bo
     write_file(root, "docs/assets/live-credential-handoff.md", "# Handoff\n")
     write_file(root, "docs/assets/demo-storyboard.json", "{}\n")
     write_file(root, "docs/assets/demo-storyboard.md", "# Storyboard\n")
+    write_file(root, "docs/assets/public-video-check.json", "{}\n")
+    write_file(root, "docs/assets/public-video-check.md", "# Public Video Check\n")
     for screenshot in [
         "docs/assets/proofframe-local-ui-smoke.png",
         "docs/assets/proofframe-review-console-smoke.png",

@@ -154,3 +154,4 @@ The selected interface is Proof Ledger, a restrained audit-and-approval board fo
 - Submission gate API and UI checks.
 - No-secret final rehearsal checklist before credential entry and Devpost submission.
 - No-secret Devpost web submission checklist before pressing the final submit button.
+- Public demo video URL check for token-free, reachable final video evidence.

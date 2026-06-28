@@ -50,29 +50,44 @@ python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-ou
   - `docs/assets/final-live-proof-evidence.json`
 - Task update after success: `python3 scripts/task.py done T021 --note "Final B2 plus Genblaze live proof evidence captured in docs/assets/final-live-proof-evidence.json."`
 
-### 4. recording_and_secret_scan (codex)
+### 4. seed_public_video_packet (codex)
 ```bash
-python scripts/demo_storyboard.py --strict-final && python scripts/demo_readiness.py --strict-final && python scripts/recording_assets.py --verify-public --strict-final && python scripts/secret_scan.py
+python scripts/devpost_packet.py --post-live --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL" && python scripts/public_video_check.py --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL" --verify-url --strict-final
 ```
-- Success signal: Recording assets are final_video_ready and secret scan is clear after live proof and public video.
+- Success signal: Devpost packet includes the public video URL and public-video-check reports safe_to_submit=true.
 - Safe to commit after a clean secret scan:
-  - `docs/assets/demo-storyboard.json`
-  - `docs/assets/demo-readiness-report.json`
-  - `docs/assets/recording-assets.json`
+  - `docs/assets/devpost-submission-packet.json`
+  - `docs/assets/public-video-check.json`
+
+### 5. final_secret_scan (codex)
+```bash
+python scripts/secret_scan.py
+```
+- Success signal: Secret scan is clear after live proof and public video URL are present.
+- Safe to commit after a clean secret scan:
   - `docs/assets/secret-scan-report.json`
 - Task update after success: `python3 scripts/task.py done T041A --note "Final secret scan clear after live proof and public video."`
 
-### 5. post_live_devpost_packet (codex)
+### 6. final_video_reports (codex)
 ```bash
-python scripts/devpost_packet.py --post-live --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL" && python scripts/devpost_form_kit.py --strict-final && python scripts/devpost_submission_checklist.py --strict-final
+python scripts/devpost_form_kit.py --strict-final && python scripts/demo_storyboard.py --strict-final && python scripts/demo_readiness.py --strict-final && python scripts/recording_assets.py --verify-public --strict-final
 ```
-- Success signal: Devpost packet mode is post_live_verified, video URL is public, form kit is final_form_ready, and submission checklist is ready_to_submit_devpost.
+- Success signal: Devpost form kit, storyboard, demo readiness, and recording assets all report final video readiness.
 - Safe to commit after a clean secret scan:
-  - `docs/assets/devpost-submission-packet.json`
   - `docs/assets/devpost-form-kit.json`
+  - `docs/assets/demo-storyboard.json`
+  - `docs/assets/demo-readiness-report.json`
+  - `docs/assets/recording-assets.json`
+
+### 7. devpost_submission_checklist (codex)
+```bash
+python scripts/devpost_submission_checklist.py --strict-final
+```
+- Success signal: Devpost submission checklist is ready_to_submit_devpost.
+- Safe to commit after a clean secret scan:
   - `docs/assets/devpost-submission-checklist.json`
 
-### 6. final_submission_audit (codex)
+### 8. final_submission_audit (codex)
 ```bash
 python scripts/submission_audit.py --strict-final
 ```
@@ -81,7 +96,7 @@ python scripts/submission_audit.py --strict-final
   - `docs/assets/submission-audit-report.json`
 - Task update after success: `python3 scripts/task.py done T041 --note "Final submission audit passed after live proof, public video, secret scan, and Devpost checklist."`
 
-### 7. devpost_receipt (operator)
+### 9. devpost_receipt (operator)
 ```bash
 python scripts/devpost_submission_receipt.py --project-url "$PROOFFRAME_DEVPOST_PROJECT_URL" --submitted-at "$PROOFFRAME_DEVPOST_SUBMITTED_AT" --confirmation-note "Devpost accepted/submitted the ProofFrame project."
 ```
@@ -90,7 +105,7 @@ python scripts/devpost_submission_receipt.py --project-url "$PROOFFRAME_DEVPOST_
   - `docs/assets/devpost-submission-receipt.json`
 - Task update after success: `python3 scripts/task.py done T042 --note "Devpost project submitted and public receipt captured."`
 
-### 8. final_green_gate (codex)
+### 10. final_green_gate (codex)
 ```bash
 python scripts/final_submission_control.py --strict-final && python scripts/final_launch_plan.py --strict-final
 ```

@@ -21,6 +21,7 @@ python scripts/devpost_event_snapshot.py --validate-committed
 python scripts/agent_handoff_check.py
 python scripts/public_space_sync.py
 python scripts/demo_storyboard.py
+python scripts/public_video_check.py
 python scripts/sponsor_fit_audit.py
 python scripts/demo_readiness.py
 python scripts/recording_assets.py
@@ -52,6 +53,7 @@ The `.github/workflows/ci.yml` workflow runs on `main`, `feature/**`, and pull r
 - `python scripts/agent_handoff_check.py`
 - `python scripts/public_space_sync.py`
 - `python scripts/demo_storyboard.py`
+- `python scripts/public_video_check.py`
 - `python scripts/sponsor_fit_audit.py`
 - `python scripts/demo_readiness.py`
 - `python scripts/recording_assets.py`
@@ -238,6 +240,7 @@ python scripts/run_final_live_proof.py \
   --evidence-out docs/assets/final-live-proof-evidence.json
 export PROOFFRAME_PUBLIC_VIDEO_URL="https://..."
 python scripts/demo_storyboard.py --strict-final
+python scripts/public_video_check.py --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL" --verify-url --strict-final
 python scripts/demo_readiness.py --strict-final
 python scripts/recording_assets.py --verify-public --strict-final
 python scripts/secret_scan.py

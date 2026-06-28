@@ -111,6 +111,15 @@ def write_common_reports(root: Path, *, final_done: bool = False) -> None:
     )
     write_json(
         root,
+        "docs/assets/public-video-check.json",
+        {
+            "schema": "proofframe.public_video_check.v1",
+            "mode": "public_video_verified" if final_done else "pending_video_url",
+            "safe_to_submit": final_done,
+        },
+    )
+    write_json(
+        root,
         "docs/assets/agent-handoff-report.json",
         {
             "schema": "proofframe.agent_handoff.v1",
@@ -260,6 +269,7 @@ def test_control_report_blocks_pre_live_submission(tmp_path):
     assert "active role cwd ok is True" in handoff_requirement["detail"]
     assert report["report_inputs"]["public_space_sync"]["mode"] == "public_space_synced"
     assert report["report_inputs"]["final_launch_plan"]["current_phase"] == "credential_entry"
+    assert report["report_inputs"]["public_video_check"]["path"] == "docs/assets/public-video-check.json"
     launch_requirement = next(item for item in report["requirements"] if item["id"] == "final_launch_plan")
     assert launch_requirement["ok"] is True
     assert "current phase is credential_entry" in launch_requirement["detail"]

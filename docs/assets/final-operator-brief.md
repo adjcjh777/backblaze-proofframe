@@ -44,6 +44,7 @@ Safe to submit: `false`
 python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out docs/assets/b2-live-proof-evidence.json
 python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json
 python scripts/demo_storyboard.py --strict-final
+python scripts/public_video_check.py --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL" --verify-url --strict-final
 python scripts/demo_readiness.py --strict-final
 python scripts/recording_assets.py --verify-public --strict-final
 python scripts/secret_scan.py
@@ -68,6 +69,7 @@ python scripts/final_submission_control.py --strict-final
 - Safe to commit only after scan:
   - `docs/assets/b2-live-proof-evidence.json`
   - `docs/assets/final-live-proof-evidence.json`
+  - `docs/assets/public-video-check.json`
   - `docs/assets/devpost-submission-packet.json`
   - `docs/assets/devpost-form-kit.json`
   - `docs/assets/devpost-submission-checklist.json`

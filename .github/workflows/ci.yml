@@ -78,6 +78,9 @@ jobs:
       - name: Demo storyboard
         run: python scripts/demo_storyboard.py
 
+      - name: Public video check
+        run: python scripts/public_video_check.py
+
       - name: Sponsor fit audit
         run: python scripts/sponsor_fit_audit.py
 

@@ -127,6 +127,7 @@ def build_codex_actions() -> list[str]:
         "python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out docs/assets/b2-live-proof-evidence.json",
         "python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json",
         "python scripts/demo_storyboard.py --strict-final",
+        'python scripts/public_video_check.py --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL" --verify-url --strict-final',
         "python scripts/demo_readiness.py --strict-final",
         "python scripts/recording_assets.py --verify-public --strict-final",
         "python scripts/secret_scan.py",
@@ -153,6 +154,7 @@ def build_safety_policy(root: Path) -> dict[str, Any]:
         "safe_to_commit_after_scan": [
             "docs/assets/b2-live-proof-evidence.json",
             "docs/assets/final-live-proof-evidence.json",
+            "docs/assets/public-video-check.json",
             "docs/assets/devpost-submission-packet.json",
             "docs/assets/devpost-form-kit.json",
             "docs/assets/devpost-submission-checklist.json",
@@ -175,6 +177,11 @@ def build_report(root: Path = ROOT) -> dict[str, Any]:
             root,
             "docs/assets/recording-assets.json",
             "proofframe.recording_assets.v1",
+        ),
+        "public_video_check": report_status(
+            root,
+            "docs/assets/public-video-check.json",
+            "proofframe.public_video_check.v1",
         ),
         "award_readiness": report_status(
             root,
