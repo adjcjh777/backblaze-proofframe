@@ -1,17 +1,17 @@
 {
   "schema": "proofframe.public_space_sync.v1",
-  "created_at": "2026-06-28T09:47:14Z",
+  "created_at": "2026-06-28T09:53:21Z",
   "ok": true,
   "mode": "public_space_synced",
   "space_id": "ADJCJH/backblaze-proofframe",
   "public_host": "https://adjcjh-backblaze-proofframe.hf.space",
-  "expected_sha": "6609140ba9e1e12c851190d668cddf98e6f8d67c",
+  "expected_sha": "3115d6631f6e8d994da8c41a922fab20a0f9b1ba",
   "observed": {
-    "space_sha": "6609140ba9e1e12c851190d668cddf98e6f8d67c",
-    "runtime_sha": "6609140ba9e1e12c851190d668cddf98e6f8d67c",
+    "space_sha": "3115d6631f6e8d994da8c41a922fab20a0f9b1ba",
+    "runtime_sha": "3115d6631f6e8d994da8c41a922fab20a0f9b1ba",
     "runtime_stage": "RUNNING",
     "domain_ready": true,
-    "last_modified": "2026-06-28T09:35:36.000Z",
+    "last_modified": "2026-06-28T09:51:55.000Z",
     "health": {
       "ready": true,
       "storage_backend": "local",
@@ -66,14 +66,14 @@
       "id": "space_metadata",
       "label": "Space metadata points at the expected commit",
       "ok": true,
-      "detail": "Space sha is 6609140ba9e1e12c851190d668cddf98e6f8d67c; expected 6609140ba9e1e12c851190d668cddf98e6f8d67c.",
+      "detail": "Space sha is 3115d6631f6e8d994da8c41a922fab20a0f9b1ba; expected 3115d6631f6e8d994da8c41a922fab20a0f9b1ba.",
       "evidence": "https://huggingface.co/api/spaces/ADJCJH/backblaze-proofframe"
     },
     {
       "id": "runtime_ready",
       "label": "Space runtime is running the expected commit",
       "ok": true,
-      "detail": "Runtime stage is RUNNING; runtime sha is 6609140ba9e1e12c851190d668cddf98e6f8d67c; domain ready is True.",
+      "detail": "Runtime stage is RUNNING; runtime sha is 3115d6631f6e8d994da8c41a922fab20a0f9b1ba; domain ready is True.",
       "evidence": "https://huggingface.co/api/spaces/ADJCJH/backblaze-proofframe/runtime"
     },
     {
