@@ -83,7 +83,14 @@ def fetch_health(url: str, timeout: int) -> dict[str, Any]:
                 "json": parsed if isinstance(parsed, dict) else {},
                 "error": None,
             }
-    except (HTTPError, URLError, TimeoutError, RemoteDisconnected, json.JSONDecodeError) as exc:
+    except (
+        HTTPError,
+        URLError,
+        TimeoutError,
+        ConnectionResetError,
+        RemoteDisconnected,
+        json.JSONDecodeError,
+    ) as exc:
         return {"ok": False, "status": getattr(exc, "code", None), "json": {}, "error": str(exc)}
 
 

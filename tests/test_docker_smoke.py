@@ -74,6 +74,18 @@ def healthy_fetcher(url, timeout):
     }
 
 
+def test_fetch_health_treats_connection_reset_as_transient(monkeypatch):
+    def broken_urlopen(request, timeout):
+        raise ConnectionResetError("reset by peer")
+
+    monkeypatch.setattr(docker_smoke, "urlopen", broken_urlopen)
+
+    result = docker_smoke.fetch_health("http://127.0.0.1:18088/api/health", 1)
+
+    assert result["ok"] is False
+    assert "reset by peer" in result["error"]
+
+
 def test_docker_smoke_report_passes_with_fake_runner(tmp_path):
     write_dockerignore(tmp_path)
 
