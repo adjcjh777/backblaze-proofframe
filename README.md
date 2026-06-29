@@ -128,6 +128,7 @@ python scripts/demo_readiness.py
 python scripts/recording_assets.py
 python scripts/award_readiness.py --min-score 75
 python scripts/final_submission_control.py
+python scripts/final_closeout_status.py
 python scripts/final_operator_brief.py
 python scripts/final_launch_plan.py
 python scripts/submission_audit.py
@@ -166,6 +167,7 @@ The browser UI and `GET /api/submission/gate` expose the same fail-closed final 
 `scripts/recording_assets.py` checks committed recording assets, powers the in-app Recording Runbook through `GET /api/judge/recording`, and can run GET-only public demo verification without creating data or using secrets.
 `scripts/award_readiness.py` scores sponsor fit, provenance depth, demo readiness, claim safety, and final closure so polish work stays aligned with judge expectations.
 `scripts/final_submission_control.py` aggregates the gate, form kit, storyboard, credential handoff, and award reports into one final Devpost control tower.
+`scripts/final_closeout_status.py` summarizes final live proof, public video, Devpost, secret scan, audit, bundle, and receipt gates into one no-secret closeout report with the next command to run.
 `scripts/final_operator_brief.py` turns the remaining live-proof blockers into a no-secret handoff: user actions, Codex follow-up commands, and safety policy.
 `scripts/final_launch_plan.py` turns the final operator brief and gate reports into a no-secret phased launch checklist from credential entry through Devpost receipt.
 `scripts/submission_audit.py` writes a schema-stamped pre-submit audit report and only passes strict mode after live proof, final scan, public video, and submit-ready copy are synchronized.

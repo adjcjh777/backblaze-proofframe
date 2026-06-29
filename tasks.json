@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-29T12:40:14Z",
+  "updated_at": "2026-06-29T13:33:42Z",
   "tasks": [
     {
       "id": "T001",
@@ -154,6 +154,15 @@
       "status": "done",
       "done_criteria": "",
       "notes": "Added .dockerignore, Docker build/run/API smoke report, CI step, submission bundle artifact coverage, and evidence-backed submission checklist updates."
+    },
+    {
+      "id": "T087",
+      "title": "Add final closeout status control report",
+      "phase": "P4 Submit",
+      "owner": "reviewer",
+      "status": "done",
+      "done_criteria": "",
+      "notes": "Added final_closeout_status.py, report outputs, CI step, submission bundle coverage, and evidence/verification docs so final proof/video/Devpost/receipt gates are visible in one no-secret closeout report."
     },
     {
       "id": "T030",

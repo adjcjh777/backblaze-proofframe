@@ -34,6 +34,7 @@ python scripts/demo_readiness.py
 python scripts/recording_assets.py
 python scripts/award_readiness.py --min-score 75
 python scripts/final_submission_control.py
+python scripts/final_closeout_status.py
 python scripts/final_operator_brief.py
 python scripts/final_launch_plan.py
 python scripts/submission_audit.py
@@ -73,6 +74,7 @@ The `.github/workflows/ci.yml` workflow runs on `main`, `feature/**`, and pull r
 - `python scripts/recording_assets.py`
 - `python scripts/award_readiness.py --min-score 75`
 - `python scripts/final_submission_control.py`
+- `python scripts/final_closeout_status.py`
 - `python scripts/final_operator_brief.py`
 - `python scripts/final_launch_plan.py`
 - `python scripts/submission_audit.py`
@@ -278,6 +280,7 @@ python scripts/submission_bundle.py
 python scripts/final_operator_brief.py
 python scripts/final_launch_plan.py
 python scripts/final_submission_control.py --strict-final
+python scripts/final_closeout_status.py --strict-final
 python scripts/submission_audit.py --strict-final
 # After Devpost accepts the project:
 export PROOFFRAME_DEVPOST_PROJECT_URL="https://devpost.com/software/..."
