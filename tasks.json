@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-29T01:02:30Z",
+  "updated_at": "2026-06-29T01:16:00Z",
   "tasks": [
     {
       "id": "T001",
@@ -1054,6 +1054,15 @@
       "status": "done",
       "done_criteria": "Final submission control exposes explicit control_health_ok semantics and CLI-level tests prove non-strict health does not bypass strict final submit gates.",
       "notes": "Added control_health_ok alias, clarified markdown output, and covered non-strict vs strict-final CLI behavior after reviewer pass."
+    },
+    {
+      "id": "T080",
+      "title": "Add judge evidence index",
+      "phase": "P4 Submit",
+      "owner": "reviewer",
+      "status": "done",
+      "done_criteria": "A public-safe judge evidence index is generated, exposed through the app API, included in submission bundle artifacts, verified by public Space sync, and kept fail-closed with safe_to_submit=false until final live proof.",
+      "notes": "Added scripts/judge_evidence_index.py, docs/assets/judge-evidence-index.*, /api/judge/evidence-index, frontend Evidence index link, API smoke coverage, public Space sync validation, bundle registration, and tests."
     }
   ]
 }

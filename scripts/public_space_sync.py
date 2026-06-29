@@ -19,7 +19,7 @@ SCHEMA = "proofframe.public_space_sync.v1"
 
 SPACE_ID = "ADJCJH/backblaze-proofframe"
 SPACE_HOST = "https://adjcjh-backblaze-proofframe.hf.space"
-EXPECTED_SPACE_SHA = "a4170c55bdf58f713db62485d6318c1ca88ce949"
+EXPECTED_SPACE_SHA = "aeba0eae4af5c9d8a50b46b29a2977d0cb961ccb"
 TIMEOUT_SECONDS = 30
 DRAFT_VIDEO_MIN_BYTES = 100_000
 EVENT_SNAPSHOT_MAX_AGE_DAYS = 14
@@ -69,6 +69,8 @@ REQUIRED_BUNDLE_ARTIFACT_IDS = {
     "post_credential_live_proof_script",
     "b2_key_scope_checklist_json",
     "b2_key_scope_checklist_script",
+    "judge_evidence_index_json",
+    "judge_evidence_index_script",
     "final_submission_control_json",
     "secret_scan_json",
     "submission_audit_json",
@@ -82,6 +84,7 @@ HTML_MARKERS = {
     "sponsor_evidence_model": "Sponsor Evidence Model",
     "judge_brief_panel": "30-Second Judge Brief",
     "criteria_crosswalk_link": "Criteria crosswalk",
+    "evidence_index_link": "Evidence index",
     "recording_runbook_panel": "Recording Runbook",
     "devpost_kit_panel": "Devpost Kit",
     "submit_checklist_panel": "Submit Checklist",
@@ -276,6 +279,7 @@ def build_report(
     b2_key_scope_checklist_url = raw_file_url(space_id, "docs/assets/b2-key-scope-checklist.json")
     judge_brief_url = raw_file_url(space_id, "docs/assets/judge-brief.json")
     judge_crosswalk_url = raw_file_url(space_id, "docs/assets/judge-crosswalk.json")
+    judge_evidence_index_url = raw_file_url(space_id, "docs/assets/judge-evidence-index.json")
     recording_assets_url = raw_file_url(space_id, "docs/assets/recording-assets.json")
     public_demo_screenshot_url = raw_file_url(space_id, "docs/assets/public-demo-screenshot-report.json")
     demo_video_draft_url = raw_file_url(space_id, "docs/assets/demo-video-draft.json")
@@ -298,6 +302,7 @@ def build_report(
     b2_key_scope_checklist_result = fetcher(b2_key_scope_checklist_url, TIMEOUT_SECONDS)
     judge_brief_result = fetcher(judge_brief_url, TIMEOUT_SECONDS)
     judge_crosswalk_result = fetcher(judge_crosswalk_url, TIMEOUT_SECONDS)
+    judge_evidence_index_result = fetcher(judge_evidence_index_url, TIMEOUT_SECONDS)
     recording_assets_result = fetcher(recording_assets_url, TIMEOUT_SECONDS)
     public_demo_screenshot_result = fetcher(public_demo_screenshot_url, TIMEOUT_SECONDS)
     demo_video_draft_result = fetcher(demo_video_draft_url, TIMEOUT_SECONDS)
@@ -320,6 +325,7 @@ def build_report(
     b2_key_scope_checklist = parse_json(b2_key_scope_checklist_result)
     judge_brief = parse_json(judge_brief_result)
     judge_crosswalk = parse_json(judge_crosswalk_result)
+    judge_evidence_index = parse_json(judge_evidence_index_result)
     recording_assets = parse_json(recording_assets_result)
     public_demo_screenshot = parse_json(public_demo_screenshot_result)
     demo_video_draft = parse_json(demo_video_draft_result)
@@ -509,6 +515,32 @@ def build_report(
         and "deleteFiles" in b2_key_scope_forbidden_capabilities
         and "writeBuckets/deleteBuckets" in b2_key_scope_forbidden_capabilities
     )
+    judge_evidence_index_links = dict_list_field(judge_evidence_index, "links")
+    judge_evidence_index_sections = dict_list_field(judge_evidence_index, "sections")
+    judge_evidence_index_blockers = list_field(
+        dict_field(judge_evidence_index, "status"),
+        "final_blockers",
+    )
+    judge_evidence_index_link_ids = {
+        str(link.get("id")) for link in judge_evidence_index_links if isinstance(link.get("id"), str)
+    }
+    judge_evidence_index_ok = bool(
+        judge_evidence_index_result.get("ok")
+        and judge_evidence_index
+        and judge_evidence_index.get("schema") == "proofframe.judge_evidence_index.v1"
+        and judge_evidence_index.get("ok") is True
+        and judge_evidence_index.get("safe_to_share") is True
+        and judge_evidence_index.get("safe_to_submit") is False
+        and judge_evidence_index.get("mode") == "pre_live_evidence_index_ready"
+        and len(judge_evidence_index_links) >= 10
+        and len(judge_evidence_index_sections) >= 5
+        and {"public_demo", "judge_brief", "judge_crosswalk", "final_submission_control"}
+        <= judge_evidence_index_link_ids
+        and "b2_live_proof" in judge_evidence_index_blockers
+        and "genblaze_live_proof" in judge_evidence_index_blockers
+        and "does not claim completed B2 or Genblaze live proof"
+        in str(judge_evidence_index.get("claim_boundary") or "")
+    )
 
     checks = [
         check_item(
@@ -635,6 +667,18 @@ def build_report(
                 f"safe_to_submit is {judge_crosswalk.get('safe_to_submit') if judge_crosswalk else None}."
             ),
             judge_crosswalk_url,
+        ),
+        check_item(
+            "raw_judge_evidence_index",
+            "Raw judge evidence index is public and claim-safe",
+            judge_evidence_index_ok,
+            (
+                f"Evidence index schema is {judge_evidence_index.get('schema') if judge_evidence_index else None}; "
+                f"mode is {judge_evidence_index.get('mode') if judge_evidence_index else None}; "
+                f"safe_to_submit is {judge_evidence_index.get('safe_to_submit') if judge_evidence_index else None}; "
+                f"links={len(judge_evidence_index_links)}; blockers={len(judge_evidence_index_blockers)}."
+            ),
+            judge_evidence_index_url,
         ),
         check_item(
             "raw_recording_assets",
@@ -938,6 +982,19 @@ def build_report(
             "judge_crosswalk_safe_to_submit": (
                 judge_crosswalk.get("safe_to_submit") if judge_crosswalk else None
             ),
+            "judge_evidence_index": {
+                "schema": judge_evidence_index.get("schema") if judge_evidence_index else None,
+                "mode": judge_evidence_index.get("mode") if judge_evidence_index else None,
+                "safe_to_share": (
+                    judge_evidence_index.get("safe_to_share") if judge_evidence_index else None
+                ),
+                "safe_to_submit": (
+                    judge_evidence_index.get("safe_to_submit") if judge_evidence_index else None
+                ),
+                "link_count": len(judge_evidence_index_links),
+                "section_count": len(judge_evidence_index_sections),
+                "blocker_count": len(judge_evidence_index_blockers),
+            },
             "public_demo_screenshot": {
                 "mode": public_demo_screenshot.get("mode") if public_demo_screenshot else None,
                 "ok": public_demo_screenshot.get("ok") if public_demo_screenshot else None,
@@ -1000,6 +1057,7 @@ def build_report(
             "raw_b2_key_scope_checklist": b2_key_scope_checklist_url,
             "raw_judge_brief": judge_brief_url,
             "raw_judge_crosswalk": judge_crosswalk_url,
+            "raw_judge_evidence_index": judge_evidence_index_url,
             "raw_public_demo_screenshot": public_demo_screenshot_url,
             "raw_demo_video_draft": demo_video_draft_url,
             "demo_video_draft_mp4": demo_video_draft_mp4_url,
@@ -1035,6 +1093,8 @@ def next_actions(checks: list[dict[str, Any]]) -> list[str]:
         actions.append("Regenerate and upload docs/assets/judge-brief.json to the Space.")
     if "raw_judge_crosswalk" in failed:
         actions.append("Regenerate and upload docs/assets/judge-crosswalk.json to the Space.")
+    if "raw_judge_evidence_index" in failed:
+        actions.append("Regenerate and upload docs/assets/judge-evidence-index.json to the Space.")
     if "raw_recording_assets" in failed:
         actions.append("Regenerate and upload docs/assets/recording-assets.json to the Space.")
     if "raw_public_demo_screenshot" in failed:

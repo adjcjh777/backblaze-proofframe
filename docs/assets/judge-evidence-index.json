@@ -1,0 +1,265 @@
+{
+  "schema": "proofframe.judge_evidence_index.v1",
+  "created_at": "2026-06-29T01:20:04Z",
+  "ok": true,
+  "mode": "pre_live_evidence_index_ready",
+  "safe_to_share": true,
+  "safe_to_submit": false,
+  "project": "ProofFrame",
+  "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
+  "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
+  "status": {
+    "control_health_ok": true,
+    "award_score": 97,
+    "award_max_score": 115,
+    "public_space_mode": "public_space_synced",
+    "final_blocker_count": 10,
+    "final_blockers": [
+      "devpost_submission_checklist",
+      "b2_live_proof",
+      "genblaze_live_proof",
+      "credential_handoff",
+      "public_video",
+      "public_video_check",
+      "final_recording",
+      "final_secret_scan",
+      "final_submission_audit",
+      "devpost_submitted"
+    ]
+  },
+  "source_health": {
+    "judge_brief": true,
+    "judge_crosswalk": true,
+    "final_submission_control": true,
+    "public_space_sync": true,
+    "secret_scan": true,
+    "devpost_preview": true
+  },
+  "task_statuses": {
+    "T020": "doing",
+    "T021": "doing",
+    "T040": "done",
+    "T041": "todo",
+    "T041A": "todo",
+    "T042": "todo"
+  },
+  "links": [
+    {
+      "id": "public_demo",
+      "label": "Open the public judge-mode demo",
+      "kind": "app",
+      "purpose": "Start here: live credential-free ProofFrame workflow.",
+      "public_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
+      "path": null,
+      "raw_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
+      "present": true
+    },
+    {
+      "id": "judge_brief",
+      "label": "30-second judge brief",
+      "kind": "report",
+      "purpose": "Concise product story, safe claims, and current status.",
+      "public_url": null,
+      "path": "docs/assets/judge-brief.md",
+      "raw_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/judge-brief.md",
+      "present": true,
+      "bytes": 3000
+    },
+    {
+      "id": "judge_crosswalk",
+      "label": "Official criteria crosswalk",
+      "kind": "report",
+      "purpose": "Maps Devpost criteria to concrete evidence and final gates.",
+      "public_url": null,
+      "path": "docs/assets/judge-crosswalk.md",
+      "raw_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/judge-crosswalk.md",
+      "present": true,
+      "bytes": 6157
+    },
+    {
+      "id": "final_submission_control",
+      "label": "Final submission control",
+      "kind": "gate",
+      "purpose": "Top-level control health, safe_to_submit, and remaining blockers.",
+      "public_url": null,
+      "path": "docs/assets/final-submission-control.md",
+      "raw_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/final-submission-control.md",
+      "present": true,
+      "bytes": 6909
+    },
+    {
+      "id": "devpost_preview",
+      "label": "Devpost submission preview",
+      "kind": "submission",
+      "purpose": "Public-safe one-page Devpost field and evidence preview.",
+      "public_url": null,
+      "path": "docs/assets/devpost-submission-preview.md",
+      "raw_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/devpost-submission-preview.md",
+      "present": true,
+      "bytes": 5407
+    },
+    {
+      "id": "submission_checklist",
+      "label": "Devpost submit checklist",
+      "kind": "gate",
+      "purpose": "Field, video, proof, and final receipt gate.",
+      "public_url": null,
+      "path": "docs/assets/devpost-submission-checklist.md",
+      "raw_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/devpost-submission-checklist.md",
+      "present": true,
+      "bytes": 9319
+    },
+    {
+      "id": "submission_bundle",
+      "label": "Submission bundle manifest",
+      "kind": "bundle",
+      "purpose": "Shareable artifact index and final bundle gate.",
+      "public_url": null,
+      "path": "docs/assets/submission-bundle-manifest.md",
+      "raw_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/submission-bundle-manifest.md",
+      "present": true,
+      "bytes": 13725
+    },
+    {
+      "id": "award_readiness",
+      "label": "Award readiness scorecard",
+      "kind": "scorecard",
+      "purpose": "Sponsor-fit and product-readiness score with final closure separated.",
+      "public_url": null,
+      "path": "docs/assets/award-readiness-report.md",
+      "raw_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/award-readiness-report.md",
+      "present": true,
+      "bytes": 4390
+    },
+    {
+      "id": "public_space_sync",
+      "label": "Public Space sync report",
+      "kind": "verification",
+      "purpose": "Verifies HF Space runtime, raw artifacts, and public API markers.",
+      "public_url": null,
+      "path": "docs/assets/public-space-sync-report.md",
+      "raw_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/public-space-sync-report.md",
+      "present": true,
+      "bytes": 6764
+    },
+    {
+      "id": "recording_assets",
+      "label": "Recording runbook",
+      "kind": "video",
+      "purpose": "Shot list and public-safe recording assets for the final demo.",
+      "public_url": null,
+      "path": "docs/assets/recording-assets.md",
+      "raw_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/recording-assets.md",
+      "present": true,
+      "bytes": 3566
+    },
+    {
+      "id": "demo_video_draft",
+      "label": "Mock demo video draft",
+      "kind": "video",
+      "purpose": "Public-safe draft video status; final video remains gated.",
+      "public_url": null,
+      "path": "docs/assets/demo-video-draft.md",
+      "raw_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/demo-video-draft.md",
+      "present": true,
+      "bytes": 1562
+    },
+    {
+      "id": "public_video_check",
+      "label": "Public video check",
+      "kind": "gate",
+      "purpose": "Official-host and final-video readiness gate.",
+      "public_url": null,
+      "path": "docs/assets/public-video-check.md",
+      "raw_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/public-video-check.md",
+      "present": true,
+      "bytes": 1701
+    },
+    {
+      "id": "b2_key_scope_checklist",
+      "label": "B2 key scope checklist",
+      "kind": "live-proof",
+      "purpose": "No-secret Backblaze key scope and user confirmation requirements.",
+      "public_url": null,
+      "path": "docs/assets/b2-key-scope-checklist.md",
+      "raw_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/b2-key-scope-checklist.md",
+      "present": true,
+      "bytes": 4527
+    },
+    {
+      "id": "post_credential_live_proof",
+      "label": "Post-credential live proof plan",
+      "kind": "live-proof",
+      "purpose": "Exact no-secret sequence to close B2 and Genblaze proof.",
+      "public_url": null,
+      "path": "docs/assets/post-credential-live-proof-plan.md",
+      "raw_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/post-credential-live-proof-plan.md",
+      "present": true,
+      "bytes": 5992
+    },
+    {
+      "id": "secret_scan",
+      "label": "Secret scan report",
+      "kind": "safety",
+      "purpose": "Current public artifact secret-scan state.",
+      "public_url": null,
+      "path": "docs/assets/secret-scan-report.md",
+      "raw_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/secret-scan-report.md",
+      "present": true,
+      "bytes": 846
+    }
+  ],
+  "sections": [
+    {
+      "id": "start_here",
+      "label": "Start Here",
+      "links": [
+        "public_demo",
+        "judge_brief",
+        "judge_crosswalk"
+      ],
+      "ready": true
+    },
+    {
+      "id": "submission_controls",
+      "label": "Submission Controls",
+      "links": [
+        "final_submission_control",
+        "devpost_preview",
+        "submission_checklist",
+        "submission_bundle"
+      ],
+      "ready": true
+    },
+    {
+      "id": "award_case",
+      "label": "Award Case",
+      "links": [
+        "award_readiness",
+        "public_space_sync",
+        "secret_scan"
+      ],
+      "ready": true
+    },
+    {
+      "id": "recording",
+      "label": "Recording",
+      "links": [
+        "recording_assets",
+        "demo_video_draft",
+        "public_video_check"
+      ],
+      "ready": true
+    },
+    {
+      "id": "live_proof_gates",
+      "label": "Live Proof Gates",
+      "links": [
+        "b2_key_scope_checklist",
+        "post_credential_live_proof"
+      ],
+      "ready": true
+    }
+  ],
+  "claim_boundary": "This index is public-safe evidence navigation. It does not claim completed B2 or Genblaze live proof until final_submission_control.safe_to_submit is true."
+}

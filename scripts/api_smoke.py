@@ -117,6 +117,19 @@ def run_smoke(
     if not isinstance(crosswalk_rows, list) or len(crosswalk_rows) < 4:
         raise SystemExit("Judge crosswalk endpoint did not include the expected criteria rows.")
 
+    evidence_index = request_json("GET", f"{base}/api/judge/evidence-index")
+    if evidence_index.get("schema") != "proofframe.judge_evidence_index.v1":
+        raise SystemExit("Judge evidence index endpoint did not return the expected schema.")
+    evidence_links = evidence_index.get("links")
+    if not isinstance(evidence_links, list) or len(evidence_links) < 10:
+        raise SystemExit("Judge evidence index endpoint did not include the expected evidence links.")
+    evidence_safe_to_submit = evidence_index.get("safe_to_submit")
+    if not isinstance(evidence_safe_to_submit, bool):
+        raise SystemExit("Judge evidence index endpoint did not include a boolean safe_to_submit flag.")
+    evidence_index_status = evidence_index.get("status")
+    if not isinstance(evidence_index_status, dict) or "final_blockers" not in evidence_index_status:
+        raise SystemExit("Judge evidence index endpoint did not include final blocker status.")
+
     judge_recording = request_json("GET", f"{base}/api/judge/recording")
     if judge_recording.get("schema") != "proofframe.recording_assets.v1":
         raise SystemExit("Judge recording endpoint did not return the expected schema.")
@@ -198,6 +211,10 @@ def run_smoke(
         "judge_crosswalk_mode": judge_crosswalk.get("mode"),
         "judge_crosswalk_safe_to_submit": crosswalk_safe_to_submit,
         "judge_crosswalk_rows": len(crosswalk_rows),
+        "judge_evidence_index_schema": evidence_index["schema"],
+        "judge_evidence_index_mode": evidence_index.get("mode"),
+        "judge_evidence_index_safe_to_submit": evidence_safe_to_submit,
+        "judge_evidence_index_links": len(evidence_links),
         "judge_recording_schema": judge_recording["schema"],
         "judge_recording_mode": judge_recording.get("mode"),
         "judge_recording_final_video_ready": recording_final_ready,

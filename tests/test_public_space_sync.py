@@ -262,6 +262,43 @@ def valid_public_video_check() -> dict:
     }
 
 
+def valid_judge_evidence_index() -> dict:
+    return {
+        "schema": "proofframe.judge_evidence_index.v1",
+        "ok": True,
+        "mode": "pre_live_evidence_index_ready",
+        "safe_to_share": True,
+        "safe_to_submit": False,
+        "status": {
+            "control_health_ok": True,
+            "final_blockers": ["b2_live_proof", "genblaze_live_proof", "public_video"],
+        },
+        "links": [
+            {"id": "public_demo", "present": True},
+            {"id": "judge_brief", "present": True},
+            {"id": "judge_crosswalk", "present": True},
+            {"id": "final_submission_control", "present": True},
+            {"id": "devpost_preview", "present": True},
+            {"id": "submission_checklist", "present": True},
+            {"id": "submission_bundle", "present": True},
+            {"id": "award_readiness", "present": True},
+            {"id": "public_space_sync", "present": True},
+            {"id": "recording_assets", "present": True},
+        ],
+        "sections": [
+            {"id": "start_here", "ready": True},
+            {"id": "submission_controls", "ready": True},
+            {"id": "award_case", "ready": True},
+            {"id": "recording", "ready": True},
+            {"id": "live_proof_gates", "ready": True},
+        ],
+        "claim_boundary": (
+            "This index is public-safe evidence navigation. It does not claim completed B2 or "
+            "Genblaze live proof until final_submission_control.safe_to_submit is true."
+        ),
+    }
+
+
 def fake_fetcher(url: str, timeout: int) -> dict:
     assert timeout == public_space_sync.TIMEOUT_SECONDS
     if url.endswith("/api/spaces/ADJCJH/backblaze-proofframe"):
@@ -358,6 +395,13 @@ def fake_fetcher(url: str, timeout: int) -> dict:
                     "safe_to_submit": False,
                 }
             ),
+            "error": None,
+        }
+    if url.endswith("/docs/assets/judge-evidence-index.json"):
+        return {
+            "ok": True,
+            "status": 200,
+            "body": json.dumps(valid_judge_evidence_index()),
             "error": None,
         }
     if url.endswith("/docs/assets/recording-assets.json"):
@@ -495,7 +539,8 @@ def fake_fetcher(url: str, timeout: int) -> dict:
             "status": 200,
             "body": (
                 "Judge recording slate Sponsor Evidence Model shouldAutoLoadJudgeDemo "
-                "30-Second Judge Brief Criteria crosswalk Recording Runbook Devpost Kit Submit Checklist Final reports pending"
+                "30-Second Judge Brief Criteria crosswalk Evidence index Recording Runbook "
+                "Devpost Kit Submit Checklist Final reports pending"
             ),
             "error": None,
         }
@@ -559,6 +604,15 @@ def test_public_space_sync_report_passes_when_space_is_current():
     assert report["observed"]["judge_crosswalk_schema"] == "proofframe.judge_crosswalk.v1"
     assert report["observed"]["judge_crosswalk_mode"] == "pre_live_crosswalk_ready"
     assert report["observed"]["judge_crosswalk_safe_to_submit"] is False
+    assert report["observed"]["judge_evidence_index"] == {
+        "schema": "proofframe.judge_evidence_index.v1",
+        "mode": "pre_live_evidence_index_ready",
+        "safe_to_share": True,
+        "safe_to_submit": False,
+        "link_count": 10,
+        "section_count": 5,
+        "blocker_count": 3,
+    }
     assert report["observed"]["public_demo_screenshot"]["ok"] is True
     assert report["observed"]["public_demo_screenshot"]["visible_ok"] is True
     assert report["observed"]["public_demo_screenshot"]["html_ok"] is True
@@ -809,6 +863,28 @@ def test_public_space_sync_fails_on_unsafe_judge_crosswalk():
     failed = {item["id"] for item in report["checks"] if not item["ok"]}
     assert report["ok"] is False
     assert "raw_judge_crosswalk" in failed
+
+
+def test_public_space_sync_fails_on_unsafe_judge_evidence_index():
+    def broken_fetcher(url: str, timeout: int) -> dict:
+        result = fake_fetcher(url, timeout)
+        if url.endswith("/docs/assets/judge-evidence-index.json"):
+            index = valid_judge_evidence_index()
+            index["safe_to_submit"] = True
+            index["status"]["final_blockers"] = []
+            index["claim_boundary"] = "Completed live B2 and Genblaze proof."
+            result = {**result, "body": json.dumps(index)}
+        return result
+
+    report = public_space_sync.build_report(expected_sha=EXPECTED_SHA, fetcher=broken_fetcher)
+
+    failed = {item["id"] for item in report["checks"] if not item["ok"]}
+    assert report["ok"] is False
+    assert "raw_judge_evidence_index" in failed
+    assert (
+        "Regenerate and upload docs/assets/judge-evidence-index.json to the Space."
+        in report["next_actions"]
+    )
 
 
 def test_public_space_sync_fails_on_bad_submit_checklist_with_action():

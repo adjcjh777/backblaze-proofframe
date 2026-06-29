@@ -72,6 +72,9 @@ jobs:
       - name: Judge crosswalk
         run: python scripts/judge_crosswalk.py
 
+      - name: Judge evidence index
+        run: python scripts/judge_evidence_index.py
+
       - name: Devpost event snapshot
         run: python scripts/devpost_event_snapshot.py --validate-committed
 

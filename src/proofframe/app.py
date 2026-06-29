@@ -139,6 +139,14 @@ def create_app(storage_root: Path | str | None = None, settings: Settings | None
             "Judge crosswalk",
         )
 
+    @app.get("/api/judge/evidence-index")
+    def judge_evidence_index() -> dict[str, object]:
+        return load_public_artifact(
+            "judge-evidence-index.json",
+            "proofframe.judge_evidence_index.v1",
+            "Judge evidence index",
+        )
+
     @app.get("/api/judge/recording")
     def judge_recording() -> dict[str, object]:
         return load_public_artifact(
