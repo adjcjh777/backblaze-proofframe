@@ -308,6 +308,21 @@ def main() -> None:
                 "json": str(args.json_out),
                 "markdown": str(args.markdown_out),
                 "image": report["image"],
+                "failed_checks": [
+                    {"id": check["id"], "detail": check["detail"]}
+                    for check in report["checks"]
+                    if not check["ok"]
+                ],
+                "failed_commands": [
+                    {
+                        "id": command["id"],
+                        "returncode": command["returncode"],
+                        "stdout_tail": command["stdout_tail"],
+                        "stderr_tail": command["stderr_tail"],
+                    }
+                    for command in report["commands"]
+                    if not command["ok"]
+                ],
             },
             indent=2,
         )
