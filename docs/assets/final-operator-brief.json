@@ -119,7 +119,7 @@
       "path": "docs/assets/final-submission-control.json",
       "schema_ok": true,
       "mode": "pre_live_control",
-      "ok": null,
+      "ok": true,
       "score": null,
       "max_score": null,
       "safe_to_submit": false,

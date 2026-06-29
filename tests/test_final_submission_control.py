@@ -4,6 +4,8 @@ import shlex
 import sys
 from pathlib import Path
 
+import pytest
+
 
 SCRIPT_PATH = Path(__file__).resolve().parents[1] / "scripts" / "final_submission_control.py"
 SPEC = importlib.util.spec_from_file_location("final_submission_control", SCRIPT_PATH)
@@ -253,6 +255,8 @@ def test_control_report_blocks_pre_live_submission(tmp_path):
     report = final_submission_control.build_control_report(tmp_path)
 
     assert report["mode"] == "pre_live_control"
+    assert report["ok"] is True
+    assert report["control_health_ok"] is True
     assert report["safe_to_submit"] is False
     assert "b2_live_proof" in {item["id"] for item in report["blocking_items"]}
     assert "source_report_schemas" not in {item["id"] for item in report["blocking_items"]}
@@ -282,6 +286,8 @@ def test_control_report_turns_final_ready_when_all_gates_are_done(tmp_path):
     report = final_submission_control.build_control_report(tmp_path)
 
     assert report["mode"] == "final_submit_ready"
+    assert report["ok"] is True
+    assert report["control_health_ok"] is True
     assert report["safe_to_submit"] is True
     assert report["blocking_items"] == []
     assert report["submission_gate"]["b2_evidence_status"] == "missing"
@@ -323,6 +329,8 @@ def test_control_report_blocks_bad_input_schema(tmp_path):
     blocking = {item["id"] for item in report["blocking_items"]}
     assert "source_report_schemas" in blocking
     assert "final_recording" in blocking
+    assert report["ok"] is False
+    assert report["control_health_ok"] is False
     assert report["safe_to_submit"] is False
 
 
@@ -337,7 +345,10 @@ def test_control_report_writes_json_and_markdown(tmp_path):
     saved = json.loads(json_path.read_text(encoding="utf-8"))
     markdown = markdown_path.read_text(encoding="utf-8")
     assert saved["schema"] == "proofframe.final_submission_control.v1"
+    assert saved["ok"] is True
+    assert saved["control_health_ok"] is True
     assert "# ProofFrame Final Submission Control" in markdown
+    assert "Control health OK: `true`" in markdown
     assert "Safe to submit: `false`" in markdown
     assert "## Launch Plan" in markdown
     assert "Current phase: `credential_entry`" in markdown
@@ -350,6 +361,59 @@ def test_control_report_writes_json_and_markdown(tmp_path):
     assert 'python scripts/devpost_submission_receipt.py --project-url "$PROOFFRAME_DEVPOST_PROJECT_URL"' in markdown
     assert "python scripts/devpost_submission_preview.py --strict-final" in markdown
     assert "python scripts/submission_bundle.py --strict-final" in markdown
+
+
+def test_cli_non_strict_reports_control_health_without_final_ready(tmp_path, monkeypatch, capsys):
+    write_common_reports(tmp_path)
+    json_path = tmp_path / "cli" / "control.json"
+    markdown_path = tmp_path / "cli" / "control.md"
+    monkeypatch.setattr(final_submission_control, "ROOT", tmp_path)
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "final_submission_control.py",
+            "--json-out",
+            str(json_path),
+            "--markdown-out",
+            str(markdown_path),
+        ],
+    )
+
+    final_submission_control.main()
+
+    output = json.loads(capsys.readouterr().out)
+    assert output["ok"] is True
+    assert output["control_health_ok"] is True
+    assert output["safe_to_submit"] is False
+
+
+def test_cli_strict_final_fails_closed_until_safe_to_submit(tmp_path, monkeypatch, capsys):
+    write_common_reports(tmp_path)
+    json_path = tmp_path / "cli" / "control.json"
+    markdown_path = tmp_path / "cli" / "control.md"
+    monkeypatch.setattr(final_submission_control, "ROOT", tmp_path)
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "final_submission_control.py",
+            "--json-out",
+            str(json_path),
+            "--markdown-out",
+            str(markdown_path),
+            "--strict-final",
+        ],
+    )
+
+    with pytest.raises(SystemExit) as exc:
+        final_submission_control.main()
+
+    assert exc.value.code == 2
+    output = json.loads(capsys.readouterr().out)
+    assert output["ok"] is False
+    assert output["control_health_ok"] is True
+    assert output["safe_to_submit"] is False
 
 
 def test_operator_commands_are_shell_safe_and_parseable():

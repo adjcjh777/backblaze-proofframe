@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-29T00:44:29Z",
+  "updated_at": "2026-06-29T01:02:30Z",
   "tasks": [
     {
       "id": "T001",
@@ -1036,6 +1036,24 @@
       "status": "done",
       "done_criteria": "Official Devpost event snapshot is refreshed from the live overview and rules pages, with submission still open and event requirements/judging criteria validated.",
       "notes": "Refreshed live official Devpost snapshot on 2026-06-29T00:44:06Z; observed participants increased from 369 to 372, deadline remains 2026-08-03T21:00:00Z, and validation remains ok."
+    },
+    {
+      "id": "T078",
+      "title": "Add final control health flag",
+      "phase": "P4 Submit",
+      "owner": "reviewer",
+      "status": "done",
+      "done_criteria": "Final submission control JSON exposes a top-level ok flag for report health while preserving safe_to_submit as the final Devpost submission gate.",
+      "notes": "Added final_submission_control ok semantics, markdown display, and tests so pre-live control reports are machine-readable as healthy without being final-submit-ready."
+    },
+    {
+      "id": "T079",
+      "title": "Clarify final control health semantics",
+      "phase": "P4 Submit",
+      "owner": "reviewer",
+      "status": "done",
+      "done_criteria": "Final submission control exposes explicit control_health_ok semantics and CLI-level tests prove non-strict health does not bypass strict final submit gates.",
+      "notes": "Added control_health_ok alias, clarified markdown output, and covered non-strict vs strict-final CLI behavior after reviewer pass."
     }
   ]
 }

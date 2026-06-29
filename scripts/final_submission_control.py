@@ -54,6 +54,18 @@ OPERATOR_COMMANDS = [
     "python scripts/submission_bundle.py --strict-final",
 ]
 
+CONTROL_HEALTH_REQUIREMENT_IDS = {
+    "devpost_registration",
+    "public_mock_demo",
+    "official_event_snapshot",
+    "agent_handoff",
+    "public_space_sync",
+    "final_launch_plan",
+    "recording_assets",
+    "source_report_schemas",
+    "award_readiness",
+}
+
 
 def utc_now() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
@@ -573,10 +585,15 @@ def build_control_report(root: Path = ROOT) -> dict[str, Any]:
         devpost_receipt=devpost_receipt,
     )
     ready = all(item["ok"] for item in requirements)
+    control_ok = all(
+        item["ok"] for item in requirements if item["id"] in CONTROL_HEALTH_REQUIREMENT_IDS
+    )
     warnings = build_warnings(agent_handoff)
     return {
         "schema": "proofframe.final_submission_control.v1",
         "created_at": utc_now(),
+        "ok": control_ok,
+        "control_health_ok": control_ok,
         "mode": "final_submit_ready" if ready else "pre_live_control",
         "safe_to_submit": ready,
         "event": event_snapshot["event"],
@@ -630,6 +647,7 @@ def render_markdown(report: dict[str, Any]) -> str:
         "# ProofFrame Final Submission Control",
         "",
         f"Mode: `{report['mode']}`",
+        f"Control health OK: `{str(report['control_health_ok']).lower()}`",
         f"Safe to submit: `{str(report['safe_to_submit']).lower()}`",
         f"Created: `{report['created_at']}`",
         f"Public demo: {report['public_demo_url']}",
@@ -715,7 +733,8 @@ def main() -> None:
     print(
         json.dumps(
             {
-                "ok": report["safe_to_submit"] if args.strict_final else True,
+                "ok": report["safe_to_submit"] if args.strict_final else report["ok"],
+                "control_health_ok": report["control_health_ok"],
                 "mode": report["mode"],
                 "safe_to_submit": report["safe_to_submit"],
                 "json": str(args.json_out),
