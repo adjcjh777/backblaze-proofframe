@@ -276,12 +276,15 @@ python scripts/devpost_submission_checklist.py --strict-final
 python scripts/judge_brief.py
 python scripts/judge_crosswalk.py
 python scripts/judge_decision_brief.py
-python scripts/submission_bundle.py
 python scripts/final_operator_brief.py
 python scripts/final_launch_plan.py
-python scripts/final_submission_control.py --strict-final
-python scripts/final_closeout_status.py --strict-final
-python scripts/submission_audit.py --strict-final
+python scripts/submission_bundle.py
+python scripts/submission_audit.py
+python scripts/final_submission_control.py
+python scripts/final_closeout_status.py
+
+# Submit in Devpost only after the web checklist is green and the real video URL is accepted.
+
 # After Devpost accepts the project:
 export PROOFFRAME_DEVPOST_PROJECT_URL="https://devpost.com/software/..."
 export PROOFFRAME_DEVPOST_SUBMITTED_AT="2026-08-03T21:00:00Z"
@@ -289,6 +292,17 @@ python scripts/devpost_submission_receipt.py \
   --project-url "$PROOFFRAME_DEVPOST_PROJECT_URL" \
   --submitted-at "$PROOFFRAME_DEVPOST_SUBMITTED_AT" \
   --confirmation-note "Devpost accepted/submitted the ProofFrame project."
+python scripts/task.py done T042 --note "Devpost accepted/submitted the ProofFrame project and receipt report was captured."
+python scripts/secret_scan.py
+python scripts/task.py done T041A --note "Final post-receipt secret scan is clear."
+python scripts/submission_audit.py --strict-final
+python scripts/task.py done T041 --note "Final post-receipt submission audit passed."
+python scripts/judge_decision_brief.py
+python scripts/final_video_publish_kit.py
+python scripts/final_submission_control.py --strict-final
+python scripts/devpost_submission_preview.py
+python scripts/final_closeout_status.py --strict-final
+python scripts/submission_bundle.py --strict-final
 python scripts/task.py list --status doing
 python scripts/task.py list --status blocked
 python scripts/task.py list --status todo

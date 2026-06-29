@@ -59,6 +59,14 @@ LINKS = [
         "Top-level control health, safe_to_submit, and remaining blockers.",
     ),
     (
+        "final_closeout_status",
+        "Final closeout status",
+        "gate",
+        None,
+        "docs/assets/final-closeout-status.md",
+        "One-page no-secret closeout state, next command, and final blocker ledger.",
+    ),
+    (
         "devpost_preview",
         "Devpost submission preview",
         "submission",
@@ -160,6 +168,7 @@ SECTION_LINKS = {
     "start_here": ["public_demo", "judge_brief", "judge_crosswalk", "judge_decision_brief"],
     "submission_controls": [
         "final_submission_control",
+        "final_closeout_status",
         "devpost_preview",
         "submission_checklist",
         "submission_bundle",

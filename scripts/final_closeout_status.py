@@ -86,6 +86,9 @@ def report_status(root: Path, report_id: str, relative_path: str, schema: str) -
         "safe_to_submit": report.get("safe_to_submit"),
         "safe_to_share": report.get("safe_to_share"),
         "control_health_ok": report.get("control_health_ok"),
+        "submission_gate_ok": (report.get("submission_gate") or {}).get("ok"),
+        "submission_gate_mode": (report.get("submission_gate") or {}).get("mode"),
+        "closeout_gate_status": (report.get("closeout_gate") or {}).get("status"),
         "ready_for_live_proof": report.get("ready_for_live_proof"),
         "final_video_ready": report.get("final_video_ready"),
         "final_form_ready": report.get("final_form_ready"),
@@ -106,6 +109,24 @@ def evidence_ok(report: dict[str, Any], *, expected_mode: str | None = None) -> 
     if expected_mode is not None and report.get("mode") != expected_mode:
         return False
     return True
+
+
+def credential_handoff_ready(report: dict[str, Any]) -> bool:
+    if not (report["present"] and report["schema_ok"]):
+        return False
+    if report.get("ready_for_live_proof") is True:
+        return True
+    return bool(report.get("ok") is True and report.get("mode") == "live_env_ready")
+
+
+def submission_bundle_inputs_ready(report: dict[str, Any]) -> bool:
+    return bool(
+        report["present"]
+        and report["schema_ok"]
+        and report.get("safe_to_share") is True
+        and report.get("missing_artifacts") == []
+        and report.get("submission_gate_ok") is True
+    )
 
 
 def first_failed(gates: list[dict[str, Any]]) -> dict[str, Any] | None:
@@ -160,21 +181,21 @@ def build_report(root: Path = ROOT) -> dict[str, Any]:
         gate_item(
             "credential_handoff",
             "Live credential handoff is ready",
-            bool(credential_handoff.get("ready_for_live_proof") is True),
+            credential_handoff_ready(credential_handoff),
             f"Credential handoff mode is {credential_handoff.get('mode')}.",
             credential_handoff["path"],
         ),
         gate_item(
             "b2_live_proof",
             "Backblaze B2 live proof is captured",
-            evidence_ok(b2_evidence),
+            bool(evidence_ok(b2_evidence) and statuses.get("T020") == "done"),
             f"T020 is {statuses.get('T020', 'missing')}; evidence present is {b2_evidence['present']}.",
             b2_evidence["path"],
         ),
         gate_item(
             "genblaze_live_proof",
             "Genblaze live proof is captured",
-            evidence_ok(final_evidence),
+            bool(evidence_ok(final_evidence) and statuses.get("T021") == "done"),
             f"T021 is {statuses.get('T021', 'missing')}; final evidence present is {final_evidence['present']}.",
             final_evidence["path"],
         ),
@@ -218,9 +239,13 @@ def build_report(root: Path = ROOT) -> dict[str, Any]:
         ),
         gate_item(
             "final_bundle",
-            "Final submission bundle is safe to submit",
-            bool(submission_bundle.get("safe_to_submit") is True),
-            f"Bundle safe_to_submit is {submission_bundle.get('safe_to_submit')}.",
+            "Final submission bundle inputs are ready",
+            submission_bundle_inputs_ready(submission_bundle),
+            (
+                f"Bundle safe_to_share is {submission_bundle.get('safe_to_share')}; "
+                f"submission_gate_ok is {submission_bundle.get('submission_gate_ok')}; "
+                f"missing_artifacts is {submission_bundle.get('missing_artifacts')}."
+            ),
             submission_bundle["path"],
         ),
         gate_item(

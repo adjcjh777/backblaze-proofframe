@@ -81,6 +81,9 @@ REQUIRED_BUNDLE_ARTIFACT_IDS = {
     "judge_decision_brief_script",
     "judge_evidence_index_json",
     "judge_evidence_index_script",
+    "final_closeout_status_json",
+    "final_closeout_status_md",
+    "final_closeout_status_script",
     "final_video_publish_kit_json",
     "final_video_publish_kit_script",
     "final_submission_control_json",
@@ -333,6 +336,7 @@ def build_report(
     judge_crosswalk_url = raw_file_url(space_id, "docs/assets/judge-crosswalk.json")
     judge_decision_brief_url = raw_file_url(space_id, "docs/assets/judge-decision-brief.json")
     judge_evidence_index_url = raw_file_url(space_id, "docs/assets/judge-evidence-index.json")
+    final_closeout_status_url = raw_file_url(space_id, "docs/assets/final-closeout-status.json")
     video_publish_kit_url = raw_file_url(space_id, "docs/assets/final-video-publish-kit.json")
     recording_assets_url = raw_file_url(space_id, "docs/assets/recording-assets.json")
     public_demo_screenshot_url = raw_file_url(space_id, "docs/assets/public-demo-screenshot-report.json")
@@ -360,6 +364,7 @@ def build_report(
     judge_crosswalk_result = fetcher(judge_crosswalk_url, TIMEOUT_SECONDS)
     judge_decision_brief_result = fetcher(judge_decision_brief_url, TIMEOUT_SECONDS)
     judge_evidence_index_result = fetcher(judge_evidence_index_url, TIMEOUT_SECONDS)
+    final_closeout_status_result = fetcher(final_closeout_status_url, TIMEOUT_SECONDS)
     video_publish_kit_result = fetcher(video_publish_kit_url, TIMEOUT_SECONDS)
     recording_assets_result = fetcher(recording_assets_url, TIMEOUT_SECONDS)
     public_demo_screenshot_result = fetcher(public_demo_screenshot_url, TIMEOUT_SECONDS)
@@ -387,6 +392,7 @@ def build_report(
     judge_crosswalk = parse_json(judge_crosswalk_result)
     judge_decision_brief = parse_json(judge_decision_brief_result)
     judge_evidence_index = parse_json(judge_evidence_index_result)
+    final_closeout_status = parse_json(final_closeout_status_result)
     video_publish_kit = parse_json(video_publish_kit_result)
     recording_assets = parse_json(recording_assets_result)
     public_demo_screenshot = parse_json(public_demo_screenshot_result)
@@ -741,12 +747,49 @@ def build_report(
         and judge_evidence_index.get("mode") == "pre_live_evidence_index_ready"
         and len(judge_evidence_index_links) >= 10
         and len(judge_evidence_index_sections) >= 5
-        and {"public_demo", "judge_brief", "judge_crosswalk", "judge_decision_brief", "final_submission_control"}
+        and {
+            "public_demo",
+            "judge_brief",
+            "judge_crosswalk",
+            "judge_decision_brief",
+            "final_submission_control",
+            "final_closeout_status",
+        }
         <= judge_evidence_index_link_ids
         and "b2_live_proof" in judge_evidence_index_blockers
         and "genblaze_live_proof" in judge_evidence_index_blockers
         and "does not claim completed B2 or Genblaze live proof"
         in str(judge_evidence_index.get("claim_boundary") or "")
+    )
+    final_closeout_status_gates = dict_list_field(final_closeout_status, "gates")
+    final_closeout_status_gate_ids = {
+        str(gate.get("id")) for gate in final_closeout_status_gates if isinstance(gate.get("id"), str)
+    }
+    final_closeout_secret_policy = str(
+        final_closeout_status.get("secret_policy") if final_closeout_status else ""
+    ).lower()
+    final_closeout_secret_policy_ok = all(
+        term in final_closeout_secret_policy
+        for term in {
+            "never stores",
+            "backblaze keys",
+            "genblaze/gmi keys",
+            "devpost cookies",
+            "signed urls",
+        }
+    )
+    final_closeout_status_ok = bool(
+        final_closeout_status_result.get("ok")
+        and final_closeout_status
+        and final_closeout_status.get("schema") == "proofframe.final_closeout_status.v1"
+        and final_closeout_status.get("ok") is True
+        and final_closeout_status.get("closeout_health_ok") is True
+        and final_closeout_status.get("safe_to_submit") is False
+        and final_closeout_status.get("mode") in {"waiting_for_credentials", "closeout_blocked"}
+        and final_closeout_status.get("next_command")
+        and {"b2_live_proof", "genblaze_live_proof", "public_video", "devpost_receipt", "final_control"}
+        <= final_closeout_status_gate_ids
+        and final_closeout_secret_policy_ok
     )
     video_publish_upload_checks = dict_list_field(video_publish_kit, "upload_checklist")
     video_publish_upload_check_ids = {
@@ -955,6 +998,18 @@ def build_report(
                 f"links={len(judge_evidence_index_links)}; blockers={len(judge_evidence_index_blockers)}."
             ),
             judge_evidence_index_url,
+        ),
+        check_item(
+            "raw_final_closeout_status",
+            "Raw final closeout status is public and fail-closed",
+            final_closeout_status_ok,
+            (
+                f"Closeout schema is {final_closeout_status.get('schema') if final_closeout_status else None}; "
+                f"mode is {final_closeout_status.get('mode') if final_closeout_status else None}; "
+                f"safe_to_submit is {final_closeout_status.get('safe_to_submit') if final_closeout_status else None}; "
+                f"gates={len(final_closeout_status_gates)}."
+            ),
+            final_closeout_status_url,
         ),
         check_item(
             "raw_video_publish_kit",
@@ -1335,6 +1390,15 @@ def build_report(
                 "section_count": len(judge_evidence_index_sections),
                 "blocker_count": len(judge_evidence_index_blockers),
             },
+            "final_closeout_status": {
+                "schema": final_closeout_status.get("schema") if final_closeout_status else None,
+                "mode": final_closeout_status.get("mode") if final_closeout_status else None,
+                "closeout_health_ok": (
+                    final_closeout_status.get("closeout_health_ok") if final_closeout_status else None
+                ),
+                "safe_to_submit": final_closeout_status.get("safe_to_submit") if final_closeout_status else None,
+                "gate_count": len(final_closeout_status_gates),
+            },
             "video_publish_kit": {
                 "schema": video_publish_kit.get("schema") if video_publish_kit else None,
                 "mode": video_publish_kit.get("mode") if video_publish_kit else None,
@@ -1409,6 +1473,7 @@ def build_report(
             "raw_judge_crosswalk": judge_crosswalk_url,
             "raw_judge_decision_brief": judge_decision_brief_url,
             "raw_judge_evidence_index": judge_evidence_index_url,
+            "raw_final_closeout_status": final_closeout_status_url,
             "raw_video_publish_kit": video_publish_kit_url,
             "raw_public_demo_screenshot": public_demo_screenshot_url,
             "raw_demo_video_draft": demo_video_draft_url,
@@ -1451,6 +1516,8 @@ def next_actions(checks: list[dict[str, Any]]) -> list[str]:
         actions.append("Regenerate and upload docs/assets/judge-decision-brief.json to the Space.")
     if "raw_judge_evidence_index" in failed:
         actions.append("Regenerate and upload docs/assets/judge-evidence-index.json to the Space.")
+    if "raw_final_closeout_status" in failed:
+        actions.append("Regenerate and upload docs/assets/final-closeout-status.json to the Space.")
     if "raw_video_publish_kit" in failed:
         actions.append("Regenerate and upload docs/assets/final-video-publish-kit.json to the Space.")
     if "raw_recording_assets" in failed:

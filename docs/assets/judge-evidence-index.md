@@ -3,7 +3,7 @@
 Mode: `pre_live_evidence_index_ready`
 OK: `true`
 Safe to submit: `false`
-Created: `2026-06-29T12:10:58Z`
+Created: `2026-06-29T13:53:29Z`
 Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 Repository: https://github.com/adjcjh777/backblaze-proofframe
 
@@ -26,6 +26,7 @@ Repository: https://github.com/adjcjh777/backblaze-proofframe
 ### Submission Controls
 
 - OK [Final submission control](https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/final-submission-control.md) - Top-level control health, safe_to_submit, and remaining blockers.
+- OK [Final closeout status](https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/final-closeout-status.md) - One-page no-secret closeout state, next command, and final blocker ledger.
 - OK [Devpost submission preview](https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/devpost-submission-preview.md) - Public-safe one-page Devpost field and evidence preview.
 - OK [Devpost submit checklist](https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/devpost-submission-checklist.md) - Field, video, proof, and final receipt gate.
 - OK [Submission bundle manifest](https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/submission-bundle-manifest.md) - Shareable artifact index and final bundle gate.

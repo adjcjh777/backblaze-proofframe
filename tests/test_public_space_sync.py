@@ -381,6 +381,7 @@ def valid_judge_evidence_index() -> dict:
             {"id": "judge_crosswalk", "present": True},
             {"id": "judge_decision_brief", "present": True},
             {"id": "final_submission_control", "present": True},
+            {"id": "final_closeout_status", "present": True},
             {"id": "devpost_preview", "present": True},
             {"id": "submission_checklist", "present": True},
             {"id": "submission_bundle", "present": True},
@@ -398,6 +399,31 @@ def valid_judge_evidence_index() -> dict:
         "claim_boundary": (
             "This index is public-safe evidence navigation. It does not claim completed B2 or "
             "Genblaze live proof until final_submission_control.safe_to_submit is true."
+        ),
+    }
+
+
+def valid_final_closeout_status() -> dict:
+    return {
+        "schema": "proofframe.final_closeout_status.v1",
+        "ok": True,
+        "mode": "waiting_for_credentials",
+        "phase": "credential_entry",
+        "safe_to_submit": False,
+        "closeout_health_ok": True,
+        "next_command": "python scripts/final_env_wizard.py --output .env.final.local --missing-only --force",
+        "gates": [
+            {"id": "report_inventory", "ok": True},
+            {"id": "credential_handoff", "ok": False},
+            {"id": "b2_live_proof", "ok": False},
+            {"id": "genblaze_live_proof", "ok": False},
+            {"id": "public_video", "ok": False},
+            {"id": "devpost_receipt", "ok": False},
+            {"id": "final_control", "ok": False},
+        ],
+        "secret_policy": (
+            "This closeout report stores only task statuses, report metadata, public URLs, and artifact paths; "
+            "it never stores Backblaze keys, Genblaze/GMI keys, Devpost cookies, browser sessions, or signed URLs."
         ),
     }
 
@@ -628,6 +654,13 @@ def fake_fetcher(url: str, timeout: int) -> dict:
             "ok": True,
             "status": 200,
             "body": json.dumps(valid_judge_evidence_index()),
+            "error": None,
+        }
+    if url.endswith("/docs/assets/final-closeout-status.json"):
+        return {
+            "ok": True,
+            "status": 200,
+            "body": json.dumps(valid_final_closeout_status()),
             "error": None,
         }
     if url.endswith("/docs/assets/final-video-publish-kit.json"):
@@ -879,9 +912,16 @@ def test_public_space_sync_report_passes_when_space_is_current():
         "mode": "pre_live_evidence_index_ready",
         "safe_to_share": True,
         "safe_to_submit": False,
-        "link_count": 11,
+        "link_count": 12,
         "section_count": 5,
         "blocker_count": 3,
+    }
+    assert report["observed"]["final_closeout_status"] == {
+        "schema": "proofframe.final_closeout_status.v1",
+        "mode": "waiting_for_credentials",
+        "closeout_health_ok": True,
+        "safe_to_submit": False,
+        "gate_count": 7,
     }
     assert report["observed"]["video_publish_kit"] == {
         "schema": "proofframe.final_video_publish_kit.v1",
@@ -937,6 +977,14 @@ def test_public_space_sync_required_bundle_artifacts_include_docker_smoke():
         "dockerignore",
         "docker_smoke_json",
         "docker_smoke_script",
+    } <= public_space_sync.REQUIRED_BUNDLE_ARTIFACT_IDS
+
+
+def test_public_space_sync_required_bundle_artifacts_include_final_closeout_status():
+    assert {
+        "final_closeout_status_json",
+        "final_closeout_status_md",
+        "final_closeout_status_script",
     } <= public_space_sync.REQUIRED_BUNDLE_ARTIFACT_IDS
 
 
@@ -1323,6 +1371,27 @@ def test_public_space_sync_fails_on_unsafe_judge_evidence_index():
     assert "raw_judge_evidence_index" in failed
     assert (
         "Regenerate and upload docs/assets/judge-evidence-index.json to the Space."
+        in report["next_actions"]
+    )
+
+
+def test_public_space_sync_fails_on_unsafe_final_closeout_status():
+    def broken_fetcher(url: str, timeout: int) -> dict:
+        result = fake_fetcher(url, timeout)
+        if url.endswith("/docs/assets/final-closeout-status.json"):
+            closeout = valid_final_closeout_status()
+            closeout["safe_to_submit"] = True
+            closeout["mode"] = "final_closeout_ready"
+            result = {**result, "body": json.dumps(closeout)}
+        return result
+
+    report = public_space_sync.build_report(expected_sha=EXPECTED_SHA, fetcher=broken_fetcher)
+
+    failed = {item["id"] for item in report["checks"] if not item["ok"]}
+    assert report["ok"] is False
+    assert "raw_final_closeout_status" in failed
+    assert (
+        "Regenerate and upload docs/assets/final-closeout-status.json to the Space."
         in report["next_actions"]
     )
 

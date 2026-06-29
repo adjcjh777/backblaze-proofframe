@@ -112,6 +112,9 @@ def test_judge_evidence_index_is_public_safe_and_fail_closed(tmp_path):
     assert index["task_statuses"]["T020"] == "doing"
     assert {section["id"] for section in index["sections"]} == set(judge_evidence_index.SECTION_LINKS)
     assert all(link["present"] for link in index["links"])
+    assert "final_closeout_status" in {link["id"] for link in index["links"]}
+    submission_controls = next(section for section in index["sections"] if section["id"] == "submission_controls")
+    assert "final_closeout_status" in submission_controls["links"]
     assert all(not str(link.get("path") or "").startswith("/") for link in index["links"])
     assert all("huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main" in link["raw_url"] for link in index["links"] if link.get("path"))
     assert "does not claim completed B2 or Genblaze live proof" in index["claim_boundary"]

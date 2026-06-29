@@ -44,3 +44,5 @@ python3 scripts/task.py doing T020 --note "Live B2 proof in progress"
 | T085 | No-secret Genblaze/B2 SDK contract check added to CI, reports, submission bundle, and public sync required artifacts. |
 | T086 | Docker build/run/API smoke report added with `.dockerignore` protection for local env files and submission checklist evidence. |
 | T087 | Final closeout status report added so live proof, public video, Devpost, receipt, audit, bundle, and next command are visible in one no-secret gate. |
+| T088 | Final closeout status exposed in judge evidence index and raw public Space sync validation as a fail-closed public blocker ledger. |
+| T089 | Review findings hardened: real live credential handoff output, T020/T021 done checks, public raw closeout validation, and strict bundle closeout freshness are covered. |

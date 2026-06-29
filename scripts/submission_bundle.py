@@ -31,6 +31,12 @@ CLOSEOUT_REPORTS = [
         "ready_fields": {"safe_to_submit": True, "mode": "final_submit_ready"},
     },
     {
+        "id": "final_closeout_status_after_receipt",
+        "path": "docs/assets/final-closeout-status.json",
+        "schema": "proofframe.final_closeout_status.v1",
+        "ready_fields": {"ok": True, "safe_to_submit": True, "mode": "final_closeout_ready"},
+    },
+    {
         "id": "final_video_publish_kit_after_receipt",
         "path": "docs/assets/final-video-publish-kit.json",
         "schema": "proofframe.final_video_publish_kit.v1",

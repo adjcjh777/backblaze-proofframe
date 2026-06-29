@@ -9,6 +9,12 @@ final_closeout_status = importlib.util.module_from_spec(SPEC)
 assert SPEC.loader is not None
 SPEC.loader.exec_module(final_closeout_status)
 
+LIVE_ENV_SCRIPT_PATH = Path(__file__).resolve().parents[1] / "scripts" / "live_env_handoff.py"
+LIVE_ENV_SPEC = importlib.util.spec_from_file_location("live_env_handoff", LIVE_ENV_SCRIPT_PATH)
+live_env_handoff = importlib.util.module_from_spec(LIVE_ENV_SPEC)
+assert LIVE_ENV_SPEC.loader is not None
+LIVE_ENV_SPEC.loader.exec_module(live_env_handoff)
+
 
 def write_json(root: Path, relative_path: str, payload: dict) -> None:
     path = root / relative_path
@@ -44,14 +50,26 @@ def write_common_reports(root: Path, *, final_ready: bool = False) -> None:
             "safe_to_submit": final_ready,
         },
     )
+    env_file = root / ".env.test"
+    env_file.write_text(
+        "\n".join(
+            [
+                "PROOFFRAME_STORAGE_BACKEND=b2" if final_ready else "PROOFFRAME_STORAGE_BACKEND=local",
+                "PROOFFRAME_GENERATION_BACKEND=genblaze" if final_ready else "PROOFFRAME_GENERATION_BACKEND=mock",
+                "B2_ENDPOINT_URL=https://s3.us-west-004.backblazeb2.com" if final_ready else "",
+                "B2_BUCKET=proofframe-test" if final_ready else "",
+                "B2_KEY_ID=fixture" if final_ready else "",
+                "B2_APPLICATION_KEY=fixture" if final_ready else "",
+                "GENBLAZE_API_KEY=fixture" if final_ready else "",
+                "GENBLAZE_IMAGE_MODEL=test-image-model" if final_ready else "",
+            ]
+        ),
+        encoding="utf-8",
+    )
     write_json(
         root,
         "docs/assets/live-credential-handoff.json",
-        {
-            "schema": "proofframe.live_credential_handoff.v1",
-            "mode": "ready_for_live_proof" if final_ready else "missing_live_env",
-            "ready_for_live_proof": final_ready,
-        },
+        live_env_handoff.build_report(env_file),
     )
     write_json(
         root,
@@ -125,7 +143,8 @@ def write_common_reports(root: Path, *, final_ready: bool = False) -> None:
         {
             "schema": "proofframe.submission_bundle.v1",
             "safe_to_share": True,
-            "safe_to_submit": final_ready,
+            "safe_to_submit": False,
+            "submission_gate": {"ok": final_ready, "mode": "final_ready" if final_ready else "pre_live_safe"},
             "missing_artifacts": [],
         },
     )
@@ -170,6 +189,37 @@ def test_closeout_status_can_be_final_ready(tmp_path):
     assert report["safe_to_submit"] is True
     assert report["mode"] == "final_closeout_ready"
     assert all(gate["ok"] for gate in report["gates"])
+    credential_report = report["reports"]["credential_handoff"]
+    raw_credential_report = json.loads(
+        (tmp_path / "docs/assets/live-credential-handoff.json").read_text(encoding="utf-8")
+    )
+    assert credential_report["mode"] == "live_env_ready"
+    assert credential_report["ready_for_live_proof"] is None
+    assert "ready_for_live_proof" not in raw_credential_report
+
+
+def test_closeout_status_requires_live_tasks_done_even_when_evidence_exists(tmp_path):
+    write_common_reports(tmp_path, final_ready=True)
+    write_tasks(tmp_path, final_ready=False)
+
+    report = final_closeout_status.build_report(root=tmp_path)
+
+    assert report["safe_to_submit"] is False
+    gates = {gate["id"]: gate for gate in report["gates"]}
+    assert gates["b2_live_proof"]["ok"] is False
+    assert gates["genblaze_live_proof"]["ok"] is False
+    assert "T020 is doing" in gates["b2_live_proof"]["detail"]
+    assert "T021 is doing" in gates["genblaze_live_proof"]["detail"]
+
+
+def test_closeout_status_uses_bundle_inputs_not_bundle_safe_to_submit(tmp_path):
+    write_common_reports(tmp_path, final_ready=True)
+
+    report = final_closeout_status.build_report(root=tmp_path)
+
+    gates = {gate["id"]: gate for gate in report["gates"]}
+    assert gates["final_bundle"]["ok"] is True
+    assert report["safe_to_submit"] is True
 
 
 def test_closeout_status_reports_missing_control_reports(tmp_path):

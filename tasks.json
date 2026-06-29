@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-29T13:33:42Z",
+  "updated_at": "2026-06-29T13:53:00Z",
   "tasks": [
     {
       "id": "T001",
@@ -163,6 +163,24 @@
       "status": "done",
       "done_criteria": "",
       "notes": "Added final_closeout_status.py, report outputs, CI step, submission bundle coverage, and evidence/verification docs so final proof/video/Devpost/receipt gates are visible in one no-secret closeout report."
+    },
+    {
+      "id": "T088",
+      "title": "Expose final closeout status in public evidence",
+      "phase": "P4 Submit",
+      "owner": "reviewer",
+      "status": "done",
+      "done_criteria": "",
+      "notes": "Added final closeout status to the public judge evidence index and public Space sync validation so the no-secret final blocker ledger is publicly visible and fail-closed."
+    },
+    {
+      "id": "T089",
+      "title": "Harden final closeout review findings",
+      "phase": "P4 Submit",
+      "owner": "reviewer",
+      "status": "done",
+      "done_criteria": "",
+      "notes": "Addressed read-only review findings: final_closeout_status accepts real live_env_handoff output, directly requires T020/T021 done with live evidence, public sync/evidence index verify raw closeout status, and submission_bundle strict closeout now requires a fresh final closeout report without circular gating."
     },
     {
       "id": "T030",

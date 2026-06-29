@@ -210,6 +210,20 @@ def write_final_gate_fixtures(root: Path, *, closeout_created_at: str = "2026-08
     )
     write_fixture_file(
         root,
+        "docs/assets/final-closeout-status.json",
+        json.dumps(
+            {
+                "schema": "proofframe.final_closeout_status.v1",
+                "created_at": closeout_created_at,
+                "mode": "final_closeout_ready",
+                "ok": True,
+                "safe_to_submit": True,
+                "closeout_health_ok": True,
+            }
+        ),
+    )
+    write_fixture_file(
+        root,
         "docs/assets/final-video-publish-kit.json",
         json.dumps(
             {
@@ -337,6 +351,25 @@ def test_submission_bundle_requires_post_receipt_closeout_reports(tmp_path):
     report_ids = {report["id"] for report in manifest["closeout_gate"]["reports"]}
     assert "final_video_publish_kit_after_receipt" in report_ids
     assert "judge_decision_brief_after_receipt" in report_ids
+    assert "final_closeout_status_after_receipt" in report_ids
+
+
+def test_submission_bundle_requires_final_closeout_status_report(tmp_path):
+    write_final_gate_fixtures(tmp_path)
+    (tmp_path / "docs/assets/final-closeout-status.json").unlink()
+
+    manifest = submission_bundle.build_manifest(tmp_path)
+
+    assert manifest["submission_gate"]["ok"] is True
+    assert manifest["closeout_gate"]["ok"] is False
+    assert manifest["safe_to_submit"] is False
+    closeout_report = next(
+        report
+        for report in manifest["closeout_gate"]["reports"]
+        if report["id"] == "final_closeout_status_after_receipt"
+    )
+    assert closeout_report["present"] is False
+    assert "missing" in closeout_report["findings"][0]
 
 
 def test_submission_bundle_blocks_stale_closeout_reports(tmp_path):

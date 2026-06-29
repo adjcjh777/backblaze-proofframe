@@ -22,7 +22,7 @@ This closeout report stores only task statuses, report metadata, public URLs, an
 | BLOCKED | `final_secret_scan` | T041A is todo; secret scan mode is clear. | `docs/assets/secret-scan-report.json` |
 | BLOCKED | `final_submission_audit` | T041 is todo; audit mode is pre_submit_audit_blocked. | `docs/assets/submission-audit-report.json` |
 | BLOCKED | `devpost_receipt` | T042 is todo; receipt mode is pending_submission. | `docs/assets/devpost-submission-receipt.json` |
-| BLOCKED | `final_bundle` | Bundle safe_to_submit is False. | `docs/assets/submission-bundle-manifest.json` |
+| BLOCKED | `final_bundle` | Bundle safe_to_share is True; submission_gate_ok is False; missing_artifacts is []. | `docs/assets/submission-bundle-manifest.json` |
 | BLOCKED | `final_control` | Final control mode is pre_live_control; safe_to_submit is False. | `docs/assets/final-submission-control.json` |
 
 ## Task Statuses
