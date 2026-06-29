@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-29T00:31:20Z",
+  "updated_at": "2026-06-29T00:38:07Z",
   "tasks": [
     {
       "id": "T001",
@@ -1018,6 +1018,15 @@
       "status": "done",
       "done_criteria": "public_space_sync fails closed unless the public Hugging Face Space exposes docs/assets/public-video-check.json with the official YouTube/Vimeo/Youku host gate and safe pre-live video status.",
       "notes": "Added raw public-video-check validation to public_space_sync.py, observed report output, and failure tests so the official public video host gate is checked by CI and public Space sync."
+    },
+    {
+      "id": "T076",
+      "title": "Upgrade CI Node runtime actions",
+      "phase": "P4 Submit",
+      "owner": "tester",
+      "status": "done",
+      "done_criteria": "GitHub Actions workflow uses current Node-24-compatible checkout/setup-python action majors so CI does not emit the Node 20 deprecation annotation.",
+      "notes": "Updated actions/checkout from v4 to v7 and actions/setup-python from v5 to v6 after verifying latest official GitHub action releases via gh api."
     }
   ]
 }
