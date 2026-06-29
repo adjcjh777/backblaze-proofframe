@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.devpost_submission_preview.v1",
-  "created_at": "2026-06-29T11:54:20Z",
+  "created_at": "2026-06-29T12:28:18Z",
   "mode": "pre_live_preview_ready",
   "ok": true,
   "safe_to_share": true,
@@ -68,7 +68,7 @@
       {
         "id": "credential_handoff",
         "label": "Live credential handoff is ready",
-        "detail": "Credential handoff mode is missing_live_env; missing ids: b2_key_id, b2_application_key, genblaze_api_key.",
+        "detail": "Credential handoff mode is missing_live_env; missing ids: storage_backend_mode, generation_backend_mode, b2_endpoint, b2_bucket, b2_key_id, b2_application_key, genblaze_api_key, genblaze_image_model.",
         "evidence": "docs/assets/live-credential-handoff.json"
       },
       {

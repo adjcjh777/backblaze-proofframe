@@ -1,0 +1,148 @@
+{
+  "schema": "proofframe.genblaze_contract_check.v1",
+  "created_at": "2026-06-29T12:22:25Z",
+  "ok": true,
+  "mode": "sdk_contract_ready",
+  "package_versions": {
+    "genblaze_core": "0.3.4",
+    "genblaze_gmicloud": "0.3.2",
+    "genblaze_s3": "0.3.4"
+  },
+  "checks": [
+    {
+      "id": "genblaze_core_import",
+      "label": "genblaze_core import",
+      "ok": true,
+      "detail": "genblaze_core is importable.",
+      "remediation": ""
+    },
+    {
+      "id": "genblaze_core_KeyStrategy",
+      "label": "genblaze_core.KeyStrategy symbol",
+      "ok": true,
+      "detail": "genblaze_core.KeyStrategy is present.",
+      "remediation": ""
+    },
+    {
+      "id": "genblaze_core_Modality",
+      "label": "genblaze_core.Modality symbol",
+      "ok": true,
+      "detail": "genblaze_core.Modality is present.",
+      "remediation": ""
+    },
+    {
+      "id": "genblaze_core_ObjectStorageSink",
+      "label": "genblaze_core.ObjectStorageSink symbol",
+      "ok": true,
+      "detail": "genblaze_core.ObjectStorageSink is present.",
+      "remediation": ""
+    },
+    {
+      "id": "genblaze_core_Pipeline",
+      "label": "genblaze_core.Pipeline symbol",
+      "ok": true,
+      "detail": "genblaze_core.Pipeline is present.",
+      "remediation": ""
+    },
+    {
+      "id": "genblaze_gmicloud_import",
+      "label": "genblaze_gmicloud import",
+      "ok": true,
+      "detail": "genblaze_gmicloud is importable.",
+      "remediation": ""
+    },
+    {
+      "id": "genblaze_gmicloud_GMICloudImageProvider",
+      "label": "genblaze_gmicloud.GMICloudImageProvider symbol",
+      "ok": true,
+      "detail": "genblaze_gmicloud.GMICloudImageProvider is present.",
+      "remediation": ""
+    },
+    {
+      "id": "genblaze_s3_import",
+      "label": "genblaze_s3 import",
+      "ok": true,
+      "detail": "genblaze_s3 is importable.",
+      "remediation": ""
+    },
+    {
+      "id": "genblaze_s3_S3StorageBackend",
+      "label": "genblaze_s3.S3StorageBackend symbol",
+      "ok": true,
+      "detail": "genblaze_s3.S3StorageBackend is present.",
+      "remediation": ""
+    },
+    {
+      "id": "gmicloud_image_provider_ctor",
+      "label": "GMICloudImageProvider constructor accepts ProofFrame kwargs",
+      "ok": true,
+      "detail": "Required params: ['api_key', 'base_url', 'http_timeout']; observed params: ['api_key', 'base_url', 'http_client', 'http_timeout', 'models', 'poll_interval', 'probe_cache_max_entries', 'probe_cache_ttl', 'retry_policy'].",
+      "remediation": ""
+    },
+    {
+      "id": "pipeline_ctor",
+      "label": "Pipeline constructor accepts project_id",
+      "ok": true,
+      "detail": "Required params: ['project_id']; observed params: ['chain', 'max_concurrency', 'moderation', 'name', 'preflight', 'project_id', 'structured_log', 'tenant_id', 'tracer'].",
+      "remediation": ""
+    },
+    {
+      "id": "pipeline_methods_inspectable",
+      "label": "Pipeline exposes inspectable step/run methods",
+      "ok": true,
+      "detail": "Required methods: ['run', 'step']; observed: ['run', 'step'].",
+      "remediation": ""
+    },
+    {
+      "id": "pipeline_step_signature",
+      "label": "Pipeline.step accepts media generation params",
+      "ok": true,
+      "detail": "Required params: ['modality', 'model', 'prompt', 'provider']; observed params: ['expected_duration_sec', 'external_inputs', 'fallback_models', 'input_from', 'modality', 'model', 'params', 'prompt', 'provider', 'self', 'step_type'].",
+      "remediation": ""
+    },
+    {
+      "id": "pipeline_step_aspect_ratio",
+      "label": "Pipeline.step accepts aspect_ratio directly or through kwargs",
+      "ok": true,
+      "detail": "Pipeline.step must accept ProofFrame's aspect_ratio generation parameter directly or through **kwargs.",
+      "remediation": ""
+    },
+    {
+      "id": "pipeline_run_signature",
+      "label": "Pipeline.run accepts sink and live-proof controls",
+      "ok": true,
+      "detail": "Required params: ['max_retries', 'raise_on_failure', 'sink', 'timeout']; observed params: ['_config_override', '_owns_sink', 'fail_fast', 'max_retries', 'on_progress', 'on_retry', 'on_step_complete', 'pipeline_timeout', 'progress', 'raise_on_failure', 'self', 'sink', 'timeout'].",
+      "remediation": ""
+    },
+    {
+      "id": "s3_for_backblaze_signature",
+      "label": "S3StorageBackend.for_backblaze accepts B2 credential fields",
+      "ok": true,
+      "detail": "Required params: ['app_key', 'bucket', 'key_id', 'preflight', 'public_url_base', 'region']; observed params: ['app_key', 'auto_lifecycle', 'bucket', 'key_id', 'preflight', 'public_url_base', 'region'].",
+      "remediation": ""
+    },
+    {
+      "id": "object_storage_sink_signature",
+      "label": "ObjectStorageSink accepts ProofFrame sink settings",
+      "ok": true,
+      "detail": "Required params: ['backend', 'key_strategy', 'prefix']; observed params: ['allow_unverified_manifest_reads', 'asset_url_policy', 'backend', 'eager_transfer', 'key_strategy', 'legacy_index_tenant_id', 'manifest_lock', 'max_upload_workers', 'parquet_sink', 'pipelined_transfer', 'prefix', 'strict_manifest_reads'].",
+      "remediation": ""
+    },
+    {
+      "id": "s3_readback_methods",
+      "label": "S3 backend exposes private-bucket readback helpers",
+      "ok": true,
+      "detail": "Required methods: ['close', 'get', 'key_from_url']; observed: ['close', 'get', 'key_from_url'].",
+      "remediation": ""
+    },
+    {
+      "id": "key_strategy_hierarchical",
+      "label": "KeyStrategy.HIERARCHICAL is available",
+      "ok": true,
+      "detail": "KeyStrategy exposes HIERARCHICAL for per-campaign Genblaze B2 keys.",
+      "remediation": ""
+    }
+  ],
+  "failed_checks": [],
+  "secret_policy": "This report reads Python package metadata and callable signatures only. It does not read environment variables, credential files, provider responses, Backblaze keys, Genblaze/GMI keys, cookies, or signed URLs."
+}

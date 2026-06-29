@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.final_submission_control.v1",
-  "created_at": "2026-06-29T11:54:20Z",
+  "created_at": "2026-06-29T12:28:18Z",
   "ok": true,
   "control_health_ok": true,
   "mode": "pre_live_control",
@@ -175,7 +175,7 @@
       "path": "docs/assets/final-launch-plan.json",
       "schema_ok": true,
       "schema": "proofframe.final_launch_plan.v1",
-      "mode": "ready_for_credential_entry",
+      "mode": "blocked_at_credential_entry",
       "ok": false,
       "score": null,
       "max_score": null,
@@ -188,7 +188,7 @@
       "public_video_ready": null,
       "current_phase": "credential_entry",
       "next_command": "python scripts/final_env_wizard.py --output .env.final.local --missing-only --force",
-      "next_detail": "Only expected secret ids are missing; operator can enter them locally.",
+      "next_detail": "Credential handoff is missing unexpected setup values; regenerate .env.final.local prefill.",
       "bus_status": null,
       "active_role_cwd_ok": null
     },
@@ -340,9 +340,14 @@
       "mode": "missing_live_env",
       "ready": false,
       "missing_ids": [
+        "storage_backend_mode",
+        "generation_backend_mode",
+        "b2_endpoint",
+        "b2_bucket",
         "b2_key_id",
         "b2_application_key",
-        "genblaze_api_key"
+        "genblaze_api_key",
+        "genblaze_image_model"
       ],
       "secret_policy": "Report records only variable names and presence; credential values are never printed."
     },
@@ -438,7 +443,7 @@
       "id": "final_launch_plan",
       "label": "Final launch plan exposes the current operator step",
       "ok": true,
-      "detail": "Launch plan mode is ready_for_credential_entry; current phase is credential_entry; next command is python scripts/final_env_wizard.py --output .env.final.local --missing-only --force.",
+      "detail": "Launch plan mode is blocked_at_credential_entry; current phase is credential_entry; next command is python scripts/final_env_wizard.py --output .env.final.local --missing-only --force.",
       "evidence": "docs/assets/final-launch-plan.json"
     },
     {
@@ -473,7 +478,7 @@
       "id": "credential_handoff",
       "label": "Live credential handoff is ready",
       "ok": false,
-      "detail": "Credential handoff mode is missing_live_env; missing ids: b2_key_id, b2_application_key, genblaze_api_key.",
+      "detail": "Credential handoff mode is missing_live_env; missing ids: storage_backend_mode, generation_backend_mode, b2_endpoint, b2_bucket, b2_key_id, b2_application_key, genblaze_api_key, genblaze_image_model.",
       "evidence": "docs/assets/live-credential-handoff.json"
     },
     {
@@ -552,7 +557,7 @@
       "id": "credential_handoff",
       "label": "Live credential handoff is ready",
       "ok": false,
-      "detail": "Credential handoff mode is missing_live_env; missing ids: b2_key_id, b2_application_key, genblaze_api_key.",
+      "detail": "Credential handoff mode is missing_live_env; missing ids: storage_backend_mode, generation_backend_mode, b2_endpoint, b2_bucket, b2_key_id, b2_application_key, genblaze_api_key, genblaze_image_model.",
       "evidence": "docs/assets/live-credential-handoff.json"
     },
     {
@@ -638,10 +643,10 @@
     "python scripts/submission_bundle.py --strict-final"
   ],
   "launch_plan": {
-    "mode": "ready_for_credential_entry",
+    "mode": "blocked_at_credential_entry",
     "current_phase": "credential_entry",
     "next_command": "python scripts/final_env_wizard.py --output .env.final.local --missing-only --force",
-    "next_detail": "Only expected secret ids are missing; operator can enter them locally.",
+    "next_detail": "Credential handoff is missing unexpected setup values; regenerate .env.final.local prefill.",
     "path": "docs/assets/final-launch-plan.json"
   },
   "claim_boundary": "Public demo remains local/mock and pre_live_safe until final live B2 plus Genblaze proof is captured."

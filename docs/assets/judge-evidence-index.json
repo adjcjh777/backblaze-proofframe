@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.judge_evidence_index.v1",
-  "created_at": "2026-06-29T11:51:38Z",
+  "created_at": "2026-06-29T12:10:58Z",
   "ok": true,
   "mode": "pre_live_evidence_index_ready",
   "safe_to_share": true,
@@ -129,7 +129,7 @@
       "path": "docs/assets/submission-bundle-manifest.md",
       "raw_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/submission-bundle-manifest.md",
       "present": true,
-      "bytes": 14481
+      "bytes": 14880
     },
     {
       "id": "award_readiness",

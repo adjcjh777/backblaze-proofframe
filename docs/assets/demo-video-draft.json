@@ -14,7 +14,7 @@
       "title": "Judge-mode public demo",
       "seconds": 10,
       "present": true,
-      "bytes": 733931
+      "bytes": 741074
     },
     {
       "path": "docs/assets/proofframe-sponsor-model-smoke.png",
@@ -50,7 +50,7 @@
     "checked": true,
     "ok": true,
     "duration_seconds": 65.97,
-    "bytes": 746805,
+    "bytes": 747727,
     "width": 1280,
     "height": 720,
     "error": null

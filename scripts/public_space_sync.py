@@ -70,6 +70,8 @@ REQUIRED_BUNDLE_ARTIFACT_IDS = {
     "post_credential_live_proof_script",
     "b2_key_scope_checklist_json",
     "b2_key_scope_checklist_script",
+    "genblaze_contract_json",
+    "genblaze_contract_script",
     "judge_decision_brief_json",
     "judge_decision_brief_script",
     "judge_evidence_index_json",
@@ -303,6 +305,7 @@ def build_report(
     submit_checklist_url = raw_file_url(space_id, "docs/assets/devpost-submission-checklist.json")
     post_credential_plan_url = raw_file_url(space_id, "docs/assets/post-credential-live-proof-plan.json")
     submission_bundle_url = raw_file_url(space_id, "docs/assets/submission-bundle-manifest.json")
+    genblaze_contract_url = raw_file_url(space_id, "docs/assets/genblaze-contract-report.json")
     judge_url = public_url(public_host, "/?judge=1")
     health_url = public_url(public_host, "/api/health")
     gate_url = public_url(public_host, "/api/submission/gate")
@@ -328,6 +331,7 @@ def build_report(
     submit_checklist_result = fetcher(submit_checklist_url, TIMEOUT_SECONDS)
     post_credential_plan_result = fetcher(post_credential_plan_url, TIMEOUT_SECONDS)
     submission_bundle_result = fetcher(submission_bundle_url, TIMEOUT_SECONDS)
+    genblaze_contract_result = fetcher(genblaze_contract_url, TIMEOUT_SECONDS)
     judge_result = fetcher(judge_url, TIMEOUT_SECONDS)
     health_result = fetcher(health_url, TIMEOUT_SECONDS)
     gate_result = fetcher(gate_url, TIMEOUT_SECONDS)
@@ -352,6 +356,7 @@ def build_report(
     submit_checklist = parse_json(submit_checklist_result)
     post_credential_plan = parse_json(post_credential_plan_result)
     submission_bundle = parse_json(submission_bundle_result)
+    genblaze_contract = parse_json(genblaze_contract_result)
     health = parse_json(health_result)
     gate = parse_json(gate_result)
     html = str(judge_result.get("body") or "")
@@ -421,6 +426,19 @@ def build_report(
     submission_bundle_secret_scan = report_status(submission_bundle_reports, "secret_scan")
     submission_bundle_submission_audit = report_status(submission_bundle_reports, "submission_audit")
     submission_bundle_next_actions = list_field(submission_bundle_gate, "next_actions")
+    genblaze_contract_failed_checks = list_field(genblaze_contract, "failed_checks")
+    genblaze_contract_secret_policy = str(genblaze_contract.get("secret_policy") if genblaze_contract else "")
+    genblaze_contract_ok = bool(
+        genblaze_contract_result.get("ok")
+        and genblaze_contract
+        and genblaze_contract.get("schema") == "proofframe.genblaze_contract_check.v1"
+        and genblaze_contract.get("ok") is True
+        and genblaze_contract.get("mode") == "sdk_contract_ready"
+        and genblaze_contract_failed_checks == []
+        and "does not read environment variables" in genblaze_contract_secret_policy
+        and "Backblaze keys" in genblaze_contract_secret_policy
+        and "Genblaze/GMI keys" in genblaze_contract_secret_policy
+    )
     public_demo_screenshot_markers = dict_field(public_demo_screenshot, "markers")
     public_demo_screenshot_visible = dict_field(public_demo_screenshot_markers, "visible")
     public_demo_screenshot_html = dict_field(public_demo_screenshot_markers, "html")
@@ -787,7 +805,7 @@ def build_report(
                 launch_plan_result.get("ok")
                 and launch_plan
                 and launch_plan.get("schema") == "proofframe.final_launch_plan.v1"
-                and launch_plan.get("mode") == "ready_for_credential_entry"
+                and launch_plan.get("mode") in {"ready_for_credential_entry", "blocked_at_credential_entry"}
                 and launch_plan.get("current_phase") == "credential_entry"
             ),
             (
@@ -1076,6 +1094,17 @@ def build_report(
             submission_bundle_url,
         ),
         check_item(
+            "raw_genblaze_contract_report",
+            "Raw Genblaze SDK contract report is public and ready",
+            genblaze_contract_ok,
+            (
+                f"Contract schema is {genblaze_contract.get('schema') if genblaze_contract else None}; "
+                f"mode is {genblaze_contract.get('mode') if genblaze_contract else None}; "
+                f"failed_checks={len(genblaze_contract_failed_checks)}."
+            ),
+            genblaze_contract_url,
+        ),
+        check_item(
             "public_health",
             "Public demo health is local/mock and ready",
             bool(
@@ -1155,6 +1184,12 @@ def build_report(
             },
             "launch_plan_mode": launch_plan.get("mode") if launch_plan else None,
             "launch_plan_phase": launch_plan.get("current_phase") if launch_plan else None,
+            "genblaze_contract": {
+                "schema": genblaze_contract.get("schema") if genblaze_contract else None,
+                "mode": genblaze_contract.get("mode") if genblaze_contract else None,
+                "ok": genblaze_contract.get("ok") if genblaze_contract else None,
+                "failed_checks": len(genblaze_contract_failed_checks),
+            },
             "b2_key_scope_checklist": {
                 "schema": b2_key_scope_checklist.get("schema") if b2_key_scope_checklist else None,
                 "ok": b2_key_scope_checklist.get("ok") if b2_key_scope_checklist else None,
@@ -1299,6 +1334,7 @@ def build_report(
             "raw_submit_checklist": submit_checklist_url,
             "raw_post_credential_plan": post_credential_plan_url,
             "raw_submission_bundle": submission_bundle_url,
+            "raw_genblaze_contract_report": genblaze_contract_url,
             "judge": judge_url,
             "health": health_url,
             "submission_gate": gate_url,
@@ -1351,6 +1387,8 @@ def next_actions(checks: list[dict[str, Any]]) -> list[str]:
         actions.append("Regenerate and upload docs/assets/post-credential-live-proof-plan.json to the Space.")
     if "raw_submission_bundle" in failed:
         actions.append("Regenerate and upload docs/assets/submission-bundle-manifest.json to the Space.")
+    if "raw_genblaze_contract_report" in failed:
+        actions.append("Regenerate and upload docs/assets/genblaze-contract-report.json to the Space.")
     if "public_health" in failed or "submission_gate" in failed or "judge_html_markers" in failed:
         actions.append("Rebuild the public Space and rerun public API/HTML smoke checks.")
     if not actions:

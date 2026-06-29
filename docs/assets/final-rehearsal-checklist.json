@@ -1,8 +1,8 @@
 {
   "schema": "proofframe.final_rehearsal.v1",
-  "created_at": "2026-06-29T11:51:38Z",
-  "mode": "ready_for_credential_rehearsal",
-  "ok": true,
+  "created_at": "2026-06-29T12:24:34Z",
+  "mode": "needs_rehearsal_setup",
+  "ok": false,
   "safe_to_submit": false,
   "current_phase": "credential_entry",
   "next_command": "python scripts/final_env_wizard.py --output .env.final.local --missing-only --force",
@@ -17,26 +17,26 @@
   "preconditions": [
     {
       "id": "operator_ready",
-      "ok": true,
-      "detail": "Operator brief mode is credential_entry_ready.",
+      "ok": false,
+      "detail": "Operator brief mode is needs_operator_setup.",
       "evidence": "docs/assets/final-operator-brief.json"
     },
     {
       "id": "only_expected_secrets_missing",
-      "ok": true,
-      "detail": "Missing ids: b2_application_key, b2_key_id, genblaze_api_key.",
+      "ok": false,
+      "detail": "Missing ids: b2_application_key, b2_bucket, b2_endpoint, b2_key_id, genblaze_api_key, genblaze_image_model, generation_backend_mode, storage_backend_mode.",
       "evidence": "docs/assets/final-operator-brief.json"
     },
     {
       "id": "launch_plan_at_credential_entry",
-      "ok": true,
+      "ok": false,
       "detail": "Current phase is credential_entry.",
       "evidence": "docs/assets/final-launch-plan.json"
     },
     {
       "id": "public_space_synced",
       "ok": true,
-      "detail": "Runtime sha: 08b446091b0c20a6dec577480b9da0c722b400f2.",
+      "detail": "Runtime sha: bede079f15ce84da4aa8852d4c541fdaf7c3c524.",
       "evidence": "docs/assets/public-space-sync-report.json"
     },
     {
@@ -198,10 +198,10 @@
       "path": "docs/assets/final-operator-brief.json",
       "present": true,
       "schema_ok": true,
-      "mode": "credential_entry_ready",
+      "mode": "needs_operator_setup",
       "ok": null,
       "safe_to_submit": false,
-      "ready_for_secret_entry": true,
+      "ready_for_secret_entry": false,
       "current_phase": null,
       "next_command": null,
       "mock_form_ready": null,
@@ -211,9 +211,14 @@
       "runtime_sha": null,
       "failed_checks": [],
       "missing_ids": [
+        "storage_backend_mode",
+        "generation_backend_mode",
+        "b2_endpoint",
+        "b2_bucket",
         "b2_key_id",
         "b2_application_key",
-        "genblaze_api_key"
+        "genblaze_api_key",
+        "genblaze_image_model"
       ],
       "blocking_items": []
     },
@@ -221,7 +226,7 @@
       "path": "docs/assets/final-launch-plan.json",
       "present": true,
       "schema_ok": true,
-      "mode": "ready_for_credential_entry",
+      "mode": "blocked_at_credential_entry",
       "ok": false,
       "safe_to_submit": null,
       "ready_for_secret_entry": null,
@@ -279,7 +284,7 @@
           "id": "credential_handoff",
           "label": "Live credential handoff is ready",
           "ok": false,
-          "detail": "Credential handoff mode is missing_live_env; missing ids: b2_key_id, b2_application_key, genblaze_api_key.",
+          "detail": "Credential handoff mode is missing_live_env; missing ids: storage_backend_mode, generation_backend_mode, b2_endpoint, b2_bucket, b2_key_id, b2_application_key, genblaze_api_key, genblaze_image_model.",
           "evidence": "docs/assets/live-credential-handoff.json"
         },
         {
@@ -359,7 +364,7 @@
       "final_form_ready": null,
       "mock_recording_ready": null,
       "final_video_ready": null,
-      "runtime_sha": "08b446091b0c20a6dec577480b9da0c722b400f2",
+      "runtime_sha": "bede079f15ce84da4aa8852d4c541fdaf7c3c524",
       "failed_checks": [],
       "missing_ids": [],
       "blocking_items": []

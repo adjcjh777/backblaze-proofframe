@@ -28,6 +28,9 @@ jobs:
       - name: Integration readiness
         run: python scripts/check_integrations.py
 
+      - name: Genblaze SDK contract
+        run: python scripts/genblaze_contract_check.py
+
       - name: Lint
         run: ruff check .
 

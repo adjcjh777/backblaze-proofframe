@@ -86,6 +86,20 @@ def valid_submission_bundle() -> dict:
     }
 
 
+def valid_genblaze_contract_report() -> dict:
+    return {
+        "schema": "proofframe.genblaze_contract_check.v1",
+        "ok": True,
+        "mode": "sdk_contract_ready",
+        "failed_checks": [],
+        "secret_policy": (
+            "This report reads Python package metadata and callable signatures only. "
+            "It does not read environment variables, credential files, provider responses, "
+            "Backblaze keys, Genblaze/GMI keys, cookies, or signed URLs."
+        ),
+    }
+
+
 def valid_event_snapshot() -> dict:
     return {
         "schema": "proofframe.devpost_event_snapshot.v1",
@@ -475,7 +489,7 @@ def fake_fetcher(url: str, timeout: int) -> dict:
                 {
                     "schema": "proofframe.final_launch_plan.v1",
                     "ok": False,
-                    "mode": "ready_for_credential_entry",
+                    "mode": "blocked_at_credential_entry",
                     "current_phase": "credential_entry",
                 }
             ),
@@ -664,6 +678,13 @@ def fake_fetcher(url: str, timeout: int) -> dict:
             "body": json.dumps(valid_submission_bundle()),
             "error": None,
         }
+    if url.endswith("/docs/assets/genblaze-contract-report.json"):
+        return {
+            "ok": True,
+            "status": 200,
+            "body": json.dumps(valid_genblaze_contract_report()),
+            "error": None,
+        }
     if url.endswith("/?judge=1"):
         return {
             "ok": True,
@@ -720,8 +741,14 @@ def test_public_space_sync_report_passes_when_space_is_current():
     assert report["observed"]["event_snapshot"]["participant_count_observed"] == 365
     assert report["observed"]["event_snapshot"]["submission_open"] is True
     assert report["observed"]["event_snapshot"]["requirements_ok"] is True
-    assert report["observed"]["launch_plan_mode"] == "ready_for_credential_entry"
+    assert report["observed"]["launch_plan_mode"] == "blocked_at_credential_entry"
     assert report["observed"]["launch_plan_phase"] == "credential_entry"
+    assert report["observed"]["genblaze_contract"] == {
+        "schema": "proofframe.genblaze_contract_check.v1",
+        "mode": "sdk_contract_ready",
+        "ok": True,
+        "failed_checks": 0,
+    }
     assert report["observed"]["b2_key_scope_checklist"]["safe_to_commit"] is True
     assert report["observed"]["b2_key_scope_checklist"]["confirmation_status"] == "required_before_key_creation"
     assert report["observed"]["b2_key_scope_checklist"]["confirmation_phrase_safe"] is True
@@ -789,7 +816,17 @@ def test_public_space_sync_report_passes_when_space_is_current():
     assert report["observed"]["submission_bundle"]["safe_to_share"] is True
     assert report["observed"]["submission_bundle"]["safe_to_submit"] is False
     assert report["observed"]["submission_bundle"]["required_artifacts_present"] is True
+    assert report["urls"]["raw_genblaze_contract_report"].endswith(
+        "/docs/assets/genblaze-contract-report.json"
+    )
     assert all(item["ok"] for item in report["checks"])
+
+
+def test_public_space_sync_required_bundle_artifacts_include_genblaze_contract():
+    assert {
+        "genblaze_contract_json",
+        "genblaze_contract_script",
+    } <= public_space_sync.REQUIRED_BUNDLE_ARTIFACT_IDS
 
 
 def test_public_space_sync_fails_on_sha_mismatch():
@@ -828,6 +865,44 @@ def test_public_space_sync_fails_on_missing_launch_plan():
     failed = {item["id"] for item in report["checks"] if not item["ok"]}
     assert report["ok"] is False
     assert "raw_launch_plan" in failed
+
+
+def test_public_space_sync_fails_on_broken_genblaze_contract_report():
+    def broken_fetcher(url: str, timeout: int) -> dict:
+        result = fake_fetcher(url, timeout)
+        if url.endswith("/docs/assets/genblaze-contract-report.json"):
+            contract = valid_genblaze_contract_report()
+            contract["ok"] = False
+            contract["mode"] = "sdk_contract_blocked"
+            contract["failed_checks"] = ["pipeline_step_aspect_ratio"]
+            result = {**result, "body": json.dumps(contract)}
+        return result
+
+    report = public_space_sync.build_report(expected_sha=EXPECTED_SHA, fetcher=broken_fetcher)
+
+    failed = {item["id"] for item in report["checks"] if not item["ok"]}
+    assert report["ok"] is False
+    assert "raw_genblaze_contract_report" in failed
+
+
+def test_public_space_sync_fails_when_bundle_omits_genblaze_contract_artifacts():
+    def broken_fetcher(url: str, timeout: int) -> dict:
+        result = fake_fetcher(url, timeout)
+        if url.endswith("/docs/assets/submission-bundle-manifest.json"):
+            bundle = valid_submission_bundle()
+            bundle["artifacts"] = [
+                artifact
+                for artifact in bundle["artifacts"]
+                if artifact["id"] not in {"genblaze_contract_json", "genblaze_contract_script"}
+            ]
+            result = {**result, "body": json.dumps(bundle)}
+        return result
+
+    report = public_space_sync.build_report(expected_sha=EXPECTED_SHA, fetcher=broken_fetcher)
+
+    failed = {item["id"] for item in report["checks"] if not item["ok"]}
+    assert report["ok"] is False
+    assert "raw_submission_bundle" in failed
 
 
 def test_public_space_sync_fails_on_unsafe_b2_key_scope_checklist():

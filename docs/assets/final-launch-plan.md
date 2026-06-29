@@ -1,22 +1,22 @@
 # ProofFrame Final Launch Plan
 
-Mode: `ready_for_credential_entry`
+Mode: `blocked_at_credential_entry`
 Current phase: `credential_entry`
 Complete: `false`
-Progress: `0 / 6` done; `1` ready, `5` blocked.
+Progress: `0 / 6` done; `0` ready, `6` blocked.
 
 ## Next Command
 
 ```bash
 python scripts/final_env_wizard.py --output .env.final.local --missing-only --force
 ```
-Only expected secret ids are missing; operator can enter them locally.
+Credential handoff is missing unexpected setup values; regenerate .env.final.local prefill.
 
 ## Phases
 
 ### credential_entry - Enter final credentials locally
-- Status: `ready`
-- Detail: Only expected secret ids are missing; operator can enter them locally.
+- Status: `blocked`
+- Detail: Credential handoff is missing unexpected setup values; regenerate .env.final.local prefill.
 - Command:
 ```bash
 python scripts/final_env_wizard.py --output .env.final.local --missing-only --force

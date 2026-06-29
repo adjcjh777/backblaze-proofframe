@@ -9,6 +9,7 @@ python3.11 -m venv .venv
 . .venv/bin/activate
 pip install -e ".[dev,integrations]"
 python scripts/check_integrations.py
+python scripts/genblaze_contract_check.py
 ruff check .
 pytest
 python scripts/secret_scan.py
@@ -45,6 +46,7 @@ The `.github/workflows/ci.yml` workflow runs on `main`, `feature/**`, and pull r
 
 - install `.[dev,integrations]`
 - `python scripts/check_integrations.py`
+- `python scripts/genblaze_contract_check.py`
 - `ruff check .`
 - `pytest`
 - `python scripts/api_smoke.py --base-url http://127.0.0.1:8088`
@@ -85,6 +87,7 @@ The final sponsor proof has a preflight wrapper:
 . .venv/bin/activate
 python scripts/final_env_wizard.py --prefill-non-secret --output .env.final.local
 python scripts/b2_key_scope_checklist.py
+python scripts/genblaze_contract_check.py
 python scripts/final_env_wizard.py --output .env.final.local --missing-only --force
 python scripts/live_env_handoff.py --env-file .env.final.local
 python scripts/post_credential_live_proof.py
@@ -161,6 +164,7 @@ Run:
 ```bash
 . .venv/bin/activate
 python scripts/check_integrations.py
+python scripts/genblaze_contract_check.py
 python scripts/run_b2_live_proof.py --env-file .env.final.local --preflight-only
 uvicorn proofframe.app:app --host 127.0.0.1 --port 8088
 python scripts/live_proof.py \
@@ -248,6 +252,7 @@ python scripts/secret_scan.py
 python scripts/claim_lint.py
 python scripts/final_env_wizard.py --prefill-non-secret --output .env.final.local
 python scripts/b2_key_scope_checklist.py
+python scripts/genblaze_contract_check.py
 python scripts/final_env_wizard.py --output .env.final.local --missing-only --force
 python scripts/live_env_handoff.py --env-file .env.final.local
 python scripts/post_credential_live_proof.py --env-file .env.final.local --execute --update-tasks

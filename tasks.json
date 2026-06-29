@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-29T11:42:07Z",
+  "updated_at": "2026-06-29T12:02:53Z",
   "tasks": [
     {
       "id": "T001",
@@ -136,6 +136,15 @@
       "status": "done",
       "done_criteria": "",
       "notes": "Genblaze provider now uses official ObjectStorageSink plus S3StorageBackend.for_backblaze in final B2 mode; preflight checks genblaze_s3 and B2 region."
+    },
+    {
+      "id": "T085",
+      "title": "Add Genblaze SDK contract check",
+      "phase": "P2 Integrations",
+      "owner": "tester",
+      "status": "done",
+      "done_criteria": "",
+      "notes": "Added no-secret Genblaze/B2 SDK import and signature contract report, CI step, submission bundle artifact, and public sync required artifact coverage."
     },
     {
       "id": "T030",

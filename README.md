@@ -104,6 +104,7 @@ Then open `http://127.0.0.1:8088/`.
 ```bash
 . .venv/bin/activate
 python scripts/check_integrations.py
+python scripts/genblaze_contract_check.py
 python scripts/live_proof.py --preflight-only
 python scripts/run_final_live_proof.py --env-file .env.final.local --preflight-only
 python scripts/live_env_handoff.py
@@ -137,6 +138,7 @@ python scripts/submission_bundle.py
 The browser UI and `GET /api/submission/gate` expose the same fail-closed final gate: required task status, Devpost packet presence, final B2/Genblaze evidence readiness, and the final secret scan, submission audit, and Devpost receipt reports.
 `scripts/submission_bundle.py` creates a safe manifest of public submission artifacts, screenshots, checksums, Devpost copy mode, and remaining gate blockers.
 `scripts/live_env_handoff.py` creates a redacted B2/Genblaze credential handoff report so final proof setup can be checked without printing keys.
+`scripts/genblaze_contract_check.py` verifies the installed Genblaze/B2 SDK import and signature contract without reading environment variables or credential files, catching package/API drift before live keys are entered.
 `scripts/final_env_wizard.py` creates a local git-ignored `.env.final.local` with 0600 permissions, can prefill non-secret B2/default values, reads existing local values as defaults, and uses hidden prompts for credential values.
 `scripts/b2_key_scope_checklist.py` creates a no-secret B2 app-key scope checklist for the dedicated bucket, prefix, required upload capability, S3 SDK compatibility flag, forbidden permissions, and stop conditions before a key is created.
 `scripts/run_b2_live_proof.py` verifies the Backblaze B2 storage path independently with mock generation, so T020 can close before Genblaze credentials are ready.
@@ -149,7 +151,7 @@ The browser UI and `GET /api/submission/gate` expose the same fail-closed final 
 `scripts/final_rehearsal.py` turns the final operator brief, launch plan, public sync, and gates into a no-secret final-submission rehearsal checklist.
 `scripts/devpost_event_snapshot.py` keeps official Devpost deadline, participants, submission requirements, and judging criteria as a refreshable evidence report.
 `scripts/agent_handoff_check.py` keeps AGENTS.md, Codex, and Agent Bus handoff paths aligned with the current repo so future role sessions do not follow stale project metadata.
-`scripts/public_space_sync.py` verifies the public Hugging Face Space runtime sha, raw handoff, Devpost event snapshot, final launch plan, B2 key scope checklist, judge brief, judge crosswalk, judge decision brief, judge evidence index, final video publish kit, mock video draft, public video check, health/gate APIs, and judge-mode HTML markers.
+`scripts/public_space_sync.py` verifies the public Hugging Face Space runtime sha, raw handoff, Devpost event snapshot, final launch plan, B2 key scope checklist, Genblaze SDK contract report, judge brief, judge crosswalk, judge decision brief, judge evidence index, final video publish kit, mock video draft, public video check, health/gate APIs, and judge-mode HTML markers.
 `scripts/run_final_live_proof.py` is the final one-command live runner: once B2 and Genblaze env vars are present, it starts the app, verifies `/api/health` reports `b2` plus `genblaze`, routes Genblaze output through the B2 sink, writes sanitized final evidence, and stops the server.
 `scripts/claim_lint.py` keeps pre-live public copy from claiming completed Backblaze B2 or Genblaze proof before evidence exists.
 `scripts/secret_scan.py` writes a no-value secret scan report for public files, generated evidence, local logs, and media inventory while excluding local credential files without reading them.
@@ -176,6 +178,7 @@ The repository also runs the same core checks in GitHub Actions on `main`, `feat
 ```bash
 . .venv/bin/activate
 python scripts/check_integrations.py
+python scripts/genblaze_contract_check.py
 ruff check .
 pytest
 python scripts/api_smoke.py --base-url http://127.0.0.1:8088

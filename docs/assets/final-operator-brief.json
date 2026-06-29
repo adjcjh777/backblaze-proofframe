@@ -1,7 +1,7 @@
 {
   "schema": "proofframe.final_operator_brief.v1",
-  "mode": "credential_entry_ready",
-  "ready_for_secret_entry": true,
+  "mode": "needs_operator_setup",
+  "ready_for_secret_entry": false,
   "safe_to_submit": false,
   "task_statuses": {
     "T020": "doing",
@@ -30,22 +30,27 @@
     "present": true,
     "mode": "missing_live_env",
     "ready": false,
-    "source": ".env.final.local",
+    "source": "process environment",
     "missing_ids": [
+      "storage_backend_mode",
+      "generation_backend_mode",
+      "b2_endpoint",
+      "b2_bucket",
       "b2_key_id",
       "b2_application_key",
-      "genblaze_api_key"
+      "genblaze_api_key",
+      "genblaze_image_model"
     ],
-    "missing_only_expected_secrets": true,
+    "missing_only_expected_secrets": false,
     "required_presence": {
-      "storage_backend_mode": true,
-      "generation_backend_mode": true,
-      "b2_endpoint": true,
-      "b2_bucket": true,
+      "storage_backend_mode": false,
+      "generation_backend_mode": false,
+      "b2_endpoint": false,
+      "b2_bucket": false,
       "b2_key_id": false,
       "b2_application_key": false,
       "genblaze_api_key": false,
-      "genblaze_image_model": true
+      "genblaze_image_model": false
     }
   },
   "reports": {
@@ -144,8 +149,8 @@
       "present": true,
       "path": "docs/assets/final-rehearsal-checklist.json",
       "schema_ok": true,
-      "mode": "ready_for_credential_rehearsal",
-      "ok": true,
+      "mode": "needs_rehearsal_setup",
+      "ok": false,
       "score": null,
       "max_score": null,
       "safe_to_submit": false,

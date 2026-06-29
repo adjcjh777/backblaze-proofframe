@@ -36,7 +36,7 @@
     {
       "path": "README.md",
       "present": true,
-      "bytes": 14049
+      "bytes": 14783
     },
     {
       "path": "docs/demo_script.md",
@@ -71,22 +71,22 @@
     {
       "path": "docs/assets/submission-bundle-manifest.json",
       "present": true,
-      "bytes": 39392
+      "bytes": 40283
     },
     {
       "path": "docs/assets/submission-bundle-manifest.md",
       "present": true,
-      "bytes": 14481
+      "bytes": 14880
     },
     {
       "path": "docs/assets/live-credential-handoff.json",
       "present": true,
-      "bytes": 4315
+      "bytes": 4647
     },
     {
       "path": "docs/assets/live-credential-handoff.md",
       "present": true,
-      "bytes": 2197
+      "bytes": 2479
     },
     {
       "path": "docs/assets/demo-storyboard.json",
@@ -126,7 +126,7 @@
     {
       "path": ".env.final.example",
       "present": true,
-      "bytes": 352
+      "bytes": 363
     },
     {
       "path": "scripts/claim_lint.py",
@@ -151,7 +151,7 @@
     {
       "path": "scripts/live_env_handoff.py",
       "present": true,
-      "bytes": 9322
+      "bytes": 9451
     },
     {
       "path": "scripts/run_b2_live_proof.py",

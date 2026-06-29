@@ -8,6 +8,7 @@
 - B2 live proof: not complete until a dedicated Backblaze bucket and least-privilege key are configured and one media object plus one manifest are uploaded.
 - Genblaze code path: implemented with the official Genblaze `Pipeline` API and `GMICloudImageProvider`.
 - Genblaze+B2 sink path: in final B2 mode, the provider builds an official `ObjectStorageSink` with `S3StorageBackend.for_backblaze`, so Genblaze output and provenance can land in B2 before ProofFrame records its own packet manifest.
+- Genblaze SDK contract check: implemented as a no-secret import/signature report so package/API drift is caught before live keys are entered.
 - Genblaze live proof: not complete until official Genblaze packages/provider credentials generate media, the B2 sink is active, and the manifest records provider/model/run metadata.
 
 ## Readiness Command
@@ -15,9 +16,10 @@
 ```bash
 . .venv/bin/activate
 python scripts/check_integrations.py
+python scripts/genblaze_contract_check.py
 ```
 
-This command reports booleans only and does not print secrets.
+These commands report booleans, package versions, and callable signatures only. They do not print secrets or read local credential files.
 
 ## Live Proof Gate
 
@@ -26,6 +28,7 @@ When B2 and Genblaze credentials are available, first run the preflight without 
 ```bash
 python scripts/live_env_handoff.py --env-file .env.final.local
 python scripts/b2_key_scope_checklist.py
+python scripts/genblaze_contract_check.py
 python scripts/live_proof.py --preflight-only
 python scripts/run_final_live_proof.py --env-file .env.final.local --preflight-only
 ```
