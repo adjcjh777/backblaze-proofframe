@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.submission_bundle.v1",
-  "created_at": "2026-06-29T00:25:36Z",
+  "created_at": "2026-06-29T00:34:58Z",
   "project": "ProofFrame",
   "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
@@ -137,7 +137,7 @@
         "present": true,
         "schema": "proofframe.secret_scan.v1",
         "schema_ok": true,
-        "created_at": "2026-06-29T00:25:36Z",
+        "created_at": "2026-06-29T00:34:58Z",
         "ready": true,
         "fresh_after_receipt": true,
         "findings": []
@@ -148,7 +148,7 @@
         "present": true,
         "schema": "proofframe.final_submission_control.v1",
         "schema_ok": true,
-        "created_at": "2026-06-29T00:21:38Z",
+        "created_at": "2026-06-29T00:34:57Z",
         "ready": false,
         "fresh_after_receipt": true,
         "findings": [
@@ -176,7 +176,7 @@
         "present": true,
         "schema": "proofframe.devpost_submission_preview.v1",
         "schema_ok": true,
-        "created_at": "2026-06-29T00:21:38Z",
+        "created_at": "2026-06-29T00:34:57Z",
         "ready": false,
         "fresh_after_receipt": true,
         "findings": [
@@ -192,8 +192,8 @@
       "path": "README.md",
       "label": "Core public project overview",
       "present": true,
-      "bytes": 13158,
-      "sha256": "d3cb3f672ac961f9ed79261c30d5f2320ab8a49e09776726c75ce8f2c2e2b2b3"
+      "bytes": 13178,
+      "sha256": "d4398c3f82a7459ee29971164298f221ba4933c748a25c5dda144a39fe19e5f5"
     },
     {
       "id": "dockerfile",
@@ -224,8 +224,8 @@
       "path": "docs/deployment.md",
       "label": "Public demo deployment runbook",
       "present": true,
-      "bytes": 4508,
-      "sha256": "f82386ffd27860eefffdd806edc34fb3f8cb5ddac0639b121d37a7bf1300400b"
+      "bytes": 4528,
+      "sha256": "cef71cb1992dd9dac12657864b6c75ec6fd0b26fc30a88575f9fc9ea449fc0ca"
     },
     {
       "id": "devpost_draft",
@@ -304,24 +304,24 @@
       "path": "scripts/public_space_sync.py",
       "label": "Public Hugging Face Space sync verifier",
       "present": true,
-      "bytes": 54190,
-      "sha256": "b12c38f3a1da37149d70a6817067e387b56ec975c89d64bc96c01fcb54731e5a"
+      "bytes": 56842,
+      "sha256": "9fbc3bff24df4d7972223bb3932ac730d8fa0dcfa5daf8046fcf5221f3144d66"
     },
     {
       "id": "public_space_sync_json",
       "path": "docs/assets/public-space-sync-report.json",
       "label": "Machine-readable public Space sync report",
       "present": true,
-      "bytes": 13959,
-      "sha256": "3da134edf4f16a5e3b7eabced5e3c8c190d508bbeb3e8fb8116965419e6c4feb"
+      "bytes": 14652,
+      "sha256": "a2c2d19c272406d95da18ccf3aedc4d91adeffe822995155083c07b6780b4ac6"
     },
     {
       "id": "public_space_sync_md",
       "path": "docs/assets/public-space-sync-report.md",
       "label": "Human-readable public Space sync report",
       "present": true,
-      "bytes": 6117,
-      "sha256": "d8852602cb8f3fd3a5b14877c3920b0b7154cc3ed0290458cdea332961e41239"
+      "bytes": 6422,
+      "sha256": "222a0831f2b59db17a5a485399aefb92006512331e19cf176f4724c588b82310"
     },
     {
       "id": "public_demo_screenshot_script",
@@ -385,7 +385,7 @@
       "label": "Machine-readable Devpost preview",
       "present": true,
       "bytes": 11611,
-      "sha256": "834faddaef4a817193850760ab3ffb08944024050bd60d002163eec868cfd223"
+      "sha256": "781e02f1070647e1c57ff842209a38732c22028cb8741efbf63f870df3a5302c"
     },
     {
       "id": "devpost_preview_md",
@@ -633,7 +633,7 @@
       "label": "Machine-readable final control report",
       "present": true,
       "bytes": 24109,
-      "sha256": "c3ff3d24ddb471cf9557555c75dfab6febbbd32fd3f449cb5857ece7d961dd2e"
+      "sha256": "7750cfb6476ebd3e6994cdc298e6b65464e89eddc4b3630a9c70dfc25c7449aa"
     },
     {
       "id": "final_submission_control_md",
@@ -641,7 +641,7 @@
       "label": "Human-readable final control report",
       "present": true,
       "bytes": 6883,
-      "sha256": "f5a0a55d11f2849fe6dd51dddae13d993c92a71cb512cd8907f70c71295e4903"
+      "sha256": "447b1bd0221caaa3ffc7dc8eaf0df19adc8f9db6cbe336811ed20079d8c81957"
     },
     {
       "id": "final_operator_brief_script",
@@ -729,7 +729,7 @@
       "label": "Machine-readable submission audit report",
       "present": true,
       "bytes": 5925,
-      "sha256": "d857ede1409562fe29ca2ab0acb411d007bc67fece3025cd029c1fa628ce5ffa"
+      "sha256": "81ffa0667717d9ba608f9c0d891d0d0ffb79edc2c0ba626b1c3e8e00882d213b"
     },
     {
       "id": "submission_audit_md",
@@ -737,7 +737,7 @@
       "label": "Human-readable submission audit report",
       "present": true,
       "bytes": 4459,
-      "sha256": "86b861b64a5582a86e00f0492ea16ebc55c5b4b420a06e1642d5f3e2b354d00e"
+      "sha256": "4cd4b781b74bc7390db0555a3f5e1f888b9baf4da0c7778c0e2d7b925272a35b"
     },
     {
       "id": "devpost_receipt_script",
@@ -768,8 +768,8 @@
       "path": "docs/evidence_package.md",
       "label": "Evidence package plan",
       "present": true,
-      "bytes": 20399,
-      "sha256": "b1bf2eb99da24d5b26e17dc77dd22c16cfa9bb0072b5360ae727458726c202eb"
+      "bytes": 18163,
+      "sha256": "ba88b966751bfe5fa50aafff0c5320f14f5c2698c14316fdbfc3509db6ac1bd4"
     },
     {
       "id": "public_claim_freeze",
@@ -809,7 +809,7 @@
       "label": "Machine-readable secret scan report",
       "present": true,
       "bytes": 10532,
-      "sha256": "5a3be6f2fbd53289efc58ec399bcd81e1cf2978ccbe06871881fc7279a8c6b6c"
+      "sha256": "03f10ad3356a50b91130e29f1b073bcfa7c57b4a61d8c21e50d1c09fb1768b7a"
     },
     {
       "id": "secret_scan_md",
@@ -817,7 +817,7 @@
       "label": "Human-readable secret scan report",
       "present": true,
       "bytes": 846,
-      "sha256": "d637d0f9694496e62aa45d018018b954d0cf34676b254d8156d12f0502704e19"
+      "sha256": "3c5253e008e013eaf7ec6d917714dcb4238e04b75b82e50942d11185366d74f7"
     },
     {
       "id": "b2_live_setup_json",
@@ -1000,8 +1000,8 @@
       "path": "tasks.json",
       "label": "Machine-readable task board",
       "present": true,
-      "bytes": 58101,
-      "sha256": "35b6709f37029952ed5c06ec8a15b6db2e3cad520510ec4bc1bedc35c65751b6"
+      "bytes": 58689,
+      "sha256": "e04e08fdc20079d41cc5354919ae0a1256f03aee2f72da134d79765800678a69"
     },
     {
       "id": "local_ui_smoke",

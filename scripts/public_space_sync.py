@@ -19,7 +19,7 @@ SCHEMA = "proofframe.public_space_sync.v1"
 
 SPACE_ID = "ADJCJH/backblaze-proofframe"
 SPACE_HOST = "https://adjcjh-backblaze-proofframe.hf.space"
-EXPECTED_SPACE_SHA = "dadf64caf35362427333d2662ce1ab6db564485d"
+EXPECTED_SPACE_SHA = "38d12631d87c785ac59a20e7d585b8f04bb840cc"
 TIMEOUT_SECONDS = 30
 DRAFT_VIDEO_MIN_BYTES = 100_000
 EVENT_SNAPSHOT_MAX_AGE_DAYS = 14
@@ -280,6 +280,7 @@ def build_report(
     public_demo_screenshot_url = raw_file_url(space_id, "docs/assets/public-demo-screenshot-report.json")
     demo_video_draft_url = raw_file_url(space_id, "docs/assets/demo-video-draft.json")
     demo_video_draft_mp4_url = resolve_file_url(space_id, "docs/assets/proofframe-demo-draft.mp4")
+    public_video_check_url = raw_file_url(space_id, "docs/assets/public-video-check.json")
     devpost_form_kit_url = raw_file_url(space_id, "docs/assets/devpost-form-kit.json")
     devpost_preview_url = raw_file_url(space_id, "docs/assets/devpost-submission-preview.json")
     submit_checklist_url = raw_file_url(space_id, "docs/assets/devpost-submission-checklist.json")
@@ -301,6 +302,7 @@ def build_report(
     public_demo_screenshot_result = fetcher(public_demo_screenshot_url, TIMEOUT_SECONDS)
     demo_video_draft_result = fetcher(demo_video_draft_url, TIMEOUT_SECONDS)
     demo_video_draft_mp4_result = fetcher(demo_video_draft_mp4_url, TIMEOUT_SECONDS)
+    public_video_check_result = fetcher(public_video_check_url, TIMEOUT_SECONDS)
     devpost_form_kit_result = fetcher(devpost_form_kit_url, TIMEOUT_SECONDS)
     devpost_preview_result = fetcher(devpost_preview_url, TIMEOUT_SECONDS)
     submit_checklist_result = fetcher(submit_checklist_url, TIMEOUT_SECONDS)
@@ -321,6 +323,7 @@ def build_report(
     recording_assets = parse_json(recording_assets_result)
     public_demo_screenshot = parse_json(public_demo_screenshot_result)
     demo_video_draft = parse_json(demo_video_draft_result)
+    public_video_check = parse_json(public_video_check_result)
     devpost_form_kit = parse_json(devpost_form_kit_result)
     devpost_preview = parse_json(devpost_preview_result)
     submit_checklist = parse_json(submit_checklist_result)
@@ -445,6 +448,24 @@ def build_report(
         == "https://adjcjh-backblaze-proofframe.hf.space/?judge=1"
         and devpost_preview_evidence_links.get("public_screenshot")
         == "docs/assets/proofframe-hf-public-smoke.png"
+    )
+    public_video_check_checks = dict_list_field(public_video_check, "checks")
+    public_video_check_by_id = {
+        str(item.get("id")): item for item in public_video_check_checks if isinstance(item.get("id"), str)
+    }
+    public_video_official_host_check = public_video_check_by_id.get("video_url_official_public_host", {})
+    public_video_next_actions = list_field(public_video_check, "next_actions")
+    public_video_check_ok = bool(
+        public_video_check_result.get("ok")
+        and public_video_check
+        and public_video_check.get("schema") == "proofframe.public_video_check.v1"
+        and public_video_check.get("mode") in {"pending_video_url", "public_video_verified"}
+        and public_video_check.get("safe_to_submit") is False
+        and public_video_check.get("url_analysis", {}).get("official_host") is False
+        and public_video_check.get("url_analysis", {}).get("reason") == "missing_or_placeholder"
+        and public_video_official_host_check.get("ok") is False
+        and "YouTube, Vimeo, and Youku" in str(public_video_official_host_check.get("detail") or "")
+        and any("YouTube, Vimeo, or Youku" in str(action) for action in public_video_next_actions)
     )
     b2_key_scope_expected = dict_field(b2_key_scope_checklist, "expected_key")
     b2_key_scope_bucket = dict_field(b2_key_scope_expected, "bucket_scope")
@@ -682,6 +703,18 @@ def build_report(
                 f"content_type={demo_video_draft_mp4_result.get('content_type')}."
             ),
             demo_video_draft_mp4_url,
+        ),
+        check_item(
+            "raw_public_video_check",
+            "Raw public video check is public and official-host gated",
+            public_video_check_ok,
+            (
+                f"Video check schema is {public_video_check.get('schema') if public_video_check else None}; "
+                f"mode is {public_video_check.get('mode') if public_video_check else None}; "
+                f"safe_to_submit={public_video_check.get('safe_to_submit') if public_video_check else None}; "
+                f"official_host_check={public_video_official_host_check.get('ok') if public_video_check else None}."
+            ),
+            public_video_check_url,
         ),
         check_item(
             "raw_devpost_form_kit",
@@ -927,6 +960,11 @@ def build_report(
             "demo_video_draft_safe_to_submit": (
                 demo_video_draft.get("safe_to_submit") if demo_video_draft else None
             ),
+            "public_video_check": {
+                "mode": public_video_check.get("mode") if public_video_check else None,
+                "safe_to_submit": public_video_check.get("safe_to_submit") if public_video_check else None,
+                "official_host_check_ok": public_video_official_host_check.get("ok"),
+            },
             "post_credential_plan_mode": post_credential_plan.get("mode") if post_credential_plan else None,
             "post_credential_plan_validators": {
                 "validate_b2_evidence": "validate_b2_evidence" in post_credential_command_ids,
@@ -965,6 +1003,7 @@ def build_report(
             "raw_public_demo_screenshot": public_demo_screenshot_url,
             "raw_demo_video_draft": demo_video_draft_url,
             "demo_video_draft_mp4": demo_video_draft_mp4_url,
+            "raw_public_video_check": public_video_check_url,
             "raw_devpost_form_kit": devpost_form_kit_url,
             "raw_devpost_preview": devpost_preview_url,
             "raw_submit_checklist": submit_checklist_url,
@@ -1004,6 +1043,8 @@ def next_actions(checks: list[dict[str, Any]]) -> list[str]:
         actions.append("Regenerate and upload docs/assets/demo-video-draft.json to the Space.")
     if "public_demo_video_draft_mp4" in failed:
         actions.append("Regenerate and upload docs/assets/proofframe-demo-draft.mp4 to the Space.")
+    if "raw_public_video_check" in failed:
+        actions.append("Regenerate and upload docs/assets/public-video-check.json to the Space.")
     if "raw_devpost_form_kit" in failed:
         actions.append("Regenerate and upload docs/assets/devpost-form-kit.json to the Space.")
     if "raw_devpost_preview" in failed:

@@ -234,6 +234,34 @@ def valid_devpost_preview() -> dict:
     }
 
 
+def valid_public_video_check() -> dict:
+    return {
+        "schema": "proofframe.public_video_check.v1",
+        "mode": "pending_video_url",
+        "ok": False,
+        "safe_to_submit": False,
+        "video_url": "TBD after final B2 and Genblaze proof.",
+        "url_analysis": {
+            "present": False,
+            "official_host": False,
+            "official_host_family": None,
+            "reason": "missing_or_placeholder",
+        },
+        "checks": [
+            {"id": "video_url_present", "ok": False},
+            {
+                "id": "video_url_official_public_host",
+                "ok": False,
+                "detail": "host=None; official_host_family=None; allowed families are YouTube, Vimeo, and Youku.",
+            },
+            {"id": "video_url_accessible", "ok": False},
+        ],
+        "next_actions": [
+            "Upload the final demo video to YouTube, Vimeo, or Youku before strict final submission.",
+        ],
+    }
+
+
 def fake_fetcher(url: str, timeout: int) -> dict:
     assert timeout == public_space_sync.TIMEOUT_SECONDS
     if url.endswith("/api/spaces/ADJCJH/backblaze-proofframe"):
@@ -386,6 +414,13 @@ def fake_fetcher(url: str, timeout: int) -> dict:
             "content_type": "video/mp4",
             "error": None,
         }
+    if url.endswith("/docs/assets/public-video-check.json"):
+        return {
+            "ok": True,
+            "status": 200,
+            "body": json.dumps(valid_public_video_check()),
+            "error": None,
+        }
     if url.endswith("/docs/assets/devpost-form-kit.json"):
         return {
             "ok": True,
@@ -529,6 +564,11 @@ def test_public_space_sync_report_passes_when_space_is_current():
     assert report["observed"]["public_demo_screenshot"]["html_ok"] is True
     assert report["observed"]["public_demo_screenshot"]["bytes"] == 717007
     assert report["observed"]["public_demo_screenshot"]["size"] == [1440, 2692]
+    assert report["observed"]["public_video_check"] == {
+        "mode": "pending_video_url",
+        "safe_to_submit": False,
+        "official_host_check_ok": False,
+    }
     assert report["observed"]["devpost_preview"]["mode"] == "pre_live_preview_ready"
     assert report["observed"]["devpost_preview"]["safe_to_share"] is True
     assert report["observed"]["devpost_preview"]["safe_to_submit"] is False
@@ -637,6 +677,30 @@ def test_public_space_sync_fails_on_unsafe_public_demo_screenshot_with_action():
     assert report["observed"]["public_demo_screenshot"]["html_ok"] is False
     assert (
         "Regenerate and upload docs/assets/public-demo-screenshot-report.json to the Space."
+        in report["next_actions"]
+    )
+
+
+def test_public_space_sync_fails_on_missing_public_video_host_gate_with_action():
+    def broken_fetcher(url: str, timeout: int) -> dict:
+        result = fake_fetcher(url, timeout)
+        if url.endswith("/docs/assets/public-video-check.json"):
+            public_video_check = valid_public_video_check()
+            public_video_check["checks"] = [
+                item for item in public_video_check["checks"] if item["id"] != "video_url_official_public_host"
+            ]
+            public_video_check["next_actions"] = ["Upload a final demo video."]
+            result = {**result, "body": json.dumps(public_video_check)}
+        return result
+
+    report = public_space_sync.build_report(expected_sha=EXPECTED_SHA, fetcher=broken_fetcher)
+
+    failed = {item["id"] for item in report["checks"] if not item["ok"]}
+    assert report["ok"] is False
+    assert "raw_public_video_check" in failed
+    assert report["observed"]["public_video_check"]["official_host_check_ok"] is None
+    assert (
+        "Regenerate and upload docs/assets/public-video-check.json to the Space."
         in report["next_actions"]
     )
 
