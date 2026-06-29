@@ -100,6 +100,38 @@ def valid_genblaze_contract_report() -> dict:
     }
 
 
+def valid_docker_smoke_report() -> dict:
+    check_ids = [
+        "dockerignore_secret_exclusions",
+        "docker_daemon",
+        "docker_build",
+        "docker_run",
+        "docker_health",
+        "api_smoke",
+        "docker_cleanup",
+    ]
+    return {
+        "schema": "proofframe.docker_smoke.v1",
+        "ok": True,
+        "mode": "docker_smoke_ready",
+        "dockerignore": {
+            "missing_required_patterns": [],
+            "missing_allow_patterns": [],
+        },
+        "health": {
+            "ok": True,
+            "json": {
+                "ready": True,
+                "storage_backend": "local",
+                "generation_backend": "mock",
+                "b2_configured": False,
+                "genblaze_configured": False,
+            }
+        },
+        "checks": [{"id": check_id, "ok": True} for check_id in check_ids],
+    }
+
+
 def valid_event_snapshot() -> dict:
     return {
         "schema": "proofframe.devpost_event_snapshot.v1",
@@ -685,6 +717,13 @@ def fake_fetcher(url: str, timeout: int) -> dict:
             "body": json.dumps(valid_genblaze_contract_report()),
             "error": None,
         }
+    if url.endswith("/docs/assets/docker-smoke-report.json"):
+        return {
+            "ok": True,
+            "status": 200,
+            "body": json.dumps(valid_docker_smoke_report()),
+            "error": None,
+        }
     if url.endswith("/?judge=1"):
         return {
             "ok": True,
@@ -748,6 +787,13 @@ def test_public_space_sync_report_passes_when_space_is_current():
         "mode": "sdk_contract_ready",
         "ok": True,
         "failed_checks": 0,
+    }
+    assert report["observed"]["docker_smoke"] == {
+        "schema": "proofframe.docker_smoke.v1",
+        "mode": "docker_smoke_ready",
+        "ok": True,
+        "storage_backend": "local",
+        "generation_backend": "mock",
     }
     assert report["observed"]["b2_key_scope_checklist"]["safe_to_commit"] is True
     assert report["observed"]["b2_key_scope_checklist"]["confirmation_status"] == "required_before_key_creation"
@@ -819,6 +865,7 @@ def test_public_space_sync_report_passes_when_space_is_current():
     assert report["urls"]["raw_genblaze_contract_report"].endswith(
         "/docs/assets/genblaze-contract-report.json"
     )
+    assert report["urls"]["raw_docker_smoke_report"].endswith("/docs/assets/docker-smoke-report.json")
     assert all(item["ok"] for item in report["checks"])
 
 
@@ -826,6 +873,14 @@ def test_public_space_sync_required_bundle_artifacts_include_genblaze_contract()
     assert {
         "genblaze_contract_json",
         "genblaze_contract_script",
+    } <= public_space_sync.REQUIRED_BUNDLE_ARTIFACT_IDS
+
+
+def test_public_space_sync_required_bundle_artifacts_include_docker_smoke():
+    assert {
+        "dockerignore",
+        "docker_smoke_json",
+        "docker_smoke_script",
     } <= public_space_sync.REQUIRED_BUNDLE_ARTIFACT_IDS
 
 
@@ -885,6 +940,91 @@ def test_public_space_sync_fails_on_broken_genblaze_contract_report():
     assert "raw_genblaze_contract_report" in failed
 
 
+def test_public_space_sync_fails_on_broken_docker_smoke_report():
+    def broken_fetcher(url: str, timeout: int) -> dict:
+        result = fake_fetcher(url, timeout)
+        if url.endswith("/docs/assets/docker-smoke-report.json"):
+            docker_report = valid_docker_smoke_report()
+            docker_report["ok"] = False
+            docker_report["mode"] = "docker_smoke_blocked"
+            docker_report["dockerignore"]["missing_required_patterns"] = [".env.final.local"]
+            result = {**result, "body": json.dumps(docker_report)}
+        return result
+
+    report = public_space_sync.build_report(expected_sha=EXPECTED_SHA, fetcher=broken_fetcher)
+
+    failed = {item["id"] for item in report["checks"] if not item["ok"]}
+    assert report["ok"] is False
+    assert "raw_docker_smoke_report" in failed
+
+
+def test_public_space_sync_fails_on_truncated_docker_smoke_report():
+    def broken_fetcher(url: str, timeout: int) -> dict:
+        result = fake_fetcher(url, timeout)
+        if url.endswith("/docs/assets/docker-smoke-report.json"):
+            result = {
+                **result,
+                "body": json.dumps(
+                    {
+                        "schema": "proofframe.docker_smoke.v1",
+                        "ok": True,
+                        "mode": "docker_smoke_ready",
+                        "dockerignore": {
+                            "missing_required_patterns": [],
+                            "missing_allow_patterns": [],
+                        },
+                        "health": {
+                            "json": {
+                                "storage_backend": "local",
+                                "generation_backend": "mock",
+                            }
+                        },
+                    }
+                ),
+            }
+        return result
+
+    report = public_space_sync.build_report(expected_sha=EXPECTED_SHA, fetcher=broken_fetcher)
+
+    failed = {item["id"] for item in report["checks"] if not item["ok"]}
+    assert report["ok"] is False
+    assert "raw_docker_smoke_report" in failed
+
+
+def test_public_space_sync_fails_when_docker_cleanup_check_is_missing():
+    def broken_fetcher(url: str, timeout: int) -> dict:
+        result = fake_fetcher(url, timeout)
+        if url.endswith("/docs/assets/docker-smoke-report.json"):
+            docker_report = valid_docker_smoke_report()
+            docker_report["checks"] = [
+                check for check in docker_report["checks"] if check["id"] != "docker_cleanup"
+            ]
+            result = {**result, "body": json.dumps(docker_report)}
+        return result
+
+    report = public_space_sync.build_report(expected_sha=EXPECTED_SHA, fetcher=broken_fetcher)
+
+    failed = {item["id"] for item in report["checks"] if not item["ok"]}
+    assert report["ok"] is False
+    assert "raw_docker_smoke_report" in failed
+
+
+def test_public_space_sync_fails_when_docker_health_is_not_fail_closed():
+    def broken_fetcher(url: str, timeout: int) -> dict:
+        result = fake_fetcher(url, timeout)
+        if url.endswith("/docs/assets/docker-smoke-report.json"):
+            docker_report = valid_docker_smoke_report()
+            docker_report["health"]["json"]["b2_configured"] = True
+            result = {**result, "body": json.dumps(docker_report)}
+        return result
+
+    report = public_space_sync.build_report(expected_sha=EXPECTED_SHA, fetcher=broken_fetcher)
+
+    failed = {item["id"] for item in report["checks"] if not item["ok"]}
+    assert report["ok"] is False
+    assert "raw_docker_smoke_report" in failed
+
+
 def test_public_space_sync_fails_when_bundle_omits_genblaze_contract_artifacts():
     def broken_fetcher(url: str, timeout: int) -> dict:
         result = fake_fetcher(url, timeout)
@@ -894,6 +1034,26 @@ def test_public_space_sync_fails_when_bundle_omits_genblaze_contract_artifacts()
                 artifact
                 for artifact in bundle["artifacts"]
                 if artifact["id"] not in {"genblaze_contract_json", "genblaze_contract_script"}
+            ]
+            result = {**result, "body": json.dumps(bundle)}
+        return result
+
+    report = public_space_sync.build_report(expected_sha=EXPECTED_SHA, fetcher=broken_fetcher)
+
+    failed = {item["id"] for item in report["checks"] if not item["ok"]}
+    assert report["ok"] is False
+    assert "raw_submission_bundle" in failed
+
+
+def test_public_space_sync_fails_when_bundle_omits_docker_smoke_artifacts():
+    def broken_fetcher(url: str, timeout: int) -> dict:
+        result = fake_fetcher(url, timeout)
+        if url.endswith("/docs/assets/submission-bundle-manifest.json"):
+            bundle = valid_submission_bundle()
+            bundle["artifacts"] = [
+                artifact
+                for artifact in bundle["artifacts"]
+                if artifact["id"] not in {"dockerignore", "docker_smoke_json", "docker_smoke_script"}
             ]
             result = {**result, "body": json.dumps(bundle)}
         return result

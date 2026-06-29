@@ -60,6 +60,9 @@ SECRET_POLICY_FORBIDDEN_TERMS = (
 TASK_UPDATE_COMMAND_MARKERS = ("scripts/task.py", " task.py ", "--update-tasks")
 REQUIRED_BUNDLE_ARTIFACT_IDS = {
     "repo_readme",
+    "dockerignore",
+    "docker_smoke_json",
+    "docker_smoke_script",
     "devpost_packet_json",
     "public_space_sync_json",
     "public_demo_screenshot_json",
@@ -84,6 +87,15 @@ REQUIRED_BUNDLE_ARTIFACT_IDS = {
     "devpost_submission_checklist_json",
     "demo_video_draft_mp4",
     "task_ledger",
+}
+DOCKER_SMOKE_REQUIRED_CHECK_IDS = {
+    "dockerignore_secret_exclusions",
+    "docker_daemon",
+    "docker_build",
+    "docker_run",
+    "docker_health",
+    "api_smoke",
+    "docker_cleanup",
 }
 
 HTML_MARKERS = {
@@ -306,6 +318,7 @@ def build_report(
     post_credential_plan_url = raw_file_url(space_id, "docs/assets/post-credential-live-proof-plan.json")
     submission_bundle_url = raw_file_url(space_id, "docs/assets/submission-bundle-manifest.json")
     genblaze_contract_url = raw_file_url(space_id, "docs/assets/genblaze-contract-report.json")
+    docker_smoke_url = raw_file_url(space_id, "docs/assets/docker-smoke-report.json")
     judge_url = public_url(public_host, "/?judge=1")
     health_url = public_url(public_host, "/api/health")
     gate_url = public_url(public_host, "/api/submission/gate")
@@ -332,6 +345,7 @@ def build_report(
     post_credential_plan_result = fetcher(post_credential_plan_url, TIMEOUT_SECONDS)
     submission_bundle_result = fetcher(submission_bundle_url, TIMEOUT_SECONDS)
     genblaze_contract_result = fetcher(genblaze_contract_url, TIMEOUT_SECONDS)
+    docker_smoke_result = fetcher(docker_smoke_url, TIMEOUT_SECONDS)
     judge_result = fetcher(judge_url, TIMEOUT_SECONDS)
     health_result = fetcher(health_url, TIMEOUT_SECONDS)
     gate_result = fetcher(gate_url, TIMEOUT_SECONDS)
@@ -357,6 +371,7 @@ def build_report(
     post_credential_plan = parse_json(post_credential_plan_result)
     submission_bundle = parse_json(submission_bundle_result)
     genblaze_contract = parse_json(genblaze_contract_result)
+    docker_smoke = parse_json(docker_smoke_result)
     health = parse_json(health_result)
     gate = parse_json(gate_result)
     html = str(judge_result.get("body") or "")
@@ -438,6 +453,31 @@ def build_report(
         and "does not read environment variables" in genblaze_contract_secret_policy
         and "Backblaze keys" in genblaze_contract_secret_policy
         and "Genblaze/GMI keys" in genblaze_contract_secret_policy
+    )
+    docker_smoke_dockerignore = dict_field(docker_smoke, "dockerignore")
+    docker_smoke_health = dict_field(docker_smoke, "health")
+    docker_smoke_health_json = dict_field(docker_smoke_health, "json")
+    docker_smoke_checks = dict_list_field(docker_smoke, "checks")
+    docker_smoke_check_status = {str(check.get("id")): check.get("ok") is True for check in docker_smoke_checks}
+    docker_smoke_required_checks_ok = (
+        DOCKER_SMOKE_REQUIRED_CHECK_IDS <= set(docker_smoke_check_status)
+        and all(docker_smoke_check_status[check_id] for check_id in DOCKER_SMOKE_REQUIRED_CHECK_IDS)
+    )
+    docker_smoke_ok = bool(
+        docker_smoke_result.get("ok")
+        and docker_smoke
+        and docker_smoke.get("schema") == "proofframe.docker_smoke.v1"
+        and docker_smoke.get("ok") is True
+        and docker_smoke.get("mode") == "docker_smoke_ready"
+        and docker_smoke_required_checks_ok
+        and docker_smoke_dockerignore.get("missing_required_patterns") == []
+        and docker_smoke_dockerignore.get("missing_allow_patterns") == []
+        and docker_smoke_health.get("ok") is True
+        and docker_smoke_health_json.get("ready") is True
+        and docker_smoke_health_json.get("storage_backend") == "local"
+        and docker_smoke_health_json.get("generation_backend") == "mock"
+        and docker_smoke_health_json.get("b2_configured") is False
+        and docker_smoke_health_json.get("genblaze_configured") is False
     )
     public_demo_screenshot_markers = dict_field(public_demo_screenshot, "markers")
     public_demo_screenshot_visible = dict_field(public_demo_screenshot_markers, "visible")
@@ -1105,6 +1145,17 @@ def build_report(
             genblaze_contract_url,
         ),
         check_item(
+            "raw_docker_smoke_report",
+            "Raw Docker smoke report is public and ready",
+            docker_smoke_ok,
+            (
+                f"Docker smoke schema is {docker_smoke.get('schema') if docker_smoke else None}; "
+                f"mode is {docker_smoke.get('mode') if docker_smoke else None}; "
+                f"health storage={docker_smoke_health_json.get('storage_backend')}."
+            ),
+            docker_smoke_url,
+        ),
+        check_item(
             "public_health",
             "Public demo health is local/mock and ready",
             bool(
@@ -1189,6 +1240,13 @@ def build_report(
                 "mode": genblaze_contract.get("mode") if genblaze_contract else None,
                 "ok": genblaze_contract.get("ok") if genblaze_contract else None,
                 "failed_checks": len(genblaze_contract_failed_checks),
+            },
+            "docker_smoke": {
+                "schema": docker_smoke.get("schema") if docker_smoke else None,
+                "mode": docker_smoke.get("mode") if docker_smoke else None,
+                "ok": docker_smoke.get("ok") if docker_smoke else None,
+                "storage_backend": docker_smoke_health_json.get("storage_backend"),
+                "generation_backend": docker_smoke_health_json.get("generation_backend"),
             },
             "b2_key_scope_checklist": {
                 "schema": b2_key_scope_checklist.get("schema") if b2_key_scope_checklist else None,
@@ -1335,6 +1393,7 @@ def build_report(
             "raw_post_credential_plan": post_credential_plan_url,
             "raw_submission_bundle": submission_bundle_url,
             "raw_genblaze_contract_report": genblaze_contract_url,
+            "raw_docker_smoke_report": docker_smoke_url,
             "judge": judge_url,
             "health": health_url,
             "submission_gate": gate_url,
@@ -1389,6 +1448,8 @@ def next_actions(checks: list[dict[str, Any]]) -> list[str]:
         actions.append("Regenerate and upload docs/assets/submission-bundle-manifest.json to the Space.")
     if "raw_genblaze_contract_report" in failed:
         actions.append("Regenerate and upload docs/assets/genblaze-contract-report.json to the Space.")
+    if "raw_docker_smoke_report" in failed:
+        actions.append("Regenerate and upload docs/assets/docker-smoke-report.json to the Space.")
     if "public_health" in failed or "submission_gate" in failed or "judge_html_markers" in failed:
         actions.append("Rebuild the public Space and rerun public API/HTML smoke checks.")
     if not actions:

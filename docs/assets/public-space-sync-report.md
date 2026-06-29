@@ -2,19 +2,19 @@
 
 Mode: `public_space_synced`
 OK: `true`
-Created: `2026-06-29T12:27:25Z`
+Created: `2026-06-29T13:01:59Z`
 Space: `ADJCJH/backblaze-proofframe`
 Public host: https://adjcjh-backblaze-proofframe.hf.space
-Expected sha: `db0364c8dc5063c3e5a95617c52c90115036e31b`
-Runtime sha: `db0364c8dc5063c3e5a95617c52c90115036e31b`
+Expected sha: `9fa3c4fc84c87cbcef17e3d8d5b1b563cc076591`
+Runtime sha: `9fa3c4fc84c87cbcef17e3d8d5b1b563cc076591`
 Runtime stage: `RUNNING`
 
 ## Checks
 
 | Status | Check | Detail | Evidence |
 | --- | --- | --- | --- |
-| OK | Space metadata points at the expected commit | Space sha is db0364c8dc5063c3e5a95617c52c90115036e31b; expected db0364c8dc5063c3e5a95617c52c90115036e31b. | https://huggingface.co/api/spaces/ADJCJH/backblaze-proofframe |
-| OK | Space runtime is running the expected commit | Runtime stage is RUNNING; runtime sha is db0364c8dc5063c3e5a95617c52c90115036e31b; domain ready is True. | https://huggingface.co/api/spaces/ADJCJH/backblaze-proofframe/runtime |
+| OK | Space metadata points at the expected commit | Space sha is 9fa3c4fc84c87cbcef17e3d8d5b1b563cc076591; expected 9fa3c4fc84c87cbcef17e3d8d5b1b563cc076591. | https://huggingface.co/api/spaces/ADJCJH/backblaze-proofframe |
+| OK | Space runtime is running the expected commit | Runtime stage is RUNNING; runtime sha is 9fa3c4fc84c87cbcef17e3d8d5b1b563cc076591; domain ready is True. | https://huggingface.co/api/spaces/ADJCJH/backblaze-proofframe/runtime |
 | OK | Raw handoff report is public and ready | Handoff schema is proofframe.agent_handoff.v1; mode is handoff_ready. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/agent-handoff-report.json |
 | OK | Raw Devpost event snapshot is public and fresh | Event snapshot schema is proofframe.devpost_event_snapshot.v1; submission_open=True; age_days=0; participants=383. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/devpost-event-snapshot.json |
 | OK | Raw final launch plan is public and phase-aware | Launch plan schema is proofframe.final_launch_plan.v1; mode is blocked_at_credential_entry; current phase is credential_entry. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/final-launch-plan.json |
@@ -35,6 +35,7 @@ Runtime stage: `RUNNING`
 | OK | Raw post-credential live proof plan is public and task-safe | Post-credential schema is proofframe.post_credential_live_proof.v1; mode is plan_only; required sequence=True; report sequence=True; secret policy safe=True; devpost preview included=True. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/post-credential-live-proof-plan.json |
 | OK | Raw submission bundle separates shareability from final submit readiness | Bundle schema is proofframe.submission_bundle.v1; safe_to_share=True; safe_to_submit=False; required artifacts=True. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/submission-bundle-manifest.json |
 | OK | Raw Genblaze SDK contract report is public and ready | Contract schema is proofframe.genblaze_contract_check.v1; mode is sdk_contract_ready; failed_checks=0. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/genblaze-contract-report.json |
+| OK | Raw Docker smoke report is public and ready | Docker smoke schema is proofframe.docker_smoke.v1; mode is docker_smoke_ready; health storage=local. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/docker-smoke-report.json |
 | OK | Public demo health is local/mock and ready | Health storage=local, generation=mock, ready=True. | https://adjcjh-backblaze-proofframe.hf.space/api/health |
 | OK | Public submission gate is fail-closed with repo-relative paths | Gate mode is pre_live_safe; report gate is incomplete; relative paths=True. | https://adjcjh-backblaze-proofframe.hf.space/api/submission/gate |
 | OK | Judge-mode HTML contains recording and sponsor markers | Markers: judge_recording_slate=True, sponsor_evidence_model=True, judge_brief_panel=True, criteria_crosswalk_link=True, decision_brief_link=True, evidence_index_link=True, video_publish_kit_link=True, recording_runbook_panel=True, devpost_kit_panel=True, submit_checklist_panel=True, auto_load_judge_demo=True, final_reports_pending=True. | https://adjcjh-backblaze-proofframe.hf.space/?judge=1 |

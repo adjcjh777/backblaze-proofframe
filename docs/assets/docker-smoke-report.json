@@ -1,0 +1,163 @@
+{
+  "schema": "proofframe.docker_smoke.v1",
+  "created_at": "2026-06-29T12:59:25Z",
+  "ok": true,
+  "mode": "docker_smoke_ready",
+  "safe_to_share": true,
+  "image": "proofframe:submission-smoke",
+  "container": "proofframe-submission-smoke",
+  "base_url": "http://127.0.0.1:18088",
+  "dockerignore": {
+    "path": ".dockerignore",
+    "present": true,
+    "required_patterns_present": true,
+    "missing_required_patterns": [],
+    "example_env_allowed": true,
+    "missing_allow_patterns": []
+  },
+  "health": {
+    "ok": true,
+    "status": 200,
+    "json": {
+      "app": "ProofFrame",
+      "version": "0.1.0",
+      "generation_backend": "mock",
+      "storage_backend": "local",
+      "b2_configured": false,
+      "genblaze_configured": false,
+      "ready": true
+    },
+    "error": null
+  },
+  "checks": [
+    {
+      "id": "dockerignore_secret_exclusions",
+      "label": ".dockerignore excludes local secrets and heavy runtime paths",
+      "ok": true,
+      "detail": "missing_required=[]; missing_allow=[]."
+    },
+    {
+      "id": "docker_daemon",
+      "label": "Docker daemon is reachable",
+      "ok": true,
+      "detail": "docker info completed."
+    },
+    {
+      "id": "docker_build",
+      "label": "Docker image builds",
+      "ok": true,
+      "detail": "docker build completed."
+    },
+    {
+      "id": "docker_run",
+      "label": "Docker container starts",
+      "ok": true,
+      "detail": "docker run returned a container id."
+    },
+    {
+      "id": "docker_health",
+      "label": "Dockerized app reports local/mock health",
+      "ok": true,
+      "detail": "health={'app': 'ProofFrame', 'version': '0.1.0', 'generation_backend': 'mock', 'storage_backend': 'local', 'b2_configured': False, 'genblaze_configured': False, 'ready': True}; error=None."
+    },
+    {
+      "id": "api_smoke",
+      "label": "API smoke passes against the Docker container",
+      "ok": true,
+      "detail": "api_smoke.py completed."
+    },
+    {
+      "id": "docker_cleanup",
+      "label": "Smoke container is removed",
+      "ok": true,
+      "detail": "docker rm -f completed."
+    }
+  ],
+  "commands": [
+    {
+      "id": "docker_info",
+      "command": [
+        "docker",
+        "info",
+        "--format",
+        "{{json .ServerVersion}}"
+      ],
+      "ok": true,
+      "returncode": 0,
+      "stdout_tail": "\"29.2.1\"\n",
+      "stderr_tail": ""
+    },
+    {
+      "id": "docker_build",
+      "command": [
+        "docker",
+        "build",
+        "-t",
+        "proofframe:submission-smoke",
+        "."
+      ],
+      "ok": true,
+      "returncode": 0,
+      "stdout_tail": "",
+      "stderr_tail": ".9 MB/s eta 0:00:00\n#12 11.60 Downloading watchfiles-1.2.0-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl (453 kB)\n#12 11.73 Downloading websockets-16.0-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (186 kB)\n#12 11.82 Downloading anyio-4.14.1-py3-none-any.whl (124 kB)\n#12 11.92 Downloading idna-3.18-py3-none-any.whl (65 kB)\n#12 11.93 Building wheels for collected packages: proofframe\n#12 11.93   Building wheel for proofframe (pyproject.toml): started\n#12 12.02   Building wheel for proofframe (pyproject.toml): finished with status 'done'\n#12 12.02   Created wheel for proofframe: filename=proofframe-0.1.0-py3-none-any.whl size=16735 sha256=557f555d7c11dd643adc95b4a3e04d4d7c87b7d8a4ad558c5c8289d84933a38e\n#12 12.02   Stored in directory: /tmp/pip-ephem-wheel-cache-2hf4lq9p/wheels/54/1b/b7/aa63e25c8f14f4f2ae7b04e6097bdecb770e455c5c1ee0a600\n#12 12.02 Successfully built proofframe\n#12 12.03 Installing collected packages: websockets, uvloop, typing-extensions, pyyaml, python-dotenv, idna, httptools, h11, click, annotated-types, annotated-doc, uvicorn, typing-inspection, pydantic-core, anyio, watchfiles, starlette, pydantic, fastapi, proofframe\n#12 12.51 Successfully installed annotated-doc-0.0.4 annotated-types-0.7.0 anyio-4.14.1 click-8.4.2 fastapi-0.138.2 h11-0.16.0 httptools-0.8.0 idna-3.18 proofframe-0.1.0 pydantic-2.13.4 pydantic-core-2.46.4 python-dotenv-1.2.2 pyyaml-6.0.3 starlette-1.3.1 typing-extensions-4.15.0 typing-inspection-0.4.2 uvicorn-0.49.0 uvloop-0.22.1 watchfiles-1.2.0 websockets-16.0\n#12 12.51 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.\n#12 12.95 \n#12 12.95 [notice] A new release of pip is available: 25.0.1 -> 26.1.2\n#12 12.95 [notice] To update, run: pip install --upgrade pip\n#12 DONE 13.1s\n\n#13 exporting to image\n#13 exporting layers\n#13 exporting layers 0.9s done\n#13 exporting manifest sha256:726e5d9acdc13c3106212ff6768b6dc2f90fd18873f81e0a949277d76d004f05\n#13 exporting manifest sha256:726e5d9acdc13c3106212ff6768b6dc2f90fd18873f81e0a949277d76d004f05 done\n#13 exporting config sha256:0d8818b0b527b8a37ea9cf5da3889c9d13370bc920deb001723a65a2b12cc0ee done\n#13 exporting attestation manifest sha256:f5bc10770d398fb7f0c3c38aeb9e86a70da964e8eb85d173e6aaa04cdf49d9c1 done\n#13 exporting manifest list sha256:a82dea0efd8c326336d7b5c245b3befa944cf9aed41144c3d47f5ab168080b47 done\n#13 naming to docker.io/library/proofframe:submission-smoke done\n#13 unpacking to docker.io/library/proofframe:submission-smoke\n#13 unpacking to docker.io/library/proofframe:submission-smoke 0.2s done\n#13 DONE 1.2s\n\nView build details: docker-desktop://dashboard/build/colima/colima/yeejua7nak7zmo3q3iv6m870v\n"
+    },
+    {
+      "id": "docker_run",
+      "command": [
+        "docker",
+        "run",
+        "-d",
+        "--name",
+        "proofframe-submission-smoke",
+        "-p",
+        "18088:8088",
+        "proofframe:submission-smoke"
+      ],
+      "ok": true,
+      "returncode": 0,
+      "stdout_tail": "9e8ff281a389543299d7d6609b45f0ea90b6fec1d68e3cbbb1f1d3a59c82e90b\n",
+      "stderr_tail": ""
+    },
+    {
+      "id": "api_smoke",
+      "command": [
+        "/Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe/.venv/bin/python",
+        "scripts/api_smoke.py",
+        "--base-url",
+        "http://127.0.0.1:18088"
+      ],
+      "ok": true,
+      "returncode": 0,
+      "stdout_tail": "{\n  \"ok\": true,\n  \"base_url\": \"http://127.0.0.1:18088\",\n  \"generation_backend\": \"mock\",\n  \"storage_backend\": \"local\",\n  \"judge_brief_schema\": \"proofframe.judge_brief.v1\",\n  \"judge_safe_to_submit\": false,\n  \"judge_crosswalk_schema\": \"proofframe.judge_crosswalk.v1\",\n  \"judge_crosswalk_mode\": \"pre_live_crosswalk_ready\",\n  \"judge_crosswalk_safe_to_submit\": false,\n  \"judge_crosswalk_rows\": 4,\n  \"judge_decision_brief_schema\": \"proofframe.judge_decision_brief.v1\",\n  \"judge_decision_brief_mode\": \"pre_live_decision_ready\",\n  \"judge_decision_brief_safe_to_submit\": false,\n  \"judge_decision_brief_checks\": 6,\n  \"judge_evidence_index_schema\": \"proofframe.judge_evidence_index.v1\",\n  \"judge_evidence_index_mode\": \"pre_live_evidence_index_ready\",\n  \"judge_evidence_index_safe_to_submit\": false,\n  \"judge_evidence_index_links\": 17,\n  \"judge_video_publish_kit_schema\": \"proofframe.final_video_publish_kit.v1\",\n  \"judge_video_publish_kit_mode\": \"ready_for_final_upload\",\n  \"judge_video_publish_kit_safe_to_submit\": false,\n  \"judge_video_publish_kit_final_video_ready\": false,\n  \"judge_video_publish_kit_upload_checks\": 4,\n  \"judge_recording_schema\": \"proofframe.recording_assets.v1\",\n  \"judge_recording_mode\": \"mock_recording_ready\",\n  \"judge_recording_final_video_ready\": false,\n  \"judge_recording_shots\": 6,\n  \"judge_devpost_schema\": \"proofframe.devpost_form_kit.v1\",\n  \"judge_devpost_mode\": \"pre_live_form_ready\",\n  \"judge_devpost_final_form_ready\": false,\n  \"judge_devpost_fields\": 19,\n  \"judge_submit_checklist_schema\": \"proofframe.devpost_submission_checklist.v1\",\n  \"judge_submit_checklist_mode\": \"pre_submit_blocked\",\n  \"judge_submit_checklist_safe_to_submit\": false,\n  \"judge_submit_checklist_preflight\": 6,\n  \"campaign_id\": \"cmp_d0be9e060cbb\",\n  \"asset_id\": \"ast_3af4fea8dfeb\",\n  \"asset_provider\": \"mock\",\n  \"asset_model\": \"mock-svg-v1\",\n  \"asset_storage_backend\": \"local\",\n  \"asset_storage_key\": \"cmp_d0be9e060cbb/cmp_d0be9e060cbb-variant-1.svg\",\n  \"asset_public_url_present\": true,\n  \"asset_status\": \"approved\",\n  \"asset_sha256\": \"744cdf5cf27224e5bb11bf7dd5351a963732abd7872d58b29cc79831dac9ac9b\",\n  \"manifest_storage_backend\": \"local\",\n  \"manifest_key\": \"cmp_d0be9e060cbb/cmp_d0be9e060cbb-manifest.json\",\n  \"manifest_sha256\": \"31a514f38cd5fa4058fcc6e8e1bee50b9b23adb056f0aa57cee39a75f828490f\",\n  \"packet_bytes\": 1527,\n  \"judge_demo_campaign_id\": \"cmp_34e53e3eaae0\"\n}\n",
+      "stderr_tail": ""
+    },
+    {
+      "id": "docker_logs",
+      "command": [
+        "docker",
+        "logs",
+        "--tail",
+        "80",
+        "proofframe-submission-smoke"
+      ],
+      "ok": true,
+      "returncode": 0,
+      "stdout_tail": "INFO:     172.17.0.1:43550 - \"GET /api/health HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:43554 - \"GET /api/health HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:43568 - \"GET /api/judge/brief HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:43584 - \"GET /api/judge/crosswalk HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:43590 - \"GET /api/judge/decision-brief HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:43602 - \"GET /api/judge/evidence-index HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:43604 - \"GET /api/judge/video-publish-kit HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:43616 - \"GET /api/judge/recording HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:43624 - \"GET /api/judge/devpost HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:43636 - \"GET /api/judge/submission-checklist HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:43640 - \"POST /api/campaigns HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:43654 - \"POST /api/campaigns/cmp_d0be9e060cbb/generate?count=1 HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:43656 - \"POST /api/assets/ast_3af4fea8dfeb/status HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:43662 - \"POST /api/campaigns/cmp_d0be9e060cbb/export HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:43678 - \"GET /api/campaigns/cmp_d0be9e060cbb/packet.zip HTTP/1.1\" 200 OK\nINFO:     172.17.0.1:43686 - \"POST /api/demo/judge-packet HTTP/1.1\" 200 OK\n",
+      "stderr_tail": "INFO:     Started server process [8]\nINFO:     Waiting for application startup.\nINFO:     Application startup complete.\nINFO:     Uvicorn running on http://0.0.0.0:8088 (Press CTRL+C to quit)\n"
+    },
+    {
+      "id": "docker_cleanup",
+      "command": [
+        "docker",
+        "rm",
+        "-f",
+        "proofframe-submission-smoke"
+      ],
+      "ok": true,
+      "returncode": 0,
+      "stdout_tail": "proofframe-submission-smoke\n",
+      "stderr_tail": ""
+    }
+  ],
+  "secret_policy": "This smoke test uses local/mock mode, does not read .env.final.local, and requires .dockerignore to exclude local env files from the Docker build context."
+}

@@ -76,10 +76,10 @@ The result is a shareable asset packet that explains where each generated file c
 - [ ] Public GitHub repo complete.
 - [x] Public mock demo URL deployed.
 - [ ] B2/Genblaze-backed public demo URL verified or Docker path accepted.
-- [ ] README has setup, demo, architecture, and sponsor usage.
-- [ ] Docker run verified.
-- [ ] Browser smoke verified.
-- [ ] No secrets in repo.
+- [x] README has setup, demo, architecture, and sponsor usage.
+- [x] Docker run verified.
+- [x] Browser smoke verified.
+- [x] No secrets in repo.
 - [ ] Demo video recorded.
 - [ ] Devpost packet regenerated with the public video URL.
 - [ ] `python scripts/submission_audit.py --strict-final` passes.

@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-29T12:02:53Z",
+  "updated_at": "2026-06-29T12:40:14Z",
   "tasks": [
     {
       "id": "T001",
@@ -145,6 +145,15 @@
       "status": "done",
       "done_criteria": "",
       "notes": "Added no-secret Genblaze/B2 SDK import and signature contract report, CI step, submission bundle artifact, and public sync required artifact coverage."
+    },
+    {
+      "id": "T086",
+      "title": "Add Docker smoke and build-context secret guard",
+      "phase": "P3 Public Demo",
+      "owner": "tester",
+      "status": "done",
+      "done_criteria": "",
+      "notes": "Added .dockerignore, Docker build/run/API smoke report, CI step, submission bundle artifact coverage, and evidence-backed submission checklist updates."
     },
     {
       "id": "T030",

@@ -42,3 +42,4 @@ python3 scripts/task.py doing T020 --note "Live B2 proof in progress"
 | T083 | Official Devpost event snapshot refreshed from live overview/rules pages, downstream reports regenerated, and public Space sync passed. |
 | T084 | Genblaze final path now uses the official B2 sink contract in B2 mode, with preflight coverage for `genblaze_s3` and B2 region readiness. |
 | T085 | No-secret Genblaze/B2 SDK contract check added to CI, reports, submission bundle, and public sync required artifacts. |
+| T086 | Docker build/run/API smoke report added with `.dockerignore` protection for local env files and submission checklist evidence. |

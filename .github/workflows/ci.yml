@@ -48,6 +48,9 @@ jobs:
           python scripts/api_smoke.py --base-url http://127.0.0.1:8088
           kill "$(cat /tmp/proofframe-uvicorn.pid)"
 
+      - name: Docker smoke
+        run: python scripts/docker_smoke.py
+
       - name: Secret scan
         run: python scripts/secret_scan.py
 

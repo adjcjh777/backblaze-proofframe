@@ -96,6 +96,7 @@ This file is the internal source of truth for Devpost submission assets. Anythin
 | Award readiness report | `scripts/award_readiness.py`, `docs/assets/award-readiness-report.json`, `docs/assets/award-readiness-report.md` | Public-ready; scores sponsor fit, provenance depth, demo readiness, claim safety, and final closure |
 | Devpost draft | `docs/devpost_draft.md` | Public-ready after final claim check |
 | Deployment runbook | `docs/deployment.md` | Public-ready |
+| Docker smoke report | `scripts/docker_smoke.py`, `.dockerignore`, `docs/assets/docker-smoke-report.json`, `docs/assets/docker-smoke-report.md` | Public-ready; verifies Docker build/run/API smoke in local/mock mode and confirms local env files are excluded from the build context |
 | Task ledger | `tasks.json`, `scripts/task.py` | Public-ready |
 | Task ledger add/search | `python3 scripts/task.py add ...`, `python3 scripts/task.py search ...` | Public-ready |
 | Local API tests | `.venv` verification: `pytest` | Public-ready |

@@ -105,6 +105,7 @@ Then open `http://127.0.0.1:8088/`.
 . .venv/bin/activate
 python scripts/check_integrations.py
 python scripts/genblaze_contract_check.py
+python scripts/docker_smoke.py
 python scripts/live_proof.py --preflight-only
 python scripts/run_final_live_proof.py --env-file .env.final.local --preflight-only
 python scripts/live_env_handoff.py
@@ -139,6 +140,7 @@ The browser UI and `GET /api/submission/gate` expose the same fail-closed final 
 `scripts/submission_bundle.py` creates a safe manifest of public submission artifacts, screenshots, checksums, Devpost copy mode, and remaining gate blockers.
 `scripts/live_env_handoff.py` creates a redacted B2/Genblaze credential handoff report so final proof setup can be checked without printing keys.
 `scripts/genblaze_contract_check.py` verifies the installed Genblaze/B2 SDK import and signature contract without reading environment variables or credential files, catching package/API drift before live keys are entered.
+`scripts/docker_smoke.py` verifies the Docker image builds, starts in local/mock mode, passes API smoke, and uses `.dockerignore` to keep local env files out of the build context.
 `scripts/final_env_wizard.py` creates a local git-ignored `.env.final.local` with 0600 permissions, can prefill non-secret B2/default values, reads existing local values as defaults, and uses hidden prompts for credential values.
 `scripts/b2_key_scope_checklist.py` creates a no-secret B2 app-key scope checklist for the dedicated bucket, prefix, required upload capability, S3 SDK compatibility flag, forbidden permissions, and stop conditions before a key is created.
 `scripts/run_b2_live_proof.py` verifies the Backblaze B2 storage path independently with mock generation, so T020 can close before Genblaze credentials are ready.

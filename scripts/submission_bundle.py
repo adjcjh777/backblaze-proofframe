@@ -59,6 +59,10 @@ CLOSEOUT_REPORTS = [
 ARTIFACTS = [
     ("repo_readme", "README.md", "Core public project overview"),
     ("dockerfile", "Dockerfile", "Docker deployment image contract"),
+    ("dockerignore", ".dockerignore", "Docker build context secret exclusion policy"),
+    ("docker_smoke_script", "scripts/docker_smoke.py", "Docker build and API smoke verifier"),
+    ("docker_smoke_json", "docs/assets/docker-smoke-report.json", "Machine-readable Docker smoke report"),
+    ("docker_smoke_md", "docs/assets/docker-smoke-report.md", "Human-readable Docker smoke report"),
     ("prd", "docs/prd.md", "Product requirements"),
     ("technical_spec", "docs/spec.md", "Implementation specification"),
     ("deployment_runbook", "docs/deployment.md", "Public demo deployment runbook"),

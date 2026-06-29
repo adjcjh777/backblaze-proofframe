@@ -50,6 +50,8 @@ REQUIRED_PUBLIC_FILES = [
     "docs/assets/b2-key-scope-checklist.md",
     "docs/assets/final-rehearsal-checklist.json",
     "docs/assets/final-rehearsal-checklist.md",
+    "docs/assets/docker-smoke-report.json",
+    "docs/assets/docker-smoke-report.md",
     "docs/evidence_package.md",
     "docs/demo_script.md",
     "docs/public_claim_freeze.md",
@@ -77,6 +79,7 @@ REQUIRED_REPORT_SCHEMAS = {
     "docs/assets/final-operator-brief.json": "proofframe.final_operator_brief.v1",
     "docs/assets/b2-key-scope-checklist.json": "proofframe.b2_key_scope_checklist.v1",
     "docs/assets/final-rehearsal-checklist.json": "proofframe.final_rehearsal.v1",
+    "docs/assets/docker-smoke-report.json": "proofframe.docker_smoke.v1",
     "docs/assets/devpost-submission-receipt.json": "proofframe.devpost_submission_receipt.v1",
 }
 
