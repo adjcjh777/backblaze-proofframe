@@ -31,6 +31,12 @@ CLOSEOUT_REPORTS = [
         "ready_fields": {"safe_to_submit": True, "mode": "final_submit_ready"},
     },
     {
+        "id": "final_video_publish_kit_after_receipt",
+        "path": "docs/assets/final-video-publish-kit.json",
+        "schema": "proofframe.final_video_publish_kit.v1",
+        "ready_fields": {"ok": True, "safe_to_submit": True, "mode": "public_video_ready"},
+    },
+    {
         "id": "final_launch_plan_after_receipt",
         "path": "docs/assets/final-launch-plan.json",
         "schema": "proofframe.final_launch_plan.v1",
@@ -92,6 +98,9 @@ ARTIFACTS = [
     ("demo_video_draft_json", "docs/assets/demo-video-draft.json", "Machine-readable demo video draft report"),
     ("demo_video_draft_md", "docs/assets/demo-video-draft.md", "Human-readable demo video draft report"),
     ("demo_video_draft_mp4", "docs/assets/proofframe-demo-draft.mp4", "Public-safe mock demo video draft"),
+    ("final_video_publish_kit_script", "scripts/final_video_publish_kit.py", "Final public video upload copy and gate kit"),
+    ("final_video_publish_kit_json", "docs/assets/final-video-publish-kit.json", "Machine-readable final video publish kit"),
+    ("final_video_publish_kit_md", "docs/assets/final-video-publish-kit.md", "Human-readable final video publish kit"),
     ("public_video_check_script", "scripts/public_video_check.py", "Public demo video URL verifier"),
     ("public_video_check_json", "docs/assets/public-video-check.json", "Machine-readable public video check"),
     ("public_video_check_md", "docs/assets/public-video-check.md", "Human-readable public video check"),

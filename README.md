@@ -147,12 +147,13 @@ The browser UI and `GET /api/submission/gate` expose the same fail-closed final 
 `scripts/final_rehearsal.py` turns the final operator brief, launch plan, public sync, and gates into a no-secret final-submission rehearsal checklist.
 `scripts/devpost_event_snapshot.py` keeps official Devpost deadline, participants, submission requirements, and judging criteria as a refreshable evidence report.
 `scripts/agent_handoff_check.py` keeps AGENTS.md, Codex, and Agent Bus handoff paths aligned with the current repo so future role sessions do not follow stale project metadata.
-`scripts/public_space_sync.py` verifies the public Hugging Face Space runtime sha, raw handoff, Devpost event snapshot, final launch plan, B2 key scope checklist, judge brief, judge crosswalk, judge evidence index, mock video draft, public video check, health/gate APIs, and judge-mode HTML markers.
+`scripts/public_space_sync.py` verifies the public Hugging Face Space runtime sha, raw handoff, Devpost event snapshot, final launch plan, B2 key scope checklist, judge brief, judge crosswalk, judge evidence index, final video publish kit, mock video draft, public video check, health/gate APIs, and judge-mode HTML markers.
 `scripts/run_final_live_proof.py` is the final one-command live runner: once B2 and Genblaze env vars are present, it starts the app, verifies `/api/health` reports `b2` plus `genblaze`, writes sanitized final evidence, and stops the server.
 `scripts/claim_lint.py` keeps pre-live public copy from claiming completed Backblaze B2 or Genblaze proof before evidence exists.
 `scripts/secret_scan.py` writes a no-value secret scan report for public files, generated evidence, local logs, and media inventory while excluding local credential files without reading them.
 `scripts/demo_storyboard.py` keeps the demo video timeline under 3 minutes and tracks the public video URL as a final gate.
 `scripts/demo_video_draft.py` builds a public-safe mock MP4 draft from committed screenshots for rehearsal, while explicitly keeping `safe_to_submit=false` and `final_video_ready=false`.
+`scripts/final_video_publish_kit.py` prepares final upload title, description, chapters, allowed hosts, and the Devpost video field gate without marking the video ready before the public URL passes.
 `scripts/public_video_check.py` verifies the final public demo video URL is non-placeholder, token-free, hosted on an allowed Devpost public video family (YouTube, Vimeo, or Youku), and reachable before final submission.
 `scripts/sponsor_fit_audit.py` checks that Backblaze B2 and Genblaze are explained as product-critical sponsor paths without overclaiming live proof.
 `scripts/demo_readiness.py` keeps the mock demo recording package ready while failing strict final mode until live B2/Genblaze proof and the final secret scan are complete.

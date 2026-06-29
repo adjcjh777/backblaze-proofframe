@@ -299,6 +299,48 @@ def valid_judge_evidence_index() -> dict:
     }
 
 
+def valid_video_publish_kit() -> dict:
+    return {
+        "schema": "proofframe.final_video_publish_kit.v1",
+        "ok": True,
+        "mode": "ready_for_final_upload",
+        "safe_to_share": True,
+        "safe_to_submit": False,
+        "final_video_ready": False,
+        "allowed_hosts": ["YouTube", "Vimeo", "Youku"],
+        "devpost_field": {
+            "field_id": "video_url",
+            "value": "TBD after final upload.",
+            "ready": False,
+        },
+        "upload_checklist": [
+            {"id": "host_family", "ok": False},
+            {"id": "public_visibility", "ok": False},
+            {"id": "duration", "ok": True},
+            {"id": "devpost_field", "ok": False},
+        ],
+        "source_reports": {
+            "storyboard": {"schema_ok": True},
+            "draft_video": {"schema_ok": True},
+            "public_video_check": {
+                "schema_ok": True,
+                "ok": False,
+                "safe_to_submit": False,
+            },
+            "final_control": {
+                "schema_ok": True,
+                "ok": True,
+                "safe_to_submit": False,
+            },
+            "evidence_index": {"schema_ok": True},
+        },
+        "claim_boundary": (
+            "Use this title and description for final upload only after live B2 and Genblaze proof "
+            "are recorded; until then, the public demo remains local/mock and safe_to_submit=false."
+        ),
+    }
+
+
 def fake_fetcher(url: str, timeout: int) -> dict:
     assert timeout == public_space_sync.TIMEOUT_SECONDS
     if url.endswith("/api/spaces/ADJCJH/backblaze-proofframe"):
@@ -402,6 +444,13 @@ def fake_fetcher(url: str, timeout: int) -> dict:
             "ok": True,
             "status": 200,
             "body": json.dumps(valid_judge_evidence_index()),
+            "error": None,
+        }
+    if url.endswith("/docs/assets/final-video-publish-kit.json"):
+        return {
+            "ok": True,
+            "status": 200,
+            "body": json.dumps(valid_video_publish_kit()),
             "error": None,
         }
     if url.endswith("/docs/assets/recording-assets.json"):
@@ -539,7 +588,7 @@ def fake_fetcher(url: str, timeout: int) -> dict:
             "status": 200,
             "body": (
                 "Judge recording slate Sponsor Evidence Model shouldAutoLoadJudgeDemo "
-                "30-Second Judge Brief Criteria crosswalk Evidence index Recording Runbook "
+                "30-Second Judge Brief Criteria crosswalk Evidence index Video publish kit Recording Runbook "
                 "Devpost Kit Submit Checklist Final reports pending"
             ),
             "error": None,
@@ -612,6 +661,14 @@ def test_public_space_sync_report_passes_when_space_is_current():
         "link_count": 10,
         "section_count": 5,
         "blocker_count": 3,
+    }
+    assert report["observed"]["video_publish_kit"] == {
+        "schema": "proofframe.final_video_publish_kit.v1",
+        "mode": "ready_for_final_upload",
+        "safe_to_share": True,
+        "safe_to_submit": False,
+        "final_video_ready": False,
+        "upload_check_count": 4,
     }
     assert report["observed"]["public_demo_screenshot"]["ok"] is True
     assert report["observed"]["public_demo_screenshot"]["visible_ok"] is True
@@ -883,6 +940,69 @@ def test_public_space_sync_fails_on_unsafe_judge_evidence_index():
     assert "raw_judge_evidence_index" in failed
     assert (
         "Regenerate and upload docs/assets/judge-evidence-index.json to the Space."
+        in report["next_actions"]
+    )
+
+
+def test_public_space_sync_accepts_final_ready_video_publish_kit():
+    def final_ready_fetcher(url: str, timeout: int) -> dict:
+        result = fake_fetcher(url, timeout)
+        if url.endswith("/docs/assets/final-video-publish-kit.json"):
+            kit = valid_video_publish_kit()
+            kit["mode"] = "public_video_ready"
+            kit["safe_to_submit"] = True
+            kit["final_video_ready"] = True
+            kit["devpost_field"]["ready"] = True
+            kit["devpost_field"]["value"] = "https://youtu.be/proofframe-final"
+            kit["source_reports"]["public_video_check"] = {
+                "schema_ok": True,
+                "ok": True,
+                "safe_to_submit": True,
+            }
+            kit["source_reports"]["final_control"] = {
+                "schema_ok": True,
+                "ok": True,
+                "safe_to_submit": True,
+            }
+            result = {**result, "body": json.dumps(kit)}
+        return result
+
+    report = public_space_sync.build_report(expected_sha=EXPECTED_SHA, fetcher=final_ready_fetcher)
+
+    assert report["ok"] is True
+    assert report["observed"]["video_publish_kit"]["mode"] == "public_video_ready"
+    assert report["observed"]["video_publish_kit"]["safe_to_submit"] is True
+
+
+def test_public_space_sync_fails_on_inconsistent_video_publish_kit():
+    def broken_fetcher(url: str, timeout: int) -> dict:
+        result = fake_fetcher(url, timeout)
+        if url.endswith("/docs/assets/final-video-publish-kit.json"):
+            kit = valid_video_publish_kit()
+            kit["mode"] = "public_video_ready"
+            kit["safe_to_submit"] = True
+            kit["final_video_ready"] = True
+            kit["devpost_field"]["ready"] = True
+            kit["source_reports"]["public_video_check"] = {
+                "schema_ok": True,
+                "ok": True,
+                "safe_to_submit": True,
+            }
+            kit["source_reports"]["final_control"] = {
+                "schema_ok": True,
+                "ok": False,
+                "safe_to_submit": True,
+            }
+            result = {**result, "body": json.dumps(kit)}
+        return result
+
+    report = public_space_sync.build_report(expected_sha=EXPECTED_SHA, fetcher=broken_fetcher)
+
+    failed = {item["id"] for item in report["checks"] if not item["ok"]}
+    assert report["ok"] is False
+    assert "raw_video_publish_kit" in failed
+    assert (
+        "Regenerate and upload docs/assets/final-video-publish-kit.json to the Space."
         in report["next_actions"]
     )
 

@@ -130,6 +130,22 @@ def run_smoke(
     if not isinstance(evidence_index_status, dict) or "final_blockers" not in evidence_index_status:
         raise SystemExit("Judge evidence index endpoint did not include final blocker status.")
 
+    video_publish_kit = request_json("GET", f"{base}/api/judge/video-publish-kit")
+    if video_publish_kit.get("schema") != "proofframe.final_video_publish_kit.v1":
+        raise SystemExit("Judge video publish kit endpoint did not return the expected schema.")
+    video_publish_safe_to_submit = video_publish_kit.get("safe_to_submit")
+    if not isinstance(video_publish_safe_to_submit, bool):
+        raise SystemExit("Judge video publish kit endpoint did not include a boolean safe_to_submit flag.")
+    video_publish_final_ready = video_publish_kit.get("final_video_ready")
+    if not isinstance(video_publish_final_ready, bool):
+        raise SystemExit("Judge video publish kit endpoint did not include a boolean final_video_ready flag.")
+    if health["storage_backend"] == "local" and health["generation_backend"] == "mock":
+        if video_publish_safe_to_submit or video_publish_final_ready:
+            raise SystemExit("Mock/local judge video publish kit must remain pre-final and fail closed.")
+    upload_checklist = video_publish_kit.get("upload_checklist")
+    if not isinstance(upload_checklist, list) or len(upload_checklist) < 4:
+        raise SystemExit("Judge video publish kit endpoint did not include the expected upload checklist.")
+
     judge_recording = request_json("GET", f"{base}/api/judge/recording")
     if judge_recording.get("schema") != "proofframe.recording_assets.v1":
         raise SystemExit("Judge recording endpoint did not return the expected schema.")
@@ -215,6 +231,11 @@ def run_smoke(
         "judge_evidence_index_mode": evidence_index.get("mode"),
         "judge_evidence_index_safe_to_submit": evidence_safe_to_submit,
         "judge_evidence_index_links": len(evidence_links),
+        "judge_video_publish_kit_schema": video_publish_kit["schema"],
+        "judge_video_publish_kit_mode": video_publish_kit.get("mode"),
+        "judge_video_publish_kit_safe_to_submit": video_publish_safe_to_submit,
+        "judge_video_publish_kit_final_video_ready": video_publish_final_ready,
+        "judge_video_publish_kit_upload_checks": len(upload_checklist),
         "judge_recording_schema": judge_recording["schema"],
         "judge_recording_mode": judge_recording.get("mode"),
         "judge_recording_final_video_ready": recording_final_ready,

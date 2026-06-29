@@ -443,6 +443,7 @@ def test_operator_commands_close_out_submission_bundle_after_receipt():
     assert commands[receipt_index + 1 :] == [
         "python scripts/secret_scan.py",
         "python scripts/final_submission_control.py --strict-final",
+        "python scripts/final_video_publish_kit.py --strict-final",
         "python scripts/final_launch_plan.py --strict-final",
         "python scripts/devpost_submission_preview.py --strict-final",
         "python scripts/submission_bundle.py --strict-final",

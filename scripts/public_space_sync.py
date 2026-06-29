@@ -19,7 +19,7 @@ SCHEMA = "proofframe.public_space_sync.v1"
 
 SPACE_ID = "ADJCJH/backblaze-proofframe"
 SPACE_HOST = "https://adjcjh-backblaze-proofframe.hf.space"
-EXPECTED_SPACE_SHA = "aeba0eae4af5c9d8a50b46b29a2977d0cb961ccb"
+EXPECTED_SPACE_SHA = "a876c2d42fc5fad7d4ca73e9e651b24ad290421e"
 TIMEOUT_SECONDS = 30
 DRAFT_VIDEO_MIN_BYTES = 100_000
 EVENT_SNAPSHOT_MAX_AGE_DAYS = 14
@@ -71,6 +71,8 @@ REQUIRED_BUNDLE_ARTIFACT_IDS = {
     "b2_key_scope_checklist_script",
     "judge_evidence_index_json",
     "judge_evidence_index_script",
+    "final_video_publish_kit_json",
+    "final_video_publish_kit_script",
     "final_submission_control_json",
     "secret_scan_json",
     "submission_audit_json",
@@ -85,6 +87,7 @@ HTML_MARKERS = {
     "judge_brief_panel": "30-Second Judge Brief",
     "criteria_crosswalk_link": "Criteria crosswalk",
     "evidence_index_link": "Evidence index",
+    "video_publish_kit_link": "Video publish kit",
     "recording_runbook_panel": "Recording Runbook",
     "devpost_kit_panel": "Devpost Kit",
     "submit_checklist_panel": "Submit Checklist",
@@ -280,6 +283,7 @@ def build_report(
     judge_brief_url = raw_file_url(space_id, "docs/assets/judge-brief.json")
     judge_crosswalk_url = raw_file_url(space_id, "docs/assets/judge-crosswalk.json")
     judge_evidence_index_url = raw_file_url(space_id, "docs/assets/judge-evidence-index.json")
+    video_publish_kit_url = raw_file_url(space_id, "docs/assets/final-video-publish-kit.json")
     recording_assets_url = raw_file_url(space_id, "docs/assets/recording-assets.json")
     public_demo_screenshot_url = raw_file_url(space_id, "docs/assets/public-demo-screenshot-report.json")
     demo_video_draft_url = raw_file_url(space_id, "docs/assets/demo-video-draft.json")
@@ -303,6 +307,7 @@ def build_report(
     judge_brief_result = fetcher(judge_brief_url, TIMEOUT_SECONDS)
     judge_crosswalk_result = fetcher(judge_crosswalk_url, TIMEOUT_SECONDS)
     judge_evidence_index_result = fetcher(judge_evidence_index_url, TIMEOUT_SECONDS)
+    video_publish_kit_result = fetcher(video_publish_kit_url, TIMEOUT_SECONDS)
     recording_assets_result = fetcher(recording_assets_url, TIMEOUT_SECONDS)
     public_demo_screenshot_result = fetcher(public_demo_screenshot_url, TIMEOUT_SECONDS)
     demo_video_draft_result = fetcher(demo_video_draft_url, TIMEOUT_SECONDS)
@@ -326,6 +331,7 @@ def build_report(
     judge_brief = parse_json(judge_brief_result)
     judge_crosswalk = parse_json(judge_crosswalk_result)
     judge_evidence_index = parse_json(judge_evidence_index_result)
+    video_publish_kit = parse_json(video_publish_kit_result)
     recording_assets = parse_json(recording_assets_result)
     public_demo_screenshot = parse_json(public_demo_screenshot_result)
     demo_video_draft = parse_json(demo_video_draft_result)
@@ -541,6 +547,55 @@ def build_report(
         and "does not claim completed B2 or Genblaze live proof"
         in str(judge_evidence_index.get("claim_boundary") or "")
     )
+    video_publish_upload_checks = dict_list_field(video_publish_kit, "upload_checklist")
+    video_publish_upload_check_ids = {
+        str(item.get("id")) for item in video_publish_upload_checks if isinstance(item.get("id"), str)
+    }
+    video_publish_sources = dict_field(video_publish_kit, "source_reports")
+    video_publish_required_sources_ok = all(
+        dict_field(video_publish_sources, source_id).get("schema_ok") is True
+        for source_id in {
+            "storyboard",
+            "draft_video",
+            "public_video_check",
+            "final_control",
+            "evidence_index",
+        }
+    )
+    video_publish_public_video_source = dict_field(video_publish_sources, "public_video_check")
+    video_publish_final_control_source = dict_field(video_publish_sources, "final_control")
+    video_publish_common_ok = bool(
+        video_publish_kit_result.get("ok")
+        and video_publish_kit
+        and video_publish_kit.get("schema") == "proofframe.final_video_publish_kit.v1"
+        and video_publish_kit.get("ok") is True
+        and video_publish_kit.get("safe_to_share") is True
+        and {"host_family", "public_visibility", "duration", "devpost_field"}
+        <= video_publish_upload_check_ids
+        and "YouTube" in list_field(video_publish_kit, "allowed_hosts")
+        and video_publish_required_sources_ok
+    )
+    video_publish_prefinal_ok = bool(
+        video_publish_common_ok
+        and video_publish_kit.get("safe_to_submit") is False
+        and video_publish_kit.get("final_video_ready") is False
+        and video_publish_kit.get("mode") == "ready_for_final_upload"
+        and dict_field(video_publish_kit, "devpost_field").get("ready") is False
+        and "safe_to_submit=false" in str(video_publish_kit.get("claim_boundary") or "")
+    )
+    video_publish_final_ok = bool(
+        video_publish_common_ok
+        and video_publish_kit.get("safe_to_submit") is True
+        and video_publish_kit.get("final_video_ready") is True
+        and video_publish_kit.get("mode") == "public_video_ready"
+        and dict_field(video_publish_kit, "devpost_field").get("ready") is True
+        and video_publish_public_video_source.get("ok") is True
+        and video_publish_public_video_source.get("safe_to_submit") is True
+        and video_publish_final_control_source.get("schema_ok") is True
+        and video_publish_final_control_source.get("ok") is True
+        and video_publish_final_control_source.get("safe_to_submit") is True
+    )
+    video_publish_kit_ok = bool(video_publish_prefinal_ok or video_publish_final_ok)
 
     checks = [
         check_item(
@@ -679,6 +734,18 @@ def build_report(
                 f"links={len(judge_evidence_index_links)}; blockers={len(judge_evidence_index_blockers)}."
             ),
             judge_evidence_index_url,
+        ),
+        check_item(
+            "raw_video_publish_kit",
+            "Raw final video publish kit is public and final-video gated",
+            video_publish_kit_ok,
+            (
+                f"Video kit schema is {video_publish_kit.get('schema') if video_publish_kit else None}; "
+                f"mode is {video_publish_kit.get('mode') if video_publish_kit else None}; "
+                f"safe_to_submit is {video_publish_kit.get('safe_to_submit') if video_publish_kit else None}; "
+                f"checks={len(video_publish_upload_checks)}."
+            ),
+            video_publish_kit_url,
         ),
         check_item(
             "raw_recording_assets",
@@ -995,6 +1062,16 @@ def build_report(
                 "section_count": len(judge_evidence_index_sections),
                 "blocker_count": len(judge_evidence_index_blockers),
             },
+            "video_publish_kit": {
+                "schema": video_publish_kit.get("schema") if video_publish_kit else None,
+                "mode": video_publish_kit.get("mode") if video_publish_kit else None,
+                "safe_to_share": video_publish_kit.get("safe_to_share") if video_publish_kit else None,
+                "safe_to_submit": video_publish_kit.get("safe_to_submit") if video_publish_kit else None,
+                "final_video_ready": (
+                    video_publish_kit.get("final_video_ready") if video_publish_kit else None
+                ),
+                "upload_check_count": len(video_publish_upload_checks),
+            },
             "public_demo_screenshot": {
                 "mode": public_demo_screenshot.get("mode") if public_demo_screenshot else None,
                 "ok": public_demo_screenshot.get("ok") if public_demo_screenshot else None,
@@ -1058,6 +1135,7 @@ def build_report(
             "raw_judge_brief": judge_brief_url,
             "raw_judge_crosswalk": judge_crosswalk_url,
             "raw_judge_evidence_index": judge_evidence_index_url,
+            "raw_video_publish_kit": video_publish_kit_url,
             "raw_public_demo_screenshot": public_demo_screenshot_url,
             "raw_demo_video_draft": demo_video_draft_url,
             "demo_video_draft_mp4": demo_video_draft_mp4_url,
@@ -1095,6 +1173,8 @@ def next_actions(checks: list[dict[str, Any]]) -> list[str]:
         actions.append("Regenerate and upload docs/assets/judge-crosswalk.json to the Space.")
     if "raw_judge_evidence_index" in failed:
         actions.append("Regenerate and upload docs/assets/judge-evidence-index.json to the Space.")
+    if "raw_video_publish_kit" in failed:
+        actions.append("Regenerate and upload docs/assets/final-video-publish-kit.json to the Space.")
     if "raw_recording_assets" in failed:
         actions.append("Regenerate and upload docs/assets/recording-assets.json to the Space.")
     if "raw_public_demo_screenshot" in failed:

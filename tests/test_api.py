@@ -52,6 +52,7 @@ def test_health_and_campaign_flow(tmp_path):
     assert "30-Second Judge Brief" in index_response.text
     assert "Criteria Crosswalk" in index_response.text
     assert "Evidence index" in index_response.text
+    assert "Video publish kit" in index_response.text
     assert "crosswalkRows" in index_response.text
     assert "Recording Runbook" in index_response.text
     assert "recordingRows" in index_response.text
@@ -99,6 +100,15 @@ def test_health_and_campaign_flow(tmp_path):
     assert len(evidence_index["links"]) >= 10
     assert "b2_live_proof" in evidence_index["status"]["final_blockers"]
 
+    video_kit_response = client.get("/api/judge/video-publish-kit")
+    assert video_kit_response.status_code == 200
+    video_kit = video_kit_response.json()
+    assert video_kit["schema"] == "proofframe.final_video_publish_kit.v1"
+    assert video_kit["safe_to_submit"] is False
+    assert video_kit["final_video_ready"] is False
+    assert len(video_kit["upload_checklist"]) >= 4
+    assert "YouTube" in video_kit["allowed_hosts"]
+
     recording_response = client.get("/api/judge/recording")
     assert recording_response.status_code == 200
     recording = recording_response.json()
@@ -106,6 +116,8 @@ def test_health_and_campaign_flow(tmp_path):
     assert recording["final_video_ready"] is False
     assert len(recording["shot_plan"]) >= 3
     assert recording["source_reports"]["storyboard"]["schema_ok"] is True
+    assert recording["source_reports"]["final_video_publish_kit"]["schema_ok"] is True
+    assert recording["source_reports"]["final_video_publish_kit"]["safe_to_submit"] is False
 
     devpost_response = client.get("/api/judge/devpost")
     assert devpost_response.status_code == 200

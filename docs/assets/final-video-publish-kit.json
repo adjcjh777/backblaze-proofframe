@@ -1,0 +1,132 @@
+{
+  "schema": "proofframe.final_video_publish_kit.v1",
+  "created_at": "2026-06-29T10:31:10Z",
+  "ok": true,
+  "mode": "ready_for_final_upload",
+  "safe_to_share": true,
+  "safe_to_submit": false,
+  "final_video_ready": false,
+  "allowed_hosts": [
+    "YouTube",
+    "Vimeo",
+    "Youku"
+  ],
+  "video_url": "TBD after final B2 and Genblaze proof.",
+  "title": "ProofFrame: Provenance-first generated media vault",
+  "description": "ProofFrame is a provenance-first media operations desk for generated campaign assets.\n\nThis demo walks through one creator workflow: open the judge-mode demo, create a media packet, inspect prompt/provider/model/storage/checksum metadata, approve an asset, and download the evidence ZIP.\n\nPublic demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1\nRepository: https://github.com/adjcjh777/backblaze-proofframe\n\nWhat to look for:\n- Generated media is reviewed as an evidence packet, not a loose image.\n- Prompt, provider/model metadata, storage pointer, checksum, approval state, and risk note stay together.\n- Optional Backblaze B2 and Genblaze paths are implemented and fail closed until live proof is captured.\n\nClaim boundary: Use this title and description for final upload only after live B2 and Genblaze proof are recorded; until then, the public demo remains local/mock and safe_to_submit=false.",
+  "chapters": [
+    {
+      "timecode": "0:00",
+      "title": "ProofFrame judge-mode slate",
+      "duration_seconds": 20
+    },
+    {
+      "timecode": "0:20",
+      "title": "Generate and review a provenance packet",
+      "duration_seconds": 55
+    },
+    {
+      "timecode": "1:15",
+      "title": "Manifest, checksum, storage route, and evidence ZIP",
+      "duration_seconds": 35
+    },
+    {
+      "timecode": "1:50",
+      "title": "Final B2, Genblaze, video, and audit gates",
+      "duration_seconds": 25
+    }
+  ],
+  "devpost_field": {
+    "field_id": "video_url",
+    "value": "TBD after final upload.",
+    "ready": false,
+    "source": "docs/assets/public-video-check.json"
+  },
+  "upload_checklist": [
+    {
+      "id": "host_family",
+      "label": "Upload to an official public video host",
+      "ok": false,
+      "detail": "Allowed host families: YouTube, Vimeo, or Youku."
+    },
+    {
+      "id": "public_visibility",
+      "label": "Use public or unlisted visibility that Devpost judges can access",
+      "ok": false,
+      "detail": "The final URL must be reachable without login, cookies, tokens, or signed query parameters."
+    },
+    {
+      "id": "duration",
+      "label": "Keep the final video under the event time limit",
+      "ok": true,
+      "detail": "Use the generated storyboard and chapter plan; rerun public_video_check after upload."
+    },
+    {
+      "id": "devpost_field",
+      "label": "Paste the final video URL into Devpost",
+      "ok": false,
+      "detail": "After upload, set PROOFFRAME_PUBLIC_VIDEO_URL and regenerate final reports."
+    }
+  ],
+  "source_reports": {
+    "storyboard": {
+      "path": "docs/assets/demo-storyboard.json",
+      "present": true,
+      "schema": "proofframe.demo_storyboard.v1",
+      "schema_ok": true,
+      "mode": "mock_storyboard_ready",
+      "ok": null,
+      "safe_to_submit": null
+    },
+    "draft_video": {
+      "path": "docs/assets/demo-video-draft.json",
+      "present": true,
+      "schema": "proofframe.demo_video_draft.v1",
+      "schema_ok": true,
+      "mode": "mock_video_draft_ready",
+      "ok": true,
+      "safe_to_submit": false
+    },
+    "public_video_check": {
+      "path": "docs/assets/public-video-check.json",
+      "present": true,
+      "schema": "proofframe.public_video_check.v1",
+      "schema_ok": true,
+      "mode": "pending_video_url",
+      "ok": false,
+      "safe_to_submit": false
+    },
+    "final_control": {
+      "path": "docs/assets/final-submission-control.json",
+      "present": true,
+      "schema": "proofframe.final_submission_control.v1",
+      "schema_ok": true,
+      "mode": "pre_live_control",
+      "ok": true,
+      "safe_to_submit": false
+    },
+    "evidence_index": {
+      "path": "docs/assets/judge-evidence-index.json",
+      "present": true,
+      "schema": "proofframe.judge_evidence_index.v1",
+      "schema_ok": true,
+      "mode": "pre_live_evidence_index_ready",
+      "ok": true,
+      "safe_to_submit": false
+    }
+  },
+  "draft_video": {
+    "path": "docs/assets/proofframe-demo-draft.mp4",
+    "public_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/resolve/main/docs/assets/proofframe-demo-draft.mp4",
+    "safe_to_submit": false,
+    "final_video_ready": false
+  },
+  "evidence_index_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/judge-evidence-index.md",
+  "claim_boundary": "Use this title and description for final upload only after live B2 and Genblaze proof are recorded; until then, the public demo remains local/mock and safe_to_submit=false.",
+  "next_actions": [
+    "Record the final narrated video after live B2 and Genblaze proof is visible.",
+    "Upload to YouTube, Vimeo, or Youku with public or unlisted judge-accessible visibility.",
+    "Set PROOFFRAME_PUBLIC_VIDEO_URL to the final URL and run scripts/public_video_check.py --verify-url --strict-final.",
+    "Regenerate Devpost form kit, final control, submission audit, preview, and bundle before submit."
+  ]
+}

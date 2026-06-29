@@ -76,6 +76,17 @@ def write_fixtures(root: Path, *, final_ready: bool = False) -> None:
     )
     write_json(
         root,
+        "docs/assets/final-video-publish-kit.json",
+        {
+            "schema": "proofframe.final_video_publish_kit.v1",
+            "mode": "public_video_ready" if final_ready else "ready_for_final_upload",
+            "ok": True,
+            "safe_to_submit": final_ready,
+            "final_video_ready": final_ready,
+        },
+    )
+    write_json(
+        root,
         "docs/assets/public-demo-screenshot-report.json",
         {
             "schema": "proofframe.public_demo_screenshot.v1",
@@ -158,6 +169,8 @@ def test_recording_assets_ready_offline_without_public_check(tmp_path):
     assert report["public_mock_verified"] is False
     assert report["final_video_ready"] is False
     assert report["mode"] == "mock_recording_ready"
+    assert report["source_reports"]["final_video_publish_kit"]["schema_ok"] is True
+    assert report["source_reports"]["final_video_publish_kit"]["safe_to_submit"] is False
 
 
 def test_recording_assets_fails_when_asset_missing(tmp_path):

@@ -26,6 +26,9 @@ REQUIRED_RECORDING_ASSETS = [
     "docs/assets/demo-video-draft.json",
     "docs/assets/demo-video-draft.md",
     "docs/assets/proofframe-demo-draft.mp4",
+    "docs/assets/final-video-publish-kit.json",
+    "docs/assets/final-video-publish-kit.md",
+    "scripts/final_video_publish_kit.py",
     "docs/assets/public-video-check.json",
     "docs/assets/public-video-check.md",
     "scripts/public_demo_screenshot.py",
@@ -306,6 +309,12 @@ def build_report(
             "docs/assets/demo-video-draft.json",
             "proofframe.demo_video_draft.v1",
             ["safe_to_submit", "final_video_ready", "public_video_draft_url"],
+        ),
+        "final_video_publish_kit": report_summary(
+            root,
+            "docs/assets/final-video-publish-kit.json",
+            "proofframe.final_video_publish_kit.v1",
+            ["ok", "safe_to_submit", "final_video_ready"],
         ),
         "devpost_form": report_summary(
             root,

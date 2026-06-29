@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-29T01:16:00Z",
+  "updated_at": "2026-06-29T01:31:24Z",
   "tasks": [
     {
       "id": "T001",
@@ -1063,6 +1063,15 @@
       "status": "done",
       "done_criteria": "A public-safe judge evidence index is generated, exposed through the app API, included in submission bundle artifacts, verified by public Space sync, and kept fail-closed with safe_to_submit=false until final live proof.",
       "notes": "Added scripts/judge_evidence_index.py, docs/assets/judge-evidence-index.*, /api/judge/evidence-index, frontend Evidence index link, API smoke coverage, public Space sync validation, bundle registration, and tests."
+    },
+    {
+      "id": "T081",
+      "title": "Add final video publish kit",
+      "phase": "P4 Submit",
+      "owner": "reviewer",
+      "status": "done",
+      "done_criteria": "Final video upload copy, chapters, official host requirements, Devpost video field gate, API endpoint, public Space validation, bundle registration, and tests are in place while safe_to_submit remains false until the final public video URL and final control pass.",
+      "notes": "Added scripts/final_video_publish_kit.py, docs/assets/final-video-publish-kit.*, /api/judge/video-publish-kit, frontend Video publish kit link, API smoke coverage, public Space sync validation, recording asset registration, bundle registration, and tests."
     }
   ]
 }

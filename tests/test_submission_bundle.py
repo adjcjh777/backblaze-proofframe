@@ -210,6 +210,20 @@ def write_final_gate_fixtures(root: Path, *, closeout_created_at: str = "2026-08
     )
     write_fixture_file(
         root,
+        "docs/assets/final-video-publish-kit.json",
+        json.dumps(
+            {
+                "schema": "proofframe.final_video_publish_kit.v1",
+                "created_at": closeout_created_at,
+                "mode": "public_video_ready",
+                "ok": True,
+                "safe_to_submit": True,
+                "final_video_ready": True,
+            }
+        ),
+    )
+    write_fixture_file(
+        root,
         "docs/assets/final-launch-plan.json",
         json.dumps(
             {
@@ -307,6 +321,8 @@ def test_submission_bundle_requires_post_receipt_closeout_reports(tmp_path):
     assert manifest["submission_gate"]["ok"] is True
     assert manifest["closeout_gate"]["ok"] is True
     assert manifest["safe_to_submit"] is True
+    report_ids = {report["id"] for report in manifest["closeout_gate"]["reports"]}
+    assert "final_video_publish_kit_after_receipt" in report_ids
 
 
 def test_submission_bundle_blocks_stale_closeout_reports(tmp_path):

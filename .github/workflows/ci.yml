@@ -90,6 +90,9 @@ jobs:
       - name: Public video check
         run: python scripts/public_video_check.py
 
+      - name: Final video publish kit
+        run: python scripts/final_video_publish_kit.py
+
       - name: Sponsor fit audit
         run: python scripts/sponsor_fit_audit.py
 

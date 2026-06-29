@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.final_submission_control.v1",
-  "created_at": "2026-06-29T01:21:39Z",
+  "created_at": "2026-06-29T10:31:10Z",
   "ok": true,
   "control_health_ok": true,
   "mode": "pre_live_control",
@@ -263,7 +263,7 @@
       "path": "docs/assets/recording-assets.json",
       "schema_ok": true,
       "schema": "proofframe.recording_assets.v1",
-      "mode": "public_mock_verified",
+      "mode": "mock_recording_ready",
       "ok": null,
       "score": null,
       "max_score": null,
@@ -272,7 +272,7 @@
       "final_video_ready": false,
       "final_recording_ready": null,
       "mock_recording_ready": true,
-      "public_mock_verified": true,
+      "public_mock_verified": false,
       "public_video_ready": null,
       "current_phase": null,
       "next_command": null,
@@ -445,7 +445,7 @@
       "id": "recording_assets",
       "label": "Recording assets are ready",
       "ok": true,
-      "detail": "Recording assets mode is public_mock_verified; public mock verified is True.",
+      "detail": "Recording assets mode is mock_recording_ready; public mock verified is False.",
       "evidence": "docs/assets/recording-assets.json"
     },
     {
@@ -619,6 +619,7 @@
     "python scripts/public_space_sync.py",
     "python scripts/demo_storyboard.py --strict-final",
     "python scripts/public_video_check.py --video-url \"$PROOFFRAME_PUBLIC_VIDEO_URL\" --verify-url --strict-final",
+    "python scripts/final_video_publish_kit.py",
     "python scripts/demo_readiness.py --strict-final",
     "python scripts/recording_assets.py --verify-public --strict-final",
     "python scripts/secret_scan.py",
@@ -629,6 +630,7 @@
     "python scripts/devpost_submission_receipt.py --project-url \"$PROOFFRAME_DEVPOST_PROJECT_URL\" --submitted-at \"$PROOFFRAME_DEVPOST_SUBMITTED_AT\" --confirmation-note \"Devpost accepted/submitted the ProofFrame project.\"",
     "python scripts/secret_scan.py",
     "python scripts/final_submission_control.py --strict-final",
+    "python scripts/final_video_publish_kit.py --strict-final",
     "python scripts/final_launch_plan.py --strict-final",
     "python scripts/devpost_submission_preview.py --strict-final",
     "python scripts/submission_bundle.py --strict-final"

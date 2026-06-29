@@ -3,7 +3,7 @@
 Mode: `pre_live_evidence_index_ready`
 OK: `true`
 Safe to submit: `false`
-Created: `2026-06-29T01:20:04Z`
+Created: `2026-06-29T10:30:39Z`
 Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 Repository: https://github.com/adjcjh777/backblaze-proofframe
 
@@ -39,6 +39,7 @@ Repository: https://github.com/adjcjh777/backblaze-proofframe
 
 - OK [Recording runbook](https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/recording-assets.md) - Shot list and public-safe recording assets for the final demo.
 - OK [Mock demo video draft](https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/demo-video-draft.md) - Public-safe draft video status; final video remains gated.
+- OK [Final video publish kit](https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/final-video-publish-kit.md) - Upload title, description, chapters, host rules, and Devpost video field gate.
 - OK [Public video check](https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/public-video-check.md) - Official-host and final-video readiness gate.
 
 ### Live Proof Gates

@@ -1,8 +1,8 @@
 # ProofFrame Recording Assets
 
-Mode: `public_mock_verified`
+Mode: `mock_recording_ready`
 Mock recording ready: `true`
-Public mock verified: `true`
+Public mock verified: `false`
 Final video ready: `false`
 Public judge URL: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 
@@ -12,6 +12,7 @@ Public judge URL: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 - OK `readiness`: `docs/assets/demo-readiness-report.json` mode `pre_live_mock_ready`
 - OK `public_video_check`: `docs/assets/public-video-check.json` mode `pending_video_url`
 - OK `demo_video_draft`: `docs/assets/demo-video-draft.json` mode `mock_video_draft_ready`
+- OK `final_video_publish_kit`: `docs/assets/final-video-publish-kit.json` mode `ready_for_final_upload`
 - OK `devpost_form`: `docs/assets/devpost-form-kit.json` mode `pre_live_form_ready`
 - OK `final_control`: `docs/assets/final-submission-control.json` mode `pre_live_control`
 
@@ -24,6 +25,9 @@ Public judge URL: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 - OK `docs/assets/demo-video-draft.json`
 - OK `docs/assets/demo-video-draft.md`
 - OK `docs/assets/proofframe-demo-draft.mp4`
+- OK `docs/assets/final-video-publish-kit.json`
+- OK `docs/assets/final-video-publish-kit.md`
+- OK `scripts/final_video_publish_kit.py`
 - OK `docs/assets/public-video-check.json`
 - OK `docs/assets/public-video-check.md`
 - OK `scripts/public_demo_screenshot.py`
@@ -43,10 +47,7 @@ Public judge URL: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 
 ## Public GET-only Verification
 
-- Overall: `true`
-- HTML status: `200`
-- Health: `local` / `mock`
-- Submission gate: `pre_live_safe`
+- Not checked in this run. Use `python scripts/recording_assets.py --verify-public`.
 
 ## Shot Plan
 
@@ -74,5 +75,6 @@ python scripts/final_submission_control.py --strict-final
 
 ## Next Actions
 
+- Run python scripts/recording_assets.py --verify-public before recording.
 - After live B2/Genblaze proof, record and upload the final public video.
 - Run python scripts/final_submission_control.py --strict-final before Devpost submit.

@@ -147,6 +147,14 @@ def create_app(storage_root: Path | str | None = None, settings: Settings | None
             "Judge evidence index",
         )
 
+    @app.get("/api/judge/video-publish-kit")
+    def judge_video_publish_kit() -> dict[str, object]:
+        return load_public_artifact(
+            "final-video-publish-kit.json",
+            "proofframe.final_video_publish_kit.v1",
+            "Final video publish kit",
+        )
+
     @app.get("/api/judge/recording")
     def judge_recording() -> dict[str, object]:
         return load_public_artifact(

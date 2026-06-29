@@ -107,6 +107,14 @@ LINKS = [
         "Public-safe draft video status; final video remains gated.",
     ),
     (
+        "final_video_publish_kit",
+        "Final video publish kit",
+        "video",
+        None,
+        "docs/assets/final-video-publish-kit.md",
+        "Upload title, description, chapters, host rules, and Devpost video field gate.",
+    ),
+    (
         "public_video_check",
         "Public video check",
         "gate",
@@ -149,7 +157,7 @@ SECTION_LINKS = {
         "submission_bundle",
     ],
     "award_case": ["award_readiness", "public_space_sync", "secret_scan"],
-    "recording": ["recording_assets", "demo_video_draft", "public_video_check"],
+    "recording": ["recording_assets", "demo_video_draft", "final_video_publish_kit", "public_video_check"],
     "live_proof_gates": ["b2_key_scope_checklist", "post_credential_live_proof"],
 }
 
