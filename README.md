@@ -152,7 +152,7 @@ The browser UI and `GET /api/submission/gate` expose the same fail-closed final 
 `scripts/secret_scan.py` writes a no-value secret scan report for public files, generated evidence, local logs, and media inventory while excluding local credential files without reading them.
 `scripts/demo_storyboard.py` keeps the demo video timeline under 3 minutes and tracks the public video URL as a final gate.
 `scripts/demo_video_draft.py` builds a public-safe mock MP4 draft from committed screenshots for rehearsal, while explicitly keeping `safe_to_submit=false` and `final_video_ready=false`.
-`scripts/public_video_check.py` verifies the final public demo video URL is non-placeholder, token-free, Devpost-compatible, and reachable before final submission.
+`scripts/public_video_check.py` verifies the final public demo video URL is non-placeholder, token-free, hosted on an allowed Devpost public video family (YouTube, Vimeo, or Youku), and reachable before final submission.
 `scripts/sponsor_fit_audit.py` checks that Backblaze B2 and Genblaze are explained as product-critical sponsor paths without overclaiming live proof.
 `scripts/demo_readiness.py` keeps the mock demo recording package ready while failing strict final mode until live B2/Genblaze proof and the final secret scan are complete.
 `scripts/recording_assets.py` checks committed recording assets, powers the in-app Recording Runbook through `GET /api/judge/recording`, and can run GET-only public demo verification without creating data or using secrets.

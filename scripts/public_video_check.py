@@ -32,6 +32,11 @@ TOKEN_PARAM_HINTS = {
     "token",
 }
 PRIVATE_HOST_PREFIXES = ("localhost", "127.", "0.", "10.", "172.16.", "172.17.", "172.18.", "172.19.", "192.168.")
+OFFICIAL_VIDEO_HOSTS = {
+    "youtube": ("youtube.com", "youtu.be", "youtube-nocookie.com"),
+    "vimeo": ("vimeo.com",),
+    "youku": ("youku.com",),
+}
 
 FetchResult = dict[str, Any]
 Fetcher = Callable[[str, int], FetchResult]
@@ -89,6 +94,14 @@ def storyboard_requirements(root: Path) -> dict[str, Any]:
     }
 
 
+def official_video_host_family(host: str) -> str | None:
+    for family, domains in OFFICIAL_VIDEO_HOSTS.items():
+        for domain in domains:
+            if host == domain or host.endswith(f".{domain}"):
+                return family
+    return None
+
+
 def video_url_analysis(url: str) -> dict[str, Any]:
     if has_placeholder(url):
         return {
@@ -97,6 +110,8 @@ def video_url_analysis(url: str) -> dict[str, Any]:
             "scheme_ok": False,
             "host": None,
             "host_public": False,
+            "official_host": False,
+            "official_host_family": None,
             "has_credentials": False,
             "token_params": [],
             "safe_query": False,
@@ -108,17 +123,26 @@ def video_url_analysis(url: str) -> dict[str, Any]:
     token_params = sorted(key for key in query_keys if key in TOKEN_PARAM_HINTS or "token" in key or "sig" in key)
     host = (parsed.hostname or "").lower()
     host_public = bool(host) and not host.startswith(PRIVATE_HOST_PREFIXES)
+    official_host_family = official_video_host_family(host)
+    official_host = official_host_family is not None
     has_credentials = bool(parsed.username or parsed.password)
     scheme_ok = parsed.scheme in {"http", "https"}
     safe_query = not token_params
-    ok = bool(scheme_ok and host_public and not has_credentials and safe_query)
-    reason = "ok" if ok else "unsafe_or_private_url"
+    ok = bool(scheme_ok and host_public and official_host and not has_credentials and safe_query)
+    if ok:
+        reason = "ok"
+    elif scheme_ok and host_public and safe_query and not has_credentials and not official_host:
+        reason = "unsupported_video_host"
+    else:
+        reason = "unsafe_or_private_url"
     return {
         "url": url,
         "present": True,
         "scheme_ok": scheme_ok,
         "host": host,
         "host_public": host_public,
+        "official_host": official_host,
+        "official_host_family": official_host_family,
         "has_credentials": has_credentials,
         "token_params": token_params,
         "safe_query": safe_query,
@@ -212,12 +236,21 @@ def build_checks(
         ),
         check_item(
             "video_url_public_and_safe",
-            bool(url["ok"]),
+            bool(url["scheme_ok"] and url["host_public"] and not url["has_credentials"] and url["safe_query"]),
             (
                 f"scheme_ok={url['scheme_ok']}; host={url['host']}; "
                 f"host_public={url['host_public']}; token_params={url['token_params']}."
             ),
             "public video URL",
+        ),
+        check_item(
+            "video_url_official_public_host",
+            bool(url["official_host"]),
+            (
+                f"host={url['host']}; official_host_family={url['official_host_family']}; "
+                "allowed families are YouTube, Vimeo, and Youku."
+            ),
+            "Devpost public video host requirement",
         ),
         check_item(
             "video_url_accessible",
@@ -276,6 +309,8 @@ def build_next_actions(mode: str, checks: list[dict[str, Any]]) -> list[str]:
         actions.append("Keep the final demo video under the event's 3-minute limit.")
     if "video_url_public_and_safe" in failed:
         actions.append("Use a public http(s) video URL without credential, token, signature, or expiry query parameters.")
+    if "video_url_official_public_host" in failed:
+        actions.append("Upload the final demo video to YouTube, Vimeo, or Youku before strict final submission.")
     if "video_url_accessible" in failed:
         actions.append("Run python scripts/public_video_check.py --video-url \"$PROOFFRAME_PUBLIC_VIDEO_URL\" --verify-url --strict-final after upload.")
     if "official_event_video_requirements" in failed:

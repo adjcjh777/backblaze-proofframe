@@ -89,6 +89,19 @@ def test_public_video_check_blocks_tokenized_url(tmp_path):
     assert "video_url_public_and_safe" in failed
 
 
+def test_public_video_check_blocks_generic_public_url(tmp_path):
+    write_fixtures(tmp_path, video_url="https://video.example.com/proofframe-demo")
+
+    report = public_video_check.build_report(tmp_path, verify_url=True, fetcher=ok_fetcher)
+
+    assert report["mode"] == "unsafe_video_url"
+    assert report["safe_to_submit"] is False
+    assert report["url_analysis"]["reason"] == "unsupported_video_host"
+    failed = {item["id"] for item in report["checks"] if not item["ok"]}
+    assert "video_url_official_public_host" in failed
+    assert "video_url_accessible" in failed
+
+
 def test_public_video_check_passes_public_verified_url(tmp_path):
     write_fixtures(tmp_path, video_url="https://youtu.be/proofframe-demo")
 
@@ -97,6 +110,51 @@ def test_public_video_check_passes_public_verified_url(tmp_path):
     assert report["mode"] == "public_video_verified"
     assert report["safe_to_submit"] is True
     assert report["access_check"]["status"] == 200
+
+
+def test_public_video_check_accepts_official_host_families():
+    urls = {
+        "https://www.youtube.com/watch?v=proofframe": "youtube",
+        "https://player.vimeo.com/video/123456": "vimeo",
+        "https://v.youku.com/v_show/id_demo.html": "youku",
+    }
+
+    for url, family in urls.items():
+        analysis = public_video_check.video_url_analysis(url)
+
+        assert analysis["official_host"] is True
+        assert analysis["official_host_family"] == family
+        assert analysis["ok"] is True
+
+
+def test_public_video_check_blocks_unsafe_official_host_urls():
+    urls = [
+        "https://youtu.be/proofframe-demo?signature=secretish",
+        "https://user:pass@www.youtube.com/watch?v=proofframe",
+    ]
+
+    for url in urls:
+        analysis = public_video_check.video_url_analysis(url)
+
+        assert analysis["official_host"] is True
+        assert analysis["ok"] is False
+        assert analysis["reason"] == "unsafe_or_private_url"
+
+
+def test_public_video_check_blocks_official_host_lookalikes():
+    urls = [
+        "https://youtube.com.evil.example/watch?v=proofframe",
+        "https://vimeo.com.example/video/123456",
+        "https://youku.com.evil.example/v_show/id_demo.html",
+    ]
+
+    for url in urls:
+        analysis = public_video_check.video_url_analysis(url)
+
+        assert analysis["official_host"] is False
+        assert analysis["official_host_family"] is None
+        assert analysis["ok"] is False
+        assert analysis["reason"] == "unsupported_video_host"
 
 
 def test_public_video_check_writes_outputs(tmp_path):

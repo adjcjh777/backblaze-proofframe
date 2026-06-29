@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-28T18:52:17Z",
+  "updated_at": "2026-06-28T19:00:41Z",
   "tasks": [
     {
       "id": "T001",
@@ -1000,6 +1000,15 @@
       "status": "done",
       "done_criteria": "The final submission bundle strict gate fails unless Devpost receipt is submitted and the post-receipt secret scan, final control, launch plan, and Devpost preview are final-ready and generated after the receipt.",
       "notes": "Addressed read-only reviewer findings: final_launch_plan now emits created_at, submission_bundle has a closeout freshness gate, stale closeout reports fail safe_to_submit, and final rehearsal tests assert the exact receipt-to-green-gate sequence."
+    },
+    {
+      "id": "T074",
+      "title": "Harden public video host gate",
+      "phase": "P4 Submit",
+      "owner": "reviewer",
+      "status": "done",
+      "done_criteria": "Public video URL validation fails closed unless the URL uses an official public host family accepted by event rules and has no credential/token/signed query material.",
+      "notes": "Added YouTube/Vimeo/Youku host-family validation to public_video_check.py, report output, and tests so generic public URLs cannot satisfy final video gate."
     }
   ]
 }

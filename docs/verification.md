@@ -245,7 +245,7 @@ python scripts/post_credential_live_proof.py --env-file .env.final.local --execu
 python scripts/agent_handoff_check.py --check-bus
 python scripts/public_space_sync.py
 python scripts/devpost_event_snapshot.py --fetch-live
-export PROOFFRAME_PUBLIC_VIDEO_URL="https://..."
+export PROOFFRAME_PUBLIC_VIDEO_URL="https://..."  # YouTube, Vimeo, or Youku only
 python scripts/demo_storyboard.py --strict-final
 python scripts/public_video_check.py --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL" --verify-url --strict-final
 python scripts/demo_readiness.py --strict-final

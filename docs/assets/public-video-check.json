@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.public_video_check.v1",
-  "created_at": "2026-06-28T18:34:45Z",
+  "created_at": "2026-06-29T00:21:38Z",
   "mode": "pending_video_url",
   "ok": false,
   "safe_to_submit": false,
@@ -27,6 +27,8 @@
     "scheme_ok": false,
     "host": null,
     "host_public": false,
+    "official_host": false,
+    "official_host_family": null,
     "has_credentials": false,
     "token_params": [],
     "safe_query": false,
@@ -67,6 +69,12 @@
       "evidence": "public video URL"
     },
     {
+      "id": "video_url_official_public_host",
+      "ok": false,
+      "detail": "host=None; official_host_family=None; allowed families are YouTube, Vimeo, and Youku.",
+      "evidence": "Devpost public video host requirement"
+    },
+    {
       "id": "video_url_accessible",
       "ok": false,
       "detail": "checked=False; status=None; error=URL verification was not requested..",
@@ -76,6 +84,7 @@
   "next_actions": [
     "Record and upload the final demo video, then set PROOFFRAME_PUBLIC_VIDEO_URL.",
     "Use a public http(s) video URL without credential, token, signature, or expiry query parameters.",
+    "Upload the final demo video to YouTube, Vimeo, or Youku before strict final submission.",
     "Run python scripts/public_video_check.py --video-url \"$PROOFFRAME_PUBLIC_VIDEO_URL\" --verify-url --strict-final after upload."
   ]
 }
