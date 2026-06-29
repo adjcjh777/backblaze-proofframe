@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.judge_evidence_index.v1",
-  "created_at": "2026-06-29T10:30:39Z",
+  "created_at": "2026-06-29T11:15:40Z",
   "ok": true,
   "mode": "pre_live_evidence_index_ready",
   "safe_to_share": true,
@@ -77,6 +77,17 @@
       "bytes": 6157
     },
     {
+      "id": "judge_decision_brief",
+      "label": "Judge decision brief",
+      "kind": "report",
+      "purpose": "One-page decision card with reasons to score high, public state, and final blockers.",
+      "public_url": null,
+      "path": "docs/assets/judge-decision-brief.md",
+      "raw_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/judge-decision-brief.md",
+      "present": true,
+      "bytes": 3835
+    },
+    {
       "id": "final_submission_control",
       "label": "Final submission control",
       "kind": "gate",
@@ -85,7 +96,7 @@
       "path": "docs/assets/final-submission-control.md",
       "raw_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/final-submission-control.md",
       "present": true,
-      "bytes": 7009
+      "bytes": 7087
     },
     {
       "id": "devpost_preview",
@@ -118,7 +129,7 @@
       "path": "docs/assets/submission-bundle-manifest.md",
       "raw_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/submission-bundle-manifest.md",
       "present": true,
-      "bytes": 14112
+      "bytes": 14481
     },
     {
       "id": "award_readiness",
@@ -140,7 +151,7 @@
       "path": "docs/assets/public-space-sync-report.md",
       "raw_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/public-space-sync-report.md",
       "present": true,
-      "bytes": 7100
+      "bytes": 7497
     },
     {
       "id": "recording_assets",
@@ -227,7 +238,8 @@
       "links": [
         "public_demo",
         "judge_brief",
-        "judge_crosswalk"
+        "judge_crosswalk",
+        "judge_decision_brief"
       ],
       "ready": true
     },

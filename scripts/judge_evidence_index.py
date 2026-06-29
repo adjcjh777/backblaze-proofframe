@@ -43,6 +43,14 @@ LINKS = [
         "Maps Devpost criteria to concrete evidence and final gates.",
     ),
     (
+        "judge_decision_brief",
+        "Judge decision brief",
+        "report",
+        None,
+        "docs/assets/judge-decision-brief.md",
+        "One-page decision card with reasons to score high, public state, and final blockers.",
+    ),
+    (
         "final_submission_control",
         "Final submission control",
         "gate",
@@ -149,7 +157,7 @@ LINKS = [
 ]
 
 SECTION_LINKS = {
-    "start_here": ["public_demo", "judge_brief", "judge_crosswalk"],
+    "start_here": ["public_demo", "judge_brief", "judge_crosswalk", "judge_decision_brief"],
     "submission_controls": [
         "final_submission_control",
         "devpost_preview",

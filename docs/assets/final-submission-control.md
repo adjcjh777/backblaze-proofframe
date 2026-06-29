@@ -3,7 +3,7 @@
 Mode: `pre_live_control`
 Control health OK: `true`
 Safe to submit: `false`
-Created: `2026-06-29T10:31:10Z`
+Created: `2026-06-29T11:15:53Z`
 Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 Repository: https://github.com/adjcjh777/backblaze-proofframe
 
@@ -97,6 +97,8 @@ python scripts/final_submission_control.py --strict-final
 python scripts/final_video_publish_kit.py --strict-final
 python scripts/final_launch_plan.py --strict-final
 python scripts/devpost_submission_preview.py --strict-final
+python scripts/judge_evidence_index.py
+python scripts/judge_decision_brief.py
 python scripts/submission_bundle.py --strict-final
 ```
 

@@ -33,3 +33,9 @@ python3 scripts/task.py doing T020 --note "Live B2 proof in progress"
 4. Record and upload the demo video to YouTube, Vimeo, or Youku using `docs/demo_script.md`, then regenerate `docs/assets/devpost-submission-packet.*` with `python scripts/devpost_packet.py --post-live --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL"`.
 5. Run the final secret scan, strict form/storyboard/readiness gates, and `python scripts/submission_audit.py --strict-final`.
 6. Keep public claims frozen with `docs/public_claim_freeze.md` until real B2 and Genblaze evidence exists and the strict audit is green.
+
+## Recently Completed
+
+| Task | Result |
+| --- | --- |
+| T082 | Judge decision brief generated, exposed in judge API/frontend, checked by public Space sync, and included in the submission bundle. |

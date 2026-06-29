@@ -1,0 +1,221 @@
+{
+  "schema": "proofframe.judge_decision_brief.v1",
+  "created_at": "2026-06-29T11:15:40Z",
+  "ok": true,
+  "mode": "pre_live_decision_ready",
+  "safe_to_share": true,
+  "safe_to_submit": false,
+  "project": "ProofFrame",
+  "headline": "ProofFrame turns generated media into auditable, approval-ready asset packets.",
+  "judge_decision": "Advance this project if you want a generative media submission where Backblaze storage, Genblaze generation, provenance, review state, and safety gates are the product surface.",
+  "why_now": [
+    "Most generative media demos stop at output creation; ProofFrame shows the operational layer after generation.",
+    "The public demo is live and credential-free, so judges can inspect the workflow immediately.",
+    "The remaining blockers are explicit sponsor-proof steps, not ambiguous product gaps."
+  ],
+  "top_reasons_to_score_high": [
+    "Provenance packet: prompt, provider/model, storage route, checksum, approval state, and risk note travel together.",
+    "Production posture: evidence ZIPs, manifest exports, review console, final control tower, and secret scanning are already wired.",
+    "Sponsor fit: B2-compatible storage and Genblaze provider paths are implemented, with live proof gated rather than overclaimed.",
+    "Submission clarity: judge brief, criteria crosswalk, evidence index, final video kit, and Devpost preview are all generated artifacts."
+  ],
+  "current_scores": {
+    "award_score": 97,
+    "award_max_score": 115,
+    "award_mode": "pre_live_competitive",
+    "final_closure_score": 0,
+    "final_closure_max_score": 10
+  },
+  "public_state": {
+    "space_runtime_sha": "152825f8018c80a185a5952418ad1699e9e3a627",
+    "space_mode": "public_space_synced",
+    "event_submission_open": true,
+    "participant_count_observed": 372,
+    "final_video_ready": false
+  },
+  "decision_checks": [
+    {
+      "id": "public_demo_runs",
+      "label": "Public judge-mode demo runs in credential-free local/mock mode",
+      "ok": true,
+      "evidence": "docs/assets/public-space-sync-report.json"
+    },
+    {
+      "id": "criteria_are_mapped",
+      "label": "Official criteria are mapped to concrete evidence",
+      "ok": true,
+      "evidence": "docs/assets/judge-crosswalk.json"
+    },
+    {
+      "id": "award_case_is_competitive",
+      "label": "Pre-live award score is competitive",
+      "ok": true,
+      "evidence": "docs/assets/award-readiness-report.json"
+    },
+    {
+      "id": "claims_are_fail_closed",
+      "label": "Public claims are either fail-closed or backed by final control",
+      "ok": true,
+      "evidence": "docs/assets/final-submission-control.json"
+    },
+    {
+      "id": "video_submission_is_gated",
+      "label": "Final video copy is ready and its submission state is explicit",
+      "ok": true,
+      "evidence": "docs/assets/final-video-publish-kit.json"
+    },
+    {
+      "id": "no_secret_exposure",
+      "label": "Public artifact scan is clear",
+      "ok": true,
+      "evidence": "docs/assets/secret-scan-report.json"
+    }
+  ],
+  "source_reports": {
+    "judge_brief": {
+      "id": "judge_brief",
+      "path": "docs/assets/judge-brief.json",
+      "present": true,
+      "schema": "proofframe.judge_brief.v1",
+      "schema_ok": true,
+      "mode": null,
+      "ok": null,
+      "safe_to_share": null,
+      "safe_to_submit": null
+    },
+    "judge_crosswalk": {
+      "id": "judge_crosswalk",
+      "path": "docs/assets/judge-crosswalk.json",
+      "present": true,
+      "schema": "proofframe.judge_crosswalk.v1",
+      "schema_ok": true,
+      "mode": "pre_live_crosswalk_ready",
+      "ok": true,
+      "safe_to_share": null,
+      "safe_to_submit": false
+    },
+    "judge_evidence_index": {
+      "id": "judge_evidence_index",
+      "path": "docs/assets/judge-evidence-index.json",
+      "present": true,
+      "schema": "proofframe.judge_evidence_index.v1",
+      "schema_ok": true,
+      "mode": "pre_live_evidence_index_ready",
+      "ok": true,
+      "safe_to_share": true,
+      "safe_to_submit": false
+    },
+    "award_readiness": {
+      "id": "award_readiness",
+      "path": "docs/assets/award-readiness-report.json",
+      "present": true,
+      "schema": "proofframe.award_readiness.v1",
+      "schema_ok": true,
+      "mode": "pre_live_competitive",
+      "ok": null,
+      "safe_to_share": null,
+      "safe_to_submit": null
+    },
+    "final_control": {
+      "id": "final_control",
+      "path": "docs/assets/final-submission-control.json",
+      "present": true,
+      "schema": "proofframe.final_submission_control.v1",
+      "schema_ok": true,
+      "mode": "pre_live_control",
+      "ok": true,
+      "safe_to_share": null,
+      "safe_to_submit": false
+    },
+    "public_space_sync": {
+      "id": "public_space_sync",
+      "path": "docs/assets/public-space-sync-report.json",
+      "present": true,
+      "schema": "proofframe.public_space_sync.v1",
+      "schema_ok": true,
+      "mode": "public_space_synced",
+      "ok": true,
+      "safe_to_share": null,
+      "safe_to_submit": null
+    },
+    "devpost_preview": {
+      "id": "devpost_preview",
+      "path": "docs/assets/devpost-submission-preview.json",
+      "present": true,
+      "schema": "proofframe.devpost_submission_preview.v1",
+      "schema_ok": true,
+      "mode": "pre_live_preview_ready",
+      "ok": true,
+      "safe_to_share": true,
+      "safe_to_submit": false
+    },
+    "video_publish_kit": {
+      "id": "video_publish_kit",
+      "path": "docs/assets/final-video-publish-kit.json",
+      "present": true,
+      "schema": "proofframe.final_video_publish_kit.v1",
+      "schema_ok": true,
+      "mode": "ready_for_final_upload",
+      "ok": true,
+      "safe_to_share": true,
+      "safe_to_submit": false
+    },
+    "secret_scan": {
+      "id": "secret_scan",
+      "path": "docs/assets/secret-scan-report.json",
+      "present": true,
+      "schema": "proofframe.secret_scan.v1",
+      "schema_ok": true,
+      "mode": "clear",
+      "ok": true,
+      "safe_to_share": null,
+      "safe_to_submit": null
+    },
+    "event_snapshot": {
+      "id": "event_snapshot",
+      "path": "docs/assets/devpost-event-snapshot.json",
+      "present": true,
+      "schema": "proofframe.devpost_event_snapshot.v1",
+      "schema_ok": true,
+      "mode": "live_official_snapshot",
+      "ok": null,
+      "safe_to_share": null,
+      "safe_to_submit": null
+    }
+  },
+  "task_statuses": {
+    "T020": "doing",
+    "T021": "doing",
+    "T040": "done",
+    "T041": "todo",
+    "T041A": "todo",
+    "T042": "todo"
+  },
+  "final_blockers": [
+    "devpost_submission_checklist",
+    "b2_live_proof",
+    "genblaze_live_proof",
+    "credential_handoff",
+    "public_video",
+    "public_video_check",
+    "final_recording",
+    "final_secret_scan",
+    "final_submission_audit",
+    "devpost_submitted"
+  ],
+  "links": {
+    "public_demo": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
+    "repository": "https://github.com/adjcjh777/backblaze-proofframe",
+    "evidence_index": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/judge-evidence-index.md",
+    "criteria_crosswalk": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/judge-crosswalk.md",
+    "award_readiness": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/award-readiness-report.md",
+    "final_control": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/final-submission-control.md",
+    "video_publish_kit": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/final-video-publish-kit.md"
+  },
+  "claim_boundary": "This brief is public-safe and decision-oriented. It does not claim completed Backblaze B2 or Genblaze live proof until final_submission_control.safe_to_submit is true.",
+  "next_actions": [
+    "Use this brief as the top-level judge handoff before opening the public demo.",
+    "After live B2 and Genblaze proof, regenerate final control, video publish kit, and this brief.",
+    "After Devpost submission, regenerate receipt, closeout reports, submission bundle, and this brief."
+  ]
+}

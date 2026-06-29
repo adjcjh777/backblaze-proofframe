@@ -53,6 +53,8 @@ OPERATOR_COMMANDS = [
     "python scripts/final_video_publish_kit.py --strict-final",
     "python scripts/final_launch_plan.py --strict-final",
     "python scripts/devpost_submission_preview.py --strict-final",
+    "python scripts/judge_evidence_index.py",
+    "python scripts/judge_decision_brief.py",
     "python scripts/submission_bundle.py --strict-final",
 ]
 

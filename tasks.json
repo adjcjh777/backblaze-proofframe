@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-29T01:31:24Z",
+  "updated_at": "2026-06-29T10:45:38Z",
   "tasks": [
     {
       "id": "T001",
@@ -1072,6 +1072,15 @@
       "status": "done",
       "done_criteria": "Final video upload copy, chapters, official host requirements, Devpost video field gate, API endpoint, public Space validation, bundle registration, and tests are in place while safe_to_submit remains false until the final public video URL and final control pass.",
       "notes": "Added scripts/final_video_publish_kit.py, docs/assets/final-video-publish-kit.*, /api/judge/video-publish-kit, frontend Video publish kit link, API smoke coverage, public Space sync validation, recording asset registration, bundle registration, and tests."
+    },
+    {
+      "id": "T082",
+      "title": "Add judge decision brief",
+      "phase": "P4 Submit",
+      "owner": "reviewer",
+      "status": "done",
+      "done_criteria": "Decision brief is generated, exposed in judge API/frontend, checked by public Space sync, and included in bundle.",
+      "notes": "Added scripts/judge_decision_brief.py, docs/assets/judge-decision-brief.*, /api/judge/decision-brief, frontend Decision brief link, public Space sync validation, submission bundle registration, and tests."
     }
   ]
 }

@@ -117,6 +117,19 @@ def run_smoke(
     if not isinstance(crosswalk_rows, list) or len(crosswalk_rows) < 4:
         raise SystemExit("Judge crosswalk endpoint did not include the expected criteria rows.")
 
+    decision_brief = request_json("GET", f"{base}/api/judge/decision-brief")
+    if decision_brief.get("schema") != "proofframe.judge_decision_brief.v1":
+        raise SystemExit("Judge decision brief endpoint did not return the expected schema.")
+    decision_brief_safe_to_submit = decision_brief.get("safe_to_submit")
+    if not isinstance(decision_brief_safe_to_submit, bool):
+        raise SystemExit("Judge decision brief endpoint did not include a boolean safe_to_submit flag.")
+    decision_checks = decision_brief.get("decision_checks")
+    if not isinstance(decision_checks, list) or len(decision_checks) < 6:
+        raise SystemExit("Judge decision brief endpoint did not include the expected decision checks.")
+    if health["storage_backend"] == "local" and health["generation_backend"] == "mock":
+        if decision_brief_safe_to_submit:
+            raise SystemExit("Mock/local judge decision brief must remain fail closed.")
+
     evidence_index = request_json("GET", f"{base}/api/judge/evidence-index")
     if evidence_index.get("schema") != "proofframe.judge_evidence_index.v1":
         raise SystemExit("Judge evidence index endpoint did not return the expected schema.")
@@ -227,6 +240,10 @@ def run_smoke(
         "judge_crosswalk_mode": judge_crosswalk.get("mode"),
         "judge_crosswalk_safe_to_submit": crosswalk_safe_to_submit,
         "judge_crosswalk_rows": len(crosswalk_rows),
+        "judge_decision_brief_schema": decision_brief["schema"],
+        "judge_decision_brief_mode": decision_brief.get("mode"),
+        "judge_decision_brief_safe_to_submit": decision_brief_safe_to_submit,
+        "judge_decision_brief_checks": len(decision_checks),
         "judge_evidence_index_schema": evidence_index["schema"],
         "judge_evidence_index_mode": evidence_index.get("mode"),
         "judge_evidence_index_safe_to_submit": evidence_safe_to_submit,

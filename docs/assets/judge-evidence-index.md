@@ -3,7 +3,7 @@
 Mode: `pre_live_evidence_index_ready`
 OK: `true`
 Safe to submit: `false`
-Created: `2026-06-29T10:30:39Z`
+Created: `2026-06-29T11:15:40Z`
 Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 Repository: https://github.com/adjcjh777/backblaze-proofframe
 
@@ -21,6 +21,7 @@ Repository: https://github.com/adjcjh777/backblaze-proofframe
 - OK [Open the public judge-mode demo](https://adjcjh-backblaze-proofframe.hf.space/?judge=1) - Start here: live credential-free ProofFrame workflow.
 - OK [30-second judge brief](https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/judge-brief.md) - Concise product story, safe claims, and current status.
 - OK [Official criteria crosswalk](https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/judge-crosswalk.md) - Maps Devpost criteria to concrete evidence and final gates.
+- OK [Judge decision brief](https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/judge-decision-brief.md) - One-page decision card with reasons to score high, public state, and final blockers.
 
 ### Submission Controls
 

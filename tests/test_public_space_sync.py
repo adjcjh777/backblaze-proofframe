@@ -277,6 +277,7 @@ def valid_judge_evidence_index() -> dict:
             {"id": "public_demo", "present": True},
             {"id": "judge_brief", "present": True},
             {"id": "judge_crosswalk", "present": True},
+            {"id": "judge_decision_brief", "present": True},
             {"id": "final_submission_control", "present": True},
             {"id": "devpost_preview", "present": True},
             {"id": "submission_checklist", "present": True},
@@ -295,6 +296,80 @@ def valid_judge_evidence_index() -> dict:
         "claim_boundary": (
             "This index is public-safe evidence navigation. It does not claim completed B2 or "
             "Genblaze live proof until final_submission_control.safe_to_submit is true."
+        ),
+    }
+
+
+def valid_judge_decision_brief() -> dict:
+    source_reports = {
+        "judge_brief": {"schema_ok": True},
+        "judge_crosswalk": {
+            "schema_ok": True,
+            "ok": True,
+            "mode": "pre_live_crosswalk_ready",
+            "safe_to_submit": False,
+        },
+        "judge_evidence_index": {
+            "schema_ok": True,
+            "ok": True,
+            "mode": "pre_live_evidence_index_ready",
+            "safe_to_share": True,
+            "safe_to_submit": False,
+        },
+        "award_readiness": {"schema_ok": True},
+        "final_control": {
+            "schema_ok": True,
+            "ok": True,
+            "mode": "pre_live_control",
+            "safe_to_submit": False,
+        },
+        "public_space_sync": {
+            "schema_ok": True,
+            "ok": True,
+            "mode": "public_space_synced",
+        },
+        "devpost_preview": {
+            "schema_ok": True,
+            "mode": "pre_live_preview_ready",
+            "safe_to_share": True,
+            "safe_to_submit": False,
+        },
+        "video_publish_kit": {
+            "schema_ok": True,
+            "ok": True,
+            "mode": "ready_for_final_upload",
+            "safe_to_share": True,
+            "safe_to_submit": False,
+        },
+        "secret_scan": {"schema_ok": True, "ok": True, "mode": "clear"},
+        "event_snapshot": {"schema_ok": True, "mode": "live_official_snapshot"},
+    }
+    return {
+        "schema": "proofframe.judge_decision_brief.v1",
+        "created_at": public_space_sync.utc_now(),
+        "ok": True,
+        "mode": "pre_live_decision_ready",
+        "safe_to_share": True,
+        "safe_to_submit": False,
+        "public_state": {"space_runtime_sha": EXPECTED_SHA},
+        "decision_checks": [
+            {"id": "public_demo_runs", "ok": True},
+            {"id": "criteria_are_mapped", "ok": True},
+            {"id": "award_case_is_competitive", "ok": True},
+            {"id": "claims_are_fail_closed", "ok": True},
+            {"id": "video_submission_is_gated", "ok": True},
+            {"id": "no_secret_exposure", "ok": True},
+        ],
+        "source_reports": source_reports,
+        "links": {
+            "evidence_index": (
+                "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/"
+                "docs/assets/judge-evidence-index.md"
+            )
+        },
+        "claim_boundary": (
+            "This brief is public-safe and decision-oriented. It does not claim completed Backblaze B2 "
+            "or Genblaze live proof until final_submission_control.safe_to_submit is true."
         ),
     }
 
@@ -437,6 +512,13 @@ def fake_fetcher(url: str, timeout: int) -> dict:
                     "safe_to_submit": False,
                 }
             ),
+            "error": None,
+        }
+    if url.endswith("/docs/assets/judge-decision-brief.json"):
+        return {
+            "ok": True,
+            "status": 200,
+            "body": json.dumps(valid_judge_decision_brief()),
             "error": None,
         }
     if url.endswith("/docs/assets/judge-evidence-index.json"):
@@ -588,7 +670,7 @@ def fake_fetcher(url: str, timeout: int) -> dict:
             "status": 200,
             "body": (
                 "Judge recording slate Sponsor Evidence Model shouldAutoLoadJudgeDemo "
-                "30-Second Judge Brief Criteria crosswalk Evidence index Video publish kit Recording Runbook "
+                "30-Second Judge Brief Criteria crosswalk Decision brief Evidence index Video publish kit Recording Runbook "
                 "Devpost Kit Submit Checklist Final reports pending"
             ),
             "error": None,
@@ -653,12 +735,22 @@ def test_public_space_sync_report_passes_when_space_is_current():
     assert report["observed"]["judge_crosswalk_schema"] == "proofframe.judge_crosswalk.v1"
     assert report["observed"]["judge_crosswalk_mode"] == "pre_live_crosswalk_ready"
     assert report["observed"]["judge_crosswalk_safe_to_submit"] is False
+    decision_observed = report["observed"]["judge_decision_brief"]
+    assert decision_observed["schema"] == "proofframe.judge_decision_brief.v1"
+    assert decision_observed["mode"] == "pre_live_decision_ready"
+    assert decision_observed["safe_to_share"] is True
+    assert decision_observed["safe_to_submit"] is False
+    assert decision_observed["check_count"] == 6
+    assert decision_observed["runtime_sha"] == EXPECTED_SHA
+    assert decision_observed["fresh"] is True
+    assert decision_observed["source_state_ok"] is True
+    assert "judge-evidence-index.md" in decision_observed["evidence_index_link"]
     assert report["observed"]["judge_evidence_index"] == {
         "schema": "proofframe.judge_evidence_index.v1",
         "mode": "pre_live_evidence_index_ready",
         "safe_to_share": True,
         "safe_to_submit": False,
-        "link_count": 10,
+        "link_count": 11,
         "section_count": 5,
         "blocker_count": 3,
     }
@@ -942,6 +1034,81 @@ def test_public_space_sync_fails_on_unsafe_judge_evidence_index():
         "Regenerate and upload docs/assets/judge-evidence-index.json to the Space."
         in report["next_actions"]
     )
+
+
+def test_public_space_sync_fails_on_unsafe_judge_decision_brief():
+    def broken_fetcher(url: str, timeout: int) -> dict:
+        result = fake_fetcher(url, timeout)
+        if url.endswith("/docs/assets/judge-decision-brief.json"):
+            brief = valid_judge_decision_brief()
+            brief["safe_to_submit"] = True
+            brief["claim_boundary"] = "Completed Backblaze B2 and Genblaze live proof."
+            result = {**result, "body": json.dumps(brief)}
+        return result
+
+    report = public_space_sync.build_report(expected_sha=EXPECTED_SHA, fetcher=broken_fetcher)
+
+    failed = {item["id"] for item in report["checks"] if not item["ok"]}
+    assert report["ok"] is False
+    assert "raw_judge_decision_brief" in failed
+    assert (
+        "Regenerate and upload docs/assets/judge-decision-brief.json to the Space."
+        in report["next_actions"]
+    )
+
+
+def test_public_space_sync_fails_on_stale_judge_decision_brief_created_at():
+    def broken_fetcher(url: str, timeout: int) -> dict:
+        result = fake_fetcher(url, timeout)
+        if url.endswith("/docs/assets/judge-decision-brief.json"):
+            brief = valid_judge_decision_brief()
+            brief["created_at"] = "2000-01-01T00:00:00Z"
+            result = {**result, "body": json.dumps(brief)}
+        return result
+
+    report = public_space_sync.build_report(expected_sha=EXPECTED_SHA, fetcher=broken_fetcher)
+
+    failed = {item["id"] for item in report["checks"] if not item["ok"]}
+    assert report["ok"] is False
+    assert "raw_judge_decision_brief" in failed
+    assert report["observed"]["judge_decision_brief"]["fresh"] is False
+
+
+def test_public_space_sync_fails_on_wrong_judge_decision_evidence_link():
+    def broken_fetcher(url: str, timeout: int) -> dict:
+        result = fake_fetcher(url, timeout)
+        if url.endswith("/docs/assets/judge-decision-brief.json"):
+            brief = valid_judge_decision_brief()
+            brief["links"]["evidence_index"] = (
+                "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/"
+                "docs/assets/public-space-sync-report.md"
+            )
+            result = {**result, "body": json.dumps(brief)}
+        return result
+
+    report = public_space_sync.build_report(expected_sha=EXPECTED_SHA, fetcher=broken_fetcher)
+
+    failed = {item["id"] for item in report["checks"] if not item["ok"]}
+    assert report["ok"] is False
+    assert "raw_judge_decision_brief" in failed
+    assert report["observed"]["judge_decision_brief"]["fresh"] is False
+
+
+def test_public_space_sync_fails_on_bad_judge_decision_source_state():
+    def broken_fetcher(url: str, timeout: int) -> dict:
+        result = fake_fetcher(url, timeout)
+        if url.endswith("/docs/assets/judge-decision-brief.json"):
+            brief = valid_judge_decision_brief()
+            brief["source_reports"]["public_space_sync"]["ok"] = False
+            result = {**result, "body": json.dumps(brief)}
+        return result
+
+    report = public_space_sync.build_report(expected_sha=EXPECTED_SHA, fetcher=broken_fetcher)
+
+    failed = {item["id"] for item in report["checks"] if not item["ok"]}
+    assert report["ok"] is False
+    assert "raw_judge_decision_brief" in failed
+    assert report["observed"]["judge_decision_brief"]["source_state_ok"] is False
 
 
 def test_public_space_sync_accepts_final_ready_video_publish_kit():

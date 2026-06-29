@@ -75,6 +75,9 @@ jobs:
       - name: Judge evidence index
         run: python scripts/judge_evidence_index.py
 
+      - name: Judge decision brief
+        run: python scripts/judge_decision_brief.py
+
       - name: Devpost event snapshot
         run: python scripts/devpost_event_snapshot.py --validate-committed
 

@@ -19,10 +19,11 @@ SCHEMA = "proofframe.public_space_sync.v1"
 
 SPACE_ID = "ADJCJH/backblaze-proofframe"
 SPACE_HOST = "https://adjcjh-backblaze-proofframe.hf.space"
-EXPECTED_SPACE_SHA = "a876c2d42fc5fad7d4ca73e9e651b24ad290421e"
+EXPECTED_SPACE_SHA = "152825f8018c80a185a5952418ad1699e9e3a627"
 TIMEOUT_SECONDS = 30
 DRAFT_VIDEO_MIN_BYTES = 100_000
 EVENT_SNAPSHOT_MAX_AGE_DAYS = 14
+JUDGE_DECISION_BRIEF_MAX_AGE_DAYS = 14
 POST_CREDENTIAL_REQUIRED_SEQUENCE = (
     "credential_handoff",
     "b2_live_proof",
@@ -69,6 +70,8 @@ REQUIRED_BUNDLE_ARTIFACT_IDS = {
     "post_credential_live_proof_script",
     "b2_key_scope_checklist_json",
     "b2_key_scope_checklist_script",
+    "judge_decision_brief_json",
+    "judge_decision_brief_script",
     "judge_evidence_index_json",
     "judge_evidence_index_script",
     "final_video_publish_kit_json",
@@ -86,6 +89,7 @@ HTML_MARKERS = {
     "sponsor_evidence_model": "Sponsor Evidence Model",
     "judge_brief_panel": "30-Second Judge Brief",
     "criteria_crosswalk_link": "Criteria crosswalk",
+    "decision_brief_link": "Decision brief",
     "evidence_index_link": "Evidence index",
     "video_publish_kit_link": "Video publish kit",
     "recording_runbook_panel": "Recording Runbook",
@@ -165,6 +169,10 @@ def list_field(value: dict[str, Any] | None, key: str) -> list[Any]:
         return []
     field = value.get(key)
     return field if isinstance(field, list) else []
+
+
+def fields_match(value: dict[str, Any], expected: dict[str, Any]) -> bool:
+    return all(value.get(key) == expected_value for key, expected_value in expected.items())
 
 
 def dict_list_field(value: dict[str, Any] | None, key: str) -> list[dict[str, Any]]:
@@ -282,6 +290,7 @@ def build_report(
     b2_key_scope_checklist_url = raw_file_url(space_id, "docs/assets/b2-key-scope-checklist.json")
     judge_brief_url = raw_file_url(space_id, "docs/assets/judge-brief.json")
     judge_crosswalk_url = raw_file_url(space_id, "docs/assets/judge-crosswalk.json")
+    judge_decision_brief_url = raw_file_url(space_id, "docs/assets/judge-decision-brief.json")
     judge_evidence_index_url = raw_file_url(space_id, "docs/assets/judge-evidence-index.json")
     video_publish_kit_url = raw_file_url(space_id, "docs/assets/final-video-publish-kit.json")
     recording_assets_url = raw_file_url(space_id, "docs/assets/recording-assets.json")
@@ -306,6 +315,7 @@ def build_report(
     b2_key_scope_checklist_result = fetcher(b2_key_scope_checklist_url, TIMEOUT_SECONDS)
     judge_brief_result = fetcher(judge_brief_url, TIMEOUT_SECONDS)
     judge_crosswalk_result = fetcher(judge_crosswalk_url, TIMEOUT_SECONDS)
+    judge_decision_brief_result = fetcher(judge_decision_brief_url, TIMEOUT_SECONDS)
     judge_evidence_index_result = fetcher(judge_evidence_index_url, TIMEOUT_SECONDS)
     video_publish_kit_result = fetcher(video_publish_kit_url, TIMEOUT_SECONDS)
     recording_assets_result = fetcher(recording_assets_url, TIMEOUT_SECONDS)
@@ -330,6 +340,7 @@ def build_report(
     b2_key_scope_checklist = parse_json(b2_key_scope_checklist_result)
     judge_brief = parse_json(judge_brief_result)
     judge_crosswalk = parse_json(judge_crosswalk_result)
+    judge_decision_brief = parse_json(judge_decision_brief_result)
     judge_evidence_index = parse_json(judge_evidence_index_result)
     video_publish_kit = parse_json(video_publish_kit_result)
     recording_assets = parse_json(recording_assets_result)
@@ -530,6 +541,110 @@ def build_report(
     judge_evidence_index_link_ids = {
         str(link.get("id")) for link in judge_evidence_index_links if isinstance(link.get("id"), str)
     }
+    judge_decision_checks = dict_list_field(judge_decision_brief, "decision_checks")
+    judge_decision_check_ids = {
+        str(item.get("id")) for item in judge_decision_checks if isinstance(item.get("id"), str)
+    }
+    judge_decision_source_reports = dict_field(judge_decision_brief, "source_reports")
+    judge_decision_public_state = dict_field(judge_decision_brief, "public_state")
+    judge_decision_links = dict_field(judge_decision_brief, "links")
+    judge_decision_created_at = judge_decision_brief.get("created_at") if judge_decision_brief else None
+    judge_decision_age_days = checked_at_age_days(judge_decision_created_at)
+    judge_decision_required_sources_ok = all(
+        dict_field(judge_decision_source_reports, source_id).get("schema_ok") is True
+        for source_id in {
+            "judge_brief",
+            "judge_crosswalk",
+            "judge_evidence_index",
+            "award_readiness",
+            "final_control",
+            "public_space_sync",
+            "devpost_preview",
+            "video_publish_kit",
+            "secret_scan",
+            "event_snapshot",
+        }
+    )
+    judge_decision_source_state_ok = all(
+        (
+            fields_match(
+                dict_field(judge_decision_source_reports, "judge_crosswalk"),
+                {"ok": True, "mode": "pre_live_crosswalk_ready", "safe_to_submit": False},
+            ),
+            fields_match(
+                dict_field(judge_decision_source_reports, "judge_evidence_index"),
+                {
+                    "ok": True,
+                    "mode": "pre_live_evidence_index_ready",
+                    "safe_to_share": True,
+                    "safe_to_submit": False,
+                },
+            ),
+            fields_match(
+                dict_field(judge_decision_source_reports, "final_control"),
+                {"ok": True, "mode": "pre_live_control", "safe_to_submit": False},
+            ),
+            fields_match(
+                dict_field(judge_decision_source_reports, "public_space_sync"),
+                {"ok": True, "mode": "public_space_synced"},
+            ),
+            fields_match(
+                dict_field(judge_decision_source_reports, "devpost_preview"),
+                {
+                    "mode": "pre_live_preview_ready",
+                    "safe_to_share": True,
+                    "safe_to_submit": False,
+                },
+            ),
+            fields_match(
+                dict_field(judge_decision_source_reports, "video_publish_kit"),
+                {
+                    "ok": True,
+                    "mode": "ready_for_final_upload",
+                    "safe_to_share": True,
+                    "safe_to_submit": False,
+                },
+            ),
+            fields_match(
+                dict_field(judge_decision_source_reports, "secret_scan"),
+                {"ok": True, "mode": "clear"},
+            ),
+            fields_match(
+                dict_field(judge_decision_source_reports, "event_snapshot"),
+                {"mode": "live_official_snapshot"},
+            ),
+        )
+    )
+    judge_decision_fresh_ok = bool(
+        isinstance(judge_decision_created_at, str)
+        and judge_decision_age_days is not None
+        and judge_decision_age_days <= JUDGE_DECISION_BRIEF_MAX_AGE_DAYS
+        and "judge-evidence-index.md" in str(judge_decision_links.get("evidence_index") or "")
+    )
+    judge_decision_brief_ok = bool(
+        judge_decision_brief_result.get("ok")
+        and judge_decision_brief
+        and judge_decision_brief.get("schema") == "proofframe.judge_decision_brief.v1"
+        and judge_decision_brief.get("ok") is True
+        and judge_decision_brief.get("safe_to_share") is True
+        and judge_decision_brief.get("safe_to_submit") is False
+        and judge_decision_brief.get("mode") == "pre_live_decision_ready"
+        and len(judge_decision_checks) >= 6
+        and {
+            "public_demo_runs",
+            "criteria_are_mapped",
+            "award_case_is_competitive",
+            "claims_are_fail_closed",
+            "video_submission_is_gated",
+            "no_secret_exposure",
+        }
+        <= judge_decision_check_ids
+        and all(item.get("ok") is True for item in judge_decision_checks)
+        and judge_decision_required_sources_ok
+        and judge_decision_source_state_ok
+        and judge_decision_fresh_ok
+        and "does not claim completed Backblaze B2" in str(judge_decision_brief.get("claim_boundary") or "")
+    )
     judge_evidence_index_ok = bool(
         judge_evidence_index_result.get("ok")
         and judge_evidence_index
@@ -540,7 +655,7 @@ def build_report(
         and judge_evidence_index.get("mode") == "pre_live_evidence_index_ready"
         and len(judge_evidence_index_links) >= 10
         and len(judge_evidence_index_sections) >= 5
-        and {"public_demo", "judge_brief", "judge_crosswalk", "final_submission_control"}
+        and {"public_demo", "judge_brief", "judge_crosswalk", "judge_decision_brief", "final_submission_control"}
         <= judge_evidence_index_link_ids
         and "b2_live_proof" in judge_evidence_index_blockers
         and "genblaze_live_proof" in judge_evidence_index_blockers
@@ -722,6 +837,21 @@ def build_report(
                 f"safe_to_submit is {judge_crosswalk.get('safe_to_submit') if judge_crosswalk else None}."
             ),
             judge_crosswalk_url,
+        ),
+        check_item(
+            "raw_judge_decision_brief",
+            "Raw judge decision brief is public and claim-safe",
+            judge_decision_brief_ok,
+            (
+                f"Decision brief schema is {judge_decision_brief.get('schema') if judge_decision_brief else None}; "
+                f"mode is {judge_decision_brief.get('mode') if judge_decision_brief else None}; "
+                f"safe_to_submit is {judge_decision_brief.get('safe_to_submit') if judge_decision_brief else None}; "
+                f"checks={len(judge_decision_checks)}; "
+                f"runtime={judge_decision_public_state.get('space_runtime_sha')}; "
+                f"age_days={judge_decision_age_days}; "
+                f"fresh={judge_decision_fresh_ok}."
+            ),
+            judge_decision_brief_url,
         ),
         check_item(
             "raw_judge_evidence_index",
@@ -1049,6 +1179,23 @@ def build_report(
             "judge_crosswalk_safe_to_submit": (
                 judge_crosswalk.get("safe_to_submit") if judge_crosswalk else None
             ),
+            "judge_decision_brief": {
+                "schema": judge_decision_brief.get("schema") if judge_decision_brief else None,
+                "created_at": judge_decision_created_at,
+                "age_days": judge_decision_age_days,
+                "mode": judge_decision_brief.get("mode") if judge_decision_brief else None,
+                "safe_to_share": (
+                    judge_decision_brief.get("safe_to_share") if judge_decision_brief else None
+                ),
+                "safe_to_submit": (
+                    judge_decision_brief.get("safe_to_submit") if judge_decision_brief else None
+                ),
+                "check_count": len(judge_decision_checks),
+                "runtime_sha": judge_decision_public_state.get("space_runtime_sha"),
+                "evidence_index_link": judge_decision_links.get("evidence_index"),
+                "source_state_ok": judge_decision_source_state_ok,
+                "fresh": judge_decision_fresh_ok,
+            },
             "judge_evidence_index": {
                 "schema": judge_evidence_index.get("schema") if judge_evidence_index else None,
                 "mode": judge_evidence_index.get("mode") if judge_evidence_index else None,
@@ -1134,6 +1281,7 @@ def build_report(
             "raw_b2_key_scope_checklist": b2_key_scope_checklist_url,
             "raw_judge_brief": judge_brief_url,
             "raw_judge_crosswalk": judge_crosswalk_url,
+            "raw_judge_decision_brief": judge_decision_brief_url,
             "raw_judge_evidence_index": judge_evidence_index_url,
             "raw_video_publish_kit": video_publish_kit_url,
             "raw_public_demo_screenshot": public_demo_screenshot_url,
@@ -1171,6 +1319,8 @@ def next_actions(checks: list[dict[str, Any]]) -> list[str]:
         actions.append("Regenerate and upload docs/assets/judge-brief.json to the Space.")
     if "raw_judge_crosswalk" in failed:
         actions.append("Regenerate and upload docs/assets/judge-crosswalk.json to the Space.")
+    if "raw_judge_decision_brief" in failed:
+        actions.append("Regenerate and upload docs/assets/judge-decision-brief.json to the Space.")
     if "raw_judge_evidence_index" in failed:
         actions.append("Regenerate and upload docs/assets/judge-evidence-index.json to the Space.")
     if "raw_video_publish_kit" in failed:

@@ -48,6 +48,12 @@ CLOSEOUT_REPORTS = [
         "schema": "proofframe.devpost_submission_preview.v1",
         "ready_fields": {"safe_to_submit": True, "mode": "final_preview_ready"},
     },
+    {
+        "id": "judge_decision_brief_after_receipt",
+        "path": "docs/assets/judge-decision-brief.json",
+        "schema": "proofframe.judge_decision_brief.v1",
+        "ready_fields": {"ok": True, "safe_to_submit": True, "mode": "final_decision_ready"},
+    },
 ]
 
 ARTIFACTS = [
@@ -86,6 +92,9 @@ ARTIFACTS = [
     ("judge_crosswalk_script", "scripts/judge_crosswalk.py", "Official criteria to evidence crosswalk"),
     ("judge_crosswalk_json", "docs/assets/judge-crosswalk.json", "Machine-readable judge crosswalk"),
     ("judge_crosswalk_md", "docs/assets/judge-crosswalk.md", "Human-readable judge crosswalk"),
+    ("judge_decision_brief_script", "scripts/judge_decision_brief.py", "Public-safe judge decision brief builder"),
+    ("judge_decision_brief_json", "docs/assets/judge-decision-brief.json", "Machine-readable judge decision brief"),
+    ("judge_decision_brief_md", "docs/assets/judge-decision-brief.md", "Human-readable judge decision brief"),
     ("judge_evidence_index_script", "scripts/judge_evidence_index.py", "Public-safe judge evidence index builder"),
     ("judge_evidence_index_json", "docs/assets/judge-evidence-index.json", "Machine-readable judge evidence index"),
     ("judge_evidence_index_md", "docs/assets/judge-evidence-index.md", "Human-readable judge evidence index"),

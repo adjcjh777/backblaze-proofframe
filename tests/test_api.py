@@ -51,6 +51,7 @@ def test_health_and_campaign_flow(tmp_path):
     assert "Sponsor Evidence Model" in index_response.text
     assert "30-Second Judge Brief" in index_response.text
     assert "Criteria Crosswalk" in index_response.text
+    assert "Decision brief" in index_response.text
     assert "Evidence index" in index_response.text
     assert "Video publish kit" in index_response.text
     assert "crosswalkRows" in index_response.text
@@ -91,6 +92,15 @@ def test_health_and_campaign_flow(tmp_path):
     assert crosswalk["safe_to_submit"] is False
     row_ids = {row["id"] for row in crosswalk["rows"]}
     assert {"real_world_utility", "production_readiness"} <= row_ids
+
+    decision_brief_response = client.get("/api/judge/decision-brief")
+    assert decision_brief_response.status_code == 200
+    decision_brief = decision_brief_response.json()
+    assert decision_brief["schema"] == "proofframe.judge_decision_brief.v1"
+    assert decision_brief["ok"] is True
+    assert decision_brief["safe_to_share"] is True
+    assert decision_brief["safe_to_submit"] is False
+    assert len(decision_brief["decision_checks"]) >= 6
 
     evidence_index_response = client.get("/api/judge/evidence-index")
     assert evidence_index_response.status_code == 200

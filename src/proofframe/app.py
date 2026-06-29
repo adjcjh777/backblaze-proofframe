@@ -139,6 +139,14 @@ def create_app(storage_root: Path | str | None = None, settings: Settings | None
             "Judge crosswalk",
         )
 
+    @app.get("/api/judge/decision-brief")
+    def judge_decision_brief() -> dict[str, object]:
+        return load_public_artifact(
+            "judge-decision-brief.json",
+            "proofframe.judge_decision_brief.v1",
+            "Judge decision brief",
+        )
+
     @app.get("/api/judge/evidence-index")
     def judge_evidence_index() -> dict[str, object]:
         return load_public_artifact(
