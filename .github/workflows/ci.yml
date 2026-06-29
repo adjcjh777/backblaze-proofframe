@@ -91,7 +91,13 @@ jobs:
         run: python scripts/agent_handoff_check.py
 
       - name: Public Space sync
-        run: python scripts/public_space_sync.py
+        run: |
+          for attempt in 1 2 3; do
+            python scripts/public_space_sync.py && exit 0
+            echo "Public Space sync failed on attempt ${attempt}; retrying after 30s..."
+            sleep 30
+          done
+          python scripts/public_space_sync.py
 
       - name: Demo storyboard
         run: python scripts/demo_storyboard.py
