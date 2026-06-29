@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-29T00:38:07Z",
+  "updated_at": "2026-06-29T00:44:29Z",
   "tasks": [
     {
       "id": "T001",
@@ -1027,6 +1027,15 @@
       "status": "done",
       "done_criteria": "GitHub Actions workflow uses current Node-24-compatible checkout/setup-python action majors so CI does not emit the Node 20 deprecation annotation.",
       "notes": "Updated actions/checkout from v4 to v7 and actions/setup-python from v5 to v6 after verifying latest official GitHub action releases via gh api."
+    },
+    {
+      "id": "T077",
+      "title": "Refresh official Devpost event snapshot",
+      "phase": "P4 Submit",
+      "owner": "scout",
+      "status": "done",
+      "done_criteria": "Official Devpost event snapshot is refreshed from the live overview and rules pages, with submission still open and event requirements/judging criteria validated.",
+      "notes": "Refreshed live official Devpost snapshot on 2026-06-29T00:44:06Z; observed participants increased from 369 to 372, deadline remains 2026-08-03T21:00:00Z, and validation remains ok."
     }
   ]
 }
