@@ -76,6 +76,11 @@ OPTIONAL_GROUPS = [
         "accepted_names": ["B2_PUBLIC_BASE_URL"],
     },
     {
+        "id": "b2_region",
+        "label": "B2 region for Genblaze sink",
+        "accepted_names": ["B2_REGION"],
+    },
+    {
         "id": "genblaze_aspect_ratio",
         "label": "Genblaze aspect ratio",
         "accepted_names": ["GENBLAZE_ASPECT_RATIO"],

@@ -29,6 +29,7 @@ def main() -> None:
             "has_bucket": bool(settings.b2_bucket),
             "has_key_id": bool(settings.b2_key_id),
             "has_application_key": bool(settings.b2_application_key),
+            "has_region_for_genblaze_sink": bool(settings.b2_region_for_backblaze()),
             "boto3_available": available("boto3"),
         },
         "genblaze": {

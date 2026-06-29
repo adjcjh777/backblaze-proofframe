@@ -23,6 +23,7 @@ This report records only variable names and presence checks. It never prints, ha
 ## Optional Values
 
 - UNSET B2 public base URL: `B2_PUBLIC_BASE_URL`; present none.
+- UNSET B2 region for Genblaze sink: `B2_REGION`; present none.
 - SET Genblaze aspect ratio: `GENBLAZE_ASPECT_RATIO`; present `GENBLAZE_ASPECT_RATIO`.
 - SET Genblaze timeout seconds: `GENBLAZE_TIMEOUT_SECONDS`; present `GENBLAZE_TIMEOUT_SECONDS`.
 

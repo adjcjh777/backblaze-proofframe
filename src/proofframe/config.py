@@ -3,8 +3,10 @@
 from __future__ import annotations
 
 import os
+import re
 from dataclasses import dataclass
 from typing import Mapping
+from urllib.parse import urlparse
 
 
 class ConfigurationError(RuntimeError):
@@ -35,6 +37,7 @@ class Settings:
     b2_key_id: str = ""
     b2_application_key: str = ""
     b2_public_base_url: str = ""
+    b2_region: str = ""
     genblaze_base_url: str = ""
     genblaze_api_key: str = ""
     genblaze_image_model: str = ""
@@ -54,6 +57,10 @@ class Settings:
             b2_key_id=_env(source, "B2_KEY_ID"),
             b2_application_key=_env(source, "B2_APPLICATION_KEY") or _env(source, "B2_APP_KEY"),
             b2_public_base_url=_env(source, "B2_PUBLIC_BASE_URL"),
+            b2_region=_env(source, "B2_REGION")
+            or _region_from_b2_endpoint(
+                _env(source, "B2_ENDPOINT_URL") or _env(source, "B2_S3_ENDPOINT_URL")
+            ),
             genblaze_base_url=_env(source, "GENBLAZE_BASE_URL") or _env(source, "GMI_BASE_URL"),
             genblaze_api_key=_env(source, "GENBLAZE_API_KEY"),
             genblaze_image_model=_env(source, "GENBLAZE_IMAGE_MODEL"),
@@ -79,6 +86,9 @@ class Settings:
                 + ", ".join(missing)
             )
 
+    def b2_region_for_backblaze(self) -> str:
+        return self.b2_region or _region_from_b2_endpoint(self.b2_endpoint_url)
+
     def require_genblaze(self) -> None:
         missing = [
             key
@@ -93,3 +103,12 @@ class Settings:
                 "Genblaze generation was requested but required environment variables are missing: "
                 + ", ".join(missing)
             )
+
+
+def _region_from_b2_endpoint(endpoint_url: str) -> str:
+    if not endpoint_url:
+        return ""
+    parsed = urlparse(endpoint_url if "://" in endpoint_url else f"https://{endpoint_url}")
+    host = parsed.netloc or parsed.path
+    match = re.match(r"^s3[.-]([a-z0-9-]+)\.backblazeb2\.com$", host)
+    return match.group(1) if match else ""

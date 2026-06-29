@@ -27,7 +27,7 @@ python3 scripts/task.py doing T020 --note "Live B2 proof in progress"
 
 ## Current Priority
 
-1. Copy `.env.final.example` to `.env.final.local`, fill B2/Genblaze values outside git, then run `python scripts/live_env_handoff.py --env-file .env.final.local`.
+1. Copy `.env.final.example` to `.env.final.local`, fill B2/Genblaze values outside git, confirm `B2_REGION` is set or derivable from `B2_ENDPOINT_URL`, then run `python scripts/live_env_handoff.py --env-file .env.final.local`.
 2. Complete live Backblaze B2 upload proof for one asset and one manifest.
 3. Complete live Genblaze-backed generation proof and capture provider/model metadata.
 4. Record and upload the demo video to YouTube, Vimeo, or Youku using `docs/demo_script.md`, then regenerate `docs/assets/devpost-submission-packet.*` with `python scripts/devpost_packet.py --post-live --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL"`.
@@ -40,3 +40,4 @@ python3 scripts/task.py doing T020 --note "Live B2 proof in progress"
 | --- | --- |
 | T082 | Judge decision brief generated, exposed in judge API/frontend, checked by public Space sync, and included in the submission bundle. |
 | T083 | Official Devpost event snapshot refreshed from live overview/rules pages, downstream reports regenerated, and public Space sync passed. |
+| T084 | Genblaze final path now uses the official B2 sink contract in B2 mode, with preflight coverage for `genblaze_s3` and B2 region readiness. |

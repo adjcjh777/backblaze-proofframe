@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.submission_bundle.v1",
-  "created_at": "2026-06-29T11:27:36Z",
+  "created_at": "2026-06-29T11:54:20Z",
   "project": "ProofFrame",
   "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
@@ -137,7 +137,7 @@
         "present": true,
         "schema": "proofframe.secret_scan.v1",
         "schema_ok": true,
-        "created_at": "2026-06-29T11:27:21Z",
+        "created_at": "2026-06-29T11:53:40Z",
         "ready": true,
         "fresh_after_receipt": true,
         "findings": []
@@ -148,7 +148,7 @@
         "present": true,
         "schema": "proofframe.final_submission_control.v1",
         "schema_ok": true,
-        "created_at": "2026-06-29T11:27:36Z",
+        "created_at": "2026-06-29T11:54:20Z",
         "ready": false,
         "fresh_after_receipt": true,
         "findings": [
@@ -162,7 +162,7 @@
         "present": true,
         "schema": "proofframe.final_video_publish_kit.v1",
         "schema_ok": true,
-        "created_at": "2026-06-29T11:26:12Z",
+        "created_at": "2026-06-29T11:51:38Z",
         "ready": false,
         "fresh_after_receipt": true,
         "findings": [
@@ -176,7 +176,7 @@
         "present": true,
         "schema": "proofframe.final_launch_plan.v1",
         "schema_ok": true,
-        "created_at": "2026-06-29T11:26:12Z",
+        "created_at": "2026-06-29T11:51:38Z",
         "ready": false,
         "fresh_after_receipt": true,
         "findings": [
@@ -190,7 +190,7 @@
         "present": true,
         "schema": "proofframe.devpost_submission_preview.v1",
         "schema_ok": true,
-        "created_at": "2026-06-29T11:26:30Z",
+        "created_at": "2026-06-29T11:27:36Z",
         "ready": false,
         "fresh_after_receipt": true,
         "findings": [
@@ -204,7 +204,7 @@
         "present": true,
         "schema": "proofframe.judge_decision_brief.v1",
         "schema_ok": true,
-        "created_at": "2026-06-29T11:26:11Z",
+        "created_at": "2026-06-29T11:51:38Z",
         "ready": false,
         "fresh_after_receipt": true,
         "findings": [
@@ -220,8 +220,8 @@
       "path": "README.md",
       "label": "Core public project overview",
       "present": true,
-      "bytes": 14049,
-      "sha256": "bd3c897bef754e5e551e94a504a30cffc1af8ec2ec0628f09dc4b58fc6ff7b29"
+      "bytes": 14477,
+      "sha256": "32c988990b3af78a038a7496cbfd2913c5f5865d37683ebf343b40934e70926e"
     },
     {
       "id": "dockerfile",
@@ -252,8 +252,8 @@
       "path": "docs/deployment.md",
       "label": "Public demo deployment runbook",
       "present": true,
-      "bytes": 5202,
-      "sha256": "fdc41ebba3f4d4966e6c314158428b6c42b906a528cf15aa4f39b67836e76fe0"
+      "bytes": 5213,
+      "sha256": "e73ca10170451f7d74696b5d8292f922fe5e1e92b1741963e38e9861f0c54e0d"
     },
     {
       "id": "devpost_draft",
@@ -332,8 +332,8 @@
       "path": "scripts/public_space_sync.py",
       "label": "Public Hugging Face Space sync verifier",
       "present": true,
-      "bytes": 71771,
-      "sha256": "1c9b031e5dc6b61b530066b2f0044886e757307d24adc471b1a2d08c2e6968d6"
+      "bytes": 71937,
+      "sha256": "ad2a7fa23c40de1a90ccc52a5c22615d34d1b984b920c47902f4d10b1ac3f7a5"
     },
     {
       "id": "public_space_sync_json",
@@ -341,7 +341,7 @@
       "label": "Machine-readable public Space sync report",
       "present": true,
       "bytes": 17658,
-      "sha256": "6ed55a8a74012609a34d3082aa20e144a3b04fc79d9d4b5d2d1ab3bae19983bb"
+      "sha256": "7e4392a251aa163cc9480615ae6350b2706b03d5607ad4eda05ea5805cd996b3"
     },
     {
       "id": "public_space_sync_md",
@@ -349,7 +349,7 @@
       "label": "Human-readable public Space sync report",
       "present": true,
       "bytes": 7497,
-      "sha256": "66f241f60248bee6281ba7d73611400cf2f582ee5d75c8f705f0744a3a2c25ba"
+      "sha256": "c386a75f8a10bb4c66172174aa3f8a539532f5418135bb137221e5208b708d19"
     },
     {
       "id": "public_demo_screenshot_script",
@@ -413,7 +413,7 @@
       "label": "Machine-readable Devpost preview",
       "present": true,
       "bytes": 11611,
-      "sha256": "d6ca26367f7baf846aab042c9071af714e2fd14056fdc39d16c3e7ad13fe9cc9"
+      "sha256": "b54342d41193fdd5764e7b95aea4f04284a1b1fb154b481be27f343faf2d9c00"
     },
     {
       "id": "devpost_preview_md",
@@ -461,7 +461,7 @@
       "label": "Machine-readable judge brief",
       "present": true,
       "bytes": 3734,
-      "sha256": "1770f84109bf715efe2df05eda0d838b0188c180540a6823fbd1c094dea4d03b"
+      "sha256": "36bbc0509fa52ecbda2e5cbdf0ef0caf60a42ff1ee58c0efe2272f6e4122eafe"
     },
     {
       "id": "judge_brief_md",
@@ -469,7 +469,7 @@
       "label": "Human-readable judge brief",
       "present": true,
       "bytes": 3000,
-      "sha256": "eaa20f981d0f155bbbef970a1a6b46a810cd6d747d0bb0182371b2c79cb36032"
+      "sha256": "7b8819ebec7265bc91f12ed75157b4d95e14c354838931dc4c2c95c141a24382"
     },
     {
       "id": "judge_crosswalk_script",
@@ -485,7 +485,7 @@
       "label": "Machine-readable judge crosswalk",
       "present": true,
       "bytes": 10219,
-      "sha256": "9a09f7d546f26294c96cf15f74d635fb9156de810a084de20bc32535a1685974"
+      "sha256": "cd68f765674cffa0679eca57d9a38023718924c906085a84234347ad8b8d1658"
     },
     {
       "id": "judge_crosswalk_md",
@@ -493,7 +493,7 @@
       "label": "Human-readable judge crosswalk",
       "present": true,
       "bytes": 6157,
-      "sha256": "290b53dd0608d58dd01e42bc6a6cab1bf9de152136e8f0087c7f342d5c16c132"
+      "sha256": "7a6dfd5d0e642d9c8ffb8044a027d67a5fc06d8c76be136dccb0201fe89da851"
     },
     {
       "id": "judge_decision_brief_script",
@@ -509,7 +509,7 @@
       "label": "Machine-readable judge decision brief",
       "present": true,
       "bytes": 8137,
-      "sha256": "791198bc820f281d791d179fbb6e40487341750d857e36c042e3e49af153d33a"
+      "sha256": "ace9201d1254afc61225d3723ef0f3086a6e8f169cdc58df7a598043d3b886ec"
     },
     {
       "id": "judge_decision_brief_md",
@@ -517,7 +517,7 @@
       "label": "Human-readable judge decision brief",
       "present": true,
       "bytes": 3835,
-      "sha256": "eccfce4314d9b03281a9ff4160cc5c9d0af34758b30d0a026c45ecb1c4a27580"
+      "sha256": "18f67b228a3e6ce0b5133f11fa39531ad35f33019de984c8600e62ea5c3a5c1f"
     },
     {
       "id": "judge_evidence_index_script",
@@ -533,7 +533,7 @@
       "label": "Machine-readable judge evidence index",
       "present": true,
       "bytes": 9969,
-      "sha256": "c6401f84977706895d5847946eb07d5d89cae37995087683cf33653fcac92354"
+      "sha256": "f0a1eecbd222beda40c4032ea69f776769974ce387686e898772e81ac732acf8"
     },
     {
       "id": "judge_evidence_index_md",
@@ -541,7 +541,7 @@
       "label": "Human-readable judge evidence index",
       "present": true,
       "bytes": 4262,
-      "sha256": "2423757dfbc785ee69c097b44bd8328e7712d25bf58e52750bd83ea014dd71d1"
+      "sha256": "5807aeebaa09d03d7d463b77cb3e100dea8180cc12129783b3a65224f5b7a079"
     },
     {
       "id": "frontend_ui",
@@ -629,7 +629,7 @@
       "label": "Machine-readable final video publish kit",
       "present": true,
       "bytes": 5366,
-      "sha256": "a431d73d9fddaec61144904a0858f2549263e54b1b4b6b186001f6bfbe09a63e"
+      "sha256": "90f89d0094bb7c0b86e0fb5aef136e8bfa3c40e3713aef4ea407a7641ca68b6f"
     },
     {
       "id": "final_video_publish_kit_md",
@@ -637,7 +637,7 @@
       "label": "Human-readable final video publish kit",
       "present": true,
       "bytes": 2727,
-      "sha256": "0b9f266ebec59dec88b42cfc3ef3a9b18613ca45f55fb5aa9274a50752bc88cc"
+      "sha256": "64f7d75705dfc8d39db5c74fb73765c1cec3e8003642667585e6138e2bff573c"
     },
     {
       "id": "public_video_check_script",
@@ -733,7 +733,7 @@
       "label": "Machine-readable final control report",
       "present": true,
       "bytes": 24359,
-      "sha256": "9a0bbbb4041da3233a86e56d78e7fb88eab2ca59c91e1b0955f5f745b2ae2f10"
+      "sha256": "f4cafe1d883c7cced0355d1cfdde3827181f10a5a832dec3b819379bf4a07a59"
     },
     {
       "id": "final_submission_control_md",
@@ -741,7 +741,7 @@
       "label": "Human-readable final control report",
       "present": true,
       "bytes": 7087,
-      "sha256": "0beeb1d3fb95e529a29884555c0ce2c8fd074a19b567b1ba475e4fc8ef096892"
+      "sha256": "d362dffcae186d3995d87170d9219140654d5e26d6ef128b6838d22fcc50bc92"
     },
     {
       "id": "final_operator_brief_script",
@@ -781,7 +781,7 @@
       "label": "Machine-readable final launch plan",
       "present": true,
       "bytes": 5690,
-      "sha256": "501171d2523f4e865f1d767f2124a391d5b8e7dce132e651aff5310b1e02ad5a"
+      "sha256": "2bc9afdbbf279c81391b090a5793dc91e252b125de60070d9d977a476f04171d"
     },
     {
       "id": "final_launch_plan_md",
@@ -805,7 +805,7 @@
       "label": "Machine-readable final rehearsal checklist",
       "present": true,
       "bytes": 17103,
-      "sha256": "08c3a59bf876e65fcf2d9a637fe5205a453cddd3b75e52f91d9cf4a4040eb3ef"
+      "sha256": "3ff584d48045eecb1d2af0087adefdb4a322dbd69265101b1fe4a24b2e204083"
     },
     {
       "id": "final_rehearsal_md",
@@ -813,7 +813,7 @@
       "label": "Human-readable final rehearsal checklist",
       "present": true,
       "bytes": 7404,
-      "sha256": "539ebdcfa16a58e60dce7c2e1c531e009137a5c849ce30c96fd0231b00cd86e5"
+      "sha256": "bc1f23737f10ff72e1f2026d53e2756ec7bb50f1418bc953b27314e08394fc55"
     },
     {
       "id": "submission_audit_script",
@@ -829,7 +829,7 @@
       "label": "Machine-readable submission audit report",
       "present": true,
       "bytes": 5925,
-      "sha256": "87dbf65125a12a8007d2f2967fd4507f460484f023bdef5ae850033dd17856a3"
+      "sha256": "c20de60ff4d7e1339edcb1d7ce7673b38dc000bfecdfca362a5ee6bd888e273c"
     },
     {
       "id": "submission_audit_md",
@@ -837,7 +837,7 @@
       "label": "Human-readable submission audit report",
       "present": true,
       "bytes": 4459,
-      "sha256": "8920524e7dcee1977595421ac8e83fadc422f5f5ec628890aca29b299c446ee5"
+      "sha256": "f5a16e467363e7b19af89b1017f6791c4253deb963eef9ca5b62209c2a492a20"
     },
     {
       "id": "devpost_receipt_script",
@@ -869,7 +869,7 @@
       "label": "Evidence package plan",
       "present": true,
       "bytes": 19912,
-      "sha256": "2b1f38e28a0631752f406e965e27b14cfdf1cd601e0554f2a137f2996e7087cb"
+      "sha256": "3b90df48ecf53249bdb8b0d3395a2fe53b45eda67c00efb1577d57500879dd45"
     },
     {
       "id": "public_claim_freeze",
@@ -884,16 +884,16 @@
       "path": "docs/verification.md",
       "label": "Local, CI, Docker, and live proof runbook",
       "present": true,
-      "bytes": 9739,
-      "sha256": "07510fdc20821d14ed7a99edd4915068eb6f3123838df861fe2681fa880b746b"
+      "bytes": 9979,
+      "sha256": "448850b0764bc309ebad667f126d9a49d37304560c4c6532655f2d8af62985de"
     },
     {
       "id": "final_env_template",
       "path": ".env.final.example",
       "label": "Redacted final B2 plus Genblaze env template",
       "present": true,
-      "bytes": 352,
-      "sha256": "d250e97bb0a653fa8d46a86e141f310485206f5035ab2562001dce17a5719420"
+      "bytes": 363,
+      "sha256": "fb5fad4f14e2b0adc5615ef73f0ff63041f6bcf29a8575baba11eac8172db1fa"
     },
     {
       "id": "secret_scan_script",
@@ -909,7 +909,7 @@
       "label": "Machine-readable secret scan report",
       "present": true,
       "bytes": 11051,
-      "sha256": "96f50d76bfd2fc1c16e8cfc4b323600814612391a0bef7970081c6f826471afd"
+      "sha256": "4fde7b856eaa2d1405d2182298f8076929937a2863a7246598092d1bb2e15964"
     },
     {
       "id": "secret_scan_md",
@@ -917,7 +917,7 @@
       "label": "Human-readable secret scan report",
       "present": true,
       "bytes": 846,
-      "sha256": "53223a9ab53f7a22bc00c243722ac18d8611db67183ed44786fe548f9626cdf1"
+      "sha256": "71409078da7835f226adc9b3a4b2bd8506d1ddbfba792ff6eaa936a25b6ee3e5"
     },
     {
       "id": "b2_live_setup_json",
@@ -972,32 +972,32 @@
       "path": "scripts/live_env_handoff.py",
       "label": "Redacted live credential handoff gate",
       "present": true,
-      "bytes": 9322,
-      "sha256": "2c9aa63baa5f2640d3bbb2a18e13ed98614e862fd1ca1952f6605e921d583ff9"
+      "bytes": 9451,
+      "sha256": "39c8de0b58c132c322ff9b6ce4a5478b3afbca7851e0bf424e577594e391c20e"
     },
     {
       "id": "live_env_handoff_json",
       "path": "docs/assets/live-credential-handoff.json",
       "label": "Machine-readable live credential handoff",
       "present": true,
-      "bytes": 4315,
-      "sha256": "5f025c40cb740383a2236048a33a77405c46374c75ab972a5290ee583ad65d9d"
+      "bytes": 4548,
+      "sha256": "08b0b09e257f62535a0800e00c91a5ffb8537c9fef9015b7a7f1be1acbe95eb8"
     },
     {
       "id": "live_env_handoff_md",
       "path": "docs/assets/live-credential-handoff.md",
       "label": "Human-readable live credential handoff",
       "present": true,
-      "bytes": 2197,
-      "sha256": "d254843a1e684df5ea7b54c8f62e3a8834bc5deb34cdfd91170ad63706e7dbae"
+      "bytes": 2261,
+      "sha256": "17742c751ea63313f1deccdd0c4260dddc539f190f4e0ff51db85e54bf9e590d"
     },
     {
       "id": "final_env_wizard",
       "path": "scripts/final_env_wizard.py",
       "label": "Local final credential env wizard",
       "present": true,
-      "bytes": 15789,
-      "sha256": "a885c927c1bb09eed0e611b89e3719750185c72ea4dbb3d7dcb11d0531e69095"
+      "bytes": 16314,
+      "sha256": "a22d696bc534a61fc690617a0574eb27d2c4201405c773e10061b0e6f05b1df4"
     },
     {
       "id": "post_credential_live_proof_script",
@@ -1100,8 +1100,8 @@
       "path": "tasks.json",
       "label": "Machine-readable task board",
       "present": true,
-      "bytes": 63266,
-      "sha256": "6ab8ae4d70e20b68daf9e5f717aa678bd6a401986b55eedaa6734bcb6b90109b"
+      "bytes": 63633,
+      "sha256": "4ef7901daa813491310e1b795896f32c18b5f97bc6d65966d03f94fe9854cfba"
     },
     {
       "id": "local_ui_smoke",

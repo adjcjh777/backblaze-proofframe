@@ -235,6 +235,7 @@ def test_final_env_wizard_prefills_non_secret_b2_values(tmp_path):
 
     assert values["B2_BUCKET"] == "proofframe-demo-a6b4e49"
     assert values["B2_ENDPOINT_URL"] == "s3.us-west-004.backblazeb2.com"
+    assert values["B2_REGION"] == "us-west-004"
     assert "B2_APPLICATION_KEY=" in rendered
     assert "GENBLAZE_API_KEY=" in rendered
     assert "B2_APPLICATION_KEY" in summary["missing_required_names"]

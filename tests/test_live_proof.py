@@ -27,8 +27,10 @@ def test_preflight_report_lists_missing_b2_and_genblaze_config():
     assert "generation backend mode" in missing_names
     assert "B2 endpoint" in missing_names
     assert "B2 application key" in missing_names
+    assert "B2 region for Genblaze sink" in missing_names
     assert "Genblaze API key" in missing_names
     assert "genblaze_core package" in missing_names
+    assert "genblaze_s3 package" in missing_names
     assert "secret_policy" in report
 
 
@@ -36,7 +38,7 @@ def test_preflight_report_passes_with_complete_config():
     settings = Settings(
         storage_backend="b2",
         generation_backend="genblaze",
-        b2_endpoint_url="https://s3.example.test",
+        b2_endpoint_url="https://s3.us-west-004.backblazeb2.com",
         b2_bucket="proof-bucket",
         b2_key_id="key-id",
         b2_application_key="application-key",
@@ -48,7 +50,8 @@ def test_preflight_report_passes_with_complete_config():
         settings,
         require_storage_backend="b2",
         require_generation_backend="genblaze",
-        available=lambda module: module in {"boto3", "genblaze_core", "genblaze_gmicloud"},
+        available=lambda module: module
+        in {"boto3", "genblaze_core", "genblaze_gmicloud", "genblaze_s3"},
     )
 
     assert report["ok"] is True

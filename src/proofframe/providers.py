@@ -6,7 +6,7 @@ import html
 import mimetypes
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Protocol
+from typing import Any, Protocol
 from urllib.parse import urlparse
 from urllib.request import urlopen
 
@@ -77,6 +77,12 @@ class GenblazeMediaProvider:
     base_url: str = ""
     aspect_ratio: str = "16:9"
     timeout_seconds: int = 180
+    b2_sink_enabled: bool = False
+    b2_bucket: str = ""
+    b2_key_id: str = ""
+    b2_application_key: str = ""
+    b2_region: str = ""
+    b2_public_base_url: str = ""
     provider: str = "genblaze"
 
     @property
@@ -92,6 +98,12 @@ class GenblazeMediaProvider:
             base_url=settings.genblaze_base_url,
             aspect_ratio=settings.genblaze_aspect_ratio,
             timeout_seconds=settings.genblaze_timeout_seconds,
+            b2_sink_enabled=settings.storage_backend == "b2",
+            b2_bucket=settings.b2_bucket,
+            b2_key_id=settings.b2_key_id,
+            b2_application_key=settings.b2_application_key,
+            b2_region=settings.b2_region_for_backblaze(),
+            b2_public_base_url=settings.b2_public_base_url,
         )
 
     def generate(self, campaign: Campaign, count: int = 3) -> list[GeneratedMedia]:
@@ -112,6 +124,7 @@ class GenblazeMediaProvider:
                 base_url=self.base_url or None,
                 http_timeout=float(self.timeout_seconds),
             )
+            sink, storage_backend = self._build_genblaze_b2_sink(campaign.id)
             try:
                 result = (
                     Pipeline("proofframe-image", project_id=campaign.id)
@@ -123,51 +136,140 @@ class GenblazeMediaProvider:
                         aspect_ratio=self.aspect_ratio,
                     )
                     .run(
+                        sink=sink,
                         timeout=self.timeout_seconds,
                         max_retries=1,
                         raise_on_failure=True,
                     )
                 )
+                run = getattr(result, "run", None)
+                manifest = getattr(result, "manifest", None)
+                if run is None or manifest is None:
+                    run, manifest = result
+                step = run.steps[0]
+                if not step.assets:
+                    raise ConfigurationError("Genblaze generation completed without an image asset.")
+
+                asset = step.assets[0]
+                data, content_type, filename = self._fetch_asset(
+                    asset.url,
+                    campaign.id,
+                    index,
+                    storage_backend=storage_backend,
+                )
+                manifest_uri = str(getattr(manifest, "manifest_uri", "") or "")
+                generated.append(
+                    GeneratedMedia(
+                        prompt=prompt,
+                        provider=f"{self.provider}/gmicloud-image",
+                        model=self.image_model,
+                        filename=filename,
+                        content_type=content_type or asset.media_type or "image/png",
+                        data=data,
+                        generation_metadata={
+                            "genblaze_b2_sink": "enabled" if self.b2_sink_enabled else "disabled",
+                            "genblaze_run_id": str(run.run_id),
+                            "genblaze_manifest_hash": str(manifest.canonical_hash),
+                            "genblaze_manifest_uri_present": str(bool(manifest_uri)),
+                            "genblaze_manifest_verified": str(manifest.verify()),
+                            "genblaze_step_status": str(step.status),
+                            "genblaze_asset_host": urlparse(asset.url).netloc or "local",
+                            "genblaze_asset_sha256": str(asset.sha256 or ""),
+                        },
+                    )
+                )
+            except ConfigurationError:
+                raise
             except Exception as exc:
                 raise ConfigurationError(f"Genblaze generation failed: {exc}") from exc
             finally:
-                close = getattr(provider, "close", None)
-                if callable(close):
-                    close()
-
-            run = getattr(result, "run", None)
-            manifest = getattr(result, "manifest", None)
-            if run is None or manifest is None:
-                run, manifest = result
-            step = run.steps[0]
-            if not step.assets:
-                raise ConfigurationError("Genblaze generation completed without an image asset.")
-
-            asset = step.assets[0]
-            data, content_type, filename = self._fetch_asset(asset.url, campaign.id, index)
-            generated.append(
-                GeneratedMedia(
-                    prompt=prompt,
-                    provider=f"{self.provider}/gmicloud-image",
-                    model=self.image_model,
-                    filename=filename,
-                    content_type=content_type or asset.media_type or "image/png",
-                    data=data,
-                    generation_metadata={
-                        "genblaze_run_id": str(run.run_id),
-                        "genblaze_manifest_hash": str(manifest.canonical_hash),
-                        "genblaze_manifest_verified": str(manifest.verify()),
-                        "genblaze_step_status": str(step.status),
-                        "genblaze_asset_host": urlparse(asset.url).netloc or "local",
-                        "genblaze_asset_sha256": str(asset.sha256 or ""),
-                    },
-                )
-            )
+                self._close_if_possible(storage_backend)
+                self._close_if_possible(provider)
         return generated
 
+    def _build_genblaze_b2_sink(
+        self,
+        campaign_id: str,
+        *,
+        preflight: bool = True,
+    ) -> tuple[Any | None, Any | None]:
+        if not self.b2_sink_enabled:
+            return None, None
+        missing = [
+            name
+            for name, value in {
+                "B2_BUCKET": self.b2_bucket,
+                "B2_KEY_ID": self.b2_key_id,
+                "B2_APPLICATION_KEY or B2_APP_KEY": self.b2_application_key,
+                "B2_REGION or Backblaze S3 endpoint": self.b2_region,
+            }.items()
+            if not value
+        ]
+        if missing:
+            raise ConfigurationError(
+                "Genblaze B2 sink was requested but required environment variables are missing: "
+                + ", ".join(missing)
+            )
+        try:
+            from genblaze_core import KeyStrategy, ObjectStorageSink  # type: ignore[import-not-found]
+            from genblaze_s3 import S3StorageBackend  # type: ignore[import-not-found]
+        except ModuleNotFoundError as exc:
+            raise ConfigurationError(
+                "Genblaze B2 sink requires the official genblaze-s3 package. "
+                "Install with `pip install -e '.[integrations]'`."
+            ) from exc
+
+        try:
+            backend = S3StorageBackend.for_backblaze(
+                self.b2_bucket,
+                region=self.b2_region,
+                key_id=self.b2_key_id,
+                app_key=self.b2_application_key,
+                public_url_base=self.b2_public_base_url or None,
+                preflight=preflight,
+            )
+            read_backend = S3StorageBackend.for_backblaze(
+                self.b2_bucket,
+                region=self.b2_region,
+                key_id=self.b2_key_id,
+                app_key=self.b2_application_key,
+                public_url_base=self.b2_public_base_url or None,
+                preflight=False,
+            )
+            sink = ObjectStorageSink(
+                backend,
+                prefix=f"campaigns/{campaign_id}/genblaze",
+                key_strategy=KeyStrategy.HIERARCHICAL,
+            )
+        except Exception as exc:
+            raise ConfigurationError(f"Genblaze B2 sink configuration failed: {exc}") from exc
+        return sink, read_backend
+
     @staticmethod
-    def _fetch_asset(asset_url: str, campaign_id: str, index: int) -> tuple[bytes, str, str]:
+    def _close_if_possible(resource: Any | None) -> None:
+        close = getattr(resource, "close", None)
+        if callable(close):
+            close()
+
+    @staticmethod
+    def _fetch_asset(
+        asset_url: str,
+        campaign_id: str,
+        index: int,
+        *,
+        storage_backend: Any | None = None,
+    ) -> tuple[bytes, str, str]:
         parsed = urlparse(asset_url)
+        if storage_backend is not None:
+            key_from_url = getattr(storage_backend, "key_from_url", None)
+            get = getattr(storage_backend, "get", None)
+            if callable(key_from_url) and callable(get):
+                key = key_from_url(asset_url)
+                if key:
+                    data = get(key)
+                    content_type = mimetypes.guess_type(key)[0] or "image/png"
+                    extension = mimetypes.guess_extension(content_type) or ".png"
+                    return data, content_type, f"{campaign_id}-genblaze-{index}{extension}"
         if parsed.scheme in {"http", "https"}:
             with urlopen(asset_url, timeout=60) as response:
                 data = response.read()

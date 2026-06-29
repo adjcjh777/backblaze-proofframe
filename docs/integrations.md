@@ -7,7 +7,8 @@
 - B2 key scope checklist: generated as a no-secret pre-creation gate for the dedicated bucket, `campaigns/` prefix, required upload/S3 compatibility permissions, and forbidden admin/delete permissions.
 - B2 live proof: not complete until a dedicated Backblaze bucket and least-privilege key are configured and one media object plus one manifest are uploaded.
 - Genblaze code path: implemented with the official Genblaze `Pipeline` API and `GMICloudImageProvider`.
-- Genblaze live proof: not complete until official Genblaze packages/provider credentials generate media and the manifest records provider/model/run metadata.
+- Genblaze+B2 sink path: in final B2 mode, the provider builds an official `ObjectStorageSink` with `S3StorageBackend.for_backblaze`, so Genblaze output and provenance can land in B2 before ProofFrame records its own packet manifest.
+- Genblaze live proof: not complete until official Genblaze packages/provider credentials generate media, the B2 sink is active, and the manifest records provider/model/run metadata.
 
 ## Readiness Command
 
@@ -51,6 +52,8 @@ python scripts/live_proof.py \
 
 The wrapper checks required backend modes, env presence, integration packages, and then delegates the end-to-end smoke test to `scripts/api_smoke.py`. The evidence JSON is intentionally limited to campaign ids, provider/model names, sanitized storage keys, checksums, byte counts, and backend names. It must not contain raw API keys, cookies, signed URLs, or account dashboards.
 
+During the final B2 plus Genblaze run, ProofFrame enables the Genblaze B2 sink automatically when `PROOFFRAME_STORAGE_BACKEND=b2` and `PROOFFRAME_GENERATION_BACKEND=genblaze`. The app passes B2 bucket, region, key id, application key, and optional public URL base to Genblaze's official B2/S3 storage backend. If the bucket is private, ProofFrame reads the generated object back with a separate authenticated B2 client rather than storing signed URLs in the manifest or smoke evidence.
+
 ## B2 Environment
 
 Required for `PROOFFRAME_STORAGE_BACKEND=b2`:
@@ -71,8 +74,11 @@ Accepted aliases:
 Optional:
 
 ```bash
+B2_REGION=
 B2_PUBLIC_BASE_URL=
 ```
+
+`B2_REGION` can be omitted when `B2_ENDPOINT_URL` is a standard Backblaze S3 endpoint such as `https://s3.us-west-004.backblazeb2.com`; the preflight derives `us-west-004`. Set `B2_REGION` explicitly for unusual endpoint formats.
 
 ## Genblaze Environment
 

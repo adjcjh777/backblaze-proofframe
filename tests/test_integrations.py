@@ -44,6 +44,11 @@ def test_genblaze_settings_parse_official_defaults():
     settings = Settings.from_env(
         {
             "PROOFFRAME_GENERATION_BACKEND": "genblaze",
+            "PROOFFRAME_STORAGE_BACKEND": "b2",
+            "B2_ENDPOINT_URL": "https://s3.us-west-004.backblazeb2.com",
+            "B2_BUCKET": "proof-bucket",
+            "B2_KEY_ID": "key-id",
+            "B2_APPLICATION_KEY": "application-key",
             "GMI_API_KEY": "test-key",
             "GENBLAZE_IMAGE_MODEL": "seedream-5.0-lite",
             "GENBLAZE_TIMEOUT_SECONDS": "240",
@@ -52,6 +57,32 @@ def test_genblaze_settings_parse_official_defaults():
     assert settings.genblaze_base_url == ""
     assert settings.genblaze_aspect_ratio == "16:9"
     assert settings.genblaze_timeout_seconds == 240
+    assert settings.b2_region_for_backblaze() == "us-west-004"
+
+    provider = create_media_provider(settings)
+
+    assert isinstance(provider, GenblazeMediaProvider)
+    assert provider.b2_sink_enabled is True
+    assert provider.b2_region == "us-west-004"
+
+
+def test_genblaze_b2_sink_builds_from_official_packages_without_network():
+    provider = GenblazeMediaProvider(
+        api_key="test-key",
+        image_model="seedream-5.0-lite",
+        b2_sink_enabled=True,
+        b2_bucket="proof-bucket",
+        b2_key_id="key-id",
+        b2_application_key="application-key",
+        b2_region="us-west-004",
+    )
+
+    sink, read_backend = provider._build_genblaze_b2_sink("cmp_test", preflight=False)
+
+    assert sink is not None
+    assert read_backend is not None
+    provider._close_if_possible(read_backend)
+    provider._close_if_possible(sink)
 
 
 def test_genblaze_fetch_asset_from_file_url(tmp_path):
@@ -67,6 +98,34 @@ def test_genblaze_fetch_asset_from_file_url(tmp_path):
     assert data == b"fake-png"
     assert content_type == "image/png"
     assert filename == "cmp_test-genblaze-2.png"
+
+
+def test_genblaze_fetch_asset_uses_b2_backend_for_private_sink_url():
+    class FakeReadBackend:
+        def __init__(self):
+            self.keys = []
+
+        def key_from_url(self, url):
+            assert url == "https://s3.us-west-004.backblazeb2.com/proof-bucket/genblaze/a.png"
+            return "genblaze/a.png"
+
+        def get(self, key):
+            self.keys.append(key)
+            return b"private-b2-image"
+
+    backend = FakeReadBackend()
+
+    data, content_type, filename = GenblazeMediaProvider._fetch_asset(
+        "https://s3.us-west-004.backblazeb2.com/proof-bucket/genblaze/a.png",
+        "cmp_test",
+        3,
+        storage_backend=backend,
+    )
+
+    assert data == b"private-b2-image"
+    assert content_type == "image/png"
+    assert filename == "cmp_test-genblaze-3.png"
+    assert backend.keys == ["genblaze/a.png"]
 
 
 class FakeS3Client:

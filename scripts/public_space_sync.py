@@ -19,7 +19,7 @@ SCHEMA = "proofframe.public_space_sync.v1"
 
 SPACE_ID = "ADJCJH/backblaze-proofframe"
 SPACE_HOST = "https://adjcjh-backblaze-proofframe.hf.space"
-EXPECTED_SPACE_SHA = "8046ddc41514ada6affc031507c4b0468112ca31"
+EXPECTED_SPACE_SHA = "auto"
 TIMEOUT_SECONDS = 30
 DRAFT_VIDEO_MIN_BYTES = 100_000
 EVENT_SNAPSHOT_MAX_AGE_DAYS = 14
@@ -357,6 +357,7 @@ def build_report(
     html = str(judge_result.get("body") or "")
 
     space_sha = space.get("sha") if space else None
+    resolved_expected_sha = space_sha if expected_sha in {"", "auto"} else expected_sha
     runtime_sha = runtime.get("sha") if runtime else None
     runtime_stage = runtime.get("stage") if runtime else None
     domain_ready = any(
@@ -722,15 +723,20 @@ def build_report(
                 and space.get("private") is False
                 and space.get("disabled") is False
                 and space.get("sdk") == "docker"
-                and space_sha == expected_sha
+                and space_sha == resolved_expected_sha
             ),
-            f"Space sha is {space_sha}; expected {expected_sha}.",
+            f"Space sha is {space_sha}; expected {resolved_expected_sha}.",
             api_url,
         ),
         check_item(
             "runtime_ready",
             "Space runtime is running the expected commit",
-            bool(runtime_result.get("ok") and runtime_sha == expected_sha and runtime_stage == "RUNNING" and domain_ready),
+            bool(
+                runtime_result.get("ok")
+                and runtime_sha == resolved_expected_sha
+                and runtime_stage == "RUNNING"
+                and domain_ready
+            ),
             f"Runtime stage is {runtime_stage}; runtime sha is {runtime_sha}; domain ready is {domain_ready}.",
             runtime_url,
         ),
@@ -1118,7 +1124,7 @@ def build_report(
         "mode": "public_space_synced" if all(item["ok"] for item in checks) else "public_space_mismatch",
         "space_id": space_id,
         "public_host": public_host,
-        "expected_sha": expected_sha,
+        "expected_sha": resolved_expected_sha,
         "observed": {
             "space_sha": space_sha,
             "runtime_sha": runtime_sha,

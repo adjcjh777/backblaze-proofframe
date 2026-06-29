@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-29T11:27:02Z",
+  "updated_at": "2026-06-29T11:42:07Z",
   "tasks": [
     {
       "id": "T001",
@@ -127,6 +127,15 @@
       "status": "doing",
       "done_criteria": "Generation adapter records provider/model metadata and fails closed without config.",
       "notes": "Genblaze/GMICloud image provider adapter implemented with official Pipeline API; live credentials/package run still required for final public claim."
+    },
+    {
+      "id": "T084",
+      "title": "Add Genblaze B2 sink contract path",
+      "phase": "P2 Integrations",
+      "owner": "executor",
+      "status": "done",
+      "done_criteria": "",
+      "notes": "Genblaze provider now uses official ObjectStorageSink plus S3StorageBackend.for_backblaze in final B2 mode; preflight checks genblaze_s3 and B2 region."
     },
     {
       "id": "T030",

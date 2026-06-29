@@ -200,35 +200,42 @@ Required environment:
 
 ```bash
 PROOFFRAME_GENERATION_BACKEND=genblaze
+PROOFFRAME_STORAGE_BACKEND=b2
+B2_ENDPOINT_URL=
+B2_BUCKET=
+B2_KEY_ID=
+B2_APPLICATION_KEY=
+# Optional if B2_ENDPOINT_URL is a standard Backblaze endpoint.
+B2_REGION=
 GMI_API_KEY=
 GENBLAZE_IMAGE_MODEL=seedream-5.0-lite
 GENBLAZE_ASPECT_RATIO=16:9
 GENBLAZE_TIMEOUT_SECONDS=180
 ```
 
-Run the same app smoke command. Evidence to save after T021:
+Run the final combined app smoke command so Genblaze output uses the official B2 sink before ProofFrame exports its packet evidence:
 
 ```bash
-python scripts/live_proof.py \
-  --base-url http://127.0.0.1:8088 \
-  --require-storage-backend local \
-  --require-generation-backend genblaze \
-  --evidence-out docs/assets/genblaze-live-proof-evidence.json
+python scripts/run_final_live_proof.py \
+  --env-file .env.final.local \
+  --evidence-out docs/assets/final-live-proof-evidence.json
 ```
 
-Fallback command:
+Fallback against an already running app:
 
 ```bash
 python scripts/api_smoke.py \
   --base-url http://127.0.0.1:8088 \
+  --require-storage-backend b2 \
   --require-generation-backend genblaze \
-  --evidence-out docs/assets/genblaze-live-proof-evidence.json
+  --evidence-out docs/assets/final-live-proof-evidence.json
 ```
 
 - provider `genblaze/gmicloud-image`
 - model name
 - Genblaze run id
 - Genblaze manifest hash
+- Genblaze B2 sink enabled
 - ProofFrame asset checksum
 - no provider key or raw temporary provider URL
 

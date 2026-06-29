@@ -12,6 +12,7 @@ from pathlib import Path
 import re
 import subprocess
 from typing import Callable, Mapping
+from urllib.parse import urlparse
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -41,6 +42,7 @@ FIELDS = [
     EnvField("PROOFFRAME_STORAGE_BACKEND", "ProofFrame storage backend", default="b2"),
     EnvField("PROOFFRAME_GENERATION_BACKEND", "ProofFrame generation backend", default="genblaze"),
     EnvField("B2_ENDPOINT_URL", "Backblaze B2 S3 endpoint URL"),
+    EnvField("B2_REGION", "Backblaze B2 region", required=False),
     EnvField("B2_BUCKET", "Backblaze B2 bucket name"),
     EnvField("B2_KEY_ID", "Backblaze B2 application key id"),
     EnvField("B2_APPLICATION_KEY", "Backblaze B2 application key", secret=True),
@@ -194,11 +196,22 @@ def load_b2_setup(path: Path = DEFAULT_B2_SETUP) -> dict[str, str]:
         return {}
     if not data.get("safe_to_commit"):
         return {}
+    endpoint = normalize(str(data.get("endpoint", "")))
     return {
         "PROOFFRAME_STORAGE_BACKEND": "b2",
-        "B2_ENDPOINT_URL": normalize(str(data.get("endpoint", ""))),
+        "B2_ENDPOINT_URL": endpoint,
+        "B2_REGION": region_from_b2_endpoint(endpoint),
         "B2_BUCKET": normalize(str(data.get("bucket_name", ""))),
     }
+
+
+def region_from_b2_endpoint(endpoint_url: str) -> str:
+    if not endpoint_url:
+        return ""
+    parsed = urlparse(endpoint_url if "://" in endpoint_url else f"https://{endpoint_url}")
+    host = parsed.netloc or parsed.path
+    match = re.match(r"^s3[.-]([a-z0-9-]+)\.backblazeb2\.com$", host)
+    return match.group(1) if match else ""
 
 
 def non_secret_prefill_values(*, b2_setup_path: Path = DEFAULT_B2_SETUP) -> dict[str, str]:

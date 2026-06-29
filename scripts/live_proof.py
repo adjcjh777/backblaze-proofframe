@@ -65,6 +65,16 @@ def build_preflight_report(
             available("boto3"),
             "Install integrations with `pip install -e '.[integrations]'`.",
         )
+        if require_generation_backend == "genblaze":
+            add_requirement(
+                checks,
+                "B2 region for Genblaze sink",
+                bool(settings.b2_region_for_backblaze()),
+                (
+                    "Set B2_REGION or use a Backblaze S3 endpoint like "
+                    "https://s3.us-west-004.backblazeb2.com."
+                ),
+            )
 
     if require_generation_backend == "genblaze":
         add_requirement(
@@ -79,7 +89,10 @@ def build_preflight_report(
             bool(settings.genblaze_image_model),
             "Set GENBLAZE_IMAGE_MODEL.",
         )
-        for module in ("genblaze_core", "genblaze_gmicloud"):
+        modules = ["genblaze_core", "genblaze_gmicloud"]
+        if require_storage_backend == "b2":
+            modules.append("genblaze_s3")
+        for module in modules:
             add_requirement(
                 checks,
                 f"{module} package",
