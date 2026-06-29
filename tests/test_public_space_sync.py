@@ -13,6 +13,62 @@ SPEC.loader.exec_module(public_space_sync)
 EXPECTED_SHA = "abc123"
 
 
+def test_fetch_text_handles_incomplete_read(monkeypatch):
+    class BrokenResponse:
+        status = 200
+        headers = {"content-type": "video/mp4"}
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, exc_type, exc, traceback):
+            return False
+
+        def read(self):
+            raise public_space_sync.IncompleteRead(b"", 747727)
+
+    monkeypatch.setattr(public_space_sync, "urlopen", lambda request, timeout: BrokenResponse())
+
+    result = public_space_sync.fetch_text("https://example.test/video.mp4", timeout=1)
+
+    assert result["ok"] is False
+    assert result["bytes"] == 0
+    assert "IncompleteRead" in result["error"]
+
+
+def test_fetch_text_retries_transient_incomplete_read(monkeypatch):
+    calls = []
+
+    class HealthyResponse:
+        status = 200
+        headers = {"content-type": "application/json"}
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, exc_type, exc, traceback):
+            return False
+
+        def read(self):
+            return b'{"ok": true}'
+
+    class BrokenResponse(HealthyResponse):
+        def read(self):
+            raise public_space_sync.IncompleteRead(b"", 10)
+
+    def flaky_urlopen(request, timeout):
+        calls.append(request.full_url)
+        return BrokenResponse() if len(calls) == 1 else HealthyResponse()
+
+    monkeypatch.setattr(public_space_sync, "urlopen", flaky_urlopen)
+
+    result = public_space_sync.fetch_text("https://example.test/report.json", timeout=1, retries=2)
+
+    assert result["ok"] is True
+    assert result["body"] == '{"ok": true}'
+    assert len(calls) == 2
+
+
 def valid_post_credential_commands() -> list[dict]:
     return [
         {"id": "credential_handoff"},

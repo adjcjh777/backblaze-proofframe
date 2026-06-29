@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+from http.client import IncompleteRead
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable
@@ -21,6 +22,7 @@ SPACE_ID = "ADJCJH/backblaze-proofframe"
 SPACE_HOST = "https://adjcjh-backblaze-proofframe.hf.space"
 EXPECTED_SPACE_SHA = "auto"
 TIMEOUT_SECONDS = 30
+FETCH_RETRIES = 3
 DRAFT_VIDEO_MIN_BYTES = 100_000
 EVENT_SNAPSHOT_MAX_AGE_DAYS = 14
 JUDGE_DECISION_BRIEF_MAX_AGE_DAYS = 14
@@ -132,35 +134,60 @@ def checked_at_age_days(checked_at: Any) -> int | None:
     return max(0, (now - checked.astimezone(timezone.utc)).days)
 
 
-def fetch_text(url: str, timeout: int = TIMEOUT_SECONDS) -> FetchResult:
-    request = Request(url, headers={"User-Agent": "ProofFrame public Space sync verifier"})
-    try:
-        with urlopen(request, timeout=timeout) as response:
-            raw_body = response.read()
+def fetch_text(url: str, timeout: int = TIMEOUT_SECONDS, retries: int = FETCH_RETRIES) -> FetchResult:
+    attempts = max(1, retries)
+    transient_result: FetchResult | None = None
+    for attempt in range(1, attempts + 1):
+        request = Request(url, headers={"User-Agent": "ProofFrame public Space sync verifier"})
+        try:
+            with urlopen(request, timeout=timeout) as response:
+                raw_body = response.read()
+                body = raw_body.decode("utf-8", errors="replace")
+                return {
+                    "ok": True,
+                    "status": response.status,
+                    "body": body,
+                    "bytes": len(raw_body),
+                    "content_type": response.headers.get("content-type"),
+                    "error": None,
+                }
+        except HTTPError as error:
+            raw_body = error.read()
             body = raw_body.decode("utf-8", errors="replace")
             return {
-                "ok": True,
-                "status": response.status,
+                "ok": False,
+                "status": error.code,
                 "body": body,
                 "bytes": len(raw_body),
-                "content_type": response.headers.get("content-type"),
-                "error": None,
+                "content_type": error.headers.get("content-type") if error.headers else None,
+                "error": str(error),
             }
-    except HTTPError as error:
-        raw_body = error.read()
-        body = raw_body.decode("utf-8", errors="replace")
-        return {
-            "ok": False,
-            "status": error.code,
-            "body": body,
-            "bytes": len(raw_body),
-            "content_type": error.headers.get("content-type") if error.headers else None,
-            "error": str(error),
-        }
-    except URLError as error:
-        return {"ok": False, "status": None, "body": "", "bytes": 0, "content_type": None, "error": str(error.reason)}
-    except TimeoutError as error:
-        return {"ok": False, "status": None, "body": "", "bytes": 0, "content_type": None, "error": str(error)}
+        except URLError as error:
+            transient_result = {
+                "ok": False,
+                "status": None,
+                "body": "",
+                "bytes": 0,
+                "content_type": None,
+                "error": f"{error.reason} (attempt {attempt}/{attempts})",
+            }
+        except (TimeoutError, ConnectionResetError, IncompleteRead) as error:
+            transient_result = {
+                "ok": False,
+                "status": None,
+                "body": "",
+                "bytes": 0,
+                "content_type": None,
+                "error": f"{error} (attempt {attempt}/{attempts})",
+            }
+    return transient_result or {
+        "ok": False,
+        "status": None,
+        "body": "",
+        "bytes": 0,
+        "content_type": None,
+        "error": "fetch failed",
+    }
 
 
 def parse_json(result: FetchResult) -> dict[str, Any] | None:

@@ -2,19 +2,19 @@
 
 Mode: `public_space_synced`
 OK: `true`
-Created: `2026-06-29T13:01:59Z`
+Created: `2026-06-29T13:17:52Z`
 Space: `ADJCJH/backblaze-proofframe`
 Public host: https://adjcjh-backblaze-proofframe.hf.space
-Expected sha: `9fa3c4fc84c87cbcef17e3d8d5b1b563cc076591`
-Runtime sha: `9fa3c4fc84c87cbcef17e3d8d5b1b563cc076591`
+Expected sha: `b0593e2178ad712d4c104fa2e7bbf57872230927`
+Runtime sha: `b0593e2178ad712d4c104fa2e7bbf57872230927`
 Runtime stage: `RUNNING`
 
 ## Checks
 
 | Status | Check | Detail | Evidence |
 | --- | --- | --- | --- |
-| OK | Space metadata points at the expected commit | Space sha is 9fa3c4fc84c87cbcef17e3d8d5b1b563cc076591; expected 9fa3c4fc84c87cbcef17e3d8d5b1b563cc076591. | https://huggingface.co/api/spaces/ADJCJH/backblaze-proofframe |
-| OK | Space runtime is running the expected commit | Runtime stage is RUNNING; runtime sha is 9fa3c4fc84c87cbcef17e3d8d5b1b563cc076591; domain ready is True. | https://huggingface.co/api/spaces/ADJCJH/backblaze-proofframe/runtime |
+| OK | Space metadata points at the expected commit | Space sha is b0593e2178ad712d4c104fa2e7bbf57872230927; expected b0593e2178ad712d4c104fa2e7bbf57872230927. | https://huggingface.co/api/spaces/ADJCJH/backblaze-proofframe |
+| OK | Space runtime is running the expected commit | Runtime stage is RUNNING; runtime sha is b0593e2178ad712d4c104fa2e7bbf57872230927; domain ready is True. | https://huggingface.co/api/spaces/ADJCJH/backblaze-proofframe/runtime |
 | OK | Raw handoff report is public and ready | Handoff schema is proofframe.agent_handoff.v1; mode is handoff_ready. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/agent-handoff-report.json |
 | OK | Raw Devpost event snapshot is public and fresh | Event snapshot schema is proofframe.devpost_event_snapshot.v1; submission_open=True; age_days=0; participants=383. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/devpost-event-snapshot.json |
 | OK | Raw final launch plan is public and phase-aware | Launch plan schema is proofframe.final_launch_plan.v1; mode is blocked_at_credential_entry; current phase is credential_entry. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/final-launch-plan.json |

@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.submission_bundle.v1",
-  "created_at": "2026-06-29T13:08:48Z",
+  "created_at": "2026-06-29T13:19:00Z",
   "project": "ProofFrame",
   "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
@@ -137,7 +137,7 @@
         "present": true,
         "schema": "proofframe.secret_scan.v1",
         "schema_ok": true,
-        "created_at": "2026-06-29T13:03:13Z",
+        "created_at": "2026-06-29T13:18:35Z",
         "ready": true,
         "fresh_after_receipt": true,
         "findings": []
@@ -148,7 +148,7 @@
         "present": true,
         "schema": "proofframe.final_submission_control.v1",
         "schema_ok": true,
-        "created_at": "2026-06-29T13:08:47Z",
+        "created_at": "2026-06-29T13:19:00Z",
         "ready": false,
         "fresh_after_receipt": true,
         "findings": [
@@ -190,7 +190,7 @@
         "present": true,
         "schema": "proofframe.devpost_submission_preview.v1",
         "schema_ok": true,
-        "created_at": "2026-06-29T13:03:12Z",
+        "created_at": "2026-06-29T13:19:00Z",
         "ready": false,
         "fresh_after_receipt": true,
         "findings": [
@@ -364,8 +364,8 @@
       "path": "scripts/public_space_sync.py",
       "label": "Public Hugging Face Space sync verifier",
       "present": true,
-      "bytes": 77220,
-      "sha256": "7b72fbe626bf316770296bcddd8208e78b1c6d391cdaecc93848ac273c83fdc9"
+      "bytes": 78076,
+      "sha256": "15d1587d8c4faf8a3548cc85ab10682158e2b1b9b9e5b11316f8da40a3ff3d9b"
     },
     {
       "id": "public_space_sync_json",
@@ -373,7 +373,7 @@
       "label": "Machine-readable public Space sync report",
       "present": true,
       "bytes": 19087,
-      "sha256": "aa8aded390632cb0de18d23c0ac19a67cc042e80860a0fdfb12fc4cd37298b1a"
+      "sha256": "13a2b0ef06e5cc71d4e99f667a9905e343e69d240d28644a7870500117697178"
     },
     {
       "id": "public_space_sync_md",
@@ -381,7 +381,7 @@
       "label": "Human-readable public Space sync report",
       "present": true,
       "bytes": 8038,
-      "sha256": "a5774e99516559597625ce19d289add167f364164cf890bbfef8a139d0836ec4"
+      "sha256": "0472c57e5efe9f188ac040d3cfa702e83a7965cab3baf442c49b321891d24466"
     },
     {
       "id": "public_demo_screenshot_script",
@@ -445,7 +445,7 @@
       "label": "Machine-readable Devpost preview",
       "present": true,
       "bytes": 11704,
-      "sha256": "1d92d2ad048b952962aa2ad40390b67779f084d6ffe1ebcafa86eaa79ce2a8dd"
+      "sha256": "f4865c6711ec5087f6337dce7fe66cd98ba2abb54c47c08f768c591047f803fb"
     },
     {
       "id": "devpost_preview_md",
@@ -765,7 +765,7 @@
       "label": "Machine-readable final control report",
       "present": true,
       "bytes": 24733,
-      "sha256": "d5714c28aa3d3e0848204fbb5747ae0cc60b9e293e5daa05aad1cf05480d853d"
+      "sha256": "8a804db84d7d208d4e196ee268f03f75b0a56ba18dcdc2a32f4eff9da5fe000e"
     },
     {
       "id": "final_submission_control_md",
@@ -773,7 +773,7 @@
       "label": "Human-readable final control report",
       "present": true,
       "bytes": 7203,
-      "sha256": "cca37f0e5bd67b10b086b413fbd0e48c4f40a2584e25befcd8cc5b327aa2b6ed"
+      "sha256": "3631bf5bd1f766e05cbf39edc27727eecc6a5ec75ee6ed8b20e727a1cba15837"
     },
     {
       "id": "final_operator_brief_script",
@@ -861,7 +861,7 @@
       "label": "Machine-readable submission audit report",
       "present": true,
       "bytes": 5925,
-      "sha256": "0deffc28860308c214107c05289b3101733cb3248e8fdf764caeb12144554173"
+      "sha256": "49e58e20aed7cf89e96f326993c2e215de3de7604f56edca7cfd32f80837af6c"
     },
     {
       "id": "submission_audit_md",
@@ -869,7 +869,7 @@
       "label": "Human-readable submission audit report",
       "present": true,
       "bytes": 4459,
-      "sha256": "a4a69eb7481faf0fc67e6775bc4e51d4491ffa392615714b0808c25b1a44354c"
+      "sha256": "60b0c597d7758873806b21b53467c4beb59fb1e1a58c0f61f7f2f2bf70586aa3"
     },
     {
       "id": "devpost_receipt_script",
@@ -941,7 +941,7 @@
       "label": "Machine-readable secret scan report",
       "present": true,
       "bytes": 11385,
-      "sha256": "b0febadb3e1b40aa5e8b8eb8cf22f9f812bbbb5a08724cd4d2e43aed6a477494"
+      "sha256": "832bd081e6d1ffd2079ffeabae026136b5e8147626ad5b8c875d3482e34eef0e"
     },
     {
       "id": "secret_scan_md",
@@ -949,7 +949,7 @@
       "label": "Human-readable secret scan report",
       "present": true,
       "bytes": 846,
-      "sha256": "47f66e2d63a577b390e85a3b77be0a1c9837430d15437cab2060c3d4c56096ae"
+      "sha256": "04fcba9fbcebf8d711457c4eeb8b6c85990695dc44df7d5057e54159a4a31dc8"
     },
     {
       "id": "b2_live_setup_json",
