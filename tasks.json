@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-29T10:45:38Z",
+  "updated_at": "2026-06-29T11:27:02Z",
   "tasks": [
     {
       "id": "T001",
@@ -1081,6 +1081,15 @@
       "status": "done",
       "done_criteria": "Decision brief is generated, exposed in judge API/frontend, checked by public Space sync, and included in bundle.",
       "notes": "Added scripts/judge_decision_brief.py, docs/assets/judge-decision-brief.*, /api/judge/decision-brief, frontend Decision brief link, public Space sync validation, submission bundle registration, and tests."
+    },
+    {
+      "id": "T083",
+      "title": "Refresh official Devpost event snapshot",
+      "phase": "P4 Submit",
+      "owner": "scout",
+      "status": "done",
+      "done_criteria": "Official Devpost overview/rules snapshot refreshed from live pages, downstream reports regenerated, public Space sync passed, and dynamic participant count references avoid stale hard-coded copy.",
+      "notes": "Updated docs/assets/devpost-event-snapshot.* from official Devpost pages: submission remains open, requirements and judging criteria validate, observed participants are now 383. Synced HF Space and regenerated final evidence reports."
     }
   ]
 }

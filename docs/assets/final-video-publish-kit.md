@@ -4,7 +4,7 @@ Mode: `ready_for_final_upload`
 OK: `true`
 Safe to submit: `false`
 Final video ready: `false`
-Created: `2026-06-29T10:31:10Z`
+Created: `2026-06-29T11:26:12Z`
 
 ## Upload Copy
 

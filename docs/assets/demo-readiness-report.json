@@ -36,7 +36,7 @@
     {
       "path": "README.md",
       "present": true,
-      "bytes": 13101
+      "bytes": 14049
     },
     {
       "path": "docs/demo_script.md",
@@ -71,12 +71,12 @@
     {
       "path": "docs/assets/submission-bundle-manifest.json",
       "present": true,
-      "bytes": 32644
+      "bytes": 39392
     },
     {
       "path": "docs/assets/submission-bundle-manifest.md",
       "present": true,
-      "bytes": 12945
+      "bytes": 14481
     },
     {
       "path": "docs/assets/live-credential-handoff.json",
@@ -101,12 +101,12 @@
     {
       "path": "docs/assets/public-video-check.json",
       "present": true,
-      "bytes": 2579
+      "bytes": 2977
     },
     {
       "path": "docs/assets/public-video-check.md",
       "present": true,
-      "bytes": 1431
+      "bytes": 1701
     },
     {
       "path": "docs/assets/proofframe-local-ui-smoke.png",
@@ -146,7 +146,7 @@
     {
       "path": "scripts/public_video_check.py",
       "present": true,
-      "bytes": 13433
+      "bytes": 14919
     },
     {
       "path": "scripts/live_env_handoff.py",

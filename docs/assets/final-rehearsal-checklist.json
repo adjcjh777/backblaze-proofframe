@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.final_rehearsal.v1",
-  "created_at": "2026-06-28T18:52:24Z",
+  "created_at": "2026-06-29T11:26:12Z",
   "mode": "ready_for_credential_rehearsal",
   "ok": true,
   "safe_to_submit": false,
@@ -36,7 +36,7 @@
     {
       "id": "public_space_synced",
       "ok": true,
-      "detail": "Runtime sha: ff91f45b5e6598cf2163efdc6a217373f56dac0b.",
+      "detail": "Runtime sha: 8046ddc41514ada6affc031507c4b0468112ca31.",
       "evidence": "docs/assets/public-space-sync-report.json"
     },
     {
@@ -48,7 +48,7 @@
     {
       "id": "mock_recording_ready",
       "ok": true,
-      "detail": "Recording assets mode is public_mock_verified.",
+      "detail": "Recording assets mode is mock_recording_ready.",
       "evidence": "docs/assets/recording-assets.json"
     },
     {
@@ -241,7 +241,7 @@
       "present": true,
       "schema_ok": true,
       "mode": "pre_live_control",
-      "ok": null,
+      "ok": true,
       "safe_to_submit": false,
       "ready_for_secret_entry": null,
       "current_phase": null,
@@ -359,7 +359,7 @@
       "final_form_ready": null,
       "mock_recording_ready": null,
       "final_video_ready": null,
-      "runtime_sha": "ff91f45b5e6598cf2163efdc6a217373f56dac0b",
+      "runtime_sha": "8046ddc41514ada6affc031507c4b0468112ca31",
       "failed_checks": [],
       "missing_ids": [],
       "blocking_items": []
@@ -368,7 +368,7 @@
       "path": "docs/assets/recording-assets.json",
       "present": true,
       "schema_ok": true,
-      "mode": "public_mock_verified",
+      "mode": "mock_recording_ready",
       "ok": null,
       "safe_to_submit": null,
       "ready_for_secret_entry": null,

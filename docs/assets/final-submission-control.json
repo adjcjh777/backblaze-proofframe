@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.final_submission_control.v1",
-  "created_at": "2026-06-29T11:15:53Z",
+  "created_at": "2026-06-29T11:27:36Z",
   "ok": true,
   "control_health_ok": true,
   "mode": "pre_live_control",
@@ -12,7 +12,7 @@
     "deadline_et": "Aug 3, 2026 @ 5:00pm EDT",
     "deadline_beijing": "2026-08-04 05:00 Asia/Shanghai",
     "prize_total_usd": 10000,
-    "participant_count_observed": 372,
+    "participant_count_observed": 383,
     "participant_count_checked_at": "2026-06-29 Asia/Shanghai",
     "participant_count_note": "Dynamic Devpost count; recheck before final public claims.",
     "deadline_display": "Aug 3, 2026 @ 5:00pm EDT",
@@ -103,7 +103,7 @@
       "mode": "live_official_snapshot",
       "validation_ok": true,
       "submission_open": true,
-      "checked_at": "2026-06-29T00:44:06Z",
+      "checked_at": "2026-06-29T11:21:01Z",
       "age_days": 0,
       "event": {
         "name": "Backblaze Generative Media Hackathon",
@@ -112,7 +112,7 @@
         "deadline_et": "Aug 3, 2026 @ 5:00pm EDT",
         "deadline_beijing": "2026-08-04 05:00 Asia/Shanghai",
         "prize_total_usd": 10000,
-        "participant_count_observed": 372,
+        "participant_count_observed": 383,
         "participant_count_checked_at": "2026-06-29 Asia/Shanghai",
         "participant_count_note": "Dynamic Devpost count; recheck before final public claims.",
         "deadline_display": "Aug 3, 2026 @ 5:00pm EDT",
@@ -417,7 +417,7 @@
       "id": "official_event_snapshot",
       "label": "Official Devpost event snapshot is fresh",
       "ok": true,
-      "detail": "Snapshot checked at 2026-06-29T00:44:06Z; submission open is True; age days is 0.",
+      "detail": "Snapshot checked at 2026-06-29T11:21:01Z; submission open is True; age days is 0.",
       "evidence": "docs/assets/devpost-event-snapshot.json"
     },
     {

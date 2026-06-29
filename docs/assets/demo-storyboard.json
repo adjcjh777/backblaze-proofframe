@@ -106,7 +106,7 @@
     {
       "path": "docs/assets/proofframe-hf-public-smoke.png",
       "present": true,
-      "bytes": 514801
+      "bytes": 741074
     },
     {
       "path": "docs/assets/demo-readiness-report.md",
@@ -116,7 +116,7 @@
     {
       "path": "docs/assets/live-credential-handoff.md",
       "present": true,
-      "bytes": 2415
+      "bytes": 2197
     },
     {
       "path": "docs/assets/devpost-submission-packet.json",
