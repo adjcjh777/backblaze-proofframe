@@ -113,6 +113,14 @@ python scripts/post_credential_live_proof.py --env-file .env.final.local --execu
 
 The runner first runs the B2-only proof with mock generation, validates `docs/assets/b2-live-proof-evidence.json`, and only then marks T020 when `--update-tasks` is set. It then runs the final B2 plus Genblaze proof, validates `docs/assets/final-live-proof-evidence.json`, and only then marks T021. Both validators require the expected backend/provider fields, nonempty checksum/object-key fields, and no secret-like keys, bearer tokens, signed URL parameters, or GMI-style key values. Server logs stay under `var/live-proof/`, which is ignored by git.
 
+After the post-credential runner succeeds, sync the public Space before recording or sharing the final proof:
+
+```bash
+python scripts/public_space_upload.py --execute --commit-message "Sync ProofFrame public Space after live proof"
+python scripts/public_space_sync.py --wait-attempts 5 --wait-seconds 30
+python scripts/api_smoke.py --base-url https://adjcjh-backblaze-proofframe.hf.space
+```
+
 Before refreshing the public Hugging Face Space, run the upload helper in dry-run mode:
 
 ```bash
@@ -123,7 +131,7 @@ Only after the dry-run reports no included sensitive files, execute the upload a
 
 ```bash
 python scripts/public_space_upload.py --execute --commit-message "Sync ProofFrame public Space"
-python scripts/public_space_sync.py
+python scripts/public_space_sync.py --wait-attempts 5 --wait-seconds 30
 python scripts/api_smoke.py --base-url https://adjcjh-backblaze-proofframe.hf.space
 ```
 

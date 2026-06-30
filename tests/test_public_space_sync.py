@@ -938,6 +938,7 @@ def test_public_space_sync_report_passes_when_space_is_current():
         "section_count": 5,
         "blocker_count": 3,
     }
+
     assert report["observed"]["final_closeout_status"] == {
         "schema": "proofframe.final_closeout_status.v1",
         "mode": "waiting_for_credentials",
@@ -991,6 +992,15 @@ def test_public_space_sync_report_passes_when_space_is_current():
     )
     assert report["urls"]["raw_docker_smoke_report"].endswith("/docs/assets/docker-smoke-report.json")
     assert all(item["ok"] for item in report["checks"])
+
+
+def test_public_space_sync_parser_accepts_wait_options():
+    parser = public_space_sync.build_parser()
+
+    args = parser.parse_args(["--wait-attempts", "5", "--wait-seconds", "1.5"])
+
+    assert args.wait_attempts == 5
+    assert args.wait_seconds == 1.5
 
 
 def test_public_space_sync_required_bundle_artifacts_include_genblaze_contract():

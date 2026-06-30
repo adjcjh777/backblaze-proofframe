@@ -215,6 +215,11 @@ def test_final_operator_brief_is_ready_for_secret_entry(tmp_path):
     assert report["codex_actions_after_credentials"][0] == (
         "python scripts/post_credential_live_proof.py --env-file .env.final.local --execute --update-tasks"
     )
+    assert report["codex_actions_after_credentials"][1:4] == [
+        'python scripts/public_space_upload.py --execute --commit-message "Sync ProofFrame public Space after live proof"',
+        "python scripts/public_space_sync.py --wait-attempts 5 --wait-seconds 30",
+        "python scripts/api_smoke.py --base-url https://adjcjh-backblaze-proofframe.hf.space",
+    ]
     assert not any(
         action.startswith("python scripts/run_b2_live_proof.py")
         or action.startswith("python scripts/run_final_live_proof.py")
@@ -238,6 +243,9 @@ def test_final_operator_brief_is_ready_for_secret_entry(tmp_path):
         "python scripts/final_launch_plan.py --strict-final",
         "python scripts/devpost_submission_preview.py --strict-final",
         "python scripts/submission_bundle.py --strict-final",
+        'python scripts/public_space_upload.py --execute --commit-message "Sync ProofFrame public Space after final receipt"',
+        "python scripts/public_space_sync.py --wait-attempts 5 --wait-seconds 30",
+        "python scripts/api_smoke.py --base-url https://adjcjh-backblaze-proofframe.hf.space",
     ]
     assert report["reports"]["secret_scan"]["schema_ok"] is True
     assert report["reports"]["public_video_check"]["schema_ok"] is True

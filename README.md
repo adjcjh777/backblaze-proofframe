@@ -119,7 +119,7 @@ python scripts/judge_decision_brief.py
 python scripts/devpost_event_snapshot.py --validate-committed
 python scripts/agent_handoff_check.py
 python scripts/public_space_upload.py
-python scripts/public_space_sync.py
+python scripts/public_space_sync.py --wait-attempts 5 --wait-seconds 30
 python scripts/claim_lint.py
 python scripts/demo_storyboard.py
 python scripts/demo_video_draft.py --build-video

@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 from http.client import IncompleteRead
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable
@@ -1650,16 +1651,25 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--space-id", default=SPACE_ID)
     parser.add_argument("--public-host", default=SPACE_HOST)
     parser.add_argument("--expected-sha", default=EXPECTED_SPACE_SHA)
+    parser.add_argument("--wait-attempts", type=int, default=1)
+    parser.add_argument("--wait-seconds", type=float, default=30.0)
     return parser
 
 
 def main() -> None:
     args = build_parser().parse_args()
-    report = build_report(
-        space_id=args.space_id,
-        public_host=args.public_host,
-        expected_sha=args.expected_sha,
-    )
+    attempts = max(1, args.wait_attempts)
+    report: dict[str, Any] | None = None
+    for attempt in range(attempts):
+        report = build_report(
+            space_id=args.space_id,
+            public_host=args.public_host,
+            expected_sha=args.expected_sha,
+        )
+        if report["ok"] or attempt == attempts - 1:
+            break
+        time.sleep(max(0.0, args.wait_seconds))
+    assert report is not None
     write_outputs(report, args.json_out, args.markdown_out)
     print(
         json.dumps(

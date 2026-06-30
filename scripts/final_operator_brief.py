@@ -146,6 +146,9 @@ def build_user_actions(
 def build_codex_actions() -> list[str]:
     return [
         "python scripts/post_credential_live_proof.py --env-file .env.final.local --execute --update-tasks",
+        'python scripts/public_space_upload.py --execute --commit-message "Sync ProofFrame public Space after live proof"',
+        "python scripts/public_space_sync.py --wait-attempts 5 --wait-seconds 30",
+        "python scripts/api_smoke.py --base-url https://adjcjh-backblaze-proofframe.hf.space",
         "python scripts/demo_storyboard.py --strict-final",
         'python scripts/public_video_check.py --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL" --verify-url --strict-final',
         "python scripts/demo_readiness.py --strict-final",
@@ -163,6 +166,9 @@ def build_codex_actions() -> list[str]:
         "python scripts/final_launch_plan.py --strict-final",
         "python scripts/devpost_submission_preview.py --strict-final",
         "python scripts/submission_bundle.py --strict-final",
+        'python scripts/public_space_upload.py --execute --commit-message "Sync ProofFrame public Space after final receipt"',
+        "python scripts/public_space_sync.py --wait-attempts 5 --wait-seconds 30",
+        "python scripts/api_smoke.py --base-url https://adjcjh-backblaze-proofframe.hf.space",
     ]
 
 

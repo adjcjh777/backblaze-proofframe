@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-30T10:21:27Z",
+  "updated_at": "2026-06-30T10:34:17Z",
   "tasks": [
     {
       "id": "T001",
@@ -280,6 +280,15 @@
       "status": "done",
       "done_criteria": "The post-credential live proof plan stores public-safe, repo-relative command strings while preserving executable argv semantics and public sync validation.",
       "notes": "Post-credential plan now renders commands as python scripts/... without local absolute paths; tests cover command/argv output and no /Users path leakage."
+    },
+    {
+      "id": "T101",
+      "title": "Add public sync waits to final handoff",
+      "phase": "P4 Submit",
+      "owner": "tester",
+      "status": "done",
+      "done_criteria": "Final operator actions include public Space upload, waited public sync, and public API smoke after live proof and after final receipt, and public_space_sync supports wait attempts for HF runtime rollout.",
+      "notes": "Added --wait-attempts/--wait-seconds to public_space_sync and wired public upload/sync/smoke into final operator actions."
     },
     {
       "id": "T030",
