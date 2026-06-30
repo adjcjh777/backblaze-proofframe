@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-30T05:35:03Z",
+  "updated_at": "2026-06-30T05:44:19Z",
   "tasks": [
     {
       "id": "T001",
@@ -262,6 +262,15 @@
       "status": "done",
       "done_criteria": "A repeatable dry-run-first HF Space upload helper excludes local secrets, supports explicit execute, probes raw .env.final.local after upload, is tested, documented, and included in the submission bundle.",
       "notes": "Closes the half-finished public upload workflow without changing the final live-proof blockers."
+    },
+    {
+      "id": "T099",
+      "title": "Sync public Space with upload helper",
+      "phase": "P4 Submit",
+      "owner": "tester",
+      "status": "done",
+      "done_criteria": "The no-secret public Space upload helper runs with --execute, publishes the latest repo to Hugging Face Space, confirms raw .env.final.local is not public, public_space_sync passes on the new runtime sha, public API smoke passes, and final readiness remains fail-closed.",
+      "notes": "Uploaded HF Space commit a7f491e280d07c6934b0562384fbb26b2479d336 with included_sensitive=[], raw .env.final.local probe OK, public_space_sync and public API smoke passed."
     },
     {
       "id": "T030",

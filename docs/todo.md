@@ -55,3 +55,4 @@ python3 scripts/task.py doing T020 --note "Live B2 proof in progress"
 | T096 | Official Devpost event snapshot refreshed from live overview/rules pages; submission remains open and observed participants are now `404` with dynamic-count warning preserved. |
 | T097 | Public HF Space synced to the refreshed Devpost event snapshot at runtime `eab3ee62`; public Space sync and API smoke pass while remaining fail-closed. |
 | T098 | No-secret public Space upload helper added with dry-run safety checks, explicit execute mode, raw `.env.final.local` public 404 probe, tests, docs, CI, and bundle coverage. |
+| T099 | Public HF Space synced through the no-secret upload helper at runtime `a7f491e`; raw `.env.final.local` public probe, public Space sync, and public API smoke all pass while final submission remains fail-closed. |

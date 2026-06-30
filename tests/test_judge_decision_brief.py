@@ -108,6 +108,7 @@ def write_decision_fixtures(root: Path, *, final_ready: bool = False) -> None:
             "schema": "proofframe.public_space_sync.v1",
             "mode": "public_space_synced",
             "ok": True,
+            "created_at": "2026-06-30T05:00:00Z",
             "observed": {"runtime_sha": "a" * 40},
         },
     )
@@ -169,6 +170,9 @@ def test_judge_decision_brief_is_public_safe_pre_live(tmp_path):
     assert all(item["ok"] for item in brief["decision_checks"])
     assert brief["links"]["evidence_index"].endswith("/docs/assets/judge-evidence-index.md")
     assert "does not claim completed Backblaze B2" in brief["claim_boundary"]
+    assert brief["public_state"]["space_sync_ok"] is True
+    assert brief["public_state"]["space_sync_checked_at"] == "2026-06-30T05:00:00Z"
+    assert "space_runtime_sha" not in brief["public_state"]
 
 
 def test_judge_decision_brief_fails_closed_on_bad_source_schema(tmp_path):
@@ -208,3 +212,5 @@ def test_judge_decision_brief_writes_json_and_markdown(tmp_path):
     assert "# ProofFrame Judge Decision Brief" in markdown
     assert "Top Reasons To Score High" in markdown
     assert "Safe to submit: `false`" in markdown
+    assert "Runtime sha" not in markdown
+    assert "Space sync checked" in markdown

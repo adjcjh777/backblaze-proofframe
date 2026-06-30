@@ -1,9 +1,9 @@
 # ProofFrame Public Space Upload Report
 
-Mode: `dry_run_ready`
+Mode: `uploaded`
 OK: `true`
-Execute: `false`
-Created: `2026-06-30T05:35:44Z`
+Execute: `true`
+Created: `2026-06-30T05:41:53Z`
 Repo: `ADJCJH/backblaze-proofframe`
 Revision: `main`
 Raw base: https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main
@@ -12,7 +12,7 @@ Raw base: https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main
 
 - Required ignore patterns OK: `true`
 - Included files: `209`
-- Excluded files: `13579`
+- Excluded files: `14649`
 - Included sensitive files: `none`
 
 ## Sensitive File Checks
@@ -24,11 +24,14 @@ Raw base: https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main
 
 ## Upload
 
-- Upload not attempted.
+- Upload OK: `true`
+- Commit: `a7f491e280d07c6934b0562384fbb26b2479d336`
+- Commit URL: https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/commit/a7f491e280d07c6934b0562384fbb26b2479d336
 
 ## Secret Probe
 
-- Secret probe not attempted.
+- Raw `.env.final.local` public check OK: `true`
+- Status: `404`
 
 ## Next Commands
 

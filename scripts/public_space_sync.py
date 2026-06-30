@@ -1015,7 +1015,8 @@ def build_report(
                 f"mode is {judge_decision_brief.get('mode') if judge_decision_brief else None}; "
                 f"safe_to_submit is {judge_decision_brief.get('safe_to_submit') if judge_decision_brief else None}; "
                 f"checks={len(judge_decision_checks)}; "
-                f"runtime={judge_decision_public_state.get('space_runtime_sha')}; "
+                f"space_mode={judge_decision_public_state.get('space_mode')}; "
+                f"space_sync_checked_at={judge_decision_public_state.get('space_sync_checked_at')}; "
                 f"age_days={judge_decision_age_days}; "
                 f"fresh={judge_decision_fresh_ok}."
             ),
@@ -1418,7 +1419,8 @@ def build_report(
                     judge_decision_brief.get("safe_to_submit") if judge_decision_brief else None
                 ),
                 "check_count": len(judge_decision_checks),
-                "runtime_sha": judge_decision_public_state.get("space_runtime_sha"),
+                "space_mode": judge_decision_public_state.get("space_mode"),
+                "space_sync_checked_at": judge_decision_public_state.get("space_sync_checked_at"),
                 "evidence_index_link": judge_decision_links.get("evidence_index"),
                 "source_state_ok": judge_decision_source_state_ok,
                 "fresh": judge_decision_fresh_ok,

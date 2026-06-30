@@ -489,7 +489,11 @@ def valid_judge_decision_brief() -> dict:
         "mode": "pre_live_decision_ready",
         "safe_to_share": True,
         "safe_to_submit": False,
-        "public_state": {"space_runtime_sha": EXPECTED_SHA},
+        "public_state": {
+            "space_sync_ok": True,
+            "space_mode": "public_space_synced",
+            "space_sync_checked_at": public_space_sync.utc_now(),
+        },
         "decision_checks": [
             {"id": "public_demo_runs", "ok": True},
             {"id": "criteria_are_mapped", "ok": True},
@@ -920,7 +924,8 @@ def test_public_space_sync_report_passes_when_space_is_current():
     assert decision_observed["safe_to_share"] is True
     assert decision_observed["safe_to_submit"] is False
     assert decision_observed["check_count"] == 6
-    assert decision_observed["runtime_sha"] == EXPECTED_SHA
+    assert decision_observed["space_mode"] == "public_space_synced"
+    assert decision_observed["space_sync_checked_at"]
     assert decision_observed["fresh"] is True
     assert decision_observed["source_state_ok"] is True
     assert "judge-evidence-index.md" in decision_observed["evidence_index_link"]

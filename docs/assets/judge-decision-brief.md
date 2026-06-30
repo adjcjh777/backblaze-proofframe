@@ -3,7 +3,7 @@
 Mode: `pre_live_decision_ready`
 OK: `true`
 Safe to submit: `false`
-Created: `2026-06-30T05:21:10Z`
+Created: `2026-06-30T05:47:07Z`
 
 ProofFrame turns generated media into auditable, approval-ready asset packets.
 
@@ -32,7 +32,7 @@ Advance this project if you want a generative media submission where Backblaze s
 ## Public State
 
 - Space mode: `public_space_synced`
-- Runtime sha: `eab3ee62e8d7a21f8f2542d5b4d38675270619ab`
+- Space sync checked: `2026-06-30T05:43:34Z`
 - Devpost submission open: `True`
 - Observed participants: `404`
 - Final video ready: `false`
