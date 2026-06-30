@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.public_space_upload.v1",
-  "created_at": "2026-06-30T10:12:41Z",
+  "created_at": "2026-06-30T10:22:48Z",
   "mode": "uploaded",
   "ok": true,
   "execute": true,
@@ -8,7 +8,7 @@
   "repo_type": "space",
   "revision": "main",
   "space_raw_base": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main",
-  "commit_message": "Sync ProofFrame public Space after judge brief cleanup",
+  "commit_message": "Sync ProofFrame public Space after portable proof plan",
   "ignore_patterns": [
     ".git/**",
     ".venv/**",
@@ -51,9 +51,9 @@
     ]
   },
   "file_plan": {
-    "total_files": 14893,
+    "total_files": 14935,
     "included_count": 209,
-    "excluded_count": 14684,
+    "excluded_count": 14726,
     "included_samples": [
       ".dockerignore",
       ".env.example",
@@ -125,8 +125,8 @@
   "upload": {
     "attempted": true,
     "ok": true,
-    "commit_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/commit/c775d838b14529a2d057592f4058d92a8a4a006a",
-    "commit_oid": "c775d838b14529a2d057592f4058d92a8a4a006a"
+    "commit_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/commit/144b65ce7b82065789abd97c39ff4dc9021afc6a",
+    "commit_oid": "144b65ce7b82065789abd97c39ff4dc9021afc6a"
   },
   "secret_probe": {
     "attempted": true,
