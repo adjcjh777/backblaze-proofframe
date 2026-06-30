@@ -51,3 +51,4 @@ python3 scripts/task.py doing T020 --note "Live B2 proof in progress"
 | T092 | No-secret live credential handoff regenerated from `.env.final.local`; remaining local credential blockers are narrowed to `b2_key_id`, `b2_application_key`, and `genblaze_api_key`. |
 | T093 | Final env `--check-only` now performs no-secret readiness preflight for git-ignore, chmod `0600`, missing/placeholder names, B2 region derivation, and `B2_APP_KEY` alias handling. |
 | T094 | Final rehearsal checklist regenerated from the current operator brief so the strict rehearsal gate is green and only the three expected secret blockers remain. |
+| T095 | Public Space sync evidence refreshed against the live HF runtime, including final closeout raw/API checks, then downstream final reports were regenerated. |

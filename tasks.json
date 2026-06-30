@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-30T04:59:00Z",
+  "updated_at": "2026-06-30T05:08:08Z",
   "tasks": [
     {
       "id": "T001",
@@ -226,6 +226,15 @@
       "status": "done",
       "done_criteria": "Final rehearsal checklist must be regenerated from the current operator brief and show only the three expected secret blockers before live credential entry.",
       "notes": "Regenerated docs/assets/final-rehearsal-checklist.* after the live credential handoff narrowed blockers to b2_key_id, b2_application_key, and genblaze_api_key; strict rehearsal gate now passes."
+    },
+    {
+      "id": "T095",
+      "title": "Refresh public Space sync evidence after final rehearsal",
+      "phase": "P4 Submit",
+      "owner": "tester",
+      "status": "done",
+      "done_criteria": "Public Space sync report must pass against the live HF Space and downstream final rehearsal/bundle evidence must be regenerated without changing safe_to_submit=false.",
+      "notes": "Verified live public Space sync after final rehearsal refresh; runtime d598e496 is RUNNING and final closeout raw/API checks pass, then regenerated downstream final evidence reports."
     },
     {
       "id": "T030",
