@@ -25,6 +25,7 @@ python scripts/judge_crosswalk.py
 python scripts/judge_decision_brief.py
 python scripts/devpost_event_snapshot.py --validate-committed
 python scripts/agent_handoff_check.py
+python scripts/public_space_upload.py
 python scripts/public_space_sync.py
 python scripts/demo_storyboard.py
 python scripts/demo_video_draft.py
@@ -65,6 +66,7 @@ The `.github/workflows/ci.yml` workflow runs on `main`, `feature/**`, and pull r
 - `python scripts/judge_decision_brief.py`
 - `python scripts/devpost_event_snapshot.py --validate-committed`
 - `python scripts/agent_handoff_check.py`
+- `python scripts/public_space_upload.py`
 - `python scripts/public_space_sync.py`
 - `python scripts/demo_storyboard.py`
 - `python scripts/demo_video_draft.py`
@@ -110,6 +112,20 @@ python scripts/post_credential_live_proof.py --env-file .env.final.local --execu
 ```
 
 The runner first runs the B2-only proof with mock generation, validates `docs/assets/b2-live-proof-evidence.json`, and only then marks T020 when `--update-tasks` is set. It then runs the final B2 plus Genblaze proof, validates `docs/assets/final-live-proof-evidence.json`, and only then marks T021. Both validators require the expected backend/provider fields, nonempty checksum/object-key fields, and no secret-like keys, bearer tokens, signed URL parameters, or GMI-style key values. Server logs stay under `var/live-proof/`, which is ignored by git.
+
+Before refreshing the public Hugging Face Space, run the upload helper in dry-run mode:
+
+```bash
+python scripts/public_space_upload.py
+```
+
+Only after the dry-run reports no included sensitive files, execute the upload and immediately verify the public Space:
+
+```bash
+python scripts/public_space_upload.py --execute --commit-message "Sync ProofFrame public Space"
+python scripts/public_space_sync.py
+python scripts/api_smoke.py --base-url https://adjcjh-backblaze-proofframe.hf.space
+```
 
 If the app is already running with those env vars, use:
 

@@ -90,6 +90,9 @@ jobs:
       - name: Agent handoff consistency
         run: python scripts/agent_handoff_check.py
 
+      - name: Public Space upload dry run
+        run: python scripts/public_space_upload.py
+
       - name: Public Space sync
         run: |
           for attempt in 1 2 3; do

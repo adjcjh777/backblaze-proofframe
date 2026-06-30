@@ -24,6 +24,7 @@ integrations = [
   "genblaze-core>=0.3.4",
   "genblaze-s3>=0.3.4",
   "genblaze-gmicloud>=0.3.2",
+  "huggingface_hub>=0.24",
 ]
 
 [project.scripts]

@@ -118,6 +118,7 @@ python scripts/judge_crosswalk.py
 python scripts/judge_decision_brief.py
 python scripts/devpost_event_snapshot.py --validate-committed
 python scripts/agent_handoff_check.py
+python scripts/public_space_upload.py
 python scripts/public_space_sync.py
 python scripts/claim_lint.py
 python scripts/demo_storyboard.py
@@ -140,6 +141,7 @@ python scripts/submission_bundle.py
 The browser UI and `GET /api/submission/gate` expose the same fail-closed final gate: required task status, Devpost packet presence, final B2/Genblaze evidence readiness, and the final secret scan, submission audit, and Devpost receipt reports.
 `scripts/submission_bundle.py` creates a safe manifest of public submission artifacts, screenshots, checksums, Devpost copy mode, and remaining gate blockers.
 `scripts/live_env_handoff.py` creates a redacted B2/Genblaze credential handoff report so final proof setup can be checked without printing keys.
+`scripts/public_space_upload.py` dry-runs the Hugging Face Space upload plan by default, excludes local env files and runtime folders, and can execute the upload only after the no-secret preflight passes.
 `scripts/genblaze_contract_check.py` verifies the installed Genblaze/B2 SDK import and signature contract without reading environment variables or credential files, catching package/API drift before live keys are entered.
 `scripts/docker_smoke.py` verifies the Docker image builds, starts in local/mock mode, passes API smoke, and uses `.dockerignore` to keep local env files out of the build context.
 `scripts/final_env_wizard.py` creates a local git-ignored `.env.final.local` with 0600 permissions, can prefill non-secret B2/default values, reads existing local values as defaults, and uses hidden prompts for credential values. Its `--check-only` mode is a no-secret readiness preflight for git-ignore status, `.env.final.local` presence, chmod `0600`, missing or placeholder variable names, and B2 region derivation.

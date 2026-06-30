@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-30T05:20:09Z",
+  "updated_at": "2026-06-30T05:35:03Z",
   "tasks": [
     {
       "id": "T001",
@@ -253,6 +253,15 @@
       "status": "done",
       "done_criteria": "HF Space must run the refreshed Devpost event snapshot, public_space_sync must pass with no failed checks, public API smoke must pass, and downstream bundle evidence must record the new runtime without marking submission ready.",
       "notes": "Uploaded HF Space commit eab3ee62e8d7a21f8f2542d5b4d38675270619ab after refreshing Devpost evidence; raw Devpost snapshot and final control now report 404 participants, public_space_sync passes with no failed checks after runtime reached RUNNING, public API smoke remains local/mock fail-closed."
+    },
+    {
+      "id": "T098",
+      "title": "Add no-secret public Space upload helper",
+      "phase": "P4 Submit",
+      "owner": "tester",
+      "status": "done",
+      "done_criteria": "A repeatable dry-run-first HF Space upload helper excludes local secrets, supports explicit execute, probes raw .env.final.local after upload, is tested, documented, and included in the submission bundle.",
+      "notes": "Closes the half-finished public upload workflow without changing the final live-proof blockers."
     },
     {
       "id": "T030",
