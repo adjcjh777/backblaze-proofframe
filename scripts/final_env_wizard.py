@@ -19,6 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT / ".env.final.local"
 DEFAULT_B2_SETUP = ROOT / "docs" / "assets" / "b2-live-setup.json"
 SAFE_ENV_RE = re.compile(r"^[A-Za-z0-9_./:@%+=,-]+$")
+PLACEHOLDERS = {"", "placeholder", "change-me", "changeme", "todo", "tbd", "none", "null", "..."}
 
 NEXT_COMMANDS = [
     "python scripts/live_env_handoff.py --env-file .env.final.local --strict",
@@ -45,7 +46,13 @@ FIELDS = [
     EnvField("B2_REGION", "Backblaze B2 region", required=False),
     EnvField("B2_BUCKET", "Backblaze B2 bucket name"),
     EnvField("B2_KEY_ID", "Backblaze B2 application key id"),
-    EnvField("B2_APPLICATION_KEY", "Backblaze B2 application key", secret=True),
+    EnvField(
+        "B2_APPLICATION_KEY",
+        "Backblaze B2 application key",
+        secret=True,
+        aliases=("B2_APP_KEY",),
+        mirror_to=("B2_APP_KEY",),
+    ),
     EnvField("B2_PUBLIC_BASE_URL", "Optional B2 public base URL", required=False),
     EnvField(
         "GENBLAZE_API_KEY",
@@ -64,10 +71,19 @@ def normalize(value: str | None) -> str:
     return (value or "").strip()
 
 
+def has_real_value(value: str | None) -> bool:
+    normalized = normalize(value).strip('"').strip("'")
+    if normalized.lower() in PLACEHOLDERS:
+        return False
+    if normalized.startswith("<") and normalized.endswith(">"):
+        return False
+    return bool(normalized)
+
+
 def env_lookup(field: EnvField, environ: Mapping[str, str]) -> str:
     for name in (field.name, *field.aliases):
         value = normalize(environ.get(name))
-        if value:
+        if has_real_value(value):
             return value
     return ""
 
@@ -308,11 +324,34 @@ def target_is_git_ignored(root: Path, path: Path) -> bool:
 def build_check(root: Path = ROOT, output: Path = DEFAULT_OUTPUT) -> dict[str, object]:
     output = output.resolve()
     ignored = target_is_git_ignored(root, output)
+    env_file_present = output.exists()
+    values = parse_env_file(output) if env_file_present else {}
+    missing_required_names = [
+        field.name for field in FIELDS if field.required and not env_lookup(field, values)
+    ]
+    placeholder_names: list[str] = []
+    seen_placeholders: set[str] = set()
+    for field in FIELDS:
+        if not (field.required or field.secret):
+            continue
+        for name in (field.name, *field.aliases, *field.mirror_to):
+            if name in values and not has_real_value(values.get(name)) and name not in seen_placeholders:
+                placeholder_names.append(name)
+                seen_placeholders.add(name)
+    mode = output.stat().st_mode & 0o777 if env_file_present else None
+    mode_ok = mode == 0o600 if env_file_present else False
+    b2_endpoint = env_lookup(next(field for field in FIELDS if field.name == "B2_ENDPOINT_URL"), values)
+    b2_region_value = env_lookup(next(field for field in FIELDS if field.name == "B2_REGION"), values)
+    b2_region_derived = region_from_b2_endpoint(b2_endpoint)
+    b2_region_ok = bool(b2_region_value or b2_region_derived)
     return {
         "schema": "proofframe.final_env_wizard_check.v1",
         "ok": ignored,
         "output": str(output),
         "git_ignored": ignored,
+        "env_file_present": env_file_present,
+        "env_file_mode": oct(mode) if mode is not None else None,
+        "env_file_mode_ok": mode_ok,
         "required_fields": [field.name for field in FIELDS if field.required],
         "secret_fields": [
             name
@@ -320,6 +359,20 @@ def build_check(root: Path = ROOT, output: Path = DEFAULT_OUTPUT) -> dict[str, o
             if field.secret
             for name in (field.name, *field.mirror_to)
         ],
+        "present_required_names": [
+            field.name for field in FIELDS if field.required and env_lookup(field, values)
+        ],
+        "missing_required_names": missing_required_names,
+        "placeholder_names": placeholder_names,
+        "b2_region": {
+            "present": bool(b2_region_value),
+            "derived_from_endpoint": b2_region_derived,
+            "ok": b2_region_ok,
+        },
+        "ready_for_live_entry": bool(
+            ignored and env_file_present and mode_ok and not missing_required_names and b2_region_ok
+        ),
+        "next_commands": NEXT_COMMANDS,
         "policy": (
             "The wizard writes only to a git-ignored local env file and command output lists "
             "variable names only, never credential values."

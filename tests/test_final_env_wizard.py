@@ -22,7 +22,10 @@ def test_final_env_wizard_check_requires_ignored_output(tmp_path):
 
     assert report["ok"] is True
     assert report["git_ignored"] is True
+    assert report["env_file_present"] is False
+    assert report["ready_for_live_entry"] is False
     assert "B2_APPLICATION_KEY" in report["secret_fields"]
+    assert "B2_APP_KEY" in report["secret_fields"]
     assert "GMI_API_KEY" in report["secret_fields"]
 
 
@@ -33,6 +36,78 @@ def test_final_env_wizard_check_fails_for_unignored_output(tmp_path):
 
     assert report["ok"] is False
     assert report["git_ignored"] is False
+
+
+def test_final_env_wizard_check_reports_existing_env_readiness_without_values(tmp_path):
+    (tmp_path / ".gitignore").write_text(".env.*\n!.env.final.example\n", encoding="utf-8")
+    env_path = tmp_path / ".env.final.local"
+    env_path.write_text(
+        "\n".join(
+            [
+                "PROOFFRAME_STORAGE_BACKEND=b2",
+                "PROOFFRAME_GENERATION_BACKEND=genblaze",
+                "B2_ENDPOINT_URL=https://s3.us-west-004.backblazeb2.com",
+                "B2_BUCKET=proofframe-demo-a6b4e49",
+                "B2_KEY_ID=least-privilege-key-id",
+                "B2_APP_KEY=secret-b2-key",
+                "GENBLAZE_API_KEY=secret-gmi-key",
+                "GENBLAZE_IMAGE_MODEL=seedream-5.0-lite",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    os.chmod(env_path, 0o600)
+
+    report = final_env_wizard.build_check(tmp_path, env_path)
+    serialized = json.dumps(report)
+
+    assert report["ok"] is True
+    assert report["env_file_present"] is True
+    assert report["env_file_mode_ok"] is True
+    assert report["missing_required_names"] == []
+    assert report["placeholder_names"] == []
+    assert report["b2_region"]["derived_from_endpoint"] == "us-west-004"
+    assert report["ready_for_live_entry"] is True
+    assert "secret-b2-key" not in serialized
+    assert "secret-gmi-key" not in serialized
+
+
+def test_final_env_wizard_check_reports_missing_and_placeholder_names(tmp_path):
+    (tmp_path / ".gitignore").write_text(".env.*\n!.env.final.example\n", encoding="utf-8")
+    env_path = tmp_path / ".env.final.local"
+    env_path.write_text(
+        "\n".join(
+            [
+                "PROOFFRAME_STORAGE_BACKEND=b2",
+                "PROOFFRAME_GENERATION_BACKEND=genblaze",
+                "B2_ENDPOINT_URL=s3.us-west-004.backblazeb2.com",
+                "B2_BUCKET=proofframe-demo-a6b4e49",
+                "B2_KEY_ID=todo",
+                "B2_APPLICATION_KEY=",
+                "GENBLAZE_API_KEY=<paste-key>",
+                "GENBLAZE_IMAGE_MODEL=seedream-5.0-lite",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    os.chmod(env_path, 0o644)
+
+    report = final_env_wizard.build_check(tmp_path, env_path)
+
+    assert report["env_file_mode_ok"] is False
+    assert report["missing_required_names"] == [
+        "B2_KEY_ID",
+        "B2_APPLICATION_KEY",
+        "GENBLAZE_API_KEY",
+    ]
+    assert set(report["placeholder_names"]) >= {
+        "B2_KEY_ID",
+        "B2_APPLICATION_KEY",
+        "GENBLAZE_API_KEY",
+    }
+    assert report["ready_for_live_entry"] is False
 
 
 def test_final_env_wizard_collects_from_env_and_mirrors_gmi_key():
@@ -120,6 +195,7 @@ def test_final_env_wizard_collects_missing_values_only_and_mirrors_gmi_key(tmp_p
     assert filled_names == [
         "B2_KEY_ID",
         "B2_APPLICATION_KEY",
+        "B2_APP_KEY",
         "GENBLAZE_API_KEY",
         "GMI_API_KEY",
     ]

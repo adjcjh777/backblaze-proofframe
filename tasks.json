@@ -210,6 +210,15 @@
       "notes": "Generated docs/assets/live-credential-handoff.* from .env.final.local without printing values; non-secret B2 bucket/endpoint and backend modes are present, and remaining secret blockers are narrowed to b2_key_id, b2_application_key, and genblaze_api_key."
     },
     {
+      "id": "T093",
+      "title": "Harden final env readiness preflight",
+      "phase": "P4 Submit",
+      "owner": "reviewer",
+      "status": "done",
+      "done_criteria": "",
+      "notes": "final_env_wizard.py --check-only now reports git-ignore status, .env.final.local presence, chmod 0600 status, missing required names, placeholder names, B2 region derivation, and ready_for_live_entry without printing credential values; B2_APP_KEY is accepted and mirrored as a B2_APPLICATION_KEY alias."
+    },
+    {
       "id": "T030",
       "title": "Run browser smoke test",
       "phase": "P3 Polish",

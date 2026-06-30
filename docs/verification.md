@@ -85,6 +85,8 @@ Use the CI result as public repo evidence for the non-secret local gate. It does
 
 Evidence files written by `scripts/api_smoke.py --evidence-out` are checked before writing and fail closed if they contain secret-like field names, bearer tokens, signed URL parameters, or GMI-style key values.
 
+`python scripts/final_env_wizard.py --check-only` is intentionally safe to run in CI and locally. In CI it proves the target env file is git-ignored; locally it also reports `.env.final.local` presence, chmod `0600`, missing required variable names, placeholder names, B2 region derivation, and `ready_for_live_entry` without printing credential values.
+
 The final sponsor proof has a preflight wrapper:
 
 ```bash
