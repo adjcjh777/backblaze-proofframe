@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-30T10:15:08Z",
+  "updated_at": "2026-06-30T10:21:27Z",
   "tasks": [
     {
       "id": "T001",
@@ -271,6 +271,15 @@
       "status": "done",
       "done_criteria": "The no-secret public Space upload helper runs with --execute, publishes the latest repo to Hugging Face Space, confirms raw .env.final.local is not public, public_space_sync passes on the new runtime sha, public API smoke passes, and final readiness remains fail-closed.",
       "notes": "Uploaded through the no-secret helper; included_sensitive=[], raw .env.final.local probe OK, public_space_sync and public API smoke passed. Current HF runtime sha is tracked in docs/assets/public-space-sync-report.json."
+    },
+    {
+      "id": "T100",
+      "title": "Use portable post-credential proof commands",
+      "phase": "P4 Submit",
+      "owner": "tester",
+      "status": "done",
+      "done_criteria": "The post-credential live proof plan stores public-safe, repo-relative command strings while preserving executable argv semantics and public sync validation.",
+      "notes": "Post-credential plan now renders commands as python scripts/... without local absolute paths; tests cover command/argv output and no /Users path leakage."
     },
     {
       "id": "T030",

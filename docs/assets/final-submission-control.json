@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.final_submission_control.v1",
-  "created_at": "2026-06-30T10:15:25Z",
+  "created_at": "2026-06-30T10:21:45Z",
   "ok": true,
   "control_health_ok": true,
   "mode": "pre_live_control",

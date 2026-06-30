@@ -62,6 +62,9 @@ def test_plan_only_does_not_execute_commands():
     assert sequence["mode"] == "plan_only"
     assert sequence["failed_command"] is None
     assert {command["status"] for command in sequence["commands"]} == {"planned"}
+    assert sequence["commands"][0]["command"].startswith("python scripts/live_env_handoff.py")
+    assert "/Users/" not in sequence["commands"][0]["command"]
+    assert sequence["commands"][0]["argv"][:2] == ["python", "scripts/live_env_handoff.py"]
 
 
 def test_execute_stops_on_first_failure():
@@ -112,6 +115,8 @@ def test_report_never_stores_secret_values():
     assert "Backblaze keys" in report["secret_policy"]
     assert "B2_APPLICATION_KEY=" not in markdown
     assert "GENBLAZE_API_KEY=" not in markdown
+    assert "/Users/" not in markdown
+    assert "python scripts/post_credential_live_proof.py" in markdown
 
 
 def test_validate_evidence_accepts_expected_b2_and_final_files(tmp_path):

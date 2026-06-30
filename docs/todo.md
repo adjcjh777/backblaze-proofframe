@@ -56,3 +56,4 @@ python3 scripts/task.py doing T020 --note "Live B2 proof in progress"
 | T097 | Public HF Space synced to the refreshed Devpost event snapshot at runtime `eab3ee62`; public Space sync and API smoke pass while remaining fail-closed. |
 | T098 | No-secret public Space upload helper added with dry-run safety checks, explicit execute mode, raw `.env.final.local` public 404 probe, tests, docs, CI, and bundle coverage. |
 | T099 | Public HF Space synced through the no-secret upload helper; raw `.env.final.local` public probe, public Space sync, and public API smoke all pass while final submission remains fail-closed. Current runtime sha is tracked in `docs/assets/public-space-sync-report.json`. |
+| T100 | Post-credential live proof plan now renders portable `python scripts/...` commands without local absolute paths, while keeping execution argv semantics and public sync validation. |

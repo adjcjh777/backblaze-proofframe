@@ -70,6 +70,22 @@ def rel(path: Path) -> str:
         return str(path)
 
 
+def display_arg(arg: str) -> str:
+    path = Path(arg)
+    if path.is_absolute():
+        try:
+            return str(path.resolve().relative_to(ROOT.resolve()))
+        except ValueError:
+            if path.name.startswith("python"):
+                return "python"
+            return path.name
+    return arg
+
+
+def display_command(command: Sequence[str]) -> str:
+    return shlex.join(display_arg(arg) for arg in command)
+
+
 def script_command(script: str, *args: str, python: str = sys.executable) -> list[str]:
     return [python, str(ROOT / "scripts" / script), *args]
 
@@ -297,7 +313,8 @@ def command_record(spec: CommandSpec, status: str, returncode: int | None = None
         "label": spec.label,
         "status": status,
         "returncode": returncode,
-        "command": shlex.join(spec.command),
+        "command": display_command(spec.command),
+        "argv": [display_arg(arg) for arg in spec.command],
     }
 
 
