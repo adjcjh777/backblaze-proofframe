@@ -2,26 +2,26 @@
 
 Mode: `public_space_synced`
 OK: `true`
-Created: `2026-06-30T05:07:35Z`
+Created: `2026-06-30T05:20:29Z`
 Space: `ADJCJH/backblaze-proofframe`
 Public host: https://adjcjh-backblaze-proofframe.hf.space
-Expected sha: `d598e496a598fc59b08130f67ea41c2be08b33cf`
-Runtime sha: `d598e496a598fc59b08130f67ea41c2be08b33cf`
+Expected sha: `eab3ee62e8d7a21f8f2542d5b4d38675270619ab`
+Runtime sha: `eab3ee62e8d7a21f8f2542d5b4d38675270619ab`
 Runtime stage: `RUNNING`
 
 ## Checks
 
 | Status | Check | Detail | Evidence |
 | --- | --- | --- | --- |
-| OK | Space metadata points at the expected commit | Space sha is d598e496a598fc59b08130f67ea41c2be08b33cf; expected d598e496a598fc59b08130f67ea41c2be08b33cf. | https://huggingface.co/api/spaces/ADJCJH/backblaze-proofframe |
-| OK | Space runtime is running the expected commit | Runtime stage is RUNNING; runtime sha is d598e496a598fc59b08130f67ea41c2be08b33cf; domain ready is True. | https://huggingface.co/api/spaces/ADJCJH/backblaze-proofframe/runtime |
+| OK | Space metadata points at the expected commit | Space sha is eab3ee62e8d7a21f8f2542d5b4d38675270619ab; expected eab3ee62e8d7a21f8f2542d5b4d38675270619ab. | https://huggingface.co/api/spaces/ADJCJH/backblaze-proofframe |
+| OK | Space runtime is running the expected commit | Runtime stage is RUNNING; runtime sha is eab3ee62e8d7a21f8f2542d5b4d38675270619ab; domain ready is True. | https://huggingface.co/api/spaces/ADJCJH/backblaze-proofframe/runtime |
 | OK | Raw handoff report is public and ready | Handoff schema is proofframe.agent_handoff.v1; mode is handoff_ready. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/agent-handoff-report.json |
-| OK | Raw Devpost event snapshot is public and fresh | Event snapshot schema is proofframe.devpost_event_snapshot.v1; submission_open=True; age_days=0; participants=383. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/devpost-event-snapshot.json |
+| OK | Raw Devpost event snapshot is public and fresh | Event snapshot schema is proofframe.devpost_event_snapshot.v1; submission_open=True; age_days=0; participants=404. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/devpost-event-snapshot.json |
 | OK | Raw final launch plan is public and phase-aware | Launch plan schema is proofframe.final_launch_plan.v1; mode is ready_for_credential_entry; current phase is credential_entry. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/final-launch-plan.json |
 | OK | Raw B2 key scope checklist is public and no-secret | Checklist schema is proofframe.b2_key_scope_checklist.v1; safe_to_commit=True; bucket=proofframe-demo-a6b4e49; prefix=campaigns/; confirmation=required_before_key_creation; required=['listAllBucketNames', 'writeFiles']. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/b2-key-scope-checklist.json |
 | OK | Raw judge brief is public and claim-safe | Judge brief schema is proofframe.judge_brief.v1; safe_to_submit is False. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/judge-brief.json |
 | OK | Raw judge crosswalk is public and claim-safe | Judge crosswalk schema is proofframe.judge_crosswalk.v1; mode is pre_live_crosswalk_ready; safe_to_submit is False. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/judge-crosswalk.json |
-| OK | Raw judge decision brief is public and claim-safe | Decision brief schema is proofframe.judge_decision_brief.v1; mode is pre_live_decision_ready; safe_to_submit is False; checks=6; runtime=b0593e2178ad712d4c104fa2e7bbf57872230927; age_days=0; fresh=True. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/judge-decision-brief.json |
+| OK | Raw judge decision brief is public and claim-safe | Decision brief schema is proofframe.judge_decision_brief.v1; mode is pre_live_decision_ready; safe_to_submit is False; checks=6; runtime=0c594ad50bd8f4ca3d5cd24da063edb94c4899b6; age_days=0; fresh=True. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/judge-decision-brief.json |
 | OK | Raw judge evidence index is public and claim-safe | Evidence index schema is proofframe.judge_evidence_index.v1; mode is pre_live_evidence_index_ready; safe_to_submit is False; links=18; blockers=10. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/judge-evidence-index.json |
 | OK | Raw final closeout status is public and closeout-safe | Closeout schema is proofframe.final_closeout_status.v1; mode is waiting_for_credentials; safe_to_submit is False; gates=12. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/final-closeout-status.json |
 | OK | Final closeout API matches the raw public status | API closeout schema is proofframe.final_closeout_status.v1; mode is waiting_for_credentials; safe_to_submit is False; gates=12. | https://adjcjh-backblaze-proofframe.hf.space/api/judge/final-closeout |

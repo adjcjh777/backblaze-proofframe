@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-30T05:08:08Z",
+  "updated_at": "2026-06-30T05:20:09Z",
   "tasks": [
     {
       "id": "T001",
@@ -235,6 +235,24 @@
       "status": "done",
       "done_criteria": "Public Space sync report must pass against the live HF Space and downstream final rehearsal/bundle evidence must be regenerated without changing safe_to_submit=false.",
       "notes": "Verified live public Space sync after final rehearsal refresh; runtime d598e496 is RUNNING and final closeout raw/API checks pass, then regenerated downstream final evidence reports."
+    },
+    {
+      "id": "T096",
+      "title": "Refresh official Devpost event snapshot",
+      "phase": "P4 Submit",
+      "owner": "scout",
+      "status": "done",
+      "done_criteria": "Official Devpost overview and rules pages must be fetched live, submission must be open, requirements and judging criteria must validate, and downstream submission evidence must use the refreshed participant count.",
+      "notes": "Fetched official Devpost overview and rules on 2026-06-30; snapshot validation passed, submission remains open, and observed participant count is now 404 with dynamic-count recheck warning preserved."
+    },
+    {
+      "id": "T097",
+      "title": "Sync public Space after Devpost event refresh",
+      "phase": "P4 Submit",
+      "owner": "tester",
+      "status": "done",
+      "done_criteria": "HF Space must run the refreshed Devpost event snapshot, public_space_sync must pass with no failed checks, public API smoke must pass, and downstream bundle evidence must record the new runtime without marking submission ready.",
+      "notes": "Uploaded HF Space commit eab3ee62e8d7a21f8f2542d5b4d38675270619ab after refreshing Devpost evidence; raw Devpost snapshot and final control now report 404 participants, public_space_sync passes with no failed checks after runtime reached RUNNING, public API smoke remains local/mock fail-closed."
     },
     {
       "id": "T030",

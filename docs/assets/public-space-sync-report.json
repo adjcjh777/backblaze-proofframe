@@ -1,17 +1,17 @@
 {
   "schema": "proofframe.public_space_sync.v1",
-  "created_at": "2026-06-30T05:07:35Z",
+  "created_at": "2026-06-30T05:20:29Z",
   "ok": true,
   "mode": "public_space_synced",
   "space_id": "ADJCJH/backblaze-proofframe",
   "public_host": "https://adjcjh-backblaze-proofframe.hf.space",
-  "expected_sha": "d598e496a598fc59b08130f67ea41c2be08b33cf",
+  "expected_sha": "eab3ee62e8d7a21f8f2542d5b4d38675270619ab",
   "observed": {
-    "space_sha": "d598e496a598fc59b08130f67ea41c2be08b33cf",
-    "runtime_sha": "d598e496a598fc59b08130f67ea41c2be08b33cf",
+    "space_sha": "eab3ee62e8d7a21f8f2542d5b4d38675270619ab",
+    "runtime_sha": "eab3ee62e8d7a21f8f2542d5b4d38675270619ab",
     "runtime_stage": "RUNNING",
     "domain_ready": true,
-    "last_modified": "2026-06-30T04:52:41.000Z",
+    "last_modified": "2026-06-30T05:18:16.000Z",
     "health": {
       "ready": true,
       "storage_backend": "local",
@@ -32,9 +32,9 @@
     },
     "handoff_mode": "handoff_ready",
     "event_snapshot": {
-      "checked_at": "2026-06-29T11:21:01Z",
+      "checked_at": "2026-06-30T05:12:10Z",
       "age_days": 0,
-      "participant_count_observed": 383,
+      "participant_count_observed": 404,
       "submission_open": true,
       "requirements_ok": true,
       "criteria_ok": true
@@ -76,13 +76,13 @@
     "judge_crosswalk_safe_to_submit": false,
     "judge_decision_brief": {
       "schema": "proofframe.judge_decision_brief.v1",
-      "created_at": "2026-06-30T04:37:54Z",
+      "created_at": "2026-06-30T05:16:08Z",
       "age_days": 0,
       "mode": "pre_live_decision_ready",
       "safe_to_share": true,
       "safe_to_submit": false,
       "check_count": 6,
-      "runtime_sha": "b0593e2178ad712d4c104fa2e7bbf57872230927",
+      "runtime_sha": "0c594ad50bd8f4ca3d5cd24da063edb94c4899b6",
       "evidence_index_link": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/judge-evidence-index.md",
       "source_state_ok": true,
       "fresh": true
@@ -214,14 +214,14 @@
       "id": "space_metadata",
       "label": "Space metadata points at the expected commit",
       "ok": true,
-      "detail": "Space sha is d598e496a598fc59b08130f67ea41c2be08b33cf; expected d598e496a598fc59b08130f67ea41c2be08b33cf.",
+      "detail": "Space sha is eab3ee62e8d7a21f8f2542d5b4d38675270619ab; expected eab3ee62e8d7a21f8f2542d5b4d38675270619ab.",
       "evidence": "https://huggingface.co/api/spaces/ADJCJH/backblaze-proofframe"
     },
     {
       "id": "runtime_ready",
       "label": "Space runtime is running the expected commit",
       "ok": true,
-      "detail": "Runtime stage is RUNNING; runtime sha is d598e496a598fc59b08130f67ea41c2be08b33cf; domain ready is True.",
+      "detail": "Runtime stage is RUNNING; runtime sha is eab3ee62e8d7a21f8f2542d5b4d38675270619ab; domain ready is True.",
       "evidence": "https://huggingface.co/api/spaces/ADJCJH/backblaze-proofframe/runtime"
     },
     {
@@ -235,7 +235,7 @@
       "id": "raw_event_snapshot",
       "label": "Raw Devpost event snapshot is public and fresh",
       "ok": true,
-      "detail": "Event snapshot schema is proofframe.devpost_event_snapshot.v1; submission_open=True; age_days=0; participants=383.",
+      "detail": "Event snapshot schema is proofframe.devpost_event_snapshot.v1; submission_open=True; age_days=0; participants=404.",
       "evidence": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/devpost-event-snapshot.json"
     },
     {
@@ -270,7 +270,7 @@
       "id": "raw_judge_decision_brief",
       "label": "Raw judge decision brief is public and claim-safe",
       "ok": true,
-      "detail": "Decision brief schema is proofframe.judge_decision_brief.v1; mode is pre_live_decision_ready; safe_to_submit is False; checks=6; runtime=b0593e2178ad712d4c104fa2e7bbf57872230927; age_days=0; fresh=True.",
+      "detail": "Decision brief schema is proofframe.judge_decision_brief.v1; mode is pre_live_decision_ready; safe_to_submit is False; checks=6; runtime=0c594ad50bd8f4ca3d5cd24da063edb94c4899b6; age_days=0; fresh=True.",
       "evidence": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/judge-decision-brief.json"
     },
     {

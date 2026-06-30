@@ -52,3 +52,5 @@ python3 scripts/task.py doing T020 --note "Live B2 proof in progress"
 | T093 | Final env `--check-only` now performs no-secret readiness preflight for git-ignore, chmod `0600`, missing/placeholder names, B2 region derivation, and `B2_APP_KEY` alias handling. |
 | T094 | Final rehearsal checklist regenerated from the current operator brief so the strict rehearsal gate is green and only the three expected secret blockers remain. |
 | T095 | Public Space sync evidence refreshed against the live HF runtime, including final closeout raw/API checks, then downstream final reports were regenerated. |
+| T096 | Official Devpost event snapshot refreshed from live overview/rules pages; submission remains open and observed participants are now `404` with dynamic-count warning preserved. |
+| T097 | Public HF Space synced to the refreshed Devpost event snapshot at runtime `eab3ee62`; public Space sync and API smoke pass while remaining fail-closed. |
