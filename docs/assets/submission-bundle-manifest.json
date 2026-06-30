@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.submission_bundle.v1",
-  "created_at": "2026-06-30T05:47:27Z",
+  "created_at": "2026-06-30T10:15:52Z",
   "project": "ProofFrame",
   "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
@@ -137,7 +137,7 @@
         "present": true,
         "schema": "proofframe.secret_scan.v1",
         "schema_ok": true,
-        "created_at": "2026-06-30T05:47:27Z",
+        "created_at": "2026-06-30T10:15:25Z",
         "ready": true,
         "fresh_after_receipt": true,
         "findings": []
@@ -148,7 +148,7 @@
         "present": true,
         "schema": "proofframe.final_submission_control.v1",
         "schema_ok": true,
-        "created_at": "2026-06-30T05:47:27Z",
+        "created_at": "2026-06-30T10:15:25Z",
         "ready": false,
         "fresh_after_receipt": true,
         "findings": [
@@ -162,7 +162,7 @@
         "present": true,
         "schema": "proofframe.final_closeout_status.v1",
         "schema_ok": true,
-        "created_at": "2026-06-30T05:47:27Z",
+        "created_at": "2026-06-30T10:15:25Z",
         "ready": false,
         "fresh_after_receipt": true,
         "findings": [
@@ -218,7 +218,7 @@
         "present": true,
         "schema": "proofframe.judge_decision_brief.v1",
         "schema_ok": true,
-        "created_at": "2026-06-30T05:47:07Z",
+        "created_at": "2026-06-30T10:15:25Z",
         "ready": false,
         "fresh_after_receipt": true,
         "findings": [
@@ -386,16 +386,16 @@
       "path": "docs/assets/public-space-sync-report.json",
       "label": "Machine-readable public Space sync report",
       "present": true,
-      "bytes": 20572,
-      "sha256": "8223abd8d03a176725a06c1a2efbd370bc717357a3e880c6f171ca4793969835"
+      "bytes": 20606,
+      "sha256": "aa2dad62e9fa099f5c7eb3f5640d7d00dd2a9798bb76d41ce6d575a0a26d4910"
     },
     {
       "id": "public_space_sync_md",
       "path": "docs/assets/public-space-sync-report.md",
       "label": "Human-readable public Space sync report",
       "present": true,
-      "bytes": 8657,
-      "sha256": "0a2db1661e6817d178a9d072d25d3bbf043097fc2a357c040af7e6b61269069a"
+      "bytes": 8673,
+      "sha256": "d587400442f71b61ea1469fbcb976405bb0ea244180adf81c32d32cd0f182a44"
     },
     {
       "id": "public_space_upload_script",
@@ -410,8 +410,8 @@
       "path": "docs/assets/public-space-upload-report.json",
       "label": "Machine-readable public Space upload report",
       "present": true,
-      "bytes": 4144,
-      "sha256": "aeac12c8be853dcba7fbd4d0eafc2ddc3fa87f58f6fed62207b33fda08971151"
+      "bytes": 4150,
+      "sha256": "42e1f29bb2591795ce2a0f4cc9b04bdaa8b849390f87242018c4a369dd49b0fa"
     },
     {
       "id": "public_space_upload_md",
@@ -419,7 +419,7 @@
       "label": "Human-readable public Space upload report",
       "present": true,
       "bytes": 1372,
-      "sha256": "15302f2617bce30571a8c53ae960b3b4b19d7c79cf03994ab6a5aee871388d0b"
+      "sha256": "523d4a7614613d8ba03cbe6657061aec644d77eac017c9926d9cf8927266c183"
     },
     {
       "id": "public_demo_screenshot_script",
@@ -579,7 +579,7 @@
       "label": "Machine-readable judge decision brief",
       "present": true,
       "bytes": 8148,
-      "sha256": "3f7bc11d3c5492a7d034eaf4cd16f72bc0cb5e5e197425449168fe2d2e9d4967"
+      "sha256": "d12065a387542430292a3ab8832e4819b72d7a80819d9a52c900c9898a2bb0af"
     },
     {
       "id": "judge_decision_brief_md",
@@ -587,7 +587,7 @@
       "label": "Human-readable judge decision brief",
       "present": true,
       "bytes": 3822,
-      "sha256": "ef599da57f3f87cb79e8ea6dbf0018f9da67beb5d08929e0ae4baa5898e6420d"
+      "sha256": "21dd39e3c6c216e6c7e52e1e23e2911008fdaa97b885b107bb2b26ecb2021851"
     },
     {
       "id": "judge_evidence_index_script",
@@ -803,7 +803,7 @@
       "label": "Machine-readable final control report",
       "present": true,
       "bytes": 24359,
-      "sha256": "20d34196d911a49996c38f026dd050e2bca11740366db99b59325e6c182cccac"
+      "sha256": "8baa9b67f40303ca69a800f67d7a212b590cb2bdb51a4a7ddf10841bf6e4e2a0"
     },
     {
       "id": "final_submission_control_md",
@@ -811,7 +811,7 @@
       "label": "Human-readable final control report",
       "present": true,
       "bytes": 7087,
-      "sha256": "4f5c9013b83425adf676f5b2cca2dc34a4a9f201e18c6537eef595e77ef8164b"
+      "sha256": "1efeb6705e935298a837f6f2eb7fb015d02781634024fc2e883e90749bc9292b"
     },
     {
       "id": "final_closeout_status_script",
@@ -827,7 +827,7 @@
       "label": "Machine-readable final closeout status",
       "present": true,
       "bytes": 12592,
-      "sha256": "e73afc19a9ff7d139f4ff51689cc40936661cf4b83120c46a46c3090687f3c91"
+      "sha256": "59117388d2e5cc037dfd0fb631196d758b4aa5f24396408e77d834e79923b07b"
     },
     {
       "id": "final_closeout_status_md",
@@ -923,7 +923,7 @@
       "label": "Machine-readable submission audit report",
       "present": true,
       "bytes": 5925,
-      "sha256": "f6dbccc83c3901b8c8a7c8b1176f2f81ac57cc8264ec9eb3573a281d7cf9495e"
+      "sha256": "ee0c55bb33b85e1a7572f4b5db0097b5f6a09aae1df00a714b409cb275e02b26"
     },
     {
       "id": "submission_audit_md",
@@ -931,7 +931,7 @@
       "label": "Human-readable submission audit report",
       "present": true,
       "bytes": 4459,
-      "sha256": "b2280d81c6921a12ab378b63d2b9c09cad379c839c0f2388386ad56c27507395"
+      "sha256": "e79f588095b00f83e656b7c98185c4055e10da61f96c44c11410b54eb5dd74e7"
     },
     {
       "id": "devpost_receipt_script",
@@ -1003,7 +1003,7 @@
       "label": "Machine-readable secret scan report",
       "present": true,
       "bytes": 11871,
-      "sha256": "135316f6f7d5d993c8b3573780c38215cdcad9bca1145588ecafdf33c87029fb"
+      "sha256": "5fc23e11f7dfcada1b5422c6f94753a0d7e3b61254414dcf88654091edc04698"
     },
     {
       "id": "secret_scan_md",
@@ -1011,7 +1011,7 @@
       "label": "Human-readable secret scan report",
       "present": true,
       "bytes": 846,
-      "sha256": "be7baa228ebf302666159f09e404829bcf7015e93e2af14ff85a7c53388b4994"
+      "sha256": "4b6e18b66fd7afe74e05f34cc146f54aa2295d891ba0a8c4953e7d428ff46a96"
     },
     {
       "id": "b2_live_setup_json",
@@ -1218,8 +1218,8 @@
       "path": "tasks.json",
       "label": "Machine-readable task board",
       "present": true,
-      "bytes": 71368,
-      "sha256": "9349e42f1eba4d0bd67735b058430ef0aebda8ea3bcc78a837ef5a41ca9e4e8e"
+      "bytes": 71416,
+      "sha256": "8c3db4de6a6b4088c539b8126b2df72ba3aff09da026b85786309fac3526e09c"
     },
     {
       "id": "local_ui_smoke",

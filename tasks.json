@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-30T05:44:19Z",
+  "updated_at": "2026-06-30T10:15:08Z",
   "tasks": [
     {
       "id": "T001",
@@ -270,7 +270,7 @@
       "owner": "tester",
       "status": "done",
       "done_criteria": "The no-secret public Space upload helper runs with --execute, publishes the latest repo to Hugging Face Space, confirms raw .env.final.local is not public, public_space_sync passes on the new runtime sha, public API smoke passes, and final readiness remains fail-closed.",
-      "notes": "Uploaded HF Space commit a7f491e280d07c6934b0562384fbb26b2479d336 with included_sensitive=[], raw .env.final.local probe OK, public_space_sync and public API smoke passed."
+      "notes": "Uploaded through the no-secret helper; included_sensitive=[], raw .env.final.local probe OK, public_space_sync and public API smoke passed. Current HF runtime sha is tracked in docs/assets/public-space-sync-report.json."
     },
     {
       "id": "T030",
