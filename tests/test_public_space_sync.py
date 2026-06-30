@@ -428,6 +428,16 @@ def valid_final_closeout_status() -> dict:
     }
 
 
+def valid_final_ready_closeout_status() -> dict:
+    closeout = valid_final_closeout_status()
+    closeout["mode"] = "final_closeout_ready"
+    closeout["phase"] = "submit_receipt_captured"
+    closeout["safe_to_submit"] = True
+    closeout["next_command"] = "python scripts/submission_bundle.py --strict-final"
+    closeout["gates"] = [{**gate, "ok": True} for gate in closeout["gates"]]
+    return closeout
+
+
 def valid_judge_decision_brief() -> dict:
     source_reports = {
         "judge_brief": {"schema_ok": True},
@@ -657,6 +667,13 @@ def fake_fetcher(url: str, timeout: int) -> dict:
             "error": None,
         }
     if url.endswith("/docs/assets/final-closeout-status.json"):
+        return {
+            "ok": True,
+            "status": 200,
+            "body": json.dumps(valid_final_closeout_status()),
+            "error": None,
+        }
+    if url.endswith("/api/judge/final-closeout"):
         return {
             "ok": True,
             "status": 200,
@@ -920,6 +937,12 @@ def test_public_space_sync_report_passes_when_space_is_current():
         "schema": "proofframe.final_closeout_status.v1",
         "mode": "waiting_for_credentials",
         "closeout_health_ok": True,
+        "safe_to_submit": False,
+        "gate_count": 7,
+    }
+    assert report["observed"]["final_closeout_api"] == {
+        "schema": "proofframe.final_closeout_status.v1",
+        "mode": "waiting_for_credentials",
         "safe_to_submit": False,
         "gate_count": 7,
     }
@@ -1375,7 +1398,23 @@ def test_public_space_sync_fails_on_unsafe_judge_evidence_index():
     )
 
 
-def test_public_space_sync_fails_on_unsafe_final_closeout_status():
+def test_public_space_sync_accepts_final_ready_closeout_status():
+    def final_ready_fetcher(url: str, timeout: int) -> dict:
+        result = fake_fetcher(url, timeout)
+        if url.endswith("/docs/assets/final-closeout-status.json") or url.endswith("/api/judge/final-closeout"):
+            result = {**result, "body": json.dumps(valid_final_ready_closeout_status())}
+        return result
+
+    report = public_space_sync.build_report(expected_sha=EXPECTED_SHA, fetcher=final_ready_fetcher)
+
+    failed = {item["id"] for item in report["checks"] if not item["ok"]}
+    assert "raw_final_closeout_status" not in failed
+    assert "api_final_closeout_status" not in failed
+    assert report["observed"]["final_closeout_status"]["mode"] == "final_closeout_ready"
+    assert report["observed"]["final_closeout_status"]["safe_to_submit"] is True
+
+
+def test_public_space_sync_fails_on_inconsistent_final_closeout_status():
     def broken_fetcher(url: str, timeout: int) -> dict:
         result = fake_fetcher(url, timeout)
         if url.endswith("/docs/assets/final-closeout-status.json"):

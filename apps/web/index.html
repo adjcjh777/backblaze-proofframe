@@ -1939,6 +1939,14 @@
         const blocked = gates.filter((gate) => gate && gate.ok === false);
         const displayGates = blocked.length ? blocked.slice(0, 3) : gates.slice(0, 3);
         const safeToSubmit = Boolean(closeout.safe_to_submit);
+        const nextCommand = closeout.error || closeout.next_command || closeout.next_detail;
+        const nextRow = `
+          <div class="closeout-row">
+            <label>${escapeHtml(closeout.error ? "Status" : "Next Command")}</label>
+            <strong>${escapeHtml(humanizeStatus(closeout.phase || "credential_entry"))}</strong>
+            <span>${escapeHtml(nextCommand || "Waiting for generated final closeout status.")}</span>
+          </div>
+        `;
         el("closeoutStatus").textContent = closeout.error
           ? "Closeout unavailable"
           : safeToSubmit
@@ -1955,14 +1963,8 @@
                 </div>
               `,
               )
-              .join("")
-          : `
-            <div class="closeout-row">
-              <label>Next Command</label>
-              <strong>${escapeHtml(humanizeStatus(closeout.phase || "credential_entry"))}</strong>
-              <span>${escapeHtml(closeout.error || closeout.next_command || "Waiting for generated final closeout status.")}</span>
-            </div>
-          `;
+              .join("") + nextRow
+          : nextRow;
       }
 
       function renderCampaigns() {

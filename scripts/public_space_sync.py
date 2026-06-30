@@ -102,6 +102,23 @@ DOCKER_SMOKE_REQUIRED_CHECK_IDS = {
     "api_smoke",
     "docker_cleanup",
 }
+FINAL_CLOSEOUT_REQUIRED_GATE_IDS = {
+    "credential_handoff",
+    "b2_live_proof",
+    "genblaze_live_proof",
+    "public_video",
+    "devpost_receipt",
+    "final_control",
+}
+FINAL_CLOSEOUT_PREFINAL_MODES = {"waiting_for_credentials", "closeout_blocked"}
+FINAL_CLOSEOUT_FINAL_MODE = "final_closeout_ready"
+FINAL_CLOSEOUT_SECRET_POLICY_TERMS = {
+    "never stores",
+    "backblaze keys",
+    "genblaze/gmi keys",
+    "devpost cookies",
+    "signed urls",
+}
 
 HTML_MARKERS = {
     "judge_recording_slate": "Judge recording slate",
@@ -321,6 +338,31 @@ def check_item(check_id: str, label: str, ok: bool, detail: str, evidence: str) 
     }
 
 
+def final_closeout_status_is_public_safe(status: dict[str, Any] | None) -> bool:
+    if not status:
+        return False
+    gates = dict_list_field(status, "gates")
+    gate_ids = {str(gate.get("id")) for gate in gates if isinstance(gate.get("id"), str)}
+    secret_policy = str(status.get("secret_policy") or "").lower()
+    secret_policy_ok = all(term in secret_policy for term in FINAL_CLOSEOUT_SECRET_POLICY_TERMS)
+    common_ok = bool(
+        status.get("schema") == "proofframe.final_closeout_status.v1"
+        and status.get("ok") is True
+        and status.get("closeout_health_ok") is True
+        and isinstance(status.get("safe_to_submit"), bool)
+        and status.get("next_command")
+        and FINAL_CLOSEOUT_REQUIRED_GATE_IDS <= gate_ids
+        and secret_policy_ok
+    )
+    if not common_ok:
+        return False
+    all_gates_ok = all(gate.get("ok") is True for gate in gates)
+    has_blocker = any(gate.get("ok") is False for gate in gates)
+    if status.get("safe_to_submit") is True:
+        return bool(status.get("mode") == FINAL_CLOSEOUT_FINAL_MODE and all_gates_ok)
+    return bool(status.get("mode") in FINAL_CLOSEOUT_PREFINAL_MODES and has_blocker)
+
+
 def build_report(
     *,
     space_id: str = SPACE_ID,
@@ -355,6 +397,7 @@ def build_report(
     judge_url = public_url(public_host, "/?judge=1")
     health_url = public_url(public_host, "/api/health")
     gate_url = public_url(public_host, "/api/submission/gate")
+    final_closeout_endpoint_url = public_url(public_host, "/api/judge/final-closeout")
 
     space_result = fetcher(api_url, TIMEOUT_SECONDS)
     runtime_result = fetcher(runtime_url, TIMEOUT_SECONDS)
@@ -383,6 +426,7 @@ def build_report(
     judge_result = fetcher(judge_url, TIMEOUT_SECONDS)
     health_result = fetcher(health_url, TIMEOUT_SECONDS)
     gate_result = fetcher(gate_url, TIMEOUT_SECONDS)
+    final_closeout_endpoint_result = fetcher(final_closeout_endpoint_url, TIMEOUT_SECONDS)
 
     space = parse_json(space_result)
     runtime = parse_json(runtime_result)
@@ -409,6 +453,7 @@ def build_report(
     docker_smoke = parse_json(docker_smoke_result)
     health = parse_json(health_result)
     gate = parse_json(gate_result)
+    final_closeout_endpoint = parse_json(final_closeout_endpoint_result)
     html = str(judge_result.get("body") or "")
 
     space_sha = space.get("sha") if space else None
@@ -767,31 +812,18 @@ def build_report(
     final_closeout_status_gate_ids = {
         str(gate.get("id")) for gate in final_closeout_status_gates if isinstance(gate.get("id"), str)
     }
-    final_closeout_secret_policy = str(
-        final_closeout_status.get("secret_policy") if final_closeout_status else ""
-    ).lower()
-    final_closeout_secret_policy_ok = all(
-        term in final_closeout_secret_policy
-        for term in {
-            "never stores",
-            "backblaze keys",
-            "genblaze/gmi keys",
-            "devpost cookies",
-            "signed urls",
-        }
-    )
     final_closeout_status_ok = bool(
-        final_closeout_status_result.get("ok")
-        and final_closeout_status
-        and final_closeout_status.get("schema") == "proofframe.final_closeout_status.v1"
-        and final_closeout_status.get("ok") is True
-        and final_closeout_status.get("closeout_health_ok") is True
-        and final_closeout_status.get("safe_to_submit") is False
-        and final_closeout_status.get("mode") in {"waiting_for_credentials", "closeout_blocked"}
-        and final_closeout_status.get("next_command")
-        and {"b2_live_proof", "genblaze_live_proof", "public_video", "devpost_receipt", "final_control"}
-        <= final_closeout_status_gate_ids
-        and final_closeout_secret_policy_ok
+        final_closeout_status_result.get("ok") and final_closeout_status_is_public_safe(final_closeout_status)
+    )
+    final_closeout_endpoint_gates = dict_list_field(final_closeout_endpoint, "gates")
+    final_closeout_endpoint_ok = bool(
+        final_closeout_endpoint_result.get("ok")
+        and final_closeout_status_is_public_safe(final_closeout_endpoint)
+        and final_closeout_endpoint.get("schema") == (final_closeout_status or {}).get("schema")
+        and final_closeout_endpoint.get("mode") == (final_closeout_status or {}).get("mode")
+        and final_closeout_endpoint.get("safe_to_submit") == (final_closeout_status or {}).get("safe_to_submit")
+        and {str(gate.get("id")) for gate in final_closeout_endpoint_gates if isinstance(gate.get("id"), str)}
+        == final_closeout_status_gate_ids
     )
     video_publish_upload_checks = dict_list_field(video_publish_kit, "upload_checklist")
     video_publish_upload_check_ids = {
@@ -1003,7 +1035,7 @@ def build_report(
         ),
         check_item(
             "raw_final_closeout_status",
-            "Raw final closeout status is public and fail-closed",
+            "Raw final closeout status is public and closeout-safe",
             final_closeout_status_ok,
             (
                 f"Closeout schema is {final_closeout_status.get('schema') if final_closeout_status else None}; "
@@ -1012,6 +1044,18 @@ def build_report(
                 f"gates={len(final_closeout_status_gates)}."
             ),
             final_closeout_status_url,
+        ),
+        check_item(
+            "api_final_closeout_status",
+            "Final closeout API matches the raw public status",
+            final_closeout_endpoint_ok,
+            (
+                f"API closeout schema is {final_closeout_endpoint.get('schema') if final_closeout_endpoint else None}; "
+                f"mode is {final_closeout_endpoint.get('mode') if final_closeout_endpoint else None}; "
+                f"safe_to_submit is {final_closeout_endpoint.get('safe_to_submit') if final_closeout_endpoint else None}; "
+                f"gates={len(final_closeout_endpoint_gates)}."
+            ),
+            final_closeout_endpoint_url,
         ),
         check_item(
             "raw_video_publish_kit",
@@ -1401,6 +1445,14 @@ def build_report(
                 "safe_to_submit": final_closeout_status.get("safe_to_submit") if final_closeout_status else None,
                 "gate_count": len(final_closeout_status_gates),
             },
+            "final_closeout_api": {
+                "schema": final_closeout_endpoint.get("schema") if final_closeout_endpoint else None,
+                "mode": final_closeout_endpoint.get("mode") if final_closeout_endpoint else None,
+                "safe_to_submit": (
+                    final_closeout_endpoint.get("safe_to_submit") if final_closeout_endpoint else None
+                ),
+                "gate_count": len(final_closeout_endpoint_gates),
+            },
             "video_publish_kit": {
                 "schema": video_publish_kit.get("schema") if video_publish_kit else None,
                 "mode": video_publish_kit.get("mode") if video_publish_kit else None,
@@ -1520,6 +1572,8 @@ def next_actions(checks: list[dict[str, Any]]) -> list[str]:
         actions.append("Regenerate and upload docs/assets/judge-evidence-index.json to the Space.")
     if "raw_final_closeout_status" in failed:
         actions.append("Regenerate and upload docs/assets/final-closeout-status.json to the Space.")
+    if "api_final_closeout_status" in failed:
+        actions.append("Redeploy the Space so /api/judge/final-closeout matches the raw closeout status.")
     if "raw_video_publish_kit" in failed:
         actions.append("Regenerate and upload docs/assets/final-video-publish-kit.json to the Space.")
     if "raw_recording_assets" in failed:

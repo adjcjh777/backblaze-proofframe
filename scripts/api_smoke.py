@@ -23,6 +23,23 @@ FORBIDDEN_EVIDENCE_VALUES = [
     re.compile(r"(?i)x-amz-(credential|security-token|signature)=[^&\s]{8,}"),
     re.compile(r"(?i)gmi-[A-Za-z0-9_\-]{16,}"),
 ]
+FINAL_CLOSEOUT_REQUIRED_GATES = {
+    "credential_handoff",
+    "b2_live_proof",
+    "genblaze_live_proof",
+    "public_video",
+    "devpost_receipt",
+    "final_control",
+}
+FINAL_CLOSEOUT_PREFINAL_MODES = {"waiting_for_credentials", "closeout_blocked"}
+FINAL_CLOSEOUT_FINAL_MODE = "final_closeout_ready"
+FINAL_CLOSEOUT_SECRET_POLICY_TERMS = {
+    "never stores",
+    "backblaze keys",
+    "genblaze/gmi keys",
+    "devpost cookies",
+    "signed urls",
+}
 
 
 def request_json(method: str, url: str, payload: dict[str, Any] | None = None) -> Any:
@@ -147,14 +164,31 @@ def run_smoke(
     if final_closeout.get("schema") != "proofframe.final_closeout_status.v1":
         raise SystemExit("Judge final closeout endpoint did not return the expected schema.")
     closeout_health_ok = final_closeout.get("closeout_health_ok")
-    if not isinstance(closeout_health_ok, bool):
-        raise SystemExit("Judge final closeout endpoint did not include a boolean closeout_health_ok flag.")
+    if closeout_health_ok is not True:
+        raise SystemExit("Judge final closeout endpoint did not report closeout_health_ok=true.")
     closeout_safe_to_submit = final_closeout.get("safe_to_submit")
     if not isinstance(closeout_safe_to_submit, bool):
         raise SystemExit("Judge final closeout endpoint did not include a boolean safe_to_submit flag.")
     closeout_gates = final_closeout.get("gates")
     if not isinstance(closeout_gates, list) or len(closeout_gates) < 6:
         raise SystemExit("Judge final closeout endpoint did not include the expected gate ledger.")
+    closeout_gate_ids = {
+        str(gate.get("id")) for gate in closeout_gates if isinstance(gate, dict) and isinstance(gate.get("id"), str)
+    }
+    if not FINAL_CLOSEOUT_REQUIRED_GATES <= closeout_gate_ids:
+        missing = sorted(FINAL_CLOSEOUT_REQUIRED_GATES - closeout_gate_ids)
+        raise SystemExit("Judge final closeout endpoint is missing required gates: " + ", ".join(missing))
+    closeout_secret_policy = str(final_closeout.get("secret_policy") or "").lower()
+    if not all(term in closeout_secret_policy for term in FINAL_CLOSEOUT_SECRET_POLICY_TERMS):
+        raise SystemExit("Judge final closeout endpoint did not include the expected no-secret policy.")
+    closeout_mode = final_closeout.get("mode")
+    closeout_all_gates_ok = all(isinstance(gate, dict) and gate.get("ok") is True for gate in closeout_gates)
+    closeout_has_blocker = any(isinstance(gate, dict) and gate.get("ok") is False for gate in closeout_gates)
+    if closeout_safe_to_submit:
+        if closeout_mode != FINAL_CLOSEOUT_FINAL_MODE or not closeout_all_gates_ok:
+            raise SystemExit("Final closeout safe_to_submit=true requires final_closeout_ready and all gates green.")
+    elif closeout_mode not in FINAL_CLOSEOUT_PREFINAL_MODES or not closeout_has_blocker:
+        raise SystemExit("Pre-final closeout must remain blocked with a visible blocker gate.")
     if health["storage_backend"] == "local" and health["generation_backend"] == "mock":
         if closeout_safe_to_submit:
             raise SystemExit("Mock/local final closeout must remain fail closed.")
@@ -266,6 +300,7 @@ def run_smoke(
         "judge_evidence_index_links": len(evidence_links),
         "judge_final_closeout_schema": final_closeout["schema"],
         "judge_final_closeout_mode": final_closeout.get("mode"),
+        "judge_final_closeout_health_ok": closeout_health_ok,
         "judge_final_closeout_safe_to_submit": closeout_safe_to_submit,
         "judge_final_closeout_gates": len(closeout_gates),
         "judge_video_publish_kit_schema": video_publish_kit["schema"],

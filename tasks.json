@@ -192,6 +192,15 @@
       "notes": "Added /api/judge/final-closeout, judge-mode Final Closeout panel/link, API smoke coverage, and public Space HTML marker validation so the no-secret blocker ledger is visible in the product UI as well as raw evidence."
     },
     {
+      "id": "T091",
+      "title": "Harden final closeout public sync for final-ready state",
+      "phase": "P4 Submit",
+      "owner": "reviewer",
+      "status": "done",
+      "done_criteria": "",
+      "notes": "Addressed independent reviewer finding: public Space sync now accepts both pre-final fail-closed and final_closeout_ready all-green status, validates /api/judge/final-closeout against raw closeout evidence, API smoke enforces required gates/secret policy, and the UI always shows the next command."
+    },
+    {
       "id": "T030",
       "title": "Run browser smoke test",
       "phase": "P3 Polish",
