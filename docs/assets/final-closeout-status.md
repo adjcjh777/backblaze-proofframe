@@ -14,7 +14,7 @@ This closeout report stores only task statuses, report metadata, public URLs, an
 | --- | --- | --- | --- |
 | OK | `report_inventory` | All standing control reports are present; live evidence files may be absent before credentials. | `docs/assets/*.json` |
 | OK | `ci_and_public_demo` | Public Space sync mode is public_space_synced; ok is True. | `docs/assets/public-space-sync-report.json` |
-| BLOCKED | `credential_handoff` | Credential handoff mode is missing_live_env. | `docs/assets/live-credential-handoff.json` |
+| BLOCKED | `credential_handoff` | Credential handoff mode is missing_live_env; missing ids: b2_key_id, b2_application_key, genblaze_api_key. | `docs/assets/live-credential-handoff.json` |
 | BLOCKED | `b2_live_proof` | T020 is doing; evidence present is False. | `docs/assets/b2-live-proof-evidence.json` |
 | BLOCKED | `genblaze_live_proof` | T021 is doing; final evidence present is False. | `docs/assets/final-live-proof-evidence.json` |
 | BLOCKED | `public_video` | Public video mode is pending_video_url; video kit final_video_ready is False. | `docs/assets/public-video-check.json` |

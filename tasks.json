@@ -201,6 +201,15 @@
       "notes": "Addressed independent reviewer finding: public Space sync now accepts both pre-final fail-closed and final_closeout_ready all-green status, validates /api/judge/final-closeout against raw closeout evidence, API smoke enforces required gates/secret policy, and the UI always shows the next command."
     },
     {
+      "id": "T092",
+      "title": "Refresh no-secret live credential handoff from local env",
+      "phase": "P4 Submit",
+      "owner": "controller",
+      "status": "done",
+      "done_criteria": "",
+      "notes": "Generated docs/assets/live-credential-handoff.* from .env.final.local without printing values; non-secret B2 bucket/endpoint and backend modes are present, and remaining secret blockers are narrowed to b2_key_id, b2_application_key, and genblaze_api_key."
+    },
+    {
       "id": "T030",
       "title": "Run browser smoke test",
       "phase": "P3 Polish",

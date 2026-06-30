@@ -1,15 +1,15 @@
 {
   "schema": "proofframe.final_launch_plan.v1",
-  "created_at": "2026-06-29T12:24:34Z",
+  "created_at": "2026-06-30T04:37:54Z",
   "ok": false,
-  "mode": "blocked_at_credential_entry",
+  "mode": "ready_for_credential_entry",
   "repo_root": "/Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe",
   "current_phase": "credential_entry",
   "summary": {
     "total": 6,
     "done": 0,
-    "ready": 0,
-    "blocked": 6
+    "ready": 1,
+    "blocked": 5
   },
   "task_statuses": {
     "T020": "doing",
@@ -23,8 +23,8 @@
     {
       "id": "credential_entry",
       "title": "Enter final credentials locally",
-      "status": "blocked",
-      "detail": "Credential handoff is missing unexpected setup values; regenerate .env.final.local prefill.",
+      "status": "ready",
+      "detail": "Only expected secret ids are missing; operator can enter them locally.",
       "command": "python scripts/final_env_wizard.py --output .env.final.local --missing-only --force",
       "expected_artifacts": [
         "docs/assets/b2-key-scope-checklist.md reviewed before key creation",
@@ -124,7 +124,7 @@
     }
   ],
   "next_command": "python scripts/final_env_wizard.py --output .env.final.local --missing-only --force",
-  "next_detail": "Credential handoff is missing unexpected setup values; regenerate .env.final.local prefill.",
+  "next_detail": "Only expected secret ids are missing; operator can enter them locally.",
   "safety_policy": {
     "no_secret_values_in_report": true,
     "never_commit": [

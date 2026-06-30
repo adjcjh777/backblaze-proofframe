@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.final_closeout_status.v1",
-  "created_at": "2026-06-30T04:04:26Z",
+  "created_at": "2026-06-30T04:37:42Z",
   "ok": true,
   "mode": "waiting_for_credentials",
   "phase": "credential_entry",
@@ -34,6 +34,7 @@
       "public_video_ready": null,
       "project_url": null,
       "missing_artifacts": null,
+      "missing_ids": null,
       "findings_count": 0
     },
     "credential_handoff": {
@@ -56,6 +57,11 @@
       "public_video_ready": null,
       "project_url": null,
       "missing_artifacts": null,
+      "missing_ids": [
+        "b2_key_id",
+        "b2_application_key",
+        "genblaze_api_key"
+      ],
       "findings_count": 0
     },
     "b2_evidence": {
@@ -98,6 +104,7 @@
       "public_video_ready": null,
       "project_url": null,
       "missing_artifacts": null,
+      "missing_ids": null,
       "findings_count": 0
     },
     "video_publish_kit": {
@@ -120,6 +127,7 @@
       "public_video_ready": null,
       "project_url": null,
       "missing_artifacts": null,
+      "missing_ids": null,
       "findings_count": 0
     },
     "devpost_checklist": {
@@ -142,6 +150,7 @@
       "public_video_ready": null,
       "project_url": null,
       "missing_artifacts": null,
+      "missing_ids": null,
       "findings_count": 0
     },
     "devpost_preview": {
@@ -164,6 +173,7 @@
       "public_video_ready": null,
       "project_url": null,
       "missing_artifacts": null,
+      "missing_ids": null,
       "findings_count": 0
     },
     "devpost_receipt": {
@@ -186,6 +196,7 @@
       "public_video_ready": null,
       "project_url": null,
       "missing_artifacts": null,
+      "missing_ids": null,
       "findings_count": 3
     },
     "secret_scan": {
@@ -208,6 +219,7 @@
       "public_video_ready": null,
       "project_url": null,
       "missing_artifacts": null,
+      "missing_ids": null,
       "findings_count": 0
     },
     "submission_audit": {
@@ -230,6 +242,7 @@
       "public_video_ready": null,
       "project_url": null,
       "missing_artifacts": null,
+      "missing_ids": null,
       "findings_count": 17
     },
     "submission_bundle": {
@@ -252,6 +265,7 @@
       "public_video_ready": null,
       "project_url": null,
       "missing_artifacts": [],
+      "missing_ids": null,
       "findings_count": 0
     },
     "public_space_sync": {
@@ -274,6 +288,7 @@
       "public_video_ready": null,
       "project_url": null,
       "missing_artifacts": null,
+      "missing_ids": null,
       "findings_count": 0
     }
   },
@@ -296,7 +311,7 @@
       "id": "credential_handoff",
       "label": "Live credential handoff is ready",
       "ok": false,
-      "detail": "Credential handoff mode is missing_live_env.",
+      "detail": "Credential handoff mode is missing_live_env; missing ids: b2_key_id, b2_application_key, genblaze_api_key.",
       "evidence": "docs/assets/live-credential-handoff.json"
     },
     {

@@ -1,7 +1,7 @@
 {
   "schema": "proofframe.final_operator_brief.v1",
-  "mode": "needs_operator_setup",
-  "ready_for_secret_entry": false,
+  "mode": "credential_entry_ready",
+  "ready_for_secret_entry": true,
   "safe_to_submit": false,
   "task_statuses": {
     "T020": "doing",
@@ -30,27 +30,22 @@
     "present": true,
     "mode": "missing_live_env",
     "ready": false,
-    "source": "process environment",
+    "source": ".env.final.local",
     "missing_ids": [
-      "storage_backend_mode",
-      "generation_backend_mode",
-      "b2_endpoint",
-      "b2_bucket",
       "b2_key_id",
       "b2_application_key",
-      "genblaze_api_key",
-      "genblaze_image_model"
+      "genblaze_api_key"
     ],
-    "missing_only_expected_secrets": false,
+    "missing_only_expected_secrets": true,
     "required_presence": {
-      "storage_backend_mode": false,
-      "generation_backend_mode": false,
-      "b2_endpoint": false,
-      "b2_bucket": false,
+      "storage_backend_mode": true,
+      "generation_backend_mode": true,
+      "b2_endpoint": true,
+      "b2_bucket": true,
       "b2_key_id": false,
       "b2_application_key": false,
       "genblaze_api_key": false,
-      "genblaze_image_model": false
+      "genblaze_image_model": true
     }
   },
   "reports": {

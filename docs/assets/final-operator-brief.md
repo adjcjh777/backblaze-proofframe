@@ -1,7 +1,7 @@
 # ProofFrame Final Operator Brief
 
-Mode: `needs_operator_setup`
-Ready for secret entry: `false`
+Mode: `credential_entry_ready`
+Ready for secret entry: `true`
 Safe to submit: `false`
 
 ## Current Blockers
@@ -15,10 +15,10 @@ Safe to submit: `false`
 
 ## Credential Handoff
 
-- Source: `process environment`
+- Source: `.env.final.local`
 - Mode: `missing_live_env`
-- Missing ids: `storage_backend_mode, generation_backend_mode, b2_endpoint, b2_bucket, b2_key_id, b2_application_key, genblaze_api_key, genblaze_image_model`
-- Missing only expected secrets: `false`
+- Missing ids: `b2_key_id, b2_application_key, genblaze_api_key`
+- Missing only expected secrets: `true`
 
 ## B2 Setup
 

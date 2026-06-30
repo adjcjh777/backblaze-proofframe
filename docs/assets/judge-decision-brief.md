@@ -3,7 +3,7 @@
 Mode: `pre_live_decision_ready`
 OK: `true`
 Safe to submit: `false`
-Created: `2026-06-29T13:53:29Z`
+Created: `2026-06-30T04:37:54Z`
 
 ProofFrame turns generated media into auditable, approval-ready asset packets.
 

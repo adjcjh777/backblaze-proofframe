@@ -95,6 +95,7 @@ def report_status(root: Path, report_id: str, relative_path: str, schema: str) -
         "public_video_ready": report.get("public_video_ready"),
         "project_url": report.get("project_url"),
         "missing_artifacts": report.get("missing_artifacts"),
+        "missing_ids": report.get("missing_ids"),
         "findings_count": len(report.get("findings") or []),
     }
 
@@ -117,6 +118,12 @@ def credential_handoff_ready(report: dict[str, Any]) -> bool:
     if report.get("ready_for_live_proof") is True:
         return True
     return bool(report.get("ok") is True and report.get("mode") == "live_env_ready")
+
+
+def credential_handoff_detail(report: dict[str, Any]) -> str:
+    missing = [str(item) for item in report.get("missing_ids", []) if item]
+    suffix = f"; missing ids: {', '.join(missing)}" if missing else ""
+    return f"Credential handoff mode is {report.get('mode')}{suffix}."
 
 
 def submission_bundle_inputs_ready(report: dict[str, Any]) -> bool:
@@ -182,7 +189,7 @@ def build_report(root: Path = ROOT) -> dict[str, Any]:
             "credential_handoff",
             "Live credential handoff is ready",
             credential_handoff_ready(credential_handoff),
-            f"Credential handoff mode is {credential_handoff.get('mode')}.",
+            credential_handoff_detail(credential_handoff),
             credential_handoff["path"],
         ),
         gate_item(

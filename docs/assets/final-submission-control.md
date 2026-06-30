@@ -3,7 +3,7 @@
 Mode: `pre_live_control`
 Control health OK: `true`
 Safe to submit: `false`
-Created: `2026-06-29T14:05:09Z`
+Created: `2026-06-30T04:35:43Z`
 Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 Repository: https://github.com/adjcjh777/backblaze-proofframe
 
@@ -26,10 +26,10 @@ Repository: https://github.com/adjcjh777/backblaze-proofframe
 
 ## Launch Plan
 
-- Mode: `blocked_at_credential_entry`
+- Mode: `ready_for_credential_entry`
 - Current phase: `credential_entry`
 - Next command: `python scripts/final_env_wizard.py --output .env.final.local --missing-only --force`
-- Detail: Credential handoff is missing unexpected setup values; regenerate .env.final.local prefill.
+- Detail: Only expected secret ids are missing; operator can enter them locally.
 - Source: `docs/assets/final-launch-plan.json`
 
 ## Warnings
@@ -46,12 +46,12 @@ Repository: https://github.com/adjcjh777/backblaze-proofframe
 | OK | Official Devpost event snapshot is fresh | Snapshot checked at 2026-06-29T11:21:01Z; submission open is True; age days is 0. | `docs/assets/devpost-event-snapshot.json` |
 | OK | Agent handoff metadata points at the current repo | Agent handoff mode is handoff_ready; ok is True; bus status is skipped; active role cwd ok is None. | `docs/assets/agent-handoff-report.json` |
 | OK | Public Space is synced to the current judge-facing demo | Public Space sync mode is public_space_synced; ok is True. | `docs/assets/public-space-sync-report.json` |
-| OK | Final launch plan exposes the current operator step | Launch plan mode is blocked_at_credential_entry; current phase is credential_entry; next command is python scripts/final_env_wizard.py --output .env.final.local --missing-only --force. | `docs/assets/final-launch-plan.json` |
+| OK | Final launch plan exposes the current operator step | Launch plan mode is ready_for_credential_entry; current phase is credential_entry; next command is python scripts/final_env_wizard.py --output .env.final.local --missing-only --force. | `docs/assets/final-launch-plan.json` |
 | OK | Recording assets are ready | Recording assets mode is mock_recording_ready; public mock verified is False. | `docs/assets/recording-assets.json` |
 | OK | Control input reports match expected schemas | All input report schemas are current. | `docs/assets/*.json readiness reports` |
 | PENDING | Backblaze B2 live proof captured | T020 is doing; B2 evidence status is missing; final evidence status is missing. | `tasks.json, docs/assets/b2-live-proof-evidence.json, and docs/assets/final-live-proof-evidence.json` |
 | PENDING | Genblaze live proof captured | T021 is doing; final evidence status is missing. | `tasks.json and docs/assets/final-live-proof-evidence.json` |
-| PENDING | Live credential handoff is ready | Credential handoff mode is missing_live_env; missing ids: storage_backend_mode, generation_backend_mode, b2_endpoint, b2_bucket, b2_key_id, b2_application_key, genblaze_api_key, genblaze_image_model. | `docs/assets/live-credential-handoff.json` |
+| PENDING | Live credential handoff is ready | Credential handoff mode is missing_live_env; missing ids: b2_key_id, b2_application_key, genblaze_api_key. | `docs/assets/live-credential-handoff.json` |
 | PENDING | Final public demo video URL is ready | Storyboard mode is mock_storyboard_ready; public video ready is False. | `docs/assets/demo-storyboard.json` |
 | PENDING | Final public demo video URL is accessible and safe | Public video check mode is pending_video_url; safe_to_submit is False. | `docs/assets/public-video-check.json` |
 | PENDING | Final recording gate is ready | Demo readiness mode is pre_live_mock_ready; final recording ready is False. | `docs/assets/demo-readiness-report.json` |

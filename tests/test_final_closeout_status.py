@@ -178,6 +178,8 @@ def test_closeout_status_waits_for_credentials_in_pre_live_state(tmp_path):
     assert report["mode"] == "waiting_for_credentials"
     assert report["phase"] == "credential_entry"
     assert ".env.final.local" in report["next_command"]
+    gates = {gate["id"]: gate for gate in report["gates"]}
+    assert "missing ids: storage_backend_mode, generation_backend_mode" in gates["credential_handoff"]["detail"]
 
 
 def test_closeout_status_can_be_final_ready(tmp_path):
