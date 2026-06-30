@@ -1,17 +1,17 @@
 # ProofFrame Final Rehearsal Checklist
 
-Mode: `needs_rehearsal_setup`
-OK: `false`
+Mode: `ready_for_credential_rehearsal`
+OK: `true`
 Safe to submit: `false`
 Current phase: `credential_entry`
 Next command: `python scripts/final_env_wizard.py --output .env.final.local --missing-only --force`
 
 ## Preconditions
 
-- TODO `operator_ready`: Operator brief mode is needs_operator_setup. Evidence: `docs/assets/final-operator-brief.json`
-- TODO `only_expected_secrets_missing`: Missing ids: b2_application_key, b2_bucket, b2_endpoint, b2_key_id, genblaze_api_key, genblaze_image_model, generation_backend_mode, storage_backend_mode. Evidence: `docs/assets/final-operator-brief.json`
-- TODO `launch_plan_at_credential_entry`: Current phase is credential_entry. Evidence: `docs/assets/final-launch-plan.json`
-- OK `public_space_synced`: Runtime sha: bede079f15ce84da4aa8852d4c541fdaf7c3c524. Evidence: `docs/assets/public-space-sync-report.json`
+- OK `operator_ready`: Operator brief mode is credential_entry_ready. Evidence: `docs/assets/final-operator-brief.json`
+- OK `only_expected_secrets_missing`: Missing ids: b2_application_key, b2_key_id, genblaze_api_key. Evidence: `docs/assets/final-operator-brief.json`
+- OK `launch_plan_at_credential_entry`: Current phase is credential_entry. Evidence: `docs/assets/final-launch-plan.json`
+- OK `public_space_synced`: Runtime sha: b0593e2178ad712d4c104fa2e7bbf57872230927. Evidence: `docs/assets/public-space-sync-report.json`
 - OK `mock_form_ready`: Devpost form mode is pre_live_form_ready. Evidence: `docs/assets/devpost-form-kit.json`
 - OK `mock_recording_ready`: Recording assets mode is mock_recording_ready. Evidence: `docs/assets/recording-assets.json`
 - OK `secret_scan_currently_clear`: Secret scan mode is clear. Evidence: `docs/assets/secret-scan-report.json`

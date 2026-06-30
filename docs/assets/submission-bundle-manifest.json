@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.submission_bundle.v1",
-  "created_at": "2026-06-30T04:37:54Z",
+  "created_at": "2026-06-30T05:00:52Z",
   "project": "ProofFrame",
   "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
@@ -137,7 +137,7 @@
         "present": true,
         "schema": "proofframe.secret_scan.v1",
         "schema_ok": true,
-        "created_at": "2026-06-29T14:05:09Z",
+        "created_at": "2026-06-30T05:00:51Z",
         "ready": true,
         "fresh_after_receipt": true,
         "findings": []
@@ -148,7 +148,7 @@
         "present": true,
         "schema": "proofframe.final_submission_control.v1",
         "schema_ok": true,
-        "created_at": "2026-06-30T04:35:43Z",
+        "created_at": "2026-06-30T05:00:51Z",
         "ready": false,
         "fresh_after_receipt": true,
         "findings": [
@@ -162,7 +162,7 @@
         "present": true,
         "schema": "proofframe.final_closeout_status.v1",
         "schema_ok": true,
-        "created_at": "2026-06-30T04:37:42Z",
+        "created_at": "2026-06-30T05:00:52Z",
         "ready": false,
         "fresh_after_receipt": true,
         "findings": [
@@ -190,7 +190,7 @@
         "present": true,
         "schema": "proofframe.final_launch_plan.v1",
         "schema_ok": true,
-        "created_at": "2026-06-30T04:37:54Z",
+        "created_at": "2026-06-30T05:00:52Z",
         "ready": false,
         "fresh_after_receipt": true,
         "findings": [
@@ -204,7 +204,7 @@
         "present": true,
         "schema": "proofframe.devpost_submission_preview.v1",
         "schema_ok": true,
-        "created_at": "2026-06-30T04:37:54Z",
+        "created_at": "2026-06-30T05:00:52Z",
         "ready": false,
         "fresh_after_receipt": true,
         "findings": [
@@ -234,8 +234,8 @@
       "path": "README.md",
       "label": "Core public project overview",
       "present": true,
-      "bytes": 15285,
-      "sha256": "4e3d9e60469f88f2c27ffa0d82f73986ae4910aecd75ae1b162826743fad17c5"
+      "bytes": 15475,
+      "sha256": "2dd2538697f7cc3d69125614dd75d2724e2b12fbdfd9f561e71b7918a31d679c"
     },
     {
       "id": "dockerfile",
@@ -459,7 +459,7 @@
       "label": "Machine-readable Devpost preview",
       "present": true,
       "bytes": 11611,
-      "sha256": "39092feea8eb3ea846c8b67085c4b8e57679d6e656d1b6867c1d5a211b74a0b6"
+      "sha256": "4fb9d16222278acfa6b0f28de20e08d87d761abcc4a9da6671d91d59850d6d7c"
     },
     {
       "id": "devpost_preview_md",
@@ -779,7 +779,7 @@
       "label": "Machine-readable final control report",
       "present": true,
       "bytes": 24359,
-      "sha256": "063182a9b2c1515272ef53a0786b97ef2f5f66843625ee28e29062f4a6d0fc60"
+      "sha256": "e47a3b6f7526d45ae26ad21802a9c48cc978db14546b1923b78c67e53b66de69"
     },
     {
       "id": "final_submission_control_md",
@@ -787,7 +787,7 @@
       "label": "Human-readable final control report",
       "present": true,
       "bytes": 7087,
-      "sha256": "6121f44a7e9661d330a8a402c16a1b1136f1b7b217fa11deb8f917cac68ac5f1"
+      "sha256": "c3251ac9939d8a01c5f9625659ab875dc05588e838806c860c1486c232c6e43b"
     },
     {
       "id": "final_closeout_status_script",
@@ -803,7 +803,7 @@
       "label": "Machine-readable final closeout status",
       "present": true,
       "bytes": 12592,
-      "sha256": "6c0b30d08c1e48cea375560226a3e2ecdaa0de494d7c22d23e39701e505bc0fe"
+      "sha256": "3972b6027b1ca194f8260508f1f267fd26c14ce4a1ea0050c6696f1b820d80e5"
     },
     {
       "id": "final_closeout_status_md",
@@ -826,8 +826,8 @@
       "path": "docs/assets/final-operator-brief.json",
       "label": "Machine-readable final operator brief",
       "present": true,
-      "bytes": 9547,
-      "sha256": "e04883b31eb3872bbef8292478c42d40281f04c4f73e72babca3086eeba3ebae"
+      "bytes": 9555,
+      "sha256": "bdda68a06465e32c44738d323f06e00fd71270c17a7145581cd2c793efc945a4"
     },
     {
       "id": "final_operator_brief_md",
@@ -851,7 +851,7 @@
       "label": "Machine-readable final launch plan",
       "present": true,
       "bytes": 5690,
-      "sha256": "c5713815ec24421ac78d80e1bde143ecff476b2694ad2ee1c55b89c858769915"
+      "sha256": "2cf4ac673928d037a3f3487f2cff6acd1c32a24069fa10453edae99f2ba6db6e"
     },
     {
       "id": "final_launch_plan_md",
@@ -874,16 +874,16 @@
       "path": "docs/assets/final-rehearsal-checklist.json",
       "label": "Machine-readable final rehearsal checklist",
       "present": true,
-      "bytes": 17425,
-      "sha256": "38baeca09639120dd6bdf61b982a72f7dd12032e4200152c2d241a084011d824"
+      "bytes": 17103,
+      "sha256": "9d0aa0271b9e31c36757e48227873ad4f9c378bdca650f2c4054dcc920fae55f"
     },
     {
       "id": "final_rehearsal_md",
       "path": "docs/assets/final-rehearsal-checklist.md",
       "label": "Human-readable final rehearsal checklist",
       "present": true,
-      "bytes": 7493,
-      "sha256": "25d7183644dc714b30a6814ecceee0f6d4a027eed37817625d4ef8f0927e96d7"
+      "bytes": 7404,
+      "sha256": "c9ee9371da660d8236852129c7d30ea3b2f34229ed9498ffb3f150abfe27d287"
     },
     {
       "id": "submission_audit_script",
@@ -899,7 +899,7 @@
       "label": "Machine-readable submission audit report",
       "present": true,
       "bytes": 5925,
-      "sha256": "5bcad4983e67226d218d2348e25ec70af0a6d9722612b6732a2c602792660fa2"
+      "sha256": "519a61feef58becbd0c9802b22261d88bfc6b4e910309391512854d04a7f53c1"
     },
     {
       "id": "submission_audit_md",
@@ -907,7 +907,7 @@
       "label": "Human-readable submission audit report",
       "present": true,
       "bytes": 4459,
-      "sha256": "4b6e04e23f6593ee017eba0fef76d2093e10634caed8f2da5f106d282b248b2f"
+      "sha256": "3dda4dd113e69d23d56d78510b336eb119bc397e801d6104ee3c7fb1c8fc970b"
     },
     {
       "id": "devpost_receipt_script",
@@ -954,8 +954,8 @@
       "path": "docs/verification.md",
       "label": "Local, CI, Docker, and live proof runbook",
       "present": true,
-      "bytes": 11145,
-      "sha256": "49049c26f2b59d1aff7bce2676c400a644bf7a43c8a775a16ee71c7737cb1af6"
+      "bytes": 11500,
+      "sha256": "29893e84f1654000aacdbf6dcac4d66e4e06fc14e54e829ce6cf5765fce7e90c"
     },
     {
       "id": "final_env_template",
@@ -978,8 +978,8 @@
       "path": "docs/assets/secret-scan-report.json",
       "label": "Machine-readable secret scan report",
       "present": true,
-      "bytes": 11558,
-      "sha256": "36233adce2780320bba6171488fe09442f5c6b2195cd76cc2bd423b8a160c04d"
+      "bytes": 11692,
+      "sha256": "b89c1917c8c953b9de491627a2b23ff782bb60cc9064bc1aefa2a2ff396bea8b"
     },
     {
       "id": "secret_scan_md",
@@ -987,7 +987,7 @@
       "label": "Human-readable secret scan report",
       "present": true,
       "bytes": 846,
-      "sha256": "d3e83224a3bb53fae1fc25fddabd5965b2badf445320afee8df1c61c93f89bbe"
+      "sha256": "8b38803d736ceae99595a023390be5f00b1b7ba04faa4fb1cab93c7fdcaa06f1"
     },
     {
       "id": "b2_live_setup_json",
@@ -1090,8 +1090,8 @@
       "path": "scripts/final_env_wizard.py",
       "label": "Local final credential env wizard",
       "present": true,
-      "bytes": 16314,
-      "sha256": "a22d696bc534a61fc690617a0574eb27d2c4201405c773e10061b0e6f05b1df4"
+      "bytes": 18690,
+      "sha256": "0fd664973da433116d8059557797dfbb8eaedc1447983d814412de834b40e0a5"
     },
     {
       "id": "post_credential_live_proof_script",
@@ -1194,8 +1194,8 @@
       "path": "tasks.json",
       "label": "Machine-readable task board",
       "present": true,
-      "bytes": 67156,
-      "sha256": "3947c60f73ca33cd828ab8c9cd2e78bbf2b25a51bdde10a4ab8bfa8552575cbc"
+      "bytes": 68260,
+      "sha256": "f1f8d25c4e5de1e30bdbd005011c0ced289ea725108653ad3580073313fdc78f"
     },
     {
       "id": "local_ui_smoke",
