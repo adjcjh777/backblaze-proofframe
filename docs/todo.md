@@ -46,3 +46,4 @@ python3 scripts/task.py doing T020 --note "Live B2 proof in progress"
 | T087 | Final closeout status report added so live proof, public video, Devpost, receipt, audit, bundle, and next command are visible in one no-secret gate. |
 | T088 | Final closeout status exposed in judge evidence index and raw public Space sync validation as a fail-closed public blocker ledger. |
 | T089 | Review findings hardened: real live credential handoff output, T020/T021 done checks, public raw closeout validation, and strict bundle closeout freshness are covered. |
+| T090 | Final closeout status is now available through `/api/judge/final-closeout`, a judge-mode UI panel/link, API smoke, and public Space HTML marker validation. |

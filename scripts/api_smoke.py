@@ -143,6 +143,22 @@ def run_smoke(
     if not isinstance(evidence_index_status, dict) or "final_blockers" not in evidence_index_status:
         raise SystemExit("Judge evidence index endpoint did not include final blocker status.")
 
+    final_closeout = request_json("GET", f"{base}/api/judge/final-closeout")
+    if final_closeout.get("schema") != "proofframe.final_closeout_status.v1":
+        raise SystemExit("Judge final closeout endpoint did not return the expected schema.")
+    closeout_health_ok = final_closeout.get("closeout_health_ok")
+    if not isinstance(closeout_health_ok, bool):
+        raise SystemExit("Judge final closeout endpoint did not include a boolean closeout_health_ok flag.")
+    closeout_safe_to_submit = final_closeout.get("safe_to_submit")
+    if not isinstance(closeout_safe_to_submit, bool):
+        raise SystemExit("Judge final closeout endpoint did not include a boolean safe_to_submit flag.")
+    closeout_gates = final_closeout.get("gates")
+    if not isinstance(closeout_gates, list) or len(closeout_gates) < 6:
+        raise SystemExit("Judge final closeout endpoint did not include the expected gate ledger.")
+    if health["storage_backend"] == "local" and health["generation_backend"] == "mock":
+        if closeout_safe_to_submit:
+            raise SystemExit("Mock/local final closeout must remain fail closed.")
+
     video_publish_kit = request_json("GET", f"{base}/api/judge/video-publish-kit")
     if video_publish_kit.get("schema") != "proofframe.final_video_publish_kit.v1":
         raise SystemExit("Judge video publish kit endpoint did not return the expected schema.")
@@ -248,6 +264,10 @@ def run_smoke(
         "judge_evidence_index_mode": evidence_index.get("mode"),
         "judge_evidence_index_safe_to_submit": evidence_safe_to_submit,
         "judge_evidence_index_links": len(evidence_links),
+        "judge_final_closeout_schema": final_closeout["schema"],
+        "judge_final_closeout_mode": final_closeout.get("mode"),
+        "judge_final_closeout_safe_to_submit": closeout_safe_to_submit,
+        "judge_final_closeout_gates": len(closeout_gates),
         "judge_video_publish_kit_schema": video_publish_kit["schema"],
         "judge_video_publish_kit_mode": video_publish_kit.get("mode"),
         "judge_video_publish_kit_safe_to_submit": video_publish_safe_to_submit,

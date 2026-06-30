@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-29T13:53:00Z",
+  "updated_at": "2026-06-29T14:04:41Z",
   "tasks": [
     {
       "id": "T001",
@@ -181,6 +181,15 @@
       "status": "done",
       "done_criteria": "",
       "notes": "Addressed read-only review findings: final_closeout_status accepts real live_env_handoff output, directly requires T020/T021 done with live evidence, public sync/evidence index verify raw closeout status, and submission_bundle strict closeout now requires a fresh final closeout report without circular gating."
+    },
+    {
+      "id": "T090",
+      "title": "Expose final closeout in judge UI and API",
+      "phase": "P4 Submit",
+      "owner": "reviewer",
+      "status": "done",
+      "done_criteria": "",
+      "notes": "Added /api/judge/final-closeout, judge-mode Final Closeout panel/link, API smoke coverage, and public Space HTML marker validation so the no-secret blocker ledger is visible in the product UI as well as raw evidence."
     },
     {
       "id": "T030",

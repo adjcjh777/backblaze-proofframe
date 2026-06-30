@@ -61,6 +61,8 @@ def test_health_and_campaign_flow(tmp_path):
     assert "devpostRows" in index_response.text
     assert "Submit Checklist" in index_response.text
     assert "submitRows" in index_response.text
+    assert "Final Closeout" in index_response.text
+    assert "closeoutRows" in index_response.text
     assert "B2/Genblaze final proof gated" in index_response.text
     assert "Claim Boundary" in index_response.text
     assert "Submission readiness gate" in index_response.text
@@ -146,6 +148,14 @@ def test_health_and_campaign_flow(tmp_path):
     assert checklist["safe_to_submit"] is False
     assert len(checklist["preflight"]) >= 3
     assert checklist["field_gate"]["final_pending_fields"] == ["video_url"]
+
+    closeout_response = client.get("/api/judge/final-closeout")
+    assert closeout_response.status_code == 200
+    closeout = closeout_response.json()
+    assert closeout["schema"] == "proofframe.final_closeout_status.v1"
+    assert closeout["closeout_health_ok"] is True
+    assert closeout["safe_to_submit"] is False
+    assert any(gate["id"] == "b2_live_proof" for gate in closeout["gates"])
 
     campaign_response = client.post(
         "/api/campaigns",

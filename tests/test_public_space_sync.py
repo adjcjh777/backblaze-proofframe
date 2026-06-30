@@ -819,8 +819,8 @@ def fake_fetcher(url: str, timeout: int) -> dict:
             "status": 200,
             "body": (
                 "Judge recording slate Sponsor Evidence Model shouldAutoLoadJudgeDemo "
-                "30-Second Judge Brief Criteria crosswalk Decision brief Evidence index Video publish kit Recording Runbook "
-                "Devpost Kit Submit Checklist Final reports pending"
+                "30-Second Judge Brief Criteria crosswalk Decision brief Evidence index Video publish kit "
+                "Final closeout Recording Runbook Devpost Kit Submit Checklist Final Closeout Final reports pending"
             ),
             "error": None,
         }

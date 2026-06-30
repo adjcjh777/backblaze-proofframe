@@ -620,7 +620,8 @@
         overflow-wrap: anywhere;
       }
 
-      .submit-checklist-strip {
+      .submit-checklist-strip,
+      .closeout-strip {
         border-top: 1px solid var(--ink);
         display: grid;
         gap: 12px;
@@ -628,43 +629,50 @@
         padding: 14px 16px 16px;
       }
 
-      .submit-checklist-strip header {
+      .submit-checklist-strip header,
+      .closeout-strip header {
         align-items: baseline;
         display: flex;
         gap: 12px;
         justify-content: space-between;
       }
 
-      .submit-checklist-strip h2 {
+      .submit-checklist-strip h2,
+      .closeout-strip h2 {
         font-family: var(--display);
         font-size: 21px;
         line-height: 1;
         margin: 0;
       }
 
-      .submit-checklist-strip header span {
+      .submit-checklist-strip header span,
+      .closeout-strip header span {
         color: var(--muted);
         font-family: var(--mono);
         font-size: 11px;
       }
 
-      .submit-grid {
+      .submit-grid,
+      .closeout-grid {
         border-top: 1px solid var(--rule);
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
       }
 
-      .submit-row {
+      .submit-row,
+      .closeout-row {
         border-right: 1px solid var(--rule);
         min-height: 116px;
         padding: 12px 12px 4px 0;
       }
 
-      .submit-row:last-child {
+      .submit-row:last-child,
+      .closeout-row:last-child {
         border-right: 0;
       }
 
-      .submit-row label {
+      .submit-row label,
+      .closeout-row label {
         color: var(--muted);
         display: block;
         font-size: 10px;
@@ -674,14 +682,16 @@
         text-transform: uppercase;
       }
 
-      .submit-row strong {
+      .submit-row strong,
+      .closeout-row strong {
         display: block;
         font-size: 15px;
         line-height: 1.22;
         margin-bottom: 7px;
       }
 
-      .submit-row span {
+      .submit-row span,
+      .closeout-row span {
         color: var(--muted);
         display: block;
         font-family: var(--mono);
@@ -1033,7 +1043,8 @@
           grid-template-columns: 1fr;
         }
 
-        .submit-grid {
+        .submit-grid,
+        .closeout-grid {
           grid-template-columns: 1fr;
         }
 
@@ -1092,13 +1103,15 @@
           border-bottom: 0;
         }
 
-        .submit-row {
+        .submit-row,
+        .closeout-row {
           border-right: 0;
           border-bottom: 1px solid var(--rule);
           padding-right: 0;
         }
 
-        .submit-row:last-child {
+        .submit-row:last-child,
+        .closeout-row:last-child {
           border-bottom: 0;
         }
 
@@ -1304,6 +1317,11 @@
                 target="_blank"
                 rel="noreferrer"
               >Final gate</a>
+              <a
+                href="https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/final-closeout-status.md"
+                target="_blank"
+                rel="noreferrer"
+              >Final closeout</a>
             </nav>
           </div>
           <div class="criteria-crosswalk-strip" aria-label="Criteria crosswalk">
@@ -1355,6 +1373,19 @@
                 <label>Preflight</label>
                 <strong>Final gate pending</strong>
                 <span>Waiting for public-safe submission checklist.</span>
+              </div>
+            </div>
+          </div>
+          <div class="closeout-strip" aria-label="Final closeout">
+            <header>
+              <h2>Final Closeout</h2>
+              <span id="closeoutStatus">Loading closeout gate</span>
+            </header>
+            <div class="closeout-grid" id="closeoutRows">
+              <div class="closeout-row">
+                <label>Next Command</label>
+                <strong>Credential entry</strong>
+                <span>Waiting for no-secret final closeout status.</span>
               </div>
             </div>
           </div>
@@ -1505,6 +1536,7 @@
         judgeRecording: null,
         judgeDevpost: null,
         judgeSubmitChecklist: null,
+        judgeCloseout: null,
         health: null,
         packetStatus: "No packet exported",
         packetDetail: "Awaiting campaign manifest.",
@@ -1635,6 +1667,15 @@
           state.judgeSubmitChecklist = { error: error.message };
         }
         renderJudgeSubmitChecklist();
+      }
+
+      async function loadJudgeCloseout() {
+        try {
+          state.judgeCloseout = await api("/api/judge/final-closeout");
+        } catch (error) {
+          state.judgeCloseout = { error: error.message };
+        }
+        renderJudgeCloseout();
       }
 
       async function loadCampaigns() {
@@ -1892,6 +1933,38 @@
           `;
       }
 
+      function renderJudgeCloseout() {
+        const closeout = state.judgeCloseout || {};
+        const gates = Array.isArray(closeout.gates) ? closeout.gates : [];
+        const blocked = gates.filter((gate) => gate && gate.ok === false);
+        const displayGates = blocked.length ? blocked.slice(0, 3) : gates.slice(0, 3);
+        const safeToSubmit = Boolean(closeout.safe_to_submit);
+        el("closeoutStatus").textContent = closeout.error
+          ? "Closeout unavailable"
+          : safeToSubmit
+            ? "Final closeout ready"
+            : humanizeStatus(closeout.mode || "waiting_for_credentials");
+        el("closeoutRows").innerHTML = displayGates.length
+          ? displayGates
+              .map(
+                (gate) => `
+                <div class="closeout-row">
+                  <label>${escapeHtml(gate.ok ? "OK" : "Blocked")}</label>
+                  <strong>${escapeHtml(humanizeStatus(gate.id || "closeout"))}</strong>
+                  <span>${escapeHtml(gate.detail || gate.evidence || "Closeout gate tracked.")}</span>
+                </div>
+              `,
+              )
+              .join("")
+          : `
+            <div class="closeout-row">
+              <label>Next Command</label>
+              <strong>${escapeHtml(humanizeStatus(closeout.phase || "credential_entry"))}</strong>
+              <span>${escapeHtml(closeout.error || closeout.next_command || "Waiting for generated final closeout status.")}</span>
+            </div>
+          `;
+      }
+
       function renderCampaigns() {
         el("campaignList").innerHTML =
           state.campaigns
@@ -2124,6 +2197,7 @@
           loadJudgeRecording(),
           loadJudgeDevpost(),
           loadJudgeSubmitChecklist(),
+          loadJudgeCloseout(),
         ]);
         renderInspector();
         if (shouldAutoLoadJudgeDemo()) {

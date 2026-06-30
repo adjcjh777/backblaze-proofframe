@@ -111,9 +111,11 @@ HTML_MARKERS = {
     "decision_brief_link": "Decision brief",
     "evidence_index_link": "Evidence index",
     "video_publish_kit_link": "Video publish kit",
+    "final_closeout_link": "Final closeout",
     "recording_runbook_panel": "Recording Runbook",
     "devpost_kit_panel": "Devpost Kit",
     "submit_checklist_panel": "Submit Checklist",
+    "final_closeout_panel": "Final Closeout",
     "auto_load_judge_demo": "shouldAutoLoadJudgeDemo",
     "final_reports_pending": "Final reports pending",
 }
