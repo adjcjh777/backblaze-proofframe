@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-06-30T10:34:17Z",
+  "updated_at": "2026-07-01T10:58:56Z",
   "tasks": [
     {
       "id": "T001",
@@ -117,7 +117,7 @@
       "owner": "executor",
       "status": "doing",
       "done_criteria": "B2 backend stores an asset and manifest using env-only credentials.",
-      "notes": "B2 S3-compatible backend implemented with fake-client tests; Backblaze account registered and private bucket proofframe-demo-a6b4e49 created with endpoint s3.us-west-004.backblazeb2.com; scoped application key form is prepared but key creation/live verification still requires explicit confirmation."
+      "notes": "B2 implementation and bucket setup remain in place; 2026-07-01 preflight confirms endpoint, bucket, region, and boto3 are ready, but live proof is still blocked by missing local B2_KEY_ID/B2_APPLICATION_KEY and the required B2 scope confirmation before key creation."
     },
     {
       "id": "T021",
@@ -126,7 +126,7 @@
       "owner": "executor",
       "status": "doing",
       "done_criteria": "Generation adapter records provider/model metadata and fails closed without config.",
-      "notes": "Genblaze/GMICloud image provider adapter implemented with official Pipeline API; live credentials/package run still required for final public claim."
+      "notes": "Genblaze/GMI adapter and SDK packages remain ready; 2026-07-01 final proof preflight confirms model and genblaze_core/genblaze_gmicloud/genblaze_s3 are available, but live proof is still blocked by missing local GENBLAZE_API_KEY."
     },
     {
       "id": "T084",
@@ -675,7 +675,7 @@
       "owner": "reviewer",
       "status": "todo",
       "done_criteria": "Reviewer signs off on rules, secrets, claims, and public artifacts.",
-      "notes": ""
+      "notes": "2026-07-01 submission audit report regenerated in pre_submit_audit_blocked mode with 17 findings; final audit cannot pass until B2/Genblaze live evidence, final video, final secret scan, and Devpost receipt exist."
     },
     {
       "id": "T041A",
@@ -684,7 +684,7 @@
       "owner": "reviewer",
       "status": "todo",
       "done_criteria": "Secret scan covers repo, docs, screenshots, exported manifests, logs, and demo evidence before submission.",
-      "notes": "No B2, Genblaze, provider, Devpost, cookie, signed URL, or test account secret may be committed or shown."
+      "notes": "2026-07-01 pre-final secret scan report is clear and committed; final secret scan remains todo after live proof, final public video, and Devpost submission artifacts are generated."
     },
     {
       "id": "T041B",
@@ -711,7 +711,7 @@
       "owner": "controller",
       "status": "todo",
       "done_criteria": "Devpost submission is accepted before 2026-08-04 05:00 Asia/Shanghai.",
-      "notes": ""
+      "notes": "Devpost submission remains todo; official event snapshot refreshed 2026-07-01 with submission_open=true and observed participants=439, but final submission must wait for live proof, public video, strict audit, and receipt capture."
     },
     {
       "id": "T042A",

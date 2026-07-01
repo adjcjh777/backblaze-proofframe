@@ -34,6 +34,18 @@ python3 scripts/task.py doing T020 --note "Live B2 proof in progress"
 5. Run the final secret scan, strict form/storyboard/readiness gates, and `python scripts/submission_audit.py --strict-final`.
 6. Keep public claims frozen with `docs/public_claim_freeze.md` until real B2 and Genblaze evidence exists and the strict audit is green.
 
+## Current Final Gate Status
+
+Last refreshed: `2026-07-01`.
+
+| Task | True status | Evidence |
+| --- | --- | --- |
+| T020 | `doing` | B2 code, bucket, endpoint, region, and `boto3` preflight are ready; live proof still waits for local `B2_KEY_ID`/`B2_APPLICATION_KEY` entry and the required B2 scope confirmation before key creation. |
+| T021 | `doing` | Genblaze adapter and SDK packages are ready; live proof still waits for local `GENBLAZE_API_KEY` entry. |
+| T041 | `todo` | `docs/assets/submission-audit-report.json` is regenerated in `pre_submit_audit_blocked` mode with 17 findings. |
+| T041A | `todo` | `docs/assets/secret-scan-report.json` is clear for the current pre-final tree; final scan remains after live proof, final public video, and Devpost artifacts exist. |
+| T042 | `todo` | Official Devpost snapshot is fresh, `submission_open=true`, and observed participants are `439`; final submission waits for live proof, public video, strict audit, and receipt capture. |
+
 ## Recently Completed
 
 | Task | Result |
