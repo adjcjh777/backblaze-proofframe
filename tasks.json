@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-07-01T11:25:32Z",
+  "updated_at": "2026-07-01T12:01:32Z",
   "tasks": [
     {
       "id": "T001",
@@ -124,9 +124,9 @@
       "title": "Integrate Genblaze-compatible generation",
       "phase": "P2 Integrations",
       "owner": "executor",
-      "status": "doing",
+      "status": "blocked",
       "done_criteria": "Generation adapter records provider/model metadata and fails closed without config.",
-      "notes": "Genblaze/GMI adapter and SDK packages remain ready; 2026-07-01 final proof preflight confirms model and genblaze_core/genblaze_gmicloud/genblaze_s3 are available, but live proof is still blocked by missing local GENBLAZE_API_KEY."
+      "notes": "Genblaze/GMI local key is configured and final proof preflight passes, but the live GMI request is blocked by HTTP 402 insufficient credits; do not mark live Genblaze proof complete until credits are added and docs/assets/final-live-proof-evidence.json validates."
     },
     {
       "id": "T084",

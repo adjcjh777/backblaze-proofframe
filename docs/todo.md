@@ -41,7 +41,7 @@ Last refreshed: `2026-07-01`.
 | Task | True status | Evidence |
 | --- | --- | --- |
 | T020 | `done` | B2 live proof passed with scoped standard key against bucket `proofframe-demo-a6b4e49` and prefix `campaigns/`; sanitized evidence is saved at `docs/assets/b2-live-proof-evidence.json`. Generation remains mock until T021. |
-| T021 | `doing` | Genblaze adapter and SDK packages are ready; live proof still waits for local `GENBLAZE_API_KEY` entry. |
+| T021 | `blocked` | Genblaze/GMI local key is configured and final proof preflight passes, but the live GMI request is blocked by HTTP 402 insufficient credits. Do not mark live Genblaze proof complete until credits are added and `docs/assets/final-live-proof-evidence.json` validates. |
 | T041 | `todo` | `docs/assets/submission-audit-report.json` is regenerated in `pre_submit_audit_blocked` mode with 17 findings. |
 | T041A | `todo` | `docs/assets/secret-scan-report.json` is clear for the current pre-final tree; final scan remains after live proof, final public video, and Devpost artifacts exist. |
 | T042 | `todo` | Official Devpost snapshot is fresh, `submission_open=true`, and observed participants are `439`; final submission waits for live proof, public video, strict audit, and receipt capture. |

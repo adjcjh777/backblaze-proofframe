@@ -1,7 +1,7 @@
 # ProofFrame Live Credential Handoff
 
-Mode: `missing_live_env`
-Ready for live proof: `false`
+Mode: `live_env_ready`
+Ready for live proof: `true`
 Source: `.env.final.local`
 
 This report records only variable names and presence checks. It never prints, hashes, stores, or commits credential values.
@@ -14,8 +14,7 @@ This report records only variable names and presence checks. It never prints, ha
 - OK Backblaze B2 bucket: `B2_BUCKET`; present `B2_BUCKET`.
 - OK Backblaze B2 key id: `B2_KEY_ID`; present `B2_KEY_ID`.
 - OK Backblaze B2 application key: `B2_APPLICATION_KEY`, `B2_APP_KEY`; present `B2_APPLICATION_KEY`, `B2_APP_KEY`.
-- MISSING Genblaze/GMI API key: `GENBLAZE_API_KEY`, `GMI_API_KEY`; present none.
-  Remediation: Set GENBLAZE_API_KEY or GMI_API_KEY.
+- OK Genblaze/GMI API key: `GENBLAZE_API_KEY`, `GMI_API_KEY`; present `GENBLAZE_API_KEY`, `GMI_API_KEY`.
 - OK Genblaze image model: `GENBLAZE_IMAGE_MODEL`; present `GENBLAZE_IMAGE_MODEL`.
 
 ## Optional Values
