@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.public_space_upload.v1",
-  "created_at": "2026-07-01T10:55:49Z",
+  "created_at": "2026-07-01T11:44:40Z",
   "mode": "uploaded",
   "ok": true,
   "execute": true,
@@ -8,7 +8,7 @@
   "repo_type": "space",
   "revision": "main",
   "space_raw_base": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main",
-  "commit_message": "Sync ProofFrame public Space after event refresh",
+  "commit_message": "Sync B2 proof public verifier",
   "ignore_patterns": [
     ".git/**",
     ".venv/**",
@@ -51,9 +51,9 @@
     ]
   },
   "file_plan": {
-    "total_files": 14982,
-    "included_count": 210,
-    "excluded_count": 14772,
+    "total_files": 14967,
+    "included_count": 211,
+    "excluded_count": 14756,
     "included_samples": [
       ".dockerignore",
       ".env.example",
@@ -70,11 +70,11 @@
       "docs/assets/award-readiness-report.md",
       "docs/assets/b2-key-scope-checklist.json",
       "docs/assets/b2-key-scope-checklist.md",
+      "docs/assets/b2-live-proof-evidence.json",
       "docs/assets/b2-live-setup.json",
       "docs/assets/b2-live-setup.md",
       "docs/assets/demo-readiness-report.json",
-      "docs/assets/demo-readiness-report.md",
-      "docs/assets/demo-storyboard.json"
+      "docs/assets/demo-readiness-report.md"
     ],
     "excluded_samples": [
       ".env.final.local",
@@ -125,8 +125,8 @@
   "upload": {
     "attempted": true,
     "ok": true,
-    "commit_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/commit/abb09ea8fa92cae185fb08d65ae6419d85bc3c0e",
-    "commit_oid": "abb09ea8fa92cae185fb08d65ae6419d85bc3c0e"
+    "commit_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/commit/00295ca9e94b26ff25f42b77596ed79ca7a56888",
+    "commit_oid": "00295ca9e94b26ff25f42b77596ed79ca7a56888"
   },
   "secret_probe": {
     "attempted": true,

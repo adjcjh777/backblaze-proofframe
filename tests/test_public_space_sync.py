@@ -142,6 +142,35 @@ def valid_submission_bundle() -> dict:
     }
 
 
+def test_public_space_sync_accepts_submission_bundle_after_b2_live_proof_done():
+    def post_b2_fetcher(url: str, timeout: int) -> dict:
+        result = fake_fetcher(url, timeout)
+        if url.endswith("/docs/assets/submission-bundle-manifest.json"):
+            bundle = valid_submission_bundle()
+            bundle["submission_gate"]["summary"] = {
+                "required": 6,
+                "done": 2,
+                "blocked": 0,
+                "doing": 1,
+                "todo": 3,
+                "missing": 0,
+            }
+            bundle["submission_gate"]["next_actions"] = [
+                "Run a live Genblaze generation proof and capture provider metadata.",
+                "Run the final submission audit after live proofs are captured.",
+                "Run the final secret scan before recording or submitting.",
+                "Submit the Devpost project after every preceding gate is done.",
+                "Capture final live proof evidence JSON.",
+            ]
+            result = {**result, "body": json.dumps(bundle)}
+        return result
+
+    report = public_space_sync.build_report(expected_sha=EXPECTED_SHA, fetcher=post_b2_fetcher)
+
+    failed = {item["id"] for item in report["checks"] if not item["ok"]}
+    assert "raw_submission_bundle" not in failed
+
+
 def valid_genblaze_contract_report() -> dict:
     return {
         "schema": "proofframe.genblaze_contract_check.v1",

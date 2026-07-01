@@ -522,6 +522,10 @@ def build_report(
     submission_bundle_secret_scan = report_status(submission_bundle_reports, "secret_scan")
     submission_bundle_submission_audit = report_status(submission_bundle_reports, "submission_audit")
     submission_bundle_next_actions = list_field(submission_bundle_gate, "next_actions")
+    submission_bundle_summary = dict_field(submission_bundle_gate, "summary")
+    submission_bundle_b2_action_ok = any(
+        "Backblaze B2" in str(action) for action in submission_bundle_next_actions
+    ) or int(submission_bundle_summary.get("done") or 0) >= 2
     genblaze_contract_failed_checks = list_field(genblaze_contract, "failed_checks")
     genblaze_contract_secret_policy = str(genblaze_contract.get("secret_policy") if genblaze_contract else "")
     genblaze_contract_ok = bool(
@@ -1252,14 +1256,15 @@ def build_report(
                 and submission_bundle_secret_scan.get("status") == "verified"
                 and submission_bundle_submission_audit.get("ok") is False
                 and submission_bundle_submission_audit.get("status") == "incomplete"
-                and any("Backblaze B2" in str(action) for action in submission_bundle_next_actions)
+                and submission_bundle_b2_action_ok
                 and any("Genblaze" in str(action) for action in submission_bundle_next_actions)
             ),
             (
                 f"Bundle schema is {submission_bundle.get('schema') if submission_bundle else None}; "
                 f"safe_to_share={submission_bundle.get('safe_to_share') if submission_bundle else None}; "
                 f"safe_to_submit={submission_bundle.get('safe_to_submit') if submission_bundle else None}; "
-                f"required artifacts={submission_bundle_required_artifacts_ok}."
+                f"required artifacts={submission_bundle_required_artifacts_ok}; "
+                f"b2 action ok={submission_bundle_b2_action_ok}."
             ),
             submission_bundle_url,
         ),
