@@ -3,7 +3,7 @@
 Mode: `uploaded`
 OK: `true`
 Execute: `true`
-Created: `2026-06-30T10:35:27Z`
+Created: `2026-07-01T10:55:49Z`
 Repo: `ADJCJH/backblaze-proofframe`
 Revision: `main`
 Raw base: https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main
@@ -11,8 +11,8 @@ Raw base: https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main
 ## Safety
 
 - Required ignore patterns OK: `true`
-- Included files: `209`
-- Excluded files: `14715`
+- Included files: `210`
+- Excluded files: `14772`
 - Included sensitive files: `none`
 
 ## Sensitive File Checks
@@ -25,8 +25,8 @@ Raw base: https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main
 ## Upload
 
 - Upload OK: `true`
-- Commit: `54d801e018357c408fbfa2436cab014ad3300a14`
-- Commit URL: https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/commit/54d801e018357c408fbfa2436cab014ad3300a14
+- Commit: `abb09ea8fa92cae185fb08d65ae6419d85bc3c0e`
+- Commit URL: https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/commit/abb09ea8fa92cae185fb08d65ae6419d85bc3c0e
 
 ## Secret Probe
 

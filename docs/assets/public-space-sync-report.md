@@ -2,21 +2,21 @@
 
 Mode: `public_space_synced`
 OK: `true`
-Created: `2026-07-01T10:48:58Z`
+Created: `2026-07-01T10:56:54Z`
 Space: `ADJCJH/backblaze-proofframe`
 Public host: https://adjcjh-backblaze-proofframe.hf.space
-Expected sha: `54d801e018357c408fbfa2436cab014ad3300a14`
-Runtime sha: `54d801e018357c408fbfa2436cab014ad3300a14`
+Expected sha: `abb09ea8fa92cae185fb08d65ae6419d85bc3c0e`
+Runtime sha: `abb09ea8fa92cae185fb08d65ae6419d85bc3c0e`
 Runtime stage: `RUNNING`
 
 ## Checks
 
 | Status | Check | Detail | Evidence |
 | --- | --- | --- | --- |
-| OK | Space metadata points at the expected commit | Space sha is 54d801e018357c408fbfa2436cab014ad3300a14; expected 54d801e018357c408fbfa2436cab014ad3300a14. | https://huggingface.co/api/spaces/ADJCJH/backblaze-proofframe |
-| OK | Space runtime is running the expected commit | Runtime stage is RUNNING; runtime sha is 54d801e018357c408fbfa2436cab014ad3300a14; domain ready is True. | https://huggingface.co/api/spaces/ADJCJH/backblaze-proofframe/runtime |
+| OK | Space metadata points at the expected commit | Space sha is abb09ea8fa92cae185fb08d65ae6419d85bc3c0e; expected abb09ea8fa92cae185fb08d65ae6419d85bc3c0e. | https://huggingface.co/api/spaces/ADJCJH/backblaze-proofframe |
+| OK | Space runtime is running the expected commit | Runtime stage is RUNNING; runtime sha is abb09ea8fa92cae185fb08d65ae6419d85bc3c0e; domain ready is True. | https://huggingface.co/api/spaces/ADJCJH/backblaze-proofframe/runtime |
 | OK | Raw handoff report is public and ready | Handoff schema is proofframe.agent_handoff.v1; mode is handoff_ready. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/agent-handoff-report.json |
-| OK | Raw Devpost event snapshot is public and fresh | Event snapshot schema is proofframe.devpost_event_snapshot.v1; submission_open=True; age_days=1; participants=404. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/devpost-event-snapshot.json |
+| OK | Raw Devpost event snapshot is public and fresh | Event snapshot schema is proofframe.devpost_event_snapshot.v1; submission_open=True; age_days=0; participants=439. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/devpost-event-snapshot.json |
 | OK | Raw final launch plan is public and phase-aware | Launch plan schema is proofframe.final_launch_plan.v1; mode is ready_for_credential_entry; current phase is credential_entry. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/final-launch-plan.json |
 | OK | Raw B2 key scope checklist is public and no-secret | Checklist schema is proofframe.b2_key_scope_checklist.v1; safe_to_commit=True; bucket=proofframe-demo-a6b4e49; prefix=campaigns/; confirmation=required_before_key_creation; required=['listAllBucketNames', 'writeFiles']. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/b2-key-scope-checklist.json |
 | OK | Raw judge brief is public and claim-safe | Judge brief schema is proofframe.judge_brief.v1; safe_to_submit is False. | https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/judge-brief.json |
