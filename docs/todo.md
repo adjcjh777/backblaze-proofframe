@@ -40,7 +40,7 @@ Last refreshed: `2026-07-01`.
 
 | Task | True status | Evidence |
 | --- | --- | --- |
-| T020 | `doing` | B2 code, bucket, endpoint, region, and `boto3` preflight are ready; live proof still waits for local `B2_KEY_ID`/`B2_APPLICATION_KEY` entry and the required B2 scope confirmation before key creation. |
+| T020 | `done` | B2 live proof passed with scoped standard key against bucket `proofframe-demo-a6b4e49` and prefix `campaigns/`; sanitized evidence is saved at `docs/assets/b2-live-proof-evidence.json`. Generation remains mock until T021. |
 | T021 | `doing` | Genblaze adapter and SDK packages are ready; live proof still waits for local `GENBLAZE_API_KEY` entry. |
 | T041 | `todo` | `docs/assets/submission-audit-report.json` is regenerated in `pre_submit_audit_blocked` mode with 17 findings. |
 | T041A | `todo` | `docs/assets/secret-scan-report.json` is clear for the current pre-final tree; final scan remains after live proof, final public video, and Devpost artifacts exist. |

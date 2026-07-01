@@ -162,3 +162,15 @@ def test_b2_backend_puts_media_and_manifest_with_fake_client():
     assert len(fake.puts) == 2
     assert fake.puts[0]["Bucket"] == "proof-bucket"
     assert fake.puts[0]["Metadata"]["sha256"] == stored_media.sha256
+
+
+def test_b2_backend_normalizes_endpoint_without_scheme():
+    backend = B2StorageBackend(
+        endpoint_url="s3.us-west-004.backblazeb2.com",
+        bucket="proof-bucket",
+        key_id="key-id",
+        application_key="application-key",
+        client=FakeS3Client(),
+    )
+
+    assert backend.endpoint_url == "https://s3.us-west-004.backblazeb2.com"

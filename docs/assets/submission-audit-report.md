@@ -2,12 +2,12 @@
 
 Mode: `pre_submit_audit_blocked`
 OK: `false`
-Created: `2026-07-01T10:54:27Z`
+Created: `2026-07-01T11:26:25Z`
 Final evidence: `docs/assets/final-live-proof-evidence.json`
 
 ## Task Statuses
 
-- T020: `doing`
+- T020: `done`
 - T021: `doing`
 - T040: `done`
 - T041A: `todo`
@@ -16,7 +16,7 @@ Final evidence: `docs/assets/final-live-proof-evidence.json`
 
 ## Section Findings
 
-- tasks: 3 finding(s)
+- tasks: 2 finding(s)
 - files: OK
 - schemas: OK
 - final_evidence: 1 finding(s)
@@ -27,7 +27,6 @@ Final evidence: `docs/assets/final-live-proof-evidence.json`
 
 ## Findings
 
-- `T020` [doing]: Integrate Backblaze B2-compatible storage is not done. Evidence: `tasks.json`
 - `T021` [doing]: Integrate Genblaze-compatible generation is not done. Evidence: `tasks.json`
 - `T041A` [todo]: Run final secret scan is not done. Evidence: `tasks.json`
 - `final-live-proof-evidence` [missing]: docs/assets/final-live-proof-evidence.json is missing or invalid JSON. Evidence: `docs/assets/final-live-proof-evidence.json`
@@ -43,7 +42,7 @@ Final evidence: `docs/assets/final-live-proof-evidence.json`
 - `demo_readiness.final_recording_ready` [incomplete]: Final recording readiness gate is not ready. Evidence: `docs/assets/demo-readiness-report.json`
 - `recording_assets.final_video_ready` [incomplete]: Recording assets do not verify the final public video. Evidence: `docs/assets/recording-assets.json`
 - `live_credential_handoff.ready_for_live_proof` [incomplete]: Live credential handoff is not ready. Evidence: `docs/assets/live-credential-handoff.json`
-- `final_submission_control.blocking_items` [blocked]: Unexpected blockers remain before audit sign-off: b2_live_proof, credential_handoff, devpost_submission_checklist, final_recording, final_secret_scan, genblaze_live_proof, public_video, public_video_check Evidence: `docs/assets/final-submission-control.json`
+- `final_submission_control.blocking_items` [blocked]: Unexpected blockers remain before audit sign-off: credential_handoff, devpost_submission_checklist, final_recording, final_secret_scan, genblaze_live_proof, public_video, public_video_check Evidence: `docs/assets/final-submission-control.json`
 
 ## Next Commands
 

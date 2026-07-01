@@ -24,6 +24,13 @@ def _manifest_bytes(manifest: CampaignManifest) -> bytes:
     return manifest.model_dump_json(indent=2).encode("utf-8")
 
 
+def _endpoint_with_scheme(endpoint_url: str) -> str:
+    endpoint = endpoint_url.strip()
+    if endpoint and "://" not in endpoint:
+        return f"https://{endpoint}"
+    return endpoint
+
+
 class LocalStorageBackend:
     """Filesystem storage used for tests and credential-free demos."""
 
@@ -89,6 +96,9 @@ class B2StorageBackend:
     client: Any | None = None
 
     name = "b2"
+
+    def __post_init__(self) -> None:
+        self.endpoint_url = _endpoint_with_scheme(self.endpoint_url)
 
     @classmethod
     def from_settings(cls, settings: Settings) -> "B2StorageBackend":

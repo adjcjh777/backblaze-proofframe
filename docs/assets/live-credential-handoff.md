@@ -12,10 +12,8 @@ This report records only variable names and presence checks. It never prints, ha
 - OK ProofFrame generation backend mode: `PROOFFRAME_GENERATION_BACKEND`; present `PROOFFRAME_GENERATION_BACKEND`; expected `genblaze`.
 - OK Backblaze B2 S3 endpoint: `B2_ENDPOINT_URL`, `B2_S3_ENDPOINT_URL`; present `B2_ENDPOINT_URL`.
 - OK Backblaze B2 bucket: `B2_BUCKET`; present `B2_BUCKET`.
-- MISSING Backblaze B2 key id: `B2_KEY_ID`; present none.
-  Remediation: Set B2_KEY_ID for a least-privilege application key.
-- MISSING Backblaze B2 application key: `B2_APPLICATION_KEY`, `B2_APP_KEY`; present none.
-  Remediation: Set B2_APPLICATION_KEY or B2_APP_KEY.
+- OK Backblaze B2 key id: `B2_KEY_ID`; present `B2_KEY_ID`.
+- OK Backblaze B2 application key: `B2_APPLICATION_KEY`, `B2_APP_KEY`; present `B2_APPLICATION_KEY`, `B2_APP_KEY`.
 - MISSING Genblaze/GMI API key: `GENBLAZE_API_KEY`, `GMI_API_KEY`; present none.
   Remediation: Set GENBLAZE_API_KEY or GMI_API_KEY.
 - OK Genblaze image model: `GENBLAZE_IMAGE_MODEL`; present `GENBLAZE_IMAGE_MODEL`.

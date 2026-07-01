@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-07-01T10:58:56Z",
+  "updated_at": "2026-07-01T11:25:32Z",
   "tasks": [
     {
       "id": "T001",
@@ -115,9 +115,9 @@
       "title": "Integrate Backblaze B2-compatible storage",
       "phase": "P2 Integrations",
       "owner": "executor",
-      "status": "doing",
+      "status": "done",
       "done_criteria": "B2 backend stores an asset and manifest using env-only credentials.",
-      "notes": "B2 implementation and bucket setup remain in place; 2026-07-01 preflight confirms endpoint, bucket, region, and boto3 are ready, but live proof is still blocked by missing local B2_KEY_ID/B2_APPLICATION_KEY and the required B2 scope confirmation before key creation."
+      "notes": "B2 live proof passed with scoped standard key against bucket proofframe-demo-a6b4e49 and prefix campaigns/; sanitized evidence saved at docs/assets/b2-live-proof-evidence.json. Generation remains mock until T021."
     },
     {
       "id": "T021",

@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.final_submission_control.v1",
-  "created_at": "2026-07-01T10:54:27Z",
+  "created_at": "2026-07-01T11:26:25Z",
   "ok": true,
   "control_health_ok": true,
   "mode": "pre_live_control",
@@ -32,18 +32,18 @@
     "mode": "pre_live_safe",
     "summary": {
       "required": 6,
-      "done": 1,
+      "done": 2,
       "blocked": 0,
-      "doing": 2,
+      "doing": 1,
       "todo": 3,
       "missing": 0
     },
     "evidence_status": "missing",
-    "b2_evidence_status": "missing",
+    "b2_evidence_status": "verified",
     "packet_status": "pre_live_packet_pending"
   },
   "task_statuses": {
-    "T020": "doing",
+    "T020": "done",
     "T021": "doing",
     "T040": "done",
     "T041": "todo",
@@ -325,23 +325,16 @@
       "active_role_cwd_ok": null
     },
     "b2_live_evidence": {
-      "ok": false,
-      "status": "missing",
+      "ok": true,
+      "status": "verified",
       "path": "docs/assets/b2-live-proof-evidence.json",
-      "findings": [
-        {
-          "field": "docs/assets/b2-live-proof-evidence.json",
-          "detail": "Evidence file is missing or invalid JSON."
-        }
-      ]
+      "findings": []
     },
     "credential_handoff": {
       "present": true,
       "mode": "missing_live_env",
       "ready": false,
       "missing_ids": [
-        "b2_key_id",
-        "b2_application_key",
         "genblaze_api_key"
       ],
       "secret_policy": "Report records only variable names and presence; credential values are never printed."
@@ -458,8 +451,8 @@
     {
       "id": "b2_live_proof",
       "label": "Backblaze B2 live proof captured",
-      "ok": false,
-      "detail": "T020 is doing; B2 evidence status is missing; final evidence status is missing.",
+      "ok": true,
+      "detail": "T020 is done; B2 evidence status is verified; final evidence status is missing.",
       "evidence": "tasks.json, docs/assets/b2-live-proof-evidence.json, and docs/assets/final-live-proof-evidence.json"
     },
     {
@@ -473,7 +466,7 @@
       "id": "credential_handoff",
       "label": "Live credential handoff is ready",
       "ok": false,
-      "detail": "Credential handoff mode is missing_live_env; missing ids: b2_key_id, b2_application_key, genblaze_api_key.",
+      "detail": "Credential handoff mode is missing_live_env; missing ids: genblaze_api_key.",
       "evidence": "docs/assets/live-credential-handoff.json"
     },
     {
@@ -535,13 +528,6 @@
       "evidence": "docs/assets/devpost-submission-checklist.json"
     },
     {
-      "id": "b2_live_proof",
-      "label": "Backblaze B2 live proof captured",
-      "ok": false,
-      "detail": "T020 is doing; B2 evidence status is missing; final evidence status is missing.",
-      "evidence": "tasks.json, docs/assets/b2-live-proof-evidence.json, and docs/assets/final-live-proof-evidence.json"
-    },
-    {
       "id": "genblaze_live_proof",
       "label": "Genblaze live proof captured",
       "ok": false,
@@ -552,7 +538,7 @@
       "id": "credential_handoff",
       "label": "Live credential handoff is ready",
       "ok": false,
-      "detail": "Credential handoff mode is missing_live_env; missing ids: b2_key_id, b2_application_key, genblaze_api_key.",
+      "detail": "Credential handoff mode is missing_live_env; missing ids: genblaze_api_key.",
       "evidence": "docs/assets/live-credential-handoff.json"
     },
     {
@@ -601,13 +587,13 @@
   "warnings": [],
   "next_actions": [
     "Complete .env.final.local with B2_KEY_ID, B2_APPLICATION_KEY, and Genblaze/GMI API key values.",
-    "Run the B2 live proof runner and save sanitized B2 evidence.",
     "Run the final B2 plus Genblaze proof runner and save sanitized final evidence.",
     "Record and upload the public demo video after live proof is captured.",
     "Verify the public video URL with python scripts/public_video_check.py --verify-url --strict-final.",
     "Regenerate the final Devpost submission checklist after the form kit and final control gates are current.",
     "Run and mark the final secret scan after live evidence/video assets are ready.",
-    "Run final submission audit after proof, video, and secret scan pass."
+    "Run final submission audit after proof, video, and secret scan pass.",
+    "Submit Devpost after every preceding control item is green, then generate the public submission receipt."
   ],
   "operator_commands": [
     "python scripts/final_env_wizard.py --prefill-non-secret --output .env.final.local",

@@ -3,7 +3,7 @@
 Mode: `pre_live_control`
 Control health OK: `true`
 Safe to submit: `false`
-Created: `2026-07-01T10:54:27Z`
+Created: `2026-07-01T11:26:25Z`
 Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 Repository: https://github.com/adjcjh777/backblaze-proofframe
 
@@ -19,8 +19,8 @@ Repository: https://github.com/adjcjh777/backblaze-proofframe
 ## Submission Gate
 
 - Mode: `pre_live_safe`
-- Tasks: `1 / 6` done
-- B2 evidence: `missing`
+- Tasks: `2 / 6` done
+- B2 evidence: `verified`
 - Live evidence: `missing`
 - Devpost packet: `pre_live_packet_pending`
 
@@ -49,9 +49,9 @@ Repository: https://github.com/adjcjh777/backblaze-proofframe
 | OK | Final launch plan exposes the current operator step | Launch plan mode is ready_for_credential_entry; current phase is credential_entry; next command is python scripts/final_env_wizard.py --output .env.final.local --missing-only --force. | `docs/assets/final-launch-plan.json` |
 | OK | Recording assets are ready | Recording assets mode is mock_recording_ready; public mock verified is False. | `docs/assets/recording-assets.json` |
 | OK | Control input reports match expected schemas | All input report schemas are current. | `docs/assets/*.json readiness reports` |
-| PENDING | Backblaze B2 live proof captured | T020 is doing; B2 evidence status is missing; final evidence status is missing. | `tasks.json, docs/assets/b2-live-proof-evidence.json, and docs/assets/final-live-proof-evidence.json` |
+| OK | Backblaze B2 live proof captured | T020 is done; B2 evidence status is verified; final evidence status is missing. | `tasks.json, docs/assets/b2-live-proof-evidence.json, and docs/assets/final-live-proof-evidence.json` |
 | PENDING | Genblaze live proof captured | T021 is doing; final evidence status is missing. | `tasks.json and docs/assets/final-live-proof-evidence.json` |
-| PENDING | Live credential handoff is ready | Credential handoff mode is missing_live_env; missing ids: b2_key_id, b2_application_key, genblaze_api_key. | `docs/assets/live-credential-handoff.json` |
+| PENDING | Live credential handoff is ready | Credential handoff mode is missing_live_env; missing ids: genblaze_api_key. | `docs/assets/live-credential-handoff.json` |
 | PENDING | Final public demo video URL is ready | Storyboard mode is mock_storyboard_ready; public video ready is False. | `docs/assets/demo-storyboard.json` |
 | PENDING | Final public demo video URL is accessible and safe | Public video check mode is pending_video_url; safe_to_submit is False. | `docs/assets/public-video-check.json` |
 | PENDING | Final recording gate is ready | Demo readiness mode is pre_live_mock_ready; final recording ready is False. | `docs/assets/demo-readiness-report.json` |
@@ -63,13 +63,13 @@ Repository: https://github.com/adjcjh777/backblaze-proofframe
 ## Next Actions
 
 - Complete .env.final.local with B2_KEY_ID, B2_APPLICATION_KEY, and Genblaze/GMI API key values.
-- Run the B2 live proof runner and save sanitized B2 evidence.
 - Run the final B2 plus Genblaze proof runner and save sanitized final evidence.
 - Record and upload the public demo video after live proof is captured.
 - Verify the public video URL with python scripts/public_video_check.py --verify-url --strict-final.
 - Regenerate the final Devpost submission checklist after the form kit and final control gates are current.
 - Run and mark the final secret scan after live evidence/video assets are ready.
 - Run final submission audit after proof, video, and secret scan pass.
+- Submit Devpost after every preceding control item is green, then generate the public submission receipt.
 
 ## Operator Commands
 
