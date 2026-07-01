@@ -256,6 +256,53 @@ def test_final_operator_brief_is_ready_for_secret_entry(tmp_path):
     assert report["reports"]["submission_bundle"]["schema_ok"] is True
 
 
+def test_final_operator_brief_is_ready_for_genblaze_live_proof(tmp_path):
+    write_ready_fixtures(tmp_path)
+    write_json(
+        tmp_path,
+        "tasks.json",
+        {
+            "tasks": [
+                {"id": "T020", "title": "T020", "status": "done"},
+                {"id": "T021", "title": "T021", "status": "blocked"},
+                {"id": "T040", "title": "T040", "status": "done"},
+                {"id": "T041", "title": "T041", "status": "todo"},
+                {"id": "T041A", "title": "T041A", "status": "todo"},
+                {"id": "T042", "title": "T042", "status": "todo"},
+            ]
+        },
+    )
+    write_json(
+        tmp_path,
+        "docs/assets/live-credential-handoff.json",
+        {
+            "schema": "proofframe.live_credential_handoff.v1",
+            "mode": "live_env_ready",
+            "ok": True,
+            "source": ".env.final.local",
+            "missing_ids": [],
+            "required": [
+                {"id": "storage_backend_mode", "ok": True},
+                {"id": "generation_backend_mode", "ok": True},
+                {"id": "b2_endpoint", "ok": True},
+                {"id": "b2_bucket", "ok": True},
+                {"id": "b2_key_id", "ok": True},
+                {"id": "b2_application_key", "ok": True},
+                {"id": "genblaze_api_key", "ok": True},
+                {"id": "genblaze_image_model", "ok": True},
+            ],
+        },
+    )
+
+    report = final_operator_brief.build_report(tmp_path)
+
+    assert report["mode"] == "genblaze_live_proof_ready"
+    assert report["ready_for_secret_entry"] is False
+    assert report["ready_for_genblaze_live_proof"] is True
+    assert report["credential_handoff"]["missing_ids"] == []
+    assert any("Genblaze/GMI account access or credits" in action for action in report["user_actions"])
+
+
 def test_final_operator_brief_blocks_unexpected_missing_values(tmp_path):
     write_ready_fixtures(tmp_path)
     handoff = json.loads((tmp_path / "docs/assets/live-credential-handoff.json").read_text())

@@ -1,12 +1,12 @@
 {
   "schema": "proofframe.devpost_submission_checklist.v1",
-  "created_at": "2026-06-29T12:10:33Z",
+  "created_at": "2026-07-01T12:05:34Z",
   "mode": "pre_submit_blocked",
   "ok": false,
   "safe_to_submit": false,
   "task_statuses": {
-    "T020": "doing",
-    "T021": "doing",
+    "T020": "done",
+    "T021": "blocked",
     "T040": "done",
     "T041A": "todo",
     "T041": "todo",
@@ -28,7 +28,7 @@
     {
       "id": "prerequisite_tasks_done",
       "ok": false,
-      "detail": "T020=doing, T021=doing, T040=done, T041A=todo",
+      "detail": "T020=done, T021=blocked, T040=done, T041A=todo",
       "evidence": "tasks.json"
     },
     {

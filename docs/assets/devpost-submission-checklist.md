@@ -8,7 +8,7 @@ Safe to submit: `false`
 
 - BLOCKED `final_form_ready`: Devpost form kit mode is pre_live_form_ready. Evidence: `docs/assets/devpost-form-kit.json`
 - BLOCKED `packet_post_live_verified`: Devpost packet mode is pre_live_safe. Evidence: `docs/assets/devpost-submission-packet.json`
-- BLOCKED `prerequisite_tasks_done`: T020=doing, T021=doing, T040=done, T041A=todo Evidence: `tasks.json`
+- BLOCKED `prerequisite_tasks_done`: T020=done, T021=blocked, T040=done, T041A=todo Evidence: `tasks.json`
 - OK `submission_audit_report_present`: Submission audit mode is pre_submit_audit_blocked. Evidence: `docs/assets/submission-audit-report.json`
 - OK `final_control_report_present`: Final control mode is pre_live_control; safe_to_submit=False. Evidence: `docs/assets/final-submission-control.json`
 - OK `receipt_not_already_done`: T042=todo; receipt mode=pending_submission. Evidence: `docs/assets/devpost-submission-receipt.json`

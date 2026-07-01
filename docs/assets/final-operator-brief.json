@@ -1,11 +1,12 @@
 {
   "schema": "proofframe.final_operator_brief.v1",
-  "mode": "credential_entry_ready",
-  "ready_for_secret_entry": true,
+  "mode": "genblaze_live_proof_ready",
+  "ready_for_secret_entry": false,
+  "ready_for_genblaze_live_proof": true,
   "safe_to_submit": false,
   "task_statuses": {
-    "T020": "doing",
-    "T021": "doing",
+    "T020": "done",
+    "T021": "blocked",
     "T040": "done",
     "T041": "todo",
     "T041A": "todo",
@@ -28,23 +29,19 @@
   },
   "credential_handoff": {
     "present": true,
-    "mode": "missing_live_env",
-    "ready": false,
+    "mode": "live_env_ready",
+    "ready": true,
     "source": ".env.final.local",
-    "missing_ids": [
-      "b2_key_id",
-      "b2_application_key",
-      "genblaze_api_key"
-    ],
-    "missing_only_expected_secrets": true,
+    "missing_ids": [],
+    "missing_only_expected_secrets": false,
     "required_presence": {
       "storage_backend_mode": true,
       "generation_backend_mode": true,
       "b2_endpoint": true,
       "b2_bucket": true,
-      "b2_key_id": false,
-      "b2_application_key": false,
-      "genblaze_api_key": false,
+      "b2_key_id": true,
+      "b2_application_key": true,
+      "genblaze_api_key": true,
       "genblaze_image_model": true
     }
   },
@@ -94,7 +91,7 @@
       "schema_ok": true,
       "mode": "pre_live_competitive",
       "ok": null,
-      "score": 97,
+      "score": 101,
       "max_score": 115,
       "safe_to_submit": null,
       "validation_ok": null,
@@ -144,8 +141,8 @@
       "present": true,
       "path": "docs/assets/final-rehearsal-checklist.json",
       "schema_ok": true,
-      "mode": "ready_for_credential_rehearsal",
-      "ok": true,
+      "mode": "needs_rehearsal_setup",
+      "ok": false,
       "score": null,
       "max_score": null,
       "safe_to_submit": false,
@@ -207,13 +204,11 @@
     }
   },
   "user_actions": [
-    "Before creating the Backblaze B2 key, explicitly confirm this no-secret phrase: `I confirm ProofFrame B2 key scope: standard key, bucket proofframe-demo-a6b4e49, prefix campaigns/, no all-bucket access, no delete/admin permissions, and no secrets in chat/docs/git.`",
-    "Review `docs/assets/b2-key-scope-checklist.md`, then create a least-privilege Backblaze B2 application key named `proofframe-demo-live-proof` scoped to `proofframe-demo-a6b4e49`, then enter only the key id and application key into `.env.final.local` via `python scripts/final_env_wizard.py --output .env.final.local --missing-only --force`.",
-    "Enter a Genblaze/GMI API key into `.env.final.local` with the same wizard; do not paste it into chat, docs, screenshots, or git.",
     "Run `python scripts/live_env_handoff.py --env-file .env.final.local --strict` and confirm it reports no missing ids.",
     "Run the post-credential live proof runner once; it validates B2-only and final evidence before any task updates.",
     "Record and upload the public demo video only after live proof evidence exists.",
-    "Run final secret scan and final submission audit, submit Devpost, then generate the public Devpost submission receipt."
+    "Run final secret scan and final submission audit, submit Devpost, then generate the public Devpost submission receipt.",
+    "Resolve any provider-side Genblaze/GMI account access or credits blocker without sharing secrets, then rerun `python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json`."
   ],
   "codex_actions_after_credentials": [
     "python scripts/post_credential_live_proof.py --env-file .env.final.local --execute --update-tasks",

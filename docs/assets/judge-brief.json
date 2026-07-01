@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.judge_brief.v1",
-  "created_at": "2026-06-30T05:21:09Z",
+  "created_at": "2026-07-01T12:07:58Z",
   "project": "ProofFrame",
   "tagline": "B2-ready provenance desk for GenAI media.",
   "one_liner": "ProofFrame turns generated media into approved evidence packets with B2-ready manifests, Genblaze-gated provider metadata, checksums, review status, and an exportable proof bundle.",
@@ -14,11 +14,11 @@
   "status": {
     "packet_mode": "pre_live_safe",
     "safe_to_submit": false,
-    "launch_mode": "ready_for_credential_entry",
-    "current_phase": "credential_entry",
-    "next_command": "python scripts/final_env_wizard.py --output .env.final.local --missing-only --force",
+    "launch_mode": "ready_for_genblaze_live_proof",
+    "current_phase": "genblaze_live_proof",
+    "next_command": "python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json",
     "award_mode": "pre_live_competitive",
-    "award_score": 97,
+    "award_score": 101,
     "award_max_score": 115,
     "final_closure_score": 0,
     "final_closure_max_score": 10,
@@ -37,7 +37,6 @@
     "Every public claim is gated by reports, task status, and secret-scan artifacts."
   ],
   "not_yet_claimed": [
-    "Completed Backblaze B2 live storage proof.",
     "Completed Genblaze live generation proof.",
     "Submitted Devpost project receipt."
   ],
@@ -56,8 +55,8 @@
     "docs/assets/submission-bundle-manifest.md"
   ],
   "tasks": {
-    "T020": "doing",
-    "T021": "doing",
+    "T020": "done",
+    "T021": "blocked",
     "T040": "done",
     "T041": "todo",
     "T041A": "todo",

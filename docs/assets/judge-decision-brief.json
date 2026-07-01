@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.judge_decision_brief.v1",
-  "created_at": "2026-06-30T10:15:25Z",
+  "created_at": "2026-07-01T12:09:20Z",
   "ok": true,
   "mode": "pre_live_decision_ready",
   "safe_to_share": true,
@@ -20,7 +20,7 @@
     "Submission clarity: judge brief, criteria crosswalk, evidence index, final video kit, and Devpost preview are all generated artifacts."
   ],
   "current_scores": {
-    "award_score": 97,
+    "award_score": 101,
     "award_max_score": 115,
     "award_mode": "pre_live_competitive",
     "final_closure_score": 0,
@@ -29,9 +29,9 @@
   "public_state": {
     "space_sync_ok": true,
     "space_mode": "public_space_synced",
-    "space_sync_checked_at": "2026-06-30T10:13:57Z",
+    "space_sync_checked_at": "2026-07-01T11:45:40Z",
     "event_submission_open": true,
-    "participant_count_observed": 404,
+    "participant_count_observed": 439,
     "final_video_ready": false
   },
   "decision_checks": [
@@ -185,8 +185,8 @@
     }
   },
   "task_statuses": {
-    "T020": "doing",
-    "T021": "doing",
+    "T020": "done",
+    "T021": "blocked",
     "T040": "done",
     "T041": "todo",
     "T041A": "todo",
@@ -194,9 +194,7 @@
   },
   "final_blockers": [
     "devpost_submission_checklist",
-    "b2_live_proof",
     "genblaze_live_proof",
-    "credential_handoff",
     "public_video",
     "public_video_check",
     "final_recording",

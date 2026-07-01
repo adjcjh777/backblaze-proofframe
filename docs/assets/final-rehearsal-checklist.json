@@ -1,14 +1,14 @@
 {
   "schema": "proofframe.final_rehearsal.v1",
-  "created_at": "2026-06-30T10:34:39Z",
-  "mode": "ready_for_credential_rehearsal",
-  "ok": true,
+  "created_at": "2026-07-01T12:11:05Z",
+  "mode": "needs_rehearsal_setup",
+  "ok": false,
   "safe_to_submit": false,
-  "current_phase": "credential_entry",
-  "next_command": "python scripts/final_env_wizard.py --output .env.final.local --missing-only --force",
+  "current_phase": "genblaze_live_proof",
+  "next_command": "python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json",
   "task_statuses": {
-    "T020": "doing",
-    "T021": "doing",
+    "T020": "done",
+    "T021": "blocked",
     "T040": "done",
     "T041": "todo",
     "T041A": "todo",
@@ -17,26 +17,26 @@
   "preconditions": [
     {
       "id": "operator_ready",
-      "ok": true,
-      "detail": "Operator brief mode is credential_entry_ready.",
+      "ok": false,
+      "detail": "Operator brief mode is needs_operator_setup.",
       "evidence": "docs/assets/final-operator-brief.json"
     },
     {
       "id": "only_expected_secrets_missing",
-      "ok": true,
-      "detail": "Missing ids: b2_application_key, b2_key_id, genblaze_api_key.",
+      "ok": false,
+      "detail": "Missing ids: none.",
       "evidence": "docs/assets/final-operator-brief.json"
     },
     {
       "id": "launch_plan_at_credential_entry",
-      "ok": true,
-      "detail": "Current phase is credential_entry.",
+      "ok": false,
+      "detail": "Current phase is genblaze_live_proof.",
       "evidence": "docs/assets/final-launch-plan.json"
     },
     {
       "id": "public_space_synced",
       "ok": true,
-      "detail": "Runtime sha: 144b65ce7b82065789abd97c39ff4dc9021afc6a.",
+      "detail": "Runtime sha: 00295ca9e94b26ff25f42b77596ed79ca7a56888.",
       "evidence": "docs/assets/public-space-sync-report.json"
     },
     {
@@ -65,8 +65,8 @@
     },
     {
       "id": "live_tasks_not_overclaimed",
-      "ok": true,
-      "detail": "T020=doing; T021=doing.",
+      "ok": false,
+      "detail": "T020=done; T021=blocked.",
       "evidence": "tasks.json"
     }
   ],
@@ -198,10 +198,10 @@
       "path": "docs/assets/final-operator-brief.json",
       "present": true,
       "schema_ok": true,
-      "mode": "credential_entry_ready",
+      "mode": "needs_operator_setup",
       "ok": null,
       "safe_to_submit": false,
-      "ready_for_secret_entry": true,
+      "ready_for_secret_entry": false,
       "current_phase": null,
       "next_command": null,
       "mock_form_ready": null,
@@ -210,23 +210,19 @@
       "final_video_ready": null,
       "runtime_sha": null,
       "failed_checks": [],
-      "missing_ids": [
-        "b2_key_id",
-        "b2_application_key",
-        "genblaze_api_key"
-      ],
+      "missing_ids": [],
       "blocking_items": []
     },
     "launch_plan": {
       "path": "docs/assets/final-launch-plan.json",
       "present": true,
       "schema_ok": true,
-      "mode": "ready_for_credential_entry",
+      "mode": "ready_for_genblaze_live_proof",
       "ok": false,
       "safe_to_submit": null,
       "ready_for_secret_entry": null,
-      "current_phase": "credential_entry",
-      "next_command": "python scripts/final_env_wizard.py --output .env.final.local --missing-only --force",
+      "current_phase": "genblaze_live_proof",
+      "next_command": "python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json",
       "mock_form_ready": null,
       "final_form_ready": null,
       "mock_recording_ready": null,
@@ -262,25 +258,11 @@
           "evidence": "docs/assets/devpost-submission-checklist.json"
         },
         {
-          "id": "b2_live_proof",
-          "label": "Backblaze B2 live proof captured",
-          "ok": false,
-          "detail": "T020 is doing; B2 evidence status is missing; final evidence status is missing.",
-          "evidence": "tasks.json, docs/assets/b2-live-proof-evidence.json, and docs/assets/final-live-proof-evidence.json"
-        },
-        {
           "id": "genblaze_live_proof",
           "label": "Genblaze live proof captured",
           "ok": false,
-          "detail": "T021 is doing; final evidence status is missing.",
+          "detail": "T021 is blocked; final evidence status is missing.",
           "evidence": "tasks.json and docs/assets/final-live-proof-evidence.json"
-        },
-        {
-          "id": "credential_handoff",
-          "label": "Live credential handoff is ready",
-          "ok": false,
-          "detail": "Credential handoff mode is missing_live_env; missing ids: b2_key_id, b2_application_key, genblaze_api_key.",
-          "evidence": "docs/assets/live-credential-handoff.json"
         },
         {
           "id": "public_video",
@@ -359,7 +341,7 @@
       "final_form_ready": null,
       "mock_recording_ready": null,
       "final_video_ready": null,
-      "runtime_sha": "144b65ce7b82065789abd97c39ff4dc9021afc6a",
+      "runtime_sha": "00295ca9e94b26ff25f42b77596ed79ca7a56888",
       "failed_checks": [],
       "missing_ids": [],
       "blocking_items": []

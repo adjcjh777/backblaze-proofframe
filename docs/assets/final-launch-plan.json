@@ -1,19 +1,19 @@
 {
   "schema": "proofframe.final_launch_plan.v1",
-  "created_at": "2026-06-30T10:34:39Z",
+  "created_at": "2026-07-01T12:05:15Z",
   "ok": false,
-  "mode": "ready_for_credential_entry",
+  "mode": "ready_for_genblaze_live_proof",
   "repo_root": "/Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe",
-  "current_phase": "credential_entry",
+  "current_phase": "genblaze_live_proof",
   "summary": {
     "total": 6,
-    "done": 0,
+    "done": 2,
     "ready": 1,
-    "blocked": 5
+    "blocked": 3
   },
   "task_statuses": {
-    "T020": "doing",
-    "T021": "doing",
+    "T020": "done",
+    "T021": "blocked",
     "T040": "done",
     "T041": "todo",
     "T041A": "todo",
@@ -23,8 +23,8 @@
     {
       "id": "credential_entry",
       "title": "Enter final credentials locally",
-      "status": "ready",
-      "detail": "Only expected secret ids are missing; operator can enter them locally.",
+      "status": "done",
+      "detail": "Live credential handoff is complete; no missing ids remain.",
       "command": "python scripts/final_env_wizard.py --output .env.final.local --missing-only --force",
       "expected_artifacts": [
         "docs/assets/b2-key-scope-checklist.md reviewed before key creation",
@@ -37,8 +37,8 @@
     {
       "id": "b2_live_proof",
       "title": "Capture Backblaze B2 live proof",
-      "status": "blocked",
-      "detail": "Waiting on credential entry.",
+      "status": "done",
+      "detail": "Sanitized B2 evidence is present and T020 is done.",
       "command": "python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out docs/assets/b2-live-proof-evidence.json",
       "expected_artifacts": [
         "docs/assets/b2-live-proof-evidence.json"
@@ -53,8 +53,8 @@
     {
       "id": "genblaze_live_proof",
       "title": "Capture final B2 plus Genblaze proof",
-      "status": "blocked",
-      "detail": "Waiting on the B2-only proof.",
+      "status": "ready",
+      "detail": "Run after the B2-only proof passes so final evidence has storage and generation proof.",
       "command": "python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json",
       "expected_artifacts": [
         "docs/assets/final-live-proof-evidence.json"
@@ -123,8 +123,8 @@
       ]
     }
   ],
-  "next_command": "python scripts/final_env_wizard.py --output .env.final.local --missing-only --force",
-  "next_detail": "Only expected secret ids are missing; operator can enter them locally.",
+  "next_command": "python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json",
+  "next_detail": "Run after the B2-only proof passes so final evidence has storage and generation proof.",
   "safety_policy": {
     "no_secret_values_in_report": true,
     "never_commit": [

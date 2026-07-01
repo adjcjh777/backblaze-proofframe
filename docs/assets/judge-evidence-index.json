@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.judge_evidence_index.v1",
-  "created_at": "2026-06-30T05:21:10Z",
+  "created_at": "2026-07-01T12:09:25Z",
   "ok": true,
   "mode": "pre_live_evidence_index_ready",
   "safe_to_share": true,
@@ -10,15 +10,13 @@
   "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
   "status": {
     "control_health_ok": true,
-    "award_score": 97,
+    "award_score": 101,
     "award_max_score": 115,
     "public_space_mode": "public_space_synced",
-    "final_blocker_count": 10,
+    "final_blocker_count": 8,
     "final_blockers": [
       "devpost_submission_checklist",
-      "b2_live_proof",
       "genblaze_live_proof",
-      "credential_handoff",
       "public_video",
       "public_video_check",
       "final_recording",
@@ -36,8 +34,8 @@
     "devpost_preview": true
   },
   "task_statuses": {
-    "T020": "doing",
-    "T021": "doing",
+    "T020": "done",
+    "T021": "blocked",
     "T040": "done",
     "T041": "todo",
     "T041A": "todo",
@@ -74,7 +72,7 @@
       "path": "docs/assets/judge-crosswalk.md",
       "raw_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/judge-crosswalk.md",
       "present": true,
-      "bytes": 6157
+      "bytes": 5748
     },
     {
       "id": "judge_decision_brief",
@@ -85,7 +83,7 @@
       "path": "docs/assets/judge-decision-brief.md",
       "raw_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/judge-decision-brief.md",
       "present": true,
-      "bytes": 3835
+      "bytes": 3782
     },
     {
       "id": "final_submission_control",
@@ -96,7 +94,7 @@
       "path": "docs/assets/final-submission-control.md",
       "raw_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/final-submission-control.md",
       "present": true,
-      "bytes": 7087
+      "bytes": 7093
     },
     {
       "id": "final_closeout_status",
@@ -107,7 +105,7 @@
       "path": "docs/assets/final-closeout-status.md",
       "raw_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/final-closeout-status.md",
       "present": true,
-      "bytes": 2467
+      "bytes": 2390
     },
     {
       "id": "devpost_preview",
@@ -118,7 +116,7 @@
       "path": "docs/assets/devpost-submission-preview.md",
       "raw_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/devpost-submission-preview.md",
       "present": true,
-      "bytes": 5407
+      "bytes": 5125
     },
     {
       "id": "submission_checklist",
@@ -129,7 +127,7 @@
       "path": "docs/assets/devpost-submission-checklist.md",
       "raw_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/devpost-submission-checklist.md",
       "present": true,
-      "bytes": 9319
+      "bytes": 9320
     },
     {
       "id": "submission_bundle",
@@ -140,7 +138,7 @@
       "path": "docs/assets/submission-bundle-manifest.md",
       "raw_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/submission-bundle-manifest.md",
       "present": true,
-      "bytes": 15714
+      "bytes": 16106
     },
     {
       "id": "award_readiness",
@@ -151,7 +149,7 @@
       "path": "docs/assets/award-readiness-report.md",
       "raw_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/award-readiness-report.md",
       "present": true,
-      "bytes": 4390
+      "bytes": 4256
     },
     {
       "id": "public_space_sync",
@@ -162,7 +160,7 @@
       "path": "docs/assets/public-space-sync-report.md",
       "raw_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/public-space-sync-report.md",
       "present": true,
-      "bytes": 8647
+      "bytes": 8692
     },
     {
       "id": "recording_assets",
@@ -228,7 +226,7 @@
       "path": "docs/assets/post-credential-live-proof-plan.md",
       "raw_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/post-credential-live-proof-plan.md",
       "present": true,
-      "bytes": 5992
+      "bytes": 2780
     },
     {
       "id": "secret_scan",

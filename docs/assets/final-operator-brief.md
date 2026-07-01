@@ -1,13 +1,14 @@
 # ProofFrame Final Operator Brief
 
-Mode: `credential_entry_ready`
-Ready for secret entry: `true`
+Mode: `genblaze_live_proof_ready`
+Ready for secret entry: `false`
+Ready for Genblaze live proof: `true`
 Safe to submit: `false`
 
 ## Current Blockers
 
-- T020: `doing`
-- T021: `doing`
+- T020: `done`
+- T021: `blocked`
 - T040: `done`
 - T041: `todo`
 - T041A: `todo`
@@ -16,9 +17,9 @@ Safe to submit: `false`
 ## Credential Handoff
 
 - Source: `.env.final.local`
-- Mode: `missing_live_env`
-- Missing ids: `b2_key_id, b2_application_key, genblaze_api_key`
-- Missing only expected secrets: `true`
+- Mode: `live_env_ready`
+- Missing ids: `none`
+- Missing only expected secrets: `false`
 
 ## B2 Setup
 
@@ -31,13 +32,11 @@ Safe to submit: `false`
 
 ## User Actions
 
-- Before creating the Backblaze B2 key, explicitly confirm this no-secret phrase: `I confirm ProofFrame B2 key scope: standard key, bucket proofframe-demo-a6b4e49, prefix campaigns/, no all-bucket access, no delete/admin permissions, and no secrets in chat/docs/git.`
-- Review `docs/assets/b2-key-scope-checklist.md`, then create a least-privilege Backblaze B2 application key named `proofframe-demo-live-proof` scoped to `proofframe-demo-a6b4e49`, then enter only the key id and application key into `.env.final.local` via `python scripts/final_env_wizard.py --output .env.final.local --missing-only --force`.
-- Enter a Genblaze/GMI API key into `.env.final.local` with the same wizard; do not paste it into chat, docs, screenshots, or git.
 - Run `python scripts/live_env_handoff.py --env-file .env.final.local --strict` and confirm it reports no missing ids.
 - Run the post-credential live proof runner once; it validates B2-only and final evidence before any task updates.
 - Record and upload the public demo video only after live proof evidence exists.
 - Run final secret scan and final submission audit, submit Devpost, then generate the public Devpost submission receipt.
+- Resolve any provider-side Genblaze/GMI account access or credits blocker without sharing secrets, then rerun `python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json`.
 
 ## Codex Actions After Credentials
 

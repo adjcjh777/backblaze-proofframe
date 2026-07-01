@@ -3,7 +3,7 @@
 Mode: `pre_live_control`
 Control health OK: `true`
 Safe to submit: `false`
-Created: `2026-07-01T11:44:11Z`
+Created: `2026-07-01T12:09:09Z`
 Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 Repository: https://github.com/adjcjh777/backblaze-proofframe
 
@@ -26,10 +26,10 @@ Repository: https://github.com/adjcjh777/backblaze-proofframe
 
 ## Launch Plan
 
-- Mode: `ready_for_credential_entry`
-- Current phase: `credential_entry`
-- Next command: `python scripts/final_env_wizard.py --output .env.final.local --missing-only --force`
-- Detail: Only expected secret ids are missing; operator can enter them locally.
+- Mode: `ready_for_genblaze_live_proof`
+- Current phase: `genblaze_live_proof`
+- Next command: `python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json`
+- Detail: Run after the B2-only proof passes so final evidence has storage and generation proof.
 - Source: `docs/assets/final-launch-plan.json`
 
 ## Warnings
@@ -46,23 +46,22 @@ Repository: https://github.com/adjcjh777/backblaze-proofframe
 | OK | Official Devpost event snapshot is fresh | Snapshot checked at 2026-07-01T10:54:19Z; submission open is True; age days is 0. | `docs/assets/devpost-event-snapshot.json` |
 | OK | Agent handoff metadata points at the current repo | Agent handoff mode is handoff_ready; ok is True; bus status is skipped; active role cwd ok is None. | `docs/assets/agent-handoff-report.json` |
 | OK | Public Space is synced to the current judge-facing demo | Public Space sync mode is public_space_synced; ok is True. | `docs/assets/public-space-sync-report.json` |
-| OK | Final launch plan exposes the current operator step | Launch plan mode is ready_for_credential_entry; current phase is credential_entry; next command is python scripts/final_env_wizard.py --output .env.final.local --missing-only --force. | `docs/assets/final-launch-plan.json` |
+| OK | Final launch plan exposes the current operator step | Launch plan mode is ready_for_genblaze_live_proof; current phase is genblaze_live_proof; next command is python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json. | `docs/assets/final-launch-plan.json` |
 | OK | Recording assets are ready | Recording assets mode is mock_recording_ready; public mock verified is False. | `docs/assets/recording-assets.json` |
 | OK | Control input reports match expected schemas | All input report schemas are current. | `docs/assets/*.json readiness reports` |
 | OK | Backblaze B2 live proof captured | T020 is done; B2 evidence status is verified; final evidence status is missing. | `tasks.json, docs/assets/b2-live-proof-evidence.json, and docs/assets/final-live-proof-evidence.json` |
-| PENDING | Genblaze live proof captured | T021 is doing; final evidence status is missing. | `tasks.json and docs/assets/final-live-proof-evidence.json` |
-| PENDING | Live credential handoff is ready | Credential handoff mode is missing_live_env; missing ids: genblaze_api_key. | `docs/assets/live-credential-handoff.json` |
+| PENDING | Genblaze live proof captured | T021 is blocked; final evidence status is missing. | `tasks.json and docs/assets/final-live-proof-evidence.json` |
+| OK | Live credential handoff is ready | Credential handoff mode is live_env_ready; missing ids: none. | `docs/assets/live-credential-handoff.json` |
 | PENDING | Final public demo video URL is ready | Storyboard mode is mock_storyboard_ready; public video ready is False. | `docs/assets/demo-storyboard.json` |
 | PENDING | Final public demo video URL is accessible and safe | Public video check mode is pending_video_url; safe_to_submit is False. | `docs/assets/public-video-check.json` |
 | PENDING | Final recording gate is ready | Demo readiness mode is pre_live_mock_ready; final recording ready is False. | `docs/assets/demo-readiness-report.json` |
-| OK | Award readiness score remains competitive | Award readiness score is 97/115. | `docs/assets/award-readiness-report.json` |
+| OK | Award readiness score remains competitive | Award readiness score is 101/115. | `docs/assets/award-readiness-report.json` |
 | PENDING | Final secret scan is complete | T041A is todo; secret scan mode is clear; secret scan ok is True. | `tasks.json and docs/assets/secret-scan-report.json` |
 | PENDING | Final submission audit is complete | T041 is todo; audit mode is pre_submit_audit_blocked; audit ok is False. | `tasks.json and docs/assets/submission-audit-report.json` |
 | PENDING | Devpost project submitted | T042 is todo; receipt mode is pending_submission; receipt ok is False. | `tasks.json and docs/assets/devpost-submission-receipt.json` |
 
 ## Next Actions
 
-- Complete .env.final.local with B2_KEY_ID, B2_APPLICATION_KEY, and Genblaze/GMI API key values.
 - Run the final B2 plus Genblaze proof runner and save sanitized final evidence.
 - Record and upload the public demo video after live proof is captured.
 - Verify the public video URL with python scripts/public_video_check.py --verify-url --strict-final.

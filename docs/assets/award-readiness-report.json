@@ -1,14 +1,14 @@
 {
   "schema": "proofframe.award_readiness.v1",
   "project": "ProofFrame",
-  "score": 97,
+  "score": 101,
   "max_score": 115,
-  "percent": 84.3,
+  "percent": 87.8,
   "mode": "pre_live_competitive",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
   "task_statuses": {
-    "T020": "doing",
-    "T021": "doing",
+    "T020": "done",
+    "T021": "blocked",
     "T040": "done",
     "T041": "todo",
     "T041A": "todo",
@@ -19,9 +19,9 @@
     "mode": "pre_live_safe",
     "summary": {
       "required": 6,
-      "done": 1,
-      "blocked": 0,
-      "doing": 2,
+      "done": 2,
+      "blocked": 1,
+      "doing": 0,
       "todo": 3,
       "missing": 0
     },
@@ -46,9 +46,9 @@
     {
       "id": "sponsor_fit",
       "label": "Sponsor integration fit",
-      "score": 30,
+      "score": 34,
       "max_score": 38,
-      "percent": 78.9,
+      "percent": 89.5,
       "signals": [
         {
           "id": "b2_backend_code",
@@ -109,8 +109,8 @@
         {
           "id": "b2_live_evidence",
           "label": "Live B2 evidence is captured",
-          "ok": false,
-          "points": 0,
+          "ok": true,
+          "points": 4,
           "max_points": 4,
           "detail": "T020 requires a real B2 media and manifest proof."
         },
@@ -349,8 +349,7 @@
     "boundary": "Pre-live score reflects product, demo, and documentation strength; final award readiness still requires live proof, final audit, and Devpost receipt."
   },
   "next_actions": [
-    "After explicit key-creation confirmation, create the scoped B2 key and run python scripts/run_b2_live_proof.py --env-file .env.final.local.",
-    "Configure Genblaze/GMI credentials and run python scripts/run_final_live_proof.py --env-file .env.final.local.",
+    "Resolve the Genblaze/GMI live-proof blocker and run python scripts/run_final_live_proof.py --env-file .env.final.local.",
     "Run python scripts/secret_scan.py after live evidence is generated.",
     "Run python scripts/submission_audit.py --strict-final after live proof, public video URL, and T041A are done.",
     "Submit the Devpost project only after the final gate turns green."

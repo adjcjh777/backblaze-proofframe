@@ -280,6 +280,29 @@ def test_control_report_blocks_pre_live_submission(tmp_path):
     assert str(tmp_path) not in json.dumps(report)
 
 
+def test_control_report_accepts_live_env_ready_handoff(tmp_path):
+    write_common_reports(tmp_path)
+    write_json(
+        tmp_path,
+        "docs/assets/live-credential-handoff.json",
+        {
+            "schema": "proofframe.live_credential_handoff.v1",
+            "ok": True,
+            "mode": "live_env_ready",
+            "required": [
+                {"id": "b2_key_id", "ok": True},
+                {"id": "b2_application_key", "ok": True},
+                {"id": "genblaze_api_key", "ok": True},
+            ],
+        },
+    )
+
+    report = final_submission_control.build_control_report(tmp_path)
+
+    blocking = {item["id"] for item in report["blocking_items"]}
+    assert "credential_handoff" not in blocking
+
+
 def test_control_report_turns_final_ready_when_all_gates_are_done(tmp_path):
     write_common_reports(tmp_path, final_done=True)
 

@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.devpost_submission_preview.v1",
-  "created_at": "2026-06-30T05:21:11Z",
+  "created_at": "2026-07-01T12:09:13Z",
   "mode": "pre_live_preview_ready",
   "ok": true,
   "safe_to_share": true,
@@ -54,22 +54,10 @@
         "evidence": "docs/assets/devpost-submission-checklist.json"
       },
       {
-        "id": "b2_live_proof",
-        "label": "live Backblaze B2 proof",
-        "detail": "T020 is doing; B2 evidence status is missing; final evidence status is missing.",
-        "evidence": "tasks.json, docs/assets/b2-live-proof-evidence.json, and docs/assets/final-live-proof-evidence.json"
-      },
-      {
         "id": "genblaze_live_proof",
         "label": "live Genblaze proof",
-        "detail": "T021 is doing; final evidence status is missing.",
+        "detail": "T021 is blocked; final evidence status is missing.",
         "evidence": "tasks.json and docs/assets/final-live-proof-evidence.json"
-      },
-      {
-        "id": "credential_handoff",
-        "label": "Live credential handoff is ready",
-        "detail": "Credential handoff mode is missing_live_env; missing ids: b2_key_id, b2_application_key, genblaze_api_key.",
-        "evidence": "docs/assets/live-credential-handoff.json"
       },
       {
         "id": "public_video",
@@ -245,11 +233,11 @@
   "next_actions": [
     "Finalize Devpost fields: Demo video URL.",
     "Resolve final blocker: Final Devpost web submission checklist is ready.",
-    "Resolve final blocker: live Backblaze B2 proof.",
     "Resolve final blocker: live Genblaze proof.",
-    "Resolve final blocker: Live credential handoff is ready.",
     "Resolve final blocker: final public video.",
     "Resolve final blocker: public video URL check.",
-    "Resolve final blocker: Final recording gate is ready."
+    "Resolve final blocker: Final recording gate is ready.",
+    "Resolve final blocker: final secret scan task completion.",
+    "Resolve final blocker: strict final submission audit."
   ]
 }

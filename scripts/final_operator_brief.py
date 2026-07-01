@@ -273,17 +273,38 @@ def build_report(root: Path = ROOT) -> dict[str, Any]:
         and reports["recording_assets"].get("mock_recording_ready")
         and reports["award_readiness"].get("score", 0) >= 90
     )
+    ready_for_genblaze_live_proof = bool(
+        statuses.get("T020") == "done"
+        and statuses.get("T021") != "done"
+        and handoff.get("present")
+        and handoff.get("ready")
+        and not handoff.get("missing_ids")
+    )
+    mode = (
+        "credential_entry_ready"
+        if ready_for_secret_entry
+        else "genblaze_live_proof_ready"
+        if ready_for_genblaze_live_proof
+        else "needs_operator_setup"
+    )
+    user_actions = build_user_actions(b2_setup, handoff, b2_confirmation)
+    if ready_for_genblaze_live_proof:
+        user_actions.append(
+            "Resolve any provider-side Genblaze/GMI account access or credits blocker without sharing secrets, "
+            "then rerun `python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json`."
+        )
     return {
         "schema": SCHEMA,
-        "mode": "credential_entry_ready" if ready_for_secret_entry else "needs_operator_setup",
+        "mode": mode,
         "ready_for_secret_entry": ready_for_secret_entry,
+        "ready_for_genblaze_live_proof": ready_for_genblaze_live_proof,
         "safe_to_submit": bool(reports["final_control"].get("safe_to_submit")),
         "task_statuses": task_summary(statuses),
         "b2_setup": b2_setup,
         "b2_pre_key_confirmation": b2_confirmation,
         "credential_handoff": handoff,
         "reports": reports,
-        "user_actions": build_user_actions(b2_setup, handoff, b2_confirmation),
+        "user_actions": user_actions,
         "codex_actions_after_credentials": build_codex_actions(),
         "safety_policy": build_safety_policy(root),
         "claim_boundary": "Do not claim completed B2 or Genblaze proof until sanitized live evidence is generated and final gates pass.",
@@ -296,6 +317,7 @@ def render_markdown(report: dict[str, Any]) -> str:
         "",
         f"Mode: `{report['mode']}`",
         f"Ready for secret entry: `{str(report['ready_for_secret_entry']).lower()}`",
+        f"Ready for Genblaze live proof: `{str(report['ready_for_genblaze_live_proof']).lower()}`",
         f"Safe to submit: `{str(report['safe_to_submit']).lower()}`",
         "",
         "## Current Blockers",

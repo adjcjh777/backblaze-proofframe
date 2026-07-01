@@ -418,7 +418,7 @@ def build_next_actions(report: dict[str, Any]) -> list[str]:
         )
     if statuses.get("T021") != "done":
         actions.append(
-            "Configure Genblaze/GMI credentials and run python scripts/run_final_live_proof.py "
+            "Resolve the Genblaze/GMI live-proof blocker and run python scripts/run_final_live_proof.py "
             "--env-file .env.final.local."
         )
     if statuses.get("T041A") != "done":

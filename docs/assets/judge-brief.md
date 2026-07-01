@@ -1,6 +1,6 @@
 # ProofFrame Judge Brief
 
-Created: `2026-06-30T05:21:09Z`
+Created: `2026-07-01T12:07:58Z`
 Tagline: B2-ready provenance desk for GenAI media.
 Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 Repository: https://github.com/adjcjh777/backblaze-proofframe
@@ -20,9 +20,9 @@ ProofFrame is not another image generator. It is a media operations desk that tu
 
 - Packet mode: `pre_live_safe`
 - Safe to submit: `false`
-- Launch phase: `credential_entry`
-- Next command: `python scripts/final_env_wizard.py --output .env.final.local --missing-only --force`
-- Award readiness: `97/115` (pre_live_competitive)
+- Launch phase: `genblaze_live_proof`
+- Next command: `python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json`
+- Award readiness: `101/115` (pre_live_competitive)
 - Final closure: `0/10`
 - Public Space: `public_space_synced` (see `docs/assets/public-space-sync-report.md` for runtime sha)
 - Devpost submission open: `True`
@@ -36,7 +36,6 @@ ProofFrame is not another image generator. It is a media operations desk that tu
 
 ## Not Yet Claimed
 
-- Completed Backblaze B2 live storage proof.
 - Completed Genblaze live generation proof.
 - Submitted Devpost project receipt.
 

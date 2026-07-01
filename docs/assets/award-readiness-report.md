@@ -1,7 +1,7 @@
 # ProofFrame Award Readiness
 
 Mode: `pre_live_competitive`
-Score: `97/115` (84.3%)
+Score: `101/115` (87.8%)
 Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 
 ## Gate Snapshot
@@ -18,7 +18,7 @@ Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 
 ## Criteria
 
-### Sponsor integration fit - 30/38 (78.9%)
+### Sponsor integration fit - 34/38 (89.5%)
 - OK `b2_backend_code` (5/5): Backblaze B2 has a dedicated S3-compatible storage adapter.
 - OK `b2_bucket_setup` (4/4): The non-secret B2 bucket setup record exists for final proof.
 - OK `b2_live_runner` (4/4): B2 storage can be verified independently before Genblaze is ready.
@@ -26,7 +26,7 @@ Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 - OK `final_live_runner` (4/4): A one-command runner can produce sanitized final evidence once keys are present.
 - OK `sponsor_fit_matrix` (4/4): Judging angles are mapped to current evidence, safe claims, final gates, and demo shots.
 - OK `sponsor_fit_audit` (4/4): Devpost B2/Genblaze copy is specific and the demo introduces B2 early.
-- TODO `b2_live_evidence` (0/4): T020 requires a real B2 media and manifest proof.
+- OK `b2_live_evidence` (4/4): T020 requires a real B2 media and manifest proof.
 - TODO `genblaze_live_evidence` (0/4): T021 requires provider/model metadata from a live Genblaze run.
 
 ### Provenance product depth - 23/23 (100.0%)
@@ -61,8 +61,7 @@ Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 
 ## Next Actions
 
-- After explicit key-creation confirmation, create the scoped B2 key and run python scripts/run_b2_live_proof.py --env-file .env.final.local.
-- Configure Genblaze/GMI credentials and run python scripts/run_final_live_proof.py --env-file .env.final.local.
+- Resolve the Genblaze/GMI live-proof blocker and run python scripts/run_final_live_proof.py --env-file .env.final.local.
 - Run python scripts/secret_scan.py after live evidence is generated.
 - Run python scripts/submission_audit.py --strict-final after live proof, public video URL, and T041A are done.
 - Submit the Devpost project only after the final gate turns green.

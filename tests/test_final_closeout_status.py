@@ -214,6 +214,47 @@ def test_closeout_status_requires_live_tasks_done_even_when_evidence_exists(tmp_
     assert "T021 is doing" in gates["genblaze_live_proof"]["detail"]
 
 
+def test_closeout_status_accepts_legacy_b2_live_proof_and_waits_for_genblaze(tmp_path):
+    write_common_reports(tmp_path, final_ready=True)
+    write_json(
+        tmp_path,
+        "tasks.json",
+        {
+            "tasks": [
+                {"id": "T020", "status": "done"},
+                {"id": "T021", "status": "blocked"},
+                {"id": "T041", "status": "todo"},
+                {"id": "T041A", "status": "todo"},
+                {"id": "T042", "status": "todo"},
+            ]
+        },
+    )
+    write_json(
+        tmp_path,
+        "docs/assets/b2-live-proof-evidence.json",
+        {
+            "ok": True,
+            "storage_backend": "b2",
+            "generation_backend": "mock",
+            "asset_storage_backend": "b2",
+            "manifest_storage_backend": "b2",
+            "asset_storage_key": "campaigns/example/media/example.svg",
+            "manifest_key": "campaigns/example/manifests/example.json",
+            "asset_sha256": "a" * 64,
+            "manifest_sha256": "b" * 64,
+        },
+    )
+    (tmp_path / "docs/assets/final-live-proof-evidence.json").unlink()
+
+    report = final_closeout_status.build_report(root=tmp_path)
+
+    gates = {gate["id"]: gate for gate in report["gates"]}
+    assert gates["b2_live_proof"]["ok"] is True
+    assert gates["genblaze_live_proof"]["ok"] is False
+    assert report["phase"] == "genblaze_live_proof"
+    assert "run_final_live_proof.py" in report["next_command"]
+
+
 def test_closeout_status_uses_bundle_inputs_not_bundle_safe_to_submit(tmp_path):
     write_common_reports(tmp_path, final_ready=True)
 

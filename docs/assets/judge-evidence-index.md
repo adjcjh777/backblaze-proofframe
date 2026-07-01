@@ -3,16 +3,16 @@
 Mode: `pre_live_evidence_index_ready`
 OK: `true`
 Safe to submit: `false`
-Created: `2026-06-30T05:21:10Z`
+Created: `2026-07-01T12:09:25Z`
 Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 Repository: https://github.com/adjcjh777/backblaze-proofframe
 
 ## Status
 
 - Control health OK: `true`
-- Award readiness: `97/115`
+- Award readiness: `101/115`
 - Public Space: `public_space_synced`
-- Final blockers: `10`
+- Final blockers: `8`
 
 ## Sections
 
@@ -52,9 +52,7 @@ Repository: https://github.com/adjcjh777/backblaze-proofframe
 ## Final Blockers
 
 - `devpost_submission_checklist`
-- `b2_live_proof`
 - `genblaze_live_proof`
-- `credential_handoff`
 - `public_video`
 - `public_video_check`
 - `final_recording`

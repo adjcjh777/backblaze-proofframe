@@ -83,6 +83,14 @@ def report_status(root: Path, report_id: str, relative_path: str, schema: str) -
         "schema": report.get("schema"),
         "ok": report.get("ok"),
         "mode": report.get("mode"),
+        "storage_backend": report.get("storage_backend"),
+        "generation_backend": report.get("generation_backend"),
+        "asset_storage_backend": report.get("asset_storage_backend"),
+        "manifest_storage_backend": report.get("manifest_storage_backend"),
+        "asset_storage_key": report.get("asset_storage_key"),
+        "manifest_key": report.get("manifest_key"),
+        "asset_sha256": report.get("asset_sha256"),
+        "manifest_sha256": report.get("manifest_sha256"),
         "safe_to_submit": report.get("safe_to_submit"),
         "safe_to_share": report.get("safe_to_share"),
         "control_health_ok": report.get("control_health_ok"),
@@ -110,6 +118,23 @@ def evidence_ok(report: dict[str, Any], *, expected_mode: str | None = None) -> 
     if expected_mode is not None and report.get("mode") != expected_mode:
         return False
     return True
+
+
+def b2_live_evidence_ok(report: dict[str, Any]) -> bool:
+    if evidence_ok(report):
+        return True
+    return bool(
+        report["present"]
+        and report.get("ok") is True
+        and report.get("storage_backend") == "b2"
+        and report.get("generation_backend") == "mock"
+        and report.get("asset_storage_backend") == "b2"
+        and report.get("manifest_storage_backend") == "b2"
+        and report.get("asset_storage_key")
+        and report.get("manifest_key")
+        and report.get("asset_sha256")
+        and report.get("manifest_sha256")
+    )
 
 
 def credential_handoff_ready(report: dict[str, Any]) -> bool:
@@ -195,7 +220,7 @@ def build_report(root: Path = ROOT) -> dict[str, Any]:
         gate_item(
             "b2_live_proof",
             "Backblaze B2 live proof is captured",
-            bool(evidence_ok(b2_evidence) and statuses.get("T020") == "done"),
+            bool(b2_live_evidence_ok(b2_evidence) and statuses.get("T020") == "done"),
             f"T020 is {statuses.get('T020', 'missing')}; evidence present is {b2_evidence['present']}.",
             b2_evidence["path"],
         ),

@@ -1,22 +1,22 @@
 # ProofFrame Final Launch Plan
 
-Mode: `ready_for_credential_entry`
-Current phase: `credential_entry`
+Mode: `ready_for_genblaze_live_proof`
+Current phase: `genblaze_live_proof`
 Complete: `false`
-Progress: `0 / 6` done; `1` ready, `5` blocked.
+Progress: `2 / 6` done; `1` ready, `3` blocked.
 
 ## Next Command
 
 ```bash
-python scripts/final_env_wizard.py --output .env.final.local --missing-only --force
+python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json
 ```
-Only expected secret ids are missing; operator can enter them locally.
+Run after the B2-only proof passes so final evidence has storage and generation proof.
 
 ## Phases
 
 ### credential_entry - Enter final credentials locally
-- Status: `ready`
-- Detail: Only expected secret ids are missing; operator can enter them locally.
+- Status: `done`
+- Detail: Live credential handoff is complete; no missing ids remain.
 - Command:
 ```bash
 python scripts/final_env_wizard.py --output .env.final.local --missing-only --force
@@ -27,8 +27,8 @@ python scripts/final_env_wizard.py --output .env.final.local --missing-only --fo
   - `.env.final.local (git-ignored, never committed)`
 
 ### b2_live_proof - Capture Backblaze B2 live proof
-- Status: `blocked`
-- Detail: Waiting on credential entry.
+- Status: `done`
+- Detail: Sanitized B2 evidence is present and T020 is done.
 - Command:
 ```bash
 python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out docs/assets/b2-live-proof-evidence.json
@@ -41,8 +41,8 @@ python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out d
   - `python3 scripts/task.py done T020 --note "B2 live proof evidence captured in docs/assets/b2-live-proof-evidence.json."`
 
 ### genblaze_live_proof - Capture final B2 plus Genblaze proof
-- Status: `blocked`
-- Detail: Waiting on the B2-only proof.
+- Status: `ready`
+- Detail: Run after the B2-only proof passes so final evidence has storage and generation proof.
 - Command:
 ```bash
 python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json

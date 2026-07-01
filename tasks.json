@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-07-01T12:01:32Z",
+  "updated_at": "2026-07-01T12:10:15Z",
   "tasks": [
     {
       "id": "T001",
@@ -675,7 +675,7 @@
       "owner": "reviewer",
       "status": "todo",
       "done_criteria": "Reviewer signs off on rules, secrets, claims, and public artifacts.",
-      "notes": "2026-07-01 submission audit report regenerated in pre_submit_audit_blocked mode with 17 findings; final audit cannot pass until B2/Genblaze live evidence, final video, final secret scan, and Devpost receipt exist."
+      "notes": "2026-07-01 submission audit report regenerated in pre_submit_audit_blocked mode with 16 findings after B2 evidence, live env handoff, and closeout reports were refreshed; final audit cannot pass until Genblaze live evidence, final video, final secret scan, and Devpost receipt exist."
     },
     {
       "id": "T041A",

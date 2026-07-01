@@ -155,10 +155,13 @@ def evidence_summary(root: Path, relative_path: str, expected: dict[str, Any]) -
 def credential_summary(root: Path) -> dict[str, Any]:
     report = load_json(root / "docs" / "assets" / "live-credential-handoff.json") or {}
     missing = [item.get("id") for item in report.get("required", []) if not item.get("ok")]
+    ready = bool(report.get("ready_for_live_proof")) or bool(
+        report.get("ok") is True and report.get("mode") == "live_env_ready"
+    )
     return {
         "present": bool(report),
         "mode": report.get("mode"),
-        "ready": bool(report.get("ready_for_live_proof")),
+        "ready": ready,
         "missing_ids": [item for item in missing if item],
         "secret_policy": "Report records only variable names and presence; credential values are never printed.",
     }

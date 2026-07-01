@@ -57,9 +57,7 @@ ProofFrame includes a Genblaze/GMICloud provider adapter built around the offici
 ## Final Blockers
 
 - `devpost_submission_checklist`: Final Devpost web submission checklist is ready - Devpost submission checklist mode is pre_submit_blocked; safe_to_submit is False.
-- `b2_live_proof`: live Backblaze B2 proof - T020 is doing; B2 evidence status is missing; final evidence status is missing.
-- `genblaze_live_proof`: live Genblaze proof - T021 is doing; final evidence status is missing.
-- `credential_handoff`: Live credential handoff is ready - Credential handoff mode is missing_live_env; missing ids: b2_key_id, b2_application_key, genblaze_api_key.
+- `genblaze_live_proof`: live Genblaze proof - T021 is blocked; final evidence status is missing.
 - `public_video`: final public video - Storyboard mode is mock_storyboard_ready; public video ready is False.
 - `public_video_check`: public video URL check - Public video check mode is pending_video_url; safe_to_submit is False.
 - `final_recording`: Final recording gate is ready - Demo readiness mode is pre_live_mock_ready; final recording ready is False.
@@ -78,9 +76,9 @@ ProofFrame includes a Genblaze/GMICloud provider adapter built around the offici
 
 - Finalize Devpost fields: Demo video URL.
 - Resolve final blocker: Final Devpost web submission checklist is ready.
-- Resolve final blocker: live Backblaze B2 proof.
 - Resolve final blocker: live Genblaze proof.
-- Resolve final blocker: Live credential handoff is ready.
 - Resolve final blocker: final public video.
 - Resolve final blocker: public video URL check.
 - Resolve final blocker: Final recording gate is ready.
+- Resolve final blocker: final secret scan task completion.
+- Resolve final blocker: strict final submission audit.
