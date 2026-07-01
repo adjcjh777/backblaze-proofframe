@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.public_space_sync.v1",
-  "created_at": "2026-06-30T10:36:55Z",
+  "created_at": "2026-07-01T10:48:58Z",
   "ok": true,
   "mode": "public_space_synced",
   "space_id": "ADJCJH/backblaze-proofframe",
@@ -33,7 +33,7 @@
     "handoff_mode": "handoff_ready",
     "event_snapshot": {
       "checked_at": "2026-06-30T05:12:10Z",
-      "age_days": 0,
+      "age_days": 1,
       "participant_count_observed": 404,
       "submission_open": true,
       "requirements_ok": true,
@@ -77,7 +77,7 @@
     "judge_decision_brief": {
       "schema": "proofframe.judge_decision_brief.v1",
       "created_at": "2026-06-30T10:15:25Z",
-      "age_days": 0,
+      "age_days": 1,
       "mode": "pre_live_decision_ready",
       "safe_to_share": true,
       "safe_to_submit": false,
@@ -236,7 +236,7 @@
       "id": "raw_event_snapshot",
       "label": "Raw Devpost event snapshot is public and fresh",
       "ok": true,
-      "detail": "Event snapshot schema is proofframe.devpost_event_snapshot.v1; submission_open=True; age_days=0; participants=404.",
+      "detail": "Event snapshot schema is proofframe.devpost_event_snapshot.v1; submission_open=True; age_days=1; participants=404.",
       "evidence": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/devpost-event-snapshot.json"
     },
     {
@@ -271,7 +271,7 @@
       "id": "raw_judge_decision_brief",
       "label": "Raw judge decision brief is public and claim-safe",
       "ok": true,
-      "detail": "Decision brief schema is proofframe.judge_decision_brief.v1; mode is pre_live_decision_ready; safe_to_submit is False; checks=6; space_mode=public_space_synced; space_sync_checked_at=2026-06-30T10:13:57Z; age_days=0; fresh=True.",
+      "detail": "Decision brief schema is proofframe.judge_decision_brief.v1; mode is pre_live_decision_ready; safe_to_submit is False; checks=6; space_mode=public_space_synced; space_sync_checked_at=2026-06-30T10:13:57Z; age_days=1; fresh=True.",
       "evidence": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/judge-decision-brief.json"
     },
     {
