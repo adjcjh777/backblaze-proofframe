@@ -83,6 +83,30 @@ def test_preflight_report_accepts_openai_provider_package():
     assert report["missing"] == []
 
 
+def test_preflight_report_accepts_local_provider_without_key():
+    settings = Settings(
+        storage_backend="b2",
+        generation_backend="genblaze",
+        b2_endpoint_url="https://s3.us-west-004.backblazeb2.com",
+        b2_bucket="proof-bucket",
+        b2_key_id="key-id",
+        b2_application_key="application-key",
+        genblaze_provider="local",
+        genblaze_image_model="local-svg-v1",
+    )
+
+    report = live_proof.build_preflight_report(
+        settings,
+        require_storage_backend="b2",
+        require_generation_backend="genblaze",
+        available=lambda module: module in {"boto3", "genblaze_core", "genblaze_s3"},
+    )
+
+    assert report["ok"] is True
+    assert report["genblaze_provider"] == "local"
+    assert report["missing"] == []
+
+
 def test_build_api_smoke_command_targets_final_backends(tmp_path):
     evidence_path = tmp_path / "final-evidence.json"
 

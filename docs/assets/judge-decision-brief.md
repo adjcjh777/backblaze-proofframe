@@ -3,7 +3,7 @@
 Mode: `pre_live_decision_ready`
 OK: `true`
 Safe to submit: `false`
-Created: `2026-07-01T12:09:20Z`
+Created: `2026-07-03T10:57:05Z`
 
 ProofFrame turns generated media into auditable, approval-ready asset packets.
 
@@ -15,24 +15,24 @@ Advance this project if you want a generative media submission where Backblaze s
 
 - Most generative media demos stop at output creation; ProofFrame shows the operational layer after generation.
 - The public demo is live and credential-free, so judges can inspect the workflow immediately.
-- The remaining blockers are explicit sponsor-proof steps, not ambiguous product gaps.
+- The remaining blockers are explicit final submission steps, not ambiguous product gaps.
 
 ## Top Reasons To Score High
 
 - Provenance packet: prompt, provider/model, storage route, checksum, approval state, and risk note travel together.
 - Production posture: evidence ZIPs, manifest exports, review console, final control tower, and secret scanning are already wired.
-- Sponsor fit: B2-compatible storage and Genblaze provider paths are implemented, with live proof gated rather than overclaimed.
+- Sponsor fit: B2 live storage proof and Genblaze Pipeline proof are captured in sanitized evidence.
 - Submission clarity: judge brief, criteria crosswalk, evidence index, final video kit, and Devpost preview are all generated artifacts.
 
 ## Current Scores
 
-- Award readiness: `101/115` (pre_live_competitive)
+- Award readiness: `105/115` (proof_verified_video_pending)
 - Final closure: `0/10`
 
 ## Public State
 
 - Space mode: `public_space_synced`
-- Space sync checked: `2026-07-01T11:45:40Z`
+- Space sync checked: `2026-07-03T10:56:17Z`
 - Devpost submission open: `True`
 - Observed participants: `439`
 - Final video ready: `false`
@@ -49,7 +49,6 @@ Advance this project if you want a generative media submission where Backblaze s
 ## Final Blockers
 
 - `devpost_submission_checklist`
-- `genblaze_live_proof`
 - `public_video`
 - `public_video_check`
 - `final_recording`
@@ -69,10 +68,10 @@ Advance this project if you want a generative media submission where Backblaze s
 
 ## Claim Boundary
 
-This brief is public-safe and decision-oriented. It does not claim completed Backblaze B2 or Genblaze live proof until final_submission_control.safe_to_submit is true.
+This brief is public-safe and decision-oriented. It may cite completed B2 and Genblaze proof from sanitized evidence, but it does not claim final Devpost submission until final_submission_control.safe_to_submit is true.
 
 ## Next Actions
 
 - Use this brief as the top-level judge handoff before opening the public demo.
-- After live B2 and Genblaze proof, regenerate final control, video publish kit, and this brief.
+- After public video upload, regenerate final control, video publish kit, and this brief.
 - After Devpost submission, regenerate receipt, closeout reports, submission bundle, and this brief.

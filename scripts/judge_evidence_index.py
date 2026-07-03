@@ -263,6 +263,7 @@ def build_index(root: Path = ROOT) -> dict[str, Any]:
         if isinstance(item, dict) and isinstance(item.get("id"), str)
     ]
     safe_to_submit = bool(control.get("safe_to_submit"))
+    proof_done = statuses.get("T020") == "done" and statuses.get("T021") == "done"
     control_health_ok = bool(control.get("control_health_ok", control.get("ok")))
     source_health = {
         "judge_brief": judge_brief.get("schema") == "proofframe.judge_brief.v1",
@@ -305,8 +306,9 @@ def build_index(root: Path = ROOT) -> dict[str, Any]:
         "links": links,
         "sections": build_sections(links_by_id),
         "claim_boundary": (
-            "This index is public-safe evidence navigation. It does not claim completed B2 or "
-            "Genblaze live proof until final_submission_control.safe_to_submit is true."
+            "This index is public-safe evidence navigation. It may cite completed B2 and Genblaze proof from sanitized evidence, but it does not claim final Devpost submission until final_submission_control.safe_to_submit is true."
+            if proof_done
+            else "This index is public-safe evidence navigation. It does not claim completed B2 or Genblaze live proof until the corresponding evidence and tasks are complete."
         ),
     }
 

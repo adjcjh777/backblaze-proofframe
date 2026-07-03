@@ -1,16 +1,16 @@
 {
   "schema": "proofframe.devpost_submission_checklist.v1",
-  "created_at": "2026-07-03T04:59:55Z",
+  "created_at": "2026-07-03T10:37:59Z",
   "mode": "pre_submit_blocked",
   "ok": false,
   "safe_to_submit": false,
   "task_statuses": {
     "T020": "done",
-    "T021": "blocked",
+    "T021": "done",
     "T040": "done",
-    "T041A": "todo",
-    "T041": "todo",
-    "T042": "todo"
+    "T041A": "blocked",
+    "T041": "blocked",
+    "T042": "blocked"
   },
   "preflight": [
     {
@@ -21,14 +21,14 @@
     },
     {
       "id": "packet_post_live_verified",
-      "ok": false,
-      "detail": "Devpost packet mode is pre_live_safe.",
+      "ok": true,
+      "detail": "Devpost packet mode is post_live_verified.",
       "evidence": "docs/assets/devpost-submission-packet.json"
     },
     {
       "id": "prerequisite_tasks_done",
       "ok": false,
-      "detail": "T020=done, T021=blocked, T040=done, T041A=todo",
+      "detail": "T020=done, T021=done, T040=done, T041A=blocked",
       "evidence": "tasks.json"
     },
     {
@@ -46,7 +46,7 @@
     {
       "id": "receipt_not_already_done",
       "ok": true,
-      "detail": "T042=todo; receipt mode=pending_submission.",
+      "detail": "T042=blocked; receipt mode=pending_submission.",
       "evidence": "docs/assets/devpost-submission-receipt.json"
     }
   ],
@@ -107,11 +107,11 @@
       "id": "short_description",
       "label": "Short description",
       "source": "packet.short_description",
-      "chars": 400,
+      "chars": 285,
       "max_chars": 2000,
       "ok_for_mock": true,
       "ok_for_final": true,
-      "copy_value": "ProofFrame is a review desk for generated media. The local demo creates a campaign, generates mock variants, approves or rejects assets, exports a manifest, and downloads an evidence ZIP with prompts, provider/model fields, storage references, hashes, and approval status. The final hackathon submission gate is to verify the same flow with Genblaze-backed generation and Backblaze B2-backed storage.",
+      "copy_value": "ProofFrame turns Genblaze-generated media into Backblaze B2-backed evidence packets. Each packet includes prompt history, provider/model metadata, B2 storage references, checksums, approval state, and a downloadable manifest bundle so teams can trust, reuse, or retire generated media.",
       "copy_instruction": "Paste into Devpost field: Short description",
       "verification": [
         "Confirm the pasted text matches this checklist exactly.",
@@ -152,11 +152,11 @@
       "id": "video_url",
       "label": "Demo video URL",
       "source": "packet.video_url",
-      "chars": 38,
+      "chars": 36,
       "max_chars": 300,
       "ok_for_mock": true,
       "ok_for_final": false,
-      "copy_value": "TBD after final B2 and Genblaze proof.",
+      "copy_value": "TBD after final public video upload.",
       "copy_instruction": "Paste into Devpost field: Demo video URL",
       "verification": [
         "Confirm the pasted text matches this checklist exactly.",
@@ -227,11 +227,11 @@
       "id": "how_we_built_it",
       "label": "How we built it",
       "source": "packet.how_we_built_it",
-      "chars": 421,
+      "chars": 495,
       "max_chars": 2500,
       "ok_for_mock": true,
       "ok_for_final": true,
-      "copy_value": "ProofFrame uses FastAPI for the API, a single-file browser UI for the proof ledger, local storage for credential-free demos, a Backblaze B2-compatible S3 storage backend, and Genblaze provider adapters for GMICloud and OpenAI built around the official Genblaze Pipeline API. The public mock demo is deployed as a Hugging Face Space for judge-friendly product inspection while the final sponsor-backed proof remains gated.",
+      "copy_value": "ProofFrame uses FastAPI for the API, a single-file browser UI for the proof ledger, local storage for credential-free demos, a Backblaze B2-compatible S3 storage backend, and Genblaze provider adapters for GMICloud, OpenAI, and a credential-free local Pipeline provider built around the official Genblaze Pipeline API. The public mock demo is deployed as a Hugging Face Space for judge-friendly product inspection while final reports separate live proof, video, audit, and Devpost receipt gates.",
       "copy_instruction": "Paste into Devpost field: How we built it",
       "verification": [
         "Confirm the pasted text matches this checklist exactly.",
@@ -242,11 +242,11 @@
       "id": "backblaze_b2_usage",
       "label": "Backblaze B2 usage",
       "source": "packet.b2_usage",
-      "chars": 670,
+      "chars": 451,
       "max_chars": 1500,
       "ok_for_mock": true,
       "ok_for_final": true,
-      "copy_value": "ProofFrame treats Backblaze B2 as the final durable evidence layer, not as a late file-upload checkbox. The public demo currently runs in local/mock mode, but every asset packet already carries the B2-ready object model: storage backend, storage key, checksum, byte size, prompt, provider/model metadata, approval state, and risk note. The repo includes a dedicated B2 S3-compatible storage adapter, a recorded private B2 bucket setup, and a one-command B2 proof runner that will upload one generated asset and one manifest with environment-only credentials. That live upload remains the final submission gate before any public claim is upgraded to completed B2 storage.",
+      "copy_value": "ProofFrame stores generated media and exported manifests in Backblaze B2 using environment-only credentials. The final proof evidence records sanitized B2 storage keys, byte sizes, and checksums without exposing credentials or signed URLs. B2 is the durable evidence layer: the media asset and manifest are separate objects under the ProofFrame campaign prefix, and the app uses those hashes to make later review, export, and audit steps reproducible.",
       "copy_instruction": "Paste into Devpost field: Backblaze B2 usage",
       "verification": [
         "Confirm the pasted text matches this checklist exactly.",
@@ -257,11 +257,11 @@
       "id": "genblaze_usage",
       "label": "Genblaze usage",
       "source": "packet.genblaze_usage",
-      "chars": 510,
+      "chars": 270,
       "max_chars": 1500,
       "ok_for_mock": true,
       "ok_for_final": true,
-      "copy_value": "ProofFrame includes Genblaze provider adapters for GMICloud and OpenAI built around the official Genblaze Pipeline API. In the public mock demo, deterministic generation keeps the workflow inspectable without secrets; the same manifest fields are reserved for the final provider, model, request/run metadata, prompt, and asset checksum. The final submission gate is a live Genblaze-compatible run that proves the provider path and then carries the resulting asset into the ProofFrame review and storage packet.",
+      "copy_value": "ProofFrame generates media through Genblaze's official Pipeline. The final proof uses the credential-free local image provider, records provider/model metadata, and carries the resulting asset through Genblaze's B2 sink into the ProofFrame storage and approval manifest.",
       "copy_instruction": "Paste into Devpost field: Genblaze usage",
       "verification": [
         "Confirm the pasted text matches this checklist exactly.",
@@ -287,11 +287,11 @@
       "id": "accomplishments",
       "label": "Accomplishments",
       "source": "packet.accomplishments",
-      "chars": 586,
+      "chars": 649,
       "max_chars": 2500,
       "ok_for_mock": true,
       "ok_for_final": true,
-      "copy_value": "- Built a working local product, not just a pitch.\n- Deployed a credential-free public mock demo.\n- Added a one-click Judge Demo path.\n- Added a review console with evidence search, status filtering, decision coverage, and safe summary copy.\n- Added downloadable evidence ZIPs.\n- Added B2-compatible storage and Genblaze provider code paths for GMICloud and OpenAI.\n- Added CI that runs readiness checks, lint, tests, API smoke, and secret scan.\n- Added fail-closed gates for evidence JSON exports and final submission audits.\n- Kept public claims gated until live sponsor proof exists.",
+      "copy_value": "- Built a working local product, not just a pitch.\n- Deployed a credential-free public mock demo.\n- Added a one-click Judge Demo path.\n- Added a review console with evidence search, status filtering, decision coverage, and safe summary copy.\n- Added downloadable evidence ZIPs.\n- Added B2-compatible storage and Genblaze provider code paths for GMICloud, OpenAI, and a credential-free local Pipeline provider.\n- Added CI that runs readiness checks, lint, tests, API smoke, and secret scan.\n- Added fail-closed gates for evidence JSON exports and final submission audits.\n- Kept public claims gated by reports, task status, and secret-scan artifacts.",
       "copy_instruction": "Paste into Devpost field: Accomplishments",
       "verification": [
         "Confirm the pasted text matches this checklist exactly.",
@@ -317,11 +317,11 @@
       "id": "whats_next",
       "label": "What's next",
       "source": "packet.whats_next",
-      "chars": 184,
+      "chars": 193,
       "max_chars": 1800,
       "ok_for_mock": true,
       "ok_for_final": true,
-      "copy_value": "- Live B2 proof with a dedicated bucket and least-privilege key.\n- Live Genblaze proof with provider/model/run metadata.\n- Demo video under the event limit.\n- Final Devpost submission.",
+      "copy_value": "- Upload the final demo video under the event limit.\n- Run the final secret scan and submission audit after video artifacts are ready.\n- Submit the Devpost project and preserve the receipt URL.",
       "copy_instruction": "Paste into Devpost field: What's next",
       "verification": [
         "Confirm the pasted text matches this checklist exactly.",
@@ -332,11 +332,11 @@
       "id": "judging_note",
       "label": "Judging note",
       "source": "form.judging_note",
-      "chars": 105,
+      "chars": 106,
       "max_chars": 1000,
       "ok_for_mock": true,
       "ok_for_final": true,
-      "copy_value": "Current packet mode: pre_live_safe. Safe for public mock demo only. Do not submit as final sponsor proof.",
+      "copy_value": "Current packet mode: post_live_verified. Use only after T020 and T021 are verified by live proof evidence.",
       "copy_instruction": "Paste into Devpost field: Judging note",
       "verification": [
         "Confirm the pasted text matches this checklist exactly.",

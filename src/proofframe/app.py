@@ -117,9 +117,7 @@ def create_app(storage_root: Path | str | None = None, settings: Settings | None
             "generation_backend": generator.provider,
             "storage_backend": storage.name,
             "b2_configured": bool(settings.b2_bucket and settings.b2_endpoint_url),
-            "genblaze_configured": bool(
-                settings.genblaze_image_model and settings.genblaze_provider_key()
-            ),
+            "genblaze_configured": settings.genblaze_configured(),
             "genblaze_provider": settings.genblaze_provider,
             "ready": True,
         }

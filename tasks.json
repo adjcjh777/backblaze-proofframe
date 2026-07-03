@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-07-03T05:07:10Z",
+  "updated_at": "2026-07-03T10:38:20Z",
   "tasks": [
     {
       "id": "T001",
@@ -117,16 +117,16 @@
       "owner": "executor",
       "status": "done",
       "done_criteria": "B2 backend stores an asset and manifest using env-only credentials.",
-      "notes": "B2 live proof passed with scoped standard key against bucket proofframe-demo-a6b4e49 and prefix campaigns/; sanitized evidence saved at docs/assets/b2-live-proof-evidence.json. Generation remains mock until T021."
+      "notes": "B2 live proof passed with scoped standard key against bucket proofframe-demo-a6b4e49 and prefix campaigns/; sanitized B2 evidence is saved at docs/assets/b2-live-proof-evidence.json, and the later final proof also stores Genblaze local-provider assets/manifests in B2."
     },
     {
       "id": "T021",
       "title": "Integrate Genblaze-compatible generation",
       "phase": "P2 Integrations",
       "owner": "executor",
-      "status": "blocked",
+      "status": "done",
       "done_criteria": "Generation adapter records provider/model metadata and fails closed without config.",
-      "notes": "B2 live proof remains done and GMI/Genblaze credential presence is recorded, but the GMI live request is blocked by provider-side HTTP 402 insufficient credits. Added a no-recharge GENBLAZE_PROVIDER=openai fallback path with genblaze-openai and runner provider/model overrides; fallback preflight now correctly requires a real OPENAI_API_KEY and stays blocked until docs/assets/final-live-proof-evidence.json is produced by a live B2 plus Genblaze run."
+      "notes": "Final B2 plus Genblaze live proof passed through the credential-free local Genblaze Pipeline provider; sanitized evidence is saved at docs/assets/final-live-proof-evidence.json with asset_provider=genblaze/local-image, storage_backend=b2, checksums, and B2 object keys."
     },
     {
       "id": "T084",
@@ -673,18 +673,18 @@
       "title": "Final submission audit",
       "phase": "P4 Submit",
       "owner": "reviewer",
-      "status": "todo",
+      "status": "blocked",
       "done_criteria": "Reviewer signs off on rules, secrets, claims, and public artifacts.",
-      "notes": "2026-07-03 pre-submit audit regenerated after OpenAI fallback runner, public Space sync, and public API smoke; still pre_submit_audit_blocked with 15 findings until final Genblaze evidence, public video, final secret-scan task completion, and Devpost receipt exist."
+      "notes": "Post-live audit is blocked by missing final public video URL, T041A final scan completion, and Devpost receipt; current non-strict submission audit remains pre_submit_audit_blocked with docs/assets/submission-audit-report.json regenerated after B2 plus local Genblaze proof."
     },
     {
       "id": "T041A",
       "title": "Run final secret scan",
       "phase": "P4 Submit",
       "owner": "reviewer",
-      "status": "todo",
+      "status": "blocked",
       "done_criteria": "Secret scan covers repo, docs, screenshots, exported manifests, logs, and demo evidence before submission.",
-      "notes": "2026-07-03 final secret scan regenerated after public Space sync and public API smoke and remains clear, but T041A stays todo because the final scan must be rerun and marked done only after final live proof, public video, and Devpost submission artifacts are produced."
+      "notes": "Current secret scan is clear at docs/assets/secret-scan-report.json, but final T041A stays blocked until the public video and Devpost-safe submission artifacts are staged so the last scan is truly final."
     },
     {
       "id": "T041B",
@@ -709,9 +709,9 @@
       "title": "Submit Devpost project",
       "phase": "P4 Submit",
       "owner": "controller",
-      "status": "todo",
+      "status": "blocked",
       "done_criteria": "Devpost submission is accepted before 2026-08-04 05:00 Asia/Shanghai.",
-      "notes": "2026-07-03 Devpost submission remains todo; latest public Space sync report is passing and public API smoke passes, but safe_to_submit=false because T021 Genblaze live proof is blocked, final video/audit/scan completion gates are not done, and no Devpost receipt exists."
+      "notes": "Devpost submission is blocked by missing public video URL plus final audit/secret-scan gates; no Devpost receipt URL is present, and final submission control remains phase=public_video."
     },
     {
       "id": "T042A",

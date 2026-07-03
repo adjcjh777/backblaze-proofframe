@@ -33,8 +33,8 @@ python scripts/live_proof.py --preflight-only
 python scripts/run_final_live_proof.py --env-file .env.final.local --preflight-only
 python scripts/run_final_live_proof.py \
   --env-file .env.final.local \
-  --genblaze-provider openai \
-  --genblaze-image-model gpt-image-1 \
+  --genblaze-provider local \
+  --genblaze-image-model local-svg-v1 \
   --preflight-only
 ```
 
@@ -48,13 +48,13 @@ python scripts/run_final_live_proof.py \
   --evidence-out docs/assets/final-live-proof-evidence.json
 ```
 
-If the GMI Cloud path is blocked by provider credits, use the same runner with non-secret OpenAI provider/model overrides after a real `OPENAI_API_KEY` is available in the process environment:
+If the GMI Cloud path is blocked by provider credits, use the same runner with non-secret local provider/model overrides. This proves the official Genblaze Pipeline plus B2 sink path without calling an external image API:
 
 ```bash
 python scripts/run_final_live_proof.py \
   --env-file .env.final.local \
-  --genblaze-provider openai \
-  --genblaze-image-model gpt-image-1 \
+  --genblaze-provider local \
+  --genblaze-image-model local-svg-v1 \
   --evidence-out docs/assets/final-live-proof-evidence.json
 ```
 
@@ -116,9 +116,10 @@ Provider selection:
 
 - `GENBLAZE_PROVIDER=gmicloud` uses `genblaze-gmicloud` and accepts `GENBLAZE_API_KEY` or `GMI_API_KEY`.
 - `GENBLAZE_PROVIDER=openai` uses `genblaze-openai` and accepts `OPENAI_API_KEY`.
+- `GENBLAZE_PROVIDER=local` uses `genblaze-core` `SyncProvider` and requires no provider API key. Use `GENBLAZE_IMAGE_MODEL=local-svg-v1`.
 - `GMI_BASE_URL` can satisfy `GENBLAZE_BASE_URL` when an override is required.
 
-Leave `GENBLAZE_BASE_URL` blank for the official GMICloud default. Set it only for a custom GMI request-queue endpoint. The OpenAI provider path uses its provider package defaults.
+Leave `GENBLAZE_BASE_URL` blank for the official GMICloud default. Set it only for a custom GMI request-queue endpoint. The OpenAI and local provider paths use their package defaults.
 
 ## Claim Rules
 

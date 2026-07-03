@@ -108,6 +108,7 @@ def build_decision_brief(root: Path = ROOT) -> dict[str, Any]:
     }
     sources = {source_id: source_summary(root, source_id) for source_id in SOURCE_SPECS}
     statuses = task_statuses(root)
+    proof_done = statuses.get("T020") == "done" and statuses.get("T021") == "done"
     control = reports["final_control"]
     evidence_index = reports["judge_evidence_index"]
     award = reports["award_readiness"]
@@ -197,12 +198,16 @@ def build_decision_brief(root: Path = ROOT) -> dict[str, Any]:
         "why_now": [
             "Most generative media demos stop at output creation; ProofFrame shows the operational layer after generation.",
             "The public demo is live and credential-free, so judges can inspect the workflow immediately.",
-            "The remaining blockers are explicit sponsor-proof steps, not ambiguous product gaps.",
+            "The remaining blockers are explicit final submission steps, not ambiguous product gaps.",
         ],
         "top_reasons_to_score_high": [
             "Provenance packet: prompt, provider/model, storage route, checksum, approval state, and risk note travel together.",
             "Production posture: evidence ZIPs, manifest exports, review console, final control tower, and secret scanning are already wired.",
-            "Sponsor fit: B2-compatible storage and Genblaze provider paths are implemented, with live proof gated rather than overclaimed.",
+            (
+                "Sponsor fit: B2 live storage proof and Genblaze Pipeline proof are captured in sanitized evidence."
+                if proof_done
+                else "Sponsor fit: B2-compatible storage and Genblaze provider paths are implemented, with live proof gated rather than overclaimed."
+            ),
             "Submission clarity: judge brief, criteria crosswalk, evidence index, final video kit, and Devpost preview are all generated artifacts.",
         ],
         "current_scores": {
@@ -229,12 +234,17 @@ def build_decision_brief(root: Path = ROOT) -> dict[str, Any]:
         "final_blockers": blocking_items,
         "links": links,
         "claim_boundary": (
-            "This brief is public-safe and decision-oriented. It does not claim completed Backblaze B2 "
-            "or Genblaze live proof until final_submission_control.safe_to_submit is true."
+            "This brief is public-safe and decision-oriented. It may cite completed B2 and Genblaze proof from sanitized evidence, but it does not claim final Devpost submission until final_submission_control.safe_to_submit is true."
+            if proof_done
+            else "This brief is public-safe and decision-oriented. It does not claim completed Backblaze B2 or Genblaze live proof until the corresponding evidence and tasks are complete."
         ),
         "next_actions": [
             "Use this brief as the top-level judge handoff before opening the public demo.",
-            "After live B2 and Genblaze proof, regenerate final control, video publish kit, and this brief.",
+            (
+                "After public video upload, regenerate final control, video publish kit, and this brief."
+                if proof_done
+                else "After live B2 and Genblaze proof, regenerate final control, video publish kit, and this brief."
+            ),
             "After Devpost submission, regenerate receipt, closeout reports, submission bundle, and this brief.",
         ],
     }

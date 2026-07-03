@@ -290,8 +290,8 @@ def build_report(root: Path = ROOT) -> dict[str, Any]:
     user_actions = build_user_actions(b2_setup, handoff, b2_confirmation)
     if ready_for_genblaze_live_proof:
         user_actions.append(
-            "Resolve any provider-side Genblaze account access or credits blocker without sharing secrets, "
-            "then rerun `python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider openai --genblaze-image-model gpt-image-1 --evidence-out docs/assets/final-live-proof-evidence.json` after `OPENAI_API_KEY` is available."
+            "Run the credential-free local Genblaze Pipeline route without sharing secrets: "
+            "`python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider local --genblaze-image-model local-svg-v1 --evidence-out docs/assets/final-live-proof-evidence.json`."
         )
     return {
         "schema": SCHEMA,

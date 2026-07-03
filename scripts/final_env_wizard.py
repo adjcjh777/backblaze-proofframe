@@ -24,6 +24,7 @@ PLACEHOLDERS = {"", "placeholder", "change-me", "changeme", "todo", "tbd", "none
 NEXT_COMMANDS = [
     "python scripts/live_env_handoff.py --env-file .env.final.local --strict",
     "python scripts/run_final_live_proof.py --env-file .env.final.local --preflight-only",
+    "python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider local --genblaze-image-model local-svg-v1 --preflight-only",
     "python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider openai --genblaze-image-model gpt-image-1 --preflight-only",
     "python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json",
 ]

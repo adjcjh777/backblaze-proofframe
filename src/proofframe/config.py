@@ -20,10 +20,13 @@ GENBLAZE_PROVIDER_ALIASES = {
     "openai": "openai",
     "dalle": "openai",
     "dall-e": "openai",
+    "local": "local",
+    "local-image": "local",
 }
 GENBLAZE_PROVIDER_MODULES = {
     "gmicloud": ("genblaze_gmicloud",),
     "openai": ("genblaze_openai",),
+    "local": (),
 }
 
 
@@ -117,28 +120,49 @@ class Settings:
     def genblaze_provider_modules(self) -> tuple[str, ...]:
         return GENBLAZE_PROVIDER_MODULES.get(self.genblaze_provider, ())
 
+    def genblaze_provider_supported(self) -> bool:
+        return self.genblaze_provider in GENBLAZE_PROVIDER_MODULES
+
+    def genblaze_provider_requires_key(self) -> bool:
+        return self.genblaze_provider != "local"
+
     def genblaze_provider_key(self) -> str:
         if self.genblaze_provider == "gmicloud":
             return self.genblaze_api_key or self.gmi_api_key
         if self.genblaze_provider == "openai":
             return self.openai_api_key
+        if self.genblaze_provider == "local":
+            return ""
         return ""
 
     def genblaze_key_remediation(self) -> str:
+        if self.genblaze_provider == "local":
+            return "GENBLAZE_PROVIDER=local does not require a provider API key."
         if self.genblaze_provider == "openai":
             return "Set OPENAI_API_KEY for GENBLAZE_PROVIDER=openai."
         return "Set GENBLAZE_API_KEY or GMI_API_KEY for GENBLAZE_PROVIDER=gmicloud."
+
+    def genblaze_configured(self) -> bool:
+        return bool(
+            self.genblaze_provider_supported()
+            and self.genblaze_image_model
+            and (not self.genblaze_provider_requires_key() or self.genblaze_provider_key())
+        )
 
     def require_genblaze(self) -> None:
         if self.genblaze_provider not in GENBLAZE_PROVIDER_MODULES:
             raise ConfigurationError(
                 "Unsupported Genblaze provider: "
-                f"{self.genblaze_provider}. Use GENBLAZE_PROVIDER=gmicloud or openai."
+                f"{self.genblaze_provider}. Use GENBLAZE_PROVIDER=gmicloud, openai, or local."
             )
         missing = [
             key
             for key, value in {
-                self.genblaze_key_remediation(): self.genblaze_provider_key(),
+                **(
+                    {self.genblaze_key_remediation(): self.genblaze_provider_key()}
+                    if self.genblaze_provider_requires_key()
+                    else {}
+                ),
                 "GENBLAZE_IMAGE_MODEL": self.genblaze_image_model,
             }.items()
             if not value

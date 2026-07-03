@@ -105,6 +105,32 @@ def test_judge_brief_summarizes_pre_live_boundary(tmp_path):
     assert any("integration code paths are implemented and gated" in item for item in brief["why_it_can_win"])
 
 
+def test_judge_brief_claims_completed_b2_and_local_genblaze_after_tasks_done(tmp_path):
+    write_brief_fixtures(tmp_path)
+    data = json.loads((tmp_path / "tasks.json").read_text(encoding="utf-8"))
+    for task in data["tasks"]:
+        if task["id"] in {"T020", "T021"}:
+            task["status"] = "done"
+    (tmp_path / "tasks.json").write_text(json.dumps(data), encoding="utf-8")
+    write_json(
+        tmp_path,
+        "docs/assets/final-launch-plan.json",
+        {
+            "mode": "ready_for_public_video",
+            "current_phase": "public_video",
+            "next_command": "python scripts/devpost_packet.py --post-live --video-url \"$PROOFFRAME_PUBLIC_VIDEO_URL\"",
+        },
+    )
+
+    brief = judge_brief.build_brief(tmp_path)
+
+    assert "Completed Backblaze B2 live storage proof." not in brief["not_yet_claimed"]
+    assert "Completed Genblaze live generation proof." not in brief["not_yet_claimed"]
+    assert any("Backblaze B2 live storage proof is captured" in item for item in brief["safe_claims"])
+    assert any("credential-free local image provider" in item for item in brief["safe_claims"])
+    assert any("final public video and Devpost receipt remain gated" in item for item in brief["why_it_can_win"])
+
+
 def test_judge_brief_writes_json_and_markdown(tmp_path):
     write_brief_fixtures(tmp_path)
     brief = judge_brief.build_brief(tmp_path)

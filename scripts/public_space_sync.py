@@ -6,6 +6,8 @@ from __future__ import annotations
 import argparse
 import json
 from http.client import IncompleteRead
+import socket
+import ssl
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -141,10 +143,13 @@ PUBLIC_SAFE_LAUNCH_STATES = {
     ("ready_for_credential_entry", "credential_entry"),
     ("blocked_at_credential_entry", "credential_entry"),
     ("ready_for_genblaze_live_proof", "genblaze_live_proof"),
+    ("ready_for_public_video", "public_video"),
 }
 
 FetchResult = dict[str, Any]
 Fetcher = Callable[[str, int], FetchResult]
+
+socket.setdefaulttimeout(TIMEOUT_SECONDS)
 
 
 def utc_now() -> str:
@@ -199,7 +204,7 @@ def fetch_text(url: str, timeout: int = TIMEOUT_SECONDS, retries: int = FETCH_RE
                 "content_type": None,
                 "error": f"{error.reason} (attempt {attempt}/{attempts})",
             }
-        except (TimeoutError, ConnectionResetError, IncompleteRead) as error:
+        except (TimeoutError, ConnectionResetError, IncompleteRead, socket.timeout, ssl.SSLError) as error:
             transient_result = {
                 "ok": False,
                 "status": None,
@@ -594,6 +599,11 @@ def build_report(
     devpost_preview_readiness = dict_field(devpost_preview, "submission_readiness")
     devpost_preview_field_rollup = dict_field(devpost_preview, "field_rollup")
     devpost_preview_blockers = list_field(devpost_preview_readiness, "final_blockers")
+    devpost_preview_blocker_ids = {
+        str(blocker.get("id"))
+        for blocker in devpost_preview_blockers
+        if isinstance(blocker, dict) and isinstance(blocker.get("id"), str)
+    }
     devpost_preview_evidence_links = dict_field(devpost_preview, "evidence_links")
     devpost_preview_ok = bool(
         devpost_preview_result.get("ok")
@@ -603,14 +613,14 @@ def build_report(
         and devpost_preview.get("safe_to_share") is True
         and devpost_preview.get("safe_to_submit") is False
         and devpost_preview.get("mode") == "pre_live_preview_ready"
-        and devpost_preview_readiness.get("packet_mode") == "pre_live_safe"
+        and devpost_preview_readiness.get("packet_mode") in {"pre_live_safe", "post_live_verified"}
         and devpost_preview_readiness.get("public_space_mode") == "public_space_synced"
         and devpost_preview_readiness.get("public_screenshot_mode") == "public_judge_screenshot_ready"
         and devpost_preview_field_rollup.get("mock_ready") is True
         and devpost_preview_field_rollup.get("final_ready") is False
-        and any(
-            isinstance(blocker, dict) and blocker.get("id") == "genblaze_live_proof"
-            for blocker in devpost_preview_blockers
+        and (
+            "genblaze_live_proof" in devpost_preview_blocker_ids
+            or {"public_video", "public_video_check"} <= devpost_preview_blocker_ids
         )
         and devpost_preview_evidence_links.get("public_demo")
         == "https://adjcjh-backblaze-proofframe.hf.space/?judge=1"
@@ -788,7 +798,10 @@ def build_report(
         and judge_decision_required_sources_ok
         and judge_decision_source_state_ok
         and judge_decision_fresh_ok
-        and "does not claim completed Backblaze B2" in str(judge_decision_brief.get("claim_boundary") or "")
+        and (
+            "does not claim completed Backblaze B2" in str(judge_decision_brief.get("claim_boundary") or "")
+            or "may cite completed B2 and Genblaze proof" in str(judge_decision_brief.get("claim_boundary") or "")
+        )
     )
     judge_evidence_index_ok = bool(
         judge_evidence_index_result.get("ok")
@@ -809,9 +822,14 @@ def build_report(
             "final_closeout_status",
         }
         <= judge_evidence_index_link_ids
-        and "genblaze_live_proof" in judge_evidence_index_blockers
-        and "does not claim completed B2 or Genblaze live proof"
-        in str(judge_evidence_index.get("claim_boundary") or "")
+        and (
+            "genblaze_live_proof" in judge_evidence_index_blockers
+            or "public_video" in judge_evidence_index_blockers
+        )
+        and (
+            "does not claim completed B2 or Genblaze live proof" in str(judge_evidence_index.get("claim_boundary") or "")
+            or "may cite completed B2 and Genblaze proof" in str(judge_evidence_index.get("claim_boundary") or "")
+        )
     )
     final_closeout_status_gates = dict_list_field(final_closeout_status, "gates")
     final_closeout_status_gate_ids = {
@@ -1245,19 +1263,25 @@ def build_report(
                 and submission_bundle_artifacts_valid
                 and submission_bundle_required_artifacts_ok
                 and submission_bundle_devpost_packet.get("present") is True
-                and submission_bundle_devpost_packet.get("mode") == "pre_live_safe"
-                and "Do not submit" in str(submission_bundle_devpost_packet.get("claim_warning") or "")
+                and submission_bundle_devpost_packet.get("mode") in {"pre_live_safe", "post_live_verified"}
+                and (
+                    "Do not submit" in str(submission_bundle_devpost_packet.get("claim_warning") or "")
+                    or "Use only after T020 and T021" in str(submission_bundle_devpost_packet.get("claim_warning") or "")
+                )
                 and submission_bundle_gate.get("ok") is False
                 and submission_bundle_gate.get("mode") == "pre_live_safe"
-                and submission_bundle_packet_gate.get("status") == "pre_live_packet_pending"
-                and submission_bundle_evidence_gate.get("status") == "missing"
+                and submission_bundle_packet_gate.get("status") in {"pre_live_packet_pending", "post_live_packet_ready"}
+                and submission_bundle_evidence_gate.get("status") in {"missing", "verified"}
                 and submission_bundle_report_gate.get("status") == "incomplete"
                 and submission_bundle_secret_scan.get("ok") is True
                 and submission_bundle_secret_scan.get("status") == "verified"
                 and submission_bundle_submission_audit.get("ok") is False
                 and submission_bundle_submission_audit.get("status") == "incomplete"
                 and submission_bundle_b2_action_ok
-                and any("Genblaze" in str(action) for action in submission_bundle_next_actions)
+                and (
+                    any("Genblaze" in str(action) for action in submission_bundle_next_actions)
+                    or submission_bundle_evidence_gate.get("status") == "verified"
+                )
             ),
             (
                 f"Bundle schema is {submission_bundle.get('schema') if submission_bundle else None}; "

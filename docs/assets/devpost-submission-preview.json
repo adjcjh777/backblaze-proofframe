@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.devpost_submission_preview.v1",
-  "created_at": "2026-07-03T05:02:32Z",
+  "created_at": "2026-07-03T10:37:59Z",
   "mode": "pre_live_preview_ready",
   "ok": true,
   "safe_to_share": true,
@@ -11,34 +11,33 @@
     "one_liner": "ProofFrame turns generated media into approved evidence packets with B2-ready manifests, Genblaze-gated provider metadata, checksums, review status, and an exportable proof bundle.",
     "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
     "demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
-    "video_url": "TBD after final B2 and Genblaze proof."
+    "video_url": "TBD after final public video upload."
   },
   "copy_blocks": {
     "thirty_second_pitch": "ProofFrame is not another image generator. It is a media operations desk that turns each generated asset into a reviewable packet: prompt, provider/model metadata, storage reference, checksum, approval state, risk note, manifest, and exportable evidence.",
-    "short_description": "ProofFrame is a review desk for generated media. The local demo creates a campaign, generates mock variants, approves or rejects assets, exports a manifest, and downloads an evidence ZIP with prompts, provider/model fields, storage references, hashes, and approval status. The final hackathon submission gate is to verify the same flow with Genblaze-backed generation and Backblaze B2-backed storage.",
-    "backblaze_b2_usage": "ProofFrame treats Backblaze B2 as the final durable evidence layer, not as a late file-upload checkbox. The public demo currently runs in local/mock mode, but every asset packet already carries the B2-ready object model: storage backend, storage key, checksum, byte size, prompt, provider/model metadata, approval state, and risk note. The repo includes a dedicated B2 S3-compatible storage adapter, a recorded private B2 bucket setup, and a one-command B2 proof runner that will upload one generated asset and one manifest with environment-only credentials. That live upload remains the final submission gate before any public claim is upgraded to completed B2 storage.",
-    "genblaze_usage": "ProofFrame includes Genblaze provider adapters for GMICloud and OpenAI built around the official Genblaze Pipeline API. In the public mock demo, deterministic generation keeps the workflow inspectable without secrets; the same manifest fields are reserved for the final provider, model, request/run metadata, prompt, and asset checksum. The final submission gate is a live Genblaze-compatible run that proves the provider path and then carries the resulting asset into the ProofFrame review and storage packet.",
+    "short_description": "ProofFrame turns Genblaze-generated media into Backblaze B2-backed evidence packets. Each packet includes prompt history, provider/model metadata, B2 storage references, checksums, approval state, and a downloadable manifest bundle so teams can trust, reuse, or retire generated media.",
+    "backblaze_b2_usage": "ProofFrame stores generated media and exported manifests in Backblaze B2 using environment-only credentials. The final proof evidence records sanitized B2 storage keys, byte sizes, and checksums without exposing credentials or signed URLs. B2 is the durable evidence layer: the media asset and manifest are separate objects under the ProofFrame campaign prefix, and the app uses those hashes to make later review, export, and audit steps reproducible.",
+    "genblaze_usage": "ProofFrame generates media through Genblaze's official Pipeline. The final proof uses the credential-free local image provider, records provider/model metadata, and carries the resulting asset through Genblaze's B2 sink into the ProofFrame storage and approval manifest.",
     "accomplishments": [
       "Built a working local product, not just a pitch.",
       "Deployed a credential-free public mock demo.",
       "Added a one-click Judge Demo path.",
       "Added a review console with evidence search, status filtering, decision coverage, and safe summary copy.",
       "Added downloadable evidence ZIPs.",
-      "Added B2-compatible storage and Genblaze provider code paths for GMICloud and OpenAI.",
+      "Added B2-compatible storage and Genblaze provider code paths for GMICloud, OpenAI, and a credential-free local Pipeline provider.",
       "Added CI that runs readiness checks, lint, tests, API smoke, and secret scan.",
       "Added fail-closed gates for evidence JSON exports and final submission audits.",
-      "Kept public claims gated until live sponsor proof exists."
+      "Kept public claims gated by reports, task status, and secret-scan artifacts."
     ],
     "whats_next": [
-      "Live B2 proof with a dedicated bucket and least-privilege key.",
-      "Live Genblaze proof with provider/model/run metadata.",
-      "Demo video under the event limit.",
-      "Final Devpost submission."
+      "Upload the final demo video under the event limit.",
+      "Run the final secret scan and submission audit after video artifacts are ready.",
+      "Submit the Devpost project and preserve the receipt URL."
     ],
     "judge_note": "Use this preview as a copy/reference pack. It is not final-submittable until safe_to_submit becomes true."
   },
   "submission_readiness": {
-    "packet_mode": "pre_live_safe",
+    "packet_mode": "post_live_verified",
     "form_mode": "pre_live_form_ready",
     "final_control_mode": "pre_live_control",
     "submit_checklist_mode": "pre_submit_blocked",
@@ -52,12 +51,6 @@
         "label": "Final Devpost web submission checklist is ready",
         "detail": "Devpost submission checklist mode is pre_submit_blocked; safe_to_submit is False.",
         "evidence": "docs/assets/devpost-submission-checklist.json"
-      },
-      {
-        "id": "genblaze_live_proof",
-        "label": "live Genblaze proof",
-        "detail": "T021 is blocked; final evidence status is missing.",
-        "evidence": "tasks.json and docs/assets/final-live-proof-evidence.json"
       },
       {
         "id": "public_video",
@@ -80,19 +73,19 @@
       {
         "id": "final_secret_scan",
         "label": "final secret scan task completion",
-        "detail": "T041A is todo; secret scan mode is clear; secret scan ok is True.",
+        "detail": "T041A is blocked; secret scan mode is clear; secret scan ok is True.",
         "evidence": "tasks.json and docs/assets/secret-scan-report.json"
       },
       {
         "id": "final_submission_audit",
         "label": "strict final submission audit",
-        "detail": "T041 is todo; audit mode is pre_submit_audit_blocked; audit ok is False.",
+        "detail": "T041 is blocked; audit mode is pre_submit_audit_blocked; audit ok is False.",
         "evidence": "tasks.json and docs/assets/submission-audit-report.json"
       },
       {
         "id": "devpost_submitted",
         "label": "Devpost submission receipt",
-        "detail": "T042 is todo; receipt mode is pending_submission; receipt ok is False.",
+        "detail": "T042 is blocked; receipt mode is pending_submission; receipt ok is False.",
         "evidence": "tasks.json and docs/assets/devpost-submission-receipt.json"
       }
     ]
@@ -145,7 +138,7 @@
       "present": true,
       "schema": "proofframe.devpost_packet.v1",
       "schema_ok": true,
-      "mode": "pre_live_safe",
+      "mode": "post_live_verified",
       "ok": null
     },
     "form_kit": {
@@ -233,11 +226,11 @@
   "next_actions": [
     "Finalize Devpost fields: Demo video URL.",
     "Resolve final blocker: Final Devpost web submission checklist is ready.",
-    "Resolve final blocker: live Genblaze proof.",
     "Resolve final blocker: final public video.",
     "Resolve final blocker: public video URL check.",
     "Resolve final blocker: Final recording gate is ready.",
     "Resolve final blocker: final secret scan task completion.",
-    "Resolve final blocker: strict final submission audit."
+    "Resolve final blocker: strict final submission audit.",
+    "Resolve final blocker: Devpost submission receipt."
   ]
 }

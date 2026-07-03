@@ -5,7 +5,7 @@ Mock storyboard ready: `true`
 Final video ready: `false`
 Duration: `135s / 180s max`
 Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
-Video URL: TBD after final B2 and Genblaze proof.
+Video URL: TBD after final public video upload.
 
 ## Timeline
 
@@ -32,8 +32,5 @@ Video URL: TBD after final B2 and Genblaze proof.
 
 ## Next Actions
 
-- Capture live Backblaze B2 asset and manifest proof.
-- Capture live Genblaze generation proof.
-- Write sanitized final live proof evidence JSON.
 - Record and upload the final public demo video under 3 minutes.
 - Run final secret scan before publishing the video.

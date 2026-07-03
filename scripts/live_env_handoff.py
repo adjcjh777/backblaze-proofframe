@@ -63,10 +63,12 @@ REQUIRED_GROUPS = [
         "accepted_names_by_provider": {
             "gmicloud": ["GENBLAZE_API_KEY", "GMI_API_KEY"],
             "openai": ["OPENAI_API_KEY"],
+            "local": [],
         },
         "remediation_by_provider": {
             "gmicloud": "Set GENBLAZE_API_KEY or GMI_API_KEY.",
             "openai": "Set OPENAI_API_KEY.",
+            "local": "GENBLAZE_PROVIDER=local does not require a provider API key.",
         },
     },
     {
@@ -110,6 +112,7 @@ NEXT_COMMANDS = [
     "python scripts/final_env_wizard.py --output .env.final.local --missing-only --force",
     "python scripts/live_env_handoff.py --env-file .env.final.local",
     "python scripts/run_final_live_proof.py --env-file .env.final.local --preflight-only",
+    "python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider local --genblaze-image-model local-svg-v1 --preflight-only",
     "python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider openai --genblaze-image-model gpt-image-1 --preflight-only",
     "python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json",
     'python scripts/devpost_packet.py --post-live --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL"',
@@ -171,8 +174,18 @@ def evaluate_group(group: dict[str, Any], values: dict[str, str]) -> dict[str, A
         )
         remediation = group.get("remediation_by_provider", {}).get(
             provider,
-            "Set GENBLAZE_PROVIDER to gmicloud or openai and provide its API key.",
+            "Set GENBLAZE_PROVIDER to gmicloud, openai, or local and provide its required setup.",
         )
+        if provider == "local" and not accepted_names:
+            return {
+                "id": group["id"],
+                "label": group["label"],
+                "ok": True,
+                "accepted_names": accepted_names,
+                "present_names": [],
+                "expected": group.get("expected"),
+                "remediation": "",
+            }
     present_names = [name for name in accepted_names if has_real_value(values.get(name))]
     expected = group.get("expected")
     expected_ok = True

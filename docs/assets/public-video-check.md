@@ -3,7 +3,7 @@
 Mode: `pending_video_url`
 OK: `false`
 Safe to submit: `false`
-Video URL: `TBD after final B2 and Genblaze proof.`
+Video URL: `TBD after final public video upload.`
 
 ## Checks
 
@@ -19,7 +19,7 @@ Video URL: `TBD after final B2 and Genblaze proof.`
 - Checked: `false`
 - Status: `None`
 - Content type: `None`
-- Final URL: `TBD after final B2 and Genblaze proof.`
+- Final URL: `TBD after final public video upload.`
 
 ## Next Actions
 

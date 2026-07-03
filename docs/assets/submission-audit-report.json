@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.submission_audit.v1",
-  "created_at": "2026-07-03T05:09:12Z",
+  "created_at": "2026-07-03T10:56:57Z",
   "mode": "pre_submit_audit_blocked",
   "ok": false,
   "root": ".",
@@ -16,58 +16,34 @@
   ],
   "task_statuses": {
     "T020": "done",
-    "T021": "blocked",
+    "T021": "done",
     "T040": "done",
-    "T041A": "todo",
-    "T041": "todo",
-    "T042": "todo"
+    "T041A": "blocked",
+    "T041": "blocked",
+    "T042": "blocked"
   },
   "final_evidence_path": "docs/assets/final-live-proof-evidence.json",
   "section_counts": {
-    "tasks": 2,
+    "tasks": 1,
     "files": 0,
     "schemas": 0,
-    "final_evidence": 1,
-    "devpost_packet": 4,
+    "final_evidence": 0,
+    "devpost_packet": 2,
     "event_snapshot": 0,
     "final_reports": 7,
     "final_control": 1
   },
   "findings": [
     {
-      "gate": "T021",
-      "status": "blocked",
-      "detail": "Integrate Genblaze-compatible generation is not done.",
-      "evidence": "tasks.json"
-    },
-    {
       "gate": "T041A",
-      "status": "todo",
+      "status": "blocked",
       "detail": "Run final secret scan is not done.",
       "evidence": "tasks.json"
-    },
-    {
-      "gate": "final-live-proof-evidence",
-      "status": "missing",
-      "detail": "docs/assets/final-live-proof-evidence.json is missing or invalid JSON.",
-      "evidence": "docs/assets/final-live-proof-evidence.json"
-    },
-    {
-      "gate": "devpost_packet.mode",
-      "status": "mismatch",
-      "detail": "Expected 'post_live_verified', got 'pre_live_safe'.",
-      "evidence": "docs/assets/devpost-submission-packet.json"
     },
     {
       "gate": "devpost_packet.video_url",
       "status": "missing",
       "detail": "Final packet must include a public http(s) demo video URL, not a placeholder.",
-      "evidence": "docs/assets/devpost-submission-packet.json"
-    },
-    {
-      "gate": "devpost_packet.T021",
-      "status": "blocked",
-      "detail": "Devpost packet checklist is not synchronized with required pre-submit task status.",
       "evidence": "docs/assets/devpost-submission-packet.json"
     },
     {
@@ -121,7 +97,7 @@
     {
       "gate": "final_submission_control.blocking_items",
       "status": "blocked",
-      "detail": "Unexpected blockers remain before audit sign-off: devpost_submission_checklist, final_recording, final_secret_scan, genblaze_live_proof, public_video, public_video_check",
+      "detail": "Unexpected blockers remain before audit sign-off: devpost_submission_checklist, final_recording, final_secret_scan, public_video, public_video_check",
       "evidence": "docs/assets/final-submission-control.json"
     }
   ],

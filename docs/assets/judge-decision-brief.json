@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.judge_decision_brief.v1",
-  "created_at": "2026-07-01T12:09:20Z",
+  "created_at": "2026-07-03T10:57:05Z",
   "ok": true,
   "mode": "pre_live_decision_ready",
   "safe_to_share": true,
@@ -11,25 +11,25 @@
   "why_now": [
     "Most generative media demos stop at output creation; ProofFrame shows the operational layer after generation.",
     "The public demo is live and credential-free, so judges can inspect the workflow immediately.",
-    "The remaining blockers are explicit sponsor-proof steps, not ambiguous product gaps."
+    "The remaining blockers are explicit final submission steps, not ambiguous product gaps."
   ],
   "top_reasons_to_score_high": [
     "Provenance packet: prompt, provider/model, storage route, checksum, approval state, and risk note travel together.",
     "Production posture: evidence ZIPs, manifest exports, review console, final control tower, and secret scanning are already wired.",
-    "Sponsor fit: B2-compatible storage and Genblaze provider paths are implemented, with live proof gated rather than overclaimed.",
+    "Sponsor fit: B2 live storage proof and Genblaze Pipeline proof are captured in sanitized evidence.",
     "Submission clarity: judge brief, criteria crosswalk, evidence index, final video kit, and Devpost preview are all generated artifacts."
   ],
   "current_scores": {
-    "award_score": 101,
+    "award_score": 105,
     "award_max_score": 115,
-    "award_mode": "pre_live_competitive",
+    "award_mode": "proof_verified_video_pending",
     "final_closure_score": 0,
     "final_closure_max_score": 10
   },
   "public_state": {
     "space_sync_ok": true,
     "space_mode": "public_space_synced",
-    "space_sync_checked_at": "2026-07-01T11:45:40Z",
+    "space_sync_checked_at": "2026-07-03T10:56:17Z",
     "event_submission_open": true,
     "participant_count_observed": 439,
     "final_video_ready": false
@@ -112,7 +112,7 @@
       "present": true,
       "schema": "proofframe.award_readiness.v1",
       "schema_ok": true,
-      "mode": "pre_live_competitive",
+      "mode": "proof_verified_video_pending",
       "ok": null,
       "safe_to_share": null,
       "safe_to_submit": null
@@ -186,15 +186,14 @@
   },
   "task_statuses": {
     "T020": "done",
-    "T021": "blocked",
+    "T021": "done",
     "T040": "done",
-    "T041": "todo",
-    "T041A": "todo",
-    "T042": "todo"
+    "T041": "blocked",
+    "T041A": "blocked",
+    "T042": "blocked"
   },
   "final_blockers": [
     "devpost_submission_checklist",
-    "genblaze_live_proof",
     "public_video",
     "public_video_check",
     "final_recording",
@@ -211,10 +210,10 @@
     "final_control": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/final-submission-control.md",
     "video_publish_kit": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/final-video-publish-kit.md"
   },
-  "claim_boundary": "This brief is public-safe and decision-oriented. It does not claim completed Backblaze B2 or Genblaze live proof until final_submission_control.safe_to_submit is true.",
+  "claim_boundary": "This brief is public-safe and decision-oriented. It may cite completed B2 and Genblaze proof from sanitized evidence, but it does not claim final Devpost submission until final_submission_control.safe_to_submit is true.",
   "next_actions": [
     "Use this brief as the top-level judge handoff before opening the public demo.",
-    "After live B2 and Genblaze proof, regenerate final control, video publish kit, and this brief.",
+    "After public video upload, regenerate final control, video publish kit, and this brief.",
     "After Devpost submission, regenerate receipt, closeout reports, submission bundle, and this brief."
   ]
 }

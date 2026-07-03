@@ -79,7 +79,7 @@ Stage 0 is complete: selected competition, repo, PRD/spec/todo, Agent Bus team, 
 
 Stage 1 is complete enough for local demo iteration: FastAPI MVP skeleton, mock generation, local storage, manifest export, downloadable evidence packets, one-click Judge Demo packets, and the Proof Ledger browser UI.
 
-Stage 2 is in progress: B2-compatible storage code and Genblaze image provider paths for GMICloud and OpenAI exist. In final B2 mode, the Genblaze path now uses the official `ObjectStorageSink` plus `S3StorageBackend.for_backblaze` so Genblaze provenance output can land in B2 before ProofFrame records its own packet manifest. Live B2 and Genblaze runs still need credentials/provider verification before final submission claims.
+Stage 2 is in progress: B2-compatible storage code and Genblaze image provider paths for GMICloud, OpenAI, and a credential-free local Pipeline provider exist. In final B2 mode, the Genblaze path now uses the official `ObjectStorageSink` plus `S3StorageBackend.for_backblaze` so Genblaze provenance output can land in B2 before ProofFrame records its own packet manifest. Final B2 plus local Genblaze Pipeline proof is captured in `docs/assets/final-live-proof-evidence.json`; public video, final audit, and Devpost receipt remain submission gates.
 
 Stage 3 preparation is active: the public mock demo is deployed, Review Console polish is captured, Devpost/evidence/claim-freeze docs are ready for the final sponsor-integration pass, API evidence exports fail closed if secret-like values appear, and the app now displays a fail-closed submission gate dashboard, judge recording slate, criteria crosswalk, recording runbook, Devpost kit, and submit checklist for final task/live-proof status.
 
@@ -108,7 +108,7 @@ python scripts/genblaze_contract_check.py
 python scripts/docker_smoke.py
 python scripts/live_proof.py --preflight-only
 python scripts/run_final_live_proof.py --env-file .env.final.local --preflight-only
-python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider openai --genblaze-image-model gpt-image-1 --preflight-only
+python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider local --genblaze-image-model local-svg-v1 --preflight-only
 python scripts/live_env_handoff.py
 python scripts/final_env_wizard.py --check-only
 python scripts/b2_key_scope_checklist.py
@@ -158,7 +158,7 @@ The browser UI and `GET /api/submission/gate` expose the same fail-closed final 
 `scripts/devpost_event_snapshot.py` keeps official Devpost deadline, participants, submission requirements, and judging criteria as a refreshable evidence report.
 `scripts/agent_handoff_check.py` keeps AGENTS.md, Codex, and Agent Bus handoff paths aligned with the current repo so future role sessions do not follow stale project metadata.
 `scripts/public_space_sync.py` verifies the public Hugging Face Space runtime sha, raw handoff, Devpost event snapshot, final launch plan, B2 key scope checklist, Genblaze SDK contract report, judge brief, judge crosswalk, judge decision brief, judge evidence index, final closeout status, final video publish kit, mock video draft, public video check, health/gate APIs, and judge-mode HTML markers.
-`scripts/run_final_live_proof.py` is the final one-command live runner: once B2 and Genblaze env vars are present, it starts the app, verifies `/api/health` reports `b2` plus `genblaze`, routes Genblaze output through the B2 sink, writes sanitized final evidence, and stops the server. The non-secret `--genblaze-provider` and `--genblaze-image-model` flags let the operator switch from the default `gmicloud` path to `openai` without editing `.env.final.local` or printing keys.
+`scripts/run_final_live_proof.py` is the final one-command live runner: once B2 and Genblaze env vars are present, it starts the app, verifies `/api/health` reports `b2` plus `genblaze`, routes Genblaze output through the B2 sink, writes sanitized final evidence, and stops the server. The non-secret `--genblaze-provider` and `--genblaze-image-model` flags let the operator switch from the default `gmicloud` path to the credential-free `local` Genblaze Pipeline provider without editing `.env.final.local` or printing keys.
 `scripts/claim_lint.py` keeps pre-live public copy from claiming completed Backblaze B2 or Genblaze proof before evidence exists.
 `scripts/secret_scan.py` writes a no-value secret scan report for public files, generated evidence, local logs, and media inventory while excluding local credential files without reading them.
 `scripts/demo_storyboard.py` keeps the demo video timeline under 3 minutes and tracks the public video URL as a final gate.
@@ -176,7 +176,7 @@ The browser UI and `GET /api/submission/gate` expose the same fail-closed final 
 `scripts/submission_audit.py` writes a schema-stamped pre-submit audit report and only passes strict mode after live proof, final scan, public video, and submit-ready copy are synchronized.
 `scripts/devpost_submission_receipt.py` records the final public Devpost `/software/<slug>` URL and confirmation note after submission, without cookies or private form data.
 
-B2 mode intentionally fails closed unless `B2_ENDPOINT_URL`, `B2_BUCKET`, `B2_KEY_ID`, and `B2_APPLICATION_KEY` are set. Final Genblaze+B2 proof also requires a B2 region, either via `B2_REGION` or a standard Backblaze S3 endpoint such as `https://s3.us-west-004.backblazeb2.com`. Genblaze mode intentionally fails closed unless `GENBLAZE_PROVIDER` is `gmicloud` or `openai`, a matching provider API key plus `GENBLAZE_IMAGE_MODEL` are set, and the official `genblaze-core`, provider, and `genblaze-s3` packages are installed.
+B2 mode intentionally fails closed unless `B2_ENDPOINT_URL`, `B2_BUCKET`, `B2_KEY_ID`, and `B2_APPLICATION_KEY` are set. Final Genblaze+B2 proof also requires a B2 region, either via `B2_REGION` or a standard Backblaze S3 endpoint such as `https://s3.us-west-004.backblazeb2.com`. Genblaze mode intentionally fails closed unless `GENBLAZE_PROVIDER` is `gmicloud`, `openai`, or `local`, the required provider key is present for external providers, `GENBLAZE_IMAGE_MODEL` is set, and the official `genblaze-core`, provider, and `genblaze-s3` packages are installed.
 
 ## Submission Verification
 

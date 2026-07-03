@@ -2,7 +2,7 @@
 
 Mode: `sponsor_fit_ready`
 OK: `true`
-Packet mode: `pre_live_safe`
+Packet mode: `post_live_verified`
 Storyboard mode: `mock_storyboard_ready`
 Submission gate: `pre_live_safe`
 

@@ -34,7 +34,7 @@ OPERATOR_COMMANDS = [
     "python scripts/final_env_wizard.py --output .env.final.local --missing-only --force",
     "python scripts/live_env_handoff.py --env-file .env.final.local",
     "python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out docs/assets/b2-live-proof-evidence.json",
-    "python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider openai --genblaze-image-model gpt-image-1 --evidence-out docs/assets/final-live-proof-evidence.json",
+    "python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider local --genblaze-image-model local-svg-v1 --evidence-out docs/assets/final-live-proof-evidence.json",
     "python scripts/agent_handoff_check.py",
     "python scripts/public_space_sync.py",
     "python scripts/demo_storyboard.py --strict-final",

@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.judge_evidence_index.v1",
-  "created_at": "2026-07-01T12:09:25Z",
+  "created_at": "2026-07-03T10:57:05Z",
   "ok": true,
   "mode": "pre_live_evidence_index_ready",
   "safe_to_share": true,
@@ -10,13 +10,12 @@
   "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
   "status": {
     "control_health_ok": true,
-    "award_score": 101,
+    "award_score": 105,
     "award_max_score": 115,
     "public_space_mode": "public_space_synced",
-    "final_blocker_count": 8,
+    "final_blocker_count": 7,
     "final_blockers": [
       "devpost_submission_checklist",
-      "genblaze_live_proof",
       "public_video",
       "public_video_check",
       "final_recording",
@@ -35,11 +34,11 @@
   },
   "task_statuses": {
     "T020": "done",
-    "T021": "blocked",
+    "T021": "done",
     "T040": "done",
-    "T041": "todo",
-    "T041A": "todo",
-    "T042": "todo"
+    "T041": "blocked",
+    "T041A": "blocked",
+    "T042": "blocked"
   },
   "links": [
     {
@@ -61,7 +60,7 @@
       "path": "docs/assets/judge-brief.md",
       "raw_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/judge-brief.md",
       "present": true,
-      "bytes": 3000
+      "bytes": 3162
     },
     {
       "id": "judge_crosswalk",
@@ -72,7 +71,7 @@
       "path": "docs/assets/judge-crosswalk.md",
       "raw_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/judge-crosswalk.md",
       "present": true,
-      "bytes": 5748
+      "bytes": 5503
     },
     {
       "id": "judge_decision_brief",
@@ -83,7 +82,7 @@
       "path": "docs/assets/judge-decision-brief.md",
       "raw_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/judge-decision-brief.md",
       "present": true,
-      "bytes": 3782
+      "bytes": 3786
     },
     {
       "id": "final_submission_control",
@@ -94,7 +93,7 @@
       "path": "docs/assets/final-submission-control.md",
       "raw_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/final-submission-control.md",
       "present": true,
-      "bytes": 7093
+      "bytes": 6956
     },
     {
       "id": "final_closeout_status",
@@ -105,7 +104,7 @@
       "path": "docs/assets/final-closeout-status.md",
       "raw_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/final-closeout-status.md",
       "present": true,
-      "bytes": 2390
+      "bytes": 2405
     },
     {
       "id": "devpost_preview",
@@ -116,7 +115,7 @@
       "path": "docs/assets/devpost-submission-preview.md",
       "raw_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/devpost-submission-preview.md",
       "present": true,
-      "bytes": 5125
+      "bytes": 4486
     },
     {
       "id": "submission_checklist",
@@ -127,7 +126,7 @@
       "path": "docs/assets/devpost-submission-checklist.md",
       "raw_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/devpost-submission-checklist.md",
       "present": true,
-      "bytes": 9320
+      "bytes": 8932
     },
     {
       "id": "submission_bundle",
@@ -138,7 +137,7 @@
       "path": "docs/assets/submission-bundle-manifest.md",
       "raw_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/submission-bundle-manifest.md",
       "present": true,
-      "bytes": 16106
+      "bytes": 16133
     },
     {
       "id": "award_readiness",
@@ -149,7 +148,7 @@
       "path": "docs/assets/award-readiness-report.md",
       "raw_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/award-readiness-report.md",
       "present": true,
-      "bytes": 4256
+      "bytes": 4275
     },
     {
       "id": "public_space_sync",
@@ -160,7 +159,7 @@
       "path": "docs/assets/public-space-sync-report.md",
       "raw_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/public-space-sync-report.md",
       "present": true,
-      "bytes": 8692
+      "bytes": 8668
     },
     {
       "id": "recording_assets",
@@ -204,7 +203,7 @@
       "path": "docs/assets/public-video-check.md",
       "raw_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/public-video-check.md",
       "present": true,
-      "bytes": 1701
+      "bytes": 1697
     },
     {
       "id": "b2_key_scope_checklist",
@@ -226,7 +225,7 @@
       "path": "docs/assets/post-credential-live-proof-plan.md",
       "raw_url": "https://huggingface.co/spaces/ADJCJH/backblaze-proofframe/raw/main/docs/assets/post-credential-live-proof-plan.md",
       "present": true,
-      "bytes": 2780
+      "bytes": 2785
     },
     {
       "id": "secret_scan",
@@ -295,5 +294,5 @@
       "ready": true
     }
   ],
-  "claim_boundary": "This index is public-safe evidence navigation. It does not claim completed B2 or Genblaze live proof until final_submission_control.safe_to_submit is true."
+  "claim_boundary": "This index is public-safe evidence navigation. It may cite completed B2 and Genblaze proof from sanitized evidence, but it does not claim final Devpost submission until final_submission_control.safe_to_submit is true."
 }

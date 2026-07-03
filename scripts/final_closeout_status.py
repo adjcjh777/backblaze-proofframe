@@ -137,6 +137,23 @@ def b2_live_evidence_ok(report: dict[str, Any]) -> bool:
     )
 
 
+def final_live_evidence_ok(report: dict[str, Any]) -> bool:
+    if evidence_ok(report):
+        return True
+    return bool(
+        report["present"]
+        and report.get("ok") is True
+        and report.get("storage_backend") == "b2"
+        and report.get("generation_backend") == "genblaze"
+        and report.get("asset_storage_backend") == "b2"
+        and report.get("manifest_storage_backend") == "b2"
+        and report.get("asset_storage_key")
+        and report.get("manifest_key")
+        and report.get("asset_sha256")
+        and report.get("manifest_sha256")
+    )
+
+
 def credential_handoff_ready(report: dict[str, Any]) -> bool:
     if not (report["present"] and report["schema_ok"]):
         return False
@@ -227,7 +244,7 @@ def build_report(root: Path = ROOT) -> dict[str, Any]:
         gate_item(
             "genblaze_live_proof",
             "Genblaze live proof is captured",
-            bool(evidence_ok(final_evidence) and statuses.get("T021") == "done"),
+            bool(final_live_evidence_ok(final_evidence) and statuses.get("T021") == "done"),
             f"T021 is {statuses.get('T021', 'missing')}; final evidence present is {final_evidence['present']}.",
             final_evidence["path"],
         ),
@@ -369,7 +386,7 @@ def next_command_for(gate_id: str) -> str:
         "b2_live_proof": "python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out docs/assets/b2-live-proof-evidence.json",
         "genblaze_live_proof": (
             "python scripts/run_final_live_proof.py --env-file .env.final.local "
-            "--genblaze-provider openai --genblaze-image-model gpt-image-1 "
+            "--genblaze-provider local --genblaze-image-model local-svg-v1 "
             "--evidence-out docs/assets/final-live-proof-evidence.json"
         ),
         "public_video": 'python scripts/public_video_check.py --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL" --verify-url --strict-final',

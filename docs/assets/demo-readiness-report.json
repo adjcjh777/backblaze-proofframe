@@ -4,10 +4,10 @@
   "mock_recording_ready": true,
   "final_recording_ready": false,
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
-  "devpost_packet_mode": "pre_live_safe",
+  "devpost_packet_mode": "post_live_verified",
   "task_statuses": {
-    "T020": "doing",
-    "T021": "doing",
+    "T020": "done",
+    "T021": "done",
     "T040": "done",
     "T041": "todo",
     "T041A": "todo",
@@ -18,25 +18,25 @@
     "mode": "pre_live_safe",
     "summary": {
       "required": 6,
-      "done": 1,
+      "done": 3,
       "blocked": 0,
-      "doing": 2,
+      "doing": 0,
       "todo": 3,
       "missing": 0
     },
-    "evidence_status": "missing",
-    "packet_status": "pre_live_packet_pending"
+    "evidence_status": "verified",
+    "packet_status": "post_live_packet_ready"
   },
   "claim_lint": {
     "ok": true,
-    "mode": "pre_live_safe",
+    "mode": "post_live_verified",
     "findings": []
   },
   "files": [
     {
       "path": "README.md",
       "present": true,
-      "bytes": 14783
+      "bytes": 16355
     },
     {
       "path": "docs/demo_script.md",
@@ -46,67 +46,67 @@
     {
       "path": "docs/public_claim_freeze.md",
       "present": true,
-      "bytes": 4089
+      "bytes": 4211
     },
     {
       "path": "docs/assets/devpost-submission-packet.json",
       "present": true,
-      "bytes": 6270
+      "bytes": 5790
     },
     {
       "path": "docs/assets/devpost-submission-packet.md",
       "present": true,
-      "bytes": 5159
+      "bytes": 4559
     },
     {
       "path": "docs/assets/devpost-form-kit.json",
       "present": true,
-      "bytes": 12483
+      "bytes": 12433
     },
     {
       "path": "docs/assets/devpost-form-kit.md",
       "present": true,
-      "bytes": 7496
+      "bytes": 7451
     },
     {
       "path": "docs/assets/submission-bundle-manifest.json",
       "present": true,
-      "bytes": 40283
+      "bytes": 43643
     },
     {
       "path": "docs/assets/submission-bundle-manifest.md",
       "present": true,
-      "bytes": 14880
+      "bytes": 16134
     },
     {
       "path": "docs/assets/live-credential-handoff.json",
       "present": true,
-      "bytes": 4647
+      "bytes": 5045
     },
     {
       "path": "docs/assets/live-credential-handoff.md",
       "present": true,
-      "bytes": 2479
+      "bytes": 2519
     },
     {
       "path": "docs/assets/demo-storyboard.json",
       "present": true,
-      "bytes": 4514
+      "bytes": 4349
     },
     {
       "path": "docs/assets/demo-storyboard.md",
       "present": true,
-      "bytes": 2704
+      "bytes": 2556
     },
     {
       "path": "docs/assets/public-video-check.json",
       "present": true,
-      "bytes": 2977
+      "bytes": 2971
     },
     {
       "path": "docs/assets/public-video-check.md",
       "present": true,
-      "bytes": 1701
+      "bytes": 1697
     },
     {
       "path": "docs/assets/proofframe-local-ui-smoke.png",
@@ -126,7 +126,7 @@
     {
       "path": ".env.final.example",
       "present": true,
-      "bytes": 363
+      "bytes": 445
     },
     {
       "path": "scripts/claim_lint.py",
@@ -136,7 +136,7 @@
     {
       "path": "scripts/devpost_form_kit.py",
       "present": true,
-      "bytes": 12830
+      "bytes": 12821
     },
     {
       "path": "scripts/demo_storyboard.py",
@@ -151,7 +151,7 @@
     {
       "path": "scripts/live_env_handoff.py",
       "present": true,
-      "bytes": 9451
+      "bytes": 11256
     },
     {
       "path": "scripts/run_b2_live_proof.py",
@@ -166,9 +166,6 @@
   ],
   "missing_files": [],
   "next_actions": [
-    "Capture the live Backblaze B2 asset and manifest proof.",
-    "Capture the live Genblaze generation proof.",
-    "Write docs/assets/final-live-proof-evidence.json with sanitized live proof.",
     "Run the final secret scan before recording the final sponsor-backed video."
   ]
 }

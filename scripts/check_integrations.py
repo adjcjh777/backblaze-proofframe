@@ -33,13 +33,11 @@ def main() -> None:
             "boto3_available": available("boto3"),
         },
         "genblaze": {
-            "configured": bool(
-                settings.genblaze_image_model
-                and settings.genblaze_provider_key()
-            ),
+            "configured": settings.genblaze_configured(),
             "provider": settings.genblaze_provider,
             "has_base_url_override": bool(settings.genblaze_base_url),
             "has_model": bool(settings.genblaze_image_model),
+            "requires_api_key": settings.genblaze_provider_requires_key(),
             "has_api_key": bool(settings.genblaze_provider_key()),
             "genblaze_core_available": available("genblaze_core"),
             "genblaze_s3_available": available("genblaze_s3"),

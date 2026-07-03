@@ -54,21 +54,32 @@ def build_brief(root: Path = ROOT) -> dict[str, Any]:
     statuses = task_statuses(root)
     final_gate_ready = bool(control.get("safe_to_submit"))
     final_closure = award.get("readiness_interpretation", {})
+    b2_done = statuses.get("T020") == "done"
+    genblaze_done = statuses.get("T021") == "done"
     safe_claims = [
         "ProofFrame is a working provenance and approval desk for generated media.",
         "The public demo is credential-free and runs in deterministic local/mock mode.",
-        "The repository includes Backblaze B2-compatible storage and Genblaze provider paths for GMICloud and OpenAI.",
+        "The repository includes Backblaze B2-compatible storage and Genblaze provider paths for GMICloud, OpenAI, and a credential-free local Pipeline provider.",
         "Every public claim is gated by reports, task status, and secret-scan artifacts.",
     ]
+    if b2_done:
+        safe_claims.append("Backblaze B2 live storage proof is captured in the sanitized evidence package.")
+    if genblaze_done:
+        safe_claims.append("Genblaze Pipeline proof is captured with the credential-free local image provider and B2-backed manifests.")
     if final_gate_ready:
-        safe_claims.append("The final B2 plus Genblaze proof gate is complete.")
+        safe_claims.append("The final submission gate is complete.")
     not_yet_claimed = []
-    if statuses.get("T020") != "done":
+    if not b2_done:
         not_yet_claimed.append("Completed Backblaze B2 live storage proof.")
-    if statuses.get("T021") != "done":
+    if not genblaze_done:
         not_yet_claimed.append("Completed Genblaze live generation proof.")
     if statuses.get("T042") != "done":
         not_yet_claimed.append("Submitted Devpost project receipt.")
+    integration_status = (
+        "Backblaze B2 and Genblaze Pipeline proof are captured; final public video and Devpost receipt remain gated."
+        if b2_done and genblaze_done
+        else "Backblaze B2 and Genblaze integration code paths are implemented and gated; live proofs remain explicit final blockers."
+    )
     return {
         "schema": SCHEMA,
         "created_at": utc_now(),
@@ -82,7 +93,7 @@ def build_brief(root: Path = ROOT) -> dict[str, Any]:
         ),
         "why_it_can_win": [
             "Storage and provenance are the product surface, not a hidden implementation detail.",
-            "Backblaze B2 and Genblaze integration code paths are implemented and gated; live proofs remain explicit final blockers.",
+            integration_status,
             "The app feels useful after the hackathon: teams can approve, reject, search, export, and audit generated media.",
             "Fail-closed reports make the submission defensible and prevent overclaiming before live proof.",
         ],

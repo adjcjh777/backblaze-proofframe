@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.final_submission_control.v1",
-  "created_at": "2026-07-03T05:09:12Z",
+  "created_at": "2026-07-03T10:57:05Z",
   "ok": true,
   "control_health_ok": true,
   "mode": "pre_live_control",
@@ -32,23 +32,23 @@
     "mode": "pre_live_safe",
     "summary": {
       "required": 6,
-      "done": 2,
-      "blocked": 1,
+      "done": 3,
+      "blocked": 3,
       "doing": 0,
-      "todo": 3,
+      "todo": 0,
       "missing": 0
     },
-    "evidence_status": "missing",
+    "evidence_status": "verified",
     "b2_evidence_status": "verified",
-    "packet_status": "pre_live_packet_pending"
+    "packet_status": "post_live_packet_ready"
   },
   "task_statuses": {
     "T020": "done",
-    "T021": "blocked",
+    "T021": "done",
     "T040": "done",
-    "T041": "todo",
-    "T041A": "todo",
-    "T042": "todo"
+    "T041": "blocked",
+    "T041A": "blocked",
+    "T042": "blocked"
   },
   "report_inputs": {
     "devpost_form": {
@@ -175,7 +175,7 @@
       "path": "docs/assets/final-launch-plan.json",
       "schema_ok": true,
       "schema": "proofframe.final_launch_plan.v1",
-      "mode": "ready_for_genblaze_live_proof",
+      "mode": "ready_for_public_video",
       "ok": false,
       "score": null,
       "max_score": null,
@@ -186,9 +186,9 @@
       "mock_recording_ready": null,
       "public_mock_verified": null,
       "public_video_ready": null,
-      "current_phase": "genblaze_live_proof",
-      "next_command": "python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider openai --genblaze-image-model gpt-image-1 --evidence-out docs/assets/final-live-proof-evidence.json",
-      "next_detail": "Run after the B2-only proof passes so final evidence has storage and generation proof.",
+      "current_phase": "public_video",
+      "next_command": "python scripts/devpost_packet.py --post-live --video-url \"$PROOFFRAME_PUBLIC_VIDEO_URL\"",
+      "next_detail": "Record and upload the public demo after live proof evidence exists.",
       "bus_status": null,
       "active_role_cwd_ok": null
     },
@@ -285,9 +285,9 @@
       "path": "docs/assets/award-readiness-report.json",
       "schema_ok": true,
       "schema": "proofframe.award_readiness.v1",
-      "mode": "pre_live_competitive",
+      "mode": "proof_verified_video_pending",
       "ok": null,
-      "score": 101,
+      "score": 105,
       "max_score": 115,
       "final_form_ready": null,
       "safe_to_submit": null,
@@ -429,7 +429,7 @@
       "id": "final_launch_plan",
       "label": "Final launch plan exposes the current operator step",
       "ok": true,
-      "detail": "Launch plan mode is ready_for_genblaze_live_proof; current phase is genblaze_live_proof; next command is python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider openai --genblaze-image-model gpt-image-1 --evidence-out docs/assets/final-live-proof-evidence.json.",
+      "detail": "Launch plan mode is ready_for_public_video; current phase is public_video; next command is python scripts/devpost_packet.py --post-live --video-url \"$PROOFFRAME_PUBLIC_VIDEO_URL\".",
       "evidence": "docs/assets/final-launch-plan.json"
     },
     {
@@ -450,14 +450,14 @@
       "id": "b2_live_proof",
       "label": "Backblaze B2 live proof captured",
       "ok": true,
-      "detail": "T020 is done; B2 evidence status is verified; final evidence status is missing.",
+      "detail": "T020 is done; B2 evidence status is verified; final evidence status is verified.",
       "evidence": "tasks.json, docs/assets/b2-live-proof-evidence.json, and docs/assets/final-live-proof-evidence.json"
     },
     {
       "id": "genblaze_live_proof",
       "label": "Genblaze live proof captured",
-      "ok": false,
-      "detail": "T021 is blocked; final evidence status is missing.",
+      "ok": true,
+      "detail": "T021 is done; final evidence status is verified.",
       "evidence": "tasks.json and docs/assets/final-live-proof-evidence.json"
     },
     {
@@ -492,28 +492,28 @@
       "id": "award_readiness",
       "label": "Award readiness score remains competitive",
       "ok": true,
-      "detail": "Award readiness score is 101/115.",
+      "detail": "Award readiness score is 105/115.",
       "evidence": "docs/assets/award-readiness-report.json"
     },
     {
       "id": "final_secret_scan",
       "label": "Final secret scan is complete",
       "ok": false,
-      "detail": "T041A is todo; secret scan mode is clear; secret scan ok is True.",
+      "detail": "T041A is blocked; secret scan mode is clear; secret scan ok is True.",
       "evidence": "tasks.json and docs/assets/secret-scan-report.json"
     },
     {
       "id": "final_submission_audit",
       "label": "Final submission audit is complete",
       "ok": false,
-      "detail": "T041 is todo; audit mode is pre_submit_audit_blocked; audit ok is False.",
+      "detail": "T041 is blocked; audit mode is pre_submit_audit_blocked; audit ok is False.",
       "evidence": "tasks.json and docs/assets/submission-audit-report.json"
     },
     {
       "id": "devpost_submitted",
       "label": "Devpost project submitted",
       "ok": false,
-      "detail": "T042 is todo; receipt mode is pending_submission; receipt ok is False.",
+      "detail": "T042 is blocked; receipt mode is pending_submission; receipt ok is False.",
       "evidence": "tasks.json and docs/assets/devpost-submission-receipt.json"
     }
   ],
@@ -524,13 +524,6 @@
       "ok": false,
       "detail": "Devpost submission checklist mode is pre_submit_blocked; safe_to_submit is False.",
       "evidence": "docs/assets/devpost-submission-checklist.json"
-    },
-    {
-      "id": "genblaze_live_proof",
-      "label": "Genblaze live proof captured",
-      "ok": false,
-      "detail": "T021 is blocked; final evidence status is missing.",
-      "evidence": "tasks.json and docs/assets/final-live-proof-evidence.json"
     },
     {
       "id": "public_video",
@@ -557,27 +550,26 @@
       "id": "final_secret_scan",
       "label": "Final secret scan is complete",
       "ok": false,
-      "detail": "T041A is todo; secret scan mode is clear; secret scan ok is True.",
+      "detail": "T041A is blocked; secret scan mode is clear; secret scan ok is True.",
       "evidence": "tasks.json and docs/assets/secret-scan-report.json"
     },
     {
       "id": "final_submission_audit",
       "label": "Final submission audit is complete",
       "ok": false,
-      "detail": "T041 is todo; audit mode is pre_submit_audit_blocked; audit ok is False.",
+      "detail": "T041 is blocked; audit mode is pre_submit_audit_blocked; audit ok is False.",
       "evidence": "tasks.json and docs/assets/submission-audit-report.json"
     },
     {
       "id": "devpost_submitted",
       "label": "Devpost project submitted",
       "ok": false,
-      "detail": "T042 is todo; receipt mode is pending_submission; receipt ok is False.",
+      "detail": "T042 is blocked; receipt mode is pending_submission; receipt ok is False.",
       "evidence": "tasks.json and docs/assets/devpost-submission-receipt.json"
     }
   ],
   "warnings": [],
   "next_actions": [
-    "Run the final B2 plus Genblaze proof runner and save sanitized final evidence.",
     "Record and upload the public demo video after live proof is captured.",
     "Verify the public video URL with python scripts/public_video_check.py --verify-url --strict-final.",
     "Regenerate the final Devpost submission checklist after the form kit and final control gates are current.",
@@ -590,7 +582,7 @@
     "python scripts/final_env_wizard.py --output .env.final.local --missing-only --force",
     "python scripts/live_env_handoff.py --env-file .env.final.local",
     "python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out docs/assets/b2-live-proof-evidence.json",
-    "python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider openai --genblaze-image-model gpt-image-1 --evidence-out docs/assets/final-live-proof-evidence.json",
+    "python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider local --genblaze-image-model local-svg-v1 --evidence-out docs/assets/final-live-proof-evidence.json",
     "python scripts/agent_handoff_check.py",
     "python scripts/public_space_sync.py",
     "python scripts/demo_storyboard.py --strict-final",
@@ -614,10 +606,10 @@
     "python scripts/submission_bundle.py --strict-final"
   ],
   "launch_plan": {
-    "mode": "ready_for_genblaze_live_proof",
-    "current_phase": "genblaze_live_proof",
-    "next_command": "python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider openai --genblaze-image-model gpt-image-1 --evidence-out docs/assets/final-live-proof-evidence.json",
-    "next_detail": "Run after the B2-only proof passes so final evidence has storage and generation proof.",
+    "mode": "ready_for_public_video",
+    "current_phase": "public_video",
+    "next_command": "python scripts/devpost_packet.py --post-live --video-url \"$PROOFFRAME_PUBLIC_VIDEO_URL\"",
+    "next_detail": "Record and upload the public demo after live proof evidence exists.",
     "path": "docs/assets/final-launch-plan.json"
   },
   "claim_boundary": "Public demo remains local/mock and pre_live_safe until final live B2 plus Genblaze proof is captured."

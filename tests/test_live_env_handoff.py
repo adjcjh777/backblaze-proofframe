@@ -95,6 +95,34 @@ def test_live_env_handoff_uses_openai_key_when_provider_is_openai(tmp_path, monk
     assert "super-secret-openai" not in serialized
 
 
+def test_live_env_handoff_accepts_local_provider_without_key(tmp_path, monkeypatch):
+    clear_handoff_env(monkeypatch)
+    env_file = tmp_path / ".env.final.local"
+    env_file.write_text(
+        "\n".join(
+            [
+                "PROOFFRAME_STORAGE_BACKEND=b2",
+                "PROOFFRAME_GENERATION_BACKEND=genblaze",
+                "B2_ENDPOINT_URL=https://s3.us-west-004.backblazeb2.com",
+                "B2_BUCKET=proof-bucket",
+                "B2_KEY_ID=least-privilege-key-id",
+                "B2_APPLICATION_" + "KEY=super-secret-b2-value-1234567890",
+                "GENBLAZE_PROVIDER=local",
+                "GENBLAZE_IMAGE_MODEL=local-svg-v1",
+            ]
+        ),
+        encoding="utf-8",
+    )
+
+    report = live_env_handoff.build_report(env_file)
+    serialized = json.dumps(report)
+
+    assert report["ok"] is True
+    assert report["missing_ids"] == []
+    assert "GENBLAZE_PROVIDER" in serialized
+    assert "super-secret-b2" not in serialized
+
+
 def test_live_env_handoff_writes_reports(tmp_path):
     report = {
         "schema": "proofframe.live_credential_handoff.v1",

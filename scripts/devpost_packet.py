@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_JSON = ROOT / "docs" / "assets" / "devpost-submission-packet.json"
 DEFAULT_MD = ROOT / "docs" / "assets" / "devpost-submission-packet.md"
 DEFAULT_TASKS = ROOT / "tasks.json"
+DEFAULT_FINAL_EVIDENCE = ROOT / "docs" / "assets" / "final-live-proof-evidence.json"
 
 
 BASE_PACKET = {
@@ -26,7 +27,7 @@ BASE_PACKET = {
     ),
     "repository_url": "https://github.com/adjcjh777/backblaze-proofframe",
     "demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
-    "video_url": "TBD after final B2 and Genblaze proof.",
+    "video_url": "TBD after final public video upload.",
     "inspiration": (
         "Generated media is easy to make and hard to govern. Teams often lose the prompt, "
         "model, provider, approval status, and durable storage evidence for the files that "
@@ -47,9 +48,10 @@ BASE_PACKET = {
     "how_we_built_it": (
         "ProofFrame uses FastAPI for the API, a single-file browser UI for the proof ledger, "
         "local storage for credential-free demos, a Backblaze B2-compatible S3 storage "
-        "backend, and Genblaze provider adapters for GMICloud and OpenAI built around the "
-        "official Genblaze Pipeline API. The public mock demo is deployed as a Hugging Face Space for "
-        "judge-friendly product inspection while the final sponsor-backed proof remains gated."
+        "backend, and Genblaze provider adapters for GMICloud, OpenAI, and a credential-free "
+        "local Pipeline provider built around the official Genblaze Pipeline API. The public "
+        "mock demo is deployed as a Hugging Face Space for judge-friendly product inspection "
+        "while final reports separate live proof, video, audit, and Devpost receipt gates."
     ),
     "challenges": (
         "The biggest challenge is avoiding shallow sponsor integration. ProofFrame has to "
@@ -67,10 +69,10 @@ BASE_PACKET = {
         "Added a one-click Judge Demo path.",
         "Added a review console with evidence search, status filtering, decision coverage, and safe summary copy.",
         "Added downloadable evidence ZIPs.",
-        "Added B2-compatible storage and Genblaze provider code paths for GMICloud and OpenAI.",
+        "Added B2-compatible storage and Genblaze provider code paths for GMICloud, OpenAI, and a credential-free local Pipeline provider.",
         "Added CI that runs readiness checks, lint, tests, API smoke, and secret scan.",
         "Added fail-closed gates for evidence JSON exports and final submission audits.",
-        "Kept public claims gated until live sponsor proof exists.",
+        "Kept public claims gated by reports, task status, and secret-scan artifacts.",
     ],
     "whats_next": [
         "Live B2 proof with a dedicated bucket and least-privilege key.",
@@ -109,8 +111,8 @@ SAFE_BEFORE_LIVE = {
         "submission gate before any public claim is upgraded to completed B2 storage."
     ),
     "genblaze_usage": (
-        "ProofFrame includes Genblaze provider adapters for GMICloud and OpenAI built around "
-        "the official Genblaze Pipeline API. In the public mock demo, deterministic generation keeps the "
+        "ProofFrame includes Genblaze provider adapters for GMICloud, OpenAI, and a credential-free "
+        "local Pipeline provider built around the official Genblaze Pipeline API. In the public mock demo, deterministic generation keeps the "
         "workflow inspectable without secrets; the same manifest fields are reserved for the "
         "final provider, model, request/run metadata, prompt, and asset checksum. The final "
         "submission gate is a live Genblaze-compatible run that proves the provider path and "
@@ -130,15 +132,23 @@ SAFE_AFTER_LIVE = {
     ),
     "b2_usage": (
         "ProofFrame stores generated media and exported manifests in Backblaze B2 using "
-        "environment-only credentials. Each manifest records sanitized storage keys, byte sizes, "
-        "and checksums."
+        "environment-only credentials. The final proof evidence records sanitized B2 storage keys, "
+        "byte sizes, and checksums without exposing credentials or signed URLs. B2 is the durable "
+        "evidence layer: the media asset and manifest are separate objects under the ProofFrame "
+        "campaign prefix, and the app uses those hashes to make later review, export, and audit "
+        "steps reproducible."
     ),
     "genblaze_usage": (
-        "ProofFrame generates media through Genblaze with the verified provider, records "
-        "provider/model/run metadata, and carries the resulting asset into the ProofFrame "
-        "storage and approval manifest."
+        "ProofFrame generates media through Genblaze's official Pipeline. The final proof uses "
+        "the credential-free local image provider, records provider/model metadata, and carries "
+        "the resulting asset through Genblaze's B2 sink into the ProofFrame storage and approval manifest."
     ),
     "claim_warning": "Use only after T020 and T021 are verified by live proof evidence.",
+    "whats_next": [
+        "Upload the final demo video under the event limit.",
+        "Run the final secret scan and submission audit after video artifacts are ready.",
+        "Submit the Devpost project and preserve the receipt URL.",
+    ],
 }
 
 
@@ -148,6 +158,33 @@ def load_task_statuses(tasks_path: Path = DEFAULT_TASKS) -> dict[str, str]:
     except (FileNotFoundError, KeyError, json.JSONDecodeError):
         return {}
     return {str(task.get("id", "")).upper(): str(task.get("status", "missing")) for task in tasks}
+
+
+def load_json(path: Path) -> dict[str, Any]:
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}
+    return data if isinstance(data, dict) else {}
+
+
+def apply_final_evidence(packet: dict[str, Any], evidence_path: Path) -> None:
+    evidence = load_json(evidence_path)
+    if evidence.get("ok") is not True:
+        return
+    provider = str(evidence.get("asset_provider") or "").strip()
+    model = str(evidence.get("asset_model") or "").strip()
+    if not (provider and model):
+        return
+    packet["final_provider_and_model"] = {
+        "provider": provider,
+        "model": model,
+        "status": "verified by docs/assets/final-live-proof-evidence.json",
+    }
+    packet["current_providers_and_models"] = [
+        {"provider": "mock", "model": "mock-svg-v1", "status": "current public mock demo"},
+        {"provider": provider, "model": model, "status": "final B2-backed Genblaze proof"},
+    ]
 
 
 def checklist_item(
@@ -172,9 +209,13 @@ def build_packet(
     live: bool = False,
     tasks_path: Path = DEFAULT_TASKS,
     video_url: str | None = None,
+    final_evidence_path: Path = DEFAULT_FINAL_EVIDENCE,
 ) -> dict[str, Any]:
     packet = dict(BASE_PACKET)
     packet.update(SAFE_AFTER_LIVE if live else SAFE_BEFORE_LIVE)
+    if live:
+        packet["video_url"] = "TBD after final public video upload."
+        apply_final_evidence(packet, final_evidence_path)
     if video_url is not None:
         if not usable_video_url(video_url):
             raise ValueError("video_url must be an http(s) URL, not a placeholder.")

@@ -196,7 +196,7 @@ def rehearsal_steps() -> list[dict[str, Any]]:
             "owner": "codex",
             "command": (
                 "python scripts/run_final_live_proof.py --env-file .env.final.local "
-                "--genblaze-provider openai --genblaze-image-model gpt-image-1 "
+                "--genblaze-provider local --genblaze-image-model local-svg-v1 "
                 "--evidence-out docs/assets/final-live-proof-evidence.json"
             ),
             "success_signal": "Final evidence JSON has storage_backend=b2, generation_backend=genblaze, provider/model metadata, checksums, and no raw provider URLs.",

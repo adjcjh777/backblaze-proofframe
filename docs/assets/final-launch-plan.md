@@ -1,16 +1,16 @@
 # ProofFrame Final Launch Plan
 
-Mode: `ready_for_genblaze_live_proof`
-Current phase: `genblaze_live_proof`
+Mode: `ready_for_public_video`
+Current phase: `public_video`
 Complete: `false`
-Progress: `2 / 6` done; `1` ready, `3` blocked.
+Progress: `3 / 6` done; `1` ready, `2` blocked.
 
 ## Next Command
 
 ```bash
-python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider openai --genblaze-image-model gpt-image-1 --evidence-out docs/assets/final-live-proof-evidence.json
+python scripts/devpost_packet.py --post-live --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL"
 ```
-Run after the B2-only proof passes so final evidence has storage and generation proof.
+Record and upload the public demo after live proof evidence exists.
 
 ## Phases
 
@@ -41,11 +41,11 @@ python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out d
   - `python3 scripts/task.py done T020 --note "B2 live proof evidence captured in docs/assets/b2-live-proof-evidence.json."`
 
 ### genblaze_live_proof - Capture final B2 plus Genblaze proof
-- Status: `ready`
-- Detail: Run after the B2-only proof passes so final evidence has storage and generation proof.
+- Status: `done`
+- Detail: Sanitized final B2 plus Genblaze evidence is present and T021 is done.
 - Command:
 ```bash
-python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider openai --genblaze-image-model gpt-image-1 --evidence-out docs/assets/final-live-proof-evidence.json
+python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider local --genblaze-image-model local-svg-v1 --evidence-out docs/assets/final-live-proof-evidence.json
 ```
 - Expected artifacts:
   - `docs/assets/final-live-proof-evidence.json`
@@ -55,8 +55,8 @@ python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-pr
   - `python3 scripts/task.py done T021 --note "Final B2 plus Genblaze live proof evidence captured in docs/assets/final-live-proof-evidence.json."`
 
 ### public_video - Record and verify public demo video
-- Status: `blocked`
-- Detail: Waiting on live B2 plus Genblaze evidence.
+- Status: `ready`
+- Detail: Record and upload the public demo after live proof evidence exists.
 - Command:
 ```bash
 python scripts/devpost_packet.py --post-live --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL"

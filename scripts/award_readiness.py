@@ -175,14 +175,14 @@ def build_criteria(root: Path, context: dict[str, Any]) -> list[dict[str, Any]]:
                     "Genblaze provider path is implemented",
                     has_text(root, "src/proofframe/providers.py", "class GenblazeMediaProvider"),
                     5,
-                    "The app has real Genblaze provider adapters for GMICloud and OpenAI.",
+                    "The app has Genblaze provider adapters for GMICloud, OpenAI, and credential-free local Pipeline proof.",
                 ),
                 signal(
                     "final_live_runner",
                     "Final B2 plus Genblaze runner exists",
                     path_present(root, "scripts/run_final_live_proof.py"),
                     4,
-                    "A one-command runner can produce sanitized final evidence once keys are present.",
+                    "A one-command runner can produce sanitized final evidence with the configured Genblaze provider.",
                 ),
                 signal(
                     "sponsor_fit_matrix",
@@ -346,7 +346,7 @@ def build_criteria(root: Path, context: dict[str, Any]) -> list[dict[str, Any]]:
                     "Public claim lint is clean",
                     bool(claim["ok"]),
                     4,
-                    "Pre-live copy avoids claiming unverified B2 or Genblaze runs.",
+                    "Public copy only claims B2 or Genblaze proof when sanitized evidence is present.",
                 ),
                 signal(
                     "env_ignored",
@@ -394,7 +394,7 @@ def build_criteria(root: Path, context: dict[str, Any]) -> list[dict[str, Any]]:
                     "Final secret scan task is done",
                     statuses.get("T041A") == "done",
                     1,
-                    "The final scan should run after live proof artifacts are generated.",
+                    "The final scan should run after live proof and final public submission artifacts are generated.",
                 ),
                 signal(
                     "devpost_submitted",
@@ -418,12 +418,14 @@ def build_next_actions(report: dict[str, Any]) -> list[str]:
         )
     if statuses.get("T021") != "done":
         actions.append(
-            "Resolve the Genblaze provider live-proof blocker and run python scripts/run_final_live_proof.py "
-            "--env-file .env.final.local, or use the no-recharge OpenAI fallback with "
-            "--genblaze-provider openai --genblaze-image-model gpt-image-1 after OPENAI_API_KEY is available."
+            "Run the credential-free local Genblaze Pipeline proof with python scripts/run_final_live_proof.py "
+            "--env-file .env.final.local --genblaze-provider local --genblaze-image-model local-svg-v1."
         )
     if statuses.get("T041A") != "done":
-        actions.append("Run python scripts/secret_scan.py after live evidence is generated.")
+        if statuses.get("T020") == "done" and statuses.get("T021") == "done":
+            actions.append("Run python scripts/secret_scan.py after the public video and Devpost-safe artifacts are staged.")
+        else:
+            actions.append("Run python scripts/secret_scan.py after live evidence is generated.")
     if statuses.get("T041") != "done":
         actions.append(
             "Run python scripts/submission_audit.py --strict-final after live proof, public video URL, and T041A are done."
@@ -433,9 +435,11 @@ def build_next_actions(report: dict[str, Any]) -> list[str]:
     return actions[:5]
 
 
-def readiness_mode(score: int, gate_ok: bool) -> str:
+def readiness_mode(score: int, gate_ok: bool, evidence_status: str | None = None) -> str:
     if gate_ok and score >= 90:
         return "final_award_ready"
+    if evidence_status == "verified" and score >= 75:
+        return "proof_verified_video_pending"
     if score >= 75:
         return "pre_live_competitive"
     return "needs_polish"
@@ -459,6 +463,8 @@ def readiness_interpretation(criteria: list[dict[str, Any]], gate_ok: bool, mode
         "boundary": (
             "Final award readiness is complete."
             if gate_ok
+            else "B2 and Genblaze proof are verified; final award readiness still requires the public video, final audit, final secret scan, and Devpost receipt."
+            if mode == "proof_verified_video_pending"
             else "Pre-live score reflects product, demo, and documentation strength; final award readiness still requires live proof, final audit, and Devpost receipt."
         ),
     }
@@ -476,7 +482,11 @@ def build_report(root: Path = ROOT) -> dict[str, Any]:
     criteria = build_criteria(root, context)
     score = sum(item["score"] for item in criteria)
     max_score = sum(item["max_score"] for item in criteria)
-    mode = readiness_mode(score, context["submission_gate"]["ok"])
+    mode = readiness_mode(
+        score,
+        context["submission_gate"]["ok"],
+        context["submission_gate"]["evidence_gate"]["status"],
+    )
     report = {
         "schema": "proofframe.award_readiness.v1",
         "project": "ProofFrame",

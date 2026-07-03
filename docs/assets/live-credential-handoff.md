@@ -40,6 +40,9 @@ python scripts/live_env_handoff.py --env-file .env.final.local
 python scripts/run_final_live_proof.py --env-file .env.final.local --preflight-only
 ```
 ```bash
+python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider local --genblaze-image-model local-svg-v1 --preflight-only
+```
+```bash
 python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider openai --genblaze-image-model gpt-image-1 --preflight-only
 ```
 ```bash

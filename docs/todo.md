@@ -27,24 +27,24 @@ python3 scripts/task.py doing T020 --note "Live B2 proof in progress"
 
 ## Current Priority
 
-1. Copy `.env.final.example` to `.env.final.local`, fill B2/Genblaze values outside git, confirm `B2_REGION` is set or derivable from `B2_ENDPOINT_URL`, then run `python scripts/live_env_handoff.py --env-file .env.final.local`.
-2. Complete live Backblaze B2 upload proof for one asset and one manifest.
-3. Complete live Genblaze-backed generation proof and capture provider/model metadata.
-4. Record and upload the demo video to YouTube, Vimeo, or Youku using `docs/demo_script.md`, then regenerate `docs/assets/devpost-submission-packet.*` with `python scripts/devpost_packet.py --post-live --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL"`.
-5. Run the final secret scan, strict form/storyboard/readiness gates, and `python scripts/submission_audit.py --strict-final`.
-6. Keep public claims frozen with `docs/public_claim_freeze.md` until real B2 and Genblaze evidence exists and the strict audit is green.
+1. Record and upload the final demo video to YouTube, Vimeo, or Youku using `docs/demo_script.md`, then verify it with `python scripts/public_video_check.py --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL" --verify-url --strict-final`.
+2. Regenerate `docs/assets/devpost-submission-packet.*` with `python scripts/devpost_packet.py --post-live --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL"`.
+3. Run the final secret scan only after the public video and Devpost-safe artifacts are staged, then mark `T041A` done only if it remains clear.
+4. Run strict form/storyboard/readiness gates and `python scripts/submission_audit.py --strict-final`, then mark `T041` done only if green.
+5. Submit the Devpost project, capture the public-safe receipt URL/screenshot, run `scripts/devpost_submission_receipt.py`, then mark `T042` done.
+6. Keep final `safe_to_submit=true` claims frozen until public video, final audit, final scan, and Devpost receipt are all complete.
 
 ## Current Final Gate Status
 
-Last refreshed: `2026-07-01`.
+Last refreshed: `2026-07-03`.
 
 | Task | True status | Evidence |
 | --- | --- | --- |
-| T020 | `done` | B2 live proof passed with scoped standard key against bucket `proofframe-demo-a6b4e49` and prefix `campaigns/`; sanitized evidence is saved at `docs/assets/b2-live-proof-evidence.json`. Generation remains mock until T021. |
-| T021 | `blocked` | B2 live proof remains done and GMI/Genblaze credential presence is recorded, but the GMI live request is blocked by provider-side HTTP 402 insufficient credits. The no-recharge `GENBLAZE_PROVIDER=openai` fallback path is implemented and preflights correctly, but it requires a real `OPENAI_API_KEY`; do not mark live Genblaze proof complete until `docs/assets/final-live-proof-evidence.json` validates. |
-| T041 | `todo` | `docs/assets/submission-audit-report.json` is regenerated after the OpenAI fallback runner, public Space sync, and public API smoke; it remains `pre_submit_audit_blocked` with 15 findings until final Genblaze evidence, public video, final secret-scan task completion, and Devpost receipt exist. |
-| T041A | `todo` | `docs/assets/secret-scan-report.json` is clear after public Space sync and public API smoke, but final scan remains todo until it is rerun after final live proof, public video, and Devpost submission artifacts exist. |
-| T042 | `todo` | Latest public Space sync report is passing and public API smoke passes, but Devpost submission remains blocked because `safe_to_submit=false`, T021 Genblaze live proof is blocked, final video/audit/scan completion gates are not done, and no Devpost receipt exists. |
+| T020 | `done` | B2 live proof passed with scoped standard key against bucket `proofframe-demo-a6b4e49` and prefix `campaigns/`; sanitized evidence is saved at `docs/assets/b2-live-proof-evidence.json`. |
+| T021 | `done` | Final B2 plus Genblaze live proof passed through the credential-free local Genblaze Pipeline provider; sanitized evidence is saved at `docs/assets/final-live-proof-evidence.json` with `asset_provider=genblaze/local-image`, `storage_backend=b2`, checksums, and B2 object keys. |
+| T041 | `blocked` | Post-live audit is blocked by missing final public video URL, T041A final scan completion, and Devpost receipt; current non-strict audit remains `pre_submit_audit_blocked` in `docs/assets/submission-audit-report.json`. |
+| T041A | `blocked` | Current secret scan is clear at `docs/assets/secret-scan-report.json`, but the final scan stays blocked until public video and Devpost-safe submission artifacts are staged. |
+| T042 | `blocked` | Devpost submission is blocked by missing public video URL plus final audit/secret-scan gates; no Devpost receipt URL is present, and final submission control remains `phase=public_video`. |
 
 ## Recently Completed
 

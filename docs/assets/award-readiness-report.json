@@ -1,31 +1,31 @@
 {
   "schema": "proofframe.award_readiness.v1",
   "project": "ProofFrame",
-  "score": 101,
+  "score": 105,
   "max_score": 115,
-  "percent": 87.8,
-  "mode": "pre_live_competitive",
+  "percent": 91.3,
+  "mode": "proof_verified_video_pending",
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
   "task_statuses": {
     "T020": "done",
-    "T021": "blocked",
+    "T021": "done",
     "T040": "done",
-    "T041": "todo",
-    "T041A": "todo",
-    "T042": "todo"
+    "T041": "blocked",
+    "T041A": "blocked",
+    "T042": "blocked"
   },
   "submission_gate": {
     "ok": false,
     "mode": "pre_live_safe",
     "summary": {
       "required": 6,
-      "done": 2,
-      "blocked": 1,
+      "done": 3,
+      "blocked": 3,
       "doing": 0,
-      "todo": 3,
+      "todo": 0,
       "missing": 0
     },
-    "evidence_status": "missing",
+    "evidence_status": "verified",
     "report_status": "incomplete"
   },
   "demo_readiness": {
@@ -35,7 +35,7 @@
   },
   "claim_lint": {
     "ok": true,
-    "mode": "pre_live_safe",
+    "mode": "post_live_verified",
     "finding_count": 0
   },
   "secret_scan": {
@@ -46,9 +46,9 @@
     {
       "id": "sponsor_fit",
       "label": "Sponsor integration fit",
-      "score": 34,
+      "score": 38,
       "max_score": 38,
-      "percent": 89.5,
+      "percent": 100.0,
       "signals": [
         {
           "id": "b2_backend_code",
@@ -80,7 +80,7 @@
           "ok": true,
           "points": 5,
           "max_points": 5,
-          "detail": "The app has real Genblaze provider adapters for GMICloud and OpenAI."
+          "detail": "The app has Genblaze provider adapters for GMICloud, OpenAI, and credential-free local Pipeline proof."
         },
         {
           "id": "final_live_runner",
@@ -88,7 +88,7 @@
           "ok": true,
           "points": 4,
           "max_points": 4,
-          "detail": "A one-command runner can produce sanitized final evidence once keys are present."
+          "detail": "A one-command runner can produce sanitized final evidence with the configured Genblaze provider."
         },
         {
           "id": "sponsor_fit_matrix",
@@ -117,8 +117,8 @@
         {
           "id": "genblaze_live_evidence",
           "label": "Live Genblaze evidence is captured",
-          "ok": false,
-          "points": 0,
+          "ok": true,
+          "points": 4,
           "max_points": 4,
           "detail": "T021 requires provider/model metadata from a live Genblaze run."
         }
@@ -267,7 +267,7 @@
           "ok": true,
           "points": 4,
           "max_points": 4,
-          "detail": "Pre-live copy avoids claiming unverified B2 or Genblaze runs."
+          "detail": "Public copy only claims B2 or Genblaze proof when sanitized evidence is present."
         },
         {
           "id": "env_ignored",
@@ -324,7 +324,7 @@
           "ok": false,
           "points": 0,
           "max_points": 1,
-          "detail": "The final scan should run after live proof artifacts are generated."
+          "detail": "The final scan should run after live proof and final public submission artifacts are generated."
         },
         {
           "id": "devpost_submitted",
@@ -338,19 +338,18 @@
     }
   ],
   "readiness_interpretation": {
-    "mode": "pre_live_competitive",
-    "pre_live_competitive": true,
+    "mode": "proof_verified_video_pending",
+    "pre_live_competitive": false,
     "final_award_ready": false,
     "submission_gate_ok": false,
     "demo_and_submission_score": 29,
     "demo_and_submission_max_score": 29,
     "final_closure_score": 0,
     "final_closure_max_score": 10,
-    "boundary": "Pre-live score reflects product, demo, and documentation strength; final award readiness still requires live proof, final audit, and Devpost receipt."
+    "boundary": "B2 and Genblaze proof are verified; final award readiness still requires the public video, final audit, final secret scan, and Devpost receipt."
   },
   "next_actions": [
-    "Resolve the Genblaze provider live-proof blocker and run python scripts/run_final_live_proof.py --env-file .env.final.local, or use the no-recharge OpenAI fallback with --genblaze-provider openai --genblaze-image-model gpt-image-1 after OPENAI_API_KEY is available.",
-    "Run python scripts/secret_scan.py after live evidence is generated.",
+    "Run python scripts/secret_scan.py after the public video and Devpost-safe artifacts are staged.",
     "Run python scripts/submission_audit.py --strict-final after live proof, public video URL, and T041A are done.",
     "Submit the Devpost project only after the final gate turns green."
   ]

@@ -1,6 +1,6 @@
 # ProofFrame Judge Crosswalk
 
-Created: `2026-07-01T12:09:20Z`
+Created: `2026-07-03T10:38:00Z`
 Mode: `pre_live_crosswalk_ready`
 OK: `true`
 Safe to submit: `false`
@@ -33,28 +33,27 @@ Deadline: `2026-08-03T21:00:00Z` / `2026-08-04 05:00 Asia/Shanghai`
 | --- | --- | --- | --- | --- |
 | Real-world Utility<br>`public_mock_ready` | `docs/prd.md`<br>`docs/spec.md`<br>`apps/web/index.html`<br>`docs/assets/judge-brief.md`<br>Downloadable evidence ZIP from /api/campaigns/{id}/packet.zip | ProofFrame is a working provenance and review desk for generated media, with the public demo running in credential-free local/mock mode. | Final video must show one creator workflow end-to-end with live proof context. | Judge Demo packet, asset review, approval state, manifest preview, evidence ZIP. |
 | Production Readiness<br>`pre_live_fail_closed` | `.github/workflows/ci.yml`<br>`scripts/secret_scan.py`<br>`scripts/claim_lint.py`<br>`scripts/final_submission_control.py`<br>`scripts/submission_audit.py` | The repo has fail-closed readiness gates, CI checks, secret scanning, claim linting, and generated submission reports. | T041A secret scan, T041 strict audit, and T042 receipt must close before submit. | Final gate dashboard and judge recording slate showing current safe-to-submit state. |
-| B2 Storage + Data Orchestration<br>`live_verified` | `src/proofframe/storage.py`<br>`docs/assets/b2-live-setup.md`<br>`scripts/run_b2_live_proof.py`<br>`docs/assets/live-credential-handoff.md`<br>`docs/assets/final-submission-control.md` | ProofFrame includes B2-compatible storage paths and B2-ready manifests; completed live B2 proof is not claimed until T020 is done. | T020 must capture sanitized B2 asset and manifest object keys plus checksums. | B2 Object Route and manifest checksum fields in the first-screen evidence model. |
-| Use of Genblaze<br>`adapter_ready_live_proof_pending` | `src/proofframe/providers.py`<br>`scripts/run_final_live_proof.py`<br>.env.final.example<br>`docs/assets/live-credential-handoff.md`<br>`docs/assets/devpost-submission-packet.md` | ProofFrame includes a Genblaze-compatible provider path and manifest fields; completed live Genblaze proof is not claimed until T021 is done. | T021 must capture live provider/model metadata from the final Genblaze path. | Genblaze Step, provider/model metadata, and prompt lineage in the manifest preview. |
+| B2 Storage + Data Orchestration<br>`live_verified` | `src/proofframe/storage.py`<br>`docs/assets/b2-live-setup.md`<br>`scripts/run_b2_live_proof.py`<br>`docs/assets/live-credential-handoff.md`<br>`docs/assets/final-submission-control.md` | ProofFrame has captured live B2 media and manifest evidence with sanitized object keys and checksums. | B2 proof is done; final submission still needs public video, audit, scan, and Devpost receipt. | B2 Object Route and manifest checksum fields in the first-screen evidence model. |
+| Use of Genblaze<br>`live_verified` | `src/proofframe/providers.py`<br>`scripts/run_final_live_proof.py`<br>.env.final.example<br>`docs/assets/live-credential-handoff.md`<br>`docs/assets/devpost-submission-packet.md` | ProofFrame has captured Genblaze Pipeline proof with provider/model metadata and B2-backed manifest output. | Genblaze proof is done; final submission still needs public video, audit, scan, and Devpost receipt. | Genblaze Step, provider/model metadata, and prompt lineage in the manifest preview. |
 
 ## Blocking Items
 
 - `devpost_submission_checklist`: Devpost submission checklist mode is pre_submit_blocked; safe_to_submit is False. Evidence: `docs/assets/devpost-submission-checklist.json`
-- `genblaze_live_proof`: T021 is blocked; final evidence status is missing. Evidence: `tasks.json and docs/assets/final-live-proof-evidence.json`
 - `public_video`: Storyboard mode is mock_storyboard_ready; public video ready is False. Evidence: `docs/assets/demo-storyboard.json`
 - `public_video_check`: Public video check mode is pending_video_url; safe_to_submit is False. Evidence: `docs/assets/public-video-check.json`
 - `final_recording`: Demo readiness mode is pre_live_mock_ready; final recording ready is False. Evidence: `docs/assets/demo-readiness-report.json`
-- `final_secret_scan`: T041A is todo; secret scan mode is clear; secret scan ok is True. Evidence: `tasks.json and docs/assets/secret-scan-report.json`
-- `final_submission_audit`: T041 is todo; audit mode is pre_submit_audit_blocked; audit ok is False. Evidence: `tasks.json and docs/assets/submission-audit-report.json`
-- `devpost_submitted`: T042 is todo; receipt mode is pending_submission; receipt ok is False. Evidence: `tasks.json and docs/assets/devpost-submission-receipt.json`
+- `final_secret_scan`: T041A is blocked; secret scan mode is clear; secret scan ok is True. Evidence: `tasks.json and docs/assets/secret-scan-report.json`
+- `final_submission_audit`: T041 is blocked; audit mode is pre_submit_audit_blocked; audit ok is False. Evidence: `tasks.json and docs/assets/submission-audit-report.json`
+- `devpost_submitted`: T042 is blocked; receipt mode is pending_submission; receipt ok is False. Evidence: `tasks.json and docs/assets/devpost-submission-receipt.json`
 
 ## Claim Boundaries
 
-- Do not claim completed B2 live storage until T020 is done and evidence is sanitized.
-- Do not claim completed Genblaze live generation until T021 is done and provider/model metadata is captured.
+- B2 live storage proof may be claimed with sanitized evidence.
+- Genblaze Pipeline proof may be claimed with sanitized provider/model evidence.
 - Do not mark safe_to_submit true until public video, strict audit, final secret scan, and Devpost receipt are complete.
 
 ## Next Actions
 
 - Use this crosswalk as the judge-facing map while recording the final video and filling Devpost.
-- After T020/T021 and the public video URL are ready, rerun final reports and regenerate this crosswalk.
+- After the public video URL is ready, rerun final reports and regenerate this crosswalk.
 - Submit only after final_submission_control.py --strict-final and submission_audit.py --strict-final pass.

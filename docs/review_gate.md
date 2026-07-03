@@ -16,7 +16,7 @@ It is **not ready for final submission** because the mandatory Backblaze B2 and 
 
 1. **Backblaze B2 requirement is not satisfied yet.** The repo now includes a B2 S3-compatible storage backend and fake-client tests, but `tasks.json` still lists `T020` as doing because no live B2 bucket/key proof has been captured. Do not claim a working B2-backed run until an asset and manifest are stored in a dedicated B2 bucket using environment-only credentials.
 
-2. **Genblaze requirement is not satisfied yet.** The repo now includes Genblaze provider paths for GMICloud and OpenAI built around the official Pipeline API, but `tasks.json` still lists `T021` as blocked because no live provider run has been captured. The final submission must demonstrate real Genblaze or Genblaze-compatible orchestration, not only the local mock demo.
+2. **Genblaze proof is captured through the credential-free local Pipeline provider.** The repo includes Genblaze provider paths for GMICloud, OpenAI, and local Pipeline execution around the official Pipeline API. `T021` is done with sanitized final evidence, while public video, final audit, and Devpost receipt remain gated before the final submission can be called complete.
 
 3. **Devpost registration is complete, but submission is not.** `T040` is done and `T042` is todo. The final project page should not be submitted until live B2/Genblaze proof, final audit, and final secret scan pass.
 

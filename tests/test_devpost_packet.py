@@ -39,6 +39,41 @@ def test_live_packet_uses_verified_claim_copy():
     assert packet["video_url"] == "https://youtu.be/example-proof"
 
 
+def test_live_packet_without_video_uses_video_upload_placeholder():
+    packet = devpost_packet.build_packet(live=True)
+
+    assert packet["mode"] == "post_live_verified"
+    assert packet["video_url"] == "TBD after final public video upload."
+    assert "Upload the final demo video" in packet["whats_next"][0]
+
+
+def test_live_packet_reads_final_evidence_provider_and_model(tmp_path):
+    evidence_path = tmp_path / "final-live-proof-evidence.json"
+    evidence_path.write_text(
+        json.dumps(
+            {
+                "ok": True,
+                "asset_provider": "genblaze/local-image",
+                "asset_model": "local-svg-v1",
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    packet = devpost_packet.build_packet(live=True, final_evidence_path=evidence_path)
+
+    assert packet["final_provider_and_model"] == {
+        "provider": "genblaze/local-image",
+        "model": "local-svg-v1",
+        "status": "verified by docs/assets/final-live-proof-evidence.json",
+    }
+    assert {
+        "provider": "genblaze/local-image",
+        "model": "local-svg-v1",
+        "status": "final B2-backed Genblaze proof",
+    } in packet["current_providers_and_models"]
+
+
 def test_packet_rejects_placeholder_video_url():
     try:
         devpost_packet.build_packet(live=True, video_url="TBD after upload")

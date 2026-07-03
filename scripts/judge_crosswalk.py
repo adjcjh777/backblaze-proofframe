@@ -227,10 +227,15 @@ def build_rows(criteria: list[dict[str, Any]], statuses: dict[str, str]) -> list
                 "docs/assets/final-submission-control.md",
             ],
             safe_claim=(
-                "ProofFrame includes B2-compatible storage paths and B2-ready manifests; "
-                "completed live B2 proof is not claimed until T020 is done."
+                "ProofFrame has captured live B2 media and manifest evidence with sanitized object keys and checksums."
+                if b2_done
+                else "ProofFrame includes B2-compatible storage paths and B2-ready manifests; completed live B2 proof is not claimed until T020 is done."
             ),
-            final_gate="T020 must capture sanitized B2 asset and manifest object keys plus checksums.",
+            final_gate=(
+                "B2 proof is done; final submission still needs public video, audit, scan, and Devpost receipt."
+                if b2_done
+                else "T020 must capture sanitized B2 asset and manifest object keys plus checksums."
+            ),
             demo_shot="B2 Object Route and manifest checksum fields in the first-screen evidence model.",
         ),
         row(
@@ -246,10 +251,15 @@ def build_rows(criteria: list[dict[str, Any]], statuses: dict[str, str]) -> list
                 "docs/assets/devpost-submission-packet.md",
             ],
             safe_claim=(
-                "ProofFrame includes a Genblaze-compatible provider path and manifest fields; "
-                "completed live Genblaze proof is not claimed until T021 is done."
+                "ProofFrame has captured Genblaze Pipeline proof with provider/model metadata and B2-backed manifest output."
+                if genblaze_done
+                else "ProofFrame includes a Genblaze-compatible provider path and manifest fields; completed live Genblaze proof is not claimed until T021 is done."
             ),
-            final_gate="T021 must capture live provider/model metadata from the final Genblaze path.",
+            final_gate=(
+                "Genblaze proof is done; final submission still needs public video, audit, scan, and Devpost receipt."
+                if genblaze_done
+                else "T021 must capture live provider/model metadata from the final Genblaze path."
+            ),
             demo_shot="Genblaze Step, provider/model metadata, and prompt lineage in the manifest preview.",
         ),
     ]
@@ -315,13 +325,25 @@ def build_crosswalk(root: Path = ROOT) -> dict[str, Any]:
         },
         "blocking_items": blocking_items(final_control),
         "claim_boundaries": [
-            "Do not claim completed B2 live storage until T020 is done and evidence is sanitized.",
-            "Do not claim completed Genblaze live generation until T021 is done and provider/model metadata is captured.",
+            (
+                "B2 live storage proof may be claimed with sanitized evidence."
+                if statuses.get("T020") == "done"
+                else "Do not claim completed B2 live storage until T020 is done and evidence is sanitized."
+            ),
+            (
+                "Genblaze Pipeline proof may be claimed with sanitized provider/model evidence."
+                if statuses.get("T021") == "done"
+                else "Do not claim completed Genblaze live generation until T021 is done and provider/model metadata is captured."
+            ),
             "Do not mark safe_to_submit true until public video, strict audit, final secret scan, and Devpost receipt are complete.",
         ],
         "next_actions": [
             "Use this crosswalk as the judge-facing map while recording the final video and filling Devpost.",
-            "After T020/T021 and the public video URL are ready, rerun final reports and regenerate this crosswalk.",
+            (
+                "After the public video URL is ready, rerun final reports and regenerate this crosswalk."
+                if statuses.get("T020") == "done" and statuses.get("T021") == "done"
+                else "After T020/T021 and the public video URL are ready, rerun final reports and regenerate this crosswalk."
+            ),
             "Submit only after final_submission_control.py --strict-final and submission_audit.py --strict-final pass.",
         ],
     }

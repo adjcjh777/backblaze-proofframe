@@ -1,18 +1,18 @@
 # ProofFrame Final Operator Brief
 
-Mode: `genblaze_live_proof_ready`
+Mode: `needs_operator_setup`
 Ready for secret entry: `false`
-Ready for Genblaze live proof: `true`
+Ready for Genblaze live proof: `false`
 Safe to submit: `false`
 
 ## Current Blockers
 
 - T020: `done`
-- T021: `blocked`
+- T021: `done`
 - T040: `done`
-- T041: `todo`
-- T041A: `todo`
-- T042: `todo`
+- T041: `blocked`
+- T041A: `blocked`
+- T042: `blocked`
 
 ## Credential Handoff
 
@@ -36,7 +36,6 @@ Safe to submit: `false`
 - Run the post-credential live proof runner once; it validates B2-only and final evidence before any task updates.
 - Record and upload the public demo video only after live proof evidence exists.
 - Run final secret scan and final submission audit, submit Devpost, then generate the public Devpost submission receipt.
-- Resolve any provider-side Genblaze account access or credits blocker without sharing secrets, then rerun `python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider openai --genblaze-image-model gpt-image-1 --evidence-out docs/assets/final-live-proof-evidence.json` after `OPENAI_API_KEY` is available.
 
 ## Codex Actions After Credentials
 

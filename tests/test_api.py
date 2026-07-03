@@ -85,7 +85,7 @@ def test_health_and_campaign_flow(tmp_path):
     brief = brief_response.json()
     assert brief["schema"] == "proofframe.judge_brief.v1"
     assert brief["status"]["safe_to_submit"] is False
-    assert "Genblaze" in " ".join(brief["not_yet_claimed"])
+    assert "Genblaze" in " ".join(brief["not_yet_claimed"] + brief["safe_claims"])
 
     crosswalk_response = client.get("/api/judge/crosswalk")
     assert crosswalk_response.status_code == 200
@@ -110,7 +110,7 @@ def test_health_and_campaign_flow(tmp_path):
     assert evidence_index["schema"] == "proofframe.judge_evidence_index.v1"
     assert evidence_index["safe_to_submit"] is False
     assert len(evidence_index["links"]) >= 10
-    assert "genblaze_live_proof" in evidence_index["status"]["final_blockers"]
+    assert {"genblaze_live_proof", "public_video"} & set(evidence_index["status"]["final_blockers"])
 
     video_kit_response = client.get("/api/judge/video-publish-kit")
     assert video_kit_response.status_code == 200

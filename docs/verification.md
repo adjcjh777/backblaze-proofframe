@@ -102,7 +102,7 @@ python scripts/live_env_handoff.py --env-file .env.final.local
 python scripts/post_credential_live_proof.py
 python scripts/live_proof.py --preflight-only
 python scripts/run_final_live_proof.py --env-file .env.final.local --preflight-only
-python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider openai --genblaze-image-model gpt-image-1 --preflight-only
+python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider local --genblaze-image-model local-svg-v1 --preflight-only
 ```
 
 When B2 and Genblaze env/packages are complete, use the post-credential runner:
@@ -250,13 +250,13 @@ GENBLAZE_ASPECT_RATIO=16:9
 GENBLAZE_TIMEOUT_SECONDS=180
 ```
 
-For the no-recharge fallback path, keep B2 values in `.env.final.local`, provide a real `OPENAI_API_KEY` through the process environment, and use non-secret runner overrides:
+For the no-recharge fallback path, keep B2 values in `.env.final.local` and use the credential-free local Genblaze Pipeline provider:
 
 ```bash
 python scripts/run_final_live_proof.py \
   --env-file .env.final.local \
-  --genblaze-provider openai \
-  --genblaze-image-model gpt-image-1 \
+  --genblaze-provider local \
+  --genblaze-image-model local-svg-v1 \
   --preflight-only
 ```
 
@@ -268,13 +268,13 @@ python scripts/run_final_live_proof.py \
   --evidence-out docs/assets/final-live-proof-evidence.json
 ```
 
-OpenAI fallback command after preflight is green:
+Local Genblaze Pipeline fallback command after preflight is green:
 
 ```bash
 python scripts/run_final_live_proof.py \
   --env-file .env.final.local \
-  --genblaze-provider openai \
-  --genblaze-image-model gpt-image-1 \
+  --genblaze-provider local \
+  --genblaze-image-model local-svg-v1 \
   --evidence-out docs/assets/final-live-proof-evidence.json
 ```
 
@@ -288,7 +288,7 @@ python scripts/api_smoke.py \
   --evidence-out docs/assets/final-live-proof-evidence.json
 ```
 
-- provider `genblaze/gmicloud-image` or `genblaze/openai-image`
+- provider `genblaze/gmicloud-image`, `genblaze/openai-image`, or `genblaze/local-image`
 - model name
 - Genblaze run id
 - Genblaze manifest hash

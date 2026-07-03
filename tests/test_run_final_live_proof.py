@@ -1,7 +1,10 @@
 import argparse
 import importlib.util
+import json
 import os
 from pathlib import Path
+
+import pytest
 
 
 SCRIPT_PATH = Path(__file__).resolve().parents[1] / "scripts" / "run_final_live_proof.py"
@@ -9,6 +12,33 @@ SPEC = importlib.util.spec_from_file_location("run_final_live_proof", SCRIPT_PAT
 run_final_live_proof = importlib.util.module_from_spec(SPEC)
 assert SPEC.loader is not None
 SPEC.loader.exec_module(run_final_live_proof)
+
+LIVE_ENV_KEYS = [
+    "PROOFFRAME_STORAGE_BACKEND",
+    "PROOFFRAME_GENERATION_BACKEND",
+    "B2_ENDPOINT_URL",
+    "B2_BUCKET",
+    "B2_KEY_ID",
+    "B2_APPLICATION_KEY",
+    "B2_APP_KEY",
+    "B2_REGION",
+    "GENBLAZE_PROVIDER",
+    "GENBLAZE_API_KEY",
+    "GMI_API_KEY",
+    "OPENAI_API_KEY",
+    "GENBLAZE_IMAGE_MODEL",
+]
+
+
+@pytest.fixture(autouse=True)
+def restore_live_env():
+    snapshot = {key: os.environ.get(key) for key in LIVE_ENV_KEYS}
+    yield
+    for key, value in snapshot.items():
+        if value is None:
+            os.environ.pop(key, None)
+        else:
+            os.environ[key] = value
 
 
 def test_apply_env_file_sets_b2_storage_and_genblaze_generation(tmp_path, monkeypatch):
@@ -35,6 +65,7 @@ def test_apply_env_file_sets_b2_storage_and_genblaze_generation(tmp_path, monkey
         "B2_BUCKET",
         "B2_KEY_ID",
         "B2_APPLICATION_KEY",
+        "GENBLAZE_PROVIDER",
         "GMI_API_KEY",
         "GENBLAZE_IMAGE_MODEL",
     ]:
@@ -110,6 +141,18 @@ def test_wait_for_live_app_accepts_only_b2_and_genblaze():
     assert calls == ["http://127.0.0.1:8088", "http://127.0.0.1:8088"]
 
 
+def test_annotate_final_evidence_adds_schema_and_mode(tmp_path):
+    evidence_path = tmp_path / "evidence.json"
+    evidence_path.write_text('{"ok": true, "storage_backend": "b2"}', encoding="utf-8")
+
+    assert run_final_live_proof.annotate_final_evidence(evidence_path) is True
+
+    evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
+    assert evidence["schema"] == run_final_live_proof.EVIDENCE_SCHEMA
+    assert evidence["mode"] == run_final_live_proof.EVIDENCE_MODE
+    assert evidence["ok"] is True
+
+
 def test_preflight_only_fails_closed_without_live_env(monkeypatch, tmp_path):
     for key in [
         "PROOFFRAME_STORAGE_BACKEND",
@@ -121,6 +164,7 @@ def test_preflight_only_fails_closed_without_live_env(monkeypatch, tmp_path):
         "PROOFFRAME_GENERATION_BACKEND",
         "GENBLAZE_API_KEY",
         "GMI_API_KEY",
+        "OPENAI_API_KEY",
         "GENBLAZE_IMAGE_MODEL",
     ]:
         monkeypatch.delenv(key, raising=False)

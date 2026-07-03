@@ -3,20 +3,20 @@
 Mode: `needs_rehearsal_setup`
 OK: `false`
 Safe to submit: `false`
-Current phase: `genblaze_live_proof`
-Next command: `python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider openai --genblaze-image-model gpt-image-1 --evidence-out docs/assets/final-live-proof-evidence.json`
+Current phase: `public_video`
+Next command: `python scripts/devpost_packet.py --post-live --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL"`
 
 ## Preconditions
 
-- TODO `operator_ready`: Operator brief mode is genblaze_live_proof_ready. Evidence: `docs/assets/final-operator-brief.json`
+- TODO `operator_ready`: Operator brief mode is needs_operator_setup. Evidence: `docs/assets/final-operator-brief.json`
 - TODO `only_expected_secrets_missing`: Missing ids: none. Evidence: `docs/assets/final-operator-brief.json`
-- TODO `launch_plan_at_credential_entry`: Current phase is genblaze_live_proof. Evidence: `docs/assets/final-launch-plan.json`
-- OK `public_space_synced`: Runtime sha: f6b8fce3e2fde75ad20227cc1da2523b00fb0bc8. Evidence: `docs/assets/public-space-sync-report.json`
+- TODO `launch_plan_at_credential_entry`: Current phase is public_video. Evidence: `docs/assets/final-launch-plan.json`
+- OK `public_space_synced`: Runtime sha: 800bcd233614375a6062a13e8d733be64db50887. Evidence: `docs/assets/public-space-sync-report.json`
 - OK `mock_form_ready`: Devpost form mode is pre_live_form_ready. Evidence: `docs/assets/devpost-form-kit.json`
 - OK `mock_recording_ready`: Recording assets mode is mock_recording_ready. Evidence: `docs/assets/recording-assets.json`
 - OK `secret_scan_currently_clear`: Secret scan mode is clear. Evidence: `docs/assets/secret-scan-report.json`
 - OK `final_gate_fail_closed`: Final control mode is pre_live_control. Evidence: `docs/assets/final-submission-control.json`
-- TODO `live_tasks_not_overclaimed`: T020=done; T021=blocked. Evidence: `tasks.json`
+- TODO `live_tasks_not_overclaimed`: T020=done; T021=done. Evidence: `tasks.json`
 
 ## Required Secret IDs
 
@@ -43,7 +43,7 @@ python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out d
 
 ### 3. final_live_proof (codex)
 ```bash
-python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider openai --genblaze-image-model gpt-image-1 --evidence-out docs/assets/final-live-proof-evidence.json
+python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider local --genblaze-image-model local-svg-v1 --evidence-out docs/assets/final-live-proof-evidence.json
 ```
 - Success signal: Final evidence JSON has storage_backend=b2, generation_backend=genblaze, provider/model metadata, checksums, and no raw provider URLs.
 - Safe to commit after a clean secret scan:

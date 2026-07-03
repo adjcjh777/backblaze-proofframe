@@ -3,16 +3,16 @@
 Mode: `pre_live_evidence_index_ready`
 OK: `true`
 Safe to submit: `false`
-Created: `2026-07-01T12:09:25Z`
+Created: `2026-07-03T10:57:05Z`
 Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 Repository: https://github.com/adjcjh777/backblaze-proofframe
 
 ## Status
 
 - Control health OK: `true`
-- Award readiness: `101/115`
+- Award readiness: `105/115`
 - Public Space: `public_space_synced`
-- Final blockers: `8`
+- Final blockers: `7`
 
 ## Sections
 
@@ -52,7 +52,6 @@ Repository: https://github.com/adjcjh777/backblaze-proofframe
 ## Final Blockers
 
 - `devpost_submission_checklist`
-- `genblaze_live_proof`
 - `public_video`
 - `public_video_check`
 - `final_recording`
@@ -62,4 +61,4 @@ Repository: https://github.com/adjcjh777/backblaze-proofframe
 
 ## Claim Boundary
 
-This index is public-safe evidence navigation. It does not claim completed B2 or Genblaze live proof until final_submission_control.safe_to_submit is true.
+This index is public-safe evidence navigation. It may cite completed B2 and Genblaze proof from sanitized evidence, but it does not claim final Devpost submission until final_submission_control.safe_to_submit is true.

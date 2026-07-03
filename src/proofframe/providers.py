@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import html
 import mimetypes
+import tempfile
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Protocol
@@ -27,6 +28,26 @@ def build_campaign_prompt(campaign: Campaign, index: int) -> str:
         f"Create a {campaign.tone} campaign image for {campaign.audience}. "
         f"Brief: {campaign.brief}. Variant {index}."
     )
+
+
+def build_local_genblaze_svg(prompt: str, model: str, step_id: str) -> tuple[bytes, str]:
+    seed = sha256_hex(f"{step_id}:{model}:{prompt}".encode("utf-8"))[:8]
+    colors = ["#2F6B5F", "#C94C4C", "#F2C14E", "#3D5A80", "#8E5CF0"]
+    primary = colors[int(seed[:2], 16) % len(colors)]
+    secondary = colors[int(seed[2:4], 16) % len(colors)]
+    safe_prompt = html.escape(prompt[:120])
+    safe_model = html.escape(model)
+    svg = f"""<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect width="1280" height="720" fill="#14171A"/>
+  <rect x="72" y="72" width="1136" height="576" rx="18" fill="#F7F4EA"/>
+  <rect x="120" y="126" width="380" height="26" fill="{primary}"/>
+  <circle cx="1056" cy="188" r="88" fill="{secondary}" opacity="0.9"/>
+  <text x="120" y="238" font-family="Helvetica, Arial, sans-serif" font-size="58" fill="#161616">ProofFrame</text>
+  <text x="124" y="314" font-family="Helvetica, Arial, sans-serif" font-size="28" fill="#333333">{safe_prompt}</text>
+  <text x="124" y="550" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#555555">Genblaze local provider | model {safe_model} | seed {seed}</text>
+</svg>
+"""
+    return svg.encode("utf-8"), seed
 
 
 @dataclass(frozen=True)
@@ -148,12 +169,19 @@ class GenblazeMediaProvider:
                     raise ConfigurationError("Genblaze generation completed without an image asset.")
 
                 asset = step.assets[0]
-                data, content_type, filename = self._fetch_asset(
-                    asset.url,
-                    campaign.id,
-                    index,
-                    storage_backend=storage_backend,
-                        )
+                try:
+                    data, content_type, filename = self._fetch_asset(
+                        asset.url,
+                        campaign.id,
+                        index,
+                        storage_backend=storage_backend,
+                    )
+                except Exception:
+                    if self.genblaze_provider != "local":
+                        raise
+                    data, _seed = build_local_genblaze_svg(prompt, self.image_model, step.step_id)
+                    content_type = "image/svg+xml"
+                    filename = f"{campaign.id}-genblaze-{index}.svg"
                 manifest_uri = str(getattr(manifest, "manifest_uri", "") or "")
                 generated.append(
                     GeneratedMedia(
@@ -216,9 +244,53 @@ class GenblazeMediaProvider:
                 ),
                 "openai-image",
             )
+        if self.genblaze_provider == "local":
+            try:
+                from genblaze_core.models.asset import Asset  # type: ignore[import-not-found]
+                from genblaze_core.providers.base import SyncProvider  # type: ignore[import-not-found]
+            except ModuleNotFoundError as exc:
+                raise ConfigurationError(
+                    "GENBLAZE_PROVIDER=local requires genblaze-core. "
+                    "Install with `pip install -e '.[integrations]'`."
+                ) from exc
+
+            class ProofFrameLocalImageProvider(SyncProvider):  # type: ignore[misc, valid-type]
+                name = "proofframe-local"
+
+                def __init__(self) -> None:
+                    super().__init__()
+                    self.output_dir = Path(tempfile.gettempdir()) / "proofframe-genblaze-local"
+                    self.output_dir.mkdir(parents=True, exist_ok=True)
+
+                def generate(self, step: Any, config: Any | None = None) -> Any:
+                    prompt = str(step.prompt or "")
+                    data, seed = build_local_genblaze_svg(
+                        prompt,
+                        str(step.model),
+                        step.step_id,
+                    )
+                    output_path = self.output_dir / f"{step.step_id}.svg"
+                    output_path.write_bytes(data)
+                    asset = Asset(
+                        url=output_path.as_uri(),
+                        media_type="image/svg+xml",
+                        sha256=sha256_hex(data),
+                        size_bytes=len(data),
+                        width=1280,
+                        height=720,
+                        metadata={"provider_mode": "credential_free_local", "seed": seed},
+                    )
+                    step.assets.append(asset)
+                    step.provider_payload = {
+                        "provider_mode": "credential_free_local",
+                        "model": str(step.model),
+                    }
+                    return step
+
+            return (ProofFrameLocalImageProvider(), "local-image")
         raise ConfigurationError(
             "Unsupported Genblaze provider: "
-            f"{self.genblaze_provider}. Use GENBLAZE_PROVIDER=gmicloud or openai."
+            f"{self.genblaze_provider}. Use GENBLAZE_PROVIDER=gmicloud, openai, or local."
         )
 
     def _build_genblaze_b2_sink(

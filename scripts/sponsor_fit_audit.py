@@ -83,6 +83,8 @@ def build_report(root: Path = ROOT) -> dict[str, Any]:
     claim_report = claim_lint.build_claim_report(root)
     gate = build_submission_gate(root)
     statuses = task_statuses(root)
+    b2_done = statuses.get("T020") == "done"
+    genblaze_done = statuses.get("T021") == "done"
     b2_usage = str(packet.get("b2_usage", ""))
     genblaze_usage = str(packet.get("genblaze_usage", ""))
     matrix_text = read_text(root / "docs" / "sponsor_fit_matrix.md")
@@ -103,14 +105,19 @@ def build_report(root: Path = ROOT) -> dict[str, Any]:
             len(b2_usage) >= 300
             and text_has_all(
                 b2_usage,
-                ["manifest", "checksum", "storage key", "private B2 bucket", "final submission gate"],
+                ["manifest", "checksum", "storage key"]
+                + (["final proof evidence"] if b2_done else ["private B2 bucket", "final submission gate"]),
             ),
             "Devpost B2 copy explains the object model, prepared bucket, and final live gate.",
         ),
         signal(
             "genblaze_usage_specific",
             len(genblaze_usage) >= 220
-            and text_has_all(genblaze_usage, ["Pipeline API", "provider", "model", "final submission gate"]),
+            and text_has_all(
+                genblaze_usage,
+                ["Pipeline", "provider", "model"]
+                + (["final proof"] if genblaze_done else ["final submission gate"]),
+            ),
             "Devpost Genblaze copy explains the adapter and final provider/model proof.",
         ),
         signal(
@@ -139,6 +146,11 @@ def build_report(root: Path = ROOT) -> dict[str, Any]:
                 or (
                     gate["mode"] == "pre_live_safe"
                     and (statuses.get("T020") != "done" or statuses.get("T021") != "done")
+                )
+                or (
+                    b2_done
+                    and genblaze_done
+                    and gate.get("evidence_gate", {}).get("ok") is True
                 )
             ),
             "Final sponsor claims remain controlled by T020/T021 and final evidence.",

@@ -80,13 +80,13 @@ def build_preflight_report(
         add_requirement(
             checks,
             "Genblaze provider",
-            bool(settings.genblaze_provider_modules()),
-            "Set GENBLAZE_PROVIDER=gmicloud or openai.",
+            settings.genblaze_provider_supported(),
+            "Set GENBLAZE_PROVIDER=gmicloud, openai, or local.",
         )
         add_requirement(
             checks,
             "Genblaze provider API key",
-            bool(settings.genblaze_provider_key()),
+            (not settings.genblaze_provider_requires_key()) or bool(settings.genblaze_provider_key()),
             settings.genblaze_key_remediation(),
         )
         add_requirement(

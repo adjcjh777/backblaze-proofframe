@@ -60,6 +60,7 @@ def write_common_reports(root: Path, *, final_ready: bool = False) -> None:
                 "B2_BUCKET=proofframe-test" if final_ready else "",
                 "B2_KEY_ID=fixture" if final_ready else "",
                 "B2_APPLICATION_KEY=fixture" if final_ready else "",
+                "GENBLAZE_PROVIDER=local" if final_ready else "",
                 "GENBLAZE_API_KEY=fixture" if final_ready else "",
                 "GENBLAZE_IMAGE_MODEL=test-image-model" if final_ready else "",
             ]
@@ -253,6 +254,66 @@ def test_closeout_status_accepts_legacy_b2_live_proof_and_waits_for_genblaze(tmp
     assert gates["genblaze_live_proof"]["ok"] is False
     assert report["phase"] == "genblaze_live_proof"
     assert "run_final_live_proof.py" in report["next_command"]
+
+
+def test_closeout_status_accepts_legacy_final_live_proof_and_waits_for_video(tmp_path):
+    write_common_reports(tmp_path, final_ready=True)
+    write_json(
+        tmp_path,
+        "tasks.json",
+        {
+            "tasks": [
+                {"id": "T020", "status": "done"},
+                {"id": "T021", "status": "done"},
+                {"id": "T041", "status": "todo"},
+                {"id": "T041A", "status": "todo"},
+                {"id": "T042", "status": "todo"},
+            ]
+        },
+    )
+    write_json(
+        tmp_path,
+        "docs/assets/final-live-proof-evidence.json",
+        {
+            "ok": True,
+            "storage_backend": "b2",
+            "generation_backend": "genblaze",
+            "asset_storage_backend": "b2",
+            "manifest_storage_backend": "b2",
+            "asset_storage_key": "campaigns/example/media/example.svg",
+            "manifest_key": "campaigns/example/manifests/example.json",
+            "asset_sha256": "a" * 64,
+            "manifest_sha256": "b" * 64,
+        },
+    )
+    write_json(
+        tmp_path,
+        "docs/assets/public-video-check.json",
+        {
+            "schema": "proofframe.public_video_check.v1",
+            "mode": "pending_video_url",
+            "ok": False,
+            "safe_to_submit": False,
+        },
+    )
+    write_json(
+        tmp_path,
+        "docs/assets/final-video-publish-kit.json",
+        {
+            "schema": "proofframe.final_video_publish_kit.v1",
+            "ok": True,
+            "mode": "ready_for_final_upload",
+            "safe_to_submit": False,
+            "final_video_ready": False,
+        },
+    )
+
+    report = final_closeout_status.build_report(root=tmp_path)
+
+    gates = {gate["id"]: gate for gate in report["gates"]}
+    assert gates["genblaze_live_proof"]["ok"] is True
+    assert gates["public_video"]["ok"] is False
+    assert report["phase"] == "public_video"
 
 
 def test_closeout_status_uses_bundle_inputs_not_bundle_safe_to_submit(tmp_path):

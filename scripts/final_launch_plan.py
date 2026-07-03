@@ -209,7 +209,7 @@ def build_phases(root: Path, reports: dict[str, dict[str, Any]], statuses: dict[
             detail=genblaze_detail,
             command=(
                 "python scripts/run_final_live_proof.py --env-file .env.final.local "
-                "--genblaze-provider openai --genblaze-image-model gpt-image-1 "
+                "--genblaze-provider local --genblaze-image-model local-svg-v1 "
                 "--evidence-out docs/assets/final-live-proof-evidence.json"
             ),
             expected_artifacts=["docs/assets/final-live-proof-evidence.json"],

@@ -8,18 +8,18 @@
   "mock_storyboard_ready": true,
   "final_video_ready": false,
   "public_demo_url": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
-  "public_video_url": "TBD after final B2 and Genblaze proof.",
+  "public_video_url": "TBD after final public video upload.",
   "public_video_ready": false,
   "task_statuses": {
-    "T020": "doing",
-    "T021": "doing",
+    "T020": "done",
+    "T021": "done",
     "T041A": "todo",
     "T042": "todo"
   },
   "submission_gate": {
     "mode": "pre_live_safe",
-    "evidence_status": "missing",
-    "evidence_ok": false
+    "evidence_status": "verified",
+    "evidence_ok": true
   },
   "segments": [
     {
@@ -111,24 +111,21 @@
     {
       "path": "docs/assets/demo-readiness-report.md",
       "present": true,
-      "bytes": 1768
+      "bytes": 1585
     },
     {
       "path": "docs/assets/live-credential-handoff.md",
       "present": true,
-      "bytes": 2479
+      "bytes": 2519
     },
     {
       "path": "docs/assets/devpost-submission-packet.json",
       "present": true,
-      "bytes": 6270
+      "bytes": 5790
     }
   ],
   "missing_assets": [],
   "next_actions": [
-    "Capture live Backblaze B2 asset and manifest proof.",
-    "Capture live Genblaze generation proof.",
-    "Write sanitized final live proof evidence JSON.",
     "Record and upload the final public demo video under 3 minutes.",
     "Run final secret scan before publishing the video."
   ]

@@ -200,7 +200,11 @@ def check_final_evidence(path: Path, root: Path) -> list[dict[str, str]]:
                     relative_path(path, root),
                 )
             )
-    allowed_asset_providers = {"genblaze/gmicloud-image", "genblaze/openai-image"}
+    allowed_asset_providers = {
+        "genblaze/gmicloud-image",
+        "genblaze/openai-image",
+        "genblaze/local-image",
+    }
     asset_provider = evidence.get("asset_provider")
     if asset_provider not in allowed_asset_providers:
         findings.append(

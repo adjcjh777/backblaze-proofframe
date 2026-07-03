@@ -1,33 +1,33 @@
 # ProofFrame Award Readiness
 
-Mode: `pre_live_competitive`
-Score: `101/115` (87.8%)
+Mode: `proof_verified_video_pending`
+Score: `105/115` (91.3%)
 Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 
 ## Gate Snapshot
 
 - Submission gate: `pre_live_safe`
-- Live evidence: `missing`
+- Live evidence: `verified`
 - Final reports: `incomplete`
 - Mock recording ready: `true`
 - Final recording ready: `false`
 - Claim lint: `true`
 - Secret scan: `true`
 - Final closure: `0/10`
-- Interpretation: Pre-live score reflects product, demo, and documentation strength; final award readiness still requires live proof, final audit, and Devpost receipt.
+- Interpretation: B2 and Genblaze proof are verified; final award readiness still requires the public video, final audit, final secret scan, and Devpost receipt.
 
 ## Criteria
 
-### Sponsor integration fit - 34/38 (89.5%)
+### Sponsor integration fit - 38/38 (100.0%)
 - OK `b2_backend_code` (5/5): Backblaze B2 has a dedicated S3-compatible storage adapter.
 - OK `b2_bucket_setup` (4/4): The non-secret B2 bucket setup record exists for final proof.
 - OK `b2_live_runner` (4/4): B2 storage can be verified independently before Genblaze is ready.
-- OK `genblaze_provider_code` (5/5): The app has real Genblaze provider adapters for GMICloud and OpenAI.
-- OK `final_live_runner` (4/4): A one-command runner can produce sanitized final evidence once keys are present.
+- OK `genblaze_provider_code` (5/5): The app has Genblaze provider adapters for GMICloud, OpenAI, and credential-free local Pipeline proof.
+- OK `final_live_runner` (4/4): A one-command runner can produce sanitized final evidence with the configured Genblaze provider.
 - OK `sponsor_fit_matrix` (4/4): Judging angles are mapped to current evidence, safe claims, final gates, and demo shots.
 - OK `sponsor_fit_audit` (4/4): Devpost B2/Genblaze copy is specific and the demo introduces B2 early.
 - OK `b2_live_evidence` (4/4): T020 requires a real B2 media and manifest proof.
-- TODO `genblaze_live_evidence` (0/4): T021 requires provider/model metadata from a live Genblaze run.
+- OK `genblaze_live_evidence` (4/4): T021 requires provider/model metadata from a live Genblaze run.
 
 ### Provenance product depth - 23/23 (100.0%)
 - OK `manifest_model` (4/4): Assets, prompts, provider/model metadata, hashes, and review state are modeled.
@@ -48,7 +48,7 @@ Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 
 ### Trust, safety, and claim discipline - 15/15 (100.0%)
 - OK `secret_scan` (4/4): No obvious API keys, cookies, signed URLs, or tokens were found in public files.
-- OK `claim_lint` (4/4): Pre-live copy avoids claiming unverified B2 or Genblaze runs.
+- OK `claim_lint` (4/4): Public copy only claims B2 or Genblaze proof when sanitized evidence is present.
 - OK `env_ignored` (3/3): Credential-bearing local env files stay out of Git.
 - OK `safe_evidence_writer` (2/2): Live evidence cannot silently include key-like fields or signed URLs.
 - OK `claim_freeze_doc` (2/2): The team has a written boundary for what can be said before final proof.
@@ -56,12 +56,11 @@ Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 ### Final submission closure - 0/10 (0.0%)
 - TODO `final_gate` (0/6): Requires T020, T021, T040, T041, T041A, T042, final live evidence, and final reports.
 - TODO `final_audit_done` (0/2): The reviewer audit must pass after live evidence exists.
-- TODO `final_secret_scan_done` (0/1): The final scan should run after live proof artifacts are generated.
+- TODO `final_secret_scan_done` (0/1): The final scan should run after live proof and final public submission artifacts are generated.
 - TODO `devpost_submitted` (0/1): The submission is not complete until the project page is submitted.
 
 ## Next Actions
 
-- Resolve the Genblaze provider live-proof blocker and run python scripts/run_final_live_proof.py --env-file .env.final.local, or use the no-recharge OpenAI fallback with --genblaze-provider openai --genblaze-image-model gpt-image-1 after OPENAI_API_KEY is available.
-- Run python scripts/secret_scan.py after live evidence is generated.
+- Run python scripts/secret_scan.py after the public video and Devpost-safe artifacts are staged.
 - Run python scripts/submission_audit.py --strict-final after live proof, public video URL, and T041A are done.
 - Submit the Devpost project only after the final gate turns green.

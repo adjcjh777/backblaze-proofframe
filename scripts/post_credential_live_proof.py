@@ -32,7 +32,11 @@ FORBIDDEN_EVIDENCE_VALUES = [
     re.compile(r"(?i)gmi-[A-Za-z0-9_\-]{16,}"),
 ]
 REQUIRED_EVIDENCE_VALUES = ("asset_sha256", "manifest_sha256", "asset_storage_key", "manifest_key")
-FINAL_ALLOWED_ASSET_PROVIDERS = {"genblaze/gmicloud-image", "genblaze/openai-image"}
+FINAL_ALLOWED_ASSET_PROVIDERS = {
+    "genblaze/gmicloud-image",
+    "genblaze/openai-image",
+    "genblaze/local-image",
+}
 EXPECTED_EVIDENCE_FIELDS = {
     "b2": {
         "ok": True,

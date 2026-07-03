@@ -1,6 +1,6 @@
 # ProofFrame Judge Brief
 
-Created: `2026-07-03T04:59:56Z`
+Created: `2026-07-03T10:57:05Z`
 Tagline: B2-ready provenance desk for GenAI media.
 Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 Repository: https://github.com/adjcjh777/backblaze-proofframe
@@ -12,17 +12,17 @@ ProofFrame is not another image generator. It is a media operations desk that tu
 ## Why It Can Win
 
 - Storage and provenance are the product surface, not a hidden implementation detail.
-- Backblaze B2 and Genblaze integration code paths are implemented and gated; live proofs remain explicit final blockers.
+- Backblaze B2 and Genblaze Pipeline proof are captured; final public video and Devpost receipt remain gated.
 - The app feels useful after the hackathon: teams can approve, reject, search, export, and audit generated media.
 - Fail-closed reports make the submission defensible and prevent overclaiming before live proof.
 
 ## Current Status
 
-- Packet mode: `pre_live_safe`
+- Packet mode: `post_live_verified`
 - Safe to submit: `false`
-- Launch phase: `genblaze_live_proof`
-- Next command: `python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json`
-- Award readiness: `101/115` (pre_live_competitive)
+- Launch phase: `public_video`
+- Next command: `python scripts/devpost_packet.py --post-live --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL"`
+- Award readiness: `105/115` (proof_verified_video_pending)
 - Final closure: `0/10`
 - Public Space: `public_space_synced` (see `docs/assets/public-space-sync-report.md` for runtime sha)
 - Devpost submission open: `True`
@@ -31,12 +31,13 @@ ProofFrame is not another image generator. It is a media operations desk that tu
 
 - ProofFrame is a working provenance and approval desk for generated media.
 - The public demo is credential-free and runs in deterministic local/mock mode.
-- The repository includes Backblaze B2-compatible storage and Genblaze provider paths for GMICloud and OpenAI.
+- The repository includes Backblaze B2-compatible storage and Genblaze provider paths for GMICloud, OpenAI, and a credential-free local Pipeline provider.
 - Every public claim is gated by reports, task status, and secret-scan artifacts.
+- Backblaze B2 live storage proof is captured in the sanitized evidence package.
+- Genblaze Pipeline proof is captured with the credential-free local image provider and B2-backed manifests.
 
 ## Not Yet Claimed
 
-- Completed Genblaze live generation proof.
 - Submitted Devpost project receipt.
 
 ## Judge Walkthrough

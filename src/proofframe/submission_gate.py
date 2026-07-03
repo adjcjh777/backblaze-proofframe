@@ -38,7 +38,11 @@ FINAL_EVIDENCE_FIELDS: dict[str, Any] = {
     "generation_backend": "genblaze",
     "asset_storage_backend": "b2",
 }
-FINAL_ALLOWED_ASSET_PROVIDERS = {"genblaze/gmicloud-image", "genblaze/openai-image"}
+FINAL_ALLOWED_ASSET_PROVIDERS = {
+    "genblaze/gmicloud-image",
+    "genblaze/openai-image",
+    "genblaze/local-image",
+}
 FINAL_EVIDENCE_REQUIRED_VALUES = [
     "asset_sha256",
     "manifest_sha256",

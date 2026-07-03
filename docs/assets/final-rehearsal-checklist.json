@@ -1,24 +1,24 @@
 {
   "schema": "proofframe.final_rehearsal.v1",
-  "created_at": "2026-07-03T05:02:32Z",
+  "created_at": "2026-07-03T10:38:00Z",
   "mode": "needs_rehearsal_setup",
   "ok": false,
   "safe_to_submit": false,
-  "current_phase": "genblaze_live_proof",
-  "next_command": "python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider openai --genblaze-image-model gpt-image-1 --evidence-out docs/assets/final-live-proof-evidence.json",
+  "current_phase": "public_video",
+  "next_command": "python scripts/devpost_packet.py --post-live --video-url \"$PROOFFRAME_PUBLIC_VIDEO_URL\"",
   "task_statuses": {
     "T020": "done",
-    "T021": "blocked",
+    "T021": "done",
     "T040": "done",
-    "T041": "todo",
-    "T041A": "todo",
-    "T042": "todo"
+    "T041": "blocked",
+    "T041A": "blocked",
+    "T042": "blocked"
   },
   "preconditions": [
     {
       "id": "operator_ready",
       "ok": false,
-      "detail": "Operator brief mode is genblaze_live_proof_ready.",
+      "detail": "Operator brief mode is needs_operator_setup.",
       "evidence": "docs/assets/final-operator-brief.json"
     },
     {
@@ -30,13 +30,13 @@
     {
       "id": "launch_plan_at_credential_entry",
       "ok": false,
-      "detail": "Current phase is genblaze_live_proof.",
+      "detail": "Current phase is public_video.",
       "evidence": "docs/assets/final-launch-plan.json"
     },
     {
       "id": "public_space_synced",
       "ok": true,
-      "detail": "Runtime sha: f6b8fce3e2fde75ad20227cc1da2523b00fb0bc8.",
+      "detail": "Runtime sha: 800bcd233614375a6062a13e8d733be64db50887.",
       "evidence": "docs/assets/public-space-sync-report.json"
     },
     {
@@ -66,7 +66,7 @@
     {
       "id": "live_tasks_not_overclaimed",
       "ok": false,
-      "detail": "T020=done; T021=blocked.",
+      "detail": "T020=done; T021=done.",
       "evidence": "tasks.json"
     }
   ],
@@ -96,7 +96,7 @@
     {
       "id": "final_live_proof",
       "owner": "codex",
-      "command": "python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider openai --genblaze-image-model gpt-image-1 --evidence-out docs/assets/final-live-proof-evidence.json",
+      "command": "python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider local --genblaze-image-model local-svg-v1 --evidence-out docs/assets/final-live-proof-evidence.json",
       "success_signal": "Final evidence JSON has storage_backend=b2, generation_backend=genblaze, provider/model metadata, checksums, and no raw provider URLs.",
       "safe_to_commit": [
         "docs/assets/final-live-proof-evidence.json"
@@ -198,7 +198,7 @@
       "path": "docs/assets/final-operator-brief.json",
       "present": true,
       "schema_ok": true,
-      "mode": "genblaze_live_proof_ready",
+      "mode": "needs_operator_setup",
       "ok": null,
       "safe_to_submit": false,
       "ready_for_secret_entry": false,
@@ -217,12 +217,12 @@
       "path": "docs/assets/final-launch-plan.json",
       "present": true,
       "schema_ok": true,
-      "mode": "ready_for_genblaze_live_proof",
+      "mode": "ready_for_public_video",
       "ok": false,
       "safe_to_submit": null,
       "ready_for_secret_entry": null,
-      "current_phase": "genblaze_live_proof",
-      "next_command": "python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider openai --genblaze-image-model gpt-image-1 --evidence-out docs/assets/final-live-proof-evidence.json",
+      "current_phase": "public_video",
+      "next_command": "python scripts/devpost_packet.py --post-live --video-url \"$PROOFFRAME_PUBLIC_VIDEO_URL\"",
       "mock_form_ready": null,
       "final_form_ready": null,
       "mock_recording_ready": null,
@@ -258,13 +258,6 @@
           "evidence": "docs/assets/devpost-submission-checklist.json"
         },
         {
-          "id": "genblaze_live_proof",
-          "label": "Genblaze live proof captured",
-          "ok": false,
-          "detail": "T021 is blocked; final evidence status is missing.",
-          "evidence": "tasks.json and docs/assets/final-live-proof-evidence.json"
-        },
-        {
           "id": "public_video",
           "label": "Final public demo video URL is ready",
           "ok": false,
@@ -289,21 +282,21 @@
           "id": "final_secret_scan",
           "label": "Final secret scan is complete",
           "ok": false,
-          "detail": "T041A is todo; secret scan mode is clear; secret scan ok is True.",
+          "detail": "T041A is blocked; secret scan mode is clear; secret scan ok is True.",
           "evidence": "tasks.json and docs/assets/secret-scan-report.json"
         },
         {
           "id": "final_submission_audit",
           "label": "Final submission audit is complete",
           "ok": false,
-          "detail": "T041 is todo; audit mode is pre_submit_audit_blocked; audit ok is False.",
+          "detail": "T041 is blocked; audit mode is pre_submit_audit_blocked; audit ok is False.",
           "evidence": "tasks.json and docs/assets/submission-audit-report.json"
         },
         {
           "id": "devpost_submitted",
           "label": "Devpost project submitted",
           "ok": false,
-          "detail": "T042 is todo; receipt mode is pending_submission; receipt ok is False.",
+          "detail": "T042 is blocked; receipt mode is pending_submission; receipt ok is False.",
           "evidence": "tasks.json and docs/assets/devpost-submission-receipt.json"
         }
       ]
@@ -341,7 +334,7 @@
       "final_form_ready": null,
       "mock_recording_ready": null,
       "final_video_ready": null,
-      "runtime_sha": "f6b8fce3e2fde75ad20227cc1da2523b00fb0bc8",
+      "runtime_sha": "800bcd233614375a6062a13e8d733be64db50887",
       "failed_checks": [],
       "missing_ids": [],
       "blocking_items": []

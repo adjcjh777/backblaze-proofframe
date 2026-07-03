@@ -9,7 +9,7 @@
     {
       "path": "README.md",
       "present": true,
-      "bytes": 15285
+      "bytes": 16355
     },
     {
       "path": "docs/demo_script.md",
@@ -19,12 +19,12 @@
     {
       "path": "docs/assets/demo-storyboard.json",
       "present": true,
-      "bytes": 4514
+      "bytes": 4349
     },
     {
       "path": "docs/assets/demo-storyboard.md",
       "present": true,
-      "bytes": 2704
+      "bytes": 2556
     },
     {
       "path": "docs/assets/demo-video-draft.json",
@@ -44,7 +44,7 @@
     {
       "path": "docs/assets/final-video-publish-kit.json",
       "present": true,
-      "bytes": 5366
+      "bytes": 5364
     },
     {
       "path": "docs/assets/final-video-publish-kit.md",
@@ -59,12 +59,12 @@
     {
       "path": "docs/assets/public-video-check.json",
       "present": true,
-      "bytes": 2977
+      "bytes": 2971
     },
     {
       "path": "docs/assets/public-video-check.md",
       "present": true,
-      "bytes": 1701
+      "bytes": 1697
     },
     {
       "path": "scripts/public_demo_screenshot.py",
@@ -84,32 +84,32 @@
     {
       "path": "docs/assets/demo-readiness-report.json",
       "present": true,
-      "bytes": 3893
+      "bytes": 3701
     },
     {
       "path": "docs/assets/demo-readiness-report.md",
       "present": true,
-      "bytes": 1768
+      "bytes": 1585
     },
     {
       "path": "docs/assets/devpost-form-kit.json",
       "present": true,
-      "bytes": 12483
+      "bytes": 12433
     },
     {
       "path": "docs/assets/devpost-form-kit.md",
       "present": true,
-      "bytes": 7496
+      "bytes": 7451
     },
     {
       "path": "docs/assets/final-submission-control.json",
       "present": true,
-      "bytes": 24404
+      "bytes": 23084
     },
     {
       "path": "docs/assets/final-submission-control.md",
       "present": true,
-      "bytes": 7110
+      "bytes": 6948
     },
     {
       "path": "docs/assets/proofframe-local-ui-smoke.png",

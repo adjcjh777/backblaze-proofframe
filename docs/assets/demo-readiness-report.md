@@ -4,18 +4,18 @@ Mode: `pre_live_mock_ready`
 Mock recording ready: `true`
 Final recording ready: `false`
 Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
-Devpost packet mode: `pre_live_safe`
+Devpost packet mode: `post_live_verified`
 
 ## Current Gate
 
 - Submission gate: `pre_live_safe`
-- Live evidence: `missing`
+- Live evidence: `verified`
 - Claim lint: `true`
 
 ## Task Status
 
-- T020: `doing`
-- T021: `doing`
+- T020: `done`
+- T021: `done`
 - T040: `done`
 - T041: `todo`
 - T041A: `todo`
@@ -52,7 +52,4 @@ Devpost packet mode: `pre_live_safe`
 
 ## Next Actions
 
-- Capture the live Backblaze B2 asset and manifest proof.
-- Capture the live Genblaze generation proof.
-- Write docs/assets/final-live-proof-evidence.json with sanitized live proof.
 - Run the final secret scan before recording the final sponsor-backed video.

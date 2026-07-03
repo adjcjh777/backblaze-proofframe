@@ -7,11 +7,11 @@ Safe to submit: `false`
 ## Preflight
 
 - BLOCKED `final_form_ready`: Devpost form kit mode is pre_live_form_ready. Evidence: `docs/assets/devpost-form-kit.json`
-- BLOCKED `packet_post_live_verified`: Devpost packet mode is pre_live_safe. Evidence: `docs/assets/devpost-submission-packet.json`
-- BLOCKED `prerequisite_tasks_done`: T020=done, T021=blocked, T040=done, T041A=todo Evidence: `tasks.json`
+- OK `packet_post_live_verified`: Devpost packet mode is post_live_verified. Evidence: `docs/assets/devpost-submission-packet.json`
+- BLOCKED `prerequisite_tasks_done`: T020=done, T021=done, T040=done, T041A=blocked Evidence: `tasks.json`
 - OK `submission_audit_report_present`: Submission audit mode is pre_submit_audit_blocked. Evidence: `docs/assets/submission-audit-report.json`
 - OK `final_control_report_present`: Final control mode is pre_live_control; safe_to_submit=False. Evidence: `docs/assets/final-submission-control.json`
-- OK `receipt_not_already_done`: T042=todo; receipt mode=pending_submission. Evidence: `docs/assets/devpost-submission-receipt.json`
+- OK `receipt_not_already_done`: T042=blocked; receipt mode=pending_submission. Evidence: `docs/assets/devpost-submission-receipt.json`
 
 ## Copy Order
 
@@ -53,10 +53,10 @@ ProofFrame turns generated media into approved evidence packets with B2-ready ma
 - Field id: `short_description`
 - Source: `packet.short_description`
 - Status: `FINAL OK`
-- Length: `400 / 2000`
+- Length: `285 / 2000`
 
 ```text
-ProofFrame is a review desk for generated media. The local demo creates a campaign, generates mock variants, approves or rejects assets, exports a manifest, and downloads an evidence ZIP with prompts, provider/model fields, storage references, hashes, and approval status. The final hackathon submission gate is to verify the same flow with Genblaze-backed generation and Backblaze B2-backed storage.
+ProofFrame turns Genblaze-generated media into Backblaze B2-backed evidence packets. Each packet includes prompt history, provider/model metadata, B2 storage references, checksums, approval state, and a downloadable manifest bundle so teams can trust, reuse, or retire generated media.
 ```
 
 ### 5. Repository URL
@@ -86,10 +86,10 @@ https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 - Field id: `video_url`
 - Source: `packet.video_url`
 - Status: `FINAL PENDING`
-- Length: `38 / 300`
+- Length: `36 / 300`
 
 ```text
-TBD after final B2 and Genblaze proof.
+TBD after final public video upload.
 ```
 
 ### 8. Built with
@@ -150,10 +150,10 @@ Generated media is easy to make and hard to govern. Teams often lose the prompt,
 - Field id: `how_we_built_it`
 - Source: `packet.how_we_built_it`
 - Status: `FINAL OK`
-- Length: `421 / 2500`
+- Length: `495 / 2500`
 
 ```text
-ProofFrame uses FastAPI for the API, a single-file browser UI for the proof ledger, local storage for credential-free demos, a Backblaze B2-compatible S3 storage backend, and Genblaze provider adapters for GMICloud and OpenAI built around the official Genblaze Pipeline API. The public mock demo is deployed as a Hugging Face Space for judge-friendly product inspection while the final sponsor-backed proof remains gated.
+ProofFrame uses FastAPI for the API, a single-file browser UI for the proof ledger, local storage for credential-free demos, a Backblaze B2-compatible S3 storage backend, and Genblaze provider adapters for GMICloud, OpenAI, and a credential-free local Pipeline provider built around the official Genblaze Pipeline API. The public mock demo is deployed as a Hugging Face Space for judge-friendly product inspection while final reports separate live proof, video, audit, and Devpost receipt gates.
 ```
 
 ### 13. Backblaze B2 usage
@@ -161,10 +161,10 @@ ProofFrame uses FastAPI for the API, a single-file browser UI for the proof ledg
 - Field id: `backblaze_b2_usage`
 - Source: `packet.b2_usage`
 - Status: `FINAL OK`
-- Length: `670 / 1500`
+- Length: `451 / 1500`
 
 ```text
-ProofFrame treats Backblaze B2 as the final durable evidence layer, not as a late file-upload checkbox. The public demo currently runs in local/mock mode, but every asset packet already carries the B2-ready object model: storage backend, storage key, checksum, byte size, prompt, provider/model metadata, approval state, and risk note. The repo includes a dedicated B2 S3-compatible storage adapter, a recorded private B2 bucket setup, and a one-command B2 proof runner that will upload one generated asset and one manifest with environment-only credentials. That live upload remains the final submission gate before any public claim is upgraded to completed B2 storage.
+ProofFrame stores generated media and exported manifests in Backblaze B2 using environment-only credentials. The final proof evidence records sanitized B2 storage keys, byte sizes, and checksums without exposing credentials or signed URLs. B2 is the durable evidence layer: the media asset and manifest are separate objects under the ProofFrame campaign prefix, and the app uses those hashes to make later review, export, and audit steps reproducible.
 ```
 
 ### 14. Genblaze usage
@@ -172,10 +172,10 @@ ProofFrame treats Backblaze B2 as the final durable evidence layer, not as a lat
 - Field id: `genblaze_usage`
 - Source: `packet.genblaze_usage`
 - Status: `FINAL OK`
-- Length: `510 / 1500`
+- Length: `270 / 1500`
 
 ```text
-ProofFrame includes Genblaze provider adapters for GMICloud and OpenAI built around the official Genblaze Pipeline API. In the public mock demo, deterministic generation keeps the workflow inspectable without secrets; the same manifest fields are reserved for the final provider, model, request/run metadata, prompt, and asset checksum. The final submission gate is a live Genblaze-compatible run that proves the provider path and then carries the resulting asset into the ProofFrame review and storage packet.
+ProofFrame generates media through Genblaze's official Pipeline. The final proof uses the credential-free local image provider, records provider/model metadata, and carries the resulting asset through Genblaze's B2 sink into the ProofFrame storage and approval manifest.
 ```
 
 ### 15. Challenges
@@ -194,7 +194,7 @@ The biggest challenge is avoiding shallow sponsor integration. ProofFrame has to
 - Field id: `accomplishments`
 - Source: `packet.accomplishments`
 - Status: `FINAL OK`
-- Length: `586 / 2500`
+- Length: `649 / 2500`
 
 ```text
 - Built a working local product, not just a pitch.
@@ -202,10 +202,10 @@ The biggest challenge is avoiding shallow sponsor integration. ProofFrame has to
 - Added a one-click Judge Demo path.
 - Added a review console with evidence search, status filtering, decision coverage, and safe summary copy.
 - Added downloadable evidence ZIPs.
-- Added B2-compatible storage and Genblaze provider code paths for GMICloud and OpenAI.
+- Added B2-compatible storage and Genblaze provider code paths for GMICloud, OpenAI, and a credential-free local Pipeline provider.
 - Added CI that runs readiness checks, lint, tests, API smoke, and secret scan.
 - Added fail-closed gates for evidence JSON exports and final submission audits.
-- Kept public claims gated until live sponsor proof exists.
+- Kept public claims gated by reports, task status, and secret-scan artifacts.
 ```
 
 ### 17. What we learned
@@ -224,13 +224,12 @@ The useful unit for generated media teams is not a single image. It is a packet:
 - Field id: `whats_next`
 - Source: `packet.whats_next`
 - Status: `FINAL OK`
-- Length: `184 / 1800`
+- Length: `193 / 1800`
 
 ```text
-- Live B2 proof with a dedicated bucket and least-privilege key.
-- Live Genblaze proof with provider/model/run metadata.
-- Demo video under the event limit.
-- Final Devpost submission.
+- Upload the final demo video under the event limit.
+- Run the final secret scan and submission audit after video artifacts are ready.
+- Submit the Devpost project and preserve the receipt URL.
 ```
 
 ### 19. Judging note
@@ -238,10 +237,10 @@ The useful unit for generated media teams is not a single image. It is a packet:
 - Field id: `judging_note`
 - Source: `form.judging_note`
 - Status: `FINAL OK`
-- Length: `105 / 1000`
+- Length: `106 / 1000`
 
 ```text
-Current packet mode: pre_live_safe. Safe for public mock demo only. Do not submit as final sponsor proof.
+Current packet mode: post_live_verified. Use only after T020 and T021 are verified by live proof evidence.
 ```
 
 ## Stop Rules

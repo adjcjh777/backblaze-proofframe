@@ -1,24 +1,24 @@
 {
   "schema": "proofframe.judge_brief.v1",
-  "created_at": "2026-07-03T04:59:56Z",
+  "created_at": "2026-07-03T10:57:05Z",
   "project": "ProofFrame",
   "tagline": "B2-ready provenance desk for GenAI media.",
   "one_liner": "ProofFrame turns generated media into approved evidence packets with B2-ready manifests, Genblaze-gated provider metadata, checksums, review status, and an exportable proof bundle.",
   "judge_opening_30s": "ProofFrame is not another image generator. It is a media operations desk that turns each generated asset into a reviewable packet: prompt, provider/model metadata, storage reference, checksum, approval state, risk note, manifest, and exportable evidence.",
   "why_it_can_win": [
     "Storage and provenance are the product surface, not a hidden implementation detail.",
-    "Backblaze B2 and Genblaze integration code paths are implemented and gated; live proofs remain explicit final blockers.",
+    "Backblaze B2 and Genblaze Pipeline proof are captured; final public video and Devpost receipt remain gated.",
     "The app feels useful after the hackathon: teams can approve, reject, search, export, and audit generated media.",
     "Fail-closed reports make the submission defensible and prevent overclaiming before live proof."
   ],
   "status": {
-    "packet_mode": "pre_live_safe",
+    "packet_mode": "post_live_verified",
     "safe_to_submit": false,
-    "launch_mode": "ready_for_genblaze_live_proof",
-    "current_phase": "genblaze_live_proof",
-    "next_command": "python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json",
-    "award_mode": "pre_live_competitive",
-    "award_score": 101,
+    "launch_mode": "ready_for_public_video",
+    "current_phase": "public_video",
+    "next_command": "python scripts/devpost_packet.py --post-live --video-url \"$PROOFFRAME_PUBLIC_VIDEO_URL\"",
+    "award_mode": "proof_verified_video_pending",
+    "award_score": 105,
     "award_max_score": 115,
     "final_closure_score": 0,
     "final_closure_max_score": 10,
@@ -28,16 +28,17 @@
   "links": {
     "public_demo": "https://adjcjh-backblaze-proofframe.hf.space/?judge=1",
     "repository": "https://github.com/adjcjh777/backblaze-proofframe",
-    "devpost_video": "TBD after final B2 and Genblaze proof."
+    "devpost_video": "TBD after final public video upload."
   },
   "safe_claims": [
     "ProofFrame is a working provenance and approval desk for generated media.",
     "The public demo is credential-free and runs in deterministic local/mock mode.",
-    "The repository includes Backblaze B2-compatible storage and Genblaze provider paths for GMICloud and OpenAI.",
-    "Every public claim is gated by reports, task status, and secret-scan artifacts."
+    "The repository includes Backblaze B2-compatible storage and Genblaze provider paths for GMICloud, OpenAI, and a credential-free local Pipeline provider.",
+    "Every public claim is gated by reports, task status, and secret-scan artifacts.",
+    "Backblaze B2 live storage proof is captured in the sanitized evidence package.",
+    "Genblaze Pipeline proof is captured with the credential-free local image provider and B2-backed manifests."
   ],
   "not_yet_claimed": [
-    "Completed Genblaze live generation proof.",
     "Submitted Devpost project receipt."
   ],
   "judge_walkthrough": [
@@ -56,11 +57,11 @@
   ],
   "tasks": {
     "T020": "done",
-    "T021": "blocked",
+    "T021": "done",
     "T040": "done",
-    "T041": "todo",
-    "T041A": "todo",
-    "T042": "todo"
+    "T041": "blocked",
+    "T041A": "blocked",
+    "T042": "blocked"
   },
   "copy_blocks": {
     "devpost_intro": "ProofFrame makes generated media operationally trustworthy: the demo creates media packets that include prompts, provider/model metadata, storage references, checksums, review state, risk notes, and downloadable manifests.",

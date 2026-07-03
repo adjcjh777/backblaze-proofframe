@@ -19,6 +19,8 @@ from proofframe.config import Settings
 
 
 ROOT = Path(__file__).resolve().parents[1]
+EVIDENCE_SCHEMA = "proofframe.final_live_proof.v1"
+EVIDENCE_MODE = "final_live_proof_ready"
 DEFAULT_ENV_FILE = ROOT / ".env.final.local"
 DEFAULT_EVIDENCE = ROOT / "docs" / "assets" / "final-live-proof-evidence.json"
 DEFAULT_LOG = ROOT / "var" / "live-proof" / "uvicorn.log"
@@ -107,6 +109,19 @@ def wait_for_live_app(
     raise RuntimeError(f"Live ProofFrame app did not become ready. Last error: {last_error}")
 
 
+def annotate_final_evidence(path: Path) -> bool:
+    try:
+        evidence = json.loads(path.read_text(encoding="utf-8"))
+    except (FileNotFoundError, json.JSONDecodeError):
+        return False
+    if not isinstance(evidence, dict):
+        return False
+    evidence.setdefault("schema", EVIDENCE_SCHEMA)
+    evidence.setdefault("mode", EVIDENCE_MODE)
+    path.write_text(json.dumps(evidence, indent=2) + "\n", encoding="utf-8")
+    return True
+
+
 def run_final_live_proof(args: argparse.Namespace) -> int:
     apply_env_file(
         args.env_file,
@@ -150,6 +165,8 @@ def run_final_live_proof(args: argparse.Namespace) -> int:
                 require_generation_backend="genblaze",
             )
             completed = subprocess.run(smoke_command, cwd=ROOT, check=False)
+            if completed.returncode == 0:
+                annotate_final_evidence(args.evidence_out)
             return completed.returncode
         finally:
             process.terminate()
@@ -176,7 +193,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--genblaze-provider",
         default="",
-        help="Optional non-secret override such as openai or gmicloud.",
+        help="Optional non-secret override such as local, openai, or gmicloud.",
     )
     parser.add_argument(
         "--genblaze-image-model",

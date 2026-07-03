@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.judge_crosswalk.v1",
-  "created_at": "2026-07-01T12:09:20Z",
+  "created_at": "2026-07-03T10:38:00Z",
   "mode": "pre_live_crosswalk_ready",
   "ok": true,
   "safe_to_submit": false,
@@ -156,15 +156,15 @@
         "docs/assets/live-credential-handoff.md",
         "docs/assets/final-submission-control.md"
       ],
-      "safe_claim": "ProofFrame includes B2-compatible storage paths and B2-ready manifests; completed live B2 proof is not claimed until T020 is done.",
-      "final_gate": "T020 must capture sanitized B2 asset and manifest object keys plus checksums.",
+      "safe_claim": "ProofFrame has captured live B2 media and manifest evidence with sanitized object keys and checksums.",
+      "final_gate": "B2 proof is done; final submission still needs public video, audit, scan, and Devpost receipt.",
       "demo_shot": "B2 Object Route and manifest checksum fields in the first-screen evidence model."
     },
     {
       "id": "use_of_genblaze",
       "criterion": "Use of Genblaze",
       "official_present": true,
-      "readiness": "adapter_ready_live_proof_pending",
+      "readiness": "live_verified",
       "evidence": [
         "src/proofframe/providers.py",
         "scripts/run_final_live_proof.py",
@@ -172,8 +172,8 @@
         "docs/assets/live-credential-handoff.md",
         "docs/assets/devpost-submission-packet.md"
       ],
-      "safe_claim": "ProofFrame includes a Genblaze-compatible provider path and manifest fields; completed live Genblaze proof is not claimed until T021 is done.",
-      "final_gate": "T021 must capture live provider/model metadata from the final Genblaze path.",
+      "safe_claim": "ProofFrame has captured Genblaze Pipeline proof with provider/model metadata and B2-backed manifest output.",
+      "final_gate": "Genblaze proof is done; final submission still needs public video, audit, scan, and Devpost receipt.",
       "demo_shot": "Genblaze Step, provider/model metadata, and prompt lineage in the manifest preview."
     }
   ],
@@ -181,17 +181,17 @@
     "judge_brief_safe_to_submit": false,
     "sponsor_fit_mode": "sponsor_fit_ready",
     "sponsor_fit_ok": true,
-    "award_score": 101,
+    "award_score": 105,
     "award_max_score": 115,
     "final_control_mode": "pre_live_control"
   },
   "task_statuses": {
     "T020": "done",
-    "T021": "blocked",
+    "T021": "done",
     "T040": "done",
-    "T041": "todo",
-    "T041A": "todo",
-    "T042": "todo"
+    "T041": "blocked",
+    "T041A": "blocked",
+    "T042": "blocked"
   },
   "blocking_items": [
     {
@@ -199,12 +199,6 @@
       "label": "Final Devpost web submission checklist is ready",
       "detail": "Devpost submission checklist mode is pre_submit_blocked; safe_to_submit is False.",
       "evidence": "docs/assets/devpost-submission-checklist.json"
-    },
-    {
-      "id": "genblaze_live_proof",
-      "label": "Genblaze live proof captured",
-      "detail": "T021 is blocked; final evidence status is missing.",
-      "evidence": "tasks.json and docs/assets/final-live-proof-evidence.json"
     },
     {
       "id": "public_video",
@@ -227,30 +221,30 @@
     {
       "id": "final_secret_scan",
       "label": "Final secret scan is complete",
-      "detail": "T041A is todo; secret scan mode is clear; secret scan ok is True.",
+      "detail": "T041A is blocked; secret scan mode is clear; secret scan ok is True.",
       "evidence": "tasks.json and docs/assets/secret-scan-report.json"
     },
     {
       "id": "final_submission_audit",
       "label": "Final submission audit is complete",
-      "detail": "T041 is todo; audit mode is pre_submit_audit_blocked; audit ok is False.",
+      "detail": "T041 is blocked; audit mode is pre_submit_audit_blocked; audit ok is False.",
       "evidence": "tasks.json and docs/assets/submission-audit-report.json"
     },
     {
       "id": "devpost_submitted",
       "label": "Devpost project submitted",
-      "detail": "T042 is todo; receipt mode is pending_submission; receipt ok is False.",
+      "detail": "T042 is blocked; receipt mode is pending_submission; receipt ok is False.",
       "evidence": "tasks.json and docs/assets/devpost-submission-receipt.json"
     }
   ],
   "claim_boundaries": [
-    "Do not claim completed B2 live storage until T020 is done and evidence is sanitized.",
-    "Do not claim completed Genblaze live generation until T021 is done and provider/model metadata is captured.",
+    "B2 live storage proof may be claimed with sanitized evidence.",
+    "Genblaze Pipeline proof may be claimed with sanitized provider/model evidence.",
     "Do not mark safe_to_submit true until public video, strict audit, final secret scan, and Devpost receipt are complete."
   ],
   "next_actions": [
     "Use this crosswalk as the judge-facing map while recording the final video and filling Devpost.",
-    "After T020/T021 and the public video URL are ready, rerun final reports and regenerate this crosswalk.",
+    "After the public video URL is ready, rerun final reports and regenerate this crosswalk.",
     "Submit only after final_submission_control.py --strict-final and submission_audit.py --strict-final pass."
   ]
 }

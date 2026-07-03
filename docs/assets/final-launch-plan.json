@@ -1,23 +1,23 @@
 {
   "schema": "proofframe.final_launch_plan.v1",
-  "created_at": "2026-07-03T05:02:25Z",
+  "created_at": "2026-07-03T10:37:59Z",
   "ok": false,
-  "mode": "ready_for_genblaze_live_proof",
+  "mode": "ready_for_public_video",
   "repo_root": "/Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe",
-  "current_phase": "genblaze_live_proof",
+  "current_phase": "public_video",
   "summary": {
     "total": 6,
-    "done": 2,
+    "done": 3,
     "ready": 1,
-    "blocked": 3
+    "blocked": 2
   },
   "task_statuses": {
     "T020": "done",
-    "T021": "blocked",
+    "T021": "done",
     "T040": "done",
-    "T041": "todo",
-    "T041A": "todo",
-    "T042": "todo"
+    "T041": "blocked",
+    "T041A": "blocked",
+    "T042": "blocked"
   },
   "phases": [
     {
@@ -53,9 +53,9 @@
     {
       "id": "genblaze_live_proof",
       "title": "Capture final B2 plus Genblaze proof",
-      "status": "ready",
-      "detail": "Run after the B2-only proof passes so final evidence has storage and generation proof.",
-      "command": "python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider openai --genblaze-image-model gpt-image-1 --evidence-out docs/assets/final-live-proof-evidence.json",
+      "status": "done",
+      "detail": "Sanitized final B2 plus Genblaze evidence is present and T021 is done.",
+      "command": "python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider local --genblaze-image-model local-svg-v1 --evidence-out docs/assets/final-live-proof-evidence.json",
       "expected_artifacts": [
         "docs/assets/final-live-proof-evidence.json"
       ],
@@ -69,8 +69,8 @@
     {
       "id": "public_video",
       "title": "Record and verify public demo video",
-      "status": "blocked",
-      "detail": "Waiting on live B2 plus Genblaze evidence.",
+      "status": "ready",
+      "detail": "Record and upload the public demo after live proof evidence exists.",
       "command": "python scripts/devpost_packet.py --post-live --video-url \"$PROOFFRAME_PUBLIC_VIDEO_URL\"",
       "expected_artifacts": [
         "public demo video URL",
@@ -123,8 +123,8 @@
       ]
     }
   ],
-  "next_command": "python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider openai --genblaze-image-model gpt-image-1 --evidence-out docs/assets/final-live-proof-evidence.json",
-  "next_detail": "Run after the B2-only proof passes so final evidence has storage and generation proof.",
+  "next_command": "python scripts/devpost_packet.py --post-live --video-url \"$PROOFFRAME_PUBLIC_VIDEO_URL\"",
+  "next_detail": "Record and upload the public demo after live proof evidence exists.",
   "safety_policy": {
     "no_secret_values_in_report": true,
     "never_commit": [

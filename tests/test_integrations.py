@@ -122,6 +122,31 @@ def test_openai_provider_does_not_accept_non_openai_aliases_as_key():
         create_media_provider(settings)
 
 
+def test_local_genblaze_provider_requires_no_api_key_and_generates_asset():
+    settings = Settings.from_env(
+        {
+            "PROOFFRAME_GENERATION_BACKEND": "genblaze",
+            "GENBLAZE_PROVIDER": "local",
+            "GENBLAZE_IMAGE_MODEL": "local-svg-v1",
+        }
+    )
+
+    assert settings.genblaze_provider == "local"
+    assert settings.genblaze_provider_key() == ""
+    assert settings.genblaze_configured() is True
+
+    provider = create_media_provider(settings)
+    campaign = Campaign(title="Launch", brief="Generate one safe image.")
+    media = provider.generate(campaign, count=1)[0]
+
+    assert isinstance(provider, GenblazeMediaProvider)
+    assert provider.genblaze_provider == "local"
+    assert media.provider == "genblaze/local-image"
+    assert media.model == "local-svg-v1"
+    assert media.content_type == "image/svg+xml"
+    assert media.generation_metadata["genblaze_manifest_verified"] == "True"
+
+
 def test_genblaze_b2_sink_builds_from_official_packages_without_network():
     provider = GenblazeMediaProvider(
         api_key="test-key",
