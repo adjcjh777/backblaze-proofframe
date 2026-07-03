@@ -2,12 +2,13 @@
 
 Mode: `sdk_contract_ready`
 OK: `true`
-Created: `2026-06-29T12:22:25Z`
+Created: `2026-07-03T04:59:37Z`
 
 ## Package Versions
 
 - `genblaze_core`: `0.3.4`
 - `genblaze_gmicloud`: `0.3.2`
+- `genblaze_openai`: `0.3.1`
 - `genblaze_s3`: `0.3.4`
 
 ## Checks
@@ -19,9 +20,12 @@ Created: `2026-06-29T12:22:25Z`
 - OK `genblaze_core_Pipeline`: genblaze_core.Pipeline is present.
 - OK `genblaze_gmicloud_import`: genblaze_gmicloud is importable.
 - OK `genblaze_gmicloud_GMICloudImageProvider`: genblaze_gmicloud.GMICloudImageProvider is present.
+- OK `genblaze_openai_import`: genblaze_openai is importable.
+- OK `genblaze_openai_DalleProvider`: genblaze_openai.DalleProvider is present.
 - OK `genblaze_s3_import`: genblaze_s3 is importable.
 - OK `genblaze_s3_S3StorageBackend`: genblaze_s3.S3StorageBackend is present.
 - OK `gmicloud_image_provider_ctor`: Required params: ['api_key', 'base_url', 'http_timeout']; observed params: ['api_key', 'base_url', 'http_client', 'http_timeout', 'models', 'poll_interval', 'probe_cache_max_entries', 'probe_cache_ttl', 'retry_policy'].
+- OK `openai_image_provider_ctor`: Required params: ['api_key', 'http_timeout']; observed params: ['api_key', 'http_timeout', 'models', 'output_dir', 'probe_cache_max_entries', 'probe_cache_ttl', 'retry_policy'].
 - OK `pipeline_ctor`: Required params: ['project_id']; observed params: ['chain', 'max_concurrency', 'moderation', 'name', 'preflight', 'project_id', 'structured_log', 'tenant_id', 'tracer'].
 - OK `pipeline_methods_inspectable`: Required methods: ['run', 'step']; observed: ['run', 'step'].
 - OK `pipeline_step_signature`: Required params: ['modality', 'model', 'prompt', 'provider']; observed params: ['expected_duration_sec', 'external_inputs', 'fallback_models', 'input_from', 'modality', 'model', 'params', 'prompt', 'provider', 'self', 'step_type'].
@@ -34,4 +38,4 @@ Created: `2026-06-29T12:22:25Z`
 
 ## Secret Policy
 
-This report reads Python package metadata and callable signatures only. It does not read environment variables, credential files, provider responses, Backblaze keys, Genblaze/GMI keys, cookies, or signed URLs.
+This report reads Python package metadata and callable signatures only. It does not read environment variables, credential files, provider responses, Backblaze keys, Genblaze provider keys, cookies, or signed URLs.

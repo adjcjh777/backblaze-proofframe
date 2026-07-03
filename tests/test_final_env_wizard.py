@@ -27,6 +27,7 @@ def test_final_env_wizard_check_requires_ignored_output(tmp_path):
     assert "B2_APPLICATION_KEY" in report["secret_fields"]
     assert "B2_APP_KEY" in report["secret_fields"]
     assert "GMI_API_KEY" in report["secret_fields"]
+    assert "OPENAI_API_KEY" in report["secret_fields"]
 
 
 def test_final_env_wizard_check_fails_for_unignored_output(tmp_path):
@@ -165,10 +166,10 @@ def test_final_env_wizard_uses_existing_file_values_as_prompt_defaults(tmp_path)
     assert values["B2_KEY_ID"] == "existing-key-id"
     assert values["B2_APPLICATION_KEY"] == "existing b2 secret"
     assert values["GENBLAZE_API_KEY"] == "existing-gmi-secret"
-    assert values["GMI_API_KEY"] == "existing-gmi-secret"
+    assert "GMI_API_KEY" not in values
 
 
-def test_final_env_wizard_collects_missing_values_only_and_mirrors_gmi_key(tmp_path):
+def test_final_env_wizard_collects_missing_values_only_without_mirroring_provider_key(tmp_path):
     values, filled_names = final_env_wizard.collect_missing_values(
         initial_values={
             "PROOFFRAME_STORAGE_BACKEND": "b2",
@@ -191,13 +192,12 @@ def test_final_env_wizard_collects_missing_values_only_and_mirrors_gmi_key(tmp_p
     assert values["B2_KEY_ID"] == "least-privilege-key-id"
     assert values["B2_APPLICATION_KEY"] == "secret-b2-key"
     assert values["GENBLAZE_API_KEY"] == "secret-gmi-key"
-    assert values["GMI_API_KEY"] == "secret-gmi-key"
+    assert "GMI_API_KEY" not in values
     assert filled_names == [
         "B2_KEY_ID",
         "B2_APPLICATION_KEY",
         "B2_APP_KEY",
         "GENBLAZE_API_KEY",
-        "GMI_API_KEY",
     ]
     assert "secret-b2-key" not in json.dumps(summary)
     assert "secret-gmi-key" not in json.dumps(summary)
@@ -269,7 +269,7 @@ def test_final_env_wizard_missing_only_from_env_does_not_override_existing_value
     assert values["B2_KEY_ID"] == "existing-key-id"
     assert values["B2_APPLICATION_KEY"] == "env-b2-secret"
     assert values["GENBLAZE_API_KEY"] == "env-gmi-secret"
-    assert values["GMI_API_KEY"] == "env-gmi-secret"
+    assert "GMI_API_KEY" not in values
     assert filled_names == []
 
 

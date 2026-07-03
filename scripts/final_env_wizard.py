@@ -24,6 +24,7 @@ PLACEHOLDERS = {"", "placeholder", "change-me", "changeme", "todo", "tbd", "none
 NEXT_COMMANDS = [
     "python scripts/live_env_handoff.py --env-file .env.final.local --strict",
     "python scripts/run_final_live_proof.py --env-file .env.final.local --preflight-only",
+    "python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider openai --genblaze-image-model gpt-image-1 --preflight-only",
     "python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json",
 ]
 
@@ -54,13 +55,15 @@ FIELDS = [
         mirror_to=("B2_APP_KEY",),
     ),
     EnvField("B2_PUBLIC_BASE_URL", "Optional B2 public base URL", required=False),
+    EnvField("GENBLAZE_PROVIDER", "Genblaze provider", default="gmicloud", required=False),
     EnvField(
         "GENBLAZE_API_KEY",
-        "Genblaze/GMI API key",
+        "Genblaze provider API key",
         secret=True,
         aliases=("GMI_API_KEY",),
-        mirror_to=("GMI_API_KEY",),
     ),
+    EnvField("GMI_API_KEY", "Optional GMI API key alias", required=False, secret=True),
+    EnvField("OPENAI_API_KEY", "Optional OpenAI API key alias", required=False, secret=True),
     EnvField("GENBLAZE_IMAGE_MODEL", "Genblaze image model", default="seedream-5.0-lite"),
     EnvField("GENBLAZE_ASPECT_RATIO", "Genblaze aspect ratio", default="16:9", required=False),
     EnvField("GENBLAZE_TIMEOUT_SECONDS", "Genblaze timeout seconds", default="180", required=False),
@@ -103,9 +106,19 @@ def parse_env_file(path: Path) -> dict[str, str]:
     return values
 
 
-def default_source(environ: Mapping[str, str], initial_values: Mapping[str, str] | None) -> dict[str, str]:
+def default_source(
+    environ: Mapping[str, str],
+    initial_values: Mapping[str, str] | None,
+    *,
+    environ_overrides: bool,
+) -> dict[str, str]:
     values = dict(initial_values or {})
-    values.update(environ)
+    if environ_overrides:
+        values.update(environ)
+    else:
+        env_values = dict(environ)
+        env_values.update(values)
+        values = env_values
     return values
 
 
@@ -134,7 +147,12 @@ def collect_values(
     input_func: Callable[[str], str] = input,
     secret_input: Callable[[str], str] = getpass.getpass,
 ) -> dict[str, str]:
-    source = default_source(os.environ if environ is None else environ, initial_values)
+    default_environ: Mapping[str, str] = os.environ if from_env else {}
+    source = default_source(
+        default_environ if environ is None else environ,
+        initial_values,
+        environ_overrides=from_env,
+    )
     values: dict[str, str] = {}
     missing: list[str] = []
 
@@ -234,6 +252,7 @@ def non_secret_prefill_values(*, b2_setup_path: Path = DEFAULT_B2_SETUP) -> dict
     values = {
         "PROOFFRAME_STORAGE_BACKEND": "b2",
         "PROOFFRAME_GENERATION_BACKEND": "genblaze",
+        "GENBLAZE_PROVIDER": "gmicloud",
         "GENBLAZE_IMAGE_MODEL": "seedream-5.0-lite",
         "GENBLAZE_ASPECT_RATIO": "16:9",
         "GENBLAZE_TIMEOUT_SECONDS": "180",
@@ -357,7 +376,7 @@ def build_check(root: Path = ROOT, output: Path = DEFAULT_OUTPUT) -> dict[str, o
             name
             for field in FIELDS
             if field.secret
-            for name in (field.name, *field.mirror_to)
+            for name in (field.name, *field.aliases, *field.mirror_to)
         ],
         "present_required_names": [
             field.name for field in FIELDS if field.required and env_lookup(field, values)

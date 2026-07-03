@@ -43,7 +43,7 @@ POST_CREDENTIAL_REQUIRED_REPORT_SEQUENCE = (
 SECRET_POLICY_REQUIRED_TERMS = (
     "never stores",
     "backblaze keys",
-    "genblaze/gmi keys",
+    "genblaze provider keys",
     "devpost cookies",
     "provider responses",
     "signed urls",
@@ -116,7 +116,7 @@ FINAL_CLOSEOUT_FINAL_MODE = "final_closeout_ready"
 FINAL_CLOSEOUT_SECRET_POLICY_TERMS = {
     "never stores",
     "backblaze keys",
-    "genblaze/gmi keys",
+    "genblaze provider keys",
     "devpost cookies",
     "signed urls",
 }
@@ -136,6 +136,11 @@ HTML_MARKERS = {
     "final_closeout_panel": "Final Closeout",
     "auto_load_judge_demo": "shouldAutoLoadJudgeDemo",
     "final_reports_pending": "Final reports pending",
+}
+PUBLIC_SAFE_LAUNCH_STATES = {
+    ("ready_for_credential_entry", "credential_entry"),
+    ("blocked_at_credential_entry", "credential_entry"),
+    ("ready_for_genblaze_live_proof", "genblaze_live_proof"),
 }
 
 FetchResult = dict[str, Any]
@@ -537,7 +542,7 @@ def build_report(
         and genblaze_contract_failed_checks == []
         and "does not read environment variables" in genblaze_contract_secret_policy
         and "Backblaze keys" in genblaze_contract_secret_policy
-        and "Genblaze/GMI keys" in genblaze_contract_secret_policy
+        and "Genblaze provider keys" in genblaze_contract_secret_policy
     )
     docker_smoke_dockerignore = dict_field(docker_smoke, "dockerignore")
     docker_smoke_health = dict_field(docker_smoke, "health")
@@ -603,10 +608,6 @@ def build_report(
         and devpost_preview_readiness.get("public_screenshot_mode") == "public_judge_screenshot_ready"
         and devpost_preview_field_rollup.get("mock_ready") is True
         and devpost_preview_field_rollup.get("final_ready") is False
-        and any(
-            isinstance(blocker, dict) and blocker.get("id") == "b2_live_proof"
-            for blocker in devpost_preview_blockers
-        )
         and any(
             isinstance(blocker, dict) and blocker.get("id") == "genblaze_live_proof"
             for blocker in devpost_preview_blockers
@@ -808,7 +809,6 @@ def build_report(
             "final_closeout_status",
         }
         <= judge_evidence_index_link_ids
-        and "b2_live_proof" in judge_evidence_index_blockers
         and "genblaze_live_proof" in judge_evidence_index_blockers
         and "does not claim completed B2 or Genblaze live proof"
         in str(judge_evidence_index.get("claim_boundary") or "")
@@ -954,8 +954,8 @@ def build_report(
                 launch_plan_result.get("ok")
                 and launch_plan
                 and launch_plan.get("schema") == "proofframe.final_launch_plan.v1"
-                and launch_plan.get("mode") in {"ready_for_credential_entry", "blocked_at_credential_entry"}
-                and launch_plan.get("current_phase") == "credential_entry"
+                and (launch_plan.get("mode"), launch_plan.get("current_phase"))
+                in PUBLIC_SAFE_LAUNCH_STATES
             ),
             (
                 f"Launch plan schema is {launch_plan.get('schema') if launch_plan else None}; "

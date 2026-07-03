@@ -1,11 +1,12 @@
 {
   "schema": "proofframe.genblaze_contract_check.v1",
-  "created_at": "2026-06-29T12:22:25Z",
+  "created_at": "2026-07-03T04:59:37Z",
   "ok": true,
   "mode": "sdk_contract_ready",
   "package_versions": {
     "genblaze_core": "0.3.4",
     "genblaze_gmicloud": "0.3.2",
+    "genblaze_openai": "0.3.1",
     "genblaze_s3": "0.3.4"
   },
   "checks": [
@@ -59,6 +60,20 @@
       "remediation": ""
     },
     {
+      "id": "genblaze_openai_import",
+      "label": "genblaze_openai import",
+      "ok": true,
+      "detail": "genblaze_openai is importable.",
+      "remediation": ""
+    },
+    {
+      "id": "genblaze_openai_DalleProvider",
+      "label": "genblaze_openai.DalleProvider symbol",
+      "ok": true,
+      "detail": "genblaze_openai.DalleProvider is present.",
+      "remediation": ""
+    },
+    {
       "id": "genblaze_s3_import",
       "label": "genblaze_s3 import",
       "ok": true,
@@ -77,6 +92,13 @@
       "label": "GMICloudImageProvider constructor accepts ProofFrame kwargs",
       "ok": true,
       "detail": "Required params: ['api_key', 'base_url', 'http_timeout']; observed params: ['api_key', 'base_url', 'http_client', 'http_timeout', 'models', 'poll_interval', 'probe_cache_max_entries', 'probe_cache_ttl', 'retry_policy'].",
+      "remediation": ""
+    },
+    {
+      "id": "openai_image_provider_ctor",
+      "label": "DalleProvider constructor accepts ProofFrame kwargs",
+      "ok": true,
+      "detail": "Required params: ['api_key', 'http_timeout']; observed params: ['api_key', 'http_timeout', 'models', 'output_dir', 'probe_cache_max_entries', 'probe_cache_ttl', 'retry_policy'].",
       "remediation": ""
     },
     {
@@ -144,5 +166,5 @@
     }
   ],
   "failed_checks": [],
-  "secret_policy": "This report reads Python package metadata and callable signatures only. It does not read environment variables, credential files, provider responses, Backblaze keys, Genblaze/GMI keys, cookies, or signed URLs."
+  "secret_policy": "This report reads Python package metadata and callable signatures only. It does not read environment variables, credential files, provider responses, Backblaze keys, Genblaze provider keys, cookies, or signed URLs."
 }

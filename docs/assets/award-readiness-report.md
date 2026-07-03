@@ -22,7 +22,7 @@ Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 - OK `b2_backend_code` (5/5): Backblaze B2 has a dedicated S3-compatible storage adapter.
 - OK `b2_bucket_setup` (4/4): The non-secret B2 bucket setup record exists for final proof.
 - OK `b2_live_runner` (4/4): B2 storage can be verified independently before Genblaze is ready.
-- OK `genblaze_provider_code` (5/5): The app has a real Genblaze/GMICloud provider adapter.
+- OK `genblaze_provider_code` (5/5): The app has real Genblaze provider adapters for GMICloud and OpenAI.
 - OK `final_live_runner` (4/4): A one-command runner can produce sanitized final evidence once keys are present.
 - OK `sponsor_fit_matrix` (4/4): Judging angles are mapped to current evidence, safe claims, final gates, and demo shots.
 - OK `sponsor_fit_audit` (4/4): Devpost B2/Genblaze copy is specific and the demo introduces B2 early.
@@ -61,7 +61,7 @@ Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 
 ## Next Actions
 
-- Resolve the Genblaze/GMI live-proof blocker and run python scripts/run_final_live_proof.py --env-file .env.final.local.
+- Resolve the Genblaze provider live-proof blocker and run python scripts/run_final_live_proof.py --env-file .env.final.local, or use the no-recharge OpenAI fallback with --genblaze-provider openai --genblaze-image-model gpt-image-1 after OPENAI_API_KEY is available.
 - Run python scripts/secret_scan.py after live evidence is generated.
 - Run python scripts/submission_audit.py --strict-final after live proof, public video URL, and T041A are done.
 - Submit the Devpost project only after the final gate turns green.

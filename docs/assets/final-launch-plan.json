@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.final_launch_plan.v1",
-  "created_at": "2026-07-01T12:05:15Z",
+  "created_at": "2026-07-03T05:02:25Z",
   "ok": false,
   "mode": "ready_for_genblaze_live_proof",
   "repo_root": "/Users/junhaocheng/working-dir/ai-competitions/backblaze-proofframe",
@@ -55,7 +55,7 @@
       "title": "Capture final B2 plus Genblaze proof",
       "status": "ready",
       "detail": "Run after the B2-only proof passes so final evidence has storage and generation proof.",
-      "command": "python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json",
+      "command": "python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider openai --genblaze-image-model gpt-image-1 --evidence-out docs/assets/final-live-proof-evidence.json",
       "expected_artifacts": [
         "docs/assets/final-live-proof-evidence.json"
       ],
@@ -123,14 +123,14 @@
       ]
     }
   ],
-  "next_command": "python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json",
+  "next_command": "python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider openai --genblaze-image-model gpt-image-1 --evidence-out docs/assets/final-live-proof-evidence.json",
   "next_detail": "Run after the B2-only proof passes so final evidence has storage and generation proof.",
   "safety_policy": {
     "no_secret_values_in_report": true,
     "never_commit": [
       ".env.final.local",
       "Backblaze key IDs or application keys",
-      "Genblaze/GMI API keys",
+      "Genblaze provider API keys",
       "Devpost cookies or browser session files",
       "raw signed URLs or provider temporary URLs"
     ],

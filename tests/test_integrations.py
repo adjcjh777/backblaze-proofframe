@@ -40,6 +40,26 @@ def test_genblaze_provider_fails_closed_without_package(monkeypatch):
         provider.generate(campaign)
 
 
+def test_openai_genblaze_provider_fails_closed_without_package(monkeypatch):
+    real_import = builtins.__import__
+
+    def fake_import(name, globals=None, locals=None, fromlist=(), level=0):
+        if name == "genblaze_openai":
+            raise ModuleNotFoundError(name)
+        return real_import(name, globals, locals, fromlist, level)
+
+    provider = GenblazeMediaProvider(
+        api_key="test-key",
+        image_model="gpt-image-1",
+        genblaze_provider="openai",
+    )
+    campaign = Campaign(title="Launch", brief="Generate one safe image.")
+
+    monkeypatch.setattr(builtins, "__import__", fake_import)
+    with pytest.raises(ConfigurationError, match="GENBLAZE_PROVIDER=openai requires"):
+        provider.generate(campaign)
+
+
 def test_genblaze_settings_parse_official_defaults():
     settings = Settings.from_env(
         {
@@ -64,6 +84,42 @@ def test_genblaze_settings_parse_official_defaults():
     assert isinstance(provider, GenblazeMediaProvider)
     assert provider.b2_sink_enabled is True
     assert provider.b2_region == "us-west-004"
+
+
+def test_genblaze_settings_parse_openai_provider():
+    settings = Settings.from_env(
+        {
+            "PROOFFRAME_GENERATION_BACKEND": "genblaze",
+            "GENBLAZE_PROVIDER": "openai",
+            "OPENAI_API_KEY": "test-key",
+            "GENBLAZE_IMAGE_MODEL": "gpt-image-1",
+        }
+    )
+
+    assert settings.genblaze_provider == "openai"
+    assert settings.genblaze_provider_key() == "test-key"
+
+    provider = create_media_provider(settings)
+
+    assert isinstance(provider, GenblazeMediaProvider)
+    assert provider.genblaze_provider == "openai"
+    assert provider.api_key == "test-key"
+
+
+def test_openai_provider_does_not_accept_non_openai_aliases_as_key():
+    settings = Settings.from_env(
+        {
+            "PROOFFRAME_GENERATION_BACKEND": "genblaze",
+            "GENBLAZE_PROVIDER": "openai",
+            "GENBLAZE_API_KEY": "wrong-provider-key",
+            "GMI_API_KEY": "wrong-provider-key",
+            "GENBLAZE_IMAGE_MODEL": "gpt-image-1",
+        }
+    )
+
+    assert settings.genblaze_provider_key() == ""
+    with pytest.raises(ConfigurationError, match="OPENAI_API_KEY"):
+        create_media_provider(settings)
 
 
 def test_genblaze_b2_sink_builds_from_official_packages_without_network():

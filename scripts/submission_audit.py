@@ -188,7 +188,6 @@ def check_final_evidence(path: Path, root: Path) -> list[dict[str, str]]:
         "storage_backend": "b2",
         "generation_backend": "genblaze",
         "asset_storage_backend": "b2",
-        "asset_provider": "genblaze/gmicloud-image",
     }
     for key, expected_value in expected.items():
         actual = evidence.get(key)
@@ -201,6 +200,17 @@ def check_final_evidence(path: Path, root: Path) -> list[dict[str, str]]:
                     relative_path(path, root),
                 )
             )
+    allowed_asset_providers = {"genblaze/gmicloud-image", "genblaze/openai-image"}
+    asset_provider = evidence.get("asset_provider")
+    if asset_provider not in allowed_asset_providers:
+        findings.append(
+            finding(
+                "evidence.asset_provider",
+                "mismatch",
+                f"Expected one of {sorted(allowed_asset_providers)!r}, got {asset_provider!r}.",
+                relative_path(path, root),
+            )
+        )
     for key in ("asset_sha256", "manifest_sha256", "asset_storage_key", "manifest_key"):
         if not evidence.get(key):
             findings.append(

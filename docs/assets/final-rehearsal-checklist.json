@@ -1,11 +1,11 @@
 {
   "schema": "proofframe.final_rehearsal.v1",
-  "created_at": "2026-07-01T12:11:05Z",
+  "created_at": "2026-07-03T05:02:32Z",
   "mode": "needs_rehearsal_setup",
   "ok": false,
   "safe_to_submit": false,
   "current_phase": "genblaze_live_proof",
-  "next_command": "python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json",
+  "next_command": "python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider openai --genblaze-image-model gpt-image-1 --evidence-out docs/assets/final-live-proof-evidence.json",
   "task_statuses": {
     "T020": "done",
     "T021": "blocked",
@@ -18,7 +18,7 @@
     {
       "id": "operator_ready",
       "ok": false,
-      "detail": "Operator brief mode is needs_operator_setup.",
+      "detail": "Operator brief mode is genblaze_live_proof_ready.",
       "evidence": "docs/assets/final-operator-brief.json"
     },
     {
@@ -36,7 +36,7 @@
     {
       "id": "public_space_synced",
       "ok": true,
-      "detail": "Runtime sha: 00295ca9e94b26ff25f42b77596ed79ca7a56888.",
+      "detail": "Runtime sha: f6b8fce3e2fde75ad20227cc1da2523b00fb0bc8.",
       "evidence": "docs/assets/public-space-sync-report.json"
     },
     {
@@ -96,7 +96,7 @@
     {
       "id": "final_live_proof",
       "owner": "codex",
-      "command": "python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json",
+      "command": "python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider openai --genblaze-image-model gpt-image-1 --evidence-out docs/assets/final-live-proof-evidence.json",
       "success_signal": "Final evidence JSON has storage_backend=b2, generation_backend=genblaze, provider/model metadata, checksums, and no raw provider URLs.",
       "safe_to_commit": [
         "docs/assets/final-live-proof-evidence.json"
@@ -188,7 +188,7 @@
     }
   ],
   "stop_rules": [
-    "Stop immediately if a command prints or writes a value that looks like a B2 key, Genblaze/GMI key, browser cookie, authorization header, or signed URL.",
+    "Stop immediately if a command prints or writes a value that looks like a B2 key, Genblaze provider key, browser cookie, authorization header, or signed URL.",
     "Do not mark T020 or T021 done unless the corresponding sanitized evidence JSON exists and passes the expected backend/provider checks.",
     "Do not run Devpost submission until final_submission_control.py --strict-final passes after live proof, public video, final scan, and final audit.",
     "Do not update public copy from pre-live to completed sponsor proof until both B2 and Genblaze evidence are committed after a clean secret scan."
@@ -198,7 +198,7 @@
       "path": "docs/assets/final-operator-brief.json",
       "present": true,
       "schema_ok": true,
-      "mode": "needs_operator_setup",
+      "mode": "genblaze_live_proof_ready",
       "ok": null,
       "safe_to_submit": false,
       "ready_for_secret_entry": false,
@@ -222,7 +222,7 @@
       "safe_to_submit": null,
       "ready_for_secret_entry": null,
       "current_phase": "genblaze_live_proof",
-      "next_command": "python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json",
+      "next_command": "python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider openai --genblaze-image-model gpt-image-1 --evidence-out docs/assets/final-live-proof-evidence.json",
       "mock_form_ready": null,
       "final_form_ready": null,
       "mock_recording_ready": null,
@@ -341,7 +341,7 @@
       "final_form_ready": null,
       "mock_recording_ready": null,
       "final_video_ready": null,
-      "runtime_sha": "00295ca9e94b26ff25f42b77596ed79ca7a56888",
+      "runtime_sha": "f6b8fce3e2fde75ad20227cc1da2523b00fb0bc8",
       "failed_checks": [],
       "missing_ids": [],
       "blocking_items": []

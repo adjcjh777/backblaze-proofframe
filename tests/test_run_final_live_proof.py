@@ -48,6 +48,39 @@ def test_apply_env_file_sets_b2_storage_and_genblaze_generation(tmp_path, monkey
     assert os.environ["GENBLAZE_IMAGE_MODEL"] == "seedream-5.0-lite"
 
 
+def test_apply_env_file_allows_non_secret_genblaze_overrides(tmp_path, monkeypatch):
+    env_file = tmp_path / ".env.final.local"
+    env_file.write_text(
+        "\n".join(
+            [
+                "PROOFFRAME_STORAGE_BACKEND=local",
+                "PROOFFRAME_GENERATION_BACKEND=mock",
+                "GENBLAZE_PROVIDER=gmicloud",
+                "GENBLAZE_IMAGE_MODEL=seedream-5.0-lite",
+            ]
+        ),
+        encoding="utf-8",
+    )
+    for key in [
+        "PROOFFRAME_STORAGE_BACKEND",
+        "PROOFFRAME_GENERATION_BACKEND",
+        "GENBLAZE_PROVIDER",
+        "GENBLAZE_IMAGE_MODEL",
+    ]:
+        monkeypatch.delenv(key, raising=False)
+
+    values = run_final_live_proof.apply_env_file(
+        env_file,
+        genblaze_provider="openai",
+        genblaze_image_model="gpt-image-1",
+    )
+
+    assert values["PROOFFRAME_STORAGE_BACKEND"] == "b2"
+    assert values["PROOFFRAME_GENERATION_BACKEND"] == "genblaze"
+    assert os.environ["GENBLAZE_PROVIDER"] == "openai"
+    assert os.environ["GENBLAZE_IMAGE_MODEL"] == "gpt-image-1"
+
+
 def test_build_uvicorn_command_uses_requested_host_and_port():
     command = run_final_live_proof.build_uvicorn_command("127.0.0.1", 8099)
 

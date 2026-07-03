@@ -50,7 +50,7 @@ Generated media is easy to make and hard to govern. Teams often lose the prompt,
 
 ## How We Built It
 
-ProofFrame uses FastAPI for the API, a single-file browser UI for the proof ledger, local storage for credential-free demos, a Backblaze B2-compatible S3 storage backend, and a Genblaze/GMICloud provider adapter built around the official Genblaze Pipeline API. The public mock demo is deployed as a Hugging Face Space for judge-friendly product inspection while the final sponsor-backed proof remains gated.
+ProofFrame uses FastAPI for the API, a single-file browser UI for the proof ledger, local storage for credential-free demos, a Backblaze B2-compatible S3 storage backend, and Genblaze provider adapters for GMICloud and OpenAI built around the official Genblaze Pipeline API. The public mock demo is deployed as a Hugging Face Space for judge-friendly product inspection while the final sponsor-backed proof remains gated.
 
 ## Backblaze B2 Usage
 
@@ -58,7 +58,7 @@ ProofFrame treats Backblaze B2 as the final durable evidence layer, not as a lat
 
 ## Genblaze Usage
 
-ProofFrame includes a Genblaze/GMICloud provider adapter built around the official Genblaze Pipeline API. In the public mock demo, deterministic generation keeps the workflow inspectable without secrets; the same manifest fields are reserved for the final provider, model, request/run metadata, prompt, and asset checksum. The final submission gate is a live Genblaze-compatible run that proves the provider path and then carries the resulting asset into the ProofFrame review and storage packet.
+ProofFrame includes Genblaze provider adapters for GMICloud and OpenAI built around the official Genblaze Pipeline API. In the public mock demo, deterministic generation keeps the workflow inspectable without secrets; the same manifest fields are reserved for the final provider, model, request/run metadata, prompt, and asset checksum. The final submission gate is a live Genblaze-compatible run that proves the provider path and then carries the resulting asset into the ProofFrame review and storage packet.
 
 ## Challenges
 
@@ -71,7 +71,7 @@ The biggest challenge is avoiding shallow sponsor integration. ProofFrame has to
 - Added a one-click Judge Demo path.
 - Added a review console with evidence search, status filtering, decision coverage, and safe summary copy.
 - Added downloadable evidence ZIPs.
-- Added B2-compatible storage and Genblaze/GMICloud provider code paths.
+- Added B2-compatible storage and Genblaze provider code paths for GMICloud and OpenAI.
 - Added CI that runs readiness checks, lint, tests, API smoke, and secret scan.
 - Added fail-closed gates for evidence JSON exports and final submission audits.
 - Kept public claims gated until live sponsor proof exists.
@@ -89,8 +89,8 @@ The useful unit for generated media teams is not a single image. It is a packet:
 
 ## Submission Checklist
 
-- T020 [doing] B2 live proof complete
-- T021 [doing] Genblaze live proof complete
+- T020 [done] B2 live proof complete
+- T021 [blocked] Genblaze live proof complete
 - T040 [done] Devpost registration complete
 - T041 [todo] Final submission audit complete
 - T041A [todo] Final secret scan complete

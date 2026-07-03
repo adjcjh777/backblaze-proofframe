@@ -41,10 +41,10 @@ Last refreshed: `2026-07-01`.
 | Task | True status | Evidence |
 | --- | --- | --- |
 | T020 | `done` | B2 live proof passed with scoped standard key against bucket `proofframe-demo-a6b4e49` and prefix `campaigns/`; sanitized evidence is saved at `docs/assets/b2-live-proof-evidence.json`. Generation remains mock until T021. |
-| T021 | `blocked` | Genblaze/GMI local key is configured and final proof preflight passes, but the live GMI request is blocked by HTTP 402 insufficient credits. Do not mark live Genblaze proof complete until credits are added and `docs/assets/final-live-proof-evidence.json` validates. |
-| T041 | `todo` | `docs/assets/submission-audit-report.json` is regenerated in `pre_submit_audit_blocked` mode with 16 findings after B2 evidence, live env handoff, and closeout reports were refreshed. |
-| T041A | `todo` | `docs/assets/secret-scan-report.json` is clear for the current pre-final tree; final scan remains after live proof, final public video, and Devpost artifacts exist. |
-| T042 | `todo` | Official Devpost snapshot is fresh, `submission_open=true`, and observed participants are `439`; final submission waits for live proof, public video, strict audit, and receipt capture. |
+| T021 | `blocked` | B2 live proof remains done and GMI/Genblaze credential presence is recorded, but the GMI live request is blocked by provider-side HTTP 402 insufficient credits. The no-recharge `GENBLAZE_PROVIDER=openai` fallback path is implemented and preflights correctly, but it requires a real `OPENAI_API_KEY`; do not mark live Genblaze proof complete until `docs/assets/final-live-proof-evidence.json` validates. |
+| T041 | `todo` | `docs/assets/submission-audit-report.json` is regenerated after the OpenAI fallback runner, public Space sync, and public API smoke; it remains `pre_submit_audit_blocked` with 15 findings until final Genblaze evidence, public video, final secret-scan task completion, and Devpost receipt exist. |
+| T041A | `todo` | `docs/assets/secret-scan-report.json` is clear after public Space sync and public API smoke, but final scan remains todo until it is rerun after final live proof, public video, and Devpost submission artifacts exist. |
+| T042 | `todo` | Latest public Space sync report is passing and public API smoke passes, but Devpost submission remains blocked because `safe_to_submit=false`, T021 Genblaze live proof is blocked, final video/audit/scan completion gates are not done, and no Devpost receipt exists. |
 
 ## Recently Completed
 

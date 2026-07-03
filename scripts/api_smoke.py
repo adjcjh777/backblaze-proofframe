@@ -36,7 +36,7 @@ FINAL_CLOSEOUT_FINAL_MODE = "final_closeout_ready"
 FINAL_CLOSEOUT_SECRET_POLICY_TERMS = {
     "never stores",
     "backblaze keys",
-    "genblaze/gmi keys",
+    "genblaze provider keys",
     "devpost cookies",
     "signed urls",
 }

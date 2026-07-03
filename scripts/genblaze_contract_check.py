@@ -21,11 +21,13 @@ SCHEMA = "proofframe.genblaze_contract_check.v1"
 MODULE_SYMBOLS = {
     "genblaze_core": ["KeyStrategy", "Modality", "ObjectStorageSink", "Pipeline"],
     "genblaze_gmicloud": ["GMICloudImageProvider"],
+    "genblaze_openai": ["DalleProvider"],
     "genblaze_s3": ["S3StorageBackend"],
 }
 PACKAGE_DISTS = {
     "genblaze_core": "genblaze-core",
     "genblaze_gmicloud": "genblaze-gmicloud",
+    "genblaze_openai": "genblaze-openai",
     "genblaze_s3": "genblaze-s3",
 }
 
@@ -163,7 +165,8 @@ def build_report(
     symbols = import_symbols(checks, importer=importer)
 
     pipeline_cls = symbols.get("genblaze_core.Pipeline")
-    image_provider_cls = symbols.get("genblaze_gmicloud.GMICloudImageProvider")
+    gmicloud_provider_cls = symbols.get("genblaze_gmicloud.GMICloudImageProvider")
+    openai_provider_cls = symbols.get("genblaze_openai.DalleProvider")
     object_storage_sink_cls = symbols.get("genblaze_core.ObjectStorageSink")
     s3_backend_cls = symbols.get("genblaze_s3.S3StorageBackend")
     key_strategy_cls = symbols.get("genblaze_core.KeyStrategy")
@@ -172,8 +175,15 @@ def build_report(
         checks,
         check_id="gmicloud_image_provider_ctor",
         label="GMICloudImageProvider constructor accepts ProofFrame kwargs",
-        callable_obj=image_provider_cls,
+        callable_obj=gmicloud_provider_cls,
         expected={"api_key", "base_url", "http_timeout"},
+    )
+    signature_check(
+        checks,
+        check_id="openai_image_provider_ctor",
+        label="DalleProvider constructor accepts ProofFrame kwargs",
+        callable_obj=openai_provider_cls,
+        expected={"api_key", "http_timeout"},
     )
     signature_check(
         checks,
@@ -289,7 +299,7 @@ def build_report(
         "secret_policy": (
             "This report reads Python package metadata and callable signatures only. "
             "It does not read environment variables, credential files, provider responses, "
-            "Backblaze keys, Genblaze/GMI keys, cookies, or signed URLs."
+            "Backblaze keys, Genblaze provider keys, cookies, or signed URLs."
         ),
     }
 

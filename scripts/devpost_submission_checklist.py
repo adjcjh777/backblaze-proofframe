@@ -157,7 +157,7 @@ def build_preflight(
 
 def build_stop_rules() -> list[str]:
     return [
-        "Do not paste Backblaze keys, Genblaze/GMI keys, Devpost cookies, authorization headers, or signed URLs into Devpost.",
+        "Do not paste Backblaze keys, Genblaze provider keys, Devpost cookies, authorization headers, or signed URLs into Devpost.",
         "Do not press Submit unless every preflight item is OK and final_submission_control.py --strict-final passes.",
         "If Devpost changes field labels or requirements, stop and update this checklist before submitting.",
         "After Devpost accepts the project, record only the public project URL and submitted timestamp; never capture cookies or private browser state.",

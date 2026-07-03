@@ -17,7 +17,7 @@ Use present tense only for behavior that has been verified in the current repo o
 - The Review Console supports evidence search, status filtering, decision coverage, and safe evidence-summary copy in local/mock mode.
 - A credential-free public mock demo is deployed at `https://adjcjh-backblaze-proofframe.hf.space/`; the Devpost-friendly judge link is `https://adjcjh-backblaze-proofframe.hf.space/?judge=1`.
 - The repo includes a Backblaze B2-compatible storage adapter boundary and tests that exercise the storage contract without real secrets.
-- The repo includes a Genblaze/GMICloud image provider path that fails closed until required configuration and packages exist.
+- The repo includes Genblaze image provider paths for GMICloud and OpenAI that fail closed until required configuration and packages exist.
 - `scripts/api_smoke.py --evidence-out` refuses to write evidence JSON when secret-like keys, bearer tokens, signed URL parameters, or GMI-style key values are detected.
 - The selected UI direction is Proof Ledger.
 - The public repo is available at `https://github.com/adjcjh777/backblaze-proofframe`.
@@ -53,7 +53,7 @@ Do not say:
 
 Allowed replacement before T021:
 
-- "ProofFrame includes a Genblaze/GMICloud provider path and final submission requires one live Genblaze-backed generation proof."
+- "ProofFrame includes Genblaze provider paths and final submission requires one live Genblaze-backed generation proof."
 
 Release criteria:
 

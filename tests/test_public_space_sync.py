@@ -180,7 +180,7 @@ def valid_genblaze_contract_report() -> dict:
         "secret_policy": (
             "This report reads Python package metadata and callable signatures only. "
             "It does not read environment variables, credential files, provider responses, "
-            "Backblaze keys, Genblaze/GMI keys, cookies, or signed URLs."
+            "Backblaze keys, Genblaze provider keys, cookies, or signed URLs."
         ),
     }
 
@@ -452,7 +452,7 @@ def valid_final_closeout_status() -> dict:
         ],
         "secret_policy": (
             "This closeout report stores only task statuses, report metadata, public URLs, and artifact paths; "
-            "it never stores Backblaze keys, Genblaze/GMI keys, Devpost cookies, browser sessions, or signed URLs."
+            "it never stores Backblaze keys, Genblaze provider keys, Devpost cookies, browser sessions, or signed URLs."
         ),
     }
 
@@ -835,7 +835,7 @@ def fake_fetcher(url: str, timeout: int) -> dict:
                     "commands": valid_post_credential_commands(),
                     "secret_policy": (
                         "This report stores command strings, statuses, and artifact paths only. "
-                        "It never stores Backblaze keys, Genblaze/GMI keys, Devpost cookies, "
+                        "It never stores Backblaze keys, Genblaze provider keys, Devpost cookies, "
                         "provider responses, or signed URLs."
                     ),
                 }
@@ -1709,7 +1709,7 @@ def test_public_space_sync_fails_on_malformed_post_credential_commands():
                         "update_tasks": False,
                         "commands": ["validate_b2_evidence", "validate_final_evidence"],
                         "secret_policy": (
-                            "This report never stores Backblaze keys, Genblaze/GMI keys, "
+                            "This report never stores Backblaze keys, Genblaze provider keys, "
                             "Devpost cookies, provider responses, or signed URLs."
                         ),
                     }
@@ -1743,7 +1743,7 @@ def test_public_space_sync_fails_when_post_credential_plan_only_has_validators()
                             {"id": "validate_final_evidence"},
                         ],
                         "secret_policy": (
-                            "This report never stores Backblaze keys, Genblaze/GMI keys, "
+                            "This report never stores Backblaze keys, Genblaze provider keys, "
                             "Devpost cookies, provider responses, or signed URLs."
                         ),
                     }
@@ -1784,7 +1784,7 @@ def test_public_space_sync_fails_when_post_credential_preview_is_missing_from_va
                         "update_tasks": False,
                         "commands": commands,
                         "secret_policy": (
-                            "This report never stores Backblaze keys, Genblaze/GMI keys, "
+                            "This report never stores Backblaze keys, Genblaze provider keys, "
                             "Devpost cookies, provider responses, or signed URLs."
                         ),
                     }
@@ -1822,7 +1822,7 @@ def test_public_space_sync_fails_when_post_credential_preview_is_after_secret_sc
                         "update_tasks": False,
                         "commands": commands,
                         "secret_policy": (
-                            "This report never stores Backblaze keys, Genblaze/GMI keys, "
+                            "This report never stores Backblaze keys, Genblaze provider keys, "
                             "Devpost cookies, provider responses, or signed URLs."
                         ),
                     }

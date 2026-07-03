@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.final_submission_control.v1",
-  "created_at": "2026-07-01T12:09:09Z",
+  "created_at": "2026-07-03T05:09:12Z",
   "ok": true,
   "control_health_ok": true,
   "mode": "pre_live_control",
@@ -187,7 +187,7 @@
       "public_mock_verified": null,
       "public_video_ready": null,
       "current_phase": "genblaze_live_proof",
-      "next_command": "python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json",
+      "next_command": "python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider openai --genblaze-image-model gpt-image-1 --evidence-out docs/assets/final-live-proof-evidence.json",
       "next_detail": "Run after the B2-only proof passes so final evidence has storage and generation proof.",
       "bus_status": null,
       "active_role_cwd_ok": null
@@ -429,7 +429,7 @@
       "id": "final_launch_plan",
       "label": "Final launch plan exposes the current operator step",
       "ok": true,
-      "detail": "Launch plan mode is ready_for_genblaze_live_proof; current phase is genblaze_live_proof; next command is python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json.",
+      "detail": "Launch plan mode is ready_for_genblaze_live_proof; current phase is genblaze_live_proof; next command is python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider openai --genblaze-image-model gpt-image-1 --evidence-out docs/assets/final-live-proof-evidence.json.",
       "evidence": "docs/assets/final-launch-plan.json"
     },
     {
@@ -590,7 +590,7 @@
     "python scripts/final_env_wizard.py --output .env.final.local --missing-only --force",
     "python scripts/live_env_handoff.py --env-file .env.final.local",
     "python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out docs/assets/b2-live-proof-evidence.json",
-    "python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json",
+    "python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider openai --genblaze-image-model gpt-image-1 --evidence-out docs/assets/final-live-proof-evidence.json",
     "python scripts/agent_handoff_check.py",
     "python scripts/public_space_sync.py",
     "python scripts/demo_storyboard.py --strict-final",
@@ -616,7 +616,7 @@
   "launch_plan": {
     "mode": "ready_for_genblaze_live_proof",
     "current_phase": "genblaze_live_proof",
-    "next_command": "python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json",
+    "next_command": "python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider openai --genblaze-image-model gpt-image-1 --evidence-out docs/assets/final-live-proof-evidence.json",
     "next_detail": "Run after the B2-only proof passes so final evidence has storage and generation proof.",
     "path": "docs/assets/final-launch-plan.json"
   },

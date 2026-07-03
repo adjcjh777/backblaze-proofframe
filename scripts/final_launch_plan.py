@@ -207,7 +207,11 @@ def build_phases(root: Path, reports: dict[str, dict[str, Any]], statuses: dict[
             title="Capture final B2 plus Genblaze proof",
             status=genblaze_status,
             detail=genblaze_detail,
-            command="python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json",
+            command=(
+                "python scripts/run_final_live_proof.py --env-file .env.final.local "
+                "--genblaze-provider openai --genblaze-image-model gpt-image-1 "
+                "--evidence-out docs/assets/final-live-proof-evidence.json"
+            ),
             expected_artifacts=["docs/assets/final-live-proof-evidence.json"],
             safe_to_commit_after_scan=["docs/assets/final-live-proof-evidence.json"],
             task_updates_after_success=[
@@ -326,7 +330,7 @@ def build_report(root: Path = ROOT) -> dict[str, Any]:
             "never_commit": [
                 ".env.final.local",
                 "Backblaze key IDs or application keys",
-                "Genblaze/GMI API keys",
+                "Genblaze provider API keys",
                 "Devpost cookies or browser session files",
                 "raw signed URLs or provider temporary URLs",
             ],

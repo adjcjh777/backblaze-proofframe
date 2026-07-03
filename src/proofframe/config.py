@@ -13,6 +13,20 @@ class ConfigurationError(RuntimeError):
     """Raised when an explicitly requested integration is not configured."""
 
 
+GENBLAZE_PROVIDER_ALIASES = {
+    "gmi": "gmicloud",
+    "gmicloud": "gmicloud",
+    "gmi-cloud": "gmicloud",
+    "openai": "openai",
+    "dalle": "openai",
+    "dall-e": "openai",
+}
+GENBLAZE_PROVIDER_MODULES = {
+    "gmicloud": ("genblaze_gmicloud",),
+    "openai": ("genblaze_openai",),
+}
+
+
 def _env(env: Mapping[str, str], key: str, default: str = "") -> str:
     return env.get(key, default).strip()
 
@@ -27,6 +41,11 @@ def _env_int(env: Mapping[str, str], key: str, default: int) -> int:
         raise ConfigurationError(f"{key} must be an integer") from exc
 
 
+def normalize_genblaze_provider(value: str) -> str:
+    provider = (value or "gmicloud").strip().lower().replace("_", "-")
+    return GENBLAZE_PROVIDER_ALIASES.get(provider, provider)
+
+
 @dataclass(frozen=True)
 class Settings:
     storage_backend: str = "local"
@@ -38,12 +57,14 @@ class Settings:
     b2_application_key: str = ""
     b2_public_base_url: str = ""
     b2_region: str = ""
+    genblaze_provider: str = "gmicloud"
     genblaze_base_url: str = ""
     genblaze_api_key: str = ""
     genblaze_image_model: str = ""
     genblaze_aspect_ratio: str = "16:9"
     genblaze_timeout_seconds: int = 180
     gmi_api_key: str = ""
+    openai_api_key: str = ""
 
     @classmethod
     def from_env(cls, env: Mapping[str, str] | None = None) -> "Settings":
@@ -61,12 +82,16 @@ class Settings:
             or _region_from_b2_endpoint(
                 _env(source, "B2_ENDPOINT_URL") or _env(source, "B2_S3_ENDPOINT_URL")
             ),
+            genblaze_provider=normalize_genblaze_provider(
+                _env(source, "GENBLAZE_PROVIDER", "gmicloud")
+            ),
             genblaze_base_url=_env(source, "GENBLAZE_BASE_URL") or _env(source, "GMI_BASE_URL"),
             genblaze_api_key=_env(source, "GENBLAZE_API_KEY"),
             genblaze_image_model=_env(source, "GENBLAZE_IMAGE_MODEL"),
             genblaze_aspect_ratio=_env(source, "GENBLAZE_ASPECT_RATIO", "16:9"),
             genblaze_timeout_seconds=_env_int(source, "GENBLAZE_TIMEOUT_SECONDS", 180),
             gmi_api_key=_env(source, "GMI_API_KEY"),
+            openai_api_key=_env(source, "OPENAI_API_KEY"),
         )
 
     def require_b2(self) -> None:
@@ -89,11 +114,31 @@ class Settings:
     def b2_region_for_backblaze(self) -> str:
         return self.b2_region or _region_from_b2_endpoint(self.b2_endpoint_url)
 
+    def genblaze_provider_modules(self) -> tuple[str, ...]:
+        return GENBLAZE_PROVIDER_MODULES.get(self.genblaze_provider, ())
+
+    def genblaze_provider_key(self) -> str:
+        if self.genblaze_provider == "gmicloud":
+            return self.genblaze_api_key or self.gmi_api_key
+        if self.genblaze_provider == "openai":
+            return self.openai_api_key
+        return ""
+
+    def genblaze_key_remediation(self) -> str:
+        if self.genblaze_provider == "openai":
+            return "Set OPENAI_API_KEY for GENBLAZE_PROVIDER=openai."
+        return "Set GENBLAZE_API_KEY or GMI_API_KEY for GENBLAZE_PROVIDER=gmicloud."
+
     def require_genblaze(self) -> None:
+        if self.genblaze_provider not in GENBLAZE_PROVIDER_MODULES:
+            raise ConfigurationError(
+                "Unsupported Genblaze provider: "
+                f"{self.genblaze_provider}. Use GENBLAZE_PROVIDER=gmicloud or openai."
+            )
         missing = [
             key
             for key, value in {
-                "GENBLAZE_API_KEY or GMI_API_KEY": self.genblaze_api_key or self.gmi_api_key,
+                self.genblaze_key_remediation(): self.genblaze_provider_key(),
                 "GENBLAZE_IMAGE_MODEL": self.genblaze_image_model,
             }.items()
             if not value

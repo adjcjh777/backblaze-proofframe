@@ -1,6 +1,6 @@
 {
   "schema": "proofframe.devpost_submission_checklist.v1",
-  "created_at": "2026-07-01T12:05:34Z",
+  "created_at": "2026-07-03T04:59:55Z",
   "mode": "pre_submit_blocked",
   "ok": false,
   "safe_to_submit": false,
@@ -167,11 +167,11 @@
       "id": "built_with",
       "label": "Built with",
       "source": "form.built_with",
-      "chars": 103,
+      "chars": 94,
       "max_chars": 800,
       "ok_for_mock": true,
       "ok_for_final": true,
-      "copy_value": "Python, FastAPI, Backblaze B2 S3-compatible API, Genblaze/GMICloud, Hugging Face Spaces, GitHub Actions",
+      "copy_value": "Python, FastAPI, Backblaze B2 S3-compatible API, Genblaze, Hugging Face Spaces, GitHub Actions",
       "copy_instruction": "Paste into Devpost field: Built with",
       "verification": [
         "Confirm the pasted text matches this checklist exactly.",
@@ -227,11 +227,11 @@
       "id": "how_we_built_it",
       "label": "How we built it",
       "source": "packet.how_we_built_it",
-      "chars": 407,
+      "chars": 421,
       "max_chars": 2500,
       "ok_for_mock": true,
       "ok_for_final": true,
-      "copy_value": "ProofFrame uses FastAPI for the API, a single-file browser UI for the proof ledger, local storage for credential-free demos, a Backblaze B2-compatible S3 storage backend, and a Genblaze/GMICloud provider adapter built around the official Genblaze Pipeline API. The public mock demo is deployed as a Hugging Face Space for judge-friendly product inspection while the final sponsor-backed proof remains gated.",
+      "copy_value": "ProofFrame uses FastAPI for the API, a single-file browser UI for the proof ledger, local storage for credential-free demos, a Backblaze B2-compatible S3 storage backend, and Genblaze provider adapters for GMICloud and OpenAI built around the official Genblaze Pipeline API. The public mock demo is deployed as a Hugging Face Space for judge-friendly product inspection while the final sponsor-backed proof remains gated.",
       "copy_instruction": "Paste into Devpost field: How we built it",
       "verification": [
         "Confirm the pasted text matches this checklist exactly.",
@@ -257,11 +257,11 @@
       "id": "genblaze_usage",
       "label": "Genblaze usage",
       "source": "packet.genblaze_usage",
-      "chars": 496,
+      "chars": 510,
       "max_chars": 1500,
       "ok_for_mock": true,
       "ok_for_final": true,
-      "copy_value": "ProofFrame includes a Genblaze/GMICloud provider adapter built around the official Genblaze Pipeline API. In the public mock demo, deterministic generation keeps the workflow inspectable without secrets; the same manifest fields are reserved for the final provider, model, request/run metadata, prompt, and asset checksum. The final submission gate is a live Genblaze-compatible run that proves the provider path and then carries the resulting asset into the ProofFrame review and storage packet.",
+      "copy_value": "ProofFrame includes Genblaze provider adapters for GMICloud and OpenAI built around the official Genblaze Pipeline API. In the public mock demo, deterministic generation keeps the workflow inspectable without secrets; the same manifest fields are reserved for the final provider, model, request/run metadata, prompt, and asset checksum. The final submission gate is a live Genblaze-compatible run that proves the provider path and then carries the resulting asset into the ProofFrame review and storage packet.",
       "copy_instruction": "Paste into Devpost field: Genblaze usage",
       "verification": [
         "Confirm the pasted text matches this checklist exactly.",
@@ -287,11 +287,11 @@
       "id": "accomplishments",
       "label": "Accomplishments",
       "source": "packet.accomplishments",
-      "chars": 571,
+      "chars": 586,
       "max_chars": 2500,
       "ok_for_mock": true,
       "ok_for_final": true,
-      "copy_value": "- Built a working local product, not just a pitch.\n- Deployed a credential-free public mock demo.\n- Added a one-click Judge Demo path.\n- Added a review console with evidence search, status filtering, decision coverage, and safe summary copy.\n- Added downloadable evidence ZIPs.\n- Added B2-compatible storage and Genblaze/GMICloud provider code paths.\n- Added CI that runs readiness checks, lint, tests, API smoke, and secret scan.\n- Added fail-closed gates for evidence JSON exports and final submission audits.\n- Kept public claims gated until live sponsor proof exists.",
+      "copy_value": "- Built a working local product, not just a pitch.\n- Deployed a credential-free public mock demo.\n- Added a one-click Judge Demo path.\n- Added a review console with evidence search, status filtering, decision coverage, and safe summary copy.\n- Added downloadable evidence ZIPs.\n- Added B2-compatible storage and Genblaze provider code paths for GMICloud and OpenAI.\n- Added CI that runs readiness checks, lint, tests, API smoke, and secret scan.\n- Added fail-closed gates for evidence JSON exports and final submission audits.\n- Kept public claims gated until live sponsor proof exists.",
       "copy_instruction": "Paste into Devpost field: Accomplishments",
       "verification": [
         "Confirm the pasted text matches this checklist exactly.",
@@ -345,7 +345,7 @@
     }
   ],
   "stop_rules": [
-    "Do not paste Backblaze keys, Genblaze/GMI keys, Devpost cookies, authorization headers, or signed URLs into Devpost.",
+    "Do not paste Backblaze keys, Genblaze provider keys, Devpost cookies, authorization headers, or signed URLs into Devpost.",
     "Do not press Submit unless every preflight item is OK and final_submission_control.py --strict-final passes.",
     "If Devpost changes field labels or requirements, stop and update this checklist before submitting.",
     "After Devpost accepts the project, record only the public project URL and submitted timestamp; never capture cookies or private browser state."

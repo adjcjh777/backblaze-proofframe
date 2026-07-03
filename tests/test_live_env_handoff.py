@@ -10,10 +10,22 @@ assert SPEC.loader is not None
 SPEC.loader.exec_module(live_env_handoff)
 
 
-def test_live_env_handoff_reports_missing_process_env(monkeypatch):
-    for group in live_env_handoff.REQUIRED_GROUPS:
-        for name in group["accepted_names"]:
+def accepted_names(group):
+    if "accepted_names" in group:
+        return group["accepted_names"]
+    return sorted(
+        {name for names in group.get("accepted_names_by_provider", {}).values() for name in names}
+    )
+
+
+def clear_handoff_env(monkeypatch):
+    for group in [*live_env_handoff.REQUIRED_GROUPS, *live_env_handoff.OPTIONAL_GROUPS]:
+        for name in accepted_names(group):
             monkeypatch.delenv(name, raising=False)
+
+
+def test_live_env_handoff_reports_missing_process_env(monkeypatch):
+    clear_handoff_env(monkeypatch)
 
     report = live_env_handoff.build_report()
 
@@ -24,9 +36,7 @@ def test_live_env_handoff_reports_missing_process_env(monkeypatch):
 
 
 def test_live_env_handoff_uses_env_file_without_leaking_values(tmp_path, monkeypatch):
-    for group in live_env_handoff.REQUIRED_GROUPS:
-        for name in group["accepted_names"]:
-            monkeypatch.delenv(name, raising=False)
+    clear_handoff_env(monkeypatch)
     env_file = tmp_path / ".env.final.local"
     env_file.write_text(
         "\n".join(
@@ -54,6 +64,35 @@ def test_live_env_handoff_uses_env_file_without_leaking_values(tmp_path, monkeyp
     assert "GMI_API_KEY" in serialized
     assert "super-secret" not in serialized
     assert "super-secret" not in rendered
+
+
+def test_live_env_handoff_uses_openai_key_when_provider_is_openai(tmp_path, monkeypatch):
+    clear_handoff_env(monkeypatch)
+    env_file = tmp_path / ".env.final.local"
+    env_file.write_text(
+        "\n".join(
+            [
+                "PROOFFRAME_STORAGE_BACKEND=b2",
+                "PROOFFRAME_GENERATION_BACKEND=genblaze",
+                "B2_ENDPOINT_URL=https://s3.us-west-004.backblazeb2.com",
+                "B2_BUCKET=proof-bucket",
+                "B2_KEY_ID=least-privilege-key-id",
+                "B2_APPLICATION_" + "KEY=super-secret-b2-value-1234567890",
+                "GENBLAZE_PROVIDER=openai",
+                "OPENAI_API_" + "KEY=super-secret-openai-value-1234567890",
+                "GENBLAZE_IMAGE_MODEL=gpt-image-1",
+            ]
+        ),
+        encoding="utf-8",
+    )
+
+    report = live_env_handoff.build_report(env_file)
+    serialized = json.dumps(report)
+
+    assert report["ok"] is True
+    assert report["missing_ids"] == []
+    assert "OPENAI_API_KEY" in serialized
+    assert "super-secret-openai" not in serialized
 
 
 def test_live_env_handoff_writes_reports(tmp_path):

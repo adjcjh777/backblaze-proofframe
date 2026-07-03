@@ -65,7 +65,7 @@ def write_fixtures(root: Path) -> None:
                     "upload as the final submission gate before any public B2 storage claim is made."
                 ),
                 "genblaze_usage": (
-                    "ProofFrame includes a Genblaze/GMICloud provider adapter around the official "
+                    "ProofFrame includes Genblaze provider adapters around the official "
                     "Pipeline API. The public demo stays on deterministic mock generation, while "
                     "the final submission gate verifies provider, model, and run metadata from a "
                     "live Genblaze-compatible path."

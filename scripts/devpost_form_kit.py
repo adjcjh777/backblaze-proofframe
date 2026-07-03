@@ -20,7 +20,7 @@ BUILT_WITH = [
     "Python",
     "FastAPI",
     "Backblaze B2 S3-compatible API",
-    "Genblaze/GMICloud",
+    "Genblaze",
     "Hugging Face Spaces",
     "GitHub Actions",
 ]

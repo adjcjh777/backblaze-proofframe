@@ -28,7 +28,7 @@ def test_preflight_report_lists_missing_b2_and_genblaze_config():
     assert "B2 endpoint" in missing_names
     assert "B2 application key" in missing_names
     assert "B2 region for Genblaze sink" in missing_names
-    assert "Genblaze API key" in missing_names
+    assert "Genblaze provider API key" in missing_names
     assert "genblaze_core package" in missing_names
     assert "genblaze_s3 package" in missing_names
     assert "secret_policy" in report
@@ -55,6 +55,31 @@ def test_preflight_report_passes_with_complete_config():
     )
 
     assert report["ok"] is True
+    assert report["missing"] == []
+
+
+def test_preflight_report_accepts_openai_provider_package():
+    settings = Settings(
+        storage_backend="b2",
+        generation_backend="genblaze",
+        b2_endpoint_url="https://s3.us-west-004.backblazeb2.com",
+        b2_bucket="proof-bucket",
+        b2_key_id="key-id",
+        b2_application_key="application-key",
+        genblaze_provider="openai",
+        openai_api_key="provider-key",
+        genblaze_image_model="gpt-image-1",
+    )
+
+    report = live_proof.build_preflight_report(
+        settings,
+        require_storage_backend="b2",
+        require_generation_backend="genblaze",
+        available=lambda module: module in {"boto3", "genblaze_core", "genblaze_openai", "genblaze_s3"},
+    )
+
+    assert report["ok"] is True
+    assert report["genblaze_provider"] == "openai"
     assert report["missing"] == []
 
 

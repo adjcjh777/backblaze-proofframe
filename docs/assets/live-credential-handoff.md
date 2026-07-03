@@ -14,13 +14,14 @@ This report records only variable names and presence checks. It never prints, ha
 - OK Backblaze B2 bucket: `B2_BUCKET`; present `B2_BUCKET`.
 - OK Backblaze B2 key id: `B2_KEY_ID`; present `B2_KEY_ID`.
 - OK Backblaze B2 application key: `B2_APPLICATION_KEY`, `B2_APP_KEY`; present `B2_APPLICATION_KEY`, `B2_APP_KEY`.
-- OK Genblaze/GMI API key: `GENBLAZE_API_KEY`, `GMI_API_KEY`; present `GENBLAZE_API_KEY`, `GMI_API_KEY`.
+- OK Genblaze provider API key: `GENBLAZE_API_KEY`, `GMI_API_KEY`; present `GENBLAZE_API_KEY`, `GMI_API_KEY`.
 - OK Genblaze image model: `GENBLAZE_IMAGE_MODEL`; present `GENBLAZE_IMAGE_MODEL`.
 
 ## Optional Values
 
 - UNSET B2 public base URL: `B2_PUBLIC_BASE_URL`; present none.
 - UNSET B2 region for Genblaze sink: `B2_REGION`; present none.
+- UNSET Genblaze provider: `GENBLAZE_PROVIDER`; present none.
 - SET Genblaze aspect ratio: `GENBLAZE_ASPECT_RATIO`; present `GENBLAZE_ASPECT_RATIO`.
 - SET Genblaze timeout seconds: `GENBLAZE_TIMEOUT_SECONDS`; present `GENBLAZE_TIMEOUT_SECONDS`.
 
@@ -37,6 +38,9 @@ python scripts/live_env_handoff.py --env-file .env.final.local
 ```
 ```bash
 python scripts/run_final_live_proof.py --env-file .env.final.local --preflight-only
+```
+```bash
+python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider openai --genblaze-image-model gpt-image-1 --preflight-only
 ```
 ```bash
 python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json

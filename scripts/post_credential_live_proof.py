@@ -32,6 +32,7 @@ FORBIDDEN_EVIDENCE_VALUES = [
     re.compile(r"(?i)gmi-[A-Za-z0-9_\-]{16,}"),
 ]
 REQUIRED_EVIDENCE_VALUES = ("asset_sha256", "manifest_sha256", "asset_storage_key", "manifest_key")
+FINAL_ALLOWED_ASSET_PROVIDERS = {"genblaze/gmicloud-image", "genblaze/openai-image"}
 EXPECTED_EVIDENCE_FIELDS = {
     "b2": {
         "ok": True,
@@ -46,7 +47,6 @@ EXPECTED_EVIDENCE_FIELDS = {
         "storage_backend": "b2",
         "generation_backend": "genblaze",
         "asset_storage_backend": "b2",
-        "asset_provider": "genblaze/gmicloud-image",
         "manifest_storage_backend": "b2",
     },
 }
@@ -288,6 +288,18 @@ def validate_evidence(kind: str, path: Path) -> dict[str, Any]:
         actual = evidence.get(key)
         if actual != expected_value:
             findings.append({"field": key, "detail": f"Expected {expected_value!r}, got {actual!r}."})
+    if kind == "final":
+        asset_provider = evidence.get("asset_provider")
+        if asset_provider not in FINAL_ALLOWED_ASSET_PROVIDERS:
+            findings.append(
+                {
+                    "field": "asset_provider",
+                    "detail": (
+                        "Expected one of "
+                        f"{sorted(FINAL_ALLOWED_ASSET_PROVIDERS)!r}, got {asset_provider!r}."
+                    ),
+                }
+            )
     for key in REQUIRED_EVIDENCE_VALUES:
         if not evidence.get(key):
             findings.append({"field": key, "detail": "Required evidence value is missing."})
@@ -300,6 +312,7 @@ def validate_evidence(kind: str, path: Path) -> dict[str, Any]:
         "path": rel(path),
         "checks": {
             "expected_fields": expected,
+            "allowed_final_asset_providers": sorted(FINAL_ALLOWED_ASSET_PROVIDERS),
             "required_values": list(REQUIRED_EVIDENCE_VALUES),
             "secret_safety": "forbidden keys, bearer tokens, signed URL parameters, and GMI-style keys",
         },
@@ -374,7 +387,7 @@ def build_report(args: argparse.Namespace, sequence: dict[str, Any]) -> dict[str
         "next_actions": next_actions,
         "secret_policy": (
             "This report stores command strings, statuses, and artifact paths only. It never stores "
-            "Backblaze keys, Genblaze/GMI keys, Devpost cookies, provider responses, or signed URLs."
+            "Backblaze keys, Genblaze provider keys, Devpost cookies, provider responses, or signed URLs."
         ),
     }
 

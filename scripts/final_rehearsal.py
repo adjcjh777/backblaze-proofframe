@@ -194,7 +194,11 @@ def rehearsal_steps() -> list[dict[str, Any]]:
         {
             "id": "final_live_proof",
             "owner": "codex",
-            "command": "python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json",
+            "command": (
+                "python scripts/run_final_live_proof.py --env-file .env.final.local "
+                "--genblaze-provider openai --genblaze-image-model gpt-image-1 "
+                "--evidence-out docs/assets/final-live-proof-evidence.json"
+            ),
             "success_signal": "Final evidence JSON has storage_backend=b2, generation_backend=genblaze, provider/model metadata, checksums, and no raw provider URLs.",
             "safe_to_commit": ["docs/assets/final-live-proof-evidence.json"],
             "task_update": 'python3 scripts/task.py done T021 --note "Final B2 plus Genblaze live proof evidence captured in docs/assets/final-live-proof-evidence.json."',
@@ -285,7 +289,7 @@ def rehearsal_steps() -> list[dict[str, Any]]:
 
 def stop_rules() -> list[str]:
     return [
-        "Stop immediately if a command prints or writes a value that looks like a B2 key, Genblaze/GMI key, browser cookie, authorization header, or signed URL.",
+        "Stop immediately if a command prints or writes a value that looks like a B2 key, Genblaze provider key, browser cookie, authorization header, or signed URL.",
         "Do not mark T020 or T021 done unless the corresponding sanitized evidence JSON exists and passes the expected backend/provider checks.",
         "Do not run Devpost submission until final_submission_control.py --strict-final passes after live proof, public video, final scan, and final audit.",
         "Do not update public copy from pre-live to completed sponsor proof until both B2 and Genblaze evidence are committed after a clean secret scan.",

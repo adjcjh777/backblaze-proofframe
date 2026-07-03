@@ -8,7 +8,7 @@ Progress: `2 / 6` done; `1` ready, `3` blocked.
 ## Next Command
 
 ```bash
-python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json
+python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider openai --genblaze-image-model gpt-image-1 --evidence-out docs/assets/final-live-proof-evidence.json
 ```
 Run after the B2-only proof passes so final evidence has storage and generation proof.
 
@@ -45,7 +45,7 @@ python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out d
 - Detail: Run after the B2-only proof passes so final evidence has storage and generation proof.
 - Command:
 ```bash
-python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json
+python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider openai --genblaze-image-model gpt-image-1 --evidence-out docs/assets/final-live-proof-evidence.json
 ```
 - Expected artifacts:
   - `docs/assets/final-live-proof-evidence.json`
@@ -110,7 +110,7 @@ python scripts/devpost_submission_receipt.py --project-url "$PROOFFRAME_DEVPOST_
 - Do not commit:
   - .env.final.local
   - Backblaze key IDs or application keys
-  - Genblaze/GMI API keys
+  - Genblaze provider API keys
   - Devpost cookies or browser session files
   - raw signed URLs or provider temporary URLs
 - Do not source `.env.final.local`; use the parser-based `--env-file` commands.

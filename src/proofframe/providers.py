@@ -74,6 +74,7 @@ class GenblazeMediaProvider:
 
     api_key: str
     image_model: str
+    genblaze_provider: str = "gmicloud"
     base_url: str = ""
     aspect_ratio: str = "16:9"
     timeout_seconds: int = 180
@@ -93,8 +94,9 @@ class GenblazeMediaProvider:
     def from_settings(cls, settings: Settings) -> "GenblazeMediaProvider":
         settings.require_genblaze()
         return cls(
-            api_key=settings.genblaze_api_key or settings.gmi_api_key,
+            api_key=settings.genblaze_provider_key(),
             image_model=settings.genblaze_image_model,
+            genblaze_provider=settings.genblaze_provider,
             base_url=settings.genblaze_base_url,
             aspect_ratio=settings.genblaze_aspect_ratio,
             timeout_seconds=settings.genblaze_timeout_seconds,
@@ -109,21 +111,16 @@ class GenblazeMediaProvider:
     def generate(self, campaign: Campaign, count: int = 3) -> list[GeneratedMedia]:
         try:
             from genblaze_core import Modality, Pipeline  # type: ignore[import-not-found]
-            from genblaze_gmicloud import GMICloudImageProvider  # type: ignore[import-not-found]
         except ModuleNotFoundError as exc:
             raise ConfigurationError(
-                "Genblaze generation requires the official Genblaze packages. "
+                "Genblaze generation requires the official Genblaze core package. "
                 "Install with `pip install -e '.[integrations]'` and configure a live provider."
             ) from exc
 
         generated: list[GeneratedMedia] = []
         for index in range(1, count + 1):
             prompt = build_campaign_prompt(campaign, index)
-            provider = GMICloudImageProvider(
-                api_key=self.api_key,
-                base_url=self.base_url or None,
-                http_timeout=float(self.timeout_seconds),
-            )
+            provider, provider_suffix = self._build_genblaze_provider()
             sink, storage_backend = self._build_genblaze_b2_sink(campaign.id)
             try:
                 result = (
@@ -156,12 +153,12 @@ class GenblazeMediaProvider:
                     campaign.id,
                     index,
                     storage_backend=storage_backend,
-                )
+                        )
                 manifest_uri = str(getattr(manifest, "manifest_uri", "") or "")
                 generated.append(
                     GeneratedMedia(
                         prompt=prompt,
-                        provider=f"{self.provider}/gmicloud-image",
+                        provider=f"{self.provider}/{provider_suffix}",
                         model=self.image_model,
                         filename=filename,
                         content_type=content_type or asset.media_type or "image/png",
@@ -186,6 +183,43 @@ class GenblazeMediaProvider:
                 self._close_if_possible(storage_backend)
                 self._close_if_possible(provider)
         return generated
+
+    def _build_genblaze_provider(self) -> tuple[Any, str]:
+        if self.genblaze_provider == "gmicloud":
+            try:
+                from genblaze_gmicloud import GMICloudImageProvider  # type: ignore[import-not-found]
+            except ModuleNotFoundError as exc:
+                raise ConfigurationError(
+                    "GENBLAZE_PROVIDER=gmicloud requires genblaze-gmicloud. "
+                    "Install with `pip install -e '.[integrations]'`."
+                ) from exc
+            return (
+                GMICloudImageProvider(
+                    api_key=self.api_key,
+                    base_url=self.base_url or None,
+                    http_timeout=float(self.timeout_seconds),
+                ),
+                "gmicloud-image",
+            )
+        if self.genblaze_provider == "openai":
+            try:
+                from genblaze_openai import DalleProvider  # type: ignore[import-not-found]
+            except ModuleNotFoundError as exc:
+                raise ConfigurationError(
+                    "GENBLAZE_PROVIDER=openai requires genblaze-openai. "
+                    "Install with `pip install -e '.[integrations]'`."
+                ) from exc
+            return (
+                DalleProvider(
+                    api_key=self.api_key,
+                    http_timeout=float(self.timeout_seconds),
+                ),
+                "openai-image",
+            )
+        raise ConfigurationError(
+            "Unsupported Genblaze provider: "
+            f"{self.genblaze_provider}. Use GENBLAZE_PROVIDER=gmicloud or openai."
+        )
 
     def _build_genblaze_b2_sink(
         self,

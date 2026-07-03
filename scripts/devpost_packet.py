@@ -47,8 +47,8 @@ BASE_PACKET = {
     "how_we_built_it": (
         "ProofFrame uses FastAPI for the API, a single-file browser UI for the proof ledger, "
         "local storage for credential-free demos, a Backblaze B2-compatible S3 storage "
-        "backend, and a Genblaze/GMICloud provider adapter built around the official "
-        "Genblaze Pipeline API. The public mock demo is deployed as a Hugging Face Space for "
+        "backend, and Genblaze provider adapters for GMICloud and OpenAI built around the "
+        "official Genblaze Pipeline API. The public mock demo is deployed as a Hugging Face Space for "
         "judge-friendly product inspection while the final sponsor-backed proof remains gated."
     ),
     "challenges": (
@@ -67,7 +67,7 @@ BASE_PACKET = {
         "Added a one-click Judge Demo path.",
         "Added a review console with evidence search, status filtering, decision coverage, and safe summary copy.",
         "Added downloadable evidence ZIPs.",
-        "Added B2-compatible storage and Genblaze/GMICloud provider code paths.",
+        "Added B2-compatible storage and Genblaze provider code paths for GMICloud and OpenAI.",
         "Added CI that runs readiness checks, lint, tests, API smoke, and secret scan.",
         "Added fail-closed gates for evidence JSON exports and final submission audits.",
         "Kept public claims gated until live sponsor proof exists.",
@@ -82,7 +82,7 @@ BASE_PACKET = {
         {"provider": "mock", "model": "mock-svg-v1", "status": "current public mock demo"},
     ],
     "final_provider_and_model": {
-        "provider": "genblaze/gmicloud-image",
+        "provider": "genblaze/<verified-provider>-image",
         "model": "GENBLAZE_IMAGE_MODEL value used for the verified run",
         "status": "final gate after T021",
     },
@@ -109,8 +109,8 @@ SAFE_BEFORE_LIVE = {
         "submission gate before any public claim is upgraded to completed B2 storage."
     ),
     "genblaze_usage": (
-        "ProofFrame includes a Genblaze/GMICloud provider adapter built around the official "
-        "Genblaze Pipeline API. In the public mock demo, deterministic generation keeps the "
+        "ProofFrame includes Genblaze provider adapters for GMICloud and OpenAI built around "
+        "the official Genblaze Pipeline API. In the public mock demo, deterministic generation keeps the "
         "workflow inspectable without secrets; the same manifest fields are reserved for the "
         "final provider, model, request/run metadata, prompt, and asset checksum. The final "
         "submission gate is a live Genblaze-compatible run that proves the provider path and "
@@ -134,8 +134,9 @@ SAFE_AFTER_LIVE = {
         "and checksums."
     ),
     "genblaze_usage": (
-        "ProofFrame generates media through Genblaze/GMICloud, records provider/model/run "
-        "metadata, and carries the resulting asset into the ProofFrame storage and approval manifest."
+        "ProofFrame generates media through Genblaze with the verified provider, records "
+        "provider/model/run metadata, and carries the resulting asset into the ProofFrame "
+        "storage and approval manifest."
     ),
     "claim_warning": "Use only after T020 and T021 are verified by live proof evidence.",
 }

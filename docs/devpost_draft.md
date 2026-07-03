@@ -63,7 +63,7 @@ ProofFrame provides a browser-based ledger for generated media approvals:
 
 ## How We Built It
 
-ProofFrame uses FastAPI for the API, a single-file browser UI for the proof ledger, local storage for credential-free demos, a Backblaze B2-compatible S3 storage backend, and a Genblaze/GMICloud provider adapter built around the official Genblaze Pipeline API.
+ProofFrame uses FastAPI for the API, a single-file browser UI for the proof ledger, local storage for credential-free demos, a Backblaze B2-compatible S3 storage backend, and Genblaze provider adapters for GMICloud and OpenAI built around the official Genblaze Pipeline API.
 
 The local demo intentionally runs without secrets. The B2 and Genblaze adapters fail closed so missing credentials are visible instead of silently falling back.
 
@@ -83,11 +83,11 @@ After T020:
 
 Current safe wording:
 
-> ProofFrame includes a Genblaze/GMICloud image provider path and live Genblaze proof is a final submission gate.
+> ProofFrame includes Genblaze image provider paths and live Genblaze proof is a final submission gate.
 
 After T021:
 
-> ProofFrame generates media through Genblaze/GMICloud, records provider/model/run metadata, and carries the resulting asset into the ProofFrame storage and approval manifest.
+> ProofFrame generates media through Genblaze with the verified provider, records provider/model/run metadata, and carries the resulting asset into the ProofFrame storage and approval manifest.
 
 ## AI Providers And Models
 
@@ -98,7 +98,7 @@ Current local demo:
 
 After T021:
 
-- Provider: `genblaze/gmicloud-image`
+- Provider: `genblaze/<verified-provider>-image`
 - Model: `GENBLAZE_IMAGE_MODEL` value used for the verified run
 
 ## Challenges
@@ -112,7 +112,7 @@ The biggest challenge is avoiding shallow sponsor integration. ProofFrame has to
 - Added a one-click Judge Demo path.
 - Added a review console with evidence search, status filtering, decision coverage, and safe summary copy.
 - Added downloadable evidence ZIPs.
-- Added B2-compatible storage and Genblaze/GMICloud provider code paths.
+- Added B2-compatible storage and Genblaze provider code paths for GMICloud and OpenAI.
 - Added CI that runs readiness checks, lint, tests, API smoke, and secret scan.
 - Added a fail-closed safety gate for evidence JSON exports.
 - Kept public claims gated until live sponsor proof exists.

@@ -300,7 +300,7 @@ def test_final_operator_brief_is_ready_for_genblaze_live_proof(tmp_path):
     assert report["ready_for_secret_entry"] is False
     assert report["ready_for_genblaze_live_proof"] is True
     assert report["credential_handoff"]["missing_ids"] == []
-    assert any("Genblaze/GMI account access or credits" in action for action in report["user_actions"])
+    assert any("Genblaze account access or credits" in action for action in report["user_actions"])
 
 
 def test_final_operator_brief_blocks_unexpected_missing_values(tmp_path):

@@ -117,8 +117,8 @@
       "label": "Built with",
       "source": "form.built_with",
       "required": true,
-      "value": "Python, FastAPI, Backblaze B2 S3-compatible API, Genblaze/GMICloud, Hugging Face Spaces, GitHub Actions",
-      "chars": 103,
+      "value": "Python, FastAPI, Backblaze B2 S3-compatible API, Genblaze, Hugging Face Spaces, GitHub Actions",
+      "chars": 94,
       "max_chars": 800,
       "too_long": false,
       "missing": false,
@@ -177,8 +177,8 @@
       "label": "How we built it",
       "source": "packet.how_we_built_it",
       "required": true,
-      "value": "ProofFrame uses FastAPI for the API, a single-file browser UI for the proof ledger, local storage for credential-free demos, a Backblaze B2-compatible S3 storage backend, and a Genblaze/GMICloud provider adapter built around the official Genblaze Pipeline API. The public mock demo is deployed as a Hugging Face Space for judge-friendly product inspection while the final sponsor-backed proof remains gated.",
-      "chars": 407,
+      "value": "ProofFrame uses FastAPI for the API, a single-file browser UI for the proof ledger, local storage for credential-free demos, a Backblaze B2-compatible S3 storage backend, and Genblaze provider adapters for GMICloud and OpenAI built around the official Genblaze Pipeline API. The public mock demo is deployed as a Hugging Face Space for judge-friendly product inspection while the final sponsor-backed proof remains gated.",
+      "chars": 421,
       "max_chars": 2500,
       "too_long": false,
       "missing": false,
@@ -207,8 +207,8 @@
       "label": "Genblaze usage",
       "source": "packet.genblaze_usage",
       "required": true,
-      "value": "ProofFrame includes a Genblaze/GMICloud provider adapter built around the official Genblaze Pipeline API. In the public mock demo, deterministic generation keeps the workflow inspectable without secrets; the same manifest fields are reserved for the final provider, model, request/run metadata, prompt, and asset checksum. The final submission gate is a live Genblaze-compatible run that proves the provider path and then carries the resulting asset into the ProofFrame review and storage packet.",
-      "chars": 496,
+      "value": "ProofFrame includes Genblaze provider adapters for GMICloud and OpenAI built around the official Genblaze Pipeline API. In the public mock demo, deterministic generation keeps the workflow inspectable without secrets; the same manifest fields are reserved for the final provider, model, request/run metadata, prompt, and asset checksum. The final submission gate is a live Genblaze-compatible run that proves the provider path and then carries the resulting asset into the ProofFrame review and storage packet.",
+      "chars": 510,
       "max_chars": 1500,
       "too_long": false,
       "missing": false,
@@ -237,8 +237,8 @@
       "label": "Accomplishments",
       "source": "packet.accomplishments",
       "required": true,
-      "value": "- Built a working local product, not just a pitch.\n- Deployed a credential-free public mock demo.\n- Added a one-click Judge Demo path.\n- Added a review console with evidence search, status filtering, decision coverage, and safe summary copy.\n- Added downloadable evidence ZIPs.\n- Added B2-compatible storage and Genblaze/GMICloud provider code paths.\n- Added CI that runs readiness checks, lint, tests, API smoke, and secret scan.\n- Added fail-closed gates for evidence JSON exports and final submission audits.\n- Kept public claims gated until live sponsor proof exists.",
-      "chars": 571,
+      "value": "- Built a working local product, not just a pitch.\n- Deployed a credential-free public mock demo.\n- Added a one-click Judge Demo path.\n- Added a review console with evidence search, status filtering, decision coverage, and safe summary copy.\n- Added downloadable evidence ZIPs.\n- Added B2-compatible storage and Genblaze provider code paths for GMICloud and OpenAI.\n- Added CI that runs readiness checks, lint, tests, API smoke, and secret scan.\n- Added fail-closed gates for evidence JSON exports and final submission audits.\n- Kept public claims gated until live sponsor proof exists.",
+      "chars": 586,
       "max_chars": 2500,
       "too_long": false,
       "missing": false,
@@ -298,11 +298,11 @@
     "tasks": [
       {
         "id": "T020",
-        "status": "doing"
+        "status": "done"
       },
       {
         "id": "T021",
-        "status": "doing"
+        "status": "blocked"
       },
       {
         "id": "T040",
@@ -321,7 +321,7 @@
   "next_actions": [
     "Regenerate the Devpost packet in post-live mode after B2 and Genblaze proof.",
     "Capture sanitized final B2 plus Genblaze live proof evidence.",
-    "Finish final form prerequisite tasks: T020, T021, T041A.",
+    "Finish final form prerequisite tasks: T021, T041A.",
     "Finalize Devpost field: Demo video URL.",
     "Run final secret scan, final audit, then submit Devpost."
   ]

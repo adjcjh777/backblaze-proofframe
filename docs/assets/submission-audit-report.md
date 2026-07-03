@@ -2,7 +2,7 @@
 
 Mode: `pre_submit_audit_blocked`
 OK: `false`
-Created: `2026-07-01T12:09:30Z`
+Created: `2026-07-03T05:09:12Z`
 Final evidence: `docs/assets/final-live-proof-evidence.json`
 
 ## Task Statuses
@@ -20,7 +20,7 @@ Final evidence: `docs/assets/final-live-proof-evidence.json`
 - files: OK
 - schemas: OK
 - final_evidence: 1 finding(s)
-- devpost_packet: 5 finding(s)
+- devpost_packet: 4 finding(s)
 - event_snapshot: OK
 - final_reports: 7 finding(s)
 - final_control: 1 finding(s)
@@ -32,8 +32,7 @@ Final evidence: `docs/assets/final-live-proof-evidence.json`
 - `final-live-proof-evidence` [missing]: docs/assets/final-live-proof-evidence.json is missing or invalid JSON. Evidence: `docs/assets/final-live-proof-evidence.json`
 - `devpost_packet.mode` [mismatch]: Expected 'post_live_verified', got 'pre_live_safe'. Evidence: `docs/assets/devpost-submission-packet.json`
 - `devpost_packet.video_url` [missing]: Final packet must include a public http(s) demo video URL, not a placeholder. Evidence: `docs/assets/devpost-submission-packet.json`
-- `devpost_packet.T020` [doing]: Devpost packet checklist is not synchronized with required pre-submit task status. Evidence: `docs/assets/devpost-submission-packet.json`
-- `devpost_packet.T021` [doing]: Devpost packet checklist is not synchronized with required pre-submit task status. Evidence: `docs/assets/devpost-submission-packet.json`
+- `devpost_packet.T021` [blocked]: Devpost packet checklist is not synchronized with required pre-submit task status. Evidence: `docs/assets/devpost-submission-packet.json`
 - `devpost_packet.T041A` [todo]: Devpost packet checklist is not synchronized with required pre-submit task status. Evidence: `docs/assets/devpost-submission-packet.json`
 - `devpost_form_kit.final_form_ready` [incomplete]: Final Devpost form kit is not ready. Evidence: `docs/assets/devpost-form-kit.json`
 - `devpost_submission_checklist.safe_to_submit` [incomplete]: Final Devpost submission checklist is not ready. Evidence: `docs/assets/devpost-submission-checklist.json`

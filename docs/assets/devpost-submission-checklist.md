@@ -97,10 +97,10 @@ TBD after final B2 and Genblaze proof.
 - Field id: `built_with`
 - Source: `form.built_with`
 - Status: `FINAL OK`
-- Length: `103 / 800`
+- Length: `94 / 800`
 
 ```text
-Python, FastAPI, Backblaze B2 S3-compatible API, Genblaze/GMICloud, Hugging Face Spaces, GitHub Actions
+Python, FastAPI, Backblaze B2 S3-compatible API, Genblaze, Hugging Face Spaces, GitHub Actions
 ```
 
 ### 9. Suggested tags
@@ -150,10 +150,10 @@ Generated media is easy to make and hard to govern. Teams often lose the prompt,
 - Field id: `how_we_built_it`
 - Source: `packet.how_we_built_it`
 - Status: `FINAL OK`
-- Length: `407 / 2500`
+- Length: `421 / 2500`
 
 ```text
-ProofFrame uses FastAPI for the API, a single-file browser UI for the proof ledger, local storage for credential-free demos, a Backblaze B2-compatible S3 storage backend, and a Genblaze/GMICloud provider adapter built around the official Genblaze Pipeline API. The public mock demo is deployed as a Hugging Face Space for judge-friendly product inspection while the final sponsor-backed proof remains gated.
+ProofFrame uses FastAPI for the API, a single-file browser UI for the proof ledger, local storage for credential-free demos, a Backblaze B2-compatible S3 storage backend, and Genblaze provider adapters for GMICloud and OpenAI built around the official Genblaze Pipeline API. The public mock demo is deployed as a Hugging Face Space for judge-friendly product inspection while the final sponsor-backed proof remains gated.
 ```
 
 ### 13. Backblaze B2 usage
@@ -172,10 +172,10 @@ ProofFrame treats Backblaze B2 as the final durable evidence layer, not as a lat
 - Field id: `genblaze_usage`
 - Source: `packet.genblaze_usage`
 - Status: `FINAL OK`
-- Length: `496 / 1500`
+- Length: `510 / 1500`
 
 ```text
-ProofFrame includes a Genblaze/GMICloud provider adapter built around the official Genblaze Pipeline API. In the public mock demo, deterministic generation keeps the workflow inspectable without secrets; the same manifest fields are reserved for the final provider, model, request/run metadata, prompt, and asset checksum. The final submission gate is a live Genblaze-compatible run that proves the provider path and then carries the resulting asset into the ProofFrame review and storage packet.
+ProofFrame includes Genblaze provider adapters for GMICloud and OpenAI built around the official Genblaze Pipeline API. In the public mock demo, deterministic generation keeps the workflow inspectable without secrets; the same manifest fields are reserved for the final provider, model, request/run metadata, prompt, and asset checksum. The final submission gate is a live Genblaze-compatible run that proves the provider path and then carries the resulting asset into the ProofFrame review and storage packet.
 ```
 
 ### 15. Challenges
@@ -194,7 +194,7 @@ The biggest challenge is avoiding shallow sponsor integration. ProofFrame has to
 - Field id: `accomplishments`
 - Source: `packet.accomplishments`
 - Status: `FINAL OK`
-- Length: `571 / 2500`
+- Length: `586 / 2500`
 
 ```text
 - Built a working local product, not just a pitch.
@@ -202,7 +202,7 @@ The biggest challenge is avoiding shallow sponsor integration. ProofFrame has to
 - Added a one-click Judge Demo path.
 - Added a review console with evidence search, status filtering, decision coverage, and safe summary copy.
 - Added downloadable evidence ZIPs.
-- Added B2-compatible storage and Genblaze/GMICloud provider code paths.
+- Added B2-compatible storage and Genblaze provider code paths for GMICloud and OpenAI.
 - Added CI that runs readiness checks, lint, tests, API smoke, and secret scan.
 - Added fail-closed gates for evidence JSON exports and final submission audits.
 - Kept public claims gated until live sponsor proof exists.
@@ -246,7 +246,7 @@ Current packet mode: pre_live_safe. Safe for public mock demo only. Do not submi
 
 ## Stop Rules
 
-- Do not paste Backblaze keys, Genblaze/GMI keys, Devpost cookies, authorization headers, or signed URLs into Devpost.
+- Do not paste Backblaze keys, Genblaze provider keys, Devpost cookies, authorization headers, or signed URLs into Devpost.
 - Do not press Submit unless every preflight item is OK and final_submission_control.py --strict-final passes.
 - If Devpost changes field labels or requirements, stop and update this checklist before submitting.
 - After Devpost accepts the project, record only the public project URL and submitted timestamp; never capture cookies or private browser state.

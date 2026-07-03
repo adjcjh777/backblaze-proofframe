@@ -60,10 +60,19 @@ def read_health(url: str) -> dict[str, Any]:
         return json.loads(response.read().decode("utf-8"))
 
 
-def apply_env_file(env_file: Path | None) -> dict[str, str]:
+def apply_env_file(
+    env_file: Path | None,
+    *,
+    genblaze_provider: str = "",
+    genblaze_image_model: str = "",
+) -> dict[str, str]:
     values: dict[str, str] = {}
     if env_file and env_file.exists():
         values.update(live_env_handoff.parse_env_file(env_file))
+    if genblaze_provider:
+        values["GENBLAZE_PROVIDER"] = genblaze_provider
+    if genblaze_image_model:
+        values["GENBLAZE_IMAGE_MODEL"] = genblaze_image_model
     values["PROOFFRAME_STORAGE_BACKEND"] = "b2"
     values["PROOFFRAME_GENERATION_BACKEND"] = "genblaze"
     os.environ.update(values)
@@ -99,7 +108,11 @@ def wait_for_live_app(
 
 
 def run_final_live_proof(args: argparse.Namespace) -> int:
-    apply_env_file(args.env_file)
+    apply_env_file(
+        args.env_file,
+        genblaze_provider=getattr(args, "genblaze_provider", ""),
+        genblaze_image_model=getattr(args, "genblaze_image_model", ""),
+    )
     settings = Settings.from_env()
     report = live_proof.build_preflight_report(
         settings,
@@ -160,6 +173,16 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--timeout-seconds", type=float, default=30)
     parser.add_argument("--evidence-out", type=Path, default=DEFAULT_EVIDENCE)
     parser.add_argument("--log-path", type=Path, default=DEFAULT_LOG)
+    parser.add_argument(
+        "--genblaze-provider",
+        default="",
+        help="Optional non-secret override such as openai or gmicloud.",
+    )
+    parser.add_argument(
+        "--genblaze-image-model",
+        default="",
+        help="Optional non-secret model override such as gpt-image-1.",
+    )
     parser.add_argument(
         "--preflight-only",
         action="store_true",

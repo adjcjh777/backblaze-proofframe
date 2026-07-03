@@ -3,7 +3,7 @@
 Mode: `pre_live_control`
 Control health OK: `true`
 Safe to submit: `false`
-Created: `2026-07-01T12:09:09Z`
+Created: `2026-07-03T05:09:12Z`
 Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 Repository: https://github.com/adjcjh777/backblaze-proofframe
 
@@ -28,7 +28,7 @@ Repository: https://github.com/adjcjh777/backblaze-proofframe
 
 - Mode: `ready_for_genblaze_live_proof`
 - Current phase: `genblaze_live_proof`
-- Next command: `python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json`
+- Next command: `python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider openai --genblaze-image-model gpt-image-1 --evidence-out docs/assets/final-live-proof-evidence.json`
 - Detail: Run after the B2-only proof passes so final evidence has storage and generation proof.
 - Source: `docs/assets/final-launch-plan.json`
 
@@ -46,7 +46,7 @@ Repository: https://github.com/adjcjh777/backblaze-proofframe
 | OK | Official Devpost event snapshot is fresh | Snapshot checked at 2026-07-01T10:54:19Z; submission open is True; age days is 0. | `docs/assets/devpost-event-snapshot.json` |
 | OK | Agent handoff metadata points at the current repo | Agent handoff mode is handoff_ready; ok is True; bus status is skipped; active role cwd ok is None. | `docs/assets/agent-handoff-report.json` |
 | OK | Public Space is synced to the current judge-facing demo | Public Space sync mode is public_space_synced; ok is True. | `docs/assets/public-space-sync-report.json` |
-| OK | Final launch plan exposes the current operator step | Launch plan mode is ready_for_genblaze_live_proof; current phase is genblaze_live_proof; next command is python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json. | `docs/assets/final-launch-plan.json` |
+| OK | Final launch plan exposes the current operator step | Launch plan mode is ready_for_genblaze_live_proof; current phase is genblaze_live_proof; next command is python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider openai --genblaze-image-model gpt-image-1 --evidence-out docs/assets/final-live-proof-evidence.json. | `docs/assets/final-launch-plan.json` |
 | OK | Recording assets are ready | Recording assets mode is mock_recording_ready; public mock verified is False. | `docs/assets/recording-assets.json` |
 | OK | Control input reports match expected schemas | All input report schemas are current. | `docs/assets/*.json readiness reports` |
 | OK | Backblaze B2 live proof captured | T020 is done; B2 evidence status is verified; final evidence status is missing. | `tasks.json, docs/assets/b2-live-proof-evidence.json, and docs/assets/final-live-proof-evidence.json` |
@@ -77,7 +77,7 @@ python scripts/final_env_wizard.py --prefill-non-secret --output .env.final.loca
 python scripts/final_env_wizard.py --output .env.final.local --missing-only --force
 python scripts/live_env_handoff.py --env-file .env.final.local
 python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out docs/assets/b2-live-proof-evidence.json
-python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json
+python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider openai --genblaze-image-model gpt-image-1 --evidence-out docs/assets/final-live-proof-evidence.json
 python scripts/agent_handoff_check.py
 python scripts/public_space_sync.py
 python scripts/demo_storyboard.py --strict-final

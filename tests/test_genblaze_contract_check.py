@@ -24,6 +24,7 @@ def test_genblaze_contract_check_passes_with_installed_integrations():
     assert "does not read environment variables" in report["secret_policy"]
     check_ids = {check["id"] for check in report["checks"]}
     assert "gmicloud_image_provider_ctor" in check_ids
+    assert "openai_image_provider_ctor" in check_ids
     assert "s3_for_backblaze_signature" in check_ids
     assert "s3_readback_methods" in check_ids
     assert "pipeline_step_aspect_ratio" in check_ids

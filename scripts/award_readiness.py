@@ -175,7 +175,7 @@ def build_criteria(root: Path, context: dict[str, Any]) -> list[dict[str, Any]]:
                     "Genblaze provider path is implemented",
                     has_text(root, "src/proofframe/providers.py", "class GenblazeMediaProvider"),
                     5,
-                    "The app has a real Genblaze/GMICloud provider adapter.",
+                    "The app has real Genblaze provider adapters for GMICloud and OpenAI.",
                 ),
                 signal(
                     "final_live_runner",
@@ -418,8 +418,9 @@ def build_next_actions(report: dict[str, Any]) -> list[str]:
         )
     if statuses.get("T021") != "done":
         actions.append(
-            "Resolve the Genblaze/GMI live-proof blocker and run python scripts/run_final_live_proof.py "
-            "--env-file .env.final.local."
+            "Resolve the Genblaze provider live-proof blocker and run python scripts/run_final_live_proof.py "
+            "--env-file .env.final.local, or use the no-recharge OpenAI fallback with "
+            "--genblaze-provider openai --genblaze-image-model gpt-image-1 after OPENAI_API_KEY is available."
         )
     if statuses.get("T041A") != "done":
         actions.append("Run python scripts/secret_scan.py after live evidence is generated.")

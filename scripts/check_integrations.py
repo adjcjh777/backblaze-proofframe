@@ -35,14 +35,19 @@ def main() -> None:
         "genblaze": {
             "configured": bool(
                 settings.genblaze_image_model
-                and (settings.genblaze_api_key or settings.gmi_api_key)
+                and settings.genblaze_provider_key()
             ),
+            "provider": settings.genblaze_provider,
             "has_base_url_override": bool(settings.genblaze_base_url),
             "has_model": bool(settings.genblaze_image_model),
-            "has_api_key": bool(settings.genblaze_api_key or settings.gmi_api_key),
+            "has_api_key": bool(settings.genblaze_provider_key()),
             "genblaze_core_available": available("genblaze_core"),
             "genblaze_s3_available": available("genblaze_s3"),
             "genblaze_gmicloud_available": available("genblaze_gmicloud"),
+            "genblaze_openai_available": available("genblaze_openai"),
+            "provider_modules_available": all(
+                available(module) for module in settings.genblaze_provider_modules()
+            ),
         },
     }
     print(json.dumps(report, indent=2))

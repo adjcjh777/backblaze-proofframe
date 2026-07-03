@@ -9,6 +9,8 @@ import os
 from pathlib import Path
 from typing import Any
 
+from proofframe.config import normalize_genblaze_provider
+
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_JSON = ROOT / "docs" / "assets" / "live-credential-handoff.json"
@@ -56,10 +58,16 @@ REQUIRED_GROUPS = [
         "remediation": "Set B2_APPLICATION_KEY or B2_APP_KEY.",
     },
     {
-        "id": "genblaze_api_key",
-        "label": "Genblaze/GMI API key",
-        "accepted_names": ["GENBLAZE_API_KEY", "GMI_API_KEY"],
-        "remediation": "Set GENBLAZE_API_KEY or GMI_API_KEY.",
+        "id": "genblaze_provider_key",
+        "label": "Genblaze provider API key",
+        "accepted_names_by_provider": {
+            "gmicloud": ["GENBLAZE_API_KEY", "GMI_API_KEY"],
+            "openai": ["OPENAI_API_KEY"],
+        },
+        "remediation_by_provider": {
+            "gmicloud": "Set GENBLAZE_API_KEY or GMI_API_KEY.",
+            "openai": "Set OPENAI_API_KEY.",
+        },
     },
     {
         "id": "genblaze_image_model",
@@ -81,6 +89,11 @@ OPTIONAL_GROUPS = [
         "accepted_names": ["B2_REGION"],
     },
     {
+        "id": "genblaze_provider",
+        "label": "Genblaze provider",
+        "accepted_names": ["GENBLAZE_PROVIDER"],
+    },
+    {
         "id": "genblaze_aspect_ratio",
         "label": "Genblaze aspect ratio",
         "accepted_names": ["GENBLAZE_ASPECT_RATIO"],
@@ -97,6 +110,7 @@ NEXT_COMMANDS = [
     "python scripts/final_env_wizard.py --output .env.final.local --missing-only --force",
     "python scripts/live_env_handoff.py --env-file .env.final.local",
     "python scripts/run_final_live_proof.py --env-file .env.final.local --preflight-only",
+    "python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider openai --genblaze-image-model gpt-image-1 --preflight-only",
     "python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json",
     'python scripts/devpost_packet.py --post-live --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL"',
     "python scripts/secret_scan.py",
@@ -146,7 +160,20 @@ def env_source(env_file: Path | None) -> tuple[dict[str, str], str]:
 
 
 def evaluate_group(group: dict[str, Any], values: dict[str, str]) -> dict[str, Any]:
-    present_names = [name for name in group["accepted_names"] if has_real_value(values.get(name))]
+    provider = normalize_genblaze_provider(values.get("GENBLAZE_PROVIDER", "gmicloud"))
+    accepted_names = group.get("accepted_names")
+    remediation = group.get("remediation", "")
+    if "accepted_names_by_provider" in group:
+        accepted_by_provider = group["accepted_names_by_provider"]
+        accepted_names = accepted_by_provider.get(
+            provider,
+            sorted({name for names in accepted_by_provider.values() for name in names}),
+        )
+        remediation = group.get("remediation_by_provider", {}).get(
+            provider,
+            "Set GENBLAZE_PROVIDER to gmicloud or openai and provide its API key.",
+        )
+    present_names = [name for name in accepted_names if has_real_value(values.get(name))]
     expected = group.get("expected")
     expected_ok = True
     if expected is not None:
@@ -156,10 +183,10 @@ def evaluate_group(group: dict[str, Any], values: dict[str, str]) -> dict[str, A
         "id": group["id"],
         "label": group["label"],
         "ok": ok,
-        "accepted_names": group["accepted_names"],
+        "accepted_names": accepted_names,
         "present_names": present_names,
         "expected": expected,
-        "remediation": "" if ok else group.get("remediation", ""),
+        "remediation": "" if ok else remediation,
     }
 
 

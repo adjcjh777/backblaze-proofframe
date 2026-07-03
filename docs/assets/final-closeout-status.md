@@ -4,9 +4,9 @@ Mode: `closeout_blocked`
 Phase: `genblaze_live_proof`
 Closeout health OK: `true`
 Safe to submit: `false`
-Next command: `python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json`
+Next command: `python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider openai --genblaze-image-model gpt-image-1 --evidence-out docs/assets/final-live-proof-evidence.json`
 
-This closeout report stores only task statuses, report metadata, public URLs, and artifact paths; it never stores Backblaze keys, Genblaze/GMI keys, Devpost cookies, browser sessions, or signed URLs.
+This closeout report stores only task statuses, report metadata, public URLs, and artifact paths; it never stores Backblaze keys, Genblaze provider keys, Devpost cookies, browser sessions, or signed URLs.
 
 ## Gates
 

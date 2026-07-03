@@ -356,7 +356,7 @@ def build_report(root: Path = ROOT) -> dict[str, Any]:
         "next_detail": next_detail,
         "secret_policy": (
             "This closeout report stores only task statuses, report metadata, public URLs, and artifact paths; "
-            "it never stores Backblaze keys, Genblaze/GMI keys, Devpost cookies, browser sessions, or signed URLs."
+            "it never stores Backblaze keys, Genblaze provider keys, Devpost cookies, browser sessions, or signed URLs."
         ),
     }
 
@@ -367,7 +367,11 @@ def next_command_for(gate_id: str) -> str:
         "ci_and_public_demo": "python scripts/public_space_sync.py",
         "credential_handoff": "python scripts/live_env_handoff.py --env-file .env.final.local --strict",
         "b2_live_proof": "python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out docs/assets/b2-live-proof-evidence.json",
-        "genblaze_live_proof": "python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json",
+        "genblaze_live_proof": (
+            "python scripts/run_final_live_proof.py --env-file .env.final.local "
+            "--genblaze-provider openai --genblaze-image-model gpt-image-1 "
+            "--evidence-out docs/assets/final-live-proof-evidence.json"
+        ),
         "public_video": 'python scripts/public_video_check.py --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL" --verify-url --strict-final',
         "devpost_ready": "python scripts/devpost_submission_checklist.py --strict-final",
         "final_secret_scan": "python scripts/secret_scan.py",

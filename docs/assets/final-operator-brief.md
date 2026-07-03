@@ -36,7 +36,7 @@ Safe to submit: `false`
 - Run the post-credential live proof runner once; it validates B2-only and final evidence before any task updates.
 - Record and upload the public demo video only after live proof evidence exists.
 - Run final secret scan and final submission audit, submit Devpost, then generate the public Devpost submission receipt.
-- Resolve any provider-side Genblaze/GMI account access or credits blocker without sharing secrets, then rerun `python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json`.
+- Resolve any provider-side Genblaze account access or credits blocker without sharing secrets, then rerun `python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider openai --genblaze-image-model gpt-image-1 --evidence-out docs/assets/final-live-proof-evidence.json` after `OPENAI_API_KEY` is available.
 
 ## Codex Actions After Credentials
 
@@ -73,7 +73,7 @@ python scripts/api_smoke.py --base-url https://adjcjh-backblaze-proofframe.hf.sp
 - Never commit:
   - .env.final.local
   - Backblaze key IDs or application keys
-  - Genblaze/GMI provider keys
+  - Genblaze provider keys
   - Devpost cookies or browser session files
   - raw signed URLs or provider temporary URLs
   - screen recordings that visibly expose secrets

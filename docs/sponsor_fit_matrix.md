@@ -27,4 +27,4 @@ Unsafe before T020/T021:
 Safe after T020/T021 and final evidence:
 
 - "ProofFrame stores media and manifests through Backblaze B2."
-- "ProofFrame generates media through Genblaze/GMICloud and records provider/model metadata."
+- "ProofFrame generates media through Genblaze with the verified provider and records provider/model metadata."

@@ -79,9 +79,15 @@ def build_preflight_report(
     if require_generation_backend == "genblaze":
         add_requirement(
             checks,
-            "Genblaze API key",
-            bool(settings.genblaze_api_key or settings.gmi_api_key),
-            "Set GENBLAZE_API_KEY or GMI_API_KEY.",
+            "Genblaze provider",
+            bool(settings.genblaze_provider_modules()),
+            "Set GENBLAZE_PROVIDER=gmicloud or openai.",
+        )
+        add_requirement(
+            checks,
+            "Genblaze provider API key",
+            bool(settings.genblaze_provider_key()),
+            settings.genblaze_key_remediation(),
         )
         add_requirement(
             checks,
@@ -89,7 +95,7 @@ def build_preflight_report(
             bool(settings.genblaze_image_model),
             "Set GENBLAZE_IMAGE_MODEL.",
         )
-        modules = ["genblaze_core", "genblaze_gmicloud"]
+        modules = ["genblaze_core", *settings.genblaze_provider_modules()]
         if require_storage_backend == "b2":
             modules.append("genblaze_s3")
         for module in modules:
@@ -105,6 +111,7 @@ def build_preflight_report(
         "ok": not missing,
         "storage_backend": settings.storage_backend,
         "generation_backend": settings.generation_backend,
+        "genblaze_provider": settings.genblaze_provider,
         "required_storage_backend": require_storage_backend,
         "required_generation_backend": require_generation_backend,
         "checks": checks,

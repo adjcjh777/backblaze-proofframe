@@ -2,11 +2,11 @@
 
 Mode: `plan_only`
 OK: `true`
-Created: `2026-07-01T10:50:01Z`
+Created: `2026-07-03T05:02:40Z`
 Env file: `.env.final.local`
 Update tasks: `false`
 
-This report stores command strings, statuses, and artifact paths only. It never stores Backblaze keys, Genblaze/GMI keys, Devpost cookies, provider responses, or signed URLs.
+This report stores command strings, statuses, and artifact paths only. It never stores Backblaze keys, Genblaze provider keys, Devpost cookies, provider responses, or signed URLs.
 
 ## Commands
 

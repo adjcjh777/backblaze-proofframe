@@ -34,7 +34,7 @@ OPERATOR_COMMANDS = [
     "python scripts/final_env_wizard.py --output .env.final.local --missing-only --force",
     "python scripts/live_env_handoff.py --env-file .env.final.local",
     "python scripts/run_b2_live_proof.py --env-file .env.final.local --evidence-out docs/assets/b2-live-proof-evidence.json",
-    "python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json",
+    "python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider openai --genblaze-image-model gpt-image-1 --evidence-out docs/assets/final-live-proof-evidence.json",
     "python scripts/agent_handoff_check.py",
     "python scripts/public_space_sync.py",
     "python scripts/demo_storyboard.py --strict-final",
@@ -468,7 +468,7 @@ def next_actions(requirements: list[dict[str, Any]]) -> list[str]:
     if "source_report_schemas" in missing:
         actions.append("Regenerate readiness reports so every control input has the expected schema.")
     if "credential_handoff" in missing:
-        actions.append("Complete .env.final.local with B2_KEY_ID, B2_APPLICATION_KEY, and Genblaze/GMI API key values.")
+        actions.append("Complete .env.final.local with B2_KEY_ID, B2_APPLICATION_KEY, and Genblaze provider API key values.")
     if "official_event_snapshot" in missing:
         actions.append("Refresh the official Devpost event snapshot before recording or submitting.")
     if "agent_handoff" in missing:

@@ -130,7 +130,7 @@ def build_user_actions(
         )
     if "genblaze_api_key" in missing:
         actions.append(
-            "Enter a Genblaze/GMI API key into `.env.final.local` with the same wizard; do not paste it into chat, docs, screenshots, or git."
+            "Enter a Genblaze provider API key into `.env.final.local` with the same wizard; do not paste it into chat, docs, screenshots, or git."
         )
     actions.extend(
         [
@@ -178,7 +178,7 @@ def build_safety_policy(root: Path) -> dict[str, Any]:
         "never_commit": [
             ".env.final.local",
             "Backblaze key IDs or application keys",
-            "Genblaze/GMI provider keys",
+            "Genblaze provider keys",
             "Devpost cookies or browser session files",
             "raw signed URLs or provider temporary URLs",
             "screen recordings that visibly expose secrets",
@@ -290,8 +290,8 @@ def build_report(root: Path = ROOT) -> dict[str, Any]:
     user_actions = build_user_actions(b2_setup, handoff, b2_confirmation)
     if ready_for_genblaze_live_proof:
         user_actions.append(
-            "Resolve any provider-side Genblaze/GMI account access or credits blocker without sharing secrets, "
-            "then rerun `python scripts/run_final_live_proof.py --env-file .env.final.local --evidence-out docs/assets/final-live-proof-evidence.json`."
+            "Resolve any provider-side Genblaze account access or credits blocker without sharing secrets, "
+            "then rerun `python scripts/run_final_live_proof.py --env-file .env.final.local --genblaze-provider openai --genblaze-image-model gpt-image-1 --evidence-out docs/assets/final-live-proof-evidence.json` after `OPENAI_API_KEY` is available."
         )
     return {
         "schema": SCHEMA,

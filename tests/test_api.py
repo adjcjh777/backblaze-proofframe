@@ -110,7 +110,7 @@ def test_health_and_campaign_flow(tmp_path):
     assert evidence_index["schema"] == "proofframe.judge_evidence_index.v1"
     assert evidence_index["safe_to_submit"] is False
     assert len(evidence_index["links"]) >= 10
-    assert "b2_live_proof" in evidence_index["status"]["final_blockers"]
+    assert "genblaze_live_proof" in evidence_index["status"]["final_blockers"]
 
     video_kit_response = client.get("/api/judge/video-publish-kit")
     assert video_kit_response.status_code == 200

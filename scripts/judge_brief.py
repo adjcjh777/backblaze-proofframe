@@ -57,7 +57,7 @@ def build_brief(root: Path = ROOT) -> dict[str, Any]:
     safe_claims = [
         "ProofFrame is a working provenance and approval desk for generated media.",
         "The public demo is credential-free and runs in deterministic local/mock mode.",
-        "The repository includes Backblaze B2-compatible storage and Genblaze/GMICloud provider paths.",
+        "The repository includes Backblaze B2-compatible storage and Genblaze provider paths for GMICloud and OpenAI.",
         "Every public claim is gated by reports, task status, and secret-scan artifacts.",
     ]
     if final_gate_ready:

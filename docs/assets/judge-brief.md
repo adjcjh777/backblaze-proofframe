@@ -1,6 +1,6 @@
 # ProofFrame Judge Brief
 
-Created: `2026-07-01T12:07:58Z`
+Created: `2026-07-03T04:59:56Z`
 Tagline: B2-ready provenance desk for GenAI media.
 Public demo: https://adjcjh-backblaze-proofframe.hf.space/?judge=1
 Repository: https://github.com/adjcjh777/backblaze-proofframe
@@ -31,7 +31,7 @@ ProofFrame is not another image generator. It is a media operations desk that tu
 
 - ProofFrame is a working provenance and approval desk for generated media.
 - The public demo is credential-free and runs in deterministic local/mock mode.
-- The repository includes Backblaze B2-compatible storage and Genblaze/GMICloud provider paths.
+- The repository includes Backblaze B2-compatible storage and Genblaze provider paths for GMICloud and OpenAI.
 - Every public claim is gated by reports, task status, and secret-scan artifacts.
 
 ## Not Yet Claimed

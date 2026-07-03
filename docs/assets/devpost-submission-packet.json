@@ -19,7 +19,7 @@
     "Download an evidence ZIP containing the manifest, README, and available media.",
     "Use Judge Demo to create a complete local packet instantly."
   ],
-  "how_we_built_it": "ProofFrame uses FastAPI for the API, a single-file browser UI for the proof ledger, local storage for credential-free demos, a Backblaze B2-compatible S3 storage backend, and a Genblaze/GMICloud provider adapter built around the official Genblaze Pipeline API. The public mock demo is deployed as a Hugging Face Space for judge-friendly product inspection while the final sponsor-backed proof remains gated.",
+  "how_we_built_it": "ProofFrame uses FastAPI for the API, a single-file browser UI for the proof ledger, local storage for credential-free demos, a Backblaze B2-compatible S3 storage backend, and Genblaze provider adapters for GMICloud and OpenAI built around the official Genblaze Pipeline API. The public mock demo is deployed as a Hugging Face Space for judge-friendly product inspection while the final sponsor-backed proof remains gated.",
   "challenges": "The biggest challenge is avoiding shallow sponsor integration. ProofFrame has to make storage and provenance central: B2 should be the durable evidence layer, and Genblaze should be the generation orchestration path. Another challenge is public claim hygiene, so the repo separates local demo behavior from final live sponsor proof.",
   "what_we_learned": "The useful unit for generated media teams is not a single image. It is a packet: asset, prompt, provider, model, storage object, checksum, approval state, and risk note.",
   "accomplishments": [
@@ -28,7 +28,7 @@
     "Added a one-click Judge Demo path.",
     "Added a review console with evidence search, status filtering, decision coverage, and safe summary copy.",
     "Added downloadable evidence ZIPs.",
-    "Added B2-compatible storage and Genblaze/GMICloud provider code paths.",
+    "Added B2-compatible storage and Genblaze provider code paths for GMICloud and OpenAI.",
     "Added CI that runs readiness checks, lint, tests, API smoke, and secret scan.",
     "Added fail-closed gates for evidence JSON exports and final submission audits.",
     "Kept public claims gated until live sponsor proof exists."
@@ -47,26 +47,26 @@
     }
   ],
   "final_provider_and_model": {
-    "provider": "genblaze/gmicloud-image",
+    "provider": "genblaze/<verified-provider>-image",
     "model": "GENBLAZE_IMAGE_MODEL value used for the verified run",
     "status": "final gate after T021"
   },
   "mode": "pre_live_safe",
   "short_description": "ProofFrame is a review desk for generated media. The local demo creates a campaign, generates mock variants, approves or rejects assets, exports a manifest, and downloads an evidence ZIP with prompts, provider/model fields, storage references, hashes, and approval status. The final hackathon submission gate is to verify the same flow with Genblaze-backed generation and Backblaze B2-backed storage.",
   "b2_usage": "ProofFrame treats Backblaze B2 as the final durable evidence layer, not as a late file-upload checkbox. The public demo currently runs in local/mock mode, but every asset packet already carries the B2-ready object model: storage backend, storage key, checksum, byte size, prompt, provider/model metadata, approval state, and risk note. The repo includes a dedicated B2 S3-compatible storage adapter, a recorded private B2 bucket setup, and a one-command B2 proof runner that will upload one generated asset and one manifest with environment-only credentials. That live upload remains the final submission gate before any public claim is upgraded to completed B2 storage.",
-  "genblaze_usage": "ProofFrame includes a Genblaze/GMICloud provider adapter built around the official Genblaze Pipeline API. In the public mock demo, deterministic generation keeps the workflow inspectable without secrets; the same manifest fields are reserved for the final provider, model, request/run metadata, prompt, and asset checksum. The final submission gate is a live Genblaze-compatible run that proves the provider path and then carries the resulting asset into the ProofFrame review and storage packet.",
+  "genblaze_usage": "ProofFrame includes Genblaze provider adapters for GMICloud and OpenAI built around the official Genblaze Pipeline API. In the public mock demo, deterministic generation keeps the workflow inspectable without secrets; the same manifest fields are reserved for the final provider, model, request/run metadata, prompt, and asset checksum. The final submission gate is a live Genblaze-compatible run that proves the provider path and then carries the resulting asset into the ProofFrame review and storage packet.",
   "claim_warning": "Safe for public mock demo only. Do not submit as final sponsor proof.",
   "submission_checklist": [
     {
       "task": "T020",
       "label": "B2 live proof complete",
-      "status": "doing",
+      "status": "done",
       "required_for_final": true
     },
     {
       "task": "T021",
       "label": "Genblaze live proof complete",
-      "status": "doing",
+      "status": "blocked",
       "required_for_final": true
     },
     {

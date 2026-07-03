@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-07-01T12:10:15Z",
+  "updated_at": "2026-07-03T05:07:10Z",
   "tasks": [
     {
       "id": "T001",
@@ -126,7 +126,7 @@
       "owner": "executor",
       "status": "blocked",
       "done_criteria": "Generation adapter records provider/model metadata and fails closed without config.",
-      "notes": "Genblaze/GMI local key is configured and final proof preflight passes, but the live GMI request is blocked by HTTP 402 insufficient credits; do not mark live Genblaze proof complete until credits are added and docs/assets/final-live-proof-evidence.json validates."
+      "notes": "B2 live proof remains done and GMI/Genblaze credential presence is recorded, but the GMI live request is blocked by provider-side HTTP 402 insufficient credits. Added a no-recharge GENBLAZE_PROVIDER=openai fallback path with genblaze-openai and runner provider/model overrides; fallback preflight now correctly requires a real OPENAI_API_KEY and stays blocked until docs/assets/final-live-proof-evidence.json is produced by a live B2 plus Genblaze run."
     },
     {
       "id": "T084",
@@ -675,7 +675,7 @@
       "owner": "reviewer",
       "status": "todo",
       "done_criteria": "Reviewer signs off on rules, secrets, claims, and public artifacts.",
-      "notes": "2026-07-01 submission audit report regenerated in pre_submit_audit_blocked mode with 16 findings after B2 evidence, live env handoff, and closeout reports were refreshed; final audit cannot pass until Genblaze live evidence, final video, final secret scan, and Devpost receipt exist."
+      "notes": "2026-07-03 pre-submit audit regenerated after OpenAI fallback runner, public Space sync, and public API smoke; still pre_submit_audit_blocked with 15 findings until final Genblaze evidence, public video, final secret-scan task completion, and Devpost receipt exist."
     },
     {
       "id": "T041A",
@@ -684,7 +684,7 @@
       "owner": "reviewer",
       "status": "todo",
       "done_criteria": "Secret scan covers repo, docs, screenshots, exported manifests, logs, and demo evidence before submission.",
-      "notes": "2026-07-01 pre-final secret scan report is clear and committed; final secret scan remains todo after live proof, final public video, and Devpost submission artifacts are generated."
+      "notes": "2026-07-03 final secret scan regenerated after public Space sync and public API smoke and remains clear, but T041A stays todo because the final scan must be rerun and marked done only after final live proof, public video, and Devpost submission artifacts are produced."
     },
     {
       "id": "T041B",
@@ -711,7 +711,7 @@
       "owner": "controller",
       "status": "todo",
       "done_criteria": "Devpost submission is accepted before 2026-08-04 05:00 Asia/Shanghai.",
-      "notes": "Devpost submission remains todo; official event snapshot refreshed 2026-07-01 with submission_open=true and observed participants=439, but final submission must wait for live proof, public video, strict audit, and receipt capture."
+      "notes": "2026-07-03 Devpost submission remains todo; latest public Space sync report is passing and public API smoke passes, but safe_to_submit=false because T021 Genblaze live proof is blocked, final video/audit/scan completion gates are not done, and no Devpost receipt exists."
     },
     {
       "id": "T042A",

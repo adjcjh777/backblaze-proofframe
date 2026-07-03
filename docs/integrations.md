@@ -6,7 +6,7 @@
 - B2 code path: implemented as an S3-compatible backend with fake-client tests.
 - B2 key scope checklist: generated as a no-secret pre-creation gate for the dedicated bucket, `campaigns/` prefix, required upload/S3 compatibility permissions, and forbidden admin/delete permissions.
 - B2 live proof: not complete until a dedicated Backblaze bucket and least-privilege key are configured and one media object plus one manifest are uploaded.
-- Genblaze code path: implemented with the official Genblaze `Pipeline` API and `GMICloudImageProvider`.
+- Genblaze code path: implemented with the official Genblaze `Pipeline` API and provider adapters for `GMICloudImageProvider` and OpenAI `DalleProvider`.
 - Genblaze+B2 sink path: in final B2 mode, the provider builds an official `ObjectStorageSink` with `S3StorageBackend.for_backblaze`, so Genblaze output and provenance can land in B2 before ProofFrame records its own packet manifest.
 - Genblaze SDK contract check: implemented as a no-secret import/signature report so package/API drift is caught before live keys are entered.
 - Genblaze live proof: not complete until official Genblaze packages/provider credentials generate media, the B2 sink is active, and the manifest records provider/model/run metadata.
@@ -31,6 +31,11 @@ python scripts/b2_key_scope_checklist.py
 python scripts/genblaze_contract_check.py
 python scripts/live_proof.py --preflight-only
 python scripts/run_final_live_proof.py --env-file .env.final.local --preflight-only
+python scripts/run_final_live_proof.py \
+  --env-file .env.final.local \
+  --genblaze-provider openai \
+  --genblaze-image-model gpt-image-1 \
+  --preflight-only
 ```
 
 Use `.env.final.example` as the copy source for `.env.final.local`. The handoff report records only variable names, presence, expected modes, and next commands; it never prints, hashes, stores, or commits credential values.
@@ -40,6 +45,16 @@ Then use the one-command runner:
 ```bash
 python scripts/run_final_live_proof.py \
   --env-file .env.final.local \
+  --evidence-out docs/assets/final-live-proof-evidence.json
+```
+
+If the GMI Cloud path is blocked by provider credits, use the same runner with non-secret OpenAI provider/model overrides after a real `OPENAI_API_KEY` is available in the process environment:
+
+```bash
+python scripts/run_final_live_proof.py \
+  --env-file .env.final.local \
+  --genblaze-provider openai \
+  --genblaze-image-model gpt-image-1 \
   --evidence-out docs/assets/final-live-proof-evidence.json
 ```
 
@@ -90,18 +105,20 @@ Required for `PROOFFRAME_GENERATION_BACKEND=genblaze`:
 ```bash
 PROOFFRAME_GENERATION_BACKEND=genblaze
 GENBLAZE_BASE_URL=
+GENBLAZE_PROVIDER=gmicloud
 GENBLAZE_API_KEY=
 GENBLAZE_IMAGE_MODEL=
 GENBLAZE_ASPECT_RATIO=16:9
 GENBLAZE_TIMEOUT_SECONDS=180
 ```
 
-Accepted alias:
+Provider selection:
 
-- `GMI_API_KEY` can satisfy the API-key presence check when using the GMI Cloud-backed Genblaze path.
+- `GENBLAZE_PROVIDER=gmicloud` uses `genblaze-gmicloud` and accepts `GENBLAZE_API_KEY` or `GMI_API_KEY`.
+- `GENBLAZE_PROVIDER=openai` uses `genblaze-openai` and accepts `OPENAI_API_KEY`.
 - `GMI_BASE_URL` can satisfy `GENBLAZE_BASE_URL` when an override is required.
 
-Leave `GENBLAZE_BASE_URL` blank for the official GMICloud default. Set it only for a custom request-queue endpoint.
+Leave `GENBLAZE_BASE_URL` blank for the official GMICloud default. Set it only for a custom GMI request-queue endpoint. The OpenAI provider path uses its provider package defaults.
 
 ## Claim Rules
 

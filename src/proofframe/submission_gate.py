@@ -37,8 +37,8 @@ FINAL_EVIDENCE_FIELDS: dict[str, Any] = {
     "storage_backend": "b2",
     "generation_backend": "genblaze",
     "asset_storage_backend": "b2",
-    "asset_provider": "genblaze/gmicloud-image",
 }
+FINAL_ALLOWED_ASSET_PROVIDERS = {"genblaze/gmicloud-image", "genblaze/openai-image"}
 FINAL_EVIDENCE_REQUIRED_VALUES = [
     "asset_sha256",
     "manifest_sha256",
@@ -124,6 +124,17 @@ def build_evidence_gate(evidence_path: Path, root: Path | None = None) -> dict[s
         actual = evidence.get(key)
         if actual != expected:
             findings.append({"field": key, "detail": f"Expected {expected!r}, got {actual!r}."})
+    asset_provider = evidence.get("asset_provider")
+    if asset_provider not in FINAL_ALLOWED_ASSET_PROVIDERS:
+        findings.append(
+            {
+                "field": "asset_provider",
+                "detail": (
+                    "Expected one of "
+                    f"{sorted(FINAL_ALLOWED_ASSET_PROVIDERS)!r}, got {asset_provider!r}."
+                ),
+            }
+        )
     for key in FINAL_EVIDENCE_REQUIRED_VALUES:
         if not evidence.get(key):
             findings.append({"field": key, "detail": "Required evidence value is missing."})
