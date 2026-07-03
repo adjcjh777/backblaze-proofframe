@@ -1,6 +1,6 @@
 {
   "project": "ProofFrame",
-  "updated_at": "2026-07-03T10:38:20Z",
+  "updated_at": "2026-07-03T11:18:24Z",
   "tasks": [
     {
       "id": "T001",
@@ -711,7 +711,7 @@
       "owner": "controller",
       "status": "blocked",
       "done_criteria": "Devpost submission is accepted before 2026-08-04 05:00 Asia/Shanghai.",
-      "notes": "Devpost submission is blocked by missing public video URL plus final audit/secret-scan gates; no Devpost receipt URL is present, and final submission control remains phase=public_video."
+      "notes": "Devpost portfolio project is now created and saved at the public project URL, and the Backblaze hackathon submission draft is started at 2/5 steps; final submission remains blocked by the required public video URL, final audit/scan signoff, and missing submitted receipt."
     },
     {
       "id": "T042A",

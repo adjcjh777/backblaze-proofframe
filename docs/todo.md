@@ -31,7 +31,7 @@ python3 scripts/task.py doing T020 --note "Live B2 proof in progress"
 2. Regenerate `docs/assets/devpost-submission-packet.*` with `python scripts/devpost_packet.py --post-live --video-url "$PROOFFRAME_PUBLIC_VIDEO_URL"`.
 3. Run the final secret scan only after the public video and Devpost-safe artifacts are staged, then mark `T041A` done only if it remains clear.
 4. Run strict form/storyboard/readiness gates and `python scripts/submission_audit.py --strict-final`, then mark `T041` done only if green.
-5. Submit the Devpost project, capture the public-safe receipt URL/screenshot, run `scripts/devpost_submission_receipt.py`, then mark `T042` done.
+5. Devpost portfolio project and Backblaze hackathon submission draft now exist; after the final public video URL is ready, finish the Devpost submission, capture the public-safe receipt URL/screenshot, run `scripts/devpost_submission_receipt.py`, then mark `T042` done.
 6. Keep final `safe_to_submit=true` claims frozen until public video, final audit, final scan, and Devpost receipt are all complete.
 
 ## Current Final Gate Status
@@ -44,7 +44,7 @@ Last refreshed: `2026-07-03`.
 | T021 | `done` | Final B2 plus Genblaze live proof passed through the credential-free local Genblaze Pipeline provider; sanitized evidence is saved at `docs/assets/final-live-proof-evidence.json` with `asset_provider=genblaze/local-image`, `storage_backend=b2`, checksums, and B2 object keys. |
 | T041 | `blocked` | Post-live audit is blocked by missing final public video URL, T041A final scan completion, and Devpost receipt; current non-strict audit remains `pre_submit_audit_blocked` in `docs/assets/submission-audit-report.json`. |
 | T041A | `blocked` | Current secret scan is clear at `docs/assets/secret-scan-report.json`, but the final scan stays blocked until public video and Devpost-safe submission artifacts are staged. |
-| T042 | `blocked` | Devpost submission is blocked by missing public video URL plus final audit/secret-scan gates; no Devpost receipt URL is present, and final submission control remains `phase=public_video`. |
+| T042 | `blocked` | Devpost project is saved at `https://devpost.com/software/backblaze-proofframe`, and the Backblaze hackathon submission draft is started at `2/5 steps done`; final submission remains blocked by the required public video URL, final audit/secret-scan gates, and missing submitted receipt. Draft evidence is saved at `docs/assets/devpost-draft-evidence.json` and `docs/assets/devpost-draft-submission.png`. |
 
 ## Recently Completed
 

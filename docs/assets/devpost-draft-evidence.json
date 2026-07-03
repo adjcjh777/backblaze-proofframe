@@ -1,0 +1,19 @@
+{
+  "schema": "proofframe.devpost_draft_evidence.v1",
+  "created_at": "2026-07-03T11:17:45Z",
+  "ok": true,
+  "mode": "draft_created",
+  "project_url": "https://devpost.com/software/backblaze-proofframe",
+  "hackathon_submission_draft_url": "https://devpost.com/submit-to/30205-backblaze-generative-media-hackathon-build-with-genblaze-on-b2/manage/submissions/1070681-proofframe/project_details/edit",
+  "observed_status": "DRAFT 2/5 steps done",
+  "public_project_saved": true,
+  "hackathon_submission_started": true,
+  "final_submission_completed": false,
+  "screenshot": "docs/assets/devpost-draft-submission.png",
+  "remaining_blockers": [
+    "Final Devpost project details page requires a public video demo link.",
+    "Public video must use an allowed event host family before public_video_check.py can pass.",
+    "Final submission audit, final secret scan signoff, Devpost receipt, and post-receipt closeout remain pending."
+  ],
+  "secret_policy": "This evidence records only public Devpost URLs, draft status, and artifact paths. It never stores Devpost cookies, browser session data, hidden form values, API keys, or Backblaze credentials."
+}
